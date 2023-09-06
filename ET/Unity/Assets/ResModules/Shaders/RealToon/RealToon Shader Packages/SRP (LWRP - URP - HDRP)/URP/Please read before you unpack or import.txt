@@ -1,0 +1,92 @@
+RealToon V5.0.8 (URP)
+===========================================================
+Note:
+===========================================================
+
+URP is universal, from mobile, console to high end.
+
+Currently Shadow for Pointlight is only available on URP 11 to later.
+
+Tessellation will be coming soon.
+
+===========================================================
+===========================================================
+
+(To use this you need):
+*Unity 2019.3.0 with URP V7.1.1 or latest Unity & URP Version.
+
+How To Update URP:
+1.Go to Window > Package Manager.
+2.Select "All Packages" then select "Universal RP" and select "Version 7.1.1" or latest.
+3.Click "Update" or "Update To".
+
+
+
+===========================================================
+RealToon URP - RealToon 5.0.8p7 (Patch#7)
+===========================================================
+
+[New]
+- Near Fade Dithering
+*Objects fade when the camera is near.
+
+- LOD Crossfading (URP 14)
+- URP 14 full support
+- Quick ready support for Unity 2023 (For Testing Purpose)
+
+===========================================================
+Main Update 5.0.8
+===========================================================
+===========================================================
+New Options/Features for URP
+===========================================================
+
+[New Options]
+- Use Vertex Color As Normal Direction (Outline)
+*Use the vertex colors of the object as normal direction for outline.
+
+- Affect Shadow (Transparency)
+*Transparency affects shadow.
+
+- Blending (Transparency)
+- Rim Light Intensity (RimLight)
+
+- Refresh Settings
+*This will refresh and re-apply the settings properly.
+
+- PTexture Color (PTexture)
+
+- Optimize for [Light Mode:Baked] (Lightmapping)
+*Optimize the shader for [Light Mode: Baked]
+
+- On shader "Screen Space Outline" (Outline)
+*Screen space - depth based outline on the shader.
+
+- Smooth Object Normal - Helper Script (Smooth Object Normal)
+*This helper script will help "Smooth Object Normal" feature to follow object animation or movement.
+
+
+
+[New Features and Support]
+- DeNorSob Outline (Post - Processing Effect)
+*Sobel, Depth and Normal based outline.
+
+- Lightmap Support
+- PlayStation Support
+
+===========================================================
+Changes and Improvements
+===========================================================
+- "Double Sided" has been changed to "Culling" for more polygon sides control.
+- "Fade Transparency" is now merged to "Default", there will be one shader and you'll just need to toggle the "Transparent Mode".
+- Color blending/mixing has been changed - improved, it is now accurate than before.
+- "Main Color" default color has been changed.
+- "Smooth Object Normal" has been improved, you don't need anymore a Hardness option and can adjust it in any direction.
+- "Light Intensity" default value has been changed from -1 to 1 because of the color blending/mixing change.
+
+===========================================================
+Fixed
+===========================================================
+- Turns pink after iOS or Mac build (Metal Graphics API).
+- Spotlight don't have shadow. (URP 10)
+- Can't select the front face of a plane object or quad face object, the cause is the traditional outline culling.

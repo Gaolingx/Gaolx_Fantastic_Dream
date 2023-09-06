@@ -1,0 +1,9 @@
+Set1: Demonic
+Set2: Venom
+Set3: Dragon
+Set4: Elven
+Set5: Orc
+Set6: Shaman
+Set7: Druid
+Set8: Necronamncer
+Set9: Berzerker

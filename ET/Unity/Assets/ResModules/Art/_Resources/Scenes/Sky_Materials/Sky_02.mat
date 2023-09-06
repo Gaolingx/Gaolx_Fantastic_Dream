@@ -1,0 +1,167 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5138534908999230527
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sky_02
+  m_Shader: {fileID: -6465566751694194690, guid: 5bb71b1b513255d4c96e2a05cb5118a6, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 2000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Emission:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Sky_day:
+        m_Texture: {fileID: 2800000, guid: 10ffd9f7504760e46b6fb08e4ecaa49a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Sky_map:
+        m_Texture: {fileID: 2800000, guid: 10ffd9f7504760e46b6fb08e4ecaa49a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Sky_night:
+        m_Texture: {fileID: 2800000, guid: d18aecd6c581e8541a34ed1eb1616dc0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Tex:
+        m_Texture: {fileID: 8900000, guid: 62da47693e1cb5b40b6e489b461276fe, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaClip: 0
+    - _AtmosphereThickness: 5
+    - _Bg_move: -0.28
+    - _Blend: 0
+    - _BumpScale: 1
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _Day_int: 0.9
+    - _Day_to_night: 0
+    - _DstBlend: 0
+    - _Emission_int: 1
+    - _EnvironmentReflections: 1
+    - _Exposure: 1
+    - _Fog_alpha: 1
+    - _Fog_int: 1
+    - _Fog_move: -0.06
+    - _GlossMapScale: 0
+    - _Glossiness: 0
+    - _GlossyReflections: 0
+    - _ImageType: 0
+    - _Layout: 0
+    - _Light_int: 0.43
+    - _Mapping: 1
+    - _Mask_btoom: -0.026
+    - _Mask_move: -0.13
+    - _Metallic: 0
+    - _MirrorOnBack: 0
+    - _Night_int: 3.95
+    - _OcclusionStrength: 1
+    - _QueueControl: 1
+    - _QueueOffset: 25
+    - _ReceiveShadows: 1
+    - _Rotation: 0
+    - _SampleGI: 0
+    - _Sky_int: 1.1
+    - _Smoothness: 0.5
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _Star_int: 2.5
+    - _SunDisk: 2
+    - _SunSize: 0.04
+    - _SunSizeConvergence: 5
+    - _Surface: 0
+    - _WorkflowMode: 1
+    - _ZWrite: 1
+    m_Colors:
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Bg_btoom_color: {r: 0.1576184, g: 0.269815, b: 0.4339623, a: 1}
+    - _Bg_range: {r: 0.15, g: 0.5, b: 0, a: 0}
+    - _Bg_top_color: {r: 0.0499288, g: 0.1263498, b: 0.2075472, a: 1}
+    - _Btoom_bg_color: {r: 0.15761836, g: 0.26981497, b: 0.4339623, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Day_color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Fog: {r: 0.26539695, g: 0.6635903, b: 0.7924528, a: 1}
+    - _Fog_color: {r: 0.20619395, g: 0.63928044, b: 0.78699994, a: 1}
+    - _Fog_range: {r: 0.44, g: 0.5, b: 0, a: 0}
+    - _GroundColor: {r: 0.369, g: 0.349, b: 0.341, a: 1}
+    - _Mask_range: {r: 0.4, g: 0.51, b: 0, a: 0}
+    - _Night_color: {r: 2, g: 2, b: 2, a: 1}
+    - _SkyTint: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _Sky_color: {r: 0.8301887, g: 0.8301887, b: 0.8301887, a: 1}
+    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    - _Tint: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _Top_bg_color: {r: 0.0499288, g: 0.12634984, b: 0.20754719, a: 1}
+  m_BuildTextureStacks: []

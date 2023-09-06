@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/UnityTechnologies/DefaultPlayables/LightControl/Editor/LightControlDrawer.cs.meta
+guid: a217f65052ddf094ba45e737b2428b1c
+timeCreated: 1496915002
+licenseType: Store
+========
+guid: 424cc208fb61d4e448b08fcfa0eee25e
+timeCreated: 1532361007
+licenseType: Free
+>>>>>>>> Stashed changes:Assets/ResModules/Plugins/Core/UniTask/Runtime/Internal/ArrayPoolUtil.cs.meta
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

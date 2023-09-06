@@ -1,0 +1,122 @@
+This list is in case you purchased this animation set to use in another engine or application. It is for Protof-Actor@WizardAnimset.fbx
+
+
+Animation List:
+
+IdleWizard: 10-80
+IdleLookAroundWizard: 90-295
+
+RunWizard: 305-330
+RunWizard_RM: 340-365
+RunFastWizard: 375-396
+RunFastWizard_RM: 405-426
+SprintWizard: 435-447
+SprintWizard_RM: 455-467
+
+WalkForwardWizard: 475-515
+walkBackwardsWizard: 525-565
+WalkRightWizard: 575-615
+WalkLeftWizard: 625-665
+WalkForwardLeftWizard: 675-715
+WalkBackwardsRightWizard: 725-765
+WalkForwardRightWizard: 775-815
+WalkBackwardsLeftWizard: 825-865
+DodgeLeftWizard: 875-915
+DodgeRightWizard: 925-965
+
+WalkForwardWizard_RM: 975-1015
+walkBackwardsWizard_RM: 1025-1065
+WalkRightWizard_RM: 1075-1115
+WalkLeftWizard_RM: 1125-1165
+WalkForwardLeftWizard_RM: 1175-1215
+WalkBackwardsRightWizard_RM: 1225-1265
+WalkForwardRightWizard_RM: 1275-1315
+WalkBackwardsLeftWizard_RM: 1325-1365
+DodgeLeftWizard_RM: 1375-1415
+DodgeRightWizard_RM: 1425-1465
+
+RunForwardWizard: 1475-1495
+RunBackwardsWizard: 1505-1525
+RunForwardLeftWizard: 1535-1555
+RunBackwardsRightWizard: 1565-1585
+RunForwardRightWizard: 1595-1615
+RunBackwardsLeftWizard: 1625-1645
+RunLeftWizard: 1655-1675
+RunRightWizard: 1685-1705
+
+RunForwardWizard_RM: 1715-1735
+RunBackwardsWizard_RM: 1745-1765
+RunForwardLeftWizard_RM: 1775-1795
+RunBackwardsRightWizard_RM: 1805-1825
+RunForwardRightWizard_RM: 1835-1855
+RunBackwardsLeftWizard_RM: 1865-1885
+RunLeftWizard_RM: 1895-1915
+RunRightWizard_RM: 1925-1945
+
+CrouchIdleWizard: 1955-2040
+CrouchIdleLookAroundWizard: 2050-2285
+
+CrouchForwardWizard: 2295-1345
+CrouchBackwardsWizard: 2355-2405
+CrouchForwardLeftWizard: 2415-2465
+CRouchBackwardsRightWizard: 2475-2525
+CrouchForwardRightWizard: 2535-2585
+CrouchBackwardsLeftWizard: 2595-2645
+CrouchRightWizard: 2655-2705
+CrouchLeftWizard: 2715-2765
+
+CrouchForwardWizard_RM: 2775-2825
+CrouchBackwardsWizard_RM: 2835-2885
+CrouchForwardLeftWizard_RM: 2895-2945
+CRouchBackwardsRightWizard_RM: 2955-3005
+CrouchForwardRightWizard_RM: 3015-3065
+CrouchBackwardsLeftWizard_RM: 3075-3125
+CrouchRightWizard_RM: 3135-3185
+CrouchLeftWizard_RM: 3195-3245
+
+CastSpell1Wizard: 3255-3410
+CastSpell2Wizard: 3420-3535
+CastSpell3Wizard: 32545-3695
+CastSpell4Wizard: 3705-3833
+CastSpell5Wizard: 3845-3945
+CastSpell6Wizard: 3955-4020
+CastSpell7Wizard: 4030-4235
+CastSpell8Wizard: 4245-4440
+CastSpell9Wizard: 4450-4615
+CastSpell10Wizard: 4625-4725
+CastSpell11Wizard: 4735-4890
+CastSpell12Wizard: 4900-5035
+CastSpell13Wizard: 5045-5155
+CastSpell14Wizard: 5165-5290
+
+GetHitLightFrontWizard: 5300-5340
+GetHitLightRightWizard: 5350-5390
+GetHitLightLeftWizard: 5400-5450
+GetHitLightFront2Wizard: 5460-5500
+GetHitLightBackWizard: 5510-5570
+
+GetHitHeavyFrontWizard: 5580-5625
+GetHitHeavyBackWizard: 5635-5685
+GetHitHeavyRightWizard: 5695-5745
+GetHitHeavyLeftWizard: 5755-5810
+
+GetHitHeavyFrontWizard_RM: 5820-5865
+GetHitHeavyBackWizard_RM: 5875-5925
+GetHitHeavyRightWizard_RM: 5935-5985
+GetHitHeavyLeftWizard_RM: 5995-6050
+
+DeathFrontWizard: 6060-6146
+DeadFrontWizard: 6160-6175
+GetBackUpFrontWizard: 6185-6266
+
+DeathBackWizard: 6275-6370
+DeadBackWizard: 6380-6395
+GetBackUpBackWizard: 6405-6501
+
+DeathRightWizard: 6510-6585
+DeadRightWizard: 6595-6610
+GetBackUpRightWizard: 6620-6710
+
+DeathLeftWizard: 6720-6815
+DeadLeftWizard: 6825-6840
+GetBackUpLeftWizard: 6850-6955

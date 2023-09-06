@@ -1,0 +1,132 @@
+RealToon V5.0.8 (HDRP)
+===========================================================
+Requirements/Recommendations
+===========================================================
+
+(To use this you need):
+*Unity 2019.3.0 with HDRP version 7.2.0 or latest Unity & HDRP Version.
+
+How To Update HDRP:
+1.Go to Window > Package Manager.
+2.Select "All Packages" then select "High Definition RP" and select "Version 7.2.0" or latest.
+3.Click "Update" or "Update To".
+
+(Note)
+There are 2 RealToon HDRP packages:
+*(HDRP 8 and 7) is for unity 2020.1.0 and below version.
+*(HDRP 10 and 11) is for unity 2020.2.0 to 2021.1.X
+*(HDRP 12 and 13) is for unity 2021.2.0 to 2022.1.X.
+*(HDRP 14) is for unity 2022.2.0 to later version.
+===========================================================
+Note:
+===========================================================
+
+*DXR/Raytracing is supported.
+-Unity uses DXR and it will work on all GPUs that supports raytracing.
+
+*There is only one shader, means Fade Transparency is now merge to default.
+
+*Tessellation version is still in development.
+
+*All lights are supported: Direction, Point, Spot and Arealight.
+
+*It is still currently in beta because the Raytracing on Unity HDRP is still in preview,
+but you can use this now in making games, film/animation and arts without errors.
+
+*Light layers is possible to use.
+
+*Use RealToon + Unity's HDRP shaders is possible too.
+
+*Hover your mouse to an option or feature name for 
+option description and infos.
+
+*There's a RealToon HDRP user guide or documentation included as text file.
+
+*If you encounter any errors/problems or something just email me.
+
+
+
+
+===========================================================
+RealToon HDRP - RealToon 5.0.8p7 (Patch#7)
+===========================================================
+
+[New]
+- Near Fade Dithering
+*Objects fade when the camera is near.
+
+- LOD Crossfading (HDRP 14)
+- HDRP 14 full support
+- Quick ready support for Unity 2023 (For Tesing Purpose)
+
+[Improvements]
+- RayTracing reflections and RayTracing GI
+
+===========================================================
+Main Update 5.0.8
+===========================================================
+New Options/Features for HDRP 
+===========================================================
+
+[New Options]
+- Use Vertex Color As Normal Direction (Outline)
+*Use the vertex colors of the object as normal direction for outline.
+
+- Blending (Transparency)
+
+- On shader "Screen Space Outline" (Outline)
+*Screen space - depth based outline on the shader.
+
+- Smooth Object Normal - Helper Script (Smooth Object Normal)
+*This helper script will help "Smooth Object Normal" feature to follow object animation or movement.
+
+
+
+[New Features and Support]
+- DeNorSob Outline (Post - Processing Effect)
+*Sobel, Depth and Normal based outline.
+
+- PlayStation Support
+
+===========================================================
+Changes and Improvements
+===========================================================
+
+- "Smooth Object Normal" has been improved, you don't need anymore a Hardness option and can adjust it in any direction.
+
+===========================================================
+Fixed
+===========================================================
+
+- Can't select the front face of a plane object or quad face object, the cause is the traditional outline culling.
+
+===========================================================
+Note and reminder about Raytracing 
+===========================================================
+
+*Raytracing Shadow and Raytracing Global Illumination does not yet reflect to Raytraced Reflection surface. (HDRP 8 and HDRP 7)
+*Only non raytraced shadow and non raytraced global illumination can reflect to Raytraced Reflection surface at the moment.
+(HDRP 8 and HDRP 7)
+
+*Fade Transparency or Transparent does not yet reflect to Raytraced Reflection surface.
+*Opaque objects and transparent type Alpha clip or Cutout transparent can reflect to Raytraced Reflection surface and can bounce light at the moment.
+
+*In recursive rendering, transparency can be visible to reflective object but can't receive raytraced global illumination.
+
+===========================================================
+RealToon HDRP current issues
+===========================================================
+
+[For Outline] [Traditional]
+*In normal or opaque state, far fog will overlap but if there is an opaque object behind, far fog will not overlap. 
+*In 'Transparent Mode' far fog will not overlap."
+*Currently, there is no HDRP line code or function to mask this.
+
+*Currently in raytracing mode, outline will not reflect to Raytraced Relfection surface, to have an outline in a Raytraced Relfection surface, use "Rimlight" as an alternative outline, just changed the "Power" value to negative 1 then enable "Rim Light in Light".
+
+[For Arealight]
+*If the size of a Rect type arealight is too un-even like 'X:30 | Y:1' the light falloff will cause some noise.
+*Current arealight light falloff is just a temporary solution.
+*"Tube Light Falloff" option is a temporary option for Arealight Tube Type light falloff.
+*These current issues only applies when "Area Light Smooth Look" option disabled.
+*Arealight currently in beta, if you want or planned to use it just enable "Enable Area Light" under the category "Lighting".

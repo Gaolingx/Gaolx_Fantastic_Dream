@@ -1,0 +1,94 @@
+This list is in case you purchased this animation set to use in another engine or application. It is for Protof-Actor@CreatureAnimset.fbx
+
+
+Animation List:
+
+IdleBreathe: 10-60
+idleLookAround: 70-270
+
+roar1: 280-360
+roar2: 370-510
+
+Turn90Left: 520-555
+Turn90Right: 565-600
+Turn180Rihght: 610-665
+Turn180Left: 680-735
+Turn90Left_RM: 750-785
+Turn90Right_RM: 795-830
+Turn180Rihght_RM: 840-895
+Turn180Left_RM: 910-965
+
+WalkForward1: 980-1028
+WalkBackwards1: 1040-1088
+WalkForward1_RM: 1100-1148
+WalkBackwards1_RM: 1160-1208
+WalkForward2: 1220-1243
+WalkBackwards2: 1255-1278
+WalkForward2_RM: 1290-1313
+WalkBackwards2_RM: 1325-1348
+WalLeft: 1360-1395
+WalkRight: 1405-1440
+WalkLeft_RM: 1450-1485
+WalkRight_RM: 1495-1530
+
+RunForward1: 1540-1560
+RunForward2: 1570-1590
+RunBackwards1: 1600-1617
+RunBackwards2: 1630-1647
+RunForward1_RM: 1660-1680
+RunForward2_RM: 1690-1710
+RunBackwards1_RM: 1720-1737
+RunBackwards2_RM: 1750-1767
+
+JumpForward: 1780-1850
+JumpBackwards: 1860-1930
+JumpRight: 1940-2015
+JumpLeft: 2025-2095
+JumpForward_RM: 2105-2175
+JumpBackwards_RM: 2185-2255
+JumpRight_RM: 2265-2340
+JumpLeft_RM: 2350-2420
+
+AttackRightClaws1: 2430-2495
+AttackLeftClaws1: 2505-2570
+AttackDoubleCLaws: 2580-2655
+
+Roar3: 2665-2710
+
+AttackRightClaws2: 2720-2800
+AttackRightClaws3: 2810-2885
+AttackLeftClaws2: 2895-2955
+Attack2HitCombo: 2965-3065
+AttackJumpDoubleClaws: 3075-3155
+AttackLungeBite: 3165-3300
+AttackJumpBite: 3310-3465
+
+
+AttackRightClaws1_RM: 3475-3540
+AttackLeftClaws1_RM: 3550-3615
+AttackDoubleCLaws_RM: 3625-3700
+
+Roar3_RM: 3710-3755
+
+AttackRightClaws2_RM: 3765-3845
+AttackRightClaws3_RM: 3855-3930
+AttackLeftClaws2_RM: 3940-4000
+Attack2HitCombo_RM: 4010-4110
+AttackJumpDoubleClaws_RM: 4120-4200
+AttackLungeBite_RM: 4210-4345
+AttackJumpBite_RM: 4355-4510
+
+Roar4: 4520-4600
+
+GetHitFront1: 4610-4645
+GetHitFront2: 4655-4690
+GetHitBack: 4700-4750
+GetHitLeft: 4760-4805
+GetHitRight: 4815-4862
+Death: 4875-5010
+GetHitFront1_RM: 5020-5055
+GetHitFront2_RM: 5065-5100
+GetHitBack_RM: 5110-5160
+GetHitLeft_RM: 5170-5215
+GetHitRight_RM: 5225-5272
+Death_RM: 5285-5420
