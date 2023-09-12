@@ -8,7 +8,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Scene_mutong_01
-  m_Shader: {fileID: -6465566751694194690, guid: 186259c419ee5ab4abde34a53c0d84a9, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 186259c419ee5ab4abde34a53c0d84a9,
+    type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:

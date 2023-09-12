@@ -8,7 +8,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Scene_guanmu_002
-  m_Shader: {fileID: -6465566751694194690, guid: 76ddbf82dcc90f64fbe741e8603e3d29, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 76ddbf82dcc90f64fbe741e8603e3d29,
+    type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []

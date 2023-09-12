@@ -21,7 +21,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Shitou_hill_01
-  m_Shader: {fileID: -6465566751694194690, guid: f53310e3878b72c4aaa2b9cee898697f, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: f53310e3878b72c4aaa2b9cee898697f,
+    type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
