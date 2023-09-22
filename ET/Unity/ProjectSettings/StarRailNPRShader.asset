@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 53
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 607bdc4c4d8b3d94996fa1bceaa1f247, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AvatarModelPathPattern: ^Assets(/|\\)(.+(/|\\))?Avatar_[^/\\]+\.fbx$
+  RampTexturePathPattern: ^Assets(/|\\)(.+(/|\\))?Avatar_[^/\\]+_Ramp[^/\\]+$
+  LightMapPathPattern: ^Assets(/|\\)(.+(/|\\))?Avatar_[^/\\]+_LightMap[^/\\]+$
+  ColorTexturePathPattern: ^Assets(/|\\)(.+(/|\\))?Avatar_[^/\\]+_Color[^/\\]+$
+  StockingsRangeMapPathPattern: ^Assets(/|\\)(.+(/|\\))?Avatar_[^/\\]+_Stockings[^/\\]+$
+  FaceMapPathPattern: ^Assets(/|\\)(.+(/|\\))?(M|W)_[0-9]+_[a-zA-Z]+_FaceMap[^/\\]+$
+  FaceExpressionMapPathPattern: ^Assets(/|\\)(.+(/|\\))?(M|W)_[0-9]+_[a-zA-Z]+_Face_ExpressionMap[^/\\]+$
+  AvatarModelPostprocessorVersion: 0
+  TexturePostprocessorVersion: 0
