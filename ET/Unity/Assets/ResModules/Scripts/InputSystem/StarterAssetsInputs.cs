@@ -19,7 +19,6 @@ namespace StarterAssets
 		public bool punchRight;
 		public bool punchLeft;
 		public bool crouch;
-		public bool flipJump;
 		public bool roll;
 		public bool lockOn;
 		public bool isModified;
@@ -38,33 +37,12 @@ namespace StarterAssets
 
 #if ENABLE_INPUT_SYSTEM
 
-        public void Awake()
+        public void OnJump(InputValue value)
         {
-			// TODO: Maybe don't search for this
-			InputAction jumpAction = null;
-            foreach (var item in GetComponent<PlayerInput>().actions)
-            {
-				if (item.name == "Jump")
-                {
-					jumpAction = item;
-                }
+            JumpInput(value.isPressed);
+        }
 
-			}
-
-
-			if (jumpAction != null)
-			{
-				jumpAction.performed +=
-					context =>
-					{
-						FlipJumpInput(context.interaction is HoldInteraction);
-						JumpInput(context.interaction is PressInteraction || context.interaction is TapInteraction);
-					};
-			}
-			
-		}
-
-		public void OnMove(InputValue value)
+        public void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
 		}
@@ -87,10 +65,6 @@ namespace StarterAssets
 			RollInput(value.isPressed);
 		}
 
-		public void OnFlipJump(InputValue value)
-		{
-			FlipJumpInput(value.isPressed);
-		}
 
 
         public void OnCrouch(InputValue value)
@@ -150,10 +124,7 @@ namespace StarterAssets
 			jump = newJumpState;
 
 		}
-        private void FlipJumpInput(bool newFlipJumpState)
-        {
-			flipJump = newFlipJumpState;
-        }
+
         private void CrouchInput(bool newCrouchState)
         {
             crouch = newCrouchState;
