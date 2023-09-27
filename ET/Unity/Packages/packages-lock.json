@@ -12,7 +12,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "06a250b9fa0cc9a32782a528e0d297bd4ba3846e"
+      "hash": "b024a18ba16cccb7ac3c72cf3ce272ef025eb5e4"
     },
     "com.gwiazdorrr.betterstreamingassets": {
       "version": "file:betterstreamingassets",
@@ -57,7 +57,7 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.burst": {
-      "version": "1.8.7",
+      "version": "1.8.8",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -228,7 +228,7 @@
       }
     },
     "com.unity.scriptablebuildpipeline": {
-      "version": "1.21.5",
+      "version": "1.21.8",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
@@ -328,7 +328,7 @@
       }
     },
     "com.unity.visualscripting": {
-      "version": "1.8.0",
+      "version": "1.9.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
