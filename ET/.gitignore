@@ -60,7 +60,6 @@ Server/.DS_Store
 ~$*.xlsx
 ~$*.xlsx.meta
 /.vscode
-/Unity/UserSettings/Search.settings
 /Unity/Unity.Hotfix.csproj
 /Unity/Unity.HotfixView.csproj
 /Unity/Unity.Model.csproj
@@ -68,7 +67,6 @@ Server/.DS_Store
 
 /Unity/ProjectSettings/RiderScriptEditorPersistedState.asset
 /Unity/Unity.Core.csproj
-/Unity/UserSettings
 /Unity/Unity.Codes.csproj
 /Unity/Unity.Loader.csproj
 /Unity/Unity.Ignore.csproj
