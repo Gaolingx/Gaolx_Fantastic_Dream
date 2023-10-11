@@ -56,10 +56,10 @@ Server/.DS_Store
 /Unity/Assets/Bundles/Code/Code.pdb.bytes
 /Unity/Assets/Bundles/Code/Code.pdb.bytes.meta
 /Unity/Assembly-CSharp.csproj
-/Unity/*.csproj
 ~$*.xlsx
 ~$*.xlsx.meta
 /.vscode
+/Unity/UserSettings/Search.settings
 /Unity/Unity.Hotfix.csproj
 /Unity/Unity.HotfixView.csproj
 /Unity/Unity.Model.csproj
@@ -67,6 +67,7 @@ Server/.DS_Store
 
 /Unity/ProjectSettings/RiderScriptEditorPersistedState.asset
 /Unity/Unity.Core.csproj
+/Unity/UserSettings
 /Unity/Unity.Codes.csproj
 /Unity/Unity.Loader.csproj
 /Unity/Unity.Ignore.csproj
@@ -88,3 +89,4 @@ Publish/
 /Unity/Assets/Bundles/AotDlls.meta
 /Unity/HybridCLRData
 /Unity/Assembly-CSharp-firstpass.csproj
+/Unity/*.csproj
