@@ -111,7 +111,7 @@ namespace YooAsset
 				if (loader.CanDestroy())
 				{
 					string bundleName = loader.MainBundleInfo.Bundle.BundleName;
-					loader.Destroy(false);
+					loader.Destroy();
 					_loaderList.RemoveAt(i);
 					_loaderDic.Remove(bundleName);
 				}
@@ -123,6 +123,9 @@ namespace YooAsset
 		/// </summary>
 		public void ForceUnloadAllAssets()
 		{
+#if UNITY_WEBGL
+			throw new Exception($"WebGL not support invoke {nameof(ForceUnloadAllAssets)}");
+#else
 			foreach (var provider in _providerList)
 			{
 				provider.WaitForAsyncComplete();
@@ -131,7 +134,7 @@ namespace YooAsset
 			foreach (var loader in _loaderList)
 			{
 				loader.WaitForAsyncComplete();
-				loader.Destroy(true);
+				loader.Destroy();
 			}
 
 			_providerList.Clear();
@@ -142,6 +145,7 @@ namespace YooAsset
 
 			// 注意：调用底层接口释放所有资源
 			Resources.UnloadUnusedAssets();
+#endif
 		}
 
 		/// <summary>
