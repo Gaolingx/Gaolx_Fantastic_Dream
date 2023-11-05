@@ -14,23 +14,8 @@
       "dependencies": {},
       "hash": "216d09f7b65fadc5d8fcd0bba82e5ac50ca58f06"
     },
-    "com.fernrender.core": {
-      "version": "file:FernRenderCore",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {
-        "com.unity.render-pipelines.core": "14.0.6",
-        "com.unity.shadergraph": "14.0.6"
-      }
-    },
     "com.gwiazdorrr.betterstreamingassets": {
       "version": "file:betterstreamingassets",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
-    },
-    "com.jasonma.lwgui": {
-      "version": "file:LWGUI",
       "depth": 0,
       "source": "embedded",
       "dependencies": {}
