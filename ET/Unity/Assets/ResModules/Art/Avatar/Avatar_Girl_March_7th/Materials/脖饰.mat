@@ -297,6 +297,7 @@ Material:
     - _MainLightColorUsage: 0
     - _MetalSpecularGloss: 0.5
     - _MetalSpecularIntensity: 1
+    - _MetalSpecularMetallic: 0.52
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 0
