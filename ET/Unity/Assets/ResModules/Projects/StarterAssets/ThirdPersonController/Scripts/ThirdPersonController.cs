@@ -50,6 +50,9 @@ namespace StarterAssets
         [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
         public bool Grounded = true;
 
+        [Tooltip("Height of the character when crouched. The center of the player is automatically set to half the height when crouched")]
+        public float CrouchHeight;
+
         [Tooltip("Useful for rough ground")]
         public float GroundedOffset = -0.14f;
 
@@ -95,6 +98,8 @@ namespace StarterAssets
         private float _rotationVelocity;
         private float _verticalVelocity;
         private float _terminalVelocity = 53.0f;
+        private float _standingHeight;
+        private Vector3 _standingCenter;
 
         // timeout deltatime
         private float _jumpTimeoutDelta;
@@ -129,6 +134,9 @@ namespace StarterAssets
         private const float _threshold = 0.01f;
 
         private bool _hasAnimator;
+
+        private bool _tryToCrouch;
+        private bool _tryToSlide;
 
         private bool IsCurrentDeviceMouse
         {
@@ -201,9 +209,10 @@ namespace StarterAssets
             SetInputs();
             _hasAnimator = TryGetComponent(out _animator);
 
-        JumpAndGravity();
-        GroundedCheck();
-        Move();
+            Crouch();
+            JumpAndGravity();
+            GroundedCheck();
+            Move();
         }
         public virtual void SetInputs()
         {
@@ -214,6 +223,33 @@ namespace StarterAssets
         private void LateUpdate()
         {
             CameraRotation();
+        }
+
+        private void Crouch()
+        {
+            bool currCrouch = _tryToCrouch;
+            _tryToCrouch = _input.Crouch;
+            if (_hasAnimator)
+            {
+                _animator.SetBool(_animIDCrouch, _tryToCrouch);
+            }
+            if (_input.Crouch && !_tryToSlide)
+            {
+                // Crouch
+                _controller.height = CrouchHeight;
+                _controller.center = new Vector3(0, CrouchHeight / 2, 0);
+            }
+            else if (currCrouch != _tryToCrouch)
+            {
+                // Uncrouch
+                UncrouchCollider();
+            }
+        }
+
+        private void UncrouchCollider()
+        {
+            _controller.height = _standingHeight;
+            _controller.center = _standingCenter;
         }
 
         private void AssignAnimationIDs()
