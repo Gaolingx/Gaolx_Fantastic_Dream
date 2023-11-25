@@ -1,0 +1,84 @@
+#include "il2cpp-config.h"
+#include "MetadataLoader.h"
+#include "os/File.h"
+#include "os/Mutex.h"
+#include "utils/MemoryMappedFile.h"
+#include "utils/PathUtils.h"
+#include "utils/Runtime.h"
+#include "utils/Logging.h"
+
+//{{HEADER}}//
+
+#if IL2CPP_TARGET_ANDROID && IL2CPP_TINY_DEBUGGER && !IL2CPP_TINY_FROM_IL2CPP_BUILDER
+#include <stdlib.h>
+extern "C"
+{
+    void* loadAsset(const char* path, int* size, void* (*alloc)(size_t));
+}
+#elif IL2CPP_TARGET_JAVASCRIPT && IL2CPP_TINY_DEBUGGER && !IL2CPP_TINY_FROM_IL2CPP_BUILDER
+extern void* g_MetadataForWebTinyDebugger;
+#endif
+
+void* il2cpp::vm::MetadataLoader::LoadMetadataFile(const char* fileName)
+{
+    unsigned char* fileBuffer = nullptr;
+    int fileLength = 0;
+
+#if IL2CPP_TARGET_ANDROID && IL2CPP_TINY_DEBUGGER && !IL2CPP_TINY_FROM_IL2CPP_BUILDER
+    std::string resourcesDirectory = utils::PathUtils::Combine(utils::StringView<char>("Data"), utils::StringView<char>("Metadata"));
+
+    std::string resourceFilePath = utils::PathUtils::Combine(resourcesDirectory, utils::StringView<char>(fileName, strlen(fileName)));
+
+    fileBuffer = (unsigned char*)loadAsset(resourceFilePath.c_str(), &fileLength, malloc);
+#elif IL2CPP_TARGET_JAVASCRIPT && IL2CPP_TINY_DEBUGGER && !IL2CPP_TINY_FROM_IL2CPP_BUILDER
+    return g_MetadataForWebTinyDebugger;
+#else
+    std::string resourcesDirectory = utils::PathUtils::Combine(utils::Runtime::GetDataDir(), utils::StringView<char>("Metadata"));
+    std::string resourceFilePath = utils::PathUtils::Combine(resourcesDirectory, utils::StringView<char>(fileName, strlen(fileName)));
+
+    int error = 0;
+    os::FileHandle* handle = os::File::Open(resourceFilePath, kFileModeOpen, kFileAccessRead, kFileShareRead, kFileOptionsNone, &error);
+    if (error != 0)
+    {
+        utils::Logging::Write("ERROR: Could not open %s", resourceFilePath.c_str());
+        return NULL;
+    }
+
+    fileLength = os::File::GetLength(handle, &error);
+    if (error != 0)
+    {
+        os::File::Close(handle, &error);
+        utils::Logging::Write("ERROR: getFileLength error %s", resourceFilePath.c_str());
+        return NULL;
+    }
+
+    fileBuffer = (unsigned char*)utils::MemoryMappedFile::Map(handle);
+    os::File::Close(handle, &error);
+    if (error != 0)
+    {
+        utils::MemoryMappedFile::Unmap(fileBuffer);
+        fileBuffer = NULL;
+        return NULL;
+    }
+#endif
+
+    unsigned char* fileOutput = MetadataProcess::Decrypt::Exec(fileBuffer, fileLength);
+#if IL2CPP_TARGET_ANDROID && IL2CPP_TINY_DEBUGGER && !IL2CPP_DEBUGGER_TESTS
+    free(fileBuffer);
+#else
+    il2cpp::utils::MemoryMappedFile::Unmap(fileBuffer);
+#endif
+    return (void*)fileOutput;
+}
+
+void il2cpp::vm::MetadataLoader::UnloadMetadataFile(void* fileBuffer)
+{
+#if IL2CPP_TARGET_JAVASCRIPT && IL2CPP_TINY_DEBUGGER && !IL2CPP_TINY_FROM_IL2CPP_BUILDER
+    bool success = il2cpp::utils::MemoryMappedFile::Unmap(fileBuffer);
+    NO_UNUSED_WARNING(success);
+    IL2CPP_ASSERT(success);
+#else
+    unsigned char* pFileBuffer = (unsigned char*)fileBuffer;
+    delete[] pFileBuffer;
+#endif
+}
