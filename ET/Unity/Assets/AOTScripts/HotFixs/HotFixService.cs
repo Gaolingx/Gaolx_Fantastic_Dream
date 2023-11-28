@@ -20,6 +20,7 @@ public class HotFixService : MonoBehaviour
         "Assets/AssetBundles/ABScripts/mscorlib.dll.bytes"       
     };
     public string HotDllName = "Assets/AssetBundles/ABScripts/FOSMobaHotFix.dll";
+    public string GameRootObject = "Assets/AssetBundles/ABPrefabs/RootPrefabs/HotFixRoot.prefab";
 
     //获取资源二进制
     private static Dictionary<string, byte[]> _dllAssetDataDict = new Dictionary<string, byte[]>();
@@ -53,7 +54,7 @@ public class HotFixService : MonoBehaviour
         LoadMetadataForAOTAssemblies();
 
 #if !UNITY_EDITOR
-        System.Reflection.Assembly.Load(GetAssetData("Assets/AssetBundles/ABScripts/FOSMobaHotFix.dll"));
+        System.Reflection.Assembly.Load(GetAssetData(HotDllName));
 #endif
 
         StopAllCoroutines();
@@ -76,7 +77,7 @@ public class HotFixService : MonoBehaviour
 
     private void LoadGameRootObject()
     {
-        var asset1 = _yooAssetResourcePackage.LoadAssetSync<GameObject>("Assets/AssetBundles/ABPrefabs/RootPrefabs/HotFixRoot.prefab");
+        var asset1 = _yooAssetResourcePackage.LoadAssetSync<GameObject>(GameRootObject);
         GameObject hotFixRoot = asset1.InstantiateSync();
         hotFixRoot.transform.SetParent(_hotFixRootParent);
         RectTransform rect = hotFixRoot.GetComponent<RectTransform>();
