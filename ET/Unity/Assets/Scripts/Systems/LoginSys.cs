@@ -14,10 +14,12 @@ public class LoginSys : MonoBehaviour
     /// </summary>
     public void EnterLogin()
     {
-        //TODO
-        //异步的加载登录场景
-        //并显示加载的进度
+        GameRoot.Instance.loadingWnd.gameObject.SetActive(true);
+        //异步加载登录场景
+        ResSvc.Instance.AsyncLoadScene(Constants.SceneLogin);
+        //在加载的过程中动态显示加载进度
         //加载完成以后再打开注册登录界面
     }
-        
+
+
 }

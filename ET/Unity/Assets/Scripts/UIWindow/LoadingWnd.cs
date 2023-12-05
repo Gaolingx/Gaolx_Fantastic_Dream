@@ -1,0 +1,33 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+//加载进度界面
+public class LoadingWnd : MonoBehaviour
+{
+    public Text txtTips;
+    public Image imgFG;
+    public Image imgPoint;
+    public Text txtPrg;  //进度的百分比
+
+
+    //初始化窗口（进度条归零）
+    //随机弹出一条Tips
+    public void InitWnd()
+    {
+        txtTips.text = "这是第一条游戏Tips";
+        txtPrg.text = "0%";
+        imgFG.fillAmount = 0;
+        //计算进度条点的位置
+        imgPoint.transform.localPosition = new Vector3(-570f, 0, 0);
+
+    }
+
+    //定义函数设置进度
+    public void SetProgress(float prg)  //传入当前进度
+    {
+
+    }
+
+}
