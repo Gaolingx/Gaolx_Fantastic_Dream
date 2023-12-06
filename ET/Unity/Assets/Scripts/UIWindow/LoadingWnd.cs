@@ -11,11 +11,13 @@ public class LoadingWnd : MonoBehaviour
     public Image imgPoint;
     public Text txtPrg;  //进度的百分比
 
+    private float fgWidth;
 
     //初始化窗口（进度条归零）
     //随机弹出一条Tips
     public void InitWnd()
     {
+        fgWidth = imgFG.GetComponent<RectTransform>().sizeDelta.x;
         txtTips.text = "这是第一条游戏Tips";
         txtPrg.text = "0%";
         imgFG.fillAmount = 0;
@@ -27,7 +29,12 @@ public class LoadingWnd : MonoBehaviour
     //定义函数设置进度
     public void SetProgress(float prg)  //传入当前进度
     {
+        txtPrg.text = (int)(prg * 100) + "%";  //将浮点数转换为百分比
+        imgFG.fillAmount=prg;
 
+        //算出当前进度条的位置
+        float posX = prg * fgWidth - 570;
+        imgPoint.GetComponent<RectTransform>().anchoredPosition = new Vector2(posX, 0);
     }
 
 }

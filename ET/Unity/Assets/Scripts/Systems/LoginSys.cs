@@ -15,6 +15,8 @@ public class LoginSys : MonoBehaviour
     public void EnterLogin()
     {
         GameRoot.Instance.loadingWnd.gameObject.SetActive(true);
+        GameRoot.Instance.loadingWnd.InitWnd();
+
         //异步加载登录场景
         ResSvc.Instance.AsyncLoadScene(Constants.SceneLogin);
         //在加载的过程中动态显示加载进度
