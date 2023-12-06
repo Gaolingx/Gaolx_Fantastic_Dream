@@ -92,11 +92,13 @@ float _ShadowRampOffset;
     float _StockingsTextureUsage;
 #endif
 
+#if _RIM_LIGHTING_ON
 float _RimLightWidth;
 float _RimLightThreshold;
 float _RimLightFadeout;
 float3 _RimLightTintColor;
 float _RimLightBrightness;
+#endif
 float _RimLightMixAlbedo;
 
 #if _EMISSION_ON
