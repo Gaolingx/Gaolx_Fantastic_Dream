@@ -5,8 +5,12 @@ using UnityEngine;
 //功能：登陆注册业务系统
 public class LoginSys : MonoBehaviour
 {
+    public static LoginSys Instance = null;
+    public LoginWnd loginWnd;
+
     public void InitSys()
     {
+        Instance = this;
         Debug.Log("Init LoginSys...");
     }
     /// <summary>
@@ -14,14 +18,15 @@ public class LoginSys : MonoBehaviour
     /// </summary>
     public void EnterLogin()
     {
-        GameRoot.Instance.loadingWnd.gameObject.SetActive(true);
-        GameRoot.Instance.loadingWnd.InitWnd();
 
         //异步加载登录场景
-        ResSvc.Instance.AsyncLoadScene(Constants.SceneLogin);
         //在加载的过程中动态显示加载进度
-        //加载完成以后再打开注册登录界面
+        ResSvc.Instance.AsyncLoadScene(Constants.SceneLogin, () => {
+            //加载完成以后再打开注册登录界面
+            loginWnd.gameObject.SetActive(true);
+            loginWnd.InitWnd();
+        });
+        
     }
-
 
 }

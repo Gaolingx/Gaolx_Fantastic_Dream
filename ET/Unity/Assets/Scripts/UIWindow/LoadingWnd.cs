@@ -18,7 +18,7 @@ public class LoadingWnd : MonoBehaviour
     public void InitWnd()
     {
         fgWidth = imgFG.GetComponent<RectTransform>().sizeDelta.x;
-        txtTips.text = "这是第一条游戏Tips";
+        txtTips.text = "这是一条游戏Tips";
         txtPrg.text = "0%";
         imgFG.fillAmount = 0;
         //计算进度条点的位置
