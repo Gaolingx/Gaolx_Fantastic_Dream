@@ -19,10 +19,10 @@ public class ModelSmoothNormalImporter : AssetPostprocessor
         [ReadOnly] public NativeArray<Vector3> normals, vertex;
 
         [NativeDisableContainerSafetyRestriction]
-        public NativeArray<UnsafeHashMap<Vector3, Vector3>.ParallelWriter> result;
+        public NativeArray<UnsafeParallelHashMap<Vector3, Vector3>.ParallelWriter> result;
 
         public CollectNormalJob(NativeArray<Vector3> normals, NativeArray<Vector3> vertex,
-            NativeArray<UnsafeHashMap<Vector3, Vector3>.ParallelWriter> result)
+            NativeArray<UnsafeParallelHashMap<Vector3, Vector3>.ParallelWriter> result)
         {
             this.normals = normals;
             this.vertex = vertex;
@@ -55,12 +55,12 @@ public class ModelSmoothNormalImporter : AssetPostprocessor
         [ReadOnly] public NativeArray<Vector4> tangents;
 
         [NativeDisableContainerSafetyRestriction] 
-        [ReadOnly] public NativeArray<UnsafeHashMap<Vector3, Vector3>> result;
+        [ReadOnly] public NativeArray<UnsafeParallelHashMap<Vector3, Vector3>> result;
         [ReadOnly] public bool existColors;
         public NativeArray<Color> colors;
 
         public BakeNormalJob(NativeArray<Vector3> vertex, NativeArray<Vector3> normals, NativeArray<Vector4> tangents,
-            NativeArray<UnsafeHashMap<Vector3, Vector3>> result, bool existColors, NativeArray<Color> colors)
+            NativeArray<UnsafeParallelHashMap<Vector3, Vector3>> result, bool existColors, NativeArray<Color> colors)
         {
             this.vertex = vertex;
             this.normals = normals;
@@ -180,9 +180,9 @@ public class ModelSmoothNormalImporter : AssetPostprocessor
         NativeArray<Vector3> normals = new NativeArray<Vector3>(smoothedMesh.normals, Allocator.Persistent), // 基于数据构造NativeArray
             vertex = new NativeArray<Vector3>(smoothedMesh.vertices, Allocator.Persistent), // 基于数据构造NativeArray
             smoothedNormals = new NativeArray<Vector3>(sourceVertexCount, Allocator.Persistent); // 基于长度构造NativeArray
-        var result = new NativeArray<UnsafeHashMap<Vector3, Vector3>>(maxOverlapvertices, Allocator.Persistent);
+        var result = new NativeArray<UnsafeParallelHashMap<Vector3, Vector3>>(maxOverlapvertices, Allocator.Persistent);
         var resultParallel =
-            new NativeArray<UnsafeHashMap<Vector3, Vector3>.ParallelWriter>(result.Length * 10, Allocator.Persistent);
+            new NativeArray<UnsafeParallelHashMap<Vector3, Vector3>.ParallelWriter>(result.Length * 10, Allocator.Persistent);
         //NormalBakeJob Data
         NativeArray<Vector3> normalsO = new NativeArray<Vector3>(originalMesh.normals, Allocator.Persistent),
             vertexO = new NativeArray<Vector3>(originalMesh.vertices, Allocator.Persistent);
@@ -191,7 +191,7 @@ public class ModelSmoothNormalImporter : AssetPostprocessor
 
         for (int i = 0; i < result.Length; i++)
         {
-            result[i] = new UnsafeHashMap<Vector3, Vector3>(sourceVertexCount * 10, Allocator.Persistent);
+            result[i] = new UnsafeParallelHashMap<Vector3, Vector3>(sourceVertexCount * 10, Allocator.Persistent);
             resultParallel[i] = result[i].AsParallelWriter();
         }
 
