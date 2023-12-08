@@ -19,8 +19,8 @@ public class ResSvc : MonoBehaviour
     //异步的加载场景，需要显示进度条
     public void AsyncLoadScene(string sceneName, Action loaded)
     {
-        GameRoot.Instance.loadingWnd.gameObject.SetActive(true);
-        GameRoot.Instance.loadingWnd.InitWnd();
+        GameRoot.Instance.loadingWnd.SetWndState();
+        
 
         AsyncOperation sceneAsync = SceneManager.LoadSceneAsync(sceneName);
         prgCB = () => { float val = sceneAsync.progress;  //当前异步操作加载的进度
@@ -34,7 +34,7 @@ public class ResSvc : MonoBehaviour
                 }
                 prgCB = null;
                 sceneAsync = null;
-                GameRoot.Instance.loadingWnd.gameObject.SetActive(false);
+                GameRoot.Instance.loadingWnd.SetWndState(false);
 
             }
         };

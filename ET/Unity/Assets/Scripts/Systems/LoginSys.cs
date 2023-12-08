@@ -23,8 +23,7 @@ public class LoginSys : MonoBehaviour
         //在加载的过程中动态显示加载进度
         ResSvc.Instance.AsyncLoadScene(Constants.SceneLogin, () => {
             //加载完成以后再打开注册登录界面
-            loginWnd.gameObject.SetActive(true);
-            loginWnd.InitWnd();
+            loginWnd.SetWndState();
         });
         
     }

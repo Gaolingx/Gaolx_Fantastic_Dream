@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 //功能：登录注册界面
-public class LoginWnd : MonoBehaviour
+public class LoginWnd : WindowRoot
 {
     public InputField iptAcct;
     public InputField iptPass;
@@ -12,8 +12,10 @@ public class LoginWnd : MonoBehaviour
     public Button btnNotice;
     public Toggle btnRemember;  //记住密码选项
 
-    public void InitWnd()
+    protected override void InitWnd()
     {
+        base.InitWnd();
+
         //获取本地存储的账号密码
         if(PlayerPrefs.HasKey("Acct") && PlayerPrefs.HasKey("Pass") && btnRemember.isOn == true)
         {
@@ -26,6 +28,7 @@ public class LoginWnd : MonoBehaviour
             iptPass.text = "";
         }
     }
+
     //TODO 更新本地存储的账号密码
 
 }

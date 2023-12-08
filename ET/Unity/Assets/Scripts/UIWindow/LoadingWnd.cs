@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 //加载进度界面
-public class LoadingWnd : MonoBehaviour
+public class LoadingWnd : WindowRoot
 {
     public Text txtTips;
     public Image imgFG;
@@ -15,11 +15,14 @@ public class LoadingWnd : MonoBehaviour
 
     //初始化窗口（进度条归零）
     //随机弹出一条Tips
-    public void InitWnd()
+    protected override void InitWnd()
     {
+        base.InitWnd();
+
         fgWidth = imgFG.GetComponent<RectTransform>().sizeDelta.x;
-        txtTips.text = "这是一条游戏Tips";
-        txtPrg.text = "0%";
+
+        SetText(txtTips, "这是一条游戏Tips");
+        SetText(txtPrg, "0%");
         imgFG.fillAmount = 0;
         //计算进度条点的位置
         imgPoint.transform.localPosition = new Vector3(-570f, 0, 0);
@@ -29,8 +32,8 @@ public class LoadingWnd : MonoBehaviour
     //定义函数设置进度
     public void SetProgress(float prg)  //传入当前进度
     {
-        txtPrg.text = (int)(prg * 100) + "%";  //将浮点数转换为百分比
-        imgFG.fillAmount=prg;
+        SetText(txtPrg, (int)(prg * 100) + "%");  //将浮点数转换为百分比
+        imgFG.fillAmount = prg;
 
         //算出当前进度条的位置
         float posX = prg * fgWidth - 570;
