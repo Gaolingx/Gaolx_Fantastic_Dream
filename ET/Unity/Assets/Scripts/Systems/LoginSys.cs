@@ -24,6 +24,8 @@ public class LoginSys : MonoBehaviour
         ResSvc.Instance.AsyncLoadScene(Constants.SceneLogin, () => {
             //加载完成以后再打开注册登录界面
             loginWnd.SetWndState();
+            //播放登录场景音效
+            AudioSvc.Instance.PlayBGMusic(Constants.BGLogin);
         });
         
     }

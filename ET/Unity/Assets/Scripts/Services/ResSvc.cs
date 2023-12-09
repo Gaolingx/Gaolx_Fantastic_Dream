@@ -50,4 +50,22 @@ public class ResSvc : MonoBehaviour
             prgCB();
         }
     }
+
+    //定义一个字典，存储当前加载的Audio，与后面的cache有关系
+    private Dictionary<string, AudioClip> adDic = new Dictionary<string, AudioClip>();
+    public AudioClip LoadAudio(string path, bool cache = false)
+    {
+        //音乐加载
+        AudioClip au = null;
+        if(!adDic.TryGetValue(path, out au))
+        {
+            au = Resources.Load<AudioClip>(path);
+            if(cache)
+            {
+                adDic.Add(path, au);
+            }
+        }
+        return au;
+
+    }
 }
