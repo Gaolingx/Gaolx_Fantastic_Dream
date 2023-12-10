@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class WindowRoot : MonoBehaviour
 {
     public ResSvc resSvc = null;
+    public AudioSvc audioSvc = null;
 
     public void SetWndState(bool isActive = true)
     {
@@ -27,10 +28,12 @@ public class WindowRoot : MonoBehaviour
     protected virtual void InitWnd()
     {
         resSvc = ResSvc.Instance;
+        audioSvc = AudioSvc.Instance;
     }
     protected virtual void ClearWnd()
     {
         resSvc = null;
+        audioSvc = null;
     }
 
     #region Tool Functions

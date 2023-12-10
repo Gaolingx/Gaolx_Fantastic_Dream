@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //功能：登陆注册业务系统
-public class LoginSys : MonoBehaviour
+public class LoginSys : SystemRoot
 {
     public static LoginSys Instance = null;
     public LoginWnd loginWnd;
 
-    public void InitSys()
+    public override void InitSys()
     {
+        base.InitSys();
+
         Instance = this;
         Debug.Log("Init LoginSys...");
     }
@@ -18,14 +20,13 @@ public class LoginSys : MonoBehaviour
     /// </summary>
     public void EnterLogin()
     {
-
         //异步加载登录场景
         //在加载的过程中动态显示加载进度
-        ResSvc.Instance.AsyncLoadScene(Constants.SceneLogin, () => {
+        resSvc.AsyncLoadScene(Constants.SceneLogin, () => {
             //加载完成以后再打开注册登录界面
             loginWnd.SetWndState();
             //播放登录场景音效
-            AudioSvc.Instance.PlayBGMusic(Constants.BGLogin);
+            audioSvc.PlayBGMusic(Constants.BGLogin);
         });
         
     }
