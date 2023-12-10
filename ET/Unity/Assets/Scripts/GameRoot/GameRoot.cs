@@ -5,9 +5,10 @@ using UnityEngine;
 //功能：游戏启动入口，初始化各个业务系统
 public class GameRoot : MonoBehaviour
 {
-    public static GameRoot Instance;
+    public static GameRoot Instance = null;
 
-    public LoadingWnd loadingWnd = null; 
+    public LoadingWnd loadingWnd;
+    public DynamicWnd dynamicWnd;
     private void Start()
     {
         Instance = this;
@@ -16,7 +17,6 @@ public class GameRoot : MonoBehaviour
         Debug.Log("Game Start...");
 
         Init();
-
     }
     //初始化各个系统和服务模块
     private void Init()
@@ -34,5 +34,8 @@ public class GameRoot : MonoBehaviour
 
         //进入登录场景并加载相应UI
         login.EnterLogin();
+
+        dynamicWnd.SetTips("Test1");
+        dynamicWnd.SetTips("Test2");
     }
 }

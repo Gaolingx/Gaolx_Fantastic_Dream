@@ -6,8 +6,8 @@ using UnityEngine.UI;
 //功能：UI界面基类
 public class WindowRoot : MonoBehaviour
 {
-    public ResSvc resSvc = null;
-    public AudioSvc audioSvc = null;
+    protected ResSvc resSvc = null;
+    protected AudioSvc audioSvc = null;
 
     public void SetWndState(bool isActive = true)
     {
