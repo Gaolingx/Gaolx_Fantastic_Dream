@@ -35,35 +35,11 @@ namespace StarterAssets
 
 
 		[SerializeField]
-
-
-        public void Awake()
-        {
-			// TODO: Maybe don't search for this
-			InputAction jumpAction = null;
-            foreach (var item in GetComponent<PlayerInput>().actions)
-            {
-				if (item.name == "Jump")
-                {
-					jumpAction = item;
-                }
-
-			}
-
-
-			if (jumpAction != null)
-			{
-				jumpAction.performed +=
-					context =>
-					{
-						Debug.Log($"Interaction: {context.interaction}");
-
-						FlipJumpInput(context.interaction is HoldInteraction);
-						JumpInput(context.interaction is PressInteraction || context.interaction is TapInteraction);
-					};
-			}
-			
-		}
+		
+		public void OnJump(InputValue value)
+		{
+            JumpInput(value.isPressed);
+        }
 
 		public void OnMove(InputValue value)
 		{

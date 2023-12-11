@@ -16,8 +16,22 @@ public class GameRoot : MonoBehaviour
         DontDestroyOnLoad(this);
         Debug.Log("Game Start...");
 
+        CleanUIRoot();
+
         Init();
     }
+
+    private void CleanUIRoot()
+    {
+        Transform canvas = transform.Find("Canvas");
+        for (int i = 0; i < canvas.childCount; i++)
+        {
+            canvas.GetChild(i).gameObject.SetActive(false);
+        }
+
+        dynamicWnd.SetWndState();
+    }
+
     //初始化各个系统和服务模块
     private void Init()
     {
@@ -28,14 +42,19 @@ public class GameRoot : MonoBehaviour
         AudioSvc audio = GetComponent<AudioSvc>();
         audio.InitSvc();
 
+
         //业务系统初始化
         LoginSys login = GetComponent<LoginSys>();
         login.InitSys();
 
+
         //进入登录场景并加载相应UI
         login.EnterLogin();
 
-        dynamicWnd.SetTips("Test1");
-        dynamicWnd.SetTips("Test2");
+    }
+
+    public static void AddTips(string tips)
+    {
+        Instance.dynamicWnd.AddTips(tips);
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BhvApplication : MonoBehaviour
+public class ComponentDontDestroy : MonoBehaviour
 {
     private void Awake()
     {

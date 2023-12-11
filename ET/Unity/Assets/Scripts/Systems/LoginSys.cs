@@ -27,6 +27,8 @@ public class LoginSys : SystemRoot
             loginWnd.SetWndState();
             //²¥·ÅµÇÂ¼³¡¾°ÒôÐ§
             audioSvc.PlayBGMusic(Constants.BGLogin);
+            GameRoot.AddTips("Load Done");
+            GameRoot.AddTips("Load Done 2");
         });
         
     }
