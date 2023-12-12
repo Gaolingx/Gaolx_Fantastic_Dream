@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +12,8 @@ public class ResSvc : MonoBehaviour
     public void InitSvc()
     {
         Instance = this;
+        InitRDNameCfg();
+
         Debug.Log("Init ResSvc...");
     }
 
@@ -68,4 +71,53 @@ public class ResSvc : MonoBehaviour
         return au;
 
     }
+
+    #region InitCfgs
+    private List<string> surnameLst = new List<string>();
+    private List<string> manLst = new List<string>();
+    private List<string> womanLst = new List<string>();
+    private void InitRDNameCfg()
+    {
+        TextAsset xml = Resources.Load<TextAsset>(PathDefine.RDNameCfg);
+        if (!xml)
+        {
+            Debug.LogError("xml file:" + PathDefine.RDNameCfg + " not exist");
+        }
+        else
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xml.text);
+
+            XmlNodeList nodLst = doc.SelectSingleNode("root").ChildNodes;
+
+            for (int i = 0; i < nodLst.Count; i++)
+            {
+                XmlElement ele = nodLst[i] as XmlElement;
+                //ID作为判断的标准，获取当前属性，当ID不存在，则直接跳过，读取下一个节点列表的数据
+                if (ele.GetAttributeNode("ID") == null)
+                {
+                    continue;
+                }
+                int ID = Convert.ToInt32(ele.GetAttributeNode("ID").InnerText);
+                //拿到节点数据后，遍历节点内的每一个属性，并将它们保存到对应的List中
+                foreach (XmlElement e in nodLst[i].ChildNodes)
+                {
+                    switch (e.Name)
+                    {
+                        case "surname":
+                            surnameLst.Add(e.InnerText);
+                            break;
+                        case "man":
+                            manLst.Add(e.InnerText);
+                            break;
+                        case "woman":
+                            womanLst.Add(e.InnerText);
+                            break;
+                    }
+                }
+            }
+        }
+
+    }
+    #endregion
 }
