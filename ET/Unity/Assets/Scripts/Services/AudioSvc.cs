@@ -6,6 +6,8 @@ using UnityEngine;
 public class AudioSvc : MonoBehaviour
 {
     public static AudioSvc Instance = null;
+
+    public bool _isTurnOnAudio = true;
     public AudioSource bgAudio;
     public AudioSource uiAudio;
 
@@ -20,6 +22,7 @@ public class AudioSvc : MonoBehaviour
 
     public void PlayBGMusic(string name, bool isLoop = true)
     {
+        if (!_isTurnOnAudio) { return; }
         AudioClip audio = ResSvc.Instance.LoadAudio(bgAudioPath + name, true);
         if(bgAudio.clip == null || bgAudio.clip.name != audio.name)
         {
@@ -31,6 +34,7 @@ public class AudioSvc : MonoBehaviour
 
     public void PlayUIAudio(string name)
     {
+        if (!_isTurnOnAudio) { return; }
         AudioClip audio = ResSvc.Instance.LoadAudio(bgAudioPath + name, true);
             uiAudio.clip = audio;
             uiAudio.Play();
