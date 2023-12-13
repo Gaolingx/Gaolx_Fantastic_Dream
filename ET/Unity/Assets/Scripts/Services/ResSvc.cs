@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -118,6 +119,22 @@ public class ResSvc : MonoBehaviour
             }
         }
 
+    }
+
+    public string GetRDNameData(bool man = true)
+    {
+        System.Random rd = new System.Random();
+        string rdName = surnameLst[PETools.RDInt(0, surnameLst.Count - 1)];
+        if (man)
+        {
+            rdName += manLst[PETools.RDInt(0, manLst.Count - 1)];
+        }
+        else
+        {
+            rdName += womanLst[PETools.RDInt(0, womanLst.Count - 1)];
+        }
+
+        return rdName;
     }
     #endregion
 }

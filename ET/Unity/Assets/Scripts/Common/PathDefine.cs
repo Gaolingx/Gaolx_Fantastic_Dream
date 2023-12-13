@@ -7,7 +7,7 @@ public class PathDefine
 {
 
     #region Configs
-    public const string RDNameCfg = "Config/xml/rdname";
+    public const string RDNameCfg = "ResCfgs/xml/rdname";
 
     #endregion
 }
