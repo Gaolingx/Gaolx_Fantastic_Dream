@@ -14,7 +14,7 @@ public class LoginSys : SystemRoot
         base.InitSys();
 
         Instance = this;
-        Debug.Log("Init LoginSys...");
+        PECommon.Log("Init LoginSys...");
     }
     /// <summary>
     /// ½øÈëµÇÂ¼³¡¾°

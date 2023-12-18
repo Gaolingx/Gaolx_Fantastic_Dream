@@ -2000,6 +2000,7 @@ GameObject:
   - component: {fileID: 2094128806}
   - component: {fileID: 2094128809}
   - component: {fileID: 2094128808}
+  - component: {fileID: 2094128810}
   m_Layer: 5
   m_Name: HotFixRoot
   m_TagString: Untagged
@@ -2084,6 +2085,18 @@ MonoBehaviour:
   bgAudio: {fileID: 811291286}
   uiAudio: {fileID: 1908692707}
   bgAudioPath: ResAudio/
+--- !u!114 &2094128810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2094128804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f61cd9ed6cfff824a874edaf921c703f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2096578132 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114078542126512372, guid: ea5ece3393161004888ee9d445cf26fd,
