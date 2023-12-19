@@ -8,6 +8,7 @@ public class WindowRoot : MonoBehaviour
 {
     protected ResSvc resSvc = null;
     protected AudioSvc audioSvc = null;
+    protected NetSvc netSvc = null;
 
     public void SetWndState(bool isActive = true)
     {
@@ -27,13 +28,17 @@ public class WindowRoot : MonoBehaviour
     }
     protected virtual void InitWnd()
     {
+        //获取单例的引用
         resSvc = ResSvc.Instance;
         audioSvc = AudioSvc.Instance;
+        netSvc = NetSvc.Instance;
     }
     protected virtual void ClearWnd()
     {
+        //重置为空
         resSvc = null;
         audioSvc = null;
+        netSvc = null;
     }
 
     #region Tool Functions
