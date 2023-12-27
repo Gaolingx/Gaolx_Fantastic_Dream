@@ -77,10 +77,12 @@ public class NetSvc : MonoBehaviour
         }
     }
 
+    //消息分发
     private void ProcessMsg(GameMsg msg)
     {
         if (msg.err != (int)ErrorCode.None)
         {
+            //遇到错误弹出提示，返回，停止处理后面的业务逻辑
             switch ((ErrorCode)msg.err)
             {
                 case ErrorCode.AcctIsOnline:

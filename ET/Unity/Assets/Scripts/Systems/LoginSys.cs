@@ -1,3 +1,4 @@
+using PEProtocol;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,12 +34,20 @@ public class LoginSys : SystemRoot
         
     }
 
-    public void RspLogin()
+    public void RspLogin(GameMsg msg)
     {
         GameRoot.AddTips("登录成功");
+        GameRoot.Instance.SetPlayerData(msg.rspLogin);
 
-        //打开角色创建界面
-        createWnd.SetWndState();
+        if (msg.rspLogin.playerData.name == "")
+        {
+            //打开角色创建界面
+            createWnd.SetWndState();
+        }
+        else
+        {
+            //进入主城TODO
+        }
         //关闭登录界面
         loginWnd.SetWndState(false);
     }
