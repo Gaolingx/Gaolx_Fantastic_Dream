@@ -1,8 +1,9 @@
+//功能：音频播放服务
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//功能：音频播放服务
+
 public class AudioSvc : MonoBehaviour
 {
     public static AudioSvc Instance = null;

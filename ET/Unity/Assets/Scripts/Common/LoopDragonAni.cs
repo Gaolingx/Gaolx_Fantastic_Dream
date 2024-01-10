@@ -1,8 +1,9 @@
+//功能：飞龙循环动画
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//功能：飞龙循环动画
+
 public class LoopDragonAni : MonoBehaviour
 {
     private Animation ani;

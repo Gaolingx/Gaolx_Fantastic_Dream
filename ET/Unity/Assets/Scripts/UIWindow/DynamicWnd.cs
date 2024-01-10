@@ -1,10 +1,11 @@
+//功能：动态UI元素界面
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-//功能：动态UI元素界面
+
 public class DynamicWnd : WindowRoot
 {
     public Animation tipsAni;

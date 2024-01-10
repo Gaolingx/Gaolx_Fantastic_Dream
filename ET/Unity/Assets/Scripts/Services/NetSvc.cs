@@ -1,10 +1,11 @@
+//功能：网络服务
 using System.Collections.Generic;
 using PENet;
 using PEProtocol;
 using UnityEngine;
 using static Codice.Client.BaseCommands.KnownCommandOptions;
 
-//功能：网络服务
+
 public class NetSvc : MonoBehaviour
 {
     public static NetSvc Instance = null;
@@ -85,6 +86,10 @@ public class NetSvc : MonoBehaviour
             //遇到错误弹出提示，返回，停止处理后面的业务逻辑
             switch ((ErrorCode)msg.err)
             {
+                case ErrorCode.UpdateDBError:
+                    PECommon.Log("数据库更新异常", PELogType.Error);
+                    GameRoot.AddTips("网络不稳定");
+                    break;
                 case ErrorCode.AcctIsOnline:
                     GameRoot.AddTips("当前账号已经上线");
                     break;
@@ -98,6 +103,9 @@ public class NetSvc : MonoBehaviour
         {
             case CMD.RspLogin:
                 LoginSys.Instance.RspLogin(msg);
+                break;
+            case CMD.RspRename:
+                LoginSys.Instance.RspRename(msg);
                 break;
         }
     }

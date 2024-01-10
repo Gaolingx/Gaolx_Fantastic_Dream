@@ -1,9 +1,11 @@
+//功能：角色创建界面
+using PEProtocol;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-//功能：角色创建界面
+
 public class CreateWnd : WindowRoot
 {
     public InputField iptName;
@@ -31,8 +33,16 @@ public class CreateWnd : WindowRoot
 
         if (iptName.text != "")
         {
-            //TODO
             //发送名字数据到服务器，登录主城
+            GameMsg msg = new GameMsg
+            {
+                cmd = (int)CMD.ReqRename,
+                reqRename = new ReqRename
+                {
+                    name = iptName.text
+                }
+            };
+            netSvc.SendMsg(msg);
         }
         else
         {

@@ -1,8 +1,9 @@
+//功能：业务系统基类
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//功能：业务系统基类
+
 public class SystemRoot : MonoBehaviour
 {
     protected ResSvc resSvc;

@@ -1,9 +1,10 @@
+//加载进度界面
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-//加载进度界面
+
 public class LoadingWnd : WindowRoot
 {
     public Text txtTips;

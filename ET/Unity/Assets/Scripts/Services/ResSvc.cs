@@ -1,3 +1,4 @@
+//功能：资源加载服务
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-//功能：资源加载服务
+
 public class ResSvc : MonoBehaviour
 {
     public static ResSvc Instance = null;

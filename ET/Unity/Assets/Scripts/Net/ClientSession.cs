@@ -1,8 +1,9 @@
-﻿using PENet;
+﻿//功能：客户端网络会话
+using PENet;
 using PEProtocol;
 using static Codice.Client.BaseCommands.KnownCommandOptions;
 
-//功能：客户端网络会话
+
 public class ClientSession : PESession<GameMsg>
 {
     protected override void OnConnected()

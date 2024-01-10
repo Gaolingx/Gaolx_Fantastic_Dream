@@ -1,9 +1,10 @@
+//功能：UI界面基类
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-//功能：UI界面基类
+
 public class WindowRoot : MonoBehaviour
 {
     protected ResSvc resSvc = null;

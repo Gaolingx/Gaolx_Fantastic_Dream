@@ -1,10 +1,11 @@
+//功能：游戏启动入口，初始化各个业务系统
 using PEProtocol;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Compilation;
 using UnityEngine;
 
-//功能：游戏启动入口，初始化各个业务系统
+
 public class GameRoot : MonoBehaviour
 {
     public static GameRoot Instance = null;
@@ -68,5 +69,10 @@ public class GameRoot : MonoBehaviour
     public void SetPlayerData(RspLogin data)
     {
         _playerData = data.playerData;
+    }
+
+    public void SetPlayerName(string name)
+    {
+        PlayerData.name = name;
     }
 }
