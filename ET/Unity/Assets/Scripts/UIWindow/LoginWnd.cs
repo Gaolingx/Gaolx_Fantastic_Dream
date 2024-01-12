@@ -76,6 +76,7 @@ public class LoginWnd : WindowRoot
                     pass = _pass
                 }
             };
+            //调用网络服务，发送包含账号密码的网络消息
             netSvc.SendMsg(msg);
         }
         else
