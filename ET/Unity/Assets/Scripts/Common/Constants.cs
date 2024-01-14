@@ -8,9 +8,11 @@ public class Constants
 {
     //场景名称
     public const string SceneLogin = "SceneLogin";
+    public const string SceneMainCity = "SceneMainCity";
 
     //背景音效名称
     public const string BGLogin = "bgLogin";
+    public const string BGMainCity = "bgMainCity";
 
     //登录按钮音效
     public const string UILoginBtn = "uiLoginBtn";
