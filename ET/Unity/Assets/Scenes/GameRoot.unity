@@ -963,6 +963,7 @@ MonoBehaviour:
   txtLevel: {fileID: 1262296367}
   txtName: {fileID: 1561993140}
   txtExpPrg: {fileID: 2013719731}
+  expPrgTrans: {fileID: 1906030065}
 --- !u!1 &734957263
 GameObject:
   m_ObjectHideFlags: 0
@@ -2347,6 +2348,12 @@ MonoBehaviour:
   btnEnter: {fileID: 1947023194}
   btnNotice: {fileID: 2089950799}
   btnRemember: {fileID: 408929303}
+--- !u!224 &1906030065 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 224362296523627554, guid: 722f1cefd238d0a45965fc766b5b4f94,
+    type: 3}
+  m_PrefabInstance: {fileID: 639626382}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1908692705
 GameObject:
   m_ObjectHideFlags: 0
