@@ -21,7 +21,7 @@ public class Constants
     public const string UIClickBtn = "uiClickBtn";
 
     //ÆÁÄ»±ê×¼¿í¸ß
-    public const int ScreenStandardWidth = 1334;
-    public const int ScreenStandardHeight = 750;
+    public const int ScreenStandardWidth = 1920;
+    public const int ScreenStandardHeight = 1080;
 
 }
