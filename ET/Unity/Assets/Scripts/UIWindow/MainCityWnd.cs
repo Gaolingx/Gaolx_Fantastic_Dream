@@ -33,7 +33,11 @@ public class MainCityWnd : WindowRoot
         SetText(txtLevel, pd.lv);
         SetText(txtName, pd.name);
 
-        //expPrg
+        int expPrgVal = (int)(pd.exp*1.0f / PECommon.GetExpUpValByLv(pd.lv)*100);
+        //经验条进度的显示
+        SetText(txtExpPrg, expPrgVal + "%");
+
+        int expPrgindex = expPrgVal / 10;
 
         GridLayoutGroup expGrid = expPrgTrans.GetComponent<GridLayoutGroup>();
 
@@ -46,5 +50,25 @@ public class MainCityWnd : WindowRoot
 
         expGrid.cellSize = new Vector2(expCellWidth, 7);
 
+        //遍历所有expItem
+        for(int i = 0;i<expPrgTrans.childCount;i++)
+        {
+            Image img = expPrgTrans.GetChild(i).GetComponent<Image>();
+            if(i<expPrgindex)
+            {
+                img.fillAmount = 1;
+            }
+            else if(i==expPrgindex)
+            {
+                img.fillAmount = expPrgVal % 10 * 1.0f / 10;
+            }
+            else
+            {
+                img.fillAmount = 0;
+            }
+        }
+
     }
+
+
 }
