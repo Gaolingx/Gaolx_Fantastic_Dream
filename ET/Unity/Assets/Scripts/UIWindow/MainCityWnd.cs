@@ -7,6 +7,12 @@ using UnityEngine.UI;
 
 public class MainCityWnd : WindowRoot
 {
+    #region UIDefine
+    public Animation menuAni;
+    public Button btnMenu;
+
+    public string openMCmenuAniClipName = "OpenMCMenu";
+    public string closeMCmenuAniClipName = "CloseMCMenu";
     public Text txtFight;
     public Text txtPower;
     public Image imgPowerPrg;
@@ -15,7 +21,11 @@ public class MainCityWnd : WindowRoot
     public Text txtExpPrg;
 
     public Transform expPrgTrans;
+    #endregion
 
+    private bool menuState = true;
+
+    #region MainFunctions
     protected override void InitWnd()
     {
         base.InitWnd();
@@ -33,7 +43,7 @@ public class MainCityWnd : WindowRoot
         SetText(txtLevel, pd.lv);
         SetText(txtName, pd.name);
 
-        int expPrgVal = (int)(pd.exp*1.0f / PECommon.GetExpUpValByLv(pd.lv)*100);
+        int expPrgVal = (int)(pd.exp * 1.0f / PECommon.GetExpUpValByLv(pd.lv) * 100);
         //经验条进度的显示
         SetText(txtExpPrg, expPrgVal + "%");
 
@@ -51,14 +61,14 @@ public class MainCityWnd : WindowRoot
         expGrid.cellSize = new Vector2(expCellWidth, 7);
 
         //遍历所有expItem
-        for(int i = 0;i<expPrgTrans.childCount;i++)
+        for (int i = 0; i < expPrgTrans.childCount; i++)
         {
             Image img = expPrgTrans.GetChild(i).GetComponent<Image>();
-            if(i<expPrgindex)
+            if (i < expPrgindex)
             {
                 img.fillAmount = 1;
             }
-            else if(i==expPrgindex)
+            else if (i == expPrgindex)
             {
                 img.fillAmount = expPrgVal % 10 * 1.0f / 10;
             }
@@ -69,6 +79,25 @@ public class MainCityWnd : WindowRoot
         }
 
     }
+    #endregion
 
+    #region ClickEvts
+    public void ClickMenuBtn()
+    {
+        audioSvc.PlayUIAudio(Constants.UIExtenBtn);
 
+        menuState = !menuState;
+        AnimationClip clip = null;
+        if (menuState)
+        {
+            clip = menuAni.GetClip(openMCmenuAniClipName);
+        }
+        else
+        {
+            clip = menuAni.GetClip(closeMCmenuAniClipName);
+        }
+        menuAni.Play(clip.name);
+    }
+
+    #endregion
 }
