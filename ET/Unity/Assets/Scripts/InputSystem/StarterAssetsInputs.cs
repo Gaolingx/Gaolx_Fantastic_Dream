@@ -4,7 +4,6 @@ using UnityEngine;
 
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
-using static UnityEngine.Rendering.DebugUI;
 
 
 namespace StarterAssets
