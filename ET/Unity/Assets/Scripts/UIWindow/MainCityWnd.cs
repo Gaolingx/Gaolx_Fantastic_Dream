@@ -8,6 +8,9 @@ using UnityEngine.UI;
 public class MainCityWnd : WindowRoot
 {
     #region UIDefine
+    public Image imgTouch;
+    public Image imgDirBg;
+    public Image imgDirPoint;
     public Animation menuAni;
     public Button btnMenu;
 
@@ -30,6 +33,9 @@ public class MainCityWnd : WindowRoot
     {
         base.InitWnd();
 
+        SetActive(imgDirPoint, false);
+
+        RegisterTouchEvts();
         RefreshUI();
     }
 
@@ -99,5 +105,10 @@ public class MainCityWnd : WindowRoot
         menuAni.Play(clip.name);
     }
 
+    //×¢²á´¥ÃþÊÂ¼þ
+    public void RegisterTouchEvts()
+    {
+
+    }
     #endregion
 }
