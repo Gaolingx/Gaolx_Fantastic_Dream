@@ -1,35 +1,29 @@
-//¹¦ÄÜ£º·ÉÁúÑ­»·¶¯»­
-using System.Collections;
-using System.Collections.Generic;
+/****************************************************
+    æ–‡ä»¶ï¼šLoopDragonAni.cs
+	ä½œè€…ï¼šPlane
+    é‚®ç®±: 1785275942@qq.com
+    æ—¥æœŸï¼š2018/12/4 5:51:47
+	åŠŸèƒ½ï¼šé£žé¾™å¾ªçŽ¯åŠ¨ç”»
+*****************************************************/
+
 using UnityEngine;
 
-
-public class LoopDragonAni : MonoBehaviour
-{
+public class LoopDragonAni : MonoBehaviour {
     private Animation ani;
-    public float DragonAniRepeatTime = 0;
-    public float DragonAniRepeatRate = 20;
 
-
-    private void Awake()
-    {
-        ani=transform.GetComponent<Animation>();
+    private void Awake() {
+        ani = transform.GetComponent<Animation>();
     }
 
-    private void Start()
-    {
-        if(ani != null)
-        {
-            InvokeRepeating("PlayDragonAni", DragonAniRepeatTime, DragonAniRepeatRate);
+    private void Start() {
+        if (ani != null) {
+            InvokeRepeating("PlayDragonAni", 0, 20);
         }
     }
 
-    private void PlayDragonAni()
-    {
-        if(ani != null)
-        {
+    private void PlayDragonAni() {
+        if (ani != null) {
             ani.Play();
         }
-        
     }
 }

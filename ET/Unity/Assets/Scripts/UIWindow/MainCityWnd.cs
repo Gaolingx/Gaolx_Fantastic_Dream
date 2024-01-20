@@ -3,6 +3,7 @@ using PEProtocol;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class MainCityWnd : WindowRoot
@@ -108,7 +109,10 @@ public class MainCityWnd : WindowRoot
     //×¢²á´¥ÃþÊÂ¼þ
     public void RegisterTouchEvts()
     {
-
+        OnClickDown(imgTouch.gameObject, (PointerEventData evt) =>
+        {
+            imgDirBg.transform.position = evt.position;
+        });
     }
     #endregion
 }

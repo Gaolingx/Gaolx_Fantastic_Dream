@@ -2761,6 +2761,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a364b094d6fcc764bbafdbd36ff177b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  imgTouch: {fileID: 114706398647665544}
+  imgDirBg: {fileID: 114892664293258898}
+  imgDirPoint: {fileID: 114075990944340214}
   menuAni: {fileID: 111253612623194198}
   btnMenu: {fileID: 114691319214370830}
   openMCmenuAniClipName: OpenMCMenu
