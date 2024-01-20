@@ -33,9 +33,18 @@ namespace StarterAssets
 		public bool cursorInputForLook = true;
 
 
-		[SerializeField]
-		
-		public void OnJump(InputValue value)
+        [SerializeField]
+
+        private void Start()
+        {
+            ResetlockCursorState();
+        }
+        private void Update()
+        {
+			MouseLockListener();
+			SetLockCursor();
+        }
+        public void OnJump(InputValue value)
 		{
             JumpInput(value.isPressed);
         }
@@ -154,15 +163,48 @@ namespace StarterAssets
 			sprint = newSprintState;
 		}
 
-		private void OnApplicationFocus(bool hasFocus)
+		private void MouseLockListener()
 		{
-			SetCursorState(cursorLocked);
+            if (Input.GetKeyDown(KeyCode.LeftAlt))
+            {
+                cursorLocked = false;
+            }
+
+            if (Input.GetKeyUp(KeyCode.LeftAlt))
+            {
+                cursorLocked = true;
+            }
+        }
+
+        private void SetLockCursor()
+		{
+			if(cursorLocked == true)
+			{
+				LockCursor();
+            }
+			else
+			{
+				UnlockCursor();
+            }
 		}
 
-		private void SetCursorState(bool newState)
+		private void ResetlockCursorState()
 		{
-			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
 		}
-	}
+
+        private void LockCursor()
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
+        private void UnlockCursor()
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+    }
 	
 }
