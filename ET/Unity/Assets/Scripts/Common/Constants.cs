@@ -26,4 +26,7 @@ public class Constants
     public const int ScreenStandardWidth = 1920;
     public const int ScreenStandardHeight = 1080;
 
+    //Ò¡¸Ëµã±ê×¼¾àÀë
+    public const int ScreenOPDis = 90;
+
 }

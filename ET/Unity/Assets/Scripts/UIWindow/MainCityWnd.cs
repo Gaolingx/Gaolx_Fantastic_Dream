@@ -28,12 +28,16 @@ public class MainCityWnd : WindowRoot
     #endregion
 
     private bool menuState = true;
+    private float pointDis;
+    private Vector2 startPos = Vector2.zero;
+    private Vector2 defaultPos = Vector2.zero;
 
     #region MainFunctions
     protected override void InitWnd()
     {
         base.InitWnd();
-
+        pointDis = Screen.height * 1.0f / Constants.ScreenStandardHeight * Constants.ScreenOPDis;
+        defaultPos = imgDirBg.transform.position;
         SetActive(imgDirPoint, false);
 
         RegisterTouchEvts();
@@ -109,9 +113,44 @@ public class MainCityWnd : WindowRoot
     //注册触摸事件
     public void RegisterTouchEvts()
     {
+        //摇杆按下
         OnClickDown(imgTouch.gameObject, (PointerEventData evt) =>
         {
-            imgDirBg.transform.position = evt.position;
+            //计算摇杆按下去后，拖拽的方向
+            //方法是记录按下去时点击的位置(起始位置startPos)，拖拽时用拖拽后摇杆新的点减去当前按下去的点，算出方向向量
+            startPos = evt.position;
+            //按下去时激活被隐藏的摇杆点
+            SetActive(imgDirPoint);
+            //当摇杆按下时，其位置要更新到点击位置
+            imgDirBg.transform.position = evt.position; //使用position的原因是点击事件传入的是全局坐标
+        });
+        //摇杆抬起
+        OnClickUp(imgTouch.gameObject, (PointerEventData evt) =>
+        {
+            //当抬起时复原背景到初始位置（defaultPos）
+            imgDirBg.transform.position = defaultPos;
+            SetActive(imgDirPoint, false);
+            //复原摇杆点的位置至正中央
+            imgDirPoint.transform.localPosition = Vector2.zero; //使用localPosition的原因是imgDirPoint的坐标是相对于父物体坐标（本地坐标）
+
+        });
+        //摇杆拖动
+        OnDrag(imgTouch.gameObject, (PointerEventData evt) =>
+        {
+            //计算拖拽的方向向量
+            Vector2 dragDir = evt.position - startPos;
+            float dragLen = dragDir.magnitude;
+
+            //限制摇杆移动距离
+            if(dragLen > pointDis)
+            {
+                Vector2 clampDragDir = Vector2.ClampMagnitude(dragDir, pointDis);
+                imgDirPoint.transform.position = startPos + clampDragDir;
+            }
+            else
+            {
+                imgDirPoint.transform.position = evt.position; 
+            }
         });
     }
     #endregion

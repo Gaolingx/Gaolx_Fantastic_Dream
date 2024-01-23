@@ -78,15 +78,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "FlipJump",
-                    "type": "Button",
-                    "id": "49534ac7-2706-409f-9e8e-c86eebcd9e49",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "MultiTap",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "LockOn",
                     "type": "Button",
                     "id": "959a53d0-59f4-4dfa-8e87-e99ee0ae50eb",
@@ -389,28 +380,6 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Roll",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b2b49b57-9468-4ea6-8253-8466166a3efe",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "FlipJump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8e79595e-23d2-4629-ad09-6692fc137a61",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "FlipJump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
