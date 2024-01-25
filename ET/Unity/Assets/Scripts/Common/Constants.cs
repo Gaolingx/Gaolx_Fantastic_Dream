@@ -29,4 +29,17 @@ public class Constants
     //摇杆点标准距离
     public const int ScreenOPDis = 90;
 
+
+    //混合参数
+    public const int BlendIdle = 0;
+    public const int BlendWalk = 1;
+
+    //角色移动速度
+    public const int PlayerMoveSpeed = 8;
+    //怪物移动速度
+    public const int MonsterMoveSpeed = 4;
+
+    //运动平滑加速度
+    public const float AccelerSpeed = 5;
+
 }
