@@ -14,7 +14,8 @@ public class ResSvc : MonoBehaviour
     public void InitSvc()
     {
         Instance = this;
-        InitRDNameCfg();
+        InitRDNameCfg(PathDefine.RDNameCfg);
+        InitMapCfg(PathDefine.MapCfg);
 
         PECommon.Log("Init ResSvc...");
     }
@@ -75,15 +76,16 @@ public class ResSvc : MonoBehaviour
     }
 
     #region InitCfgs
+    #region Ëæ»úÃû×Ö
     private List<string> surnameLst = new List<string>();
     private List<string> manLst = new List<string>();
     private List<string> womanLst = new List<string>();
-    private void InitRDNameCfg()
+    private void InitRDNameCfg(string path)
     {
-        TextAsset xml = Resources.Load<TextAsset>(PathDefine.RDNameCfg);
+        TextAsset xml = Resources.Load<TextAsset>(path);
         if (!xml)
         {
-            PECommon.Log("xml file:" + PathDefine.RDNameCfg + " not exist", PELogType.Error);
+            PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
         }
         else
         {
@@ -137,5 +139,88 @@ public class ResSvc : MonoBehaviour
 
         return rdName;
     }
+    #endregion
+
+    #region µØÍ¼
+    private Dictionary<int, MapCfg> mapCfgDataDic = new Dictionary<int, MapCfg>();
+    private void InitMapCfg(string path)
+    {
+        TextAsset xml = Resources.Load<TextAsset>(path);
+        if (!xml)
+        {
+            PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
+        }
+        else
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xml.text);
+
+            XmlNodeList nodLst = doc.SelectSingleNode("root").ChildNodes;
+
+            for (int i = 0; i < nodLst.Count; i++)
+            {
+                XmlElement ele = nodLst[i] as XmlElement;
+
+                if (ele.GetAttributeNode("ID") == null)
+                {
+                    continue;
+                }
+                int ID = Convert.ToInt32(ele.GetAttributeNode("ID").InnerText);
+                MapCfg mapCfg = new MapCfg
+                {
+                    ID = ID
+                };
+
+                foreach (XmlElement e in nodLst[i].ChildNodes)
+                {
+                    switch (e.Name)
+                    {
+                        case "mapName":
+                            mapCfg.mapName = e.InnerText;
+                            break;
+                        case "sceneName":
+                            mapCfg.sceneName = e.InnerText;
+                            break;
+                        case "mainCamPos":
+                            {
+                                string[] valArr = e.InnerText.Split(',');
+                                mapCfg.mainCamPos = new Vector3(float.Parse(valArr[0]), float.Parse(valArr[1]), float.Parse(valArr[2]));
+                            }
+                            break;
+                        case "mainCamRote":
+                            {
+                                string[] valArr = e.InnerText.Split(',');
+                                mapCfg.mainCamRote = new Vector3(float.Parse(valArr[0]), float.Parse(valArr[1]), float.Parse(valArr[2]));
+                            }
+                            break;
+                        case "playerBornPos":
+                            {
+                                string[] valArr = e.InnerText.Split(',');
+                                mapCfg.playerBornPos = new Vector3(float.Parse(valArr[0]), float.Parse(valArr[1]), float.Parse(valArr[2]));
+                            }
+                            break;
+                        case "playerBornRote":
+                            {
+                                string[] valArr = e.InnerText.Split(',');
+                                mapCfg.playerBornRote = new Vector3(float.Parse(valArr[0]), float.Parse(valArr[1]), float.Parse(valArr[2]));
+                            }
+                            break;
+                    }
+                }
+                mapCfgDataDic.Add(ID, mapCfg);
+            }
+        }
+    }
+    public MapCfg GetMapCfgData(int id)
+    {
+        MapCfg mapData;
+        if (mapCfgDataDic.TryGetValue(id, out mapData))
+        {
+            return mapData;
+        }
+        return null;
+    }
+
+    #endregion
     #endregion
 }
