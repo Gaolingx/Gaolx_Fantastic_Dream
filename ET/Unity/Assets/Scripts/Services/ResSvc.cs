@@ -213,10 +213,10 @@ public class ResSvc : MonoBehaviour
     }
     public MapCfg GetMapCfgData(int id)
     {
-        MapCfg mapData;
-        if (mapCfgDataDic.TryGetValue(id, out mapData))
+        MapCfg mapCfgData;
+        if (mapCfgDataDic.TryGetValue(id, out mapCfgData))
         {
-            return mapData;
+            return mapCfgData;
         }
         return null;
     }
