@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour {
         */
         #endregion
 
+        //只有当运动状态发生变化时（targetBlend值变化）才调用UpdateMixBlend()平滑动画过渡
         if (currentBlend != targetBlend) {
             UpdateMixBlend();
         }
@@ -90,17 +91,20 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    //设定目标的blend值（targetBlend）
     public void SetBlend(float blend) {
         targetBlend = blend;
     }
 
     //混合blendtree，使动画平滑过渡
     private void UpdateMixBlend() {
+        //判断当前currentBlend值与targetBlend值差异
         if (Mathf.Abs(currentBlend - targetBlend) < Constants.AccelerSpeed * Time.deltaTime) {
             currentBlend = targetBlend;
         }
+        //如果当前blend值大于目标blend值，说明从运动转向idle状态，让currentBlend逐渐向targetBlend减少
         else if (currentBlend > targetBlend) {
-            currentBlend -= Constants.AccelerSpeed * Time.deltaTime;
+            currentBlend -= Constants.AccelerSpeed * Time.deltaTime; //随着时间（每一帧），让当前的blend值（currentBlend）逐渐向目标的blend值（targetBlend）平滑过渡，直至相等
         }
         else {
             currentBlend += Constants.AccelerSpeed * Time.deltaTime;
