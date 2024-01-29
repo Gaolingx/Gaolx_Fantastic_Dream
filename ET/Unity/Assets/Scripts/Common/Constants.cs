@@ -6,9 +6,10 @@ using UnityEngine;
 
 public class Constants
 {
-    //场景名称
+    //场景名称/ID
     public const string SceneLogin = "SceneLogin";
-    public const string SceneMainCity = "SceneMainCity";
+    public const int MainCityMapID = 10000;
+    //public const string SceneMainCity = "SceneMainCity";
 
     //背景音效名称
     public const string BGLogin = "bgLogin";

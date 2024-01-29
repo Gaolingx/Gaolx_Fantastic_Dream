@@ -26,15 +26,17 @@ public class ResSvc : MonoBehaviour
     public void AsyncLoadScene(string sceneName, Action loaded)
     {
         GameRoot.Instance.loadingWnd.SetWndState();
-        
+
 
         AsyncOperation sceneAsync = SceneManager.LoadSceneAsync(sceneName);
-        prgCB = () => { float val = sceneAsync.progress;  //当前异步操作加载的进度
+        prgCB = () =>
+        {
+            float val = sceneAsync.progress;  //当前异步操作加载的进度
             GameRoot.Instance.loadingWnd.SetProgress(val);
 
-            if(val ==1)
+            if (val == 1)
             {
-                if(loaded != null)
+                if (loaded != null)
                 {
                     loaded();
                 }
@@ -50,7 +52,7 @@ public class ResSvc : MonoBehaviour
     {
         //需要在Update方法中不停地访问val，然后将进度更新
         //将Action作为更新的回调，在Update中不停地调用Action，达到实时更新进度条的目的
-        if(prgCB != null)
+        if (prgCB != null)
         {
             //如果判断不为空则调用该方法
             prgCB();
@@ -63,16 +65,40 @@ public class ResSvc : MonoBehaviour
     {
         //音乐加载
         AudioClip au = null;
-        if(!adDic.TryGetValue(path, out au))
+        if (!adDic.TryGetValue(path, out au))
         {
             au = Resources.Load<AudioClip>(path);
-            if(cache)
+            if (cache)
             {
                 adDic.Add(path, au);
             }
         }
         return au;
 
+    }
+
+    private Dictionary<string, GameObject> goDic = new Dictionary<string, GameObject>();
+    //获取Prefab的类
+    public GameObject LoadPrefab(string path, bool iscache = false)
+    {
+        GameObject prefab = null;
+        if (!goDic.TryGetValue(path, out prefab))
+        {
+            //没有缓存则从Resources加载
+            prefab = Resources.Load<GameObject>(path);
+            if (iscache)
+            {
+                goDic.Add(path, prefab);
+            }
+        }
+
+        //prefab加载完成后的实例化
+        GameObject go = null;
+        if (prefab != null)
+        {
+            go = Instantiate(prefab);
+        }
+        return go;
     }
 
     #region InitCfgs
