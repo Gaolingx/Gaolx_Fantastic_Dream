@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class MainCitySys : SystemRoot
 {
@@ -43,19 +44,33 @@ public class MainCitySys : SystemRoot
 
     private void LoadPlayer(MapCfg mapData)
     {
+        //玩家初始化
         //获取Prefab实例化的对象
         GameObject player = resSvc.LoadPrefab(PathDefine.AssissnCityPlayerPrefab, true);
         //初始化玩家位置
         player.transform.position = mapData.playerBornPos;
         player.transform.localEulerAngles = mapData.playerBornRote;
-        player.transform.localScale = new Vector3(1.5f,1.5f,1.5f);
+        player.transform.localScale = new Vector3(1.0f,1.0f,1.0f);
 
         //相机初始化
-        //获取场景中PlayerCameraRoot对象的引用
-        PlayerCameraRoot = GameObject.Find("PlayerCameraRoot");
-        PlayerCameraRoot.transform.position = mapData.mainCamPos;
-        PlayerCameraRoot.transform.localEulerAngles = mapData.mainCamRote;
+        //首先要加载虚拟相机的预制件
+        GameObject CM_player = resSvc.LoadPrefab(PathDefine.AssissnCityCharacterCameraPrefab, true);
+        //设置实例化对象时候的位置、旋转
+        Vector3 CM_player_Pos = mapData.mainCamPos;
+        Quaternion CM_player_Rote = Quaternion.Euler(mapData.mainCamRote);
+        //实例化对象
+        GameObject CM_player_instance = Instantiate(CM_player,CM_player_Pos,CM_player_Rote);
 
+        // 获取虚拟相机预制件上的CinemachineVirtualCamera组件  
+        CinemachineVirtualCamera cinemachineVirtualCamera = CM_player_instance.GetComponent<CinemachineVirtualCamera>();  
+        //至此，我们应该获取到了预制件上面的cinemachineVirtualCamera（但愿能获取到）组件
         
+        //至此，我们终于可以对预制件上面获取到的cinemachineVirtualCamera组件进行操作了...>_<
+
+        // 设置CinemachineVirtualCamera的跟随目标为标签为"PlayerCamRoot"的游戏对象的transform
+        cinemachineVirtualCamera.Follow = GameObject.FindGameObjectWithTag("PlayerCamRoot").transform;
+
+
+
     }
 }

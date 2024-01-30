@@ -15,5 +15,11 @@ public class PathDefine
 
     #region Player
     public const string AssissnCityPlayerPrefab = "ResPrefabs/GameMain/AvatarPrefabs/PlayerPrefabs/Player_Avatar_March_7th Variant";
+
+    #endregion
+
+    #region Camera
+    public const string AssissnCityCharacterCameraPrefab = "ResPrefabs/GameMain/Cameras/SceneMainCity/PlayerFollowCamera";
+
     #endregion
 }

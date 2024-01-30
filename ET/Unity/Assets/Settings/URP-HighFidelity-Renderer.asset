@@ -34,7 +34,7 @@ MonoBehaviour:
       RenderQueueType: 0
       LayerMask:
         serializedVersion: 2
-        m_Bits: 576
+        m_Bits: 8768
       PassNames:
       - HSRForward2
       - HSRForward3

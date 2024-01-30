@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - CinemachineTarget
+  - PlayerCamRoot
   layers:
   - Default
   - TransparentFX
@@ -14,14 +15,14 @@ TagManager:
   - UI
   - 
   - 
-  - Map
-  - Character
+  - 
+  - 
   - Effect
-  - 
-  - 
-  - 
-  - 
-  - 
+  - PlayerCamRoot
+  - PlayerVC
+  - Character
+  - Map
+  - Npc
   - 
   - 
   - 
