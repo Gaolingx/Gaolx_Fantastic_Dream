@@ -43,4 +43,8 @@ public class Constants
     //运动平滑加速度
     public const float AccelerSpeed = 5;
 
+    //CinemachineVirtualCamera裁剪平面
+    public const float CinemachineVirtualCameraNearClipPlane = 0.2f;
+    public const float CinemachineVirtualCameraFarClipPlane = 15000;
+
 }
