@@ -15,8 +15,6 @@ public class MainCityWnd : WindowRoot
     public Animation menuAni;
     public Button btnMenu;
 
-    public string openMCmenuAniClipName = "OpenMCMenu";
-    public string closeMCmenuAniClipName = "CloseMCMenu";
     public Text txtFight;
     public Text txtPower;
     public Image imgPowerPrg;
@@ -101,11 +99,11 @@ public class MainCityWnd : WindowRoot
         AnimationClip clip = null;
         if (menuState)
         {
-            clip = menuAni.GetClip(openMCmenuAniClipName);
+            clip = menuAni.GetClip(Constants.openMCmenuAniClipName);
         }
         else
         {
-            clip = menuAni.GetClip(closeMCmenuAniClipName);
+            clip = menuAni.GetClip(Constants.closeMCmenuAniClipName);
         }
         menuAni.Play(clip.name);
     }

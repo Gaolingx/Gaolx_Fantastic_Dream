@@ -22,6 +22,10 @@ public class Constants
     public const string UIClickBtn = "uiClickBtn";
     public const string UIExtenBtn = "uiExtenBtn";
 
+    //UI动画路径配置
+    public const string openMCmenuAniClipName = "OpenMCMenu";
+    public const string closeMCmenuAniClipName = "CloseMCMenu";
+
 
     //屏幕标准宽高
     public const int ScreenStandardWidth = 1920;
