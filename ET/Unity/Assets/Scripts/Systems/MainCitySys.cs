@@ -73,7 +73,7 @@ public class MainCitySys : SystemRoot
         //至此，我们终于可以对预制件上面获取到的cinemachineVirtualCamera组件进行操作了...>_<
 
         // 设置CinemachineVirtualCamera的跟随目标为标签为"PlayerCamRoot"的游戏对象的transform
-        cinemachineVirtualCamera.Follow = GameObject.FindGameObjectWithTag("PlayerCamRoot").transform;
+        cinemachineVirtualCamera.Follow = GameObject.FindGameObjectWithTag(Constants.CinemachineVirtualCameraFollowGameObjectWithTag).transform;
         //通过读取配置表设置CinemachineVirtualCamera相裁剪平面
         cinemachineVirtualCamera.m_Lens.FarClipPlane = Constants.CinemachineVirtualCameraFarClipPlane;
         cinemachineVirtualCamera.m_Lens.NearClipPlane = Constants.CinemachineVirtualCameraNearClipPlane;
@@ -83,8 +83,8 @@ public class MainCitySys : SystemRoot
 
     private void InitGamepad()
     {
-        GameObject GamePad = GameObject.Find("UI_Canvas_StarterAssetsInputs_Joysticks");
-        GameObject Gamepad_player = GameObject.Find("Player_Avatar_March_7th Variant(Clone)");
+        GameObject GamePad = GameObject.Find(Constants.GamepadBind_StarterAssetsInputs_Joysticks);
+        GameObject Gamepad_player = GameObject.Find(Constants.GamePadBind_Player);
         UICanvasControllerInput uICanvasControllerInput = GamePad.GetComponent<UICanvasControllerInput>();
         StarterAssetsInputs StarterAssetsInputs_player = Gamepad_player.GetComponent<StarterAssetsInputs>();
         

@@ -43,8 +43,14 @@ public class Constants
     //运动平滑加速度
     public const float AccelerSpeed = 5;
 
+    //CinemachineVirtualCamera跟随目标的标签
+    public const string CinemachineVirtualCameraFollowGameObjectWithTag = "PlayerCamRoot";
     //CinemachineVirtualCamera裁剪平面
     public const float CinemachineVirtualCameraNearClipPlane = 0.2f;
     public const float CinemachineVirtualCameraFarClipPlane = 15000;
+
+    //GamePad配置
+    public const string GamePadBind_Player = "Player_Avatar_March_7th Variant(Clone)";
+    public const string GamepadBind_StarterAssetsInputs_Joysticks = "UI_Canvas_StarterAssetsInputs_Joysticks";
 
 }
