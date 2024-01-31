@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using StarterAssets;
 
 public class MainCitySys : SystemRoot
 {
@@ -34,12 +35,16 @@ public class MainCitySys : SystemRoot
             //打开主城场景UI
             maincityWnd.SetWndState();
 
+            // 初始化摇杆插件
+            InitGamepad();
+
             //播放主城背景音乐
             audioSvc.PlayBGMusic(Constants.BGMainCity);
 
             //TODO 设置人物展示相机
 
         });
+
     }
 
     private void LoadPlayer(MapCfg mapData)
@@ -74,5 +79,15 @@ public class MainCitySys : SystemRoot
         cinemachineVirtualCamera.m_Lens.NearClipPlane = Constants.CinemachineVirtualCameraNearClipPlane;
 
 
+    }
+
+    private void InitGamepad()
+    {
+        GameObject GamePad = GameObject.Find("UI_Canvas_StarterAssetsInputs_Joysticks");
+        GameObject Gamepad_player = GameObject.Find("Player_Avatar_March_7th Variant(Clone)");
+        UICanvasControllerInput uICanvasControllerInput = GamePad.GetComponent<UICanvasControllerInput>();
+        StarterAssetsInputs StarterAssetsInputs_player = Gamepad_player.GetComponent<StarterAssetsInputs>();
+        
+        uICanvasControllerInput.starterAssetsInputs = StarterAssetsInputs_player;
     }
 }
