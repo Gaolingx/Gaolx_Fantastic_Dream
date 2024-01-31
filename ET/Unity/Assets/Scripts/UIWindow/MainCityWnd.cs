@@ -132,7 +132,7 @@ public class MainCityWnd : WindowRoot
             SetActive(imgDirPoint, false);
             //复原摇杆点的位置至正中央
             imgDirPoint.transform.localPosition = Vector2.zero; //使用localPosition的原因是imgDirPoint的坐标是相对于父物体坐标（本地坐标）
-
+            MainCitySys.Instance.SetMoveDir(Vector2.zero);
         });
         //摇杆拖动
         OnDrag(imgTouch.gameObject, (PointerEventData evt) =>
@@ -151,6 +151,7 @@ public class MainCityWnd : WindowRoot
             {
                 imgDirPoint.transform.position = evt.position; 
             }
+            MainCitySys.Instance.SetMoveDir(dragDir.normalized);
         });
     }
     #endregion

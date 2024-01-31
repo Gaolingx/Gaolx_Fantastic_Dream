@@ -11,6 +11,7 @@ public class MainCitySys : SystemRoot
 
     public MainCityWnd maincityWnd;
     public GameObject PlayerCameraRoot;
+    private PlayerController playerCtrl;
 
     public override void InitSys()
     {
@@ -78,6 +79,9 @@ public class MainCitySys : SystemRoot
         cinemachineVirtualCamera.m_Lens.FarClipPlane = Constants.CinemachineVirtualCameraFarClipPlane;
         cinemachineVirtualCamera.m_Lens.NearClipPlane = Constants.CinemachineVirtualCameraNearClipPlane;
 
+        //原方案
+        //playerCtrl = player.GetComponent<PlayerController>();
+        //playerCtrl.Init();
 
     }
 
@@ -90,4 +94,22 @@ public class MainCitySys : SystemRoot
         
         uICanvasControllerInput.starterAssetsInputs = StarterAssetsInputs_player;
     }
+
+
+    //原方案
+    public void SetMoveDir(Vector2 dir)
+    {
+        //设置动画
+        if (dir == Vector2.zero)
+        {
+            playerCtrl.SetBlend(Constants.BlendIdle);
+        }
+        else
+        {
+            playerCtrl.SetBlend(Constants.BlendWalk);
+        }
+        //设置方向
+        playerCtrl.Dir = dir;
+    }
+
 }

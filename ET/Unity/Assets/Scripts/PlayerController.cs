@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour {
 
     //计算角色移动的方向：获取当前输入的向量，计算它与原来在z轴0度时候之间的夹角，将该夹角产生的偏移量赋值给角色即为角色移动的方向
     private void SetDir() {
+        //需要考虑到当前摄像机相对于角色的偏移
         float angle = Vector2.SignedAngle(Dir, new Vector2(0, 1)) + camTrans.eulerAngles.y;
         Vector3 eulerAngles = new Vector3(0, angle, 0);
         transform.localEulerAngles = eulerAngles;
