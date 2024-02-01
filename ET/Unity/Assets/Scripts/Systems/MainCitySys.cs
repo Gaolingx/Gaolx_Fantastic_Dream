@@ -10,6 +10,7 @@ public class MainCitySys : SystemRoot
     public static MainCitySys Instance = null;
 
     public MainCityWnd maincityWnd;
+    public InfoWnd infoWnd;
     public GameObject PlayerCameraRoot;
     private PlayerController playerCtrl;
 
@@ -116,6 +117,12 @@ public class MainCitySys : SystemRoot
         }
         //…Ë÷√∑ΩœÚ
         playerCtrl.Dir = dir;
+    }
+
+
+    public void OpenInfoWnd()
+    {
+        infoWnd.SetWndState();
     }
 
 }

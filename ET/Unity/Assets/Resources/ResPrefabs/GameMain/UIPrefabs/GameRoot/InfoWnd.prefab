@@ -5627,3 +5627,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e717e229e7a5a754696447a0214533f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  imgChar: {fileID: 114044165927709044}
+  txtInfo: {fileID: 114174778599554418}
+  txtExp: {fileID: 114891922225241842}
+  imgExpPrg: {fileID: 114094684458918502}
+  txtPower: {fileID: 114515113627230896}
+  imgPowerPrg: {fileID: 114515714556911098}
+  txtJob: {fileID: 114579217257308822}
+  txtFight: {fileID: 114219295034789574}
+  txtHP: {fileID: 114761406536369670}
+  txtHurt: {fileID: 114941906148033312}
+  txtDef: {fileID: 114438965294449504}
+  btnClose: {fileID: 114395288309428934}
+  btnDetail: {fileID: 114937343844525700}
+  btnCloseDetail: {fileID: 114710869160247922}
+  transDetail: {fileID: 224063941058962056}
+  dtxhp: {fileID: 114308939653149742}
+  dtxad: {fileID: 114963673636596798}
+  dtxap: {fileID: 114313072293063444}
+  dtxaddef: {fileID: 114941645240284462}
+  dtxapdef: {fileID: 114407863772117630}
+  dtxdodge: {fileID: 114544994204382844}
+  dtxpierce: {fileID: 114776147502249624}
+  dtxcritical: {fileID: 114087777452011238}

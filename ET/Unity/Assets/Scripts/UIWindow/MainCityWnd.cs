@@ -107,6 +107,11 @@ public class MainCityWnd : WindowRoot
         }
         menuAni.Play(clip.name);
     }
+    public void ClickHeadBtn()
+    {
+        audioSvc.PlayUIAudio(Constants.UIOpenPage);
+        MainCitySys.Instance.OpenInfoWnd();
+    }
 
     //×¢²á´¥ÃþÊÂ¼þ
     public void RegisterTouchEvts()
