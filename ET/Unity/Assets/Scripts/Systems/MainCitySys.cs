@@ -80,8 +80,14 @@ public class MainCitySys : SystemRoot
         cinemachineVirtualCamera.m_Lens.NearClipPlane = Constants.CinemachineVirtualCameraNearClipPlane;
 
         //原方案
-        //playerCtrl = player.GetComponent<PlayerController>();
-        //playerCtrl.Init();
+        //相机初始化
+        /*
+        Camera.main.transform.position = mapData.mainCamPos;
+        Camera.main.transform.localEulerAngles = mapData.mainCamRote;
+
+        playerCtrl = player.GetComponent<PlayerController>();
+        playerCtrl.Init();
+        */
 
     }
 
