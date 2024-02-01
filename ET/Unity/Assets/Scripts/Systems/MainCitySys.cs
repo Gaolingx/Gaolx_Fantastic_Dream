@@ -56,7 +56,7 @@ public class MainCitySys : SystemRoot
         //初始化玩家位置
         player.transform.position = mapData.playerBornPos;
         player.transform.localEulerAngles = mapData.playerBornRote;
-        player.transform.localScale = new Vector3(1.0f,1.0f,1.0f);
+        player.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
         //相机初始化
         //首先要加载虚拟相机的预制件
@@ -68,9 +68,9 @@ public class MainCitySys : SystemRoot
         CM_player.transform.localEulerAngles = CM_player_Rote;
 
         // 获取虚拟相机预制件上的CinemachineVirtualCamera组件  
-        CinemachineVirtualCamera cinemachineVirtualCamera = CM_player.GetComponent<CinemachineVirtualCamera>();  
+        CinemachineVirtualCamera cinemachineVirtualCamera = CM_player.GetComponent<CinemachineVirtualCamera>();
         //至此，我们应该获取到了预制件上面的cinemachineVirtualCamera（但愿能获取到）组件
-        
+
         //至此，我们终于可以对预制件上面获取到的cinemachineVirtualCamera组件进行操作了...>_<
 
         // 设置CinemachineVirtualCamera的跟随目标为标签为"PlayerCamRoot"的游戏对象的transform
@@ -97,7 +97,7 @@ public class MainCitySys : SystemRoot
         GameObject Gamepad_player = GameObject.Find(Constants.GamePadBind_Player);
         UICanvasControllerInput uICanvasControllerInput = GamePad.GetComponent<UICanvasControllerInput>();
         StarterAssetsInputs StarterAssetsInputs_player = Gamepad_player.GetComponent<StarterAssetsInputs>();
-        
+
         uICanvasControllerInput.starterAssetsInputs = StarterAssetsInputs_player;
     }
 
