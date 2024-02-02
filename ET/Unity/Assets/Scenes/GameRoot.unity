@@ -1972,6 +1972,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: InfoWnd
       objectReference: {fileID: 0}
+    - target: {fileID: 114710869160247922, guid: 52fcbb255683c3d47be9c13a0d57cfd8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1173915781}
+    - target: {fileID: 114710869160247922, guid: 52fcbb255683c3d47be9c13a0d57cfd8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ClickCloseBtn
+      objectReference: {fileID: 0}
+    - target: {fileID: 114710869160247922, guid: 52fcbb255683c3d47be9c13a0d57cfd8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: InfoWnd, GameMain
+      objectReference: {fileID: 0}
+    - target: {fileID: 114710869160247922, guid: 52fcbb255683c3d47be9c13a0d57cfd8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 224272743192927810, guid: 52fcbb255683c3d47be9c13a0d57cfd8,
         type: 3}
       propertyPath: m_Pivot.x

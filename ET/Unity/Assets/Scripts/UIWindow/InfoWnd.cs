@@ -65,4 +65,10 @@ public class InfoWnd : WindowRoot
         //detail TODO
 
     }
+
+    public void ClickCloseBtn()
+    {
+        audioSvc.PlayUIAudio(Constants.UIClickBtn);
+        SetWndState(false);
+    }
 }
