@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CinemachineTarget
   - PlayerCamRoot
+  - CharShowCam
   layers:
   - Default
   - TransparentFX

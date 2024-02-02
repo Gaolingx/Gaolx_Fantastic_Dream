@@ -13,6 +13,7 @@ public class MainCitySys : SystemRoot
     public InfoWnd infoWnd;
     public GameObject PlayerCameraRoot;
     private PlayerController playerCtrl;
+    private Transform charCamTrans;
 
     public override void InitSys()
     {
@@ -43,7 +44,11 @@ public class MainCitySys : SystemRoot
             //播放主城背景音乐
             audioSvc.PlayBGMusic(Constants.BGMainCity);
 
-            //TODO 设置人物展示相机
+            //设置人物展示相机
+            if(charCamTrans != null)
+            {
+                charCamTrans.gameObject.SetActive(false);
+            }
 
         });
 
@@ -122,6 +127,18 @@ public class MainCitySys : SystemRoot
 
     public void OpenInfoWnd()
     {
+        //获取带玩家标签的对象
+        GameObject OpenInfoWnd_player = GameObject.FindGameObjectWithTag(Constants.CharPlayerWithTag);
+        if (charCamTrans == null)
+        {
+            charCamTrans = GameObject.FindGameObjectWithTag(Constants.CharShowCamWithTag).transform;
+        }
+
+        //设置人物展示相机相对位置（主角）、旋转
+        charCamTrans.localPosition = OpenInfoWnd_player.transform.position + OpenInfoWnd_player.transform.forward * Constants.CharShowCamDistanceOffset + new Vector3(0, Constants.CharShowCamHeightOffset, 0);
+        charCamTrans.localEulerAngles = new Vector3(0, 180 + OpenInfoWnd_player.transform.localEulerAngles.y, 0);
+        charCamTrans.localScale = Vector3.one;
+        charCamTrans.gameObject.SetActive(true);
         infoWnd.SetWndState();
     }
 

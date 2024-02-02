@@ -54,6 +54,14 @@ public class Constants
     public const float CinemachineVirtualCameraNearClipPlane = 0.2f;
     public const float CinemachineVirtualCameraFarClipPlane = 15000;
 
+    //角色展示相机配置
+    public const string CharShowCamWithTag = "CharShowCam";
+    public const float CharShowCamDistanceOffset = 3.8f;
+    public const float CharShowCamHeightOffset = 1.2f;
+
+    //玩家标签
+    public const string CharPlayerWithTag = "Player";
+
     //GamePad配置
     public const string GamePadBind_Player = "Player_Avatar_March_7th Variant(Clone)";
     public const string GamepadBind_StarterAssetsInputs_Joysticks = "UI_Canvas_StarterAssetsInputs_Joysticks";
