@@ -12,6 +12,7 @@ public class MainCitySys : SystemRoot
     public MainCityWnd maincityWnd;
     public InfoWnd infoWnd;
     public GameObject PlayerCameraRoot;
+    private GameObject Scene_player;
     private PlayerController playerCtrl;
     private Transform charCamTrans;
 
@@ -100,9 +101,9 @@ public class MainCitySys : SystemRoot
     private void InitGamepad()
     {
         GameObject GamePad = GameObject.Find(Constants.GamepadBind_StarterAssetsInputs_Joysticks);
-        GameObject Gamepad_player = GameObject.Find(Constants.GamePadBind_Player);
+        Scene_player = GameObject.FindGameObjectWithTag(Constants.CharPlayerWithTag);
         UICanvasControllerInput uICanvasControllerInput = GamePad.GetComponent<UICanvasControllerInput>();
-        StarterAssetsInputs StarterAssetsInputs_player = Gamepad_player.GetComponent<StarterAssetsInputs>();
+        StarterAssetsInputs StarterAssetsInputs_player = Scene_player.GetComponent<StarterAssetsInputs>();
 
         uICanvasControllerInput.starterAssetsInputs = StarterAssetsInputs_player;
     }
@@ -128,18 +129,38 @@ public class MainCitySys : SystemRoot
     public void OpenInfoWnd()
     {
         //获取带玩家标签的对象
-        GameObject OpenInfoWnd_player = GameObject.FindGameObjectWithTag(Constants.CharPlayerWithTag);
+        Scene_player = GameObject.FindGameObjectWithTag(Constants.CharPlayerWithTag);
         if (charCamTrans == null)
         {
             charCamTrans = GameObject.FindGameObjectWithTag(Constants.CharShowCamWithTag).transform;
         }
 
         //设置人物展示相机相对位置（主角）、旋转
-        charCamTrans.localPosition = OpenInfoWnd_player.transform.position + OpenInfoWnd_player.transform.forward * Constants.CharShowCamDistanceOffset + new Vector3(0, Constants.CharShowCamHeightOffset, 0);
-        charCamTrans.localEulerAngles = new Vector3(0, 180 + OpenInfoWnd_player.transform.localEulerAngles.y, 0);
+        charCamTrans.localPosition = Scene_player.transform.position + Scene_player.transform.forward * Constants.CharShowCamDistanceOffset + new Vector3(0, Constants.CharShowCamHeightOffset, 0);
+        charCamTrans.localEulerAngles = new Vector3(0, 180 + Scene_player.transform.localEulerAngles.y, 0);
         charCamTrans.localScale = Vector3.one;
         charCamTrans.gameObject.SetActive(true);
         infoWnd.SetWndState();
+    }
+
+    public void CloseInfoWnd()
+    {
+        if(charCamTrans != null)
+        {
+            charCamTrans.gameObject.SetActive(false);
+            infoWnd.SetWndState(false);
+        }
+    }
+
+    private float startRoate = 0;
+    public void SetStartRoate()
+    {
+        startRoate = Scene_player.transform.localEulerAngles.y;
+    }
+
+    public void SetPlayerRoate(float roate)
+    {
+        Scene_player.transform.localEulerAngles = new Vector3(0, startRoate + roate, 0);
     }
 
 }

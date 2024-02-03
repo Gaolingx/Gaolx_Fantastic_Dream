@@ -37,12 +37,29 @@ public class InfoWnd : WindowRoot
     public Text dtxcritical;
     #endregion
 
+    private Vector2 startPos;
 
     protected override void InitWnd()
     {
         base.InitWnd();
-
+        RegTouchEvts();
         RefreshUI();
+    }
+
+    //InfoWnd角色左右拖拽旋转效果：当按下鼠标拖动或者触摸滑动屏幕时，获取滑动的水平距离，然后将该距离映射到人物旋转属性上
+    //监听触摸事件
+    private void RegTouchEvts()
+    {
+        OnClickDown(imgChar.gameObject, (PointerEventData evt) =>
+        { 
+            startPos = evt.position;
+            MainCitySys.Instance.SetStartRoate();
+        });
+        OnDrag(imgChar.gameObject, (PointerEventData evt) =>
+        {
+            float roate = -(evt.position.x - startPos.x) * Constants.OnDragCharRoateSpeed;
+            MainCitySys.Instance.SetPlayerRoate(roate);
+        });
     }
 
     private void RefreshUI()
@@ -69,6 +86,6 @@ public class InfoWnd : WindowRoot
     public void ClickCloseBtn()
     {
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
-        SetWndState(false);
+        MainCitySys.Instance.CloseInfoWnd();
     }
 }

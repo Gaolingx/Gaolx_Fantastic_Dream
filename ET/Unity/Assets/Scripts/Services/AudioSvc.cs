@@ -12,7 +12,7 @@ public class AudioSvc : MonoBehaviour
     public AudioSource bgAudio;
     public AudioSource uiAudio;
 
-    public string bgAudioPath = "ResAudio/";
+    private string bgAudioPath = Constants.bgAudioPath;
 
     public void InitSvc()
     {

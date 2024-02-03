@@ -11,6 +11,9 @@ public class Constants
     public const int MainCityMapID = 10000;
     //public const string SceneMainCity = "SceneMainCity";
 
+    //AudioSvc配置
+    public const string bgAudioPath = "ResAudio/";
+
     //背景音效名称
     public const string BGLogin = "bgLogin";
     public const string BGMainCity = "bgMainCity";
@@ -58,12 +61,14 @@ public class Constants
     public const string CharShowCamWithTag = "CharShowCam";
     public const float CharShowCamDistanceOffset = 3.8f;
     public const float CharShowCamHeightOffset = 1.2f;
+    
+    //玩家信息页模型拖拽速度
+    public const float OnDragCharRoateSpeed = 0.4f;
 
     //玩家标签
     public const string CharPlayerWithTag = "Player";
 
     //GamePad配置
-    public const string GamePadBind_Player = "Player_Avatar_March_7th Variant(Clone)";
     public const string GamepadBind_StarterAssetsInputs_Joysticks = "UI_Canvas_StarterAssetsInputs_Joysticks";
 
 }
