@@ -3,6 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class AutoGuideCfg : BaseData<AutoGuideCfg>
+{
+    public int npcID; //触发任务目标NPC索引号
+    public string dilogArr; //对话数据
+    public int actID; //目标任务ID
+    public int coin; //奖励的金币
+    public int exp; //经验
+
+}
 public class MapCfg : BaseData<MapCfg>
 {
     public string mapName; //地图名称

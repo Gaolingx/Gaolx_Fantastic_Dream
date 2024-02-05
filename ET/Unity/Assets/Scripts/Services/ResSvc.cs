@@ -16,7 +16,7 @@ public class ResSvc : MonoBehaviour
         Instance = this;
         InitRDNameCfg(PathDefine.RDNameCfg);
         InitMapCfg(PathDefine.MapCfg);
-
+        InitGuideCfg(PathDefine.GuideCfg);
         PECommon.Log("Init ResSvc...");
     }
 
@@ -239,10 +239,76 @@ public class ResSvc : MonoBehaviour
     }
     public MapCfg GetMapCfgData(int id)
     {
-        MapCfg mapCfgData;
-        if (mapCfgDataDic.TryGetValue(id, out mapCfgData))
+        MapCfg data;
+        if (mapCfgDataDic.TryGetValue(id, out data))
         {
-            return mapCfgData;
+            return data;
+        }
+        return null;
+    }
+    #endregion
+
+    #region 自动引导配置
+    private Dictionary<int, AutoGuideCfg> guideTaskDic = new Dictionary<int, AutoGuideCfg>();
+    private void InitGuideCfg(string path)
+    {
+        TextAsset xml = Resources.Load<TextAsset>(path);
+        if (!xml)
+        {
+            PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
+        }
+        else
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xml.text);
+
+            XmlNodeList nodLst = doc.SelectSingleNode("root").ChildNodes;
+
+            for (int i = 0; i < nodLst.Count; i++)
+            {
+                XmlElement ele = nodLst[i] as XmlElement;
+
+                if (ele.GetAttributeNode("ID") == null)
+                {
+                    continue;
+                }
+                int ID = Convert.ToInt32(ele.GetAttributeNode("ID").InnerText);
+                AutoGuideCfg autoGuideCfg = new AutoGuideCfg
+                {
+                    ID = ID
+                };
+
+                foreach (XmlElement e in nodLst[i].ChildNodes)
+                {
+                    switch (e.Name)
+                    {
+                        case "npcID":
+                            autoGuideCfg.npcID = int.Parse(e.InnerText);
+                            break;
+                        case "dilogArr":
+                            autoGuideCfg.dilogArr = e.InnerText;
+                            break;
+                        case "actID":
+                            autoGuideCfg.actID = int.Parse(e.InnerText);
+                            break;
+                        case "coin":
+                            autoGuideCfg.coin = int.Parse(e.InnerText);
+                            break;
+                        case "exp":
+                            autoGuideCfg.exp = int.Parse(e.InnerText);
+                            break;
+                    }
+                }
+                guideTaskDic.Add(ID, autoGuideCfg);
+            }
+        }
+    }
+    public AutoGuideCfg GetAutoGuideData(int id)
+    {
+        AutoGuideCfg agc = null;
+        if (guideTaskDic.TryGetValue(id, out agc))
+        {
+            return agc;
         }
         return null;
     }

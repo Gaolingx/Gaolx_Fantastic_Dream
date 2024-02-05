@@ -10,6 +10,7 @@ public class PathDefine
     #region Configs
     public const string RDNameCfg = "ResCfgs/xml/rdname";
     public const string MapCfg = "ResCfgs/xml/map";
+    public const string GuideCfg = "ResCfgs/xml/guide";
 
     #endregion
 
