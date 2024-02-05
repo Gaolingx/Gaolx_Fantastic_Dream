@@ -1128,12 +1128,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1173915780}
+  - {fileID: 1537555477}
   - {fileID: 933760978}
+  - {fileID: 639626383}
+  - {fileID: 1173915780}
   - {fileID: 466535496}
   - {fileID: 831584590}
-  - {fileID: 1537555477}
-  - {fileID: 639626383}
   m_Father: {fileID: 2094128805}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2712,7 +2712,6 @@ MonoBehaviour:
   _isTurnOnAudio: 1
   bgAudio: {fileID: 811291286}
   uiAudio: {fileID: 1908692707}
-  bgAudioPath: ResAudio/
 --- !u!114 &2094128810
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -43,6 +43,7 @@ public class InfoWnd : WindowRoot
     {
         base.InitWnd();
         RegTouchEvts();
+        SetActive(transDetail, false);
         RefreshUI();
     }
 
@@ -80,6 +81,14 @@ public class InfoWnd : WindowRoot
         SetText(txtDef, " 防御   " + (pd.addef + pd.apdef));
 
         //detail TODO
+        SetText(dtxhp, pd.hp);
+        SetText(dtxad, pd.ad);
+        SetText(dtxap, pd.ap);
+        SetText(dtxaddef, pd.addef);
+        SetText(dtxapdef, pd.apdef);
+        SetText(dtxdodge, pd.dodge + "%");
+        SetText(dtxpierce, pd.pierce + "%");
+        SetText(dtxcritical, pd.critical + "%");
 
     }
 
@@ -87,5 +96,15 @@ public class InfoWnd : WindowRoot
     {
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
         MainCitySys.Instance.CloseInfoWnd();
+    }
+
+    public void ClickDetailBtn()
+    {
+        SetActive(transDetail);
+    }
+    public void ClickCloseDetailBtn()
+    {
+        audioSvc.PlayUIAudio(Constants.UIClickBtn);
+        SetActive(transDetail ,false);
     }
 }
