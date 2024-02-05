@@ -23,7 +23,7 @@ public class CreateWnd : WindowRoot
     {
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
 
-        string rdName = resSvc.GetRDNameData();
+        string rdName = resSvc.GetRDNameData(false);
         iptName.text = rdName;
     }
 
