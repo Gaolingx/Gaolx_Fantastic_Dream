@@ -47,26 +47,6 @@ MonoBehaviour:
   dirtIntensity:
     m_OverrideState: 0
     m_Value: 0
---- !u!114 &-7030152754791413895
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e021b4c809a781e468c2988c016ebbea, type: 3}
-  m_Name: ColorLookup
-  m_EditorClassIdentifier: 
-  active: 0
-  texture:
-    m_OverrideState: 0
-    m_Value: {fileID: 0}
-    dimension: 1
-  contribution:
-    m_OverrideState: 0
-    m_Value: 0
 --- !u!114 &-6934906228268976666
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -98,52 +78,6 @@ MonoBehaviour:
   ACESParamE:
     m_OverrideState: 0
     m_Value: 1.5
---- !u!114 &-6469836332674248915
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c01700fd266d6914ababb731e09af2eb, type: 3}
-  m_Name: DepthOfField
-  m_EditorClassIdentifier: 
-  active: 0
-  mode:
-    m_OverrideState: 1
-    m_Value: 0
-  gaussianStart:
-    m_OverrideState: 1
-    m_Value: 10
-  gaussianEnd:
-    m_OverrideState: 1
-    m_Value: 30
-  gaussianMaxRadius:
-    m_OverrideState: 1
-    m_Value: 1
-  highQualitySampling:
-    m_OverrideState: 1
-    m_Value: 0
-  focusDistance:
-    m_OverrideState: 1
-    m_Value: 10
-  aperture:
-    m_OverrideState: 1
-    m_Value: 5.6
-  focalLength:
-    m_OverrideState: 1
-    m_Value: 50
-  bladeCount:
-    m_OverrideState: 1
-    m_Value: 5
-  bladeCurvature:
-    m_OverrideState: 1
-    m_Value: 1
-  bladeRotation:
-    m_OverrideState: 1
-    m_Value: 0
 --- !u!114 &-4317556960051718841
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -199,9 +133,9 @@ MonoBehaviour:
   active: 1
   temperature:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 5
   tint:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0
 --- !u!114 &-2524772306341649629
 MonoBehaviour:
@@ -283,34 +217,6 @@ MonoBehaviour:
   maxNits:
     m_OverrideState: 0
     m_Value: 1000
---- !u!114 &-1651993196176351514
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 899c54efeace73346a0a16faa3afe726, type: 3}
-  m_Name: Vignette
-  m_EditorClassIdentifier: 
-  active: 0
-  color:
-    m_OverrideState: 1
-    m_Value: {r: 0, g: 0, b: 0, a: 1}
-  center:
-    m_OverrideState: 1
-    m_Value: {x: 0.5, y: 0.5}
-  intensity:
-    m_OverrideState: 1
-    m_Value: 0.25
-  smoothness:
-    m_OverrideState: 1
-    m_Value: 0.4
-  rounded:
-    m_OverrideState: 1
-    m_Value: 0
 --- !u!114 &-1251110906392007250
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -323,13 +229,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5485954d14dfb9a4c8ead8edb0ded5b1, type: 3}
   m_Name: LiftGammaGain
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   lift:
     m_OverrideState: 0
     m_Value: {x: 1, y: 1, z: 1, w: 0}
   gamma:
-    m_OverrideState: 0
-    m_Value: {x: 1, y: 1, z: 1, w: 0}
+    m_OverrideState: 1
+    m_Value: {x: 1, y: 0.9699869, z: 0.97405374, w: -0.0984252}
   gain:
     m_OverrideState: 0
     m_Value: {x: 1, y: 1, z: 1, w: 0}
@@ -343,22 +249,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
-  m_Name: SampleSceneProfile 1
+  m_Name: SceneMainCityGlobalVolumeProfile
   m_EditorClassIdentifier: 
   components:
   - {fileID: -1766672224198753556}
   - {fileID: -8369450454023506108}
-  - {fileID: -1651993196176351514}
+  - {fileID: 6884420183406665399}
   - {fileID: 6859138895353615014}
   - {fileID: -3022582652935176084}
   - {fileID: 6724472659133280817}
-  - {fileID: -6469836332674248915}
   - {fileID: -1251110906392007250}
   - {fileID: 5674751717199724862}
-  - {fileID: -7030152754791413895}
   - {fileID: 7504066698865836226}
   - {fileID: -6934906228268976666}
   - {fileID: -2524772306341649629}
+  - {fileID: 5406851686103305988}
 --- !u!114 &4361127642728122850
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -390,6 +295,22 @@ MonoBehaviour:
   ACESParamE:
     m_OverrideState: 0
     m_Value: 1.5
+--- !u!114 &5406851686103305988
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81180773991d8724ab7f2d216912b564, type: 3}
+  m_Name: ChromaticAberration
+  m_EditorClassIdentifier: 
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.045
 --- !u!114 &5674751717199724862
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -405,10 +326,10 @@ MonoBehaviour:
   active: 1
   postExposure:
     m_OverrideState: 1
-    m_Value: 0.25
+    m_Value: 0.8
   contrast:
     m_OverrideState: 1
-    m_Value: 5
+    m_Value: 10
   colorFilter:
     m_OverrideState: 1
     m_Value: {r: 1, g: 1, b: 1, a: 1}
@@ -417,7 +338,7 @@ MonoBehaviour:
     m_Value: 0
   saturation:
     m_OverrideState: 1
-    m_Value: 10
+    m_Value: 5
 --- !u!114 &6724472659133280817
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -439,9 +360,9 @@ MonoBehaviour:
     m_Value: 2
   intensity:
     m_OverrideState: 1
-    m_Value: 0.1
+    m_Value: 0.4
   clamp:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0.05
 --- !u!114 &6859138895353615014
 MonoBehaviour:
@@ -477,6 +398,34 @@ MonoBehaviour:
   highlightsEnd:
     m_OverrideState: 1
     m_Value: 1
+--- !u!114 &6884420183406665399
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 899c54efeace73346a0a16faa3afe726, type: 3}
+  m_Name: Vignette
+  m_EditorClassIdentifier: 
+  active: 1
+  color:
+    m_OverrideState: 1
+    m_Value: {r: 0, g: 0, b: 0, a: 1}
+  center:
+    m_OverrideState: 0
+    m_Value: {x: 0.5, y: 0.5}
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.3
+  smoothness:
+    m_OverrideState: 1
+    m_Value: 0.25
+  rounded:
+    m_OverrideState: 0
+    m_Value: 0
 --- !u!114 &7504066698865836226
 MonoBehaviour:
   m_ObjectHideFlags: 3
