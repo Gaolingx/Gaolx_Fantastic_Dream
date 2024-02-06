@@ -23,12 +23,15 @@ public class MainCityWnd : WindowRoot
     public Text txtExpPrg;
 
     public Transform expPrgTrans;
+
+    public Button btnGuide;
     #endregion
 
     private bool menuState = true;
     private float pointDis;
     private Vector2 startPos = Vector2.zero;
     private Vector2 defaultPos = Vector2.zero;
+    private AutoGuideCfg curtTaskData;
 
     #region MainFunctions
     protected override void InitWnd()
@@ -52,6 +55,8 @@ public class MainCityWnd : WindowRoot
         SetText(txtLevel, pd.lv);
         SetText(txtName, pd.name);
 
+
+        #region Expprg
         int expPrgVal = (int)(pd.exp * 1.0f / PECommon.GetExpUpValByLv(pd.lv) * 100);
         //经验条进度的显示
         SetText(txtExpPrg, expPrgVal + "%");
@@ -86,7 +91,43 @@ public class MainCityWnd : WindowRoot
                 img.fillAmount = 0;
             }
         }
+        #endregion
 
+        //设置自动任务图标
+        curtTaskData = resSvc.GetAutoGuideData(pd.guideid);
+        if(curtTaskData != null)
+        {
+            SetGuideBtnIcon(curtTaskData.npcID);
+        }
+        else
+        {
+            SetGuideBtnIcon(Constants.DefaultGuideBtnIconID);
+        }
+
+    }
+
+    private void SetGuideBtnIcon(int npcID)
+    {
+        string spPath = "";
+        Image img = btnGuide.GetComponent<Image>();
+        //根据不同的npcID获取不同的图片(获取对应NPC的图片路径)
+        switch(npcID)
+        {
+            case Constants.NPCWiseMan:
+                spPath = PathDefine.WiseManHead;
+                break;
+            case Constants.NPCGeneral:
+                spPath = PathDefine.GeneralHead;
+                break;
+            case Constants.NPCArtisan:
+                spPath = PathDefine.ArtisanHead;
+                break;
+            case Constants.NPCTrader:
+                spPath = PathDefine.TraderHead;
+                break;
+        }
+
+        //加载路径中的图片，并显示到Button内
     }
     #endregion
 

@@ -3,16 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+//注意：业务相关的数据、配置等由于频繁发生变动，为了方便调整，尽量不要直接写死在代码中，而是做成一个配置，在统一的地方进行修改
 public class Constants
 {
+    //AutoGuideNPC
+    public const int NPCWiseMan = 0;
+    public const int NPCGeneral = 1;
+    public const int NPCArtisan = 2;
+    public const int NPCTrader = 3;
+
+
     //场景名称/ID
     public const string SceneLogin = "SceneLogin";
     public const int MainCityMapID = 10000;
     //public const string SceneMainCity = "SceneMainCity";
-
-    //AudioSvc配置
-    public const string bgAudioPath = "ResAudio/";
+    
 
     //背景音效名称
     public const string BGLogin = "bgLogin";
@@ -70,5 +75,8 @@ public class Constants
 
     //GamePad配置
     public const string GamepadBind_StarterAssetsInputs_Joysticks = "UI_Canvas_StarterAssetsInputs_Joysticks";
+
+    //自动任务图标配置
+    public const int DefaultGuideBtnIconID = -1;
 
 }
