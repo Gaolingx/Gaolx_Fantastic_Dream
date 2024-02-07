@@ -372,6 +372,18 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
+--- !u!114 &540003456 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114212859752877030, guid: 722f1cefd238d0a45965fc766b5b4f94,
+    type: 3}
+  m_PrefabInstance: {fileID: 639626382}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &565176477
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -943,6 +955,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1122169537177148142, guid: 722f1cefd238d0a45965fc766b5b4f94,
+        type: 3}
+      propertyPath: btnGuide
+      value: 
+      objectReference: {fileID: 540003456}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

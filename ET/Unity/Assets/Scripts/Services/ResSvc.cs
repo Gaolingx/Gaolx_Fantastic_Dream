@@ -61,14 +61,14 @@ public class ResSvc : MonoBehaviour
 
     //定义一个字典，存储当前加载的Audio，与后面的cache有关系
     private Dictionary<string, AudioClip> adDic = new Dictionary<string, AudioClip>();
-    public AudioClip LoadAudio(string path, bool cache = false)
+    public AudioClip LoadAudio(string path, bool iscache = false)
     {
         //音乐加载
         AudioClip au = null;
         if (!adDic.TryGetValue(path, out au))
         {
             au = Resources.Load<AudioClip>(path);
-            if (cache)
+            if (iscache)
             {
                 adDic.Add(path, au);
             }
@@ -99,6 +99,21 @@ public class ResSvc : MonoBehaviour
             go = Instantiate(prefab);
         }
         return go;
+    }
+
+    private Dictionary<string, Sprite> spDic = new Dictionary<string, Sprite>();
+    public Sprite LoadSprite(string path, bool cache = false)
+    {
+        Sprite sp = null;
+        if (!spDic.TryGetValue(path, out sp))
+        {
+            sp = Resources.Load<Sprite>(path);
+            if (cache)
+            {
+                spDic.Add(path, sp);
+            }
+        }
+        return sp;
     }
 
     #region InitCfgs

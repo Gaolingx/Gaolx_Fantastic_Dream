@@ -128,6 +128,7 @@ public class MainCityWnd : WindowRoot
         }
 
         //加载路径中的图片，并显示到Button内
+        SetSprite(img, spPath);
     }
     #endregion
 
