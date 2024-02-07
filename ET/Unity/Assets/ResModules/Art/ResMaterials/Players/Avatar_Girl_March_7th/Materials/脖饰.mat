@@ -385,6 +385,7 @@ Material:
     - _UseEmissionTex: 0
     - _UseFakeOutline: 1
     - _UseHalfLambert: 1
+    - _UseNormalMap: 0
     - _UseOutline: 1
     - _UseRadianceOcclusion: 0
     - _UseRampColor: 1
@@ -427,15 +428,15 @@ Material:
     - _EmissionColors: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionMapChannelMask: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionTintColor: {r: 1, g: 1, b: 1, a: 1}
-    - _FaceColorMapColor: {r: 0.8705506, g: 0.8705506, b: 0.8705506, a: 1}
+    - _FaceColorMapColor: {r: 0.74509805, g: 0.74509805, b: 0.74509805, a: 1}
     - _FrontFaceTintColor: {r: 1, g: 1, b: 1, a: 1}
-    - _HairColorMapColor: {r: 0.87058824, g: 0.87058824, b: 0.87058824, a: 1}
+    - _HairColorMapColor: {r: 0.74509805, g: 0.74509805, b: 0.74509805, a: 1}
     - _HairCoolRampColor: {r: 1, g: 1, b: 1, a: 1}
     - _HairWarmRampColor: {r: 1, g: 1, b: 1, a: 1}
     - _HeadForward: {r: 0, g: 0, b: 1, a: 0}
     - _HeadRight: {r: 1, g: 0, b: 0, a: 0}
     - _HighColor: {r: 0.87058824, g: 0.87058824, b: 0.87058824, a: 1}
-    - _LowerBodyColorMapColor: {r: 0.87058824, g: 0.87058824, b: 0.87058824, a: 1}
+    - _LowerBodyColorMapColor: {r: 0.74509805, g: 0.74509805, b: 0.74509805, a: 1}
     - _MainColor: {r: 1, g: 1, b: 1, a: 1}
     - _OtherRimColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
@@ -454,7 +455,7 @@ Material:
     - _StockingsDarkColor: {r: 1.8, g: 1.48299, b: 0.856821, a: 1}
     - _StockingsLightColor: {r: 1.8, g: 1.48299, b: 0.856821, a: 1}
     - _StockingsTransitionColor: {r: 0.36038098, g: 0.24298596, b: 0.35813096, a: 1}
-    - _UpperBodyColorMapColor: {r: 0.87058824, g: 0.87058824, b: 0.87058824, a: 1}
+    - _UpperBodyColorMapColor: {r: 0.74509805, g: 0.74509805, b: 0.74509805, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &6309143174945112342
 MonoBehaviour:
