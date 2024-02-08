@@ -133,6 +133,20 @@ public class MainCityWnd : WindowRoot
     #endregion
 
     #region ClickEvts
+    public void ClickGuideBtn()
+    {
+        audioSvc.PlayUIAudio(Constants.UIClickBtn);
+
+        if(curtTaskData != null)
+        {
+            //任务存在，执行引导任务
+            MainCitySys.Instance.RunTask(curtTaskData);
+        }
+        else
+        {
+            GameRoot.AddTips("更多引导任务，正在开发中...");
+        }
+    }
     public void ClickMenuBtn()
     {
         audioSvc.PlayUIAudio(Constants.UIExtenBtn);

@@ -163,4 +163,9 @@ public class MainCitySys : SystemRoot
         Scene_player.transform.localEulerAngles = new Vector3(0, startRoate + roate, 0);
     }
 
+    public void RunTask(AutoGuideCfg agc)
+    {
+
+    }
+
 }
