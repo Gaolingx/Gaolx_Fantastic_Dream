@@ -9,16 +9,19 @@ using YooAsset;
 
 public class HotFixService : MonoBehaviour
 {
-    //补充元数据dll的列表，Yooasset中不需要带后缀
-    public static List<string> AOTMetaAssemblyNames { get; } = new List<string>()
+    private static string[] AOTMetaAssemblyNamesArray =
     {
         "Assets/AssetBundles/ABScripts/Kcp.dll.bytes",
         "Assets/AssetBundles/ABScripts/System.dll.bytes",
         "Assets/AssetBundles/ABScripts/UniTask.dll.bytes",
         "Assets/AssetBundles/ABScripts/UnityEngine.CoreModule.dll.bytes",
         "Assets/AssetBundles/ABScripts/YooAsset.dll.bytes",
-        "Assets/AssetBundles/ABScripts/mscorlib.dll.bytes"       
+        "Assets/AssetBundles/ABScripts/mscorlib.dll.bytes"
     };
+    //补充元数据dll的列表，Yooasset中不需要带后缀
+    public static List<string> AOTMetaAssemblyNames { get; } = new List<string>(AOTMetaAssemblyNamesArray);
+
+
     public string HotDllName = "Assets/AssetBundles/ABScripts/FOSMobaHotFix.dll";
     public string GameRootObject = "Assets/AssetBundles/ABPrefabs/RootPrefabs/HotFixRoot.prefab";
 
