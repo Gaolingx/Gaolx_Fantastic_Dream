@@ -15,7 +15,6 @@
 
 using System;
 using System.Text;
-using GameMain.Scripts.Utils;
 
 namespace GameMain.Utils
 {
@@ -45,7 +44,7 @@ namespace GameMain.Utils
             }
 
 #if !UNITY_EDITOR 
-            return RuntimeApi.XXTeaDecrypt(data, key);
+            return GameMain.HCLRExtTools.RuntimeApi.XXTeaEncrypt(data, key);
 #else
             return ToByteArray(Encrypt(ToUInt32Array(data, true), ToUInt32Array(FixKey(key), false)), false);
 #endif
@@ -100,10 +99,8 @@ namespace GameMain.Utils
             {
                 return data;
             }
-
-
-#if !UNITY_EDITOR 
-            return RuntimeApi.XXTeaDecrypt(data, key);
+#if !UNITY_EDITOR
+            return GameMain.HCLRExtTools.RuntimeApi.XXTeaDecrypt(data, key);
 #else
             return ToByteArray(Decrypt(ToUInt32Array(data, false), ToUInt32Array(FixKey(key), false)), true);
 #endif
@@ -216,18 +213,28 @@ namespace GameMain.Utils
 
         private static Byte[] FixKey(Byte[] key)
         {
-            if (key.Length == 16) return key;
-            Byte[] fixedkey = new Byte[16];
-            if (key.Length < 16)
+            if (key.Length == 16)
             {
-                key.CopyTo(fixedkey, 0);
-            }
-            else
-            {
-                Array.Copy(key, 0, fixedkey, 0, 16);
+                return key;
             }
 
-            return fixedkey;
+            var fixedKey = new Byte[16];
+            for (var i = 0; i < 16; ++i)
+            {
+                fixedKey[i] = 0;
+            }
+
+            var keyLen = key.Length;
+            if (keyLen > 16)
+            {
+                keyLen = 16;
+            }
+
+            for (var i = 0; i < keyLen; ++i)
+            {
+                fixedKey[i] = key[i];
+            }
+            return fixedKey;
         }
 
         /// <summary>

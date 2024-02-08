@@ -1,24 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace GameMain.Scripts.Utils
+namespace GameMain.HCLRExtTools
 {
     public static class RuntimeApi
     {
-#if UNITY_STANDALONE_WIN
-            private const string dllName = "GameAssembly";
-#elif UNITY_IOS || UNITY_STANDALONE_OSX || UNITY_WEBGL
-            private const string dllName = "__Internal";
-#else
-        private const string dllName = "il2cpp";
-#endif
-
-        [DllImport(dllName, CallingConvention = CallingConvention.Cdecl)]
+        [MethodImpl(MethodImplOptions.InternalCall)]
         public static extern IntPtr HCLRExtTools_Decompress(byte[] src, int len, ref int outLen);
 
         public static byte[] Decompress(byte[] src, int len)
@@ -38,7 +26,7 @@ namespace GameMain.Scripts.Utils
             return null;
         }
 
-        [DllImport(dllName, CallingConvention = CallingConvention.Cdecl)]
+        [MethodImpl(MethodImplOptions.InternalCall)]
         private static extern IntPtr HCLRExtTools_XXTeaEncrypt(byte[] s, int l, byte[] k, int kl, ref int ol);
 
         public static byte[] XXTeaEncrypt(byte[] src, byte[] key)
@@ -58,7 +46,7 @@ namespace GameMain.Scripts.Utils
             return null;
         }
 
-        [DllImport(dllName, CallingConvention = CallingConvention.Cdecl)]
+        [MethodImpl(MethodImplOptions.InternalCall)]
         private static extern IntPtr HCLRExtTools_XXTeaDecrypt(byte[] s, int l, byte[] k, int kl, ref int ol);
 
         public static byte[] XXTeaDecrypt(byte[] src, byte[] key)
@@ -77,5 +65,14 @@ namespace GameMain.Scripts.Utils
 #endif
             return null;
         }
+
+        public delegate void LogDelegate(IntPtr pMsg, int iSize);
+
+#if !UNITY_EDITOR
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public static extern void HCLRExtTools_SetLogHandler(LogDelegate logDelegate);
+#else
+        public static void HCLRExtTools_SetLogHandler(LogDelegate _) { }
+#endif
     }
 }

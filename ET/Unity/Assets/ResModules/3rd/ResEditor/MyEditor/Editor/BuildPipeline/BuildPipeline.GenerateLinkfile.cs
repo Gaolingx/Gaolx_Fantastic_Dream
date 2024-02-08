@@ -83,7 +83,7 @@ namespace GameMain.Editor.BuildPipeline
             "TLSModule", "XRModule", "WindModule", "VRModule", "VirtualTexturingModule", "compiler", "BuildProgram", "NiceIO", "ClothModule",
             "VFXModule", "ExCSS", "GeneratedCode", "mscorlib", "System", "SyncToolsDef", "ReportGeneratorMerged"
         };
-        private static bool IsIngoreClass(string classFullName)
+        private static bool IsIngoreMethod(string classFullName)
         {
             var tmpName = classFullName.ToLower();
             foreach (var ic in IgnoreClass)
@@ -141,7 +141,7 @@ namespace GameMain.Editor.BuildPipeline
                 if (ass != null)
                 {
                     var name = ass.GetName().Name;
-                    if (IsIngoreClass(name))
+                    if (IsIngoreMethod(name))
                     {
                         continue;
                     }
@@ -210,7 +210,7 @@ namespace GameMain.Editor.BuildPipeline
 
             foreach (var ass in AllAssemblies)
             {
-                if (IsIngoreClass(ass.Key))
+                if (IsIngoreMethod(ass.Key))
                 {
                     continue;
                 }
@@ -387,11 +387,11 @@ namespace GameMain.Scripts.HybridCLR
             var successAssemblies = new Dictionary<string, Assembly>();
             foreach (var wa in watchAssemblies)
             {
-				if (wa.IsDynamic)
+                if (wa.IsDynamic)
                 {
                     continue;
                 }
-				
+
                 var locName = Path.GetFileName(wa.Location).ToLower();
                 if (successAssemblies.ContainsKey(locName))
                 {
@@ -408,10 +408,20 @@ namespace GameMain.Scripts.HybridCLR
                 }
             }
 
-            var assCsharp = watchAssemblies.First(a => a.GetName().Name == "Assembly-CSharp");
-            if (assCsharp != null)
+            foreach (var asName in SettingsUtil.HotUpdateAssemblyNamesExcludePreserved)
             {
-                successAssemblies.Add("assembly-csharp.dll", assCsharp);
+                foreach (var ass in watchAssemblies)
+                {
+                    if (ass.IsDynamic)
+                    {
+                        continue;
+                    }
+
+                    if (ass.GetName().Name == asName)
+                    {
+                        successAssemblies[ass.GetName().Name] = ass;
+                    }
+                }
             }
 
             var distAssembly = new Dictionary<string, Assembly>();            
@@ -437,32 +447,28 @@ namespace GameMain.Scripts.HybridCLR
                 var ras = ass.GetReferencedAssemblies();
                 foreach (var r in ras)
                 {
-                //    if (r.Name.Contains("UnityEditor"))
+                    if (r.Name.Contains("UnityEditor"))
                     {
-                 //       hasEditor = true;
-               //         break;
+                        hasEditor = true;
+                        break;
                     }
                 }
 
                 if (hasEditor)
                 {
-         //           continue;
+                    continue;
                 }
 
-                if (!distAssembly.ContainsKey(ass.FullName))
-                {
-                    distAssembly.Add(ass.FullName, ass);
-                }
-
+                distAssembly.Add(ass.FullName, ass);
                 foreach (var r in ras)
                 {
-                    if (r.Name.Contains("UnityEditor"))
-                    {
-                        continue;
-                    }
-
                     foreach (var wa in watchAssemblies)
                     {
+                        if (wa.IsDynamic)
+                        {
+                            continue;
+                        }
+
                         if (wa.FullName == r.FullName && !distAssembly.ContainsKey(wa.FullName))
                         {
                             distAssembly.Add(wa.FullName, wa);
@@ -480,11 +486,22 @@ namespace GameMain.Scripts.HybridCLR
                     continue;
                 }
 
-                if (ass.FullName.Contains("Assembly-CSharp") 
-                    || ass.FullName.Contains("TestRunner")
-                    || ass.FullName.Contains("HybridCLR")
-                    || ass.FullName.Contains("nunit")
-                    )
+                var cont = false;
+                foreach (var asName in SettingsUtil.HotUpdateAssemblyNamesExcludePreserved)
+                {
+                    if (ass.FullName.Contains(asName))
+                    {
+                        cont = true;
+                        break;
+                    }
+                }
+
+                if (cont)
+                {
+                    continue;
+                }
+
+                if (ass.FullName.Contains("TestRunner") || ass.FullName.Contains("HybridCLR") || ass.FullName.Contains("nunit"))
                 {
                     continue;
                 }               

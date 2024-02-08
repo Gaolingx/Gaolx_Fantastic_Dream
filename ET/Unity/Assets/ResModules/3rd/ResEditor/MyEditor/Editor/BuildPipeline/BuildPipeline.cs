@@ -47,7 +47,7 @@ namespace GameMain.Editor.BuildPipeline
             var file = Directory.GetFiles(path, "global-metadata.dat", SearchOption.AllDirectories);
             if (file.Length == 0)
             {
-                throw new Exception($"[BuildPipeline::Encrypt] OnPostprocessBuild {path}’“≤ªµΩ!!!");
+                throw new Exception($"[BuildPipeline::Encrypt] OnPostprocessBuild {path}Êâæ‰∏çÂà∞!!!");
             }
 
             OnEncryptMetadataProcess(file[0]);

@@ -48,8 +48,7 @@ namespace GameMain.Editor.BuildPipeline
             var buildScenes = new List<string>();
             foreach (var scene in EditorBuildSettings.scenes)
             {
-                var name = scene.path.ToLower().Replace('\\', '/');
-                if (scene.enabled && (name.Contains("scenes/launch") || name.Contains("scenes/downloadscene") || name.Contains("scenes/exittonative")))
+                if (scene.enabled )
                 {
                     buildScenes.Add(scene.path);
                 }
@@ -94,6 +93,8 @@ namespace GameMain.Editor.BuildPipeline
             _bpOption.locationPathName = location;
             _bpOption.target = BuildTarget.StandaloneWindows64;
             _bpOption.targetGroup = BuildTargetGroup.Standalone;
+            _bpOption.options = BuildOptions.CompressWithLz4;
+            UnityEditor.WindowsStandalone.UserBuildSettings.createSolution = true;
 
             Build_Internal("Build_Win64", location);
         }

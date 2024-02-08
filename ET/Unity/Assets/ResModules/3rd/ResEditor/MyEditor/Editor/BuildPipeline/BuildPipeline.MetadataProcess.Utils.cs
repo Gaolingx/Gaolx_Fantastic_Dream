@@ -24,10 +24,16 @@ namespace GameMain.Editor.BuildPipeline
 
             using var ms = new MemoryStream(10240);
             using var bw = new BinaryWriter(ms);
+            var metaCount = Directory.GetFiles(pathName, "*.meta", SearchOption.AllDirectories).Length;
             var files = Directory.GetFiles(pathName, "*.*", SearchOption.AllDirectories);
-            bw.Write(files.Length);
+            bw.Write(files.Length - metaCount);
             foreach (var file in files)
             {
+                if (file.EndsWith(".meta"))
+                {
+                    continue;
+                }
+
                 var bytes = File.ReadAllBytes(file);
                 var fileName = Path.GetFullPath(file).Replace('\\', '/').Replace(pathName, "");
                 bw.Write(fileName);
@@ -99,7 +105,7 @@ namespace GameMain.Editor.BuildPipeline
             var fileName = EditorUtility.OpenFilePanel("加载...", "选择要加载的文件目录", "bytes");
 
             var savePath = "";
-            Select2:
+        Select2:
             savePath = EditorUtility.SaveFolderPanel("保存到的目录", "请选择需要保存的目录", "");
             if (string.IsNullOrEmpty(savePath))
             {
@@ -136,11 +142,12 @@ namespace GameMain.Editor.BuildPipeline
 
             public Helper()
             {
-                Password = new byte[32];
                 var rand = new System.Random();
+                var len = rand.Next(4, 10) * 8;
+                Password = new byte[len];
                 for (var i = 0; i < Password.Length; ++i)
                 {
-                    Password[i] = (byte) rand.Next(byte.MinValue + 5, byte.MaxValue - 5);
+                    Password[i] = (byte)rand.Next(byte.MinValue + 5, byte.MaxValue - 5);
                 }
             }
 

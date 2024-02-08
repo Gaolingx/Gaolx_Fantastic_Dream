@@ -71,10 +71,8 @@ namespace GameMain.Editor.BuildPipeline.BuildPipelineCore
                     new object[] {LogType.Exception, "用户取消", "BuildFailedException"});
             });
 
-            var allTypes = AppDomain.CurrentDomain.GetAssemblies().SelectMany(assembly => assembly.GetTypes())
-                .ToArray();
             var baseType = typeof(BuildPipelineCallbackBase);
-            foreach (var callbackType in allTypes)
+            foreach (var callbackType in AppDomain.CurrentDomain.GetAssemblies().SelectMany(assembly => assembly.GetTypes()))
             {
                 if (!baseType.IsAssignableFrom(callbackType))
                 {

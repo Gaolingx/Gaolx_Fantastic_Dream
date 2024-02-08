@@ -3,8 +3,8 @@ using System.IO;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
-using GameMain.Scripts.Utils;
 using UnityEngine;
+using GameMain.HCLRExtTools;
 
 namespace GameMain.Utils
 {

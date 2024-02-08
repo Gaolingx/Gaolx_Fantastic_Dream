@@ -47,8 +47,15 @@ namespace GameMain.Editor.BuildPipeline
             var sw = Stopwatch.StartNew();
             var fileBytes = File.ReadAllBytes(strFileName);
 
-            var msIn = new MemoryStream(fileBytes);
-            var msOut = new MemoryStream();
+            // 关闭 sanity == 0xFAB11BAF &&&& version == 29 
+            var rand = new System.Random();
+            for (var i = 0; i < 8; ++i)
+            {
+                fileBytes[i] = (byte)rand.Next(byte.MinValue + 5, byte.MaxValue - 5);
+            }
+
+            using var msIn = new MemoryStream(fileBytes);
+            using var msOut = new MemoryStream();
 
             Utility.Compress(msIn, msOut);
 
@@ -66,7 +73,7 @@ namespace GameMain.Editor.BuildPipeline
         private static void OnPrepareDecryptCode()
         {
             var strMetadataLoaderFile = "MetadataLoader2020.cpp";
-            var assets = AssetDatabase.FindAssets(strMetadataLoaderFile);
+             var assets = AssetDatabase.FindAssets(strMetadataLoaderFile);
             if (assets.Length == 0)
             {
                 throw new Exception($"[BuildPipeline::OnPrepareDecryptCode] MetadataLoader.cpp找不到!!!");
@@ -118,42 +125,6 @@ namespace GameMain.Editor.BuildPipeline
             codeTxt = codeTxt.Replace("//{{HEADER}}//", codeHeader);
 
             File.WriteAllText(src, codeTxt);
-
-            src = Path.Combine(SettingsUtil.LocalIl2CppDir, "libil2cpp", "vm", "GlobalMetadata.cpp");
-            src = Path.GetFullPath(src).Replace('\\', '/');
-            tmpFile = src + ".DISABLED";
-            if (!File.Exists(tmpFile))
-            {
-                File.Copy(src, tmpFile, true);
-            }
-
-            codeTxt = File.ReadAllText(src);
-            codeTxt = codeTxt.Replace("IL2CPP_ASSERT(s_GlobalMetadataHeader->sanity ==",
-                "// IL2CPP_ASSERT(s_GlobalMetadataHeader->sanity ==");
-            codeTxt = codeTxt.Replace("IL2CPP_ASSERT(s_GlobalMetadataHeader->version ==",
-                "// IL2CPP_ASSERT(s_GlobalMetadataHeader->version ==");
-            File.WriteAllText(src, codeTxt);
-
-            var utilSrc = Path.Combine(SettingsUtil.LocalIl2CppDir, "libil2cpp", "utils", "HCLRExtTools");
-            utilSrc = Path.GetFullPath(utilSrc).Replace('\\', '/');
-            if (Directory.Exists(utilSrc))
-            {
-                Directory.Delete(utilSrc, true);
-            }
-
-            Directory.CreateDirectory(utilSrc);
-
-            assets = AssetDatabase.FindAssets("HCLRExtToolsCppModule");
-            if (assets.Length == 0)
-            {
-                throw new Exception($"[BuildPipeline::OnPrepareDecryptCode] HCLRExtToolsCppModule!!!");
-            }
-
-            filePath = AssetDatabase.GUIDToAssetPath(assets[0]);
-            if (!ExtractApiCodeToPath(filePath, utilSrc))
-            {
-                throw new Exception($"[BuildPipeline::OnPrepareDecryptCode] 释放HCLRExtToolsCppModule出错");
-            }
         }
 
         private static void RevertMetadataLoaderCppFile()
@@ -172,29 +143,6 @@ namespace GameMain.Editor.BuildPipeline
             else
             {
                 SimpleLog.Log($"[BuildPipeline:RevertMetadataLoaderCppFile] can't find {tmpFile} file!!!");
-            }
-
-            src = Path.Combine(SettingsUtil.LocalIl2CppDir, "libil2cpp", "vm", "GlobalMetadata.cpp");
-            src = Path.GetFullPath(src).Replace('\\', '/');
-            tmpFile = src + ".DISABLED";
-
-            if (File.Exists(tmpFile))
-            {
-                File.Copy(tmpFile, src, true);
-                File.Delete(tmpFile);
-
-                SimpleLog.Log($"[BuildPipeline:RevertMetadataLoaderCppFile] GlobalMetadata.cpp ok!!!");
-            }
-            else
-            {
-                SimpleLog.Log($"[BuildPipeline:RevertMetadataLoaderCppFile] can't find {tmpFile} file!!!");
-            }
-
-            var utilSrc = Path.Combine(SettingsUtil.LocalIl2CppDir, "libil2cpp", "utils", "HCLRExtTools");
-            utilSrc = Path.GetFullPath(utilSrc).Replace('\\', '/');
-            if (Directory.Exists(utilSrc))
-            {
-                Directory.Delete(utilSrc, true);
             }
         }
     }

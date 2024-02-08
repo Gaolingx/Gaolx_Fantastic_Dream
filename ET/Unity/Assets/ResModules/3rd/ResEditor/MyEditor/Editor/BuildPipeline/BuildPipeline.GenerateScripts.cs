@@ -1,5 +1,6 @@
 using GameMain.Utils;
 using HybridCLR.Editor;
+using HybridCLR.Editor.AOT;
 using HybridCLR.Editor.Commands;
 using Newtonsoft.Json;
 using System;
@@ -12,7 +13,7 @@ namespace GameMain.Editor.BuildPipeline
 {
     public partial class BuildPipeline
     {
-        private static void Generate(string scriptOutDir, string srcDir, string name, string password, List<string> fileList = null, bool withMethodInfo = false)
+        private static void Generate(string scriptOutDir, string srcDir, string name, string password, List<string> fileList = null, bool tinyDLL = false)
         {
             var dstFile = Path.Combine(scriptOutDir, name).Replace('\\', '/');
             if (File.Exists(dstFile))
@@ -38,13 +39,11 @@ namespace GameMain.Editor.BuildPipeline
                 fileList = new List<string>(files.Length);
                 foreach (var file in files)
                 {
-                    if (file.EndsWith(".meta"))
+                    if (file.ToLower().EndsWith(".dll"))
                     {
-                        continue;
+                        var tmp = file.Replace('\\', '/').Replace(srcFullDir, "");
+                        fileList.Add(tmp);
                     }
-
-                    var tmp = file.Replace('\\', '/').Replace(srcFullDir, "");
-                    fileList.Add(tmp);
                 }
             }
 
@@ -74,7 +73,14 @@ namespace GameMain.Editor.BuildPipeline
                 SimpleLog.Log($"[BuildPipeline::GenerateScripts] copy {filePath} to {dstFile}");
 
                 bw.Write(file);
-                var bytes = File.ReadAllBytes(filePath);
+
+                var dstFilePath = filePath;
+                if (tinyDLL)
+                {
+                    dstFilePath = dstFilePath.Replace(".dll", "_ext.dll");
+                    AOTAssemblyMetadataStripper.Strip(filePath, dstFilePath);
+                }
+                var bytes = File.ReadAllBytes(dstFilePath);
                 if (bytes != null && bytes.Length > 0)
                 {
                     bw.Write(bytes.Length);
@@ -135,6 +141,7 @@ namespace GameMain.Editor.BuildPipeline
             var target = EditorUserBuildSettings.activeBuildTarget;
             SimpleLog.Log($"[BuildPipeline::GenerateScripts] 重新编译脚本 {target}");
             CompileDllCommand.CompileDll(target);
+            AOTReferenceGeneratorCommand.GenerateAOTGenericReference(target);
             SimpleLog.Log($"[BuildPipeline::GenerateScripts] 打包hotfix.dll");
 
             var scriptOutDir = Path.Combine(Application.dataPath, "..", "HotfixUpload", target.ToString());
@@ -148,7 +155,7 @@ namespace GameMain.Editor.BuildPipeline
             dirInfo.Create();
 
             var hotDlls = SettingsUtil.GetHotUpdateDllsOutputDirByTarget(target);
-            Generate(scriptOutDir, hotDlls, "Cfg.bytes", "hotfix", SettingsUtil.HotUpdateAssemblyFilesIncludePreserved, true);
+            Generate(scriptOutDir, hotDlls, "Cfg.bytes", "hotfix", SettingsUtil.HotUpdateAssemblyFilesIncludePreserved);
 
             SimpleLog.Log($"[BuildPipeline::GenerateScripts] 打包元数据.dll");
             string baseDll = SettingsUtil.GetAssembliesPostIl2CppStripDir(target);
@@ -160,7 +167,7 @@ namespace GameMain.Editor.BuildPipeline
                     patchedAOTAssemblyList.Add(other);
                 }
             }
-            Generate(scriptOutDir, baseDll, "Base.bytes", "base", new(patchedAOTAssemblyList));
+            Generate(scriptOutDir, baseDll, "Base.bytes", "base", new(patchedAOTAssemblyList), true);
 
             var scriptConfig = Path.GetFullPath(Path.Combine(scriptOutDir, "Ver.bytes")).Replace('\\', '/');
             if (File.Exists(scriptConfig))
