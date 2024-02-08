@@ -15,6 +15,8 @@ public class MainCitySys : SystemRoot
     private GameObject Scene_player;
     private PlayerController playerCtrl;
     private Transform charCamTrans;
+    private AutoGuideCfg curtTaskData;
+    private Transform[] npcPosTrans;
 
     public override void InitSys()
     {
@@ -45,8 +47,11 @@ public class MainCitySys : SystemRoot
             //播放主城背景音乐
             audioSvc.PlayBGMusic(Constants.BGMainCity);
 
+            //获取主城NPCs的Transform
+            GetMapNpcTransform();
+
             //设置人物展示相机
-            if(charCamTrans != null)
+            if (charCamTrans != null)
             {
                 charCamTrans.gameObject.SetActive(false);
             }
@@ -163,9 +168,34 @@ public class MainCitySys : SystemRoot
         Scene_player.transform.localEulerAngles = new Vector3(0, startRoate + roate, 0);
     }
 
-    public void RunTask(AutoGuideCfg agc)
+    public void GetMapNpcTransform()
     {
-
+        GameObject map = GameObject.FindGameObjectWithTag(Constants.MapRootGameObjectWithTag);
+        MainCityMap mainCityMap = map.GetComponent<MainCityMap>();
+        npcPosTrans = mainCityMap.NpcPosTrans;
     }
 
+    public void RunTask(AutoGuideCfg agc)
+    {
+        if (agc != null)
+        {
+            curtTaskData = agc;
+        }
+
+        //解析任务数据
+        //判断是否需要寻路（找到npc）
+        if(curtTaskData.npcID != -1)
+        {
+
+        }
+        else
+        {
+            OpenGuideWnd();
+        }
+    }
+
+    private void OpenGuideWnd()
+    {
+        //TODO
+    }
 }

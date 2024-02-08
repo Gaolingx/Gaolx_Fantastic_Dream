@@ -7,6 +7,7 @@ TagManager:
   - CinemachineTarget
   - PlayerCamRoot
   - CharShowCam
+  - MapRoot
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - DynamicItem
   - Effect
   - PlayerCamRoot
   - PlayerVC

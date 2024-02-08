@@ -79,4 +79,7 @@ public class Constants
     //自动任务图标配置
     public const int DefaultGuideBtnIconID = -1;
 
+    //MainCityMap配置
+    public const string MapRootGameObjectWithTag = "MapRoot";
+
 }
