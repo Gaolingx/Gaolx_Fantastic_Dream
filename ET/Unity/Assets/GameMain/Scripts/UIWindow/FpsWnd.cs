@@ -13,7 +13,7 @@ public class FpsWnd : MonoBehaviour
     public void InitWnd()
     {
         FpsWindow.SetActive(true);
-        fpsWndState = false;
+        SetFpsWindowScriptActive();
     }
     public void ClickShowDebugInfoBtn()
     {
