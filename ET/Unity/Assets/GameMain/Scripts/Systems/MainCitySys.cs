@@ -11,6 +11,7 @@ public class MainCitySys : SystemRoot
 
     public MainCityWnd maincityWnd;
     public InfoWnd infoWnd;
+    public FpsWnd fpsWnd;
     public GameObject PlayerCameraRoot;
     private GameObject Scene_player;
     private PlayerController playerCtrl;
@@ -55,6 +56,9 @@ public class MainCitySys : SystemRoot
             {
                 charCamTrans.gameObject.SetActive(false);
             }
+
+            //加载性能计数器
+            fpsWnd.InitWnd();
 
         });
 
