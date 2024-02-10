@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using StarterAssets;
+using UnityEngine.AI;
 
 public class MainCitySys : SystemRoot
 {
@@ -18,6 +19,7 @@ public class MainCitySys : SystemRoot
     private Transform charCamTrans;
     private AutoGuideCfg curtTaskData;
     private Transform[] npcPosTrans;
+    private NavMeshAgent nav;
 
     public override void InitSys()
     {
@@ -105,6 +107,10 @@ public class MainCitySys : SystemRoot
         playerCtrl.Init();
         */
 
+        nav = player.GetComponent<NavMeshAgent>();
+
+        player.GetComponent<ThirdPersonController>().MoveSpeed = Constants.PlayerMoveSpeed;
+        player.GetComponent<ThirdPersonController>().SprintSpeed = Constants.PlayerSprintSpeed;
     }
 
     private void InitGamepad()
@@ -179,8 +185,11 @@ public class MainCitySys : SystemRoot
         npcPosTrans = mainCityMap.NpcPosTrans;
     }
 
+    private bool isNavGuide = false;
     public void RunTask(AutoGuideCfg agc)
     {
+        Scene_player = GameObject.FindGameObjectWithTag(Constants.CharPlayerWithTag);
+        StarterAssetsInputs playerInput = Scene_player.GetComponent<StarterAssetsInputs>();
         if (agc != null)
         {
             curtTaskData = agc;
@@ -188,9 +197,29 @@ public class MainCitySys : SystemRoot
 
         //解析任务数据
         //判断是否需要寻路（找到npc）
-        if(curtTaskData.npcID != -1)
+        if (curtTaskData.npcID != -1)
         {
+            float dis = Vector3.Distance(Scene_player.transform.position, npcPosTrans[agc.npcID].position);
+            if (dis < Constants.NavNpcDst)
+            {
+                isNavGuide = false;
+                nav.isStopped = true;
+                if (nav.enabled)
+                {
+                    playerInput.move = new Vector2(0, 0);
+                }
+                nav.enabled = false;
 
+                OpenGuideWnd();
+            }
+            else
+            {
+                isNavGuide = true;
+                nav.enabled = true;
+                nav.speed = Constants.PlayerMoveSpeedNav;
+                nav.SetDestination(npcPosTrans[agc.npcID].position);
+                playerInput.move = new Vector2(0, 1);
+            }
         }
         else
         {

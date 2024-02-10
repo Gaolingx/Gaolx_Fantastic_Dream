@@ -49,7 +49,9 @@ public class Constants
     public const int BlendWalk = 1;
 
     //角色移动速度
-    public const int PlayerMoveSpeed = 8;
+    public const float PlayerMoveSpeed = 2.0f;
+    //角色奔跑速度
+    public const float PlayerSprintSpeed = 5.335f;
     //怪物移动速度
     public const int MonsterMoveSpeed = 4;
 
@@ -81,5 +83,9 @@ public class Constants
 
     //MainCityMap配置
     public const string MapRootGameObjectWithTag = "MapRoot";
+
+    //NavMesh配置
+    public const float NavNpcDst = 2.5f;
+    public const float PlayerMoveSpeedNav = 5;
 
 }
