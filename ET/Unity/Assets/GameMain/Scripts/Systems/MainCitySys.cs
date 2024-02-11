@@ -13,7 +13,9 @@ public class MainCitySys : SystemRoot
 
     public MainCityWnd maincityWnd;
     public InfoWnd infoWnd;
+    public GuideWnd guideWnd;
     public FpsWnd fpsWnd;
+
     public GameObject PlayerCameraRoot;
     private GameObject Scene_player;
     private PlayerController playerCtrl;
@@ -149,6 +151,7 @@ public class MainCitySys : SystemRoot
     }
 
 
+    #region Info Wnd
     public void OpenInfoWnd()
     {
         StopNavTask();
@@ -185,6 +188,7 @@ public class MainCitySys : SystemRoot
     {
         Scene_player.transform.localEulerAngles = new Vector3(0, startRoate + roate, 0);
     }
+    #endregion
 
     public void GetMapNpcTransform()
     {
@@ -193,6 +197,7 @@ public class MainCitySys : SystemRoot
         npcPosTrans = mainCityMap.NpcPosTrans;
     }
 
+    #region Guide Wnd
     private bool isNavGuide = false;
     public void RunTask(AutoGuideCfg agc)
     {
@@ -275,6 +280,7 @@ public class MainCitySys : SystemRoot
 
     private void OpenGuideWnd()
     {
-        //TODO
+        guideWnd.SetWndState();
     }
+    #endregion
 }
