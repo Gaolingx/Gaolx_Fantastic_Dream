@@ -85,7 +85,7 @@ public class Constants
     public const string MapRootGameObjectWithTag = "MapRoot";
 
     //NavMesh≈‰÷√
-    public const float NavNpcDst = 2.5f;
+    public const float NavNpcDst = 1.5f;
     public const float PlayerMoveSpeedNav = 2;
 
 }

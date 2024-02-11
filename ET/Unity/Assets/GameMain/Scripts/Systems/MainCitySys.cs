@@ -5,6 +5,7 @@ using UnityEngine;
 using Cinemachine;
 using StarterAssets;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
 
 public class MainCitySys : SystemRoot
 {
@@ -20,6 +21,7 @@ public class MainCitySys : SystemRoot
     private AutoGuideCfg curtTaskData;
     private Transform[] npcPosTrans;
     private NavMeshAgent nav;
+    StarterAssetsInputs playerInput;
 
     public override void InitSys()
     {
@@ -112,12 +114,15 @@ public class MainCitySys : SystemRoot
 
         player.GetComponent<ThirdPersonController>().MoveSpeed = Constants.PlayerMoveSpeed;
         player.GetComponent<ThirdPersonController>().SprintSpeed = Constants.PlayerSprintSpeed;
+
+        playerInput = player.GetComponent<StarterAssetsInputs>();
+
+        Scene_player = GameObject.FindGameObjectWithTag(Constants.CharPlayerWithTag);
     }
 
     private void InitGamepad()
     {
         GameObject GamePad = GameObject.Find(Constants.GamepadBind_StarterAssetsInputs_Joysticks);
-        Scene_player = GameObject.FindGameObjectWithTag(Constants.CharPlayerWithTag);
         UICanvasControllerInput uICanvasControllerInput = GamePad.GetComponent<UICanvasControllerInput>();
         StarterAssetsInputs StarterAssetsInputs_player = Scene_player.GetComponent<StarterAssetsInputs>();
 
@@ -128,6 +133,8 @@ public class MainCitySys : SystemRoot
     //原方案
     public void SetMoveDir(Vector2 dir)
     {
+        StopNavTask();
+
         //设置动画
         if (dir == Vector2.zero)
         {
@@ -144,8 +151,8 @@ public class MainCitySys : SystemRoot
 
     public void OpenInfoWnd()
     {
-        //获取带玩家标签的对象
-        Scene_player = GameObject.FindGameObjectWithTag(Constants.CharPlayerWithTag);
+        StopNavTask();
+
         if (charCamTrans == null)
         {
             charCamTrans = GameObject.FindGameObjectWithTag(Constants.CharShowCamWithTag).transform;
@@ -189,13 +196,12 @@ public class MainCitySys : SystemRoot
     private bool isNavGuide = false;
     public void RunTask(AutoGuideCfg agc)
     {
-        Scene_player = GameObject.FindGameObjectWithTag(Constants.CharPlayerWithTag);
-        StarterAssetsInputs playerInput = Scene_player.GetComponent<StarterAssetsInputs>();
         if (agc != null)
         {
             curtTaskData = agc;
         }
 
+        nav.enabled = true;
         //解析任务数据
         //判断是否需要寻路（找到npc）
         if (curtTaskData.npcID != -1)
@@ -207,10 +213,7 @@ public class MainCitySys : SystemRoot
                 //找到目标npc，停止导航
                 isNavGuide = false;
                 nav.isStopped = true;
-                if (nav.enabled)
-                {
-                    playerInput.move = new Vector2(0, 0);
-                }
+                playerInput.move = new Vector2(0, 0);
                 nav.enabled = false;
 
                 OpenGuideWnd();
@@ -233,12 +236,37 @@ public class MainCitySys : SystemRoot
 
     private void Update()
     {
-        /*
         if(isNavGuide)
         {
-            playerCtrl.SetCam();
+            IsArriveNavPos();
+            //playerCtrl.SetCam();
         }
-        */
+    }
+
+    private void IsArriveNavPos()
+    {
+        float dis = Vector3.Distance(Scene_player.transform.position, npcPosTrans[curtTaskData.npcID].position);
+        if (dis < Constants.NavNpcDst)
+        {
+            isNavGuide = false;
+            nav.isStopped = true;
+            playerInput.move = new Vector2(0, 0);
+            nav.enabled = false;
+
+            OpenGuideWnd();
+        }
+    }
+
+    public void StopNavTask()
+    {
+        if (isNavGuide)
+        {
+            isNavGuide = false;
+
+            nav.isStopped = true;
+            nav.enabled = false;
+            playerInput.move = new Vector2(0, 0);
+        }
     }
 
     private void OpenGuideWnd()
