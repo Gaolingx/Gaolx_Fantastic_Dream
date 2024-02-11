@@ -86,6 +86,6 @@ public class Constants
 
     //NavMesh≈‰÷√
     public const float NavNpcDst = 2.5f;
-    public const float PlayerMoveSpeedNav = 5;
+    public const float PlayerMoveSpeedNav = 2;
 
 }

@@ -107,6 +107,7 @@ public class MainCitySys : SystemRoot
         playerCtrl.Init();
         */
 
+        //获取player导航组件
         nav = player.GetComponent<NavMeshAgent>();
 
         player.GetComponent<ThirdPersonController>().MoveSpeed = Constants.PlayerMoveSpeed;
@@ -199,9 +200,11 @@ public class MainCitySys : SystemRoot
         //判断是否需要寻路（找到npc）
         if (curtTaskData.npcID != -1)
         {
-            float dis = Vector3.Distance(Scene_player.transform.position, npcPosTrans[agc.npcID].position);
+            float dis = Vector3.Distance(Scene_player.transform.position, npcPosTrans[agc.npcID].position); //此处的npcID与配置表guide定义的npcID一一对应
+            //判断当前游戏主角与目标npc之间的距离
             if (dis < Constants.NavNpcDst)
             {
+                //找到目标npc，停止导航
                 isNavGuide = false;
                 nav.isStopped = true;
                 if (nav.enabled)
@@ -214,10 +217,11 @@ public class MainCitySys : SystemRoot
             }
             else
             {
+                //未找到目标npc，启动导航
                 isNavGuide = true;
-                nav.enabled = true;
-                nav.speed = Constants.PlayerMoveSpeedNav;
-                nav.SetDestination(npcPosTrans[agc.npcID].position);
+                nav.enabled = true; //激活导航组件
+                nav.speed = Constants.PlayerMoveSpeedNav; //导航速度
+                nav.SetDestination(npcPosTrans[agc.npcID].position); //设置导航目标点
                 playerInput.move = new Vector2(0, 1);
             }
         }
@@ -225,6 +229,16 @@ public class MainCitySys : SystemRoot
         {
             OpenGuideWnd();
         }
+    }
+
+    private void Update()
+    {
+        /*
+        if(isNavGuide)
+        {
+            playerCtrl.SetCam();
+        }
+        */
     }
 
     private void OpenGuideWnd()
