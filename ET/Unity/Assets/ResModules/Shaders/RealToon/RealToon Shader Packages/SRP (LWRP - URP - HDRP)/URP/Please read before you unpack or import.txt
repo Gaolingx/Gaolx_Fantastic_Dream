@@ -12,27 +12,32 @@ Tessellation will be coming soon.
 ===========================================================
 ===========================================================
 
-(To use this you need):
-*Unity 2019.3.0 with URP V7.1.1 or latest Unity & URP Version.
+(To use URP you need):
+*Unity 2020.2.0 with URP 10 or latest Unity & URP Version.
 
 How To Update URP:
 1.Go to Window > Package Manager.
-2.Select "All Packages" then select "Universal RP" and select "Version 7.1.1" or latest.
+2.Select "All Packages" then select "Universal RP" and select "Version 10" or latest.
 3.Click "Update" or "Update To".
 
-
-
 ===========================================================
-RealToon URP - RealToon 5.0.8p7 (Patch#7)
+RealToon URP - RealToon 5.0.8p8 (Patch#8)
 ===========================================================
 
 [New]
-- Near Fade Dithering
-*Objects fade when the camera is near.
+- APV (Adaptive Probe Volume) [URP 15 to later]
+- DeNorSob Outline does not need a separate Depth-Normals Render Feature [URP 15 to later]
+- URP Deferred Support [URP 12 to later]
 
-- LOD Crossfading (URP 14)
-- URP 14 full support
-- Quick ready support for Unity 2023 (For Testing Purpose)
+[Improvements]
+- DeNorSob Outline can now be affected by the Cutout feature. [URP 15 to later]
+
+[Changes]
+- DeNorSob Outline will not affect transparency
+- In Transparent Mode, On Shader Screen Space Outline will be disabled except Cutout Feature.
+
+[Fix]
+- DeNorSob Outline not working
 
 ===========================================================
 Main Update 5.0.8

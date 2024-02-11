@@ -13,8 +13,7 @@ How to use RealToon Effect - DeNorSob Outline
 * Then next we will add that effect in the "Custom Post Process Order" so that the effect will work.
 
 5. To add Go to "Edit" > "Project Settings" > "HDRP Default Settings" then scroll down to "Custom Post Process Order".
-6-a. Next click the "+" sign under the "After Post Process" then click "RealToon.Effects.DeNorSobOutline". (This one is for HDRP 8 and 7 versions)
-6-b. Next click the "+" sign under the "Before TAA" then click "RealToon.Effects.DeNorSobOutline". (This one is for HDRP 10 to later versions)
+6-b. Next click the "+" sign under the "AfterOpaqueAndSky " then click "RealToon.Effects.DeNorSobOutline". (This one is for HDRP 10 to later versions)
 
 * Now the effect works.
 

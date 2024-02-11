@@ -1,15 +1,29 @@
-What's New to RealToon V5.0.8p7 (Patch#7) (December 2022)
+What's New to RealToon V5.0.8p8 (Patch#8) (October 2023)
 =====================================
-[New]
-- Near Fade Dithering (URP and HDRP)
-*Objects fade when the camera is near.
 
-- LOD Crossfading (URP 14 and HDRP 14)
-- URP 14 and HDRP 14 full support
-- Quick ready support for Unity 2023 (For Tesing Purpose)
+[New]
+- APV (Adaptive Probe Volume) [URP 15 to later]
+- Arealight out of beta. [HDRP 16 to later]
+- DeNorSob Outline does not need a separate Depth-Normals Render Feature [URP 15 to later]
+- URP Deferred Support [URP 12 to later]
 
 [Improvements]
-- RayTracing reflections and RayTracing GI (HDRP 14)
+- DeNorSob Outline can now be affected by the Cutout feature. [URP 15 to later]
+- Arealight light falloff is improved and can now be set to any XY size without any noise. [HDRP 16]
+
+[Changes]
+- DeNorSob Outline will not affect transparency [URP and HDRP]
+- In Transparent Mode, On Shader Screen Space Outline will be disabled except Cutout Feature. [URP and HDRP]
+- DeNorSob Outline Injection is now AfterOpaqueAndSky and transparent object will not affected by the outline. [HDRP]
+- URP 7 - 8 and HDRP 7 - 8 are not supported and removed.
+
+[Fix]
+- Blinking/Flashing when using Cutout Feature [HDRP]
+- Blinking/Flashing colors [HDRP 14 to later]
+- "INDIRECTDIFFUSEMODE_RAYTRACE" error [HDRP 14 to later]
+- Arealight errors [HDRP 16 to later]
+- DeNorSob Outline not working [URP 15 to later]
+
 
 
 What's New to RealToon V5.0.8 Update (March 2020) (Main Update)
