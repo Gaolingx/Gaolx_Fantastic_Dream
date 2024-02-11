@@ -210,6 +210,7 @@ public class MainCitySys : SystemRoot
             //判断当前游戏主角与目标npc之间的距离
             if (dis < Constants.NavNpcDst)
             {
+                Debug.Log("已经找到目标NPC，导航结束！");
                 //找到目标npc，停止导航
                 isNavGuide = false;
                 nav.isStopped = true;
@@ -220,6 +221,7 @@ public class MainCitySys : SystemRoot
             }
             else
             {
+                Debug.Log("NavMesh导航启动，自动寻路中...");
                 //未找到目标npc，启动导航
                 isNavGuide = true;
                 nav.enabled = true; //激活导航组件
@@ -248,6 +250,7 @@ public class MainCitySys : SystemRoot
         float dis = Vector3.Distance(Scene_player.transform.position, npcPosTrans[curtTaskData.npcID].position);
         if (dis < Constants.NavNpcDst)
         {
+            Debug.Log("已经到达目的地，导航结束！");
             isNavGuide = false;
             nav.isStopped = true;
             playerInput.move = new Vector2(0, 0);
@@ -261,6 +264,7 @@ public class MainCitySys : SystemRoot
     {
         if (isNavGuide)
         {
+            Debug.Log("因为导航中途执行其他操作，导航中断！");
             isNavGuide = false;
 
             nav.isStopped = true;
