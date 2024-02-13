@@ -214,4 +214,9 @@ public class MainCityWnd : WindowRoot
         });
     }
     #endregion
+
+    public void ClickSettingsBtn()
+    {
+        MainCitySys.Instance.OpenSettingsWnd();
+    }
 }

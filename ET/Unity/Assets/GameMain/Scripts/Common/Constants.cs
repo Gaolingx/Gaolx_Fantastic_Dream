@@ -95,4 +95,8 @@ public class Constants
     public const string CurtTaskData_NpcID_3_Name = "商人";
     public const string CurtTaskData_NpcID_Default_Name = "小芸";
 
+    //Settings面板配置
+    public const string BGAudioGameObjectName = "BGAudio";
+    public const string UIAudioGameObjectName = "UIAudio";
+
 }

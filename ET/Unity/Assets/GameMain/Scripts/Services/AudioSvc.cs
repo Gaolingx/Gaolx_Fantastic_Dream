@@ -9,27 +9,53 @@ public class AudioSvc : MonoBehaviour
     public static AudioSvc Instance = null;
 
     public bool _isTurnOnAudio = true;
-    public AudioSource bgAudio;
-    public AudioSource uiAudio;
+    [Range(0, 1)] public float BGAudioVolumeValue, UIAudioVolumeValue;
+    public GameObject BGAudioGameObject, UIAudioGameObject;
+    public AudioSource BGAudioAudioSource, UIAudioAudioSource;
 
     private string bgAudioPath = PathDefine.bgAudioPath;
 
     public void InitSvc()
     {
         Instance = this;
+
+        GetAudioGameObjectComponent();
+        GetAudioSourceValueInit();
         PECommon.Log("Init AudioSvc...");
     }
 
+
+    private void GetAudioGameObjectComponent()
+    {
+        BGAudioGameObject = GameObject.Find(Constants.BGAudioGameObjectName);
+        BGAudioAudioSource = BGAudioGameObject.GetComponent<AudioSource>();
+        UIAudioGameObject = GameObject.Find(Constants.UIAudioGameObjectName);
+        UIAudioAudioSource = UIAudioGameObject.GetComponent<AudioSource>();
+
+    }
+
+    private void GetAudioSourceValueInit()
+    {
+        if (BGAudioGameObject != null)
+        {
+            BGAudioVolumeValue = BGAudioAudioSource.volume;
+        }
+        if (UIAudioGameObject != null)
+        {
+            UIAudioVolumeValue = UIAudioAudioSource.volume;
+        }
+    }
 
     public void PlayBGMusic(string name, bool isLoop = true)
     {
         if (!_isTurnOnAudio) { return; }
         AudioClip audio = ResSvc.Instance.LoadAudio(bgAudioPath + name, true);
-        if(bgAudio.clip == null || bgAudio.clip.name != audio.name)
+        if(BGAudioAudioSource.clip == null || BGAudioAudioSource.clip.name != audio.name)
         {
-            bgAudio.clip = audio;
-            bgAudio.loop = isLoop;
-            bgAudio.Play();
+            BGAudioAudioSource.clip = audio;
+            BGAudioAudioSource.loop = isLoop;
+            BGAudioAudioSource.volume = BGAudioVolumeValue;
+            BGAudioAudioSource.Play();
         }
     }
 
@@ -37,7 +63,8 @@ public class AudioSvc : MonoBehaviour
     {
         if (!_isTurnOnAudio) { return; }
         AudioClip audio = ResSvc.Instance.LoadAudio(bgAudioPath + name, true);
-            uiAudio.clip = audio;
-            uiAudio.Play();
+        UIAudioAudioSource.clip = audio;
+        UIAudioAudioSource.volume = UIAudioVolumeValue;
+        UIAudioAudioSource.Play();
     }
 }

@@ -14,6 +14,7 @@ public class MainCitySys : SystemRoot
     public MainCityWnd maincityWnd;
     public InfoWnd infoWnd;
     public GuideWnd guideWnd;
+    public SettingsWnd settingsWnd;
     public FpsWnd fpsWnd;
 
     public GameObject PlayerCameraRoot;
@@ -303,6 +304,15 @@ public class MainCitySys : SystemRoot
     public AutoGuideCfg GetCurtTaskData()
     {
         return curtTaskData;
+    }
+    #endregion
+
+    #region Guide Wnd
+    public void OpenSettingsWnd()
+    {
+        audioSvc.PlayUIAudio(Constants.UIClickBtn);
+        settingsWnd.SetWndState(true);
+
     }
     #endregion
 }
