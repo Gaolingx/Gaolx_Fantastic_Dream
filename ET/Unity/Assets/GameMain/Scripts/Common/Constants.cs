@@ -88,4 +88,11 @@ public class Constants
     public const float NavNpcDst = 1.5f;
     public const float PlayerMoveSpeedNav = 2;
 
+    //DialogueWnd配置
+    public const string CurtTaskData_NpcID_0_Name = "智者";
+    public const string CurtTaskData_NpcID_1_Name = "将军";
+    public const string CurtTaskData_NpcID_2_Name = "工匠";
+    public const string CurtTaskData_NpcID_3_Name = "商人";
+    public const string CurtTaskData_NpcID_Default_Name = "小芸";
+
 }

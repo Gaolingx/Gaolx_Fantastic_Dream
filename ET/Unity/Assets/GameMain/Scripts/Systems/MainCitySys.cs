@@ -75,51 +75,68 @@ public class MainCitySys : SystemRoot
         //玩家初始化
         //获取Prefab实例化的对象
         GameObject player = resSvc.LoadPrefab(PathDefine.AssissnCityPlayerPrefab, true);
-        //初始化玩家位置
-        player.transform.position = mapData.playerBornPos;
-        player.transform.localEulerAngles = mapData.playerBornRote;
-        player.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        if (player != null)
+        {
+            Debug.Log("Player预制件加载成功！");
+            //初始化玩家位置
+            player.transform.position = mapData.playerBornPos;
+            player.transform.localEulerAngles = mapData.playerBornRote;
+            player.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+            //原方案
+            //相机初始化
+            /*
+            Camera.main.transform.position = mapData.mainCamPos;
+            Camera.main.transform.localEulerAngles = mapData.mainCamRote;
+
+            playerCtrl = player.GetComponent<PlayerController>();
+            playerCtrl.Init();
+            */
+
+            //获取player导航组件
+            nav = player.GetComponent<NavMeshAgent>();
+
+            player.GetComponent<ThirdPersonController>().MoveSpeed = Constants.PlayerMoveSpeed;
+            player.GetComponent<ThirdPersonController>().SprintSpeed = Constants.PlayerSprintSpeed;
+
+            playerInput = player.GetComponent<StarterAssetsInputs>();
+
+            Scene_player = GameObject.FindGameObjectWithTag(Constants.CharPlayerWithTag);
+        }
+        else
+        {
+            Debug.LogError("Player预制件加载失败！");
+        }
 
         //相机初始化
         //首先要加载虚拟相机的预制件
         GameObject CM_player = resSvc.LoadPrefab(PathDefine.AssissnCityCharacterCameraPrefab, true);
-        //设置实例化对象时候的位置、旋转
-        Vector3 CM_player_Pos = mapData.mainCamPos;
-        Vector3 CM_player_Rote = mapData.mainCamRote;
-        CM_player.transform.position = CM_player_Pos;
-        CM_player.transform.localEulerAngles = CM_player_Rote;
+        if (CM_player != null)
+        {
+            Debug.Log("PlayerFollowCamera预制件加载成功！");
+            //设置实例化对象时候的位置、旋转
+            Vector3 CM_player_Pos = mapData.mainCamPos;
+            Vector3 CM_player_Rote = mapData.mainCamRote;
+            CM_player.transform.position = CM_player_Pos;
+            CM_player.transform.localEulerAngles = CM_player_Rote;
 
-        // 获取虚拟相机预制件上的CinemachineVirtualCamera组件  
-        CinemachineVirtualCamera cinemachineVirtualCamera = CM_player.GetComponent<CinemachineVirtualCamera>();
-        //至此，我们应该获取到了预制件上面的cinemachineVirtualCamera（但愿能获取到）组件
+            // 获取虚拟相机预制件上的CinemachineVirtualCamera组件  
+            CinemachineVirtualCamera cinemachineVirtualCamera = CM_player.GetComponent<CinemachineVirtualCamera>();
+            //至此，我们应该获取到了预制件上面的cinemachineVirtualCamera（但愿能获取到）组件
 
-        //至此，我们终于可以对预制件上面获取到的cinemachineVirtualCamera组件进行操作了...>_<
+            //至此，我们终于可以对预制件上面获取到的cinemachineVirtualCamera组件进行操作了...>_<
 
-        // 设置CinemachineVirtualCamera的跟随目标为标签为"PlayerCamRoot"的游戏对象的transform
-        cinemachineVirtualCamera.Follow = GameObject.FindGameObjectWithTag(Constants.CinemachineVirtualCameraFollowGameObjectWithTag).transform;
-        //通过读取配置表设置CinemachineVirtualCamera相裁剪平面
-        cinemachineVirtualCamera.m_Lens.FarClipPlane = Constants.CinemachineVirtualCameraFarClipPlane;
-        cinemachineVirtualCamera.m_Lens.NearClipPlane = Constants.CinemachineVirtualCameraNearClipPlane;
+            // 设置CinemachineVirtualCamera的跟随目标为标签为"PlayerCamRoot"的游戏对象的transform
+            cinemachineVirtualCamera.Follow = GameObject.FindGameObjectWithTag(Constants.CinemachineVirtualCameraFollowGameObjectWithTag).transform;
+            //通过读取配置表设置CinemachineVirtualCamera相裁剪平面
+            cinemachineVirtualCamera.m_Lens.FarClipPlane = Constants.CinemachineVirtualCameraFarClipPlane;
+            cinemachineVirtualCamera.m_Lens.NearClipPlane = Constants.CinemachineVirtualCameraNearClipPlane;
+        }
+        else
+        {
+            Debug.LogError("PlayerFollowCamera预制件加载失败！");
+        }
 
-        //原方案
-        //相机初始化
-        /*
-        Camera.main.transform.position = mapData.mainCamPos;
-        Camera.main.transform.localEulerAngles = mapData.mainCamRote;
-
-        playerCtrl = player.GetComponent<PlayerController>();
-        playerCtrl.Init();
-        */
-
-        //获取player导航组件
-        nav = player.GetComponent<NavMeshAgent>();
-
-        player.GetComponent<ThirdPersonController>().MoveSpeed = Constants.PlayerMoveSpeed;
-        player.GetComponent<ThirdPersonController>().SprintSpeed = Constants.PlayerSprintSpeed;
-
-        playerInput = player.GetComponent<StarterAssetsInputs>();
-
-        Scene_player = GameObject.FindGameObjectWithTag(Constants.CharPlayerWithTag);
     }
 
     private void InitGamepad()
@@ -281,6 +298,11 @@ public class MainCitySys : SystemRoot
     private void OpenGuideWnd()
     {
         guideWnd.SetWndState();
+    }
+
+    public AutoGuideCfg GetCurtTaskData()
+    {
+        return curtTaskData;
     }
     #endregion
 }
