@@ -14,8 +14,14 @@ public class SettingsWnd : WindowRoot
 
         GetAudioSourceComponent();
         SliderAddListener();
+        InitSliderValue();
     }
 
+    private void InitSliderValue()
+    {
+        BGAudioSlider.value = WndBGAudioAudioSource.volume;
+        UIAudioSlider.value = WndUIAudioAudioSource.volume;
+    }
     private void SliderAddListener()
     {
         BGAudioSlider.onValueChanged.AddListener(TouchBGAudioSlider);
@@ -33,7 +39,7 @@ public class SettingsWnd : WindowRoot
     }
     public void TouchUIAudioSlider(float volume)
     {
-        audioSvc.BGAudioVolumeValue = volume;
+        audioSvc.UIAudioVolumeValue = volume;
         WndUIAudioAudioSource.volume = volume;
     }
     public void ClickCloseBtn()
