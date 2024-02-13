@@ -49,6 +49,7 @@ public class SettingsWnd : WindowRoot
     }
     public void ClickExitGame()
     {
+        audioSvc.PlayUIAudio(Constants.UIClickBtn);
         Application.Quit();
     }
     public void ClickVsyncBtn()
