@@ -68,4 +68,24 @@ public class GuideWnd : WindowRoot {
         //将文本中"$name"的部分替换为玩家的名字
         SetText(txtTalk, talkArr[1].Replace("$name", pd.name));
     }
+
+
+    public void ClickNextBtn()
+    {
+        audioSvc.PlayUIAudio(Constants.UIClickBtn);
+
+        //点击下一步按钮index增加1
+        index += 1;
+        //判断是否所有的对话显示完成
+        if (index == dialogArr.Length)
+        {
+            //TODO 发送任务引导完成信息
+
+            SetWndState(false);
+        }
+        else
+        {
+            SetTalk();
+        }
+    }
 }
