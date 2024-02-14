@@ -233,7 +233,7 @@ public class MainCitySys : SystemRoot
             //判断当前游戏主角与目标npc之间的距离
             if (dis < Constants.NavNpcDst)
             {
-                Debug.Log("已经找到目标NPC，导航结束！");
+                Debug.Log("已到达目标附近，导航自动取消");
                 //找到目标npc，停止导航
                 isNavGuide = false;
                 nav.isStopped = true;
