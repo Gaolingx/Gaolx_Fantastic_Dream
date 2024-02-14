@@ -79,8 +79,17 @@ public class GuideWnd : WindowRoot {
         //判断是否所有的对话显示完成
         if (index == dialogArr.Length)
         {
-            //TODO 发送任务引导完成信息
+            //发送任务引导完成信息
+            GameMsg msg = new GameMsg
+            {
+                cmd = (int)CMD.ReqGuide,
+                reqGuide = new ReqGuide
+                {
+                    guideid = curtTaskData.ID
+                }
+            };
 
+            netSvc.SendMsg(msg);
             SetWndState(false);
         }
         else
