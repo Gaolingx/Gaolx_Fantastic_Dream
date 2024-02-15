@@ -40,6 +40,14 @@ public class PathDefine
 
     #endregion
 
+    #region NPC
+    public const string AssissnCityNPC0Prefab = "ResPrefabs/GameMain/PrefabNPC/NPC_0";
+    public const string AssissnCityNPC1Prefab = "ResPrefabs/GameMain/PrefabNPC/NPC_1";
+    public const string AssissnCityNPC2Prefab = "ResPrefabs/GameMain/PrefabNPC/NPC_2";
+    public const string AssissnCityNPC3Prefab = "ResPrefabs/GameMain/PrefabNPC/NPC_3";
+
+    #endregion
+
     #region Camera
     public const string AssissnCityCharacterCameraPrefab = "ResPrefabs/GameMain/Cameras/SceneMainCity/PlayerFollowCamera";
 

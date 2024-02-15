@@ -46,6 +46,9 @@ public class MainCitySys : SystemRoot
             // 加载游戏主角
             LoadPlayer(mapData);
 
+            // 加载NPC
+            LoadNpcPrefab();
+
             //打开主城场景UI
             maincityWnd.SetWndState();
 
@@ -140,6 +143,34 @@ public class MainCitySys : SystemRoot
 
     }
 
+    private void LoadNpcPrefab()
+    {
+        GameObject NPC0 = resSvc.LoadPrefab(PathDefine.AssissnCityNPC0Prefab, true);
+        NPC0.transform.position = NpcCfg.Instance.Transform_NpcID_0_Position;
+        NPC0.transform.localEulerAngles = NpcCfg.Instance.Transform_NpcID_0_Rotation;
+        NPC0.transform.localScale = NpcCfg.Instance.Transform_NpcID_0_Scale;
+        Debug.Log("NPC_0预制件加载成功！");
+
+        GameObject NPC1 = resSvc.LoadPrefab(PathDefine.AssissnCityNPC1Prefab, true);
+        NPC1.transform.position = NpcCfg.Instance.Transform_NpcID_1_Position;
+        NPC1.transform.localEulerAngles = NpcCfg.Instance.Transform_NpcID_1_Rotation;
+        NPC1.transform.localScale = NpcCfg.Instance.Transform_NpcID_1_Scale;
+        Debug.Log("NPC_1预制件加载成功！");
+
+        GameObject NPC2 = resSvc.LoadPrefab(PathDefine.AssissnCityNPC2Prefab, true);
+        NPC2.transform.position = NpcCfg.Instance.Transform_NpcID_2_Position;
+        NPC2.transform.localEulerAngles = NpcCfg.Instance.Transform_NpcID_2_Rotation;
+        NPC2.transform.localScale = NpcCfg.Instance.Transform_NpcID_2_Scale;
+        Debug.Log("NPC_2预制件加载成功！");
+
+        GameObject NPC3 = resSvc.LoadPrefab(PathDefine.AssissnCityNPC3Prefab, true);
+        NPC3.transform.position = NpcCfg.Instance.Transform_NpcID_3_Position;
+        NPC3.transform.localEulerAngles = NpcCfg.Instance.Transform_NpcID_3_Rotation;
+        NPC3.transform.localScale = NpcCfg.Instance.Transform_NpcID_3_Scale;
+        Debug.Log("NPC_3预制件加载成功！");
+
+
+    }
     private void InitGamepad()
     {
         GameObject GamePad = GameObject.Find(Constants.GamepadBind_StarterAssetsInputs_Joysticks);

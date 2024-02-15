@@ -2565,6 +2565,7 @@ GameObject:
   - component: {fileID: 2094128805}
   - component: {fileID: 2094128807}
   - component: {fileID: 2094128806}
+  - component: {fileID: 2094128812}
   - component: {fileID: 2094128809}
   - component: {fileID: 2094128808}
   - component: {fileID: 2094128810}
@@ -2686,6 +2687,30 @@ MonoBehaviour:
   settingsWnd: {fileID: 731971331}
   fpsWnd: {fileID: 2118786436466142165}
   PlayerCameraRoot: {fileID: 0}
+--- !u!114 &2094128812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2094128804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606f72929ec30644fb5f1f3d4f4a0750, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Transform_NpcID_0_Position: {x: -20.136211, y: -0.61505365, z: 66.0065}
+  Transform_NpcID_0_Rotation: {x: 0, y: -180, z: 0}
+  Transform_NpcID_0_Scale: {x: 1, y: 1, z: 1}
+  Transform_NpcID_1_Position: {x: -126.03815, y: 24.988752, z: 237.17734}
+  Transform_NpcID_1_Rotation: {x: 0, y: 140, z: 0}
+  Transform_NpcID_1_Scale: {x: 1, y: 1, z: 1}
+  Transform_NpcID_2_Position: {x: -60.050552, y: 2.5964608, z: 97.917786}
+  Transform_NpcID_2_Rotation: {x: 0, y: 75, z: 0}
+  Transform_NpcID_2_Scale: {x: 1, y: 1, z: 1}
+  Transform_NpcID_3_Position: {x: -70.53331, y: -0.2796433, z: 21.70224}
+  Transform_NpcID_3_Rotation: {x: 0, y: 60, z: 0}
+  Transform_NpcID_3_Scale: {x: 1, y: 1, z: 1}
 --- !u!1 &2123947773
 GameObject:
   m_ObjectHideFlags: 0

@@ -47,6 +47,8 @@ public class GameRoot : MonoBehaviour
         res.InitSvc();
         AudioSvc audio = GetComponent<AudioSvc>();
         audio.InitSvc();
+        NpcCfg npcCfg = GetComponent<NpcCfg>();
+        npcCfg.InitCfg();
 
 
         //业务系统初始化
