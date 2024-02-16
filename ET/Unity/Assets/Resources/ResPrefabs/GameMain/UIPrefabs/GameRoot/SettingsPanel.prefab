@@ -672,17 +672,17 @@ MonoBehaviour:
   m_FillRect: {fileID: 6120058157366517723}
   m_HandleRect: {fileID: 6120058157375572905}
   m_Direction: 0
-  m_MinValue: 5
-  m_MaxValue: 40
+  m_MinValue: 0
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 5
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SettingsController, Assembly-CSharp
-        m_MethodName: ChangeTextSpeed
-        m_Mode: 0
+      - m_Target: {fileID: 5675113177725089161}
+        m_TargetAssemblyTypeName: SettingsWnd, GameMain
+        m_MethodName: TouchCharacterAudioSlider
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1319,7 +1319,7 @@ GameObject:
   - component: {fileID: 6120058156416845327}
   - component: {fileID: 6120058156416845326}
   m_Layer: 5
-  m_Name: TextSpeed
+  m_Name: CharacterVolume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1386,7 +1386,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u6587\u5B57\u663E\u793A\u901F\u5EA6"
+  m_Text: "\u73A9\u5BB6\u811A\u6B65\u58F0"
 --- !u!1 &6120058156442399629
 GameObject:
   m_ObjectHideFlags: 0
@@ -2159,9 +2159,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BGAudioSlider: {fileID: 6120058156926153086}
   UIAudioSlider: {fileID: 6120058156272782634}
+  CharacterAudioSlider: {fileID: 6120058155654383011}
   VsyncSettingsBtn: {fileID: 6047698039763431726}
   WndBGAudioAudioSource: {fileID: 0}
   WndUIAudioAudioSource: {fileID: 0}
+  WndCharacterAudioSource: {fileID: 0}
 --- !u!1 &6120058157266450827
 GameObject:
   m_ObjectHideFlags: 0

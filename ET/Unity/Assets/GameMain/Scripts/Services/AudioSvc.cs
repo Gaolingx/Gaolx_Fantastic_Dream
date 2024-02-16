@@ -9,9 +9,12 @@ public class AudioSvc : MonoBehaviour
     public static AudioSvc Instance = null;
 
     public bool _isTurnOnAudio = true;
-    [Range(0, 1)] public float BGAudioVolumeValue, UIAudioVolumeValue;
+    [Range(0, 1)] public float BGAudioVolumeValue, UIAudioVolumeValue, CharacterAudioVolumeValue;
     public GameObject BGAudioGameObject, UIAudioGameObject;
-    public AudioSource BGAudioAudioSource, UIAudioAudioSource;
+    public AudioSource BGAudioAudioSource, UIAudioAudioSource, CharacterAudioSource;
+    public AudioClip[] CharacterFootSteps;
+    public AudioClip[] CharacterJumpEfforts;
+    public AudioClip[] CharacterLanding;
 
     private string bgAudioPath = PathDefine.bgAudioPath;
 
@@ -19,19 +22,24 @@ public class AudioSvc : MonoBehaviour
     {
         Instance = this;
 
-        GetAudioGameObjectComponent();
+        GetAudioSourceComponent();
         GetAudioSourceValueInit();
         PECommon.Log("Init AudioSvc...");
     }
 
 
-    private void GetAudioGameObjectComponent()
+    private void GetAudioSourceComponent()
     {
         BGAudioGameObject = GameObject.Find(Constants.BGAudioGameObjectName);
         BGAudioAudioSource = BGAudioGameObject.GetComponent<AudioSource>();
         UIAudioGameObject = GameObject.Find(Constants.UIAudioGameObjectName);
         UIAudioAudioSource = UIAudioGameObject.GetComponent<AudioSource>();
 
+    }
+
+    public void GetCharacterAudioSourceComponent()
+    {
+        CharacterAudioSource = GameObject.FindGameObjectWithTag(Constants.CharPlayerWithTag).GetComponent<AudioSource>();
     }
 
     private void GetAudioSourceValueInit()
@@ -66,5 +74,23 @@ public class AudioSvc : MonoBehaviour
         UIAudioAudioSource.clip = audio;
         UIAudioAudioSource.volume = UIAudioVolumeValue;
         UIAudioAudioSource.Play();
+    }
+
+    public void PlayFootStep()
+    {
+        int i = Random.Range(0, CharacterFootSteps.Length);
+        CharacterAudioSource.PlayOneShot(CharacterFootSteps[i], CharacterAudioVolumeValue);
+    }
+
+    public void PlayJumpEffort()
+    {
+        int i = Random.Range(0, CharacterJumpEfforts.Length);
+        CharacterAudioSource.PlayOneShot(CharacterFootSteps[i], CharacterAudioVolumeValue);
+    }
+
+    public void PlayLanding()
+    {
+        int i = Random.Range(0, CharacterLanding.Length);
+        CharacterAudioSource.PlayOneShot(CharacterFootSteps[i], CharacterAudioVolumeValue);
     }
 }

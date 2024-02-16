@@ -469,7 +469,7 @@ namespace StarterAssets
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
-                playerSoundController.PlayFootStep();
+                AudioSvc.Instance.PlayFootStep();
             }
         }
 
@@ -477,7 +477,7 @@ namespace StarterAssets
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
-                playerSoundController.PlayJumpEffort();
+                AudioSvc.Instance.PlayJumpEffort();
             }
         }
 
@@ -485,7 +485,7 @@ namespace StarterAssets
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
-                playerSoundController.PlayLanding();
+                AudioSvc.Instance.PlayLanding();
             }
         }
     }

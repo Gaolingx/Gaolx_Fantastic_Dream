@@ -220,6 +220,7 @@ public class MainCityWnd : WindowRoot
 
     public void ClickSettingsBtn()
     {
+        AudioSvc.Instance.GetCharacterAudioSourceComponent();
         MainCitySys.Instance.OpenSettingsWnd();
     }
 }

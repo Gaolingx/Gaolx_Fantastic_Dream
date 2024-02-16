@@ -6,9 +6,9 @@ using UnityEngine.UI;
 
 public class SettingsWnd : WindowRoot
 {
-    public Slider BGAudioSlider, UIAudioSlider;
+    public Slider BGAudioSlider, UIAudioSlider, CharacterAudioSlider;
     public Toggle VsyncSettingsBtn;
-    public AudioSource WndBGAudioAudioSource, WndUIAudioAudioSource;
+    public AudioSource WndBGAudioAudioSource, WndUIAudioAudioSource, WndCharacterAudioSource;
     protected override void InitWnd()
     {
         base.InitWnd();
@@ -22,16 +22,19 @@ public class SettingsWnd : WindowRoot
     {
         BGAudioSlider.value = WndBGAudioAudioSource.volume;
         UIAudioSlider.value = WndUIAudioAudioSource.volume;
+        CharacterAudioSlider.value = WndCharacterAudioSource.volume;
     }
     private void SliderAddListener()
     {
         BGAudioSlider.onValueChanged.AddListener(TouchBGAudioSlider);
         UIAudioSlider.onValueChanged.AddListener(TouchUIAudioSlider);
+        CharacterAudioSlider.onValueChanged.AddListener(TouchCharacterAudioSlider);
     }
     public void GetAudioSourceComponent()
     {
         WndBGAudioAudioSource = audioSvc.BGAudioAudioSource;
         WndUIAudioAudioSource = audioSvc.UIAudioAudioSource;
+        WndCharacterAudioSource = audioSvc.CharacterAudioSource;
     }
     public void TouchBGAudioSlider(float volume)
     {
@@ -42,6 +45,11 @@ public class SettingsWnd : WindowRoot
     {
         audioSvc.UIAudioVolumeValue = volume;
         WndUIAudioAudioSource.volume = volume;
+    }
+    public void TouchCharacterAudioSlider(float volume)
+    {
+        audioSvc.CharacterAudioVolumeValue = volume;
+        WndCharacterAudioSource.volume = volume;
     }
     public void ClickCloseBtn()
     {
