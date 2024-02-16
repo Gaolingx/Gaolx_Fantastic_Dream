@@ -1,4 +1,5 @@
-﻿ using UnityEngine;
+﻿using System;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -36,6 +37,16 @@ namespace StarterAssets
         [Tooltip("The height the player can jump")]
         public float JumpHeight = 1.2f;
 
+        [Space(10)]
+        [Tooltip("The height the player can flip jump")]
+        public float FlipJumpHeight = 1.4f;
+
+        [Tooltip("The max absolute value that the characters y-velocity can have before the FlipJumpApex is triggered")]
+        public float FlipJumpApexBoundVelocityMagnitude = 0.2f;
+
+        [Tooltip("Hight of the capsule when the characters is in the appex of a flip-jump")]
+        public float FlipJumpCapsuleHeight;
+
         [Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
         public float Gravity = -15.0f;
 
@@ -49,6 +60,7 @@ namespace StarterAssets
         [Header("Player Grounded")]
         [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
         public bool Grounded = true;
+
 
         [Tooltip("Height of the character when crouched. The center of the player is automatically set to half the height when crouched")]
         public float CrouchHeight;
@@ -84,8 +96,6 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
-        //角色音效播放脚本
-        PlayerSoundController playerSoundController;
 
         // cinemachine
         private float _cinemachineTargetYaw;
@@ -133,10 +143,21 @@ namespace StarterAssets
 
         private const float _threshold = 0.01f;
 
-        private bool _hasAnimator;
+        protected bool _hasAnimator;
+
+        private bool _previouslyAttacking;
 
         private bool _tryToCrouch;
         private bool _tryToSlide;
+        private float _slideTimer;
+        private float _slideResetTimer;
+
+        private bool _tryToRoll;
+        private float _rollTimer;
+        private float _rollResetTimer;
+        private bool _previouslyGrounded;
+        [SerializeField] private float _timeToFlipJump;
+
 
         private bool IsCurrentDeviceMouse
         {
@@ -168,8 +189,6 @@ namespace StarterAssets
 
         public virtual void ClassStart()
         {
-            playerSoundController = GetComponent<PlayerSoundController>();
-            
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
             
             _hasAnimator = TryGetComponent(out _animator);
@@ -207,6 +226,7 @@ namespace StarterAssets
         public virtual void ClassUpdate()
         {
             SetInputs();
+
             _hasAnimator = TryGetComponent(out _animator);
 
             Crouch();
@@ -218,7 +238,6 @@ namespace StarterAssets
         {
             _input.SetInputs(_starterAssetInputs);
         }
-
 
         private void LateUpdate()
         {
@@ -312,6 +331,11 @@ namespace StarterAssets
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _input.Sprint ? SprintSpeed : MoveSpeed;
 
+            if (_tryToCrouch)
+            {
+                // limit speed to crouch speed
+                Math.Clamp(targetSpeed, targetSpeed, 6f); //TODO: creat variable for crouch speed
+            }
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
@@ -372,8 +396,12 @@ namespace StarterAssets
             {
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+                _animator.SetBool(_animIDCrouch, _tryToCrouch);
+                _animator.SetBool(_animIDSlide, _tryToSlide);
+                _animator.SetBool(_animIDRoll, _tryToRoll);
             }
         }
+
 
         private void JumpAndGravity()
         {
@@ -387,6 +415,7 @@ namespace StarterAssets
                 {
                     _animator.SetBool(_animIDJump, false);
                     _animator.SetBool(_animIDFreeFall, false);
+                    _animator.SetBool(_animIDFlip, false);
                 }
 
                 // stop our velocity dropping infinitely when grounded
@@ -395,8 +424,24 @@ namespace StarterAssets
                     _verticalVelocity = -2f;
                 }
 
+                if (_input.FlipJump && _jumpTimeoutDelta <= 0.0f)
+                {
+                    // the square root of H * -2 * G = how much velocity needed to reach desired height
+                    _verticalVelocity = Mathf.Sqrt(FlipJumpHeight * -2f * Gravity);
+
+                    // update animator if using character
+                    if (_hasAnimator)
+                    {
+                        _animator.SetBool(_animIDFlip, true);
+                        _animator.SetBool(_animIDCrouch, false);
+                        _animator.SetBool(_animIDSlide, false);
+                    }
+
+                    _tryToCrouch = false;
+                    _tryToSlide = false;
+                }
                 // Jump
-                if (_input.Jump && _jumpTimeoutDelta <= 0.0f)
+                else if (_input.Jump && _jumpTimeoutDelta <= 0.0f)
                 {
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
                     _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
@@ -405,7 +450,12 @@ namespace StarterAssets
                     if (_hasAnimator)
                     {
                         _animator.SetBool(_animIDJump, true);
+                        _animator.SetBool(_animIDCrouch, false);
+                        _animator.SetBool(_animIDSlide, false);
                     }
+
+                    _tryToCrouch = false;
+                    _tryToSlide = false;
                 }
 
                 // jump timeout
@@ -416,8 +466,10 @@ namespace StarterAssets
             }
             else
             {
-                // reset the jump timeout timer
+                // reset the jump timeout timer\
+                // TODO: this looks wrong
                 _jumpTimeoutDelta = JumpTimeout;
+                bool flipJumping = _animator.GetBool(_animIDFlip);
 
                 // fall timeout
                 if (_fallTimeoutDelta >= 0.0f)
@@ -435,6 +487,7 @@ namespace StarterAssets
 
                 // if we are not grounded, do not jump
                 _input.Jump = false;
+                _input.FlipJump = false;
             }
 
             // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)

@@ -56,6 +56,9 @@ public class MainCitySys : SystemRoot
             // 初始化摇杆插件
             InitGamepad();
 
+            //配置角色声音源
+            AudioSvc.Instance.GetCharacterAudioSourceComponent();
+
             //播放主城背景音乐
             audioSvc.PlayBGMusic(Constants.BGMainCity);
 
