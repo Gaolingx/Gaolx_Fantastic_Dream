@@ -58,7 +58,7 @@ public class InputWrapper
         LockOn = inputs.lockOn;
         IsModified = inputs.isModified;
         analogMovement = inputs.analogMovement;
-        cursorLocked = inputs.isPressingAlt;
+        cursorLocked = inputs.cursorLocked;
         cursorInputForLook = inputs.cursorInputForLook;
     }
 
@@ -76,7 +76,7 @@ public class InputWrapper
         LockOn = inputs.lockOn;
         IsModified = inputs.isModified;
         analogMovement = inputs.analogMovement;
-        cursorLocked = inputs.isPressingAlt;
+        cursorLocked = inputs.cursorLocked;
         cursorInputForLook = inputs.cursorInputForLook;
     }
 }
