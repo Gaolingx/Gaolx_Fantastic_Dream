@@ -29,9 +29,6 @@ namespace StarterAssets
         [Tooltip("Acceleration and deceleration")]
         public float SpeedChangeRate = 10.0f;
 
-        public AudioClip LandingAudioClip;
-        public AudioClip[] FootstepAudioClips;
-        [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
 
         [Space(10)]
         [Tooltip("The height the player can jump")]
@@ -60,10 +57,6 @@ namespace StarterAssets
         [Header("Player Grounded")]
         [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
         public bool Grounded = true;
-
-
-        [Tooltip("Height of the character when crouched. The center of the player is automatically set to half the height when crouched")]
-        public float CrouchHeight;
 
         [Tooltip("Useful for rough ground")]
         public float GroundedOffset = -0.14f;
@@ -109,7 +102,6 @@ namespace StarterAssets
         private float _verticalVelocity;
         private float _terminalVelocity = 53.0f;
         private float _standingHeight;
-        private Vector3 _standingCenter;
 
         // timeout deltatime
         private float _jumpTimeoutDelta;
@@ -244,33 +236,6 @@ namespace StarterAssets
             CameraRotation();
         }
 
-        private void Crouch()
-        {
-            bool currCrouch = _tryToCrouch;
-            _tryToCrouch = _input.Crouch;
-            if (_hasAnimator)
-            {
-                _animator.SetBool(_animIDCrouch, _tryToCrouch);
-            }
-            if (_input.Crouch && !_tryToSlide)
-            {
-                // Crouch
-                _controller.height = CrouchHeight;
-                _controller.center = new Vector3(0, CrouchHeight / 2, 0);
-            }
-            else if (currCrouch != _tryToCrouch)
-            {
-                // Uncrouch
-                UncrouchCollider();
-            }
-        }
-
-        private void UncrouchCollider()
-        {
-            _controller.height = _standingHeight;
-            _controller.center = _standingCenter;
-        }
-
         private void AssignAnimationIDs()
         {
             _animIDSpeed = Animator.StringToHash("Speed");
@@ -324,6 +289,17 @@ namespace StarterAssets
             // Cinemachine will follow this target
             CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
                 _cinemachineTargetYaw, 0.0f);
+        }
+
+        private void Crouch()
+        {
+            bool currCrouch = _tryToCrouch;
+            _tryToCrouch = _input.Crouch;
+            if (_hasAnimator)
+            {
+                _animator.SetBool(_animIDCrouch, _tryToCrouch);
+            }
+
         }
 
         private void Move()
