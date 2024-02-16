@@ -6,6 +6,7 @@ using Cinemachine;
 using StarterAssets;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using PEProtocol;
 
 public class MainCitySys : SystemRoot
 {
@@ -344,6 +345,39 @@ public class MainCitySys : SystemRoot
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
         settingsWnd.SetWndState(true);
 
+    }
+
+    public void RspGuide(GameMsg msg)
+    {
+        RspGuide data = msg.rspGuide;
+
+        GameRoot.AddTips("任务奖励 金币+" + curtTaskData.coin + "  经验+" + curtTaskData.exp);
+
+        //读取任务actionID，进行相应操作
+        switch (curtTaskData.actID)
+        {
+            case Constants.CurtTaskDataActID_0:
+                //与智者对话
+                break;
+            case Constants.CurtTaskDataActID_1:
+                //TODO 进入副本
+                break;
+            case Constants.CurtTaskDataActID_2:
+                //TODO 进入强化界面
+                break;
+            case Constants.CurtTaskDataActID_3:
+                //TODO 进入体力购买
+                break;
+            case Constants.CurtTaskDataActID_4:
+                //TODO 进入金币铸造
+                break;
+            case Constants.CurtTaskDataActID_5:
+                //TODO 进入世界聊天
+                break;
+        }
+
+        GameRoot.Instance.SetPlayerDataByGuide(data);
+        maincityWnd.RefreshUI();
     }
     #endregion
 }

@@ -45,7 +45,7 @@ public class MainCityWnd : WindowRoot
         RefreshUI();
     }
 
-    private void RefreshUI()
+    public void RefreshUI()
     {
         PlayerData pd = GameRoot.Instance.PlayerData;
 
@@ -124,6 +124,9 @@ public class MainCityWnd : WindowRoot
                 break;
             case Constants.NPCTrader:
                 spPath = PathDefine.TraderHead;
+                break;
+            default:
+                spPath = PathDefine.TaskHead;
                 break;
         }
 

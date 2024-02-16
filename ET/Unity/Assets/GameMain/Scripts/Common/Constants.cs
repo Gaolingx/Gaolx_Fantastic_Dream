@@ -99,4 +99,12 @@ public class Constants
     public const string BGAudioGameObjectName = "BGAudio";
     public const string UIAudioGameObjectName = "UIAudio";
 
+    //actID≈‰÷√
+    public const int CurtTaskDataActID_0 = 0;
+    public const int CurtTaskDataActID_1 = 1;
+    public const int CurtTaskDataActID_2 = 2;
+    public const int CurtTaskDataActID_3 = 3;
+    public const int CurtTaskDataActID_4 = 4;
+    public const int CurtTaskDataActID_5 = 5;
+
 }
