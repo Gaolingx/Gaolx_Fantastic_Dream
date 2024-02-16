@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -50,7 +51,11 @@ public class SettingsWnd : WindowRoot
     public void ClickExitGame()
     {
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
-        Application.Quit();
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
     }
     public void ClickVsyncBtn()
     {

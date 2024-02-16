@@ -29,16 +29,13 @@ namespace StarterAssets
 		public bool analogMovement;
 
 		[Header("Mouse Cursor Settings")]
-		public bool cursorLocked = true;
+		public bool isPressingAlt = true;
 		public bool cursorInputForLook = true;
 
+        private InputAction _alt;
 
         [SerializeField]
 
-        private void Start()
-        {
-            ResetlockCursorState();
-        }
         private void Update()
         {
 			MouseLockListener();
@@ -165,20 +162,20 @@ namespace StarterAssets
 
 		private void MouseLockListener()
 		{
-            if (Input.GetKeyDown(KeyCode.LeftAlt))
+            bool alt = Convert.ToBoolean(_alt.ReadValue<float>());
+            if (alt && !isPressingAlt)
             {
-                cursorLocked = false;
+                isPressingAlt = true;
             }
-
-            if (Input.GetKeyUp(KeyCode.LeftAlt))
+            else if (!alt)
             {
-                cursorLocked = true;
+                isPressingAlt = false;
             }
         }
 
         private void SetLockCursor()
 		{
-			if(cursorLocked == true)
+			if(isPressingAlt == true)
 			{
 				LockCursor();
             }
@@ -188,22 +185,22 @@ namespace StarterAssets
             }
 		}
 
-		private void ResetlockCursorState()
-		{
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-		}
-
         private void LockCursor()
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-        }
+		}
 
         private void UnlockCursor()
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+        }
+
+        private void OnApplicationFocus(bool hasFocus)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 	
