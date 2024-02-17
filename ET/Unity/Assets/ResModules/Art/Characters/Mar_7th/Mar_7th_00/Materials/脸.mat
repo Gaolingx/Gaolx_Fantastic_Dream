@@ -15,7 +15,6 @@ Material:
   - _AREA_FACE
   - _EMISSION_ON
   - _FAKE_OUTLINE_ON
-  - _ISDAY_MANUAL_ON
   - _METAL_SPECULAR_ON
   - _OUTLINE_ON
   - _RIM_LIGHTING_ON
@@ -32,6 +31,7 @@ Material:
   - _ENABLERIM_ON
   - _ENABLESPECULAR_ON
   - _FIXDARKSHADOW_ON
+  - _ISDAY_MANUAL_ON
   - _ISNIGHT_ON
   - _IS_FILTER_LIGHTCOLOR_ON
   - _OUTLINE
@@ -86,6 +86,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ExpressionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -256,6 +260,8 @@ Material:
     - _DarkShadowSmooth: 0.05
     - _DarkSideRimPow: 1
     - _DarkSideRimSmooth: 0.01
+    - _DayTime: 12
+    - _DayTimeManualON: 0
     - _DepthOffsetShadowReverseX: 0
     - _DepthShadowOffset: 0.15
     - _DepthShadowSoftness: 0
@@ -288,11 +294,14 @@ Material:
     - _EnableRims: 0
     - _EnableSpecular: 1
     - _EnvironmentReflections: 1
+    - _ExCheekIntensity: 0
+    - _ExShadowIntensity: 0
+    - _ExShyIntensity: 0
     - _FaceDarkIntensity: 1
     - _FaceShadowMapPow: 0.2
     - _FaceShadowOffset: -0.01
     - _FaceShadowPow: 0.1
-    - _FaceShadowTransitionSoftness: 0.55
+    - _FaceShadowTransitionSoftness: 0
     - _Farthest_Distance: 1
     - _FixDarkShadow: 1
     - _FixLightY: 0
@@ -369,6 +378,7 @@ Material:
     - _ScreenSpaceRimWidth: 0.001
     - _ShaderEnum: 0
     - _ShadowArea: 0.5
+    - _ShadowBoost: 1
     - _ShadowChange: 0
     - _ShadowOn: 1
     - _ShadowRampLerp: 0.5
@@ -416,6 +426,7 @@ Material:
     - _UseDrawOverlay: 0
     - _UseEmission: 1
     - _UseEmissionTex: 0
+    - _UseFaceExpression: 0
     - _UseFakeOutline: 1
     - _UseHalfLambert: 0
     - _UseNormalMap: 0
@@ -458,6 +469,10 @@ Material:
     - _EmissionColors: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionMapChannelMask: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionTintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ExCheekColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ExEyeColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ExShadowColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ExShyColor: {r: 1, g: 1, b: 1, a: 1}
     - _FaceColorMapColor: {r: 0.74509805, g: 0.74509805, b: 0.74509805, a: 1}
     - _FrontFaceTintColor: {r: 1, g: 1, b: 1, a: 1}
     - _HairColorMapColor: {r: 0.74509805, g: 0.74509805, b: 0.74509805, a: 1}
