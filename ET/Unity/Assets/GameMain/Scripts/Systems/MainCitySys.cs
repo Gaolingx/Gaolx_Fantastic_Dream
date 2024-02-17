@@ -354,7 +354,7 @@ public class MainCitySys : SystemRoot
     {
         RspGuide data = msg.rspGuide;
 
-        GameRoot.AddTips("任务奖励 金币+" + curtTaskData.coin + "  经验+" + curtTaskData.exp);
+        GameRoot.AddTips(Constants.txtColor("任务奖励 金币+" + curtTaskData.coin + "  经验+" + curtTaskData.exp, TxtColor.Blue));
 
         //读取任务actionID，进行相应操作
         switch (curtTaskData.actID)
