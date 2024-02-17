@@ -1,3 +1,9 @@
+
+const static float3 f3zero = float3(0.0, 0.0, 0.0);
+const static float3 f3one = float3(1.0, 1.0, 1.0);
+const static float4 f4zero = float4(0.0, 0.0, 0.0, 0.0);
+const static float4 f4one = float4(1.0, 1.0, 1.0, 1.0);
+
 struct Attributes
 {
     float3 positionOS   : POSITION;
@@ -61,6 +67,11 @@ float3 desaturation(float3 color)
     float3 grayXfer = float3(0.3, 0.59, 0.11);
     float grayf = dot(color, grayXfer);
     return float3(grayf, grayf, grayf);
+}
+
+float3 LerpRampColor(float3 coolRamp, float3 warmRamp, float DayTime)
+{
+    return lerp(warmRamp, coolRamp, abs(DayTime - 12.0) * rcp(12.0));
 }
 
 Varyings SRUniversalVertex(Attributes input)
@@ -192,9 +203,12 @@ float4 colorFragmentTarget(inout Varyings input, bool isFrontFace)
         {
             float NoL = dot(normalWS, lightDirectionWS);
             float remappedNoL = NoL * 0.5 + 0.5;
-            float shadowThreshold = 1 - lightMap.g;
+            float shadowThreshold = lightMap.g;
             //加个过渡，这里_ShadowThresholdSoftness=0.1
-            mainLightShadow = smoothstep(shadowThreshold - _ShadowThresholdSoftness, shadowThreshold + _ShadowThresholdSoftness, remappedNoL);
+            mainLightShadow = smoothstep(
+                1.0 - shadowThreshold - _ShadowThresholdSoftness,
+                1.0 - shadowThreshold + _ShadowThresholdSoftness,
+                remappedNoL + _ShadowThresholdCenter);
             //应用AO
             mainLightShadow *= lightMap.r;
 
@@ -236,7 +250,7 @@ float4 colorFragmentTarget(inout Varyings input, bool isFrontFace)
         float sdf = smoothstep(sdfThreshold - _FaceShadowTransitionSoftness, sdfThreshold + _FaceShadowTransitionSoftness, sdfValue);
         //AO中常暗的区域，step提取大于0.5的部分，使用g通道的阴影形状（常亮/常暗），其他部分使用sdf贴图
         mainLightShadow = lerp(faceMap.g, sdf, step(faceMap.r, 0.5));
-
+        //脸部ramp直接使用皮肤的行号即可
         rampRowIndex = 1;
         //rampRowIndex = 0;
         rampRowNum = 8;
@@ -267,13 +281,14 @@ float4 colorFragmentTarget(inout Varyings input, bool isFrontFace)
         coolRampCol = coolRamp * _BodyCoolRampColor;
         warmRampCol = warmRamp * _BodyWarmRampColor;
     #endif
-    //根据白天夜晚，插值获得最终的rampColor，isDay也可以用变量由C#脚本传入Shader
-    #if _ISDAY_MANUAL_ON
-        float isDay = _isDay;
+    //根据白天夜晚，插值获得最终的rampColor，_DayTime也可以用变量由C#脚本传入Shader
+    #if _DayTime_MANUAL_ON
+        float DayTime = _DayTime;
     #else
-        float isDay = lightDirectionWS.y * 0.5 + 0.5;
+        float DayTime = (lightDirectionWS.y * 0.5 + 0.5) * 24;
     #endif
-    float3 rampColor = lerp(coolRampCol, warmRampCol, isDay);
+    float3 rampColor = LerpRampColor(coolRampCol, warmRampCol, DayTime);
+    rampColor = lerp(f3one, rampColor, _ShadowBoost);
     mainLightColor *= baseColor * rampColor;
 
 
