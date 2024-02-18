@@ -8,6 +8,7 @@ TagManager:
   - PlayerCamRoot
   - CharShowCam
   - MapRoot
+  - PlayerFollowCam
   layers:
   - Default
   - TransparentFX

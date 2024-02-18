@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Cinemachine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -77,6 +78,10 @@ namespace StarterAssets
         [Tooltip("How far in degrees can you move the camera down")]
         public float BottomClamp = -30.0f;
 
+        public float maxDistance = 5.0f;
+        public float minDistance = 0.5f;
+        public float distanceChangeRate = 10.0f;
+
         [Tooltip("How fast in speed can you move the camera in X axis")]
         public float speedLookx = 1.0f;
 
@@ -93,6 +98,8 @@ namespace StarterAssets
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
+        private float _cameraDistance;
+        private float _targetCameraDistance;
 
         // player
         private float _speed;
@@ -129,6 +136,7 @@ namespace StarterAssets
 #endif
         private Animator _animator;
         private CharacterController _controller;
+        private Cinemachine3rdPersonFollow _personFollow;
         protected StarterAssetsInputs _starterAssetInputs;
         protected InputWrapper _input;
         private GameObject _mainCamera;
@@ -185,7 +193,9 @@ namespace StarterAssets
             
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
-            
+            _personFollow = GameObject.FindGameObjectWithTag(Constants.PlayerFollowCameraWithTag).GetComponent<CinemachineVirtualCamera>()
+                .GetCinemachineComponent<Cinemachine3rdPersonFollow>();
+
             _starterAssetInputs = GetComponent<StarterAssetsInputs>();
 
             if (_starterAssetInputs != null)
@@ -201,6 +211,8 @@ namespace StarterAssets
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
+            _cameraDistance = _personFollow.CameraDistance;
+            _targetCameraDistance = _cameraDistance;
 
             AssignAnimationIDs();
 
@@ -272,6 +284,8 @@ namespace StarterAssets
 
         private void CameraRotation()
         {
+            float zoom = _input.zoom;
+
             // if there is an input and camera position is not fixed
             if (_input.Look.sqrMagnitude >= _threshold && !LockCameraPosition)
             {
@@ -285,6 +299,15 @@ namespace StarterAssets
             // clamp our rotations so our values are limited 360 degrees
             _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
             _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
+
+            // Zoom
+            _targetCameraDistance -= zoom / 360.0f;
+            _targetCameraDistance = Mathf.Clamp(_targetCameraDistance, minDistance, maxDistance);
+            _cameraDistance = Mathf.Lerp(_cameraDistance,  _targetCameraDistance, 
+                Time.deltaTime * distanceChangeRate);
+            //_cameraDistance -= zoom * Time.deltaTime * distanceChangeRate / 18.0f;
+            //_cameraDistance = Mathf.Clamp(_cameraDistance, minDistance, maxDistance);
+            _personFollow.CameraDistance = _cameraDistance;
 
             // Cinemachine will follow this target
             CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,

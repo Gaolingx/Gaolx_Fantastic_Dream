@@ -5,6 +5,7 @@ public class InputWrapper
 {
     private Vector2 move;
     private Vector2 look;
+    public float zoom;
     private bool jump;
     private bool sprint;
     private bool punchRight;
@@ -28,6 +29,7 @@ public class InputWrapper
 
     public Vector2 Move { get => move; set { move = value; if (_starterAssetInputs) { /*_starterAssetInputs.move = move*/; } } }
     public Vector2 Look { get => look; set { look = value; if (_starterAssetInputs) { _starterAssetInputs.look = look; } } }
+    public float Zoom { get => zoom; set { zoom = value; if (_starterAssetInputs) { _starterAssetInputs.zoom = zoom; } } }
     public bool Jump { get => jump; set { jump = value; if (_starterAssetInputs) { _starterAssetInputs.jump = jump; } } }
     public bool Sprint { get => sprint; set { sprint = value; if (_starterAssetInputs) { _starterAssetInputs.sprint = sprint; } } }
     public bool PunchRight { get => punchRight; set { punchRight = value; if (_starterAssetInputs) { _starterAssetInputs.punchRight = punchRight; } } }
@@ -48,6 +50,7 @@ public class InputWrapper
 
         Move = inputs.move;
         Look = inputs.look;
+        Zoom = inputs.zoom;
         Jump = inputs.jump;
         Sprint = inputs.sprint;
         PunchRight = inputs.punchRight;
@@ -66,6 +69,7 @@ public class InputWrapper
     {
         Move = inputs.move;
         Look = inputs.look;
+        Zoom = inputs.zoom;
         Jump = inputs.jump;
         Sprint = inputs.sprint;
         PunchRight = inputs.punchRight;

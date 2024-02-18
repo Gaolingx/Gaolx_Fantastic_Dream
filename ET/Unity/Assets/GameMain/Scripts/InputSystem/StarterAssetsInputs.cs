@@ -13,6 +13,7 @@ namespace StarterAssets
 		[Header("Character Input Values")]
 		public Vector2 move;
 		public Vector2 look;
+		public float zoom;
 		public bool jump;
 		public bool sprint;
 		public bool punchRight;
@@ -56,6 +57,11 @@ namespace StarterAssets
 			{
 				LookInput(value.Get<Vector2>());
 			}
+		}
+
+		public void OnZoom(InputValue value)
+		{
+			ZoomInput(value.Get<float>());
 		}
 
 		public void OnKickModifier(InputValue value)
@@ -123,6 +129,11 @@ namespace StarterAssets
 		public void LookInput(Vector2 newLookDirection)
 		{
 			look = newLookDirection;
+		}
+
+		public void ZoomInput(float newZoomValue)
+		{
+			zoom = newZoomValue;
 		}
 
 		public void JumpInput(bool newJumpState)

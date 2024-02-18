@@ -96,6 +96,8 @@ public class Constants
     //运动平滑加速度
     public const float AccelerSpeed = 5;
 
+    //PlayerFollowCamera标签
+    public const string PlayerFollowCameraWithTag = "PlayerFollowCam";
     //CinemachineVirtualCamera跟随目标的标签
     public const string CinemachineVirtualCameraFollowGameObjectWithTag = "PlayerCamRoot";
     //CinemachineVirtualCamera裁剪平面
