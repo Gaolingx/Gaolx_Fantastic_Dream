@@ -12,6 +12,7 @@
 // all sampler2D don't need to put inside CBUFFER 
 sampler2D _OutlineZOffsetMaskTex;
 
+
 TEXTURE2D(_NormalMap);
 SAMPLER(sampler_NormalMap);
 TEXTURE2D(_ExpressionMap);
@@ -26,52 +27,55 @@ float3 _HeadRight;
 sampler2D _BaseMap;
 float4 _BaseMap_ST;
 
-float _DayTime;
 
-#if _AREA_FACE
-    sampler2D _FaceColorMap;
-    float4 _FaceColorMapColor;
-#elif _AREA_HAIR
-    sampler2D _HairColorMap;
-    float4 _HairColorMapColor;
-#elif _AREA_UPPERBODY
-    sampler2D _UpperBodyColorMap;
-    float4 _UpperBodyColorMapColor;
-#elif _AREA_LOWERBODY
-    sampler2D _LowerBodyColorMap;
-    float4 _LowerBodyColorMapColor;
-#endif
+// MainTex
+sampler2D _FaceColorMap;
+float4 _FaceColorMapColor;
+sampler2D _HairColorMap;
+float4 _HairColorMapColor;
+sampler2D _UpperBodyColorMap;
+float4 _UpperBodyColorMapColor;
+sampler2D _LowerBodyColorMap;
+float4 _LowerBodyColorMapColor;
 
+
+// FaceTintColor
 float3 _FrontFaceTintColor;
 float3 _BackFaceTintColor;
 
+
+// Alpha
 float _Alpha;
 float _AlphaClip;
 
-#if _AREA_HAIR
-    sampler2D _HairLightMap;
-#elif _AREA_UPPERBODY
-    sampler2D _UpperBodyLightMap;
-#elif _AREA_LOWERBODY
-    sampler2D _LowerBodyLightMap;
-#endif
 
-#if _AREA_HAIR
-    sampler2D _HairCoolRamp;
-    sampler2D _HairWarmRamp;
-    float3 _HairCoolRampColor;
-    float3 _HairWarmRampColor;
-    float _HairCoolRampColorMixFactor;
-    float _HairWarmRampColorMixFactor;
-#elif _AREA_FACE || _AREA_UPPERBODY || _AREA_LOWERBODY
-    sampler2D _BodyCoolRamp;
-    sampler2D _BodyWarmRamp;
-    float3 _BodyCoolRampColor;
-    float3 _BodyWarmRampColor;
-    float _BodyCoolRampColorMixFactor;
-    float _BodyWarmRampColorMixFactor;
-#endif
+// LightMap
+sampler2D _HairLightMap;
+sampler2D _UpperBodyLightMap;
+sampler2D _LowerBodyLightMap;
 
+
+// RampColor
+sampler2D _HairCoolRamp;
+sampler2D _HairWarmRamp;
+float3 _HairCoolRampColor;
+float3 _HairWarmRampColor;
+float _HairCoolRampColorMixFactor;
+float _HairWarmRampColorMixFactor;
+
+sampler2D _BodyCoolRamp;
+sampler2D _BodyWarmRamp;
+float3 _BodyCoolRampColor;
+float3 _BodyWarmRampColor;
+float _BodyCoolRampColorMixFactor;
+float _BodyWarmRampColorMixFactor;
+
+
+// DayTime
+float _DayTime;
+
+
+// Lighting
 float _IndirectLightFlattenNormal;
 float _IndirectLightUsage;
 float _IndirectLightOcclusionUsage;
@@ -83,70 +87,68 @@ float _ShadowThresholdSoftness;
 float _ShadowRampOffset;
 float _ShadowBoost;
 
-#if _AREA_FACE
-    sampler2D _FaceMap;
-    float _FaceShadowOffset;
-    float _FaceShadowTransitionSoftness;
-#endif
 
-#if _Expression_ON
-    float4 _ExCheekColor;
-    float _ExCheekIntensity;
-    float4 _ExShyColor;
-    float _ExShyIntensity;
-    float4 _ExShadowColor;
-    float4 _ExEyeColor;
-    float _ExShadowIntensity;
-#endif
+// FaceShadow
+sampler2D _FaceMap;
+float _FaceShadowOffset;
+float _FaceShadowTransitionSoftness;
 
-#if _AREA_HAIR || _AREA_UPPERBODY || _AREA_LOWERBODY
-    float _SpecularExpon;
-    float _SpecularKsNonMetal;
-    float _SpecularKsMetal;
-    float _MetalSpecularMetallic;
-    float3 _SpecularColor;
-    float _SpecularBrightness;
-#endif
 
-#if _AREA_UPPERBODY || _AREA_LOWERBODY
-    #if _AREA_UPPERBODY
-        sampler2D _UpperBodyStockings;
-    #elif _AREA_LOWERBODY
-        sampler2D _LowerBodyStockings;
-    #endif
-    float3 _StockingsDarkColor;
-    float3 _StockingsLightColor;
-    float3 _StockingsTransitionColor;
-    float _StockingsTransitionThreshold;
-    float _StockingsTransitionPower;
-    float _StockingsTransitionHardness;
-    float _StockingsTextureUsage;
-#endif
+// Expression
+float4 _ExCheekColor;
+float _ExCheekIntensity;
+float4 _ExShyColor;
+float _ExShyIntensity;
+float4 _ExShadowColor;
+float4 _ExEyeColor;
+float _ExShadowIntensity;
 
-#if _RIM_LIGHTING_ON
+
+// Specular
+float _SpecularExpon;
+float _SpecularKsNonMetal;
+float _SpecularKsMetal;
+float _MetalSpecularMetallic;
+float3 _SpecularColor;
+float _SpecularBrightness;
+
+
+// Stockings
+sampler2D _UpperBodyStockings;
+sampler2D _LowerBodyStockings;
+float3 _StockingsDarkColor;
+float3 _StockingsLightColor;
+float3 _StockingsTransitionColor;
+float _StockingsTransitionThreshold;
+float _StockingsTransitionPower;
+float _StockingsTransitionHardness;
+float _StockingsTextureUsage;
+
+
+// RimLight
 float _RimLightWidth;
 float _RimLightThreshold;
 float _RimLightFadeout;
 float3 _RimLightTintColor;
 float _RimLightBrightness;
-#endif
 float _RimLightMixAlbedo;
 
-#if _EMISSION_ON
-    float _EmissionMixBaseColor;
-    float3 _EmissionTintColor;
-    float _EmissionIntensity;
-#endif
 
-#if _OUTLINE_ON
-    float   _IsFace;
-    float   _OutlineZOffset;
-    float   _OutlineZOffsetMaskRemapStart;
-    float   _OutlineZOffsetMaskRemapEnd;
-    float3  _OutlineColor;
-    float _OutlineWidth;
-    float _OutlineGamma;
-#endif
+// Emission
+float _EmissionMixBaseColor;
+float3 _EmissionTintColor;
+float _EmissionIntensity;
+
+
+// Outline
+float   _IsFace;
+float   _OutlineZOffset;
+float   _OutlineZOffsetMaskRemapStart;
+float   _OutlineZOffsetMaskRemapEnd;
+float3  _OutlineColor;
+float _OutlineWidth;
+float _OutlineGamma;
+
 
 float _BloomIntensity0;
 
