@@ -44,4 +44,12 @@ public class StrongWnd : WindowRoot
         pd = GameRoot.Instance.PlayerData;
 
     }
+
+
+    public void ClickCloseBtn()
+    {
+        audioSvc.PlayUIAudio(Constants.UIClickBtn);
+        SetWndState(false);
+    }
+
 }

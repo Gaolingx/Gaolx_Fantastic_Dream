@@ -15,6 +15,7 @@ public class MainCitySys : SystemRoot
     public MainCityWnd maincityWnd;
     public InfoWnd infoWnd;
     public GuideWnd guideWnd;
+    public StrongWnd strongWnd;
     public SettingsWnd settingsWnd;
     public FpsWnd fpsWnd;
 
@@ -203,6 +204,13 @@ public class MainCitySys : SystemRoot
         playerCtrl.Dir = dir;
     }
 
+    #region Strong Wnd
+    public void OpenStrongWnd()
+    {
+        strongWnd.SetWndState(true);
+
+    }
+    #endregion
 
     #region Info Wnd
     public void OpenInfoWnd()

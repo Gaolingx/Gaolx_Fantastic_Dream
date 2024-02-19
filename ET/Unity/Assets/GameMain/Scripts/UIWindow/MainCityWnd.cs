@@ -136,6 +136,11 @@ public class MainCityWnd : WindowRoot
     #endregion
 
     #region ClickEvts
+    public void ClickStrongBtn()
+    {
+        audioSvc.PlayUIAudio(Constants.UIOpenPage);
+        MainCitySys.Instance.OpenStrongWnd();
+    }
     public void ClickGuideBtn()
     {
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
