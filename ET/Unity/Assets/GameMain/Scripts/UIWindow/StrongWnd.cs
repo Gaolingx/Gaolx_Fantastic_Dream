@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using PEProtocol;
+using UnityEngine.EventSystems;
 
 public class StrongWnd : WindowRoot
 {
@@ -43,8 +44,33 @@ public class StrongWnd : WindowRoot
         base.InitWnd();
         pd = GameRoot.Instance.PlayerData;
 
+        //注册点击事件
+        RegClickEvts();
     }
 
+    private void RegClickEvts()
+    {
+        //获取每个子物体中的image组件
+        for (int i = 0; i < posBtnTrans.childCount; i++)
+        {
+            Image img = posBtnTrans.GetChild(i).GetComponent<Image>();
+
+            //添加点击事件
+            OnClick(img.gameObject, (object args) =>
+            {
+                ClickPosItem((int)args);
+                audioSvc.PlayUIAudio(Constants.UIClickBtn);
+            }, i);
+            imgs[i] = img;
+        }
+    }
+
+    //根据点击位置，展示不同部位信息，需要点击时传入一个参数，根据参数显示相应数据信息
+    private void ClickPosItem(int index)
+    {
+        PECommon.Log("Click Item:" + index);
+
+    }
 
     public void ClickCloseBtn()
     {
