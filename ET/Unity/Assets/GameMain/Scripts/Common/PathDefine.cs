@@ -14,6 +14,12 @@ public class PathDefine
 
     #endregion
 
+    #region Strong
+    public const string ItemArrorBG = "ResImages/btnstrong";
+    public const string ItemPlatBG = "ResImages/charbg3";
+
+    #endregion
+
     #region AudioSvc
     public const string bgAudioPath = "ResAudio/";
     #endregion

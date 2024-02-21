@@ -46,6 +46,8 @@ public class StrongWnd : WindowRoot
 
         //注册点击事件
         RegClickEvts();
+
+        ClickPosItem(0);
     }
 
     private void RegClickEvts()
@@ -70,6 +72,29 @@ public class StrongWnd : WindowRoot
     {
         PECommon.Log("Click Item:" + index);
 
+        //遍历数组，当点击其中一个部位，其背景变为箭头，其余的变成平板
+        for (int i = 0;i < imgs.Length;i++)
+        {
+            Transform trans = imgs[i].transform;
+
+            currentIndex = index;
+            //判断当前点击的图片和遍历的图片是否一致
+            if(i == currentIndex)
+            {
+                //如果相等，则用箭头显示
+                SetSprite(imgs[i], PathDefine.ItemArrorBG);
+                //设置位置
+                trans.localPosition = new Vector3(10, trans.localPosition.y, 0);
+                //设置尺寸
+                trans.GetComponent<RectTransform>().sizeDelta = new Vector2(250, 95);
+            }
+            else
+            {
+                SetSprite(imgs[i], PathDefine.ItemPlatBG);
+                trans.localPosition = new Vector3(0, trans.localPosition.y, 0);
+                trans.GetComponent<RectTransform>().sizeDelta = new Vector2(220, 85);
+            }
+        }
     }
 
     public void ClickCloseBtn()
