@@ -253,6 +253,8 @@ Material:
     - _BlinnPhongSpecularIntensity: 1
     - _BloomFactor: 1
     - _BloomIntensity0: 0.3
+    - _BodyCoolRampColorMixFactor: 0
+    - _BodyWarmRampColorMixFactor: 0
     - _BrightIntensity: 0.5
     - _BumpMapKeyword: 0
     - _BumpScale: 1
@@ -322,6 +324,8 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _HairCoolRampColorMixFactor: 0
+    - _HairWarmRampColorMixFactor: 0
     - _IgnoreLightY: 0
     - _IndirectLightFlattenNormal: 0
     - _IndirectLightMixBaseColor: 1
@@ -333,6 +337,7 @@ Material:
     - _LightIntensityClamp: 1
     - _LightThreshold: 0.5
     - _METALNESS: 0
+    - _MainLightBrightnessFactor: 0.7
     - _MainLightColorUsage: 0
     - _MetalSpecularGloss: 0.5
     - _MetalSpecularIntensity: 1
@@ -477,15 +482,15 @@ Material:
     - _ExEyeColor: {r: 1, g: 1, b: 1, a: 1}
     - _ExShadowColor: {r: 1, g: 1, b: 1, a: 1}
     - _ExShyColor: {r: 1, g: 1, b: 1, a: 1}
-    - _FaceColorMapColor: {r: 0.74509805, g: 0.74509805, b: 0.74509805, a: 1}
+    - _FaceColorMapColor: {r: 1, g: 1, b: 1, a: 1}
     - _FrontFaceTintColor: {r: 1, g: 1, b: 1, a: 1}
-    - _HairColorMapColor: {r: 0.74509805, g: 0.74509805, b: 0.74509805, a: 1}
+    - _HairColorMapColor: {r: 1, g: 1, b: 1, a: 1}
     - _HairCoolRampColor: {r: 1, g: 1, b: 1, a: 1}
     - _HairWarmRampColor: {r: 1, g: 1, b: 1, a: 1}
     - _HeadForward: {r: 0, g: 0, b: 1, a: 0}
     - _HeadRight: {r: 1, g: 0, b: 0, a: 0}
     - _HighColor: {r: 0.8705506, g: 0.8705506, b: 0.8705506, a: 1}
-    - _LowerBodyColorMapColor: {r: 0.74509805, g: 0.74509805, b: 0.74509805, a: 1}
+    - _LowerBodyColorMapColor: {r: 1, g: 1, b: 1, a: 1}
     - _MainColor: {r: 1, g: 1, b: 1, a: 1}
     - _OtherRimColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
@@ -504,5 +509,5 @@ Material:
     - _StockingsDarkColor: {r: 1.8, g: 1.48299, b: 0.856821, a: 1}
     - _StockingsLightColor: {r: 1.8, g: 1.48299, b: 0.856821, a: 1}
     - _StockingsTransitionColor: {r: 0.36038098, g: 0.24298596, b: 0.35813096, a: 1}
-    - _UpperBodyColorMapColor: {r: 0.74509805, g: 0.74509805, b: 0.74509805, a: 1}
+    - _UpperBodyColorMapColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
