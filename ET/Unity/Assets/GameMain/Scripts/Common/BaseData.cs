@@ -3,6 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class StrongCfg : BaseData<StrongCfg>
+{
+    public int pos;
+    public int startlv;
+    public int addhp;
+    public int addhurt;
+    public int adddef;
+    public int minlv;
+    public int coin;
+    public int crystal;
+}
+
 public class AutoGuideCfg : BaseData<AutoGuideCfg>
 {
     public int npcID; //触发任务目标NPC索引号
@@ -12,6 +24,7 @@ public class AutoGuideCfg : BaseData<AutoGuideCfg>
     public int exp; //经验
 
 }
+
 public class MapCfg : BaseData<MapCfg>
 {
     public string mapName; //地图名称
