@@ -17,6 +17,8 @@ public class ResSvc : MonoBehaviour
         InitRDNameCfg(PathDefine.RDNameCfg);
         InitMapCfg(PathDefine.MapCfg);
         InitGuideCfg(PathDefine.GuideCfg);
+        InitStrongCfg(PathDefine.StrongCfg);
+
         PECommon.Log("Init ResSvc...");
     }
 
@@ -392,15 +394,19 @@ public class ResSvc : MonoBehaviour
                 }
 
                 Dictionary<int, StrongCfg> dic = null;
+                //判断当前在该部位的字典是否存在
                 if (strongDic.TryGetValue(sd.pos, out dic))
                 {
+                    //如果有则直接往字典增加数据项
                     dic.Add(sd.startlv, sd);
                 }
                 else
                 {
+                    //如果没有，则需要先将该位置的字典new出来
                     dic = new Dictionary<int, StrongCfg>();
                     dic.Add(sd.startlv, sd);
 
+                    //添加到strongDic中
                     strongDic.Add(sd.pos, dic);
                 }
             }
@@ -412,6 +418,7 @@ public class ResSvc : MonoBehaviour
         Dictionary<int, StrongCfg> dic = null;
         if (strongDic.TryGetValue(pos, out dic))
         {
+            //判断字典中是否含有相应的星级
             if (dic.ContainsKey(starlv))
             {
                 sd = dic[starlv];
