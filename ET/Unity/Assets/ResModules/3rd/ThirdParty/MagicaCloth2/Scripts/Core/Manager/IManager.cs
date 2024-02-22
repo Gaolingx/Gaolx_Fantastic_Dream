@@ -2,6 +2,7 @@
 // Copyright (c) 2023 MagicaSoft.
 // https://magicasoft.jp
 using System;
+using System.Text;
 
 namespace MagicaCloth2
 {
@@ -17,5 +18,11 @@ namespace MagicaCloth2
         /// ゲームプレイの実行が停止したときに呼ばれる（エディタ環境のみ）
         /// </summary>
         void EnterdEditMode();
+
+        /// <summary>
+        /// 情報ログ収集
+        /// </summary>
+        /// <param name="allsb"></param>
+        void InformationLog(StringBuilder allsb);
     }
 }

@@ -42,5 +42,12 @@ namespace MagicaCloth2
         {
             Debug.LogError($"[MC2 DEBUG] {mes}");
         }
+
+        [System.Diagnostics.Conditional("MC2_DEBUG")]
+        public static void Assert(bool condition)
+        {
+            // 何故かメッセージを追加すると機能しない..
+            Debug.Assert(condition);
+        }
     }
 }

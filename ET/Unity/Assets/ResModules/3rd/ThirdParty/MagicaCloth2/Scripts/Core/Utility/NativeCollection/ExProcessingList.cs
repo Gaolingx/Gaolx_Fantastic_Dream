@@ -69,5 +69,12 @@ namespace MagicaCloth2
         {
             return (int*)Counter.GetUnsafePtrWithoutChecks();
         }
+
+        public override string ToString()
+        {
+            int counter = Counter.IsCreated ? Counter.Value : 0;
+            int bufferLength = Buffer.IsCreated ? Buffer.Length : 0;
+            return $"ExProcessingList BufferLength:{bufferLength} Counter:{counter}";
+        }
     }
 }

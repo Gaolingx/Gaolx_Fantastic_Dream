@@ -9,6 +9,7 @@ namespace MagicaCloth2
     /// Wind zone 
     /// </summary>
     [AddComponentMenu("MagicaCloth2/MagicaWindZone")]
+    [HelpURL("https://magicasoft.jp/en/mc2_windzone_component/")]
     public class MagicaWindZone : ClothBehaviour
     {
         public enum Mode

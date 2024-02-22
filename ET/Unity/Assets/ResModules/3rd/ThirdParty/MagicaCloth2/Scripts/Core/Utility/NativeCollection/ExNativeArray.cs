@@ -119,7 +119,18 @@ namespace MagicaCloth2
         /// <returns></returns>
         public DataChunk AddRange(int dataLength)
         {
+            // サイズ0対応
+            if (dataLength == 0)
+            {
+                // 領域だけは0で確保する
+                if (nativeArray.IsCreated == false)
+                    nativeArray = new NativeArray<T>(0, Allocator.Persistent);
+
+                return DataChunk.Empty;
+            }
+
             var chunk = GetEmptyChunk(dataLength);
+
             if (chunk.IsValid == false)
             {
                 // 空きを増やす
@@ -314,6 +325,60 @@ namespace MagicaCloth2
             return chunk;
         }
 
+        /// <summary>
+        /// 指定チャンクのデータ数を拡張し新しいチャンクを返す
+        /// 古いチャンクのデータは新しいチャンクにコピーされる
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="newDataLength"></param>
+        /// <returns></returns>
+        public DataChunk Expand(DataChunk c, int newDataLength)
+        {
+            Develop.Assert(c.IsValid);
+            if (c.IsValid == false)
+                return c;
+            if (newDataLength <= c.dataLength)
+                return c;
+
+            // 新しい領域を確保する
+            var nc = AddRange(newDataLength);
+
+            // 古い領域をコピーする
+            NativeArray<T>.Copy(nativeArray, c.startIndex, nativeArray, nc.startIndex, c.dataLength);
+
+            // 古い領域を開放する
+            Remove(c);
+
+            return nc;
+        }
+
+        /// <summary>
+        /// 指定チャンクのデータ数を拡張し新しいチャンクを返す
+        /// 古いチャンクのデータは新しいチャンクにコピーされる
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="newDataLength"></param>
+        /// <returns></returns>
+        public DataChunk ExpandAndFill(DataChunk c, int newDataLength, T fillData = default(T), T clearData = default(T))
+        {
+            Develop.Assert(c.IsValid);
+            if (c.IsValid == false)
+                return c;
+            if (newDataLength <= c.dataLength)
+                return c;
+
+            // 新しい領域を確保する
+            var nc = AddRange(newDataLength, fillData);
+
+            // 古い領域をコピーする
+            NativeArray<T>.Copy(nativeArray, c.startIndex, nativeArray, nc.startIndex, c.dataLength);
+
+            // 古い領域を開放する
+            RemoveAndFill(c, clearData);
+
+            return nc;
+        }
+
         public T[] ToArray()
         {
             return nativeArray.ToArray();
@@ -486,6 +551,18 @@ namespace MagicaCloth2
             }
         }
 
+        public unsafe ref T GetRef(int index)
+        {
+            T* p = (T*)nativeArray.GetUnsafePtr();
+            return ref *(p + index);
+        }
+
+        //public unsafe ref T GetRef(int index)
+        //{
+        //    var span = new Span<T>(nativeArray.GetUnsafePtr(), nativeArray.Length);
+        //    return ref span[index];
+        //}
+
         /// <summary>
         /// Jobで利用する場合はこの関数でNativeArrayに変換して受け渡す
         /// </summary>
@@ -508,6 +585,9 @@ namespace MagicaCloth2
         //=========================================================================================
         DataChunk GetEmptyChunk(int dataLength)
         {
+            if (dataLength <= 0)
+                return new DataChunk();
+
             for (int i = 0; i < emptyChunks.Count; i++)
             {
                 var c = emptyChunks[i];
@@ -536,6 +616,9 @@ namespace MagicaCloth2
 
         void AddEmptyChunk(DataChunk chunk)
         {
+            if (chunk.IsValid == false)
+                return;
+
             // 後ろに連結できる場所を探す
             for (int i = 0; i < emptyChunks.Count; i++)
             {
@@ -593,6 +676,11 @@ namespace MagicaCloth2
             sb.AppendLine();
 
             return sb.ToString();
+        }
+
+        public string ToSummary()
+        {
+            return $"ExNativeArray Length:{Length} Count:{Count} IsValid:{IsValid}";
         }
     }
 }

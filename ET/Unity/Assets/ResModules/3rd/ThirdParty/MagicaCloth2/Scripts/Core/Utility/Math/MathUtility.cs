@@ -56,6 +56,7 @@ namespace MagicaCloth2
             float len1 = math.length(v1);
             float len2 = math.length(v2);
 
+            Develop.Assert(len1 * len2 > 0.0f);
             float cos_sita = math.dot(v1, v2) / (len1 * len2);
 
             float sita = math.acos(Clamp1(cos_sita));
@@ -123,6 +124,7 @@ namespace MagicaCloth2
             if (len <= maxlength)
                 return to;
 
+            Develop.Assert(len > 0.0f);
             float t = maxlength / len;
             return math.lerp(from, to, t);
         }
@@ -151,6 +153,7 @@ namespace MagicaCloth2
             }
 
             // 戻す割合
+            Develop.Assert(angle != 0.0f);
             float t = (angle - maxAngle) / angle;
 
             // dirをmaxAngleにクランプするクォータニオンを求める
@@ -234,6 +237,7 @@ namespace MagicaCloth2
 
         /// <summary>
         /// ２つのクォータニオンの角度を返します（ラジアン）
+        /// 不正なクォータニオンでは結果が不定になるので注意！例:(0,0,0,0)など
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -267,6 +271,7 @@ namespace MagicaCloth2
             if (ang <= maxAngle)
                 return to;
 
+            Develop.Assert(ang != 0.0f);
             float t = maxAngle / ang;
 
             return math.slerp(from, to, t);
@@ -281,6 +286,14 @@ namespace MagicaCloth2
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static quaternion ToRotation(in float3 nor, in float3 tan)
         {
+#if MC2_DEBUG
+            float ln = math.length(nor);
+            float lt = math.length(tan);
+            Develop.Assert(ln > 0.0f);
+            Develop.Assert(lt > 0.0f);
+            float dot = math.dot(nor / ln, tan / lt);
+            Develop.Assert(dot != 1.0f && dot != -1.0f);
+#endif
             return quaternion.LookRotation(tan, nor);
         }
 
@@ -401,7 +414,12 @@ namespace MagicaCloth2
         {
             float3 ab = b - a;
             // パラメータ化されている位置d(t) = a + t * (b - a) の計算によりabにcを射影
-            float t = math.dot(c - a, ab) / math.dot(ab, ab);
+            float dot = math.dot(ab, ab);
+            // abが同じ座標を考慮
+            if (dot == 0.0f)
+                return 0.0f;
+            //Develop.Assert(dot != 0.0f);
+            float t = math.dot(c - a, ab) / dot;
             // 線分の外側にある場合、t(従ってd)を最近接点までクランプ
             t = math.saturate(t);
             return t;
@@ -419,7 +437,9 @@ namespace MagicaCloth2
         {
             float3 ab = b - a;
             // パラメータ化されている位置d(t) = a + t * (b - a) の計算によりabにcを射影
-            float t = math.dot(c - a, ab) / math.dot(ab, ab);
+            float dot = math.dot(ab, ab);
+            Develop.Assert(dot != 0.0f);
+            float t = math.dot(c - a, ab) / dot;
             return t;
         }
 
@@ -435,7 +455,9 @@ namespace MagicaCloth2
         {
             float3 ab = b - a;
             // パラメータ化されている位置d(t) = a + t * (b - a) の計算によりabにcを射影
-            float t = math.dot(c - a, ab) / math.dot(ab, ab);
+            float dot = math.dot(ab, ab);
+            Develop.Assert(dot != 0.0f);
+            float t = math.dot(c - a, ab) / dot;
             // 線分の外側にある場合、t(従ってd)を最近接点までクランプ
             t = math.saturate(t);
             // クランプされているtからの射影されている位置を計算
@@ -454,7 +476,9 @@ namespace MagicaCloth2
         {
             float3 ab = b - a;
             // パラメータ化されている位置d(t) = a + t * (b - a) の計算によりabにcを射影
-            float t = math.dot(c - a, ab) / math.dot(ab, ab);
+            float dot = math.dot(ab, ab);
+            Develop.Assert(dot != 0.0f);
+            float t = math.dot(c - a, ab) / dot;
             // クランプされているtからの射影されている位置を計算
             return a + t * ab;
         }
@@ -587,6 +611,7 @@ namespace MagicaCloth2
             float vc = d1 * d4 - d3 * d2;
             if (vc <= 0.0f && d1 >= 0.0f && d3 <= 0.0f)
             {
+                Develop.Assert((d1 - d3) != 0.0f);
                 v = d1 / (d1 - d3);
                 uvw = new float3(1 - v, v, 0); // 重心座標(1-v,v,0)
                 return a + v * ab;
@@ -606,6 +631,7 @@ namespace MagicaCloth2
             float vb = d5 * d2 - d1 * d6;
             if (vb <= 0.0f && d2 >= 0.0f && d6 <= 0.0f)
             {
+                Develop.Assert((d2 - d6) != 0.0f);
                 w = d2 / (d2 - d6);
                 uvw = new float3(1 - w, 0, w); // 重心座標(1-w,0,w)
                 return a + w * ac;
@@ -615,13 +641,17 @@ namespace MagicaCloth2
             float va = d3 * d6 - d5 * d4;
             if (va <= 0.0f && (d4 - d3) >= 0.0f && (d5 - d6) >= 0.0f)
             {
-                w = (d4 - d3) / ((d4 - d3) + (d5 - d6));
+                float g = (d4 - d3) + (d5 - d6);
+                Develop.Assert(g != 0.0f);
+                w = (d4 - d3) / g;
                 uvw = new float3(0, 1 - w, w); // 重心座標(0,1-w,w)
                 return b + w * (c - b);
             }
 
             // Pは面領域の中にある。Qをその重心座標(u,v,w)を用いて計算
-            float denom = 1.0f / (va + vb + vc);
+            float h = va + vb + vc;
+            Develop.Assert(h != 0.0f);
+            float denom = 1.0f / h;
             v = vb * denom;
             w = vc * denom;
             uvw = new float3(1 - v - w, v, w); // 重心座標
@@ -663,7 +693,11 @@ namespace MagicaCloth2
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float3 TriangleNormal(in float3 p0, in float3 p1, in float3 p2)
         {
-            return math.normalize(math.cross(p1 - p0, p2 - p0));
+            var c = math.cross(p1 - p0, p2 - p0);
+#if MC2_DEBUG
+            Develop.Assert(math.length(c) > 0.0f);
+#endif
+            return math.normalize(c);
         }
 
         /// <summary>
@@ -676,7 +710,8 @@ namespace MagicaCloth2
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float TriangleArea(in float3 p0, in float3 p1, in float3 p2)
         {
-            return math.length(math.cross(p1 - p0, p2 - p0));
+            var c = math.cross(p1 - p0, p2 - p0);
+            return math.length(c);
         }
 
         /// <summary>
@@ -694,7 +729,8 @@ namespace MagicaCloth2
         }
 
         /// <summary>
-        /// トライアングルの接線を計算して返す
+        /// トライアングルの接線を計算して返す。
+        /// 接線は単位化される。ただし、状況により長さ０となるケースがありその場合はベクトル０を返す。
         /// </summary>
         /// <param name="p0"></param>
         /// <param name="p1"></param>
@@ -733,6 +769,13 @@ namespace MagicaCloth2
                 // 左手座標系に合わせる
                 tan = -tan;
             }
+
+            // 長さ０はベクトル０となる
+            tan = math.normalizesafe(tan, 0);
+            //#if MC2_DEBUG
+            //            Debug.Assert(math.length(tan) > Define.System.Epsilon);
+            //#endif
+            //            tan = math.normalize(tan);
 
             return tan;
         }
@@ -1155,6 +1198,16 @@ namespace MagicaCloth2
 #endif
         }
 
+        /// <summary>
+        /// ２つの座標系が等しいか判定する
+        /// </summary>
+        /// <param name="pos1"></param>
+        /// <param name="rot1"></param>
+        /// <param name="scl1"></param>
+        /// <param name="pos2"></param>
+        /// <param name="rot2"></param>
+        /// <param name="scl2"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool CompareTransform(in float3 pos1, in quaternion rot1, in float3 scl1, in float3 pos2, in quaternion rot2, in float3 scl2)
         {
@@ -1383,6 +1436,7 @@ namespace MagicaCloth2
                 return Vector3.Dot(bc, bc);
 
             // Cがab上に射影される場合を扱う
+            Develop.Assert(f != 0.0f);
             return Vector3.Dot(ac, ac) - e * e / f;
         }
 
@@ -1402,6 +1456,23 @@ namespace MagicaCloth2
         public static bool IsNaN(quaternion q)
         {
             return math.any(math.isnan(q.value));
+        }
+
+        /// <summary>
+        /// 座標をPivotのローカル姿勢を保ちながらシフトさせる
+        /// 主に慣性シフト用
+        /// </summary>
+        /// <param name="oldPos">移動前座標</param>
+        /// <param name="oldPivotPosition">移動前のシフト中心座標</param>
+        /// <param name="shiftVector">シフト移動量</param>
+        /// <param name="shiftRotation">シフト回転量</param>
+        /// <returns></returns>
+        public static float3 ShiftPosition(in float3 oldPos, in float3 oldPivotPosition, in float3 shiftVector, in quaternion shiftRotation)
+        {
+            float3 lpos = oldPos - oldPivotPosition;
+            lpos = math.mul(shiftRotation, lpos);
+            lpos += shiftVector;
+            return oldPivotPosition + lpos;
         }
 
         //=========================================================================================
@@ -1428,6 +1499,7 @@ namespace MagicaCloth2
             // 摩擦(0.0 ~ 1.0)により重量が増加する
             float mass = 1.0f + friction * Define.System.FrictionMass;
 
+            Develop.Assert(mass > 0.0f);
             return 1.0f / mass;
         }
 
@@ -1449,6 +1521,7 @@ namespace MagicaCloth2
             var a = (1.0f - depth);
             mass += a * a * Define.System.DepthMass;
 
+            Develop.Assert(mass > 0.0f);
             return 1.0f / mass;
         }
 
@@ -1458,9 +1531,12 @@ namespace MagicaCloth2
         /// <param name="friction"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float CalcInverseMass(float friction, float depth, bool fix)
+        public static float CalcInverseMass(float friction, float depth, bool fix, float fixMass)
         {
-            return fix ? (1.0f / 100.0f) : CalcInverseMass(friction, depth);
+            //return fix ? (1.0f / 100.0f) : CalcInverseMass(friction, depth);
+            //return fix ? (1.0f / 30.0f) : CalcInverseMass(friction, depth);
+
+            return fix ? (1.0f / fixMass) : CalcInverseMass(friction, depth);
         }
 
         /// <summary>
@@ -1475,6 +1551,7 @@ namespace MagicaCloth2
         {
             float mass = fix ? Define.System.SelfCollisionFixedMass : 1.0f + friction * Define.System.SelfCollisionFrictionMass;
             mass += clothMass * Define.System.SelfCollisionClothMass;
+            Develop.Assert(mass > 0.0f);
             return 1.0f / mass;
         }
     }

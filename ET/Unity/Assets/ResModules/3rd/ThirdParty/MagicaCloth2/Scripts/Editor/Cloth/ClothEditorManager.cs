@@ -455,7 +455,8 @@ namespace MagicaCloth2
                 // メッシュを構築するための最低限のデータが揃っているか確認
                 if (sdata.IsValid() == false)
                 {
-                    result.SetResult(Define.Result.Empty);
+                    //result.SetResult(Define.Result.Empty);
+                    result.SetResult(sdata.VerificationResult);
                     throw new MagicaClothProcessingException();
                 }
 
@@ -467,10 +468,10 @@ namespace MagicaCloth2
                         if (ren)
                         {
                             var setup = new RenderSetupData(ren);
+                            result.Merge(setup.result);
                             if (setup.IsFaild())
                             {
                                 setup.Dispose();
-                                result.Set(setup.result);
                                 throw new MagicaClothProcessingException();
                             }
                             setupList.Add(setup);
@@ -484,9 +485,16 @@ namespace MagicaCloth2
                 }
                 else if (sdata.clothType == ClothProcess.ClothType.BoneCloth)
                 {
-                    var setup = new RenderSetupData(cloth.ClothTransform, sdata.rootBones, sdata.connectionMode, cloth.name);
+                    var setup = new RenderSetupData(RenderSetupData.SetupType.BoneCloth, cloth.ClothTransform, sdata.rootBones, null, sdata.connectionMode, cloth.name);
                     setupList.Add(setup);
                 }
+                else if (sdata.clothType == ClothProcess.ClothType.BoneSpring)
+                {
+                    // BoneSpringではLine接続のみ
+                    var setup = new RenderSetupData(RenderSetupData.SetupType.BoneSpring, cloth.ClothTransform, sdata.rootBones, sdata.colliderCollisionConstraint.collisionBones, RenderSetupData.BoneConnectionMode.Line, cloth.name);
+                    setupList.Add(setup);
+                }
+
                 if (setupList.Count == 0)
                 {
                     result.SetError(Define.Result.CreateCloth_InvalidSetupList);
@@ -511,7 +519,7 @@ namespace MagicaCloth2
                     var ret = cloth.Process.GeneratePaintMapDataList(paintMapDataList);
                     if (ret.IsError())
                     {
-                        result = ret;
+                        result.Merge(ret);
                         throw new MagicaClothProcessingException();
                     }
                     if (paintMapDataList.Count != setupList.Count)
@@ -535,7 +543,8 @@ namespace MagicaCloth2
 
                 // セレクションデータ
                 // ペイントマップ指定の場合は空で初期化
-                SelectionData selectionData = usePaintMap ? new SelectionData() : sdata2.selectionData;
+                //SelectionData selectionData = usePaintMap ? new SelectionData() : sdata2.selectionData;
+                SelectionData selectionData = usePaintMap ? new SelectionData() : sdata2.selectionData.Clone();
 
                 // ■スレッド
                 await Task.Run(() =>
@@ -546,7 +555,6 @@ namespace MagicaCloth2
                         ct.ThrowIfCancellationRequested();
                         if (sdata.clothType == ClothProcess.ClothType.MeshCloth)
                         {
-                            //foreach (var setup in setupList)
                             for (int i = 0; i < setupList.Count; i++)
                             {
                                 var setup = setupList[i];
@@ -568,7 +576,7 @@ namespace MagicaCloth2
                                     var ret = cloth.Process.GenerateSelectionDataFromPaintMap(clothTransformRecord, renderMesh, paintMapDataList[i], out SelectionData renderSelectionData);
                                     if (ret.IsError())
                                     {
-                                        result = ret;
+                                        result.Merge(ret);
                                         throw new MagicaClothProcessingException();
                                     }
 
@@ -587,20 +595,20 @@ namespace MagicaCloth2
                                 editMesh.Reduction(sdata.reductionSetting, ct);
                                 if (editMesh.IsError)
                                 {
-                                    result = editMesh.result;
+                                    result.Merge(editMesh.result);
                                     throw new MagicaClothProcessingException();
                                 }
 
                                 //Debug.Log($"(REDUCTION) {editMesh}");
                             }
                         }
-                        else if (sdata.clothType == ClothProcess.ClothType.BoneCloth)
+                        else if (sdata.clothType == ClothProcess.ClothType.BoneCloth || sdata.clothType == ClothProcess.ClothType.BoneSpring)
                         {
                             // import
                             editMesh.ImportFrom(setupList[0]);
                             if (editMesh.IsError)
                             {
-                                result = editMesh.result;
+                                result.Merge(editMesh.result);
                                 throw new MagicaClothProcessingException();
                             }
                             //Debug.Log($"(IMPORT) {editMesh}");
@@ -618,7 +626,7 @@ namespace MagicaCloth2
                         editMesh.Optimization();
                         if (editMesh.IsError)
                         {
-                            result = editMesh.result;
+                            result.Merge(editMesh.result);
                             throw new MagicaClothProcessingException();
                         }
                         //Debug.Log($"(OPTIMIZE) {editMesh}");
@@ -643,6 +651,11 @@ namespace MagicaCloth2
                 // セレクションデータの作成
                 // まだセレクションデータが未編集の場合は作り直す
                 ct.ThrowIfCancellationRequested();
+                if (cloth == null || isValid == false)
+                {
+                    result.SetError(Define.Result.CreateCloth_InvalidCloth);
+                    throw new MagicaClothProcessingException();
+                }
                 if (usePaintMap == false)
                 {
                     if (sdata2.selectionData == null || sdata2.selectionData.IsValid() == false || sdata2.selectionData.userEdit == false)
@@ -672,7 +685,7 @@ namespace MagicaCloth2
                         editMesh.ConvertProxyMesh(cloth.SerializeData, null, null, normalAdjustmentTransformRecored);
                         if (editMesh.IsError)
                         {
-                            result = editMesh.result;
+                            result.Merge(editMesh.result);
                             throw new MagicaClothProcessingException();
                         }
                         //Debug.Log($"(PROXY) {editMesh}");
@@ -846,12 +859,15 @@ namespace MagicaCloth2
                 return selectionData;
 
             // BoneClothはRootをFixedに定義する、それ以外はMove
-            if (sdata.clothType == ClothProcess.ClothType.BoneCloth)
+            if (sdata.clothType == ClothProcess.ClothType.BoneCloth || sdata.clothType == ClothProcess.ClothType.BoneSpring)
             {
                 selectionData.Fill(VertexAttribute.Move);
 
                 // BoneClothではセットアップデータのrootのみ固定に設定する
-                using var setup = new RenderSetupData(cloth.ClothTransform, sdata.rootBones, sdata.connectionMode, cloth.name);
+                // BoneSpringではLine接続のみとなる
+                var connectionMode = sdata.clothType == ClothProcess.ClothType.BoneSpring ? RenderSetupData.BoneConnectionMode.Line : sdata.connectionMode;
+                var setupType = sdata.clothType == ClothProcess.ClothType.BoneSpring ? RenderSetupData.SetupType.BoneSpring : RenderSetupData.SetupType.BoneCloth;
+                using var setup = new RenderSetupData(setupType, cloth.ClothTransform, sdata.rootBones, null, connectionMode, cloth.name);
                 foreach (int id in setup.rootTransformIdList)
                 {
                     int rootIndex = setup.GetTransformIndexFromId(id);

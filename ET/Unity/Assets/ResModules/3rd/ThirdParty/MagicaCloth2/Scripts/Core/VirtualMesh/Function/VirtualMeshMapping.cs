@@ -74,6 +74,7 @@ namespace MagicaCloth2
                     var avgDist = proxyMesh.averageVertexDistance.Value;
                     float weightLength = avgDist * 1.5f;
                     //Debug.Log($"avgDist:{avgDist}, weightLength:{weightLength}");
+                    using var useSet = new NativeParallelHashSet<ushort>(1024, Allocator.Persistent); // Unity2023.1.5対応
                     var calcDirectWeightJob = new Mapping_CalcDirectWeightJob()
                     {
                         vcnt = mappingWorkData.Length,
@@ -86,6 +87,8 @@ namespace MagicaCloth2
                         proxyLocalPositions = proxyMesh.localPositions.GetNativeArray(),
                         proxyVertexToVertexIndexArray = proxyMesh.vertexToVertexIndexArray,
                         proxyVertexToVertexDataArray = proxyMesh.vertexToVertexDataArray,
+
+                        useSet = useSet, // Unity2023.1.5対応
                     };
                     calcDirectWeightJob.Run();
                 }
@@ -95,8 +98,9 @@ namespace MagicaCloth2
                     // 検索半径
                     // これはプロキシメッシュ座標空間での長さとなる
                     float averageDistance = MathUtility.TransformLength(averageVertexDistance.Value, toP);
+                    averageDistance = math.max(averageDistance, Define.System.MinimumGridSize);
                     float searchRadius = averageDistance * 2.5f; // test(2.0?)
-                    Debug.Log($"searchRadius:{searchRadius}");
+                    Develop.DebugLog($"Search Mapping! searchRadius:{searchRadius}");
 
                     // プロキシ頂点インデックスを格納したグリッドマップを作成する
                     float gridSize = averageDistance * 1.5f;
@@ -255,10 +259,12 @@ namespace MagicaCloth2
             [Unity.Collections.ReadOnly]
             public NativeArray<ushort> proxyVertexToVertexDataArray;
 
+            public NativeParallelHashSet<ushort> useSet; // Unity2023.1.5対応
+
             public void Execute()
             {
                 // 処理済みセット
-                var useSet = new NativeParallelHashSet<ushort>(1024, Allocator.Temp);
+                //var useSet = new NativeParallelHashSet<ushort>(1024, Allocator.Temp); // Unity2023.1.5対応
                 var stack = new FixedList4096Bytes<ushort>();
 
                 for (int vindex = 0; vindex < vcnt; vindex++)
@@ -292,12 +298,13 @@ namespace MagicaCloth2
 
                         // ウエイト算出
                         const float weightPow = 3.0f;
-                        float w = Mathf.Clamp01((1.0f - dist / weightLength) + 0.001f);
+                        //float w = Mathf.Clamp01((1.0f - dist / weightLength) + 0.001f);
+                        float w = Mathf.Clamp01(1.0f - dist / weightLength);
                         w = Mathf.Pow(w, weightPow); // powのデフォルトは(3.0)
                         weights.Add(1.0f - w, pindex); // ExCostSortedList4は昇順格納なので一旦1.0から引く
 
                         // 次の接続
-                        DataUtility.Unpack10_22(proxyVertexToVertexIndexArray[pindex], out var dcnt, out var dstart);
+                        DataUtility.Unpack12_20(proxyVertexToVertexIndexArray[pindex], out var dcnt, out var dstart);
                         for (int i = 0; i < dcnt && stack.IsCapacity() == false; i++)
                         {
                             ushort tindex = proxyVertexToVertexDataArray[dstart + i];
@@ -322,7 +329,6 @@ namespace MagicaCloth2
                     else
                     {
                         // ウエイトを合計１に調整する
-                        //Debug.Assert(weights.Count > 0);
                         int wcnt = weights.Count;
                         for (int i = 0; i < 4; i++)
                         {
@@ -338,8 +344,16 @@ namespace MagicaCloth2
                             }
                         }
                         float total = math.csum(weights.costs);
-                        Debug.Assert(total > 1e-06f);
-                        weights.costs = weights.costs / total;
+
+                        // すべての頂点がweightLengthの場合は合計ウエイト０があり得るので特別に平均化する
+                        if (total == 0.0f)
+                        {
+                            float w = 1.0f / wcnt;
+                            for (int i = 0; i < wcnt; i++)
+                                weights.costs[i] = w;
+                        }
+                        else
+                            weights.costs = math.saturate(weights.costs / total);
                     }
 
                     // ウエイト格納
@@ -566,7 +580,7 @@ namespace MagicaCloth2
                 // チェックは近傍頂点の接続２レベルのみとする
                 // ★結果：良い。最初のバージョンと結果が同じで負荷は激減した。
                 vertexDist.Add(vertexDistance, pindex);
-                DataUtility.Unpack10_22(proxyVertexToVertexIndexArray[pindex], out var dcnt, out var dstart);
+                DataUtility.Unpack12_20(proxyVertexToVertexIndexArray[pindex], out var dcnt, out var dstart);
                 // レベル１の接続
                 for (int i = 0; i < dcnt; i++)
                 {
@@ -586,7 +600,7 @@ namespace MagicaCloth2
                     }
 
                     // レベル２の接続
-                    DataUtility.Unpack10_22(proxyVertexToVertexIndexArray[index2], out var dcnt2, out var dstart2);
+                    DataUtility.Unpack12_20(proxyVertexToVertexIndexArray[index2], out var dcnt2, out var dstart2);
                     for (int j = 0; j < dcnt2; j++)
                     {
                         int index3 = proxyVertexToVertexDataArray[dstart2 + j];

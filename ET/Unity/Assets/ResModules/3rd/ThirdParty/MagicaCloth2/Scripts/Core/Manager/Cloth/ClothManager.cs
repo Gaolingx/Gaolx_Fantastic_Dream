@@ -2,7 +2,10 @@
 // Copyright (c) 2023 MagicaSoft.
 // https://magicasoft.jp
 using System.Collections.Generic;
+using System.Text;
 using Unity.Jobs;
+using Unity.Profiling;
+using UnityEngine;
 
 namespace MagicaCloth2
 {
@@ -11,9 +14,18 @@ namespace MagicaCloth2
     /// </summary>
     public class ClothManager : IManager, IValid
     {
+        // すべて
         internal HashSet<ClothProcess> clothSet = new HashSet<ClothProcess>();
+
+        // BoneCloth,BoneSpring
         internal HashSet<ClothProcess> boneClothSet = new HashSet<ClothProcess>();
+
+        // MeshCloth
         internal HashSet<ClothProcess> meshClothSet = new HashSet<ClothProcess>();
+
+        //=========================================================================================
+        Dictionary<int, bool> animatorVisibleDict = new Dictionary<int, bool>(30);
+        Dictionary<int, bool> rendererVisibleDict = new Dictionary<int, bool>(100);
 
         //=========================================================================================
         /// <summary>
@@ -33,10 +45,13 @@ namespace MagicaCloth2
             meshClothSet.Clear();
 
             // 作業バッファ
+            animatorVisibleDict.Clear();
+            rendererVisibleDict.Clear();
 
             // 更新処理
-            MagicaManager.afterEarlyUpdateDelegate -= TransformRestoreUpdate;
-            MagicaManager.afterLateUpdateDelegate -= StartClothUpdate;
+            MagicaManager.afterEarlyUpdateDelegate -= OnEarlyClothUpdate;
+            MagicaManager.afterLateUpdateDelegate -= OnAfterLateUpdate;
+            MagicaManager.beforeLateUpdateDelegate -= OnBeforeLateUpdate;
         }
 
         public void EnterdEditMode()
@@ -53,8 +68,9 @@ namespace MagicaCloth2
             // 作業バッファ
 
             // 更新処理
-            MagicaManager.afterEarlyUpdateDelegate += TransformRestoreUpdate;
-            MagicaManager.afterLateUpdateDelegate += StartClothUpdate;
+            MagicaManager.afterEarlyUpdateDelegate += OnEarlyClothUpdate;
+            MagicaManager.afterLateUpdateDelegate += OnAfterLateUpdate;
+            MagicaManager.beforeLateUpdateDelegate += OnBeforeLateUpdate;
 
             isValid = true;
         }
@@ -82,15 +98,25 @@ namespace MagicaCloth2
             if (isValid == false)
                 return 0;
 
-            clothSet.Add(cprocess);
-            if (cprocess.clothType == ClothProcess.ClothType.BoneCloth)
-                boneClothSet.Add(cprocess);
-            else
-                meshClothSet.Add(cprocess);
-
             // チーム登録
             var teamId = MagicaManager.Team.AddTeam(cprocess, clothParams);
+            if (teamId == 0)
+                return 0;
 
+            clothSet.Add(cprocess);
+            switch (cprocess.clothType)
+            {
+                case ClothProcess.ClothType.BoneCloth:
+                case ClothProcess.ClothType.BoneSpring:
+                    boneClothSet.Add(cprocess);
+                    break;
+                case ClothProcess.ClothType.MeshCloth:
+                    meshClothSet.Add(cprocess);
+                    break;
+                default:
+                    Develop.LogError($"Invalid cloth type! :{cprocess.clothType}");
+                    break;
+            }
 
             return teamId;
         }
@@ -110,24 +136,43 @@ namespace MagicaCloth2
 
         //=========================================================================================
         /// <summary>
-        /// BoneClothのTransform復元更新
+        /// フレーム開始時に実行される更新処理
         /// </summary>
-        void TransformRestoreUpdate()
+        void OnEarlyClothUpdate()
         {
             if (MagicaManager.Team.ActiveTeamCount > 0)
             {
+                //Debug.Log($"TransformRestoreUpdate. F:{Time.frameCount}");
+                // チームカリング更新
+                MagicaManager.Team.TeamCullingUpdate();
+
+                // BoneClothのTransform復元更新
                 ClearMasterJob();
                 masterJob = MagicaManager.Bone.RestoreTransform(masterJob);
                 CompleteMasterJob();
             }
         }
 
+        void OnBeforeLateUpdate()
+        {
+            if (MagicaManager.Time.updateLocation == TimeManager.UpdateLocation.BeforeLateUpdate)
+                ClothUpdate();
+        }
+
+        void OnAfterLateUpdate()
+        {
+            if (MagicaManager.Time.updateLocation == TimeManager.UpdateLocation.AfterLateUpdate)
+                ClothUpdate();
+        }
 
         //=========================================================================================
+        static readonly ProfilerMarker startClothUpdateMainProfiler = new ProfilerMarker("StartClothUpdate.Main");
+        static readonly ProfilerMarker startClothUpdateScheduleProfiler = new ProfilerMarker("StartClothUpdate.Schedule");
+
         /// <summary>
-        /// クロスコンポーネントの更新開始
+        /// クロスコンポーネントの更新
         /// </summary>
-        void StartClothUpdate()
+        void ClothUpdate()
         {
             if (MagicaManager.IsPlaying() == false)
                 return;
@@ -143,16 +188,23 @@ namespace MagicaCloth2
             var bm = MagicaManager.Bone;
             var wm = MagicaManager.Wind;
 
-            //Debug.Log($"afterLateUpdateDelegate. F:{Time.frameCount}");
+            //Debug.Log($"StartClothUpdate. F:{Time.frameCount}");
             //Develop.DebugLog($"StartClothUpdate. F:{Time.frameCount}, dtime:{Time.deltaTime}, stime:{Time.smoothDeltaTime}");
 
             //-----------------------------------------------------------------
+            startClothUpdateMainProfiler.Begin();
+            // ■時間マネージャ更新
+            MagicaManager.Time.FrameUpdate();
+
             // ■常に実行するチーム更新
             tm.AlwaysTeamUpdate();
 
             // ■ここで実行チーム数が０ならば終了
             if (tm.ActiveTeamCount == 0)
+            {
+                startClothUpdateMainProfiler.End();
                 return;
+            }
 
             int maxUpdateCount = tm.maxUpdateCount.Value;
             //Debug.Log($"maxUpdateCount:{maxUpdateCount}");
@@ -163,7 +215,11 @@ namespace MagicaCloth2
             // ■作業バッファ更新
             sm.WorkBufferUpdate();
 
+            startClothUpdateMainProfiler.End();
+
             //-----------------------------------------------------------------
+#if true
+            startClothUpdateScheduleProfiler.Begin();
             // マスタージョブ初期化
             ClearMasterJob();
 
@@ -216,6 +272,10 @@ namespace MagicaCloth2
                     if (cprocess == null || cprocess.IsValid() == false || cprocess.IsEnable == false)
                         continue;
 
+                    // カリングによる非表示中ならば書き込まない
+                    if (cprocess.IsCullingInvisible())
+                        continue;
+
                     int cnt = cprocess.renderMeshInfoList.Count;
                     for (int i = 0; i < cnt; i++)
                     {
@@ -245,6 +305,8 @@ namespace MagicaCloth2
             // ■チーム更新後処理
             masterJob = tm.PostTeamUpdate(masterJob);
 
+            startClothUpdateScheduleProfiler.End();
+
             //-----------------------------------------------------------------
             // ジョブを即実行
             //JobHandle.ScheduleBatchedJobs();
@@ -252,10 +314,66 @@ namespace MagicaCloth2
             //-----------------------------------------------------------------
             // ■現在は即時実行のためここでジョブの完了待ちを行う
             CompleteMasterJob();
+#endif
 
             //-----------------------------------------------------------------
             // シミュレーション終了イベント
             MagicaManager.OnPostSimulation?.Invoke();
+        }
+
+        //=========================================================================================
+        internal void ClearVisibleDict()
+        {
+            animatorVisibleDict.Clear();
+            rendererVisibleDict.Clear();
+        }
+
+        internal bool CheckVisible(Animator ani, List<Renderer> renderers)
+        {
+            if (ani)
+            {
+                int id = ani.GetInstanceID();
+                if (animatorVisibleDict.ContainsKey(id))
+                    return animatorVisibleDict[id];
+
+                bool visible = CheckRendererVisible(renderers);
+                animatorVisibleDict.Add(id, visible);
+                return visible;
+            }
+            else
+            {
+                return CheckRendererVisible(renderers);
+            }
+        }
+
+        bool CheckRendererVisible(List<Renderer> renderers)
+        {
+            foreach (var ren in renderers)
+            {
+                if (ren)
+                {
+                    bool visible;
+                    int id = ren.GetInstanceID();
+                    if (rendererVisibleDict.ContainsKey(id))
+                    {
+                        visible = rendererVisibleDict[id];
+                    }
+                    else
+                    {
+                        visible = ren.isVisible;
+                        rendererVisibleDict.Add(id, visible);
+                    }
+                    if (visible)
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
+        //=========================================================================================
+        public void InformationLog(StringBuilder allsb)
+        {
         }
     }
 }

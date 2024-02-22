@@ -7,6 +7,7 @@ using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Jobs;
 using Unity.Mathematics;
+using UnityEngine;
 
 namespace MagicaCloth2
 {
@@ -323,7 +324,7 @@ namespace MagicaCloth2
 
             int teamId = cprocess.TeamId;
             var proxyMesh = cprocess.ProxyMesh;
-            var tdata = MagicaManager.Team.GetTeamData(teamId);
+            ref var tdata = ref MagicaManager.Team.GetTeamDataRef(teamId);
 
             int pcnt = proxyMesh.VertexCount;
             tdata.particleChunk = teamIdArray.AddRange(pcnt, (short)teamId);
@@ -342,8 +343,6 @@ namespace MagicaCloth2
             staticFrictionArray.AddRange(pcnt);
             collisionNormalArray.AddRange(pcnt);
             //colliderIdArray.AddRange(pcnt);
-
-            MagicaManager.Team.SetTeamData(teamId, tdata);
         }
 
         /// <summary>
@@ -377,7 +376,7 @@ namespace MagicaCloth2
                 return;
 
             int teamId = cprocess.TeamId;
-            var tdata = MagicaManager.Team.GetTeamData(teamId);
+            ref var tdata = ref MagicaManager.Team.GetTeamDataRef(teamId);
             tdata.flag.SetBits(TeamManager.Flag_Exit, true); // 消滅フラグ
 
             var c = tdata.particleChunk;
@@ -399,15 +398,12 @@ namespace MagicaCloth2
             //colliderIdArray.Remove(c);
 
             tdata.particleChunk.Clear();
-            MagicaManager.Team.SetTeamData(teamId, tdata);
 
             // 制約データを解除する
             distanceConstraint.Exit(cprocess);
             bendingConstraint.Exit(cprocess);
             inertiaConstraint.Exit(cprocess);
             selfCollisionConstraint.Exit(cprocess);
-
-            //MagicaManager.Team.SetTeamData(teamId, tdata);
         }
 
         //=========================================================================================
@@ -534,7 +530,6 @@ namespace MagicaCloth2
             [Unity.Collections.WriteOnly]
             public NativeArray<float3> nextPosArray;
             public NativeArray<float3> oldPosArray;
-            [Unity.Collections.WriteOnly]
             public NativeArray<quaternion> oldRotArray;
             [Unity.Collections.WriteOnly]
             public NativeArray<float3> basePosArray;
@@ -545,8 +540,8 @@ namespace MagicaCloth2
             [Unity.Collections.WriteOnly]
             public NativeArray<float3> velocityPosArray;
             public NativeArray<float3> dispPosArray;
-            public NativeArray<float3> velocityArray;
             [Unity.Collections.WriteOnly]
+            public NativeArray<float3> velocityArray;
             public NativeArray<float3> realVelocityArray;
             [Unity.Collections.WriteOnly]
             public NativeArray<float> frictionArray;
@@ -571,9 +566,9 @@ namespace MagicaCloth2
                 int l_index = pindex - tdata.particleChunk.startIndex;
                 int vindex = tdata.proxyCommonChunk.startIndex + l_index;
 
-                // リセット
                 if (tdata.IsReset)
                 {
+                    // リセット
                     var pos = positions[vindex];
                     var rot = rotations[vindex];
 
@@ -592,6 +587,27 @@ namespace MagicaCloth2
                     staticFrictionArray[pindex] = 0;
                     collisionNormalArray[pindex] = 0;
                     //colliderIdArray[pindex] = 0;
+                }
+                else if (tdata.IsInertiaShift)
+                {
+                    // 慣性全体シフト
+                    var cdata = centerDataArray[teamId];
+
+                    // cdata.frameComponentShiftVector : 全体シフトベクトル
+                    // cdata.frameComponentShiftRotation : 全体シフト回転
+                    // cdata.oldComponentWorldPosition : フレーム移動前のコンポーネント中心位置
+
+                    float3 prevFrameWorldPosition = cdata.oldComponentWorldPosition;
+
+                    oldPosArray[pindex] = MathUtility.ShiftPosition(oldPosArray[pindex], prevFrameWorldPosition, cdata.frameComponentShiftVector, cdata.frameComponentShiftRotation);
+                    oldRotArray[pindex] = math.mul(cdata.frameComponentShiftRotation, oldRotArray[pindex]);
+
+                    oldPositionArray[pindex] = MathUtility.ShiftPosition(oldPositionArray[pindex], prevFrameWorldPosition, cdata.frameComponentShiftVector, cdata.frameComponentShiftRotation);
+                    oldRotationArray[pindex] = math.mul(cdata.frameComponentShiftRotation, oldRotationArray[pindex]);
+
+                    dispPosArray[pindex] = MathUtility.ShiftPosition(dispPosArray[pindex], prevFrameWorldPosition, cdata.frameComponentShiftVector, cdata.frameComponentShiftRotation);
+
+                    realVelocityArray[pindex] = math.mul(cdata.frameComponentShiftRotation, realVelocityArray[pindex]);
                 }
             }
         }
@@ -677,6 +693,9 @@ namespace MagicaCloth2
             // 速度更新、外力の影響、慣性シフト
             var startStepJob = new StartSimulationStepJob()
             {
+                simulationPower = MagicaManager.Time.SimulationPower,
+                simulationDeltaTime = MagicaManager.Time.SimulationDeltaTime,
+
                 stepParticleIndexArray = processingStepParticle.Buffer,
 
                 attributes = vm.attributes.GetNativeArray(),
@@ -748,13 +767,14 @@ namespace MagicaCloth2
                 // モーション制約はコライダーより優先
                 jobHandle = motionConstraint.SolverConstraint(jobHandle);
                 // セルフコリジョンは最後
-                //jobHandle = selfCollisionConstraint.SolverConstraint(updateIndex, jobHandle);
                 jobHandle = selfCollisionConstraint.SolverConstraint(updateIndex, jobHandle);
             }
 
             // 座標確定
             var endStepJob = new EndSimulationStepJob()
             {
+                simulationDeltaTime = MagicaManager.Time.SimulationDeltaTime,
+
                 stepParticleIndexArray = processingStepParticle.Buffer,
 
                 teamDataArray = tm.teamDataArray.GetNativeArray(),
@@ -943,8 +963,7 @@ namespace MagicaCloth2
                     start = stepTriangleBendIndexCounter.InterlockedStartIndex(bendCnt);
                     for (int i = 0; i < bendCnt; i++, bendIndex++)
                     {
-                        //stepTriangleBendIndexArray[start + i] = bendIndex;
-                        uint pack = DataUtility.Pack10_22(teamId, bendIndex);
+                        uint pack = DataUtility.Pack12_20(teamId, bendIndex);
                         stepTriangleBendIndexArray[start + i] = (int)pack;
                     }
                 }
@@ -1024,6 +1043,9 @@ namespace MagicaCloth2
         [BurstCompile]
         struct StartSimulationStepJob : IJobParallelForDefer
         {
+            public float4 simulationPower;
+            public float simulationDeltaTime;
+
             [Unity.Collections.ReadOnly]
             public NativeArray<int> stepParticleIndexArray;
 
@@ -1128,17 +1150,18 @@ namespace MagicaCloth2
                 stepBasicRotationArray[pindex] = baseRot;
 
                 // 移動パーティクル
-                if (attr.IsMove())
+                if (attr.IsMove() || tdata.IsSpring)
                 {
+                    var cdata = centerDataArray[teamId];
+
                     // 重量
                     //float mass = MathUtility.CalcMass(depth);
 
                     // 速度
                     var velocity = velocityArray[pindex];
 
-                    // 慣性シフト
-                    var cdata = centerDataArray[teamId];
-
+#if true
+                    // ■ローカル慣性シフト
                     // シフト量
                     float3 inertiaVector = cdata.inertiaVector;
                     quaternion inertiaRotation = cdata.inertiaRotation;
@@ -1147,13 +1170,6 @@ namespace MagicaCloth2
                     float inertiaDepth = param.inertiaConstraint.depthInertia * (1.0f - depth * depth); // 二次曲線
                     inertiaVector = math.lerp(inertiaVector, cdata.stepVector, inertiaDepth);
                     inertiaRotation = math.slerp(inertiaRotation, cdata.stepRotation, inertiaDepth);
-
-                    // ローカル変換して計算する
-                    //float3 lpos = nextPos - cdata.nowWorldPosition;
-                    //lpos = math.mul(inertiaRotation, lpos);
-                    //lpos += inertiaVector;
-                    //float3 wpos = cdata.nowWorldPosition + lpos;
-                    //var inertiaOffset = wpos - nextPos;
 
                     // たぶんこっちが正しい
                     float3 lpos = oldPos - cdata.oldWorldPosition;
@@ -1170,6 +1186,7 @@ namespace MagicaCloth2
 
                     // 速度に慣性回転を加える
                     velocity = math.mul(inertiaRotation, velocity);
+#endif
 
                     // 安定化用の速度割合
                     velocity *= tdata.velocityWeight;
@@ -1177,7 +1194,7 @@ namespace MagicaCloth2
                     // 抵抗
                     // 重力に影響させたくないので先に計算する（※通常はforce適用後に行うのが一般的）
                     float damping = param.dampingCurveData.EvaluateCurveClamp01(depth);
-                    velocity *= 1.0f - damping;
+                    velocity *= math.saturate(1.0f - damping * simulationPower.z);
 
                     // 外力
                     float3 force = 0;
@@ -1186,6 +1203,28 @@ namespace MagicaCloth2
                     float3 gforce = param.gravityDirection * (param.gravity * tdata.gravityRatio);
                     force += gforce;
 
+                    // 外力
+                    float3 exForce = 0;
+                    float mass = MathUtility.CalcMass(depth);
+                    switch (tdata.forceMode)
+                    {
+                        case ClothForceMode.VelocityAdd:
+                            exForce = tdata.impactForce / mass;
+                            break;
+                        case ClothForceMode.VelocityAddWithoutDepth:
+                            exForce = tdata.impactForce;
+                            break;
+                        case ClothForceMode.VelocityChange:
+                            exForce = tdata.impactForce / mass;
+                            velocity = 0;
+                            break;
+                        case ClothForceMode.VelocityChangeWithoutDepth:
+                            exForce = tdata.impactForce;
+                            velocity = 0;
+                            break;
+                    }
+                    force += exForce;
+
                     // 風力
                     force += Wind(teamId, tdata, param.wind, cdata, vindex, pindex, depth);
 
@@ -1193,10 +1232,10 @@ namespace MagicaCloth2
                     force *= tdata.scaleRatio;
 
                     // 速度更新
-                    velocity += force * tdata.SimulationDeltaTime;
+                    velocity += force * simulationDeltaTime;
 
                     // 予測位置更新
-                    nextPos += velocity * tdata.SimulationDeltaTime;
+                    nextPos += velocity * simulationDeltaTime;
                 }
                 else
                 {
@@ -1205,12 +1244,97 @@ namespace MagicaCloth2
                     velocityPos = basePos;
                 }
 
+                // スプリング（固定パーティクルのみ）
+                if (tdata.IsSpring && attr.IsFixed())
+                {
+                    // ノイズ用に時間を不規則にずらす
+                    Spring(param.springConstraint, param.normalAxis, ref nextPos, basePos, baseRot, (tdata.time + index * 49.6198f) * 2.4512f + math.csum(nextPos), tdata.scaleRatio);
+                }
+
                 // 速度計算用の移動前の位置
                 velocityPosArray[pindex] = velocityPos;
 
                 // 予測位置格納
                 nextPosArray[pindex] = nextPos;
             }
+
+            void Spring(in SpringConstraint.SpringConstraintParams springParams, ClothNormalAxis normalAxis, ref float3 nextPos, in float3 basePos, in quaternion baseRot, float noiseTime, float scaleRatio)
+            {
+                // clamp distance
+                var v = nextPos - basePos;
+                float3 dir = math.up();
+                switch (normalAxis)
+                {
+                    case ClothNormalAxis.Right:
+                        dir = math.right();
+                        break;
+                    case ClothNormalAxis.Up:
+                        dir = math.up();
+                        break;
+                    case ClothNormalAxis.Forward:
+                        dir = math.forward();
+                        break;
+                    case ClothNormalAxis.InverseRight:
+                        dir = -math.right();
+                        break;
+                    case ClothNormalAxis.InverseUp:
+                        dir = -math.up();
+                        break;
+                    case ClothNormalAxis.InverseForward:
+                        dir = -math.forward();
+                        break;
+                }
+                dir = math.mul(baseRot, dir);
+                float limitDistance = springParams.limitDistance * scaleRatio; // スケール倍率
+
+                if (limitDistance > 1e-08f)
+                {
+                    // 球クランプ
+                    var len = math.length(v);
+                    if (len > limitDistance)
+                    {
+                        v *= (limitDistance / len);
+                    }
+
+                    // 楕円クランプ
+                    if (springParams.normalLimitRatio < 1.0f)
+                    {
+                        // もっとスマートにならないか..
+                        float ylen = math.dot(dir, v);
+                        float3 vx = v - dir * ylen;
+                        float xlen = math.length(vx);
+                        float t = xlen / limitDistance;
+                        float y = math.cos(math.asin(t));
+                        y *= limitDistance * springParams.normalLimitRatio;
+
+                        if (math.abs(ylen) > y)
+                        {
+                            v -= dir * (math.abs(ylen) - y) * math.sign(ylen);
+                        }
+                    }
+                }
+                else
+                {
+                    v = float3.zero;
+                }
+
+                // スプリング力
+                float power = springParams.springPower;
+
+                // ノイズ
+                if (springParams.springNoise > 0.0f)
+                {
+                    float noise = math.sin(noiseTime); // -1.0~+1.0
+                    //Debug.Log(noise);
+                    noise *= springParams.springNoise * 0.6f; // スケーリング
+                    power = math.max(power + power * noise, 0.0f);
+                }
+
+                // スプリング適用
+                v -= v * power;
+                nextPos = basePos + v;
+            }
+
 
             float3 Wind(int teamId, in TeamManager.TeamData tdata, in WindParams windParams, in InertiaConstraint.CenterData cdata, int vindex, int pindex, float depth)
             {
@@ -1448,6 +1572,8 @@ namespace MagicaCloth2
         [BurstCompile]
         struct EndSimulationStepJob : IJobParallelForDefer
         {
+            public float simulationDeltaTime;
+
             [Unity.Collections.ReadOnly]
             public NativeArray<int> stepParticleIndexArray;
 
@@ -1508,7 +1634,7 @@ namespace MagicaCloth2
                 var nextPos = nextPosArray[pindex];
                 var oldPos = oldPosArray[pindex];
 
-                if (attr.IsMove())
+                if (attr.IsMove() || tdata.IsSpring)
                 {
                     // 移動パーティクル
                     var velocityOldPos = velocityPosArray[pindex];
@@ -1530,7 +1656,7 @@ namespace MagicaCloth2
                         // 接線方向の移動速度から計算する
                         var v = nextPos - oldPos;
                         var tanv = v - MathUtility.Project(v, cn); // 接線方向の移動ベクトル
-                        float tangentVelocity = math.length(tanv) / tdata.SimulationDeltaTime; // 接線方向の移動速度
+                        float tangentVelocity = math.length(tanv) / simulationDeltaTime; // 接線方向の移動速度
 
                         // 静止速度以下ならば係数を上げる
                         if (tangentVelocity < staticFrictionParam)
@@ -1560,7 +1686,7 @@ namespace MagicaCloth2
 
                     // ■速度更新(m/s) ------------------------------------------
                     // 速度計算用の位置から割り出す（制約ごとの速度調整用）
-                    float3 velocity = (nextPos - velocityOldPos) / tdata.SimulationDeltaTime;
+                    float3 velocity = (nextPos - velocityOldPos) / simulationDeltaTime;
                     float sqVel = math.lengthsq(velocity);
                     float3 normalVelocity = sqVel > Define.System.Epsilon ? math.normalize(velocity) : 0;
 
@@ -1640,7 +1766,7 @@ namespace MagicaCloth2
                 }
 
                 // 実速度
-                float3 realVelocity = (nextPos - oldPos) / tdata.SimulationDeltaTime;
+                float3 realVelocity = (nextPos - oldPos) / simulationDeltaTime;
                 realVelocityArray[pindex] = realVelocity;
                 //Debug.Log($"[{pindex}] realVelocity:{realVelocity}");
 
@@ -1662,6 +1788,8 @@ namespace MagicaCloth2
             // rotationsは自動で計算されるため
             var job = new CalcDisplayPositionJob()
             {
+                simulationDeltaTime = MagicaManager.Time.SimulationDeltaTime,
+
                 teamDataArray = MagicaManager.Team.teamDataArray.GetNativeArray(),
 
                 teamIdArray = teamIdArray.GetNativeArray(),
@@ -1683,6 +1811,8 @@ namespace MagicaCloth2
         [BurstCompile]
         struct CalcDisplayPositionJob : IJobParallelFor
         {
+            public float simulationDeltaTime;
+
             // team
             [Unity.Collections.ReadOnly]
             public NativeArray<TeamManager.TeamData> teamDataArray;
@@ -1731,7 +1861,7 @@ namespace MagicaCloth2
                 var pos = positions[vindex];
                 var rot = rotations[vindex];
 
-                if (attr.IsMove())
+                if (attr.IsMove() || tdata.IsSpring)
                 {
                     // 移動パーティクル
                     var dpos = oldPosArray[pindex];
@@ -1739,9 +1869,9 @@ namespace MagicaCloth2
 #if true
                     // 未来予測
                     // 最終計算位置と実速度から次のステップ位置を予測し、その間のフレーム時間位置を表示位置とする
-                    float3 velocity = realVelocityArray[pindex] * tdata.SimulationDeltaTime;
+                    float3 velocity = realVelocityArray[pindex] * simulationDeltaTime;
                     float3 fpos = dpos + velocity;
-                    float interval = (tdata.nowUpdateTime + tdata.SimulationDeltaTime) - tdata.oldTime;
+                    float interval = (tdata.nowUpdateTime + simulationDeltaTime) - tdata.oldTime;
                     //float t = (tdata.time - tdata.oldTime) / interval;
                     float t = interval > 0.0f ? (tdata.time - tdata.oldTime) / interval : 0.0f;
                     fpos = math.lerp(dispPosArray[pindex], fpos, t);
@@ -1854,19 +1984,65 @@ namespace MagicaCloth2
         }
 
         //=========================================================================================
-        public override string ToString()
+        public void InformationLog(StringBuilder allsb)
         {
             StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"========== Simulation Manager ==========");
+            if (IsValid() == false)
+            {
+                sb.AppendLine($"Simulation Manager. Invalid");
+            }
+            else
+            {
+                sb.AppendLine($"Simulation Manager. Particle:{ParticleCount}");
+                sb.AppendLine($"  -teamIdArray:{teamIdArray.ToSummary()}");
+                sb.AppendLine($"  -nextPosArray:{nextPosArray.ToSummary()}");
+                sb.AppendLine($"  -oldPosArray:{oldPosArray.ToSummary()}");
+                sb.AppendLine($"  -oldRotArray:{oldRotArray.ToSummary()}");
+                sb.AppendLine($"  -basePosArray:{basePosArray.ToSummary()}");
+                sb.AppendLine($"  -baseRotArray:{baseRotArray.ToSummary()}");
+                sb.AppendLine($"  -oldPositionArray:{oldPositionArray.ToSummary()}");
+                sb.AppendLine($"  -oldRotationArray:{oldRotationArray.ToSummary()}");
+                sb.AppendLine($"  -velocityPosArray:{velocityPosArray.ToSummary()}");
+                sb.AppendLine($"  -dispPosArray:{dispPosArray.ToSummary()}");
+                sb.AppendLine($"  -velocityArray:{velocityArray.ToSummary()}");
+                sb.AppendLine($"  -realVelocityArray:{realVelocityArray.ToSummary()}");
+                sb.AppendLine($"  -frictionArray:{frictionArray.ToSummary()}");
+                sb.AppendLine($"  -staticFrictionArray:{staticFrictionArray.ToSummary()}");
+                sb.AppendLine($"  -collisionNormalArray:{collisionNormalArray.ToSummary()}");
 
-            sb.AppendLine($"Simulation Manager. Particle:{ParticleCount}");
-            sb.AppendLine($"  -Distance:{distanceConstraint?.DataCount ?? 0}");
-            //sb.AppendLine($"  -SelfCollision PointPoint:{selfCollisionConstraint?.PointPointCount ?? 0}, PointTriangle:{selfCollisionConstraint?.PointTriangleCount ?? 0}");
+                // 制約
+                sb.Append(distanceConstraint.ToString());
+                sb.Append(bendingConstraint.ToString());
+                sb.Append(angleConstraint.ToString());
+                sb.Append(inertiaConstraint.ToString());
+                sb.Append(colliderCollisionConstraint.ToString());
+                sb.Append(selfCollisionConstraint.ToString());
 
-            // 各制約
+                // 汎用バッファ
+                sb.AppendLine($"[Step Buffer]");
+                sb.AppendLine($"  -processingStepParticle:{processingStepParticle}");
+                sb.AppendLine($"  -processingStepTriangleBending:{processingStepTriangleBending}");
+                sb.AppendLine($"  -processingStepEdgeCollision:{processingStepEdgeCollision}");
+                sb.AppendLine($"  -processingStepCollider:{processingStepCollider}");
+                sb.AppendLine($"  -processingStepBaseLine:{processingStepBaseLine}");
+                sb.AppendLine($"  -processingStepMotionParticle:{processingStepMotionParticle}");
+                sb.AppendLine($"  -processingSelfParticle:{processingSelfParticle}");
+                sb.AppendLine($"  -processingSelfPointTriangle:{processingSelfPointTriangle}");
+                sb.AppendLine($"  -processingSelfEdgeEdge:{processingSelfEdgeEdge}");
+                sb.AppendLine($"  -processingSelfTrianglePoint:{processingSelfTrianglePoint}");
+                sb.AppendLine($"[Buffer]");
+                sb.AppendLine($"  -tempFloat3Buffer:{(tempFloat3Buffer.IsCreated ? tempFloat3Buffer.Length : 0)}");
+                sb.AppendLine($"  -countArray:{(countArray.IsCreated ? countArray.Length : 0)}");
+                sb.AppendLine($"  -sumArray:{(sumArray.IsCreated ? sumArray.Length : 0)}");
+                sb.AppendLine($"  -stepBasicPositionBuffer:{(stepBasicPositionBuffer.IsCreated ? stepBasicPositionBuffer.Length : 0)}");
+                sb.AppendLine($"  -stepBasicRotationBuffer:{(stepBasicRotationBuffer.IsCreated ? stepBasicRotationBuffer.Length : 0)}");
+
+                sb.AppendLine();
+            }
             sb.AppendLine();
-            //sb.Append(selfCollisionConstraint);
-
-            return sb.ToString();
+            Debug.Log(sb.ToString());
+            allsb.Append(sb);
         }
     }
 }

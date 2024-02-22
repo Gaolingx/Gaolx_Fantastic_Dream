@@ -91,7 +91,10 @@ namespace MagicaCloth2
         }
 
         /// <summary>
-        /// パラメータの更新
+        /// パラメータの反映
+        /// すでに実行状態の場合はこの関数を呼び出さないとプロパティの変更が反映されません。
+        /// Reflection of parameters.
+        /// If it is already running, property changes will not be reflected unless this function is called.
         /// </summary>
         public void UpdateParameters()
         {

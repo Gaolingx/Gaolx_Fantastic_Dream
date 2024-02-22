@@ -3,6 +3,7 @@
 // https://magicasoft.jp
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
@@ -58,9 +59,19 @@ namespace MagicaCloth2
             /// </summary>
             public float velocityAttenuation;
 
-            public void Convert(SerializeData sdata)
+            public void Convert(SerializeData sdata, ClothProcess.ClothType clothType)
             {
-                restorationStiffness = sdata.stiffness.ConvertFloatArray();
+                switch (clothType)
+                {
+                    case ClothProcess.ClothType.BoneCloth:
+                    case ClothProcess.ClothType.MeshCloth:
+                        restorationStiffness = sdata.stiffness.ConvertFloatArray();
+                        break;
+                    case ClothProcess.ClothType.BoneSpring:
+                        // BoneSpringは定数
+                        restorationStiffness = Define.System.BoneSpringDistanceStiffness;
+                        break;
+                }
                 velocityAttenuation = Define.System.DistanceVelocityAttenuation;
             }
         }
@@ -124,6 +135,17 @@ namespace MagicaCloth2
             distanceArray?.Dispose();
         }
 
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"[DistanceConstraint]");
+            sb.AppendLine($"  -indexArray:{indexArray.ToSummary()}");
+            sb.AppendLine($"  -dataArray:{dataArray.ToSummary()}");
+            sb.AppendLine($"  -distanceArray:{distanceArray.ToSummary()}");
+
+            return sb.ToString();
+        }
+
         //=========================================================================================
         /// <summary>
         /// 制約データの作成
@@ -163,6 +185,10 @@ namespace MagicaCloth2
 
                         // 両方とも固定ならば無効
                         if (attr.IsMove() == false && t_attr.IsMove() == false)
+                            continue;
+
+                        // １点でも無効なら除外する
+                        if (attr.IsInvalid() || t_attr.IsInvalid())
                             continue;
 
                         // 登録
@@ -273,7 +299,7 @@ namespace MagicaCloth2
 
                         for (int k = 0; k < TypeCount; k++)
                         {
-                            DataUtility.Unpack10_22(k == 0 ? indexArrayV[i] : indexArrayH[i], out var dcnt, out var dstart);
+                            DataUtility.Unpack12_20(k == 0 ? indexArrayV[i] : indexArrayH[i], out var dcnt, out var dstart);
                             for (int j = 0; j < dcnt; j++)
                             {
                                 ushort data = k == 0 ? dataArryaV[dstart + j] : dataArryaH[dstart + j];
@@ -288,7 +314,7 @@ namespace MagicaCloth2
                             }
                         }
 
-                        uint pack = DataUtility.Pack10_22(cnt, start);
+                        uint pack = DataUtility.Pack12_20(cnt, start);
                         indexList.Add(pack);
                     }
 
@@ -323,13 +349,11 @@ namespace MagicaCloth2
         {
             if (cprocess?.distanceConstraintData?.IsValid() ?? false)
             {
-                var tdata = MagicaManager.Team.GetTeamData(cprocess.TeamId);
+                ref var tdata = ref MagicaManager.Team.GetTeamDataRef(cprocess.TeamId);
 
                 tdata.distanceStartChunk = indexArray.AddRange(cprocess.distanceConstraintData.indexArray);
                 tdata.distanceDataChunk = dataArray.AddRange(cprocess.distanceConstraintData.dataArray);
                 distanceArray.AddRange(cprocess.distanceConstraintData.distanceArray);
-
-                MagicaManager.Team.SetTeamData(cprocess.TeamId, tdata);
             }
         }
 
@@ -341,7 +365,7 @@ namespace MagicaCloth2
         {
             if (cprocess != null && cprocess.TeamId > 0)
             {
-                var tdata = MagicaManager.Team.GetTeamData(cprocess.TeamId);
+                ref var tdata = ref MagicaManager.Team.GetTeamDataRef(cprocess.TeamId);
 
                 indexArray.Remove(tdata.distanceStartChunk);
                 dataArray.Remove(tdata.distanceDataChunk);
@@ -349,8 +373,6 @@ namespace MagicaCloth2
 
                 tdata.distanceStartChunk.Clear();
                 tdata.distanceDataChunk.Clear();
-
-                MagicaManager.Team.SetTeamData(cprocess.TeamId, tdata);
             }
         }
 
@@ -369,6 +391,8 @@ namespace MagicaCloth2
 
             var job = new DistanceConstraintJob()
             {
+                simulationPower = MagicaManager.Time.SimulationPower,
+
                 stepParticleIndexArray = sm.processingStepParticle.Buffer,
 
                 teamDataArray = tm.teamDataArray.GetNativeArray(),
@@ -400,6 +424,8 @@ namespace MagicaCloth2
         [BurstCompile]
         struct DistanceConstraintJob : IJobParallelForDefer
         {
+            public float4 simulationPower;
+
             [Unity.Collections.ReadOnly]
             public NativeArray<int> stepParticleIndexArray;
 
@@ -461,6 +487,9 @@ namespace MagicaCloth2
                 var sc = tdata.distanceStartChunk;
                 var dc = tdata.distanceDataChunk;
 
+                if (sc.dataLength == 0)
+                    return;
+
                 int c_start = sc.startIndex;
                 int d_start = dc.startIndex;
                 int v_start = tdata.proxyCommonChunk.startIndex;
@@ -472,17 +501,31 @@ namespace MagicaCloth2
                 float depth = depthArray[vindex];
                 float friction = frictionArray[pindex];
 
-                if (attr.IsDontMove())
+                if (attr.IsInvalid())
                     return;
 
+                // Spring利用中は固定も通す
+                bool isSpring = tdata.IsSpring;
+                if (attr.IsDontMove() && isSpring == false)
+                    return;
+
+                // 固定点の重量
+                float fixMass = isSpring ? 10.0f : 50.0f;
+
                 // 重量
-                float invMass = MathUtility.CalcInverseMass(friction, depth, attr.IsDontMove());
+                // BoneSpringでは固定点の重量加算を行わない
+                //float invMass = MathUtility.CalcInverseMass(friction, depth, attr.IsDontMove() && isSpring == false);
+                float invMass = MathUtility.CalcInverseMass(friction, depth, attr.IsDontMove(), fixMass);
+                //float invMass = isSpring && attr.IsDontMove() ? 1.0f / 2.0f : MathUtility.CalcInverseMass(friction, depth, attr.IsDontMove());
 
                 // 基本剛性
                 float stiffness = parameter.distanceConstraint.restorationStiffness.EvaluateCurveClamp01(depth);
+                //stiffness *= simulationPower;
+                //stiffness *= (simulationPower * simulationPower);
+                stiffness *= simulationPower.y;
 
                 var pack = indexArray[c_start + l_index];
-                DataUtility.Unpack10_22(pack, out int dcnt, out int dstart);
+                DataUtility.Unpack12_20(pack, out int dcnt, out int dstart);
 
                 if (dcnt > 0)
                 {
@@ -500,7 +543,7 @@ namespace MagicaCloth2
                         float restDist = distanceArray[start + i];
 
                         // タイプ別剛性
-                        float finalStiffness = restDist >= 0.0f ? stiffness : stiffness * Define.System.DistanceHorizontalStiffness;
+                        float finalStiffness = math.saturate(restDist >= 0.0f ? stiffness : stiffness * Define.System.DistanceHorizontalStiffness);
 
                         // 相手パーティクル情報
                         int tpindex = p_start + t_l_index;
@@ -513,7 +556,10 @@ namespace MagicaCloth2
                         var t_attr = attributes[tvindex];
 
                         // 重量
-                        float t_invMass = MathUtility.CalcInverseMass(t_friction, t_depth, t_attr.IsDontMove());
+                        // BoneSpringでは固定点の重量加算を行わない
+                        //float t_invMass = MathUtility.CalcInverseMass(t_friction, t_depth, t_attr.IsDontMove() && isSpring == false);
+                        float t_invMass = MathUtility.CalcInverseMass(t_friction, t_depth, t_attr.IsDontMove(), fixMass);
+                        //float t_invMass = isSpring && t_attr.IsDontMove() ? 1.0f / 2.0f : MathUtility.CalcInverseMass(t_friction, t_depth, t_attr.IsDontMove());
 
                         // 復元する長さ
                         // !Distance制約は初期化時に保存した距離を見るようにしないと駄目

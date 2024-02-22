@@ -177,6 +177,7 @@ namespace MagicaCloth2
             return (int)(pack & 0xffff);
         }
 
+#if false
         /// <summary>
         /// ２つのintをhi(10bit)とlow(22bit)に切り詰めて１つのuintにパッキングする
         /// </summary>
@@ -223,7 +224,54 @@ namespace MagicaCloth2
             hi = (int)((pack >> 22) & 0x3ff);
             low = (int)(pack & 0x3fffff);
         }
+#endif
 
+        /// <summary>
+        /// ２つのintをhi(12bit)とlow(20bit)に切り詰めて１つのuintにパッキングする
+        /// </summary>
+        /// <param name="hi"></param>
+        /// <param name="low"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static uint Pack12_20(int hi, int low)
+        {
+            return (uint)hi << 20 | (uint)low & 0xfffff;
+        }
+
+        /// <summary>
+        /// uint12-20パックデータから上位12bitデータをintにして返す
+        /// </summary>
+        /// <param name="pack"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int Unpack12_20Hi(uint pack)
+        {
+            return (int)((pack >> 20) & 0xfff);
+        }
+
+        /// <summary>
+        /// uint12-20パックデータから下位20bitデータをintにして返す
+        /// </summary>
+        /// <param name="pack"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int Unpack12_20Low(uint pack)
+        {
+            return (int)(pack & 0xfffff);
+        }
+
+        /// <summary>
+        /// uint12-20パックデータを分解して２つのintとして返す
+        /// </summary>
+        /// <param name="pack"></param>
+        /// <param name="hi"></param>
+        /// <param name="low"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Unpack12_20(uint pack, out int hi, out int low)
+        {
+            hi = (int)((pack >> 20) & 0xfff);
+            low = (int)(pack & 0xfffff);
+        }
 
         /// <summary>
         /// ４つのintをushortに変換し１つのulongにパッキングする

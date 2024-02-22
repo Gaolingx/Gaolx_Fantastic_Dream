@@ -46,7 +46,11 @@ namespace MagicaCloth2
                 {
                     // FindObjectOfTypeはそれなりに負荷がかかるので注意！
                     // 非アクティブのオブジェクトは発見できないので注意！
+#if UNITY_2023_1_OR_NEWER
+                    instance = FindFirstObjectByType<T>();
+#else
                     instance = FindObjectOfType<T>();
+#endif
 
                     if (instance == null && Application.isPlaying)
                     {

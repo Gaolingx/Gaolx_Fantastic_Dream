@@ -445,6 +445,42 @@ namespace MagicaCloth2
             flagArray[index] = flag;
         }
 
+        internal DataChunk Expand(DataChunk c, int newLength)
+        {
+            if (isValid == false)
+                return default;
+
+            // 領域
+            var nc = flagArray.Expand(c, newLength);
+            initLocalPositionArray.Expand(c, newLength);
+            initLocalRotationArray.Expand(c, newLength);
+            positionArray.Expand(c, newLength);
+            rotationArray.Expand(c, newLength);
+            inverseRotationArray.Expand(c, newLength);
+            scaleArray.Expand(c, newLength);
+            localPositionArray.Expand(c, newLength);
+            localRotationArray.Expand(c, newLength);
+
+            // チームID
+            teamIdArray.Expand(c, newLength);
+
+            // トランスフォームアクセス配列の拡張
+            if (c.startIndex != nc.startIndex)
+            {
+                while (transformAccessArray.length < (nc.startIndex + nc.dataLength))
+                    transformAccessArray.Add(null);
+
+                for (int i = 0; i < c.dataLength; i++)
+                {
+                    Transform t = transformAccessArray[c.startIndex + i];
+                    transformAccessArray[nc.startIndex + i] = t;
+                    transformAccessArray[c.startIndex + i] = null;
+                }
+            }
+
+            return nc;
+        }
+
         //=========================================================================================
         /// <summary>
         /// Transformを初期姿勢で復元させるジョブを発行する
@@ -456,14 +492,15 @@ namespace MagicaCloth2
         {
             if (Count > 0)
             {
+                //Debug.Log("RestoreTransform");
                 var job = new RestoreTransformJob()
                 {
                     flagList = flagArray.GetNativeArray(),
                     localPositionArray = initLocalPositionArray.GetNativeArray(),
                     localRotationArray = initLocalRotationArray.GetNativeArray(),
-                    //teamIdArray = teamIdArray.GetNativeArray(),
+                    teamIdArray = teamIdArray.GetNativeArray(),
 
-                    //teamDataArray = MagicaManager.Team.teamDataArray.GetNativeArray(),
+                    teamDataArray = MagicaManager.Team.teamDataArray.GetNativeArray(),
                 };
                 jobHandle = job.Schedule(transformAccessArray, jobHandle);
             }
@@ -481,12 +518,12 @@ namespace MagicaCloth2
             public NativeArray<float3> localPositionArray;
             [Unity.Collections.ReadOnly]
             public NativeArray<quaternion> localRotationArray;
-            //[Unity.Collections.ReadOnly]
-            //public NativeArray<short> teamIdArray;
+            [Unity.Collections.ReadOnly]
+            public NativeArray<short> teamIdArray;
 
             // team
-            //[Unity.Collections.ReadOnly]
-            //public NativeArray<TeamManager.TeamData> teamDataArray;
+            [Unity.Collections.ReadOnly]
+            public NativeArray<TeamManager.TeamData> teamDataArray;
 
 
             public void Execute(int index, TransformAccess transform)
@@ -497,6 +534,12 @@ namespace MagicaCloth2
                 if (flag.IsSet(Flag_Enable) == false)
                     return;
                 if (flag.IsSet(Flag_Restore) == false)
+                    return;
+
+                // Keepカリング時はスキップする
+                int teamId = teamIdArray[index];
+                var tdata = teamDataArray[teamId];
+                if (tdata.IsCullingInvisible && tdata.IsCullingKeep)
                     return;
 
                 transform.localPosition = localPositionArray[index];
@@ -525,6 +568,10 @@ namespace MagicaCloth2
                     localPositionArray = localPositionArray.GetNativeArray(),
                     localRotationArray = localRotationArray.GetNativeArray(),
                     inverseRotationArray = inverseRotationArray.GetNativeArray(),
+
+                    teamIdArray = teamIdArray.GetNativeArray(),
+
+                    teamDataArray = MagicaManager.Team.teamDataArray.GetNativeArray(),
                 };
                 jobHandle = job.ScheduleReadOnly(transformAccessArray, 8, jobHandle);
             }
@@ -551,6 +598,13 @@ namespace MagicaCloth2
             [Unity.Collections.WriteOnly]
             public NativeArray<quaternion> inverseRotationArray;
 
+            [Unity.Collections.ReadOnly]
+            public NativeArray<short> teamIdArray;
+
+            // team
+            [Unity.Collections.ReadOnly]
+            public NativeArray<TeamManager.TeamData> teamDataArray;
+
             public void Execute(int index, TransformAccess transform)
             {
                 if (transform.isValid == false)
@@ -559,6 +613,12 @@ namespace MagicaCloth2
                 if (flag.IsSet(Flag_Enable) == false)
                     return;
                 if (flag.IsSet(Flag_Read) == false)
+                    return;
+
+                // カリング時は書き込まない
+                int teamId = teamIdArray[index];
+                var tdata = teamDataArray[teamId];
+                if (tdata.IsCullingInvisible)
                     return;
 
                 var pos = transform.position;
@@ -597,6 +657,10 @@ namespace MagicaCloth2
                 worldRotations = rotationArray.GetNativeArray(),
                 localPositions = localPositionArray.GetNativeArray(),
                 localRotations = localRotationArray.GetNativeArray(),
+
+                teamIdArray = teamIdArray.GetNativeArray(),
+
+                teamDataArray = MagicaManager.Team.teamDataArray.GetNativeArray(),
             };
             jobHandle = job.Schedule(transformAccessArray, jobHandle);
 
@@ -618,6 +682,13 @@ namespace MagicaCloth2
             [Unity.Collections.ReadOnly]
             public NativeArray<quaternion> localRotations;
 
+            [Unity.Collections.ReadOnly]
+            public NativeArray<short> teamIdArray;
+
+            // team
+            [Unity.Collections.ReadOnly]
+            public NativeArray<TeamManager.TeamData> teamDataArray;
+
             public void Execute(int index, TransformAccess transform)
             {
                 if (transform.isValid == false)
@@ -625,10 +696,25 @@ namespace MagicaCloth2
                 var flag = flagList[index];
                 if (flag.IsSet(Flag_Enable) == false)
                     return;
+
+                // カリング時は書き込まない
+                int teamId = teamIdArray[index];
+                var tdata = teamDataArray[teamId];
+                if (tdata.IsCullingInvisible)
+                    return;
+
+                // 書き込み停止中ならスキップ
+                if (tdata.flag.IsSet(TeamManager.Flag_SkipWriting))
+                    return;
+
                 if (flag.IsSet(Flag_WorldRotWrite))
                 {
-                    // ワールド回転のみ書き込む
+                    // ワールド回転
                     transform.rotation = worldRotations[index];
+
+                    // BoneSpringのみワールド座標を書き込む
+                    if (tdata.IsSpring)
+                        transform.position = worldPositions[index];
                 }
                 else if (flag.IsSet(Flag_LocalPosRotWrite))
                 {
@@ -640,32 +726,49 @@ namespace MagicaCloth2
         }
 
         //=========================================================================================
-        public override string ToString()
+        public void InformationLog(StringBuilder allsb)
         {
             StringBuilder sb = new StringBuilder();
-
-
-            int tcnt = transformAccessArray.isCreated ? transformAccessArray.length : 0;
-            sb.AppendLine($"Transform Manager. Length:{tcnt}");
-
-            if (transformAccessArray.isCreated)
+            sb.AppendLine($"========== Transform Manager ==========");
+            if (IsValid() == false)
             {
-                for (int i = 0; i < tcnt; i++)
+                sb.AppendLine($"Transform Manager. Invalid.");
+            }
+            else
+            {
+                int tcnt = transformAccessArray.isCreated ? transformAccessArray.length : 0;
+                sb.AppendLine($"Transform Manager. Length:{tcnt}");
+                sb.AppendLine($"  -flagArray:{flagArray.ToSummary()}");
+                sb.AppendLine($"  -initLocalPositionArray:{initLocalPositionArray.ToSummary()}");
+                sb.AppendLine($"  -initLocalRotationArray:{initLocalRotationArray.ToSummary()}");
+                sb.AppendLine($"  -positionArray:{positionArray.ToSummary()}");
+                sb.AppendLine($"  -rotationArray:{rotationArray.ToSummary()}");
+                sb.AppendLine($"  -inverseRotationArray:{inverseRotationArray.ToSummary()}");
+                sb.AppendLine($"  -scaleArray:{scaleArray.ToSummary()}");
+                sb.AppendLine($"  -localPositionArray:{localPositionArray.ToSummary()}");
+                sb.AppendLine($"  -localRotationArray:{localRotationArray.ToSummary()}");
+                sb.AppendLine($"  -teamIdArray:{teamIdArray.ToSummary()}");
+
+                if (transformAccessArray.isCreated)
                 {
-                    var t = transformAccessArray[i];
-                    var flag = flagArray[i];
-                    var teamId = teamIdArray[i];
-                    sb.Append($"  [{i}] team:{teamId} (");
-                    sb.Append(flag.IsSet(Flag_Enable) ? "E" : "");
-                    sb.Append(flag.IsSet(Flag_Restore) ? "R" : "");
-                    sb.Append(flag.IsSet(Flag_Read) ? "r" : "");
-                    sb.Append(flag.IsSet(Flag_WorldRotWrite) ? "W" : "");
-                    sb.Append(flag.IsSet(Flag_LocalPosRotWrite) ? "w" : "");
-                    sb.AppendLine($") {t?.name ?? "(null)"}");
+                    for (int i = 0; i < tcnt; i++)
+                    {
+                        var t = transformAccessArray[i];
+                        var flag = flagArray[i];
+                        var teamId = teamIdArray[i];
+                        sb.Append($"  [{i}] team:{teamId} (");
+                        sb.Append(flag.IsSet(Flag_Enable) ? "E" : "");
+                        sb.Append(flag.IsSet(Flag_Restore) ? "R" : "");
+                        sb.Append(flag.IsSet(Flag_Read) ? "r" : "");
+                        sb.Append(flag.IsSet(Flag_WorldRotWrite) ? "W" : "");
+                        sb.Append(flag.IsSet(Flag_LocalPosRotWrite) ? "w" : "");
+                        sb.AppendLine($") {t?.name ?? "(null)"}");
+                    }
                 }
             }
-
-            return sb.ToString();
+            sb.AppendLine();
+            Debug.Log(sb.ToString());
+            allsb.Append(sb);
         }
     }
 }

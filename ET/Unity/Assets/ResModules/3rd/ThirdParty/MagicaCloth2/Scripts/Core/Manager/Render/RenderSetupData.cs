@@ -27,8 +27,9 @@ namespace MagicaCloth2
         // タイプ
         public enum SetupType
         {
-            Mesh = 0,
-            Bone = 1,
+            MeshCloth = 0,
+            BoneCloth = 1,
+            BoneSpring = 2,
         }
         public SetupType setupType;
 
@@ -39,7 +40,8 @@ namespace MagicaCloth2
         public MeshFilter meshFilter;
         public Mesh originalMesh;
         public int vertexCount;
-        public bool isSkinning;
+        public bool hasSkinnedMesh; // SkinnedMeshRendererを利用しているかどうか
+        public bool hasBoneWeight; // SkinnedMeshRendererでもボーンウエイトを持っていないケースあり！
         public Mesh.MeshDataArray meshDataArray;　// Jobで利用するためのMeshData
         public int skinRootBoneIndex;
         public int skinBoneCount;
@@ -49,7 +51,6 @@ namespace MagicaCloth2
         public NativeArray<BoneWeight1> boneWeightArray;
 
         // Bone ---------------------------------------------------------------
-        //public NativeArray<short> rootTransformIndices;
         public List<int> rootTransformIdList;
         public enum BoneConnectionMode
         {
@@ -70,6 +71,7 @@ namespace MagicaCloth2
             SequentialNonLoopMesh = 3,
         }
         public BoneConnectionMode boneConnectionMode = BoneConnectionMode.Line;
+        public List<int> collisionBoneIndexList; // BoneSpringのコリジョン有効Transformインデックスリスト
 
         // Common -------------------------------------------------------------
         // Transform情報
@@ -108,7 +110,7 @@ namespace MagicaCloth2
             {
                 result.Clear();
                 // Meshタイプに設定
-                setupType = SetupType.Mesh;
+                setupType = SetupType.MeshCloth;
 
                 if (ren == null)
                 {
@@ -121,7 +123,8 @@ namespace MagicaCloth2
 
                 var sren = ren as SkinnedMeshRenderer;
 
-                isSkinning = sren ? true : false;
+                hasSkinnedMesh = sren ? true : false;
+                hasBoneWeight = false;
                 skinRenderer = sren;
                 Mesh mesh;
 
@@ -130,24 +133,45 @@ namespace MagicaCloth2
                 // 描画の基準トランスフォーム
                 var renderTransform = ren.transform;
 
-                if (isSkinning)
+                if (sren)
                 {
                     // bones
                     // このスキニングボーンの取得が特に重くメモリアロケーションも頻発する問題児
                     // しかし回避方法がないため現状やむなし
                     var bones = sren.bones;
-                    skinBoneCount = bones.Length;
-                    transformList = new List<Transform>(skinBoneCount + 2);
-                    transformList.AddRange(bones);
+                    if (bones == null || bones.Length == 0)
+                    {
+                        // ブレンドシェイプではボーンや頂点ウエイトが無くてもSkinnedMeshRendererが利用される
+                        // ブレンドシェイプの機能がSkinnedMeshRendererにしか無いため
+                        // そのため、このようなケースではSkinnedMeshRendererであるが通常メッシュとして扱うことにする
+                        // bones
+                        skinBoneCount = 1;
+                        transformList = new List<Transform>(skinBoneCount);
+                        transformList.Add(renderTransform);
 
-                    // rootBone
-                    var rootBone = sren.rootBone ? sren.rootBone : renderTransform;
-                    skinRootBoneIndex = transformList.Count;
-                    transformList.Add(rootBone);
+                        // rootBone
+                        skinRootBoneIndex = 0;
 
-                    // render
-                    renderTransformIndex = transformList.Count;
-                    transformList.Add(renderTransform);
+                        // render
+                        renderTransformIndex = 0;
+                    }
+                    else
+                    {
+                        skinBoneCount = bones.Length;
+                        transformList = new List<Transform>(skinBoneCount + 2);
+                        transformList.AddRange(bones);
+
+                        // rootBone
+                        var rootBone = sren.rootBone ? sren.rootBone : renderTransform;
+                        skinRootBoneIndex = transformList.Count;
+                        transformList.Add(rootBone);
+
+                        // render
+                        renderTransformIndex = transformList.Count;
+                        transformList.Add(renderTransform);
+
+                        hasBoneWeight = true;
+                    }
                 }
                 else
                 {
@@ -167,7 +191,7 @@ namespace MagicaCloth2
                 ReadTransformInformation(includeChilds: false);
 
                 // bindpose / weights
-                if (isSkinning)
+                if (sren)
                 {
                     mesh = sren.sharedMesh;
                     if (mesh == null)
@@ -176,14 +200,35 @@ namespace MagicaCloth2
                         result.SetError(Define.Result.RenderSetup_NoMeshOnRenderer);
                         return;
                     }
-                    bindPoseList = new List<Matrix4x4>(mesh.bindposes);
 
-                    // どうもコピーを作らないとダメらしい..
-                    // ※具体的にはメッシュのクローンを作成したときに壊れる
-                    var weightArray = mesh.GetAllBoneWeights();
-                    var perVertexArray = mesh.GetBonesPerVertex();
-                    boneWeightArray = new NativeArray<BoneWeight1>(weightArray, Allocator.Persistent);
-                    bonesPerVertexArray = new NativeArray<byte>(perVertexArray, Allocator.Persistent);
+                    if (hasBoneWeight)
+                    {
+                        bindPoseList = new List<Matrix4x4>(mesh.bindposes);
+
+                        // どうもコピーを作らないとダメらしい..
+                        // ※具体的にはメッシュのクローンを作成したときに壊れる
+                        var weightArray = mesh.GetAllBoneWeights();
+                        var perVertexArray = mesh.GetBonesPerVertex();
+                        boneWeightArray = new NativeArray<BoneWeight1>(weightArray, Allocator.Persistent);
+                        bonesPerVertexArray = new NativeArray<byte>(perVertexArray, Allocator.Persistent);
+
+                        // ５ボーン以上を利用する頂点ウエイトは警告とする。一応無効となるだけで動くのでエラーにはしない。
+                        int vcnt = mesh.vertexCount;
+                        using var bonesPerVertexResult = new NativeReference<Define.Result>(Allocator.TempJob);
+                        var job = new VertexWeight5BoneCheckJob()
+                        {
+                            vcnt = vcnt,
+                            bonesPerVertexArray = bonesPerVertexArray,
+                            result = bonesPerVertexResult,
+                        };
+                        job.Run();
+                        result.SetWarning(bonesPerVertexResult.Value);
+                    }
+                    else
+                    {
+                        bindPoseList = new List<Matrix4x4>(1);
+                        bindPoseList.Add(Matrix4x4.identity);
+                    }
                 }
                 else
                 {
@@ -231,6 +276,32 @@ namespace MagicaCloth2
             }
         }
 
+        [BurstCompile]
+        struct VertexWeight5BoneCheckJob : IJob
+        {
+            public int vcnt;
+
+            [Unity.Collections.ReadOnly]
+            public NativeArray<byte> bonesPerVertexArray;
+
+            [Unity.Collections.WriteOnly]
+            public NativeReference<Define.Result> result;
+
+            public void Execute()
+            {
+                result.Value = Define.Result.None;
+
+                for (int i = 0; i < vcnt; i++)
+                {
+                    if (bonesPerVertexArray[i] >= 5)
+                    {
+                        result.Value = Define.Result.RenderMesh_VertexWeightIs5BonesOrMore;
+                        break;
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// ルートボーンリストから基本情報を作成する（メインスレッドのみ）
         /// タイプはBoneになる
@@ -238,8 +309,10 @@ namespace MagicaCloth2
         /// <param name="renderTransform"></param>
         /// <param name="rootTransforms"></param>
         public RenderSetupData(
+            SetupType setType,
             Transform renderTransform,
             List<Transform> rootTransforms,
+            List<Transform> collisionBones,
             BoneConnectionMode connectionMode = BoneConnectionMode.Line,
             string name = "(no name)"
             )
@@ -250,7 +323,7 @@ namespace MagicaCloth2
             try
             {
                 // Boneタイプに設定
-                setupType = SetupType.Bone;
+                setupType = setType;
 
                 // 接続モード
                 boneConnectionMode = connectionMode;
@@ -272,10 +345,10 @@ namespace MagicaCloth2
 
                 // 必要なトランスフォーム情報
                 var indexDict = new Dictionary<Transform, int>(256);
-                transformList = new List<Transform>(1024);
+                transformList = new List<Transform>(256);
 
                 // root以下をすべて登録する
-                var stack = new Stack<Transform>(1024);
+                var stack = new Stack<Transform>(256);
                 foreach (var t in rootTransforms)
                     stack.Push(t);
                 while (stack.Count > 0)
@@ -302,6 +375,21 @@ namespace MagicaCloth2
                 foreach (var t in rootTransforms)
                 {
                     rootTransformIdList.Add(t.GetInstanceID());
+                }
+
+                // collision transform (use BoneSpring)
+                if (collisionBones != null)
+                {
+                    collisionBoneIndexList = new List<int>(collisionBones.Count);
+                    foreach (var t in collisionBones)
+                    {
+                        if (t)
+                        {
+                            int index = transformList.IndexOf(t);
+                            collisionBoneIndexList.Add(index);
+                            //Debug.Log($"collision bones:{t.name}, index:{index}");
+                        }
+                    }
                 }
 
                 // スキニングボーン数
@@ -458,7 +546,7 @@ namespace MagicaCloth2
                 transformInverseRotations.Dispose();
 
             // MeshDataArrayはメインスレッドのみDispose()可能
-            if (setupType == SetupType.Mesh)
+            if (setupType == SetupType.MeshCloth)
             {
                 if (meshDataArray.Length > 0)
                     meshDataArray.Dispose();

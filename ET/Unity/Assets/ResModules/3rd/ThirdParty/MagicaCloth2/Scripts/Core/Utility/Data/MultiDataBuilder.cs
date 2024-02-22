@@ -62,7 +62,7 @@ namespace MagicaCloth2
         //=========================================================================================
         /// <summary>
         /// 内部HashMapのデータをT型配列と要素ごとのスタートインデックスとカウンタ配列の２つに分離して返す
-        /// 出力はT型のデータ配列と、要素ごとのスタートインデックス(22bit)とカウンタ(10bit)を１つのuintにパックした配列となる
+        /// 出力はT型のデータ配列と、要素ごとのスタートインデックス(20bit)とカウンタ(12bit)を１つのuintにパックした配列となる
         /// </summary>
         /// <returns></returns>
         public (T[], uint[]) ToArray()
@@ -87,7 +87,7 @@ namespace MagicaCloth2
                     }
                 }
 
-                indexArray[i] = DataUtility.Pack10_22(cnt, start);
+                indexArray[i] = DataUtility.Pack12_20(cnt, start);
             }
 
             return (dataList.ToArray(), indexArray);
@@ -101,7 +101,7 @@ namespace MagicaCloth2
 
         /// <summary>
         /// 内部HashMapのデータをT型配列と要素ごとのスタートインデックス+カウンタの２つのNativeArrayに分離して返す
-        /// 出力はT型のデータ配列と、要素ごとのスタートインデックス(22bit)とカウンタ(10bit)を１つのuintにパックした配列となる
+        /// 出力はT型のデータ配列と、要素ごとのスタートインデックス(20bit)とカウンタ(12bit)を１つのuintにパックした配列となる
         /// </summary>
         /// <param name="indexArray"></param>
         /// <param name="dataArray"></param>
@@ -124,7 +124,7 @@ namespace MagicaCloth2
                     }
                 }
 
-                indexArray[i] = DataUtility.Pack10_22(cnt, start);
+                indexArray[i] = DataUtility.Pack12_20(cnt, start);
             }
 
             dataArray = new NativeArray<T>(dataList.ToArray(), Allocator.Persistent);

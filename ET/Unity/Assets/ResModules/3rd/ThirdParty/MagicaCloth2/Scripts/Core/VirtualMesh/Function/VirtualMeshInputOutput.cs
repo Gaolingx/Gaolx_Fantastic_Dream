@@ -63,7 +63,7 @@ namespace MagicaCloth2
                 initScale = rsetup.initRenderScale;
 
                 // ========== ここからMesh/Boneで分岐 ==========
-                if (rsetup.setupType == RenderSetupData.SetupType.Mesh)
+                if (rsetup.setupType == RenderSetupData.SetupType.MeshCloth)
                 {
                     // メッシュタイプ
                     meshType = MeshType.NormalMesh;
@@ -71,12 +71,12 @@ namespace MagicaCloth2
                     ImportMeshType(rsetup, indices);
 
                     // スキニングメッシュでは１回スキニングを行いクロスローカル空間に姿勢を変換する
-                    if (rsetup.isSkinning)
+                    if (rsetup.hasBoneWeight)
                     {
                         ImportMeshSkinning();
                     }
                 }
-                else if (rsetup.setupType == RenderSetupData.SetupType.Bone)
+                else if (rsetup.setupType == RenderSetupData.SetupType.BoneCloth || rsetup.setupType == RenderSetupData.SetupType.BoneSpring)
                 {
                     // ボーンタイプ
                     meshType = MeshType.NormalBoneMesh;
@@ -94,15 +94,21 @@ namespace MagicaCloth2
                 JobUtility.CalcAABBRun(localPositions.GetNativeArray(), VertexCount, boundingBox);
 
                 // UV
-                if (rsetup.setupType == RenderSetupData.SetupType.Bone && TriangleCount > 0)
+                switch (rsetup.setupType)
                 {
-                    // ボーンタイプでトライアングルを含む場合
-                    JobUtility.CalcUVWithSphereMappingRun(
-                        localPositions.GetNativeArray(),
-                        VertexCount,
-                        boundingBox,
-                        uv.GetNativeArray()
-                        );
+                    case RenderSetupData.SetupType.BoneCloth:
+                    case RenderSetupData.SetupType.BoneSpring:
+                        if (TriangleCount > 0)
+                        {
+                            // ボーンタイプでトライアングルを含む場合
+                            JobUtility.CalcUVWithSphereMappingRun(
+                                localPositions.GetNativeArray(),
+                                VertexCount,
+                                boundingBox,
+                                uv.GetNativeArray()
+                                );
+                        }
+                        break;
                 }
 
                 // 頂点平均接続距離算出
@@ -188,7 +194,7 @@ namespace MagicaCloth2
             JobUtility.SerialNumberRun(referenceIndices.GetNativeArray(), vcnt);
 
             // bone weights
-            if (rsetup.isSkinning)
+            if (rsetup.hasBoneWeight)
             {
                 // bonesPerVertexArrayから頂点ごとのデータ開始インデックスを算出する
                 var importBoneWeightJob1 = new Import_BoneWeightJob1()
@@ -457,15 +463,11 @@ namespace MagicaCloth2
             // 参照インデックスに連番を振る
             JobUtility.SerialNumberRun(referenceIndices.GetNativeArray(), vcnt);
 
-            // 使用しないがskinBonesとbindPoseを１つ割り当てる（エラー対策）
-            //skinBoneTransformIndices.Add(-1);
-            //skinBoneBindPoses.Add(float4x4.identity);
-
             // Line/Triangleの形成
             // ★ここは数も少なくあまりBurstの恩恵を受けられないので普通にC#で構成する
             if (rsetup.boneConnectionMode == RenderSetupData.BoneConnectionMode.Line)
             {
-                // Line
+                // Line接続
                 var lineList = new List<int2>(vcnt);
                 for (int i = 0; i < vcnt; i++)
                 {
@@ -477,12 +479,32 @@ namespace MagicaCloth2
                         lineList.Add(line);
                     }
                 }
+
+                // BoneSpringでの設定
+                if (rsetup.setupType == RenderSetupData.SetupType.BoneSpring)
+                {
+                    // スプリングではコリジョン無効で初期化
+                    attributes.Fill(0, vcnt, VertexAttribute.DisableCollision);
+
+                    // コリジョンとして指定されたボーンのみ衝突判定を有効化する
+                    if (rsetup.collisionBoneIndexList != null)
+                    {
+                        foreach (int index in rsetup.collisionBoneIndexList)
+                        {
+                            if (index >= 0)
+                            {
+                                attributes[index] = VertexAttribute.Invalid;
+                            }
+                        }
+                    }
+                }
+
                 if (lineList.Count > 0)
                     lines = new ExSimpleNativeArray<int2>(lineList.ToArray());
             }
             else
             {
-                // Mesh
+                // Mesh接続
                 // トランスフォームIDからインデックスへの辞書を作成
                 var idToIndexDict = new Dictionary<int, int>(vcnt);
                 for (int i = 0; i < vcnt; i++)
@@ -491,17 +513,106 @@ namespace MagicaCloth2
                         idToIndexDict.Add(rsetup.transformIdList[i], i);
                 }
 
-                // トランスフォームグリッド情報の作成
-                var grid = new List<List<FixedList128Bytes<int>>>();
-                int rootCnt = rsetup.rootTransformIdList.Count;
+                // ループ接続フラグ
+                bool loopConnection = rsetup.boneConnectionMode == RenderSetupData.BoneConnectionMode.SequentialLoopMesh;
+
+                // 順次接続フラグ
+                bool sequentialConnection = rsetup.boneConnectionMode == RenderSetupData.BoneConnectionMode.SequentialLoopMesh
+                    || rsetup.boneConnectionMode == RenderSetupData.BoneConnectionMode.SequentialNonLoopMesh;
+
+                // ルートリスト
+                var rootTransformIdList = new List<int>(rsetup.rootTransformIdList); // copy
+                int rootCnt = rootTransformIdList.Count;
+                const int firstRootIndex = 0;
+                int lastRootIndex = rootCnt - 1;
+
+                // オート接続の場合はルート同士が最近接点になるように並べ替える
+                if (rsetup.boneConnectionMode == RenderSetupData.BoneConnectionMode.AutomaticMesh)
+                {
+                    var tempRootIdList = new List<int>(rootTransformIdList);
+
+                    rootTransformIdList.Clear();
+                    rootTransformIdList.Add(tempRootIdList[0]);
+                    float lastDist = 0;
+                    while (tempRootIdList.Count > 0)
+                    {
+                        int rootId = rootTransformIdList[rootTransformIdList.Count - 1];
+                        tempRootIdList.Remove(rootId);
+                        int vindex = idToIndexDict[rootId];
+                        var pos = localPositions[vindex];
+
+                        // next connection
+                        float minDist = float.MaxValue;
+                        int minId = 0;
+                        for (int i = 0; i < tempRootIdList.Count; i++)
+                        {
+                            int rootId2 = tempRootIdList[i];
+                            int vindex2 = idToIndexDict[rootId2];
+                            var pos2 = localPositions[vindex2];
+
+                            float dist = math.distance(pos, pos2);
+                            if (dist < minDist)
+                            {
+                                minDist = dist;
+                                minId = rootId2;
+                            }
+
+                        }
+                        if (minId != 0)
+                        {
+                            if (lastDist == 0 || minDist < lastDist * 1.5f)
+                            {
+                                rootTransformIdList.Add(minId);
+                                lastDist = lastDist == 0 ? minDist : (lastDist + minDist) * 0.5f;
+                            }
+                            else
+                            {
+                                // reverse
+                                rootTransformIdList.Reverse();
+                                lastDist = 0;
+                            }
+                        }
+                    }
+
+                    // 最初と最後のルート距離が平均以下ならばループ接続にする
+                    if (rootTransformIdList.Count >= 3)
+                    {
+                        int rootId1 = rootTransformIdList[0];
+                        int rootId2 = rootTransformIdList[rootTransformIdList.Count - 1];
+                        int vindex1 = idToIndexDict[rootId1];
+                        int vindex2 = idToIndexDict[rootId2];
+                        var pos1 = localPositions[vindex1];
+                        var pos2 = localPositions[vindex2];
+                        float dist = math.distance(pos1, pos2);
+                        if (dist < lastDist * 1.5f)
+                        {
+                            loopConnection = true;
+                        }
+                    }
+
+
+                    // debug
+                    //Debug.Log($"rootTransformIdList.Count:{rootTransformIdList.Count}");
+                    //foreach (var rid in rootTransformIdList)
+                    //{
+                    //    Debug.Log($"[{rid}]");
+                    //}
+                }
+
+                // 頂点ごとの接続情報の作成
+                var linkList = new FixedList128Bytes<int>[vcnt];
+                var vertexLvList = new int[vcnt];
+                var vertexRootIndex = new int[vcnt];
+                var lvIndexList = new List<FixedList512Bytes<int>>(); // レベルごとのリスト
+                var mainEdgeSet = new HashSet<uint>(); // メインエッジ
+
+                // まずトランスフォームの親子関係に接続
                 var stack = new Stack<int>(vcnt);
                 var lvstack = new Stack<int>(vcnt);
                 for (int i = 0; i < rootCnt; i++)
                 {
-                    var lvlist = new List<FixedList128Bytes<int>>();
-
                     stack.Clear();
-                    stack.Push(rsetup.rootTransformIdList[i]); // root id
+                    stack.Push(rootTransformIdList[i]); // root id
                     lvstack.Clear();
                     lvstack.Push(0);
 
@@ -509,168 +620,141 @@ namespace MagicaCloth2
                     {
                         int id = stack.Pop();
                         int lv = lvstack.Pop();
-                        int index = idToIndexDict[id];
+                        int vindex = idToIndexDict[id];
+                        var pos = localPositions[vindex];
 
-                        if (lv >= lvlist.Count)
+                        if (lvIndexList.Count <= lv)
+                            lvIndexList.Add(new FixedList512Bytes<int>());
+                        var indexList = lvIndexList[lv];
+                        indexList.Add(vindex);
+                        lvIndexList[lv] = indexList;
+
+                        var link = new FixedList128Bytes<int>();
+
+                        // parent
+                        int pid = rsetup.transformParentIdList[vindex];
+                        if (idToIndexDict.ContainsKey(pid))
                         {
-                            lvlist.Add(new FixedList128Bytes<int>());
+                            int vindex2 = idToIndexDict[pid];
+                            link.Add(vindex2);
+
+                            // main edge
+                            uint mainEdge = DataUtility.Pack32Sort(vindex, vindex2);
+                            mainEdgeSet.Add(mainEdge);
                         }
 
-                        var vlist = lvlist[lv];
-                        vlist.Add(index);
-                        lvlist[lv] = vlist;
-
                         // child
-                        var clist = rsetup.transformChildIdList[index];
+                        var clist = rsetup.transformChildIdList[vindex];
                         if (clist.Length > 0)
                         {
                             for (int j = 0; j < clist.Length; j++)
                             {
-                                stack.Push(clist[j]);
+                                int cid = clist[j];
+                                stack.Push(cid);
                                 lvstack.Push(lv + 1);
+
+                                int vindex2 = idToIndexDict[cid];
+                                link.Add(vindex2);
+
+                                // main edge
+                                uint mainEdge = DataUtility.Pack32Sort(vindex, vindex2);
+                                mainEdgeSet.Add(mainEdge);
                             }
                         }
-                    }
 
-                    grid.Add(lvlist);
+                        linkList[vindex] = link;
+                        vertexLvList[vindex] = lv;
+                        vertexRootIndex[vindex] = i;
+                    }
                 }
 
-                // グリッドを走査し頂点ごとの接続頂点を割り出す
-                var linkList = new FixedList128Bytes<int>[vcnt];
-                for (int i = 0; i < rootCnt; i++)
+                // debug
+                //foreach (var mainEdge in mainEdgeSet)
+                //    Debug.Log($"mainEdge:{DataUtility.Unpack32Hi(mainEdge)} - {DataUtility.Unpack32Low(mainEdge)}");
+
+                // 次に同レベルの横を接続する
+                uint startEndRootIndexPack = DataUtility.Pack32Sort(firstRootIndex, lastRootIndex);
+                for (int i = 0; i < vcnt; i++)
                 {
-                    var lvlist = grid[i];
-                    int lvcnt = lvlist.Count;
+                    int lv = vertexLvList[i];
+                    var lvList = lvIndexList[lv];
+                    var pos = localPositions[i];
+                    var link = linkList[i];
+                    var rootIndex = vertexRootIndex[i];
 
-                    for (int lv = 0; lv < lvcnt; lv++)
+                    // まず最近点をつなげる
+                    float firstDist = float.MaxValue;
+                    int firstIndex = -1;
+                    foreach (var vindex in lvList)
                     {
-                        FixedList128Bytes<int> vlist = lvlist[lv];
+                        if (vindex == i)
+                            continue;
 
-                        for (int k = 0; k < vlist.Length; k++)
+                        // 非ループならば始点と終点のルートラインは接続しない
+                        var rootIndex2 = vertexRootIndex[vindex];
+                        bool firstLast = startEndRootIndexPack == DataUtility.Pack32Sort(rootIndex, rootIndex2) && startEndRootIndexPack > 0;
+                        if (loopConnection == false && firstLast)
+                            continue;
+
+                        // 順次接続なら自身の前後のルートラインのみ接続
+                        if (sequentialConnection && !(loopConnection && firstLast))
                         {
-                            // 自身
-                            int vindex = vlist[k];
-                            var link = new FixedList128Bytes<int>();
 
-                            // 親を追加
-                            int pid = rsetup.transformParentIdList[vindex];
-                            if (idToIndexDict.ContainsKey(pid))
-                            {
-                                link.Add(idToIndexDict[pid]);
-                            }
+                            if (math.abs(rootIndex - rootIndex2) > 1)
+                                continue;
+                        }
 
-                            // 子を追加
-                            var clist = rsetup.transformChildIdList[vindex];
-                            if (clist.Length > 0)
-                            {
-                                for (int l = 0; l < clist.Length; l++)
-                                {
-                                    link.Add(idToIndexDict[clist[l]]);
-                                }
-                            }
-
-                            // 同じレベルの右側に兄弟がいる場合はそれを接続する
-                            if (k < (vlist.Length - 1))
-                            {
-                                // 兄弟
-                                link.Add(vlist[k + 1]);
-                            }
-                            else
-                            {
-                                // 別ルートラインの横接続拡張
-                                // 横の接続を追加
-                                if (rsetup.boneConnectionMode == RenderSetupData.BoneConnectionMode.AutomaticMesh)
-                                {
-                                    // 同じレベルの接続を調べる
-                                    var pos = localPositions[vindex];
-                                    var sortDist = new ExCostSortedList4(-1);
-                                    for (int l = 0; l < rootCnt; l++)
-                                    {
-                                        //if (l == i)
-                                        //    continue;
-
-                                        var lvlist2 = grid[l];
-                                        if (lvlist2.Count <= lv)
-                                            continue;
-
-                                        var vlist2 = lvlist2[lv];
-                                        for (int m = 0; m < vlist2.Length; m++)
-                                        {
-                                            int vindex2 = vlist2[m];
-                                            if (vindex2 == vindex)
-                                                continue;
-
-                                            var pos2 = localPositions[vindex2];
-
-                                            // 距離
-                                            float dist = math.distance(pos, pos2);
-                                            // 仮登録
-                                            sortDist.Add(dist, vindex2);
-                                        }
-                                    }
-
-                                    // 距離順に２つまで接続する
-                                    for (int l = 0; l < sortDist.Count && l < 2; l++)
-                                    {
-                                        link.Add(sortDist.data[l]);
-                                    }
-                                }
-                                else if (rsetup.boneConnectionMode == RenderSetupData.BoneConnectionMode.SequentialLoopMesh
-                                    || rsetup.boneConnectionMode == RenderSetupData.BoneConnectionMode.SequentialNonLoopMesh)
-                                {
-                                    // 同じレベルの左右リストに兄弟がいる場合は接続する
-                                    // SequentialLoopMeshの場合はリストはループする
-                                    int right = (i + 1) % rootCnt;
-                                    if (right != i)
-                                    {
-                                        var r_lvlist = grid[right];
-                                        if (lv < r_lvlist.Count)
-                                        {
-                                            FixedList128Bytes<int> r_vlist = r_lvlist[lv];
-                                            if (right < i && rsetup.boneConnectionMode == RenderSetupData.BoneConnectionMode.SequentialLoopMesh)
-                                            {
-                                                // 末端と接続
-                                                link.Add(r_vlist[r_vlist.Length - 1]);
-                                            }
-                                            else if (right > i)
-                                            {
-                                                // 先端と接続
-                                                link.Add(r_vlist[0]);
-                                            }
-                                        }
-                                    }
-                                    int left = (i + rootCnt - 1) % rootCnt;
-                                    if (left != i && left != right)
-                                    {
-                                        var l_lvlist = grid[left];
-                                        if (lv < l_lvlist.Count)
-                                        {
-                                            FixedList128Bytes<int> l_vlist = l_lvlist[lv];
-                                            if (left < i)
-                                            {
-                                                // 末端と接続
-                                                link.Add(l_vlist[l_vlist.Length - 1]);
-                                            }
-                                            else if (right > i && rsetup.boneConnectionMode == RenderSetupData.BoneConnectionMode.SequentialLoopMesh)
-                                            {
-                                                // 先端と接続
-                                                link.Add(l_vlist[0]);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                            // 登録
-                            linkList[vindex] = link;
+                        var pos2 = localPositions[vindex];
+                        float dist = math.distance(pos, pos2);
+                        if (dist < firstDist)
+                        {
+                            firstDist = dist;
+                            firstIndex = vindex;
                         }
                     }
+                    if (firstIndex >= 0)
+                    {
+                        link.Add(firstIndex);
+
+                        // 次に最初に接続した距離の少し大きめの範囲にあるすべての頂点をつなげる
+                        // ただし順次接続の場合は距離は無視する
+                        firstDist = sequentialConnection ? float.MaxValue : firstDist * 1.5f; // 1.5f?
+                        foreach (var vindex in lvList)
+                        {
+                            if (vindex == i || vindex == firstIndex)
+                                continue;
+
+                            // 非ループならば始点と終点のルートラインは接続しない
+                            var rootIndex2 = vertexRootIndex[vindex];
+                            bool firstLast = startEndRootIndexPack == DataUtility.Pack32Sort(rootIndex, rootIndex2) && startEndRootIndexPack > 0;
+                            if (loopConnection == false && firstLast)
+                                continue;
+
+                            // 順次接続なら自身の前後のルートラインのみ接続
+                            if (sequentialConnection && !(loopConnection && firstLast))
+                            {
+                                if (math.abs(rootIndex - rootIndex2) > 1)
+                                    continue;
+                            }
+
+                            var pos2 = localPositions[vindex];
+                            float dist = math.distance(pos, pos2);
+                            if (dist <= firstDist)
+                            {
+                                link.Add(vindex);
+                            }
+                        }
+                    }
+
+                    linkList[i] = link;
+
+                    // debug
+                    //Debug.Log($"vindex:{i}, root:{vertexRootIndex[i]}, lv:{lv}, linkCount:{link.Length}");
+                    //for (int l = 0; l < link.Length; l++)
+                    //    Debug.Log($"->{link[l]}");
                 }
 
                 // 頂点の接続情報からトライアングルを形成する
-                //var edgeSet = new HashSet<int2>(vcnt * 2);
-                //var triangleEdgeSet = new HashSet<int2>(vcnt);
-                //var triangleSet = new HashSet<int3>(vcnt * 2);
                 var edgeSet = new HashSet<int2>();
                 var triangleEdgeSet = new HashSet<int2>();
                 var triangleSet = new HashSet<int3>();
@@ -696,6 +780,8 @@ namespace MagicaCloth2
                             edgeSet.Add(DataUtility.PackInt2(i, vindex1));
                         }
 
+                        int rootIndex = vertexRootIndex[i];
+
                         // トライアングルの形成
                         var pos = localPositions[i];
                         for (int j = 0; j < link.Length - 1; j++)
@@ -709,18 +795,41 @@ namespace MagicaCloth2
                                 var pos2 = localPositions[vindex2];
                                 var v2 = pos2 - pos;
 
+                                // 頂点位置が同じ座標を考慮
+                                if (math.lengthsq(v1) < 1e-06f || math.lengthsq(v2) < 1e-06f)
+                                    continue;
+
                                 // ペアの角度が一定以上ならばスキップする
                                 var ang = math.degrees(MathUtility.Angle(v1, v2));
-                                if (ang >= 120)
+                                if (ang >= Define.System.ProxyMeshBoneClothTriangleAngle)
+                                    continue;
+
+                                // ３つのルートラインにまたがる接続は行わない
+                                int rootIndex1 = vertexRootIndex[vindex1];
+                                int rootIndex2 = vertexRootIndex[vindex2];
+                                if (rootIndex1 != rootIndex && rootIndex2 != rootIndex && rootIndex1 != rootIndex2)
+                                    continue;
+
+                                // トライアングルは１つ以上のメインエッジを含んでいなければならない
+                                int mainEdgeCount = 0;
+                                mainEdgeCount += mainEdgeSet.Contains(DataUtility.Pack32Sort(i, vindex1)) ? 1 : 0;
+                                mainEdgeCount += mainEdgeSet.Contains(DataUtility.Pack32Sort(i, vindex2)) ? 1 : 0;
+                                mainEdgeCount += mainEdgeSet.Contains(DataUtility.Pack32Sort(vindex1, vindex2)) ? 1 : 0;
+                                if (mainEdgeCount == 0)
                                     continue;
 
                                 // トライアングル生成
                                 int3 tri = DataUtility.PackInt3(i, vindex1, vindex2);
-                                triangleSet.Add(tri);
 
-                                // このトライアングルで利用されたエッジを記録
-                                triangleEdgeSet.Add(DataUtility.PackInt2(i, vindex1));
-                                triangleEdgeSet.Add(DataUtility.PackInt2(i, vindex2));
+                                if (triangleSet.Contains(tri) == false)
+                                {
+                                    //Debug.Log($"v:{i}, Tri:{tri}");
+                                    triangleSet.Add(tri);
+
+                                    // このトライアングルで利用されたエッジを記録
+                                    triangleEdgeSet.Add(DataUtility.PackInt2(i, vindex1));
+                                    triangleEdgeSet.Add(DataUtility.PackInt2(i, vindex2));
+                                }
                             }
                         }
                     }
@@ -887,7 +996,6 @@ namespace MagicaCloth2
 
                 // セレクションデータを配置したグリッドマップを作成する
                 float gridSize = mergin * 1.0f;
-                //using var gridMap = SelectionData.CreateGridMapRun(gridSize, selectionPositions, selectionAttribues, move: true, fix: false, invalid: false);
                 using var gridMap = SelectionData.CreateGridMapRun(gridSize, selectionPositions, selectionAttribues, move: true, fix: true, ignore: true, invalid: false);
 
                 // 移動ポイントから利用するトライアングルと頂点情報を選別する
@@ -1359,24 +1467,28 @@ namespace MagicaCloth2
                 }
 
                 // bounding box
+                // プロキシメッシュ空間に変換して追加
+                float3 bmin = cmesh.boundingBox.Value.Min;
+                float3 bmax = cmesh.boundingBox.Value.Max;
+                bmin = math.transform(toM, bmin);
+                bmax = math.transform(toM, bmax);
+                var aabb = new AABB(bmin, bmax);
+                if (boundingBox.IsCreated)
                 {
-                    // 空間を変換して追加
-                    float3 bmin = cmesh.boundingBox.Value.Min;
-                    float3 bmax = cmesh.boundingBox.Value.Max;
-                    bmin = math.transform(toM, bmin);
-                    bmax = math.transform(toM, bmax);
-                    var aabb = new AABB(bmin, bmax);
-
-                    if (boundingBox.IsCreated)
-                        boundingBox.Value.Encapsulate(aabb);
-                    else
-                        boundingBox = new NativeReference<AABB>(aabb, Allocator.Persistent);
+                    var bounds = boundingBox.Value;
+                    bounds.Encapsulate(aabb);
+                    boundingBox.Value = bounds;
                 }
+                else
+                    boundingBox = new NativeReference<AABB>(aabb, Allocator.Persistent);
+                //Develop.DebugLog($"merge boundingBox:{boundingBox.Value}");
 
                 // 頂点間距離
-                // 大きい方を採用する
-                averageVertexDistance.Value = math.max(averageVertexDistance.Value, cmesh.averageVertexDistance.Value);
-                maxVertexDistance.Value = math.max(maxVertexDistance.Value, cmesh.maxVertexDistance.Value);
+                // プロキシメッシュ空間に変換し大きい方を採用する
+                float scaleRatio = math.length(cmesh.initScale) / math.length(initScale);
+                //Debug.Log($"cmesh.initScale:{cmesh.initScale}, proxyMesh.initScale:{initScale}, scaleRatio:{scaleRatio}");
+                averageVertexDistance.Value = math.max(averageVertexDistance.Value, cmesh.averageVertexDistance.Value * scaleRatio);
+                maxVertexDistance.Value = math.max(maxVertexDistance.Value, cmesh.maxVertexDistance.Value * scaleRatio);
 
 
 #if false

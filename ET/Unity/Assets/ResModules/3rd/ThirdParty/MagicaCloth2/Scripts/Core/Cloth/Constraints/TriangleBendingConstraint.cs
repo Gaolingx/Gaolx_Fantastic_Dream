@@ -3,6 +3,7 @@
 // https://magicasoft.jp
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
@@ -162,6 +163,20 @@ namespace MagicaCloth2
             trianglePairArray = null;
             restAngleOrVolumeArray = null;
             signOrVolumeArray = null;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"[TriangleBendConstraint]");
+            sb.AppendLine($"  -trianglePairArray:{trianglePairArray.ToSummary()}");
+            sb.AppendLine($"  -restAngleOrVolumeArray:{restAngleOrVolumeArray.ToSummary()}");
+            sb.AppendLine($"  -signOrVolumeArray:{signOrVolumeArray.ToSummary()}");
+            sb.AppendLine($"  -writeDataArray:{writeDataArray.ToSummary()}");
+            sb.AppendLine($"  -writeIndexArray:{writeIndexArray.ToSummary()}");
+            sb.AppendLine($"  -writeBuffer:{writeBuffer.ToSummary()}");
+
+            return sb.ToString();
         }
 
         //=========================================================================================
@@ -388,11 +403,10 @@ namespace MagicaCloth2
         {
             if (cprocess?.bendingConstraintData?.IsValid() ?? false)
             {
-                var tdata = MagicaManager.Team.GetTeamData(cprocess.TeamId);
+                ref var tdata = ref MagicaManager.Team.GetTeamDataRef(cprocess.TeamId);
 
                 var cdata = cprocess.bendingConstraintData;
                 tdata.bendingPairChunk = trianglePairArray.AddRange(cdata.trianglePairArray);
-                //tdata.bendingDataChunk = restAngleOrVolumeArray.AddRange(cdata.restAngleOrVolumeArray);
                 restAngleOrVolumeArray.AddRange(cdata.restAngleOrVolumeArray);
                 signOrVolumeArray.AddRange(cdata.signOrVolumeArray);
                 writeDataArray.AddRange(cdata.writeDataArray);
@@ -400,8 +414,6 @@ namespace MagicaCloth2
                 // write buffer
                 tdata.bendingWriteIndexChunk = writeIndexArray.AddRange(cdata.writeIndexArray);
                 tdata.bendingBufferChunk = writeBuffer.AddRange(cdata.writeBufferCount);
-
-                MagicaManager.Team.SetTeamData(cprocess.TeamId, tdata);
             }
         }
 
@@ -413,11 +425,9 @@ namespace MagicaCloth2
         {
             if (cprocess != null && cprocess.TeamId > 0)
             {
-                var tdata = MagicaManager.Team.GetTeamData(cprocess.TeamId);
+                ref var tdata = ref MagicaManager.Team.GetTeamDataRef(cprocess.TeamId);
 
                 trianglePairArray.Remove(tdata.bendingPairChunk);
-                //restAngleOrVolumeArray.Remove(tdata.bendingDataChunk);
-                //signOrVolumeArray.Remove(tdata.bendingDataChunk);
                 restAngleOrVolumeArray.Remove(tdata.bendingPairChunk);
                 signOrVolumeArray.Remove(tdata.bendingPairChunk);
                 writeDataArray.Remove(tdata.bendingPairChunk);
@@ -427,11 +437,8 @@ namespace MagicaCloth2
                 writeBuffer.Remove(tdata.bendingBufferChunk);
 
                 tdata.bendingPairChunk.Clear();
-                //tdata.bendingDataChunk.Clear();
                 tdata.bendingWriteIndexChunk.Clear();
                 tdata.bendingBufferChunk.Clear();
-
-                MagicaManager.Team.SetTeamData(cprocess.TeamId, tdata);
             }
         }
 
@@ -451,6 +458,8 @@ namespace MagicaCloth2
             {
                 var triangleBendingJob = new TriangleBendingJob()
                 {
+                    simulationPower = MagicaManager.Time.SimulationPower,
+
                     stepTriangleBendIndexArray = sm.processingStepTriangleBending.Buffer,
 
                     teamDataArray = tm.teamDataArray.GetNativeArray(),
@@ -496,6 +505,8 @@ namespace MagicaCloth2
         [BurstCompile]
         struct TriangleBendingJob : IJobParallelForDefer
         {
+            public float4 simulationPower;
+
             [Unity.Collections.ReadOnly]
             public NativeArray<int> stepTriangleBendIndexArray;
 
@@ -541,8 +552,8 @@ namespace MagicaCloth2
                 //int pairIndex = stepTriangleBendIndexArray[index];
                 //int teamId = trianglePairTeamIdArray[pairIndex];
                 uint pack = (uint)stepTriangleBendIndexArray[index];
-                int pairIndex = DataUtility.Unpack10_22Low(pack);
-                int teamId = DataUtility.Unpack10_22Hi(pack);
+                int pairIndex = DataUtility.Unpack12_20Low(pack);
+                int teamId = DataUtility.Unpack12_20Hi(pack);
                 var tdata = teamDataArray[teamId];
                 var parameter = parameterArray[teamId].triangleBendingConstraint;
                 if (parameter.method == Method.None)
@@ -552,6 +563,8 @@ namespace MagicaCloth2
                 float stiffness = parameter.stiffness;
                 if (stiffness < 1e-06f)
                     return;
+                stiffness = math.saturate(stiffness * simulationPower.y);
+
 
                 int p_start = tdata.particleChunk.startIndex;
                 int v_start = tdata.proxyCommonChunk.startIndex;
@@ -616,7 +629,7 @@ namespace MagicaCloth2
                     for (int i = 0; i < 4; i++)
                     {
                         int l_vindex = vertices[i];
-                        int start = DataUtility.Unpack10_22Low(writeIndexArray[indexStart + l_vindex]);
+                        int start = DataUtility.Unpack12_20Low(writeIndexArray[indexStart + l_vindex]);
                         int bufferIndex = bufferStart + start + writeData[i];
                         writeBuffer[bufferIndex] = addPosBuffer[i];
                     }
@@ -682,8 +695,16 @@ namespace MagicaCloth2
 
                 float3 n1 = math.cross(nextPos2 - nextPos0, nextPos3 - nextPos0);
                 float3 n2 = math.cross(nextPos3 - nextPos1, nextPos2 - nextPos1);
-                n1 /= math.lengthsq(n1);
-                n2 /= math.lengthsq(n2);
+                float n1_lengsq = math.lengthsq(n1);
+                float n2_lengsq = math.lengthsq(n2);
+
+                // 稀に発生する長さ０に対処
+                if (n1_lengsq == 0.0f || n2_lengsq == 0.0f)
+                    return false;
+                //Develop.Assert(n1_lengsq > 0.0f);
+                //Develop.Assert(n2_lengsq > 0.0f);
+                n1 /= n1_lengsq;
+                n2 /= n2_lengsq;
 
                 float3 d0 = elen * n1;
                 float3 d1 = elen * n2;
@@ -777,8 +798,8 @@ namespace MagicaCloth2
 
                 // 書き込みバッファの値を平均化してnextPosに加算する
                 uint pack = writeIndexArray[tdata.bendingWriteIndexChunk.startIndex + l_index];
-                int cnt = DataUtility.Unpack10_22Hi(pack);
-                int start = DataUtility.Unpack10_22Low(pack);
+                int cnt = DataUtility.Unpack12_20Hi(pack);
+                int start = DataUtility.Unpack12_20Low(pack);
                 int bufferIndex = tdata.bendingBufferChunk.startIndex + start;
                 float3 add = 0;
                 for (int i = 0; i < cnt; i++)

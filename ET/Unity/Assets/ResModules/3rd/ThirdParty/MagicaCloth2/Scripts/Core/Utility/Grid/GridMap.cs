@@ -14,6 +14,7 @@ namespace MagicaCloth2
     /// グリッドマップとユーティリティ関数群
     /// Jobで利用するために最低限の管理データのみ
     /// そのためGridSizeなどのデータはこのクラスでは保持しない
+    /// GridSize>0である必要あり!
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class GridMap<T> : IDisposable where T : unmanaged, IEquatable<T>
@@ -135,6 +136,7 @@ namespace MagicaCloth2
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int3 GetGrid(float3 pos, float gridSize)
         {
+            Develop.Assert(gridSize > 0);
             return new int3(math.floor(pos / gridSize));
         }
 

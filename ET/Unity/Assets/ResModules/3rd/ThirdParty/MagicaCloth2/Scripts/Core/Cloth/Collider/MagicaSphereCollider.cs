@@ -9,6 +9,7 @@ namespace MagicaCloth2
     /// Sphere collider
     /// </summary>
     [AddComponentMenu("MagicaCloth2/MagicaSphereCollider")]
+    [HelpURL("https://magicasoft.jp/en/mc2_spherecollidercomponent/")]
     public class MagicaSphereCollider : ColliderComponent
     {
         public override ColliderManager.ColliderType GetColliderType()

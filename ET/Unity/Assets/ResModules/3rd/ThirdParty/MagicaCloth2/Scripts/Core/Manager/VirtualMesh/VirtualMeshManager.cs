@@ -6,9 +6,7 @@ using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
-#if MC2_DEBUG
 using UnityEngine;
-#endif
 
 namespace MagicaCloth2
 {
@@ -32,15 +30,14 @@ namespace MagicaCloth2
         public ExNativeArray<VertexAttribute> attributes;
 
         /// <summary>
-        /// 頂点ごとの接続トライアングルインデックス（最大７つ）
+        /// 頂点ごとの接続トライアングルインデックスと法線接線フリップフラグ（最大７つ）
         /// これは法線を再計算するために用いられるもので７つあれば十分であると判断したもの。
         /// そのため正確なトライアングル接続を表していない。
-        /// インデックスがマイナスの場合は法線を反転して計算すること。
-        /// そして実際のインデックス＋１が入るので注意！（０を除外するため）
-        /// int index = math.abs(value) - 1;
-        /// bool flop = value < 0;
+        /// データは12-20bitのuintでパックされている
+        /// 12(hi) = 法線接線のフリップフラグ(法線:0x1,接線:0x2)。ONの場合フリップ。
+        /// 20(low) = トライアングルインデックス。
         /// </summary>
-        public ExNativeArray<FixedList32Bytes<int>> vertexToTriangles;
+        public ExNativeArray<FixedList32Bytes<uint>> vertexToTriangles;
 
         /// <summary>
         /// 頂点ごとの接続頂点インデックス
@@ -196,10 +193,11 @@ namespace MagicaCloth2
         public ExNativeArray<VertexAttribute> mappingAttributes;
         public ExNativeArray<float3> mappingLocalPositins;
         public ExNativeArray<float3> mappingLocalNormals;
-        public ExNativeArray<float3> mappingLocalTangents;
+        //public ExNativeArray<float3> mappingLocalTangents;
         public ExNativeArray<VirtualMeshBoneWeight> mappingBoneWeights;
         public ExNativeArray<float3> mappingPositions;
-        public ExNativeArray<quaternion> mappingRotations;
+        public ExNativeArray<float3> mappingNormals;
+
 
         public int MappingVertexCount => mappingIdArray?.Count ?? 0;
 
@@ -301,19 +299,19 @@ namespace MagicaCloth2
             mappingAttributes?.Dispose();
             mappingLocalPositins?.Dispose();
             mappingLocalNormals?.Dispose();
-            mappingLocalTangents?.Dispose();
+            //mappingLocalTangents?.Dispose();
             mappingBoneWeights?.Dispose();
             mappingPositions?.Dispose();
-            mappingRotations?.Dispose();
+            mappingNormals?.Dispose();
             mappingIdArray = null;
             mappingReferenceIndices = null;
             mappingAttributes = null;
             mappingLocalPositins = null;
             mappingLocalNormals = null;
-            mappingLocalTangents = null;
+            //mappingLocalTangents = null;
             mappingBoneWeights = null;
             mappingPositions = null;
-            mappingRotations = null;
+            mappingNormals = null;
         }
 
         public void EnterdEditMode()
@@ -330,7 +328,7 @@ namespace MagicaCloth2
             const bool create = true;
             teamIds = new ExNativeArray<short>(capacity, create);
             attributes = new ExNativeArray<VertexAttribute>(capacity, create);
-            vertexToTriangles = new ExNativeArray<FixedList32Bytes<int>>(capacity, create);
+            vertexToTriangles = new ExNativeArray<FixedList32Bytes<uint>>(capacity, create);
             //vertexToVertexIndexArray = new ExNativeArray<uint>(capacity, create);
             //vertexToVertexDataArray = new ExNativeArray<ushort>(capacity, create);
             vertexBindPosePositions = new ExNativeArray<float3>(capacity, create);
@@ -378,10 +376,10 @@ namespace MagicaCloth2
             mappingAttributes = new ExNativeArray<VertexAttribute>(capacity, create);
             mappingLocalPositins = new ExNativeArray<float3>(capacity, create);
             mappingLocalNormals = new ExNativeArray<float3>(capacity, create);
-            mappingLocalTangents = new ExNativeArray<float3>(capacity, create);
+            //mappingLocalTangents = new ExNativeArray<float3>(capacity, create);
             mappingBoneWeights = new ExNativeArray<VirtualMeshBoneWeight>(capacity, create);
             mappingPositions = new ExNativeArray<float3>(capacity, create);
-            mappingRotations = new ExNativeArray<quaternion>(capacity, create);
+            mappingNormals = new ExNativeArray<float3>(capacity, create);
 
             isValid = true;
         }
@@ -400,7 +398,7 @@ namespace MagicaCloth2
             if (isValid == false)
                 return;
 
-            var tdata = MagicaManager.Team.GetTeamData(teamId);
+            ref var tdata = ref MagicaManager.Team.GetTeamDataRef(teamId);
 
             // mesh type
             tdata.proxyMeshType = proxyMesh.meshType;
@@ -476,20 +474,11 @@ namespace MagicaCloth2
             tdata.proxySkinBoneChunk = skinBoneTransformIndices.AddRange(proxyMesh.skinBoneTransformIndices);
             skinBoneBindPoses.AddRange(proxyMesh.skinBoneBindPoses);
 
-            // MeshCloth or CustomSkinning
-            //if (proxyMesh.meshType == VirtualMesh.MeshType.ProxyMesh || proxyMesh.CustomSkinningBoneCount > 0)
-            //{
-            //    tdata.proxySkinBoneChunk = skinBoneTransformIndices.AddRange(proxyMesh.skinBoneTransformIndices);
-            //    skinBoneBindPoses.AddRange(proxyMesh.skinBoneBindPoses);
-            //}
-
             // BoneClothのみ
             if (proxyMesh.meshType == VirtualMesh.MeshType.ProxyBoneMesh)
             {
                 tdata.proxyBoneChunk = vertexToTransformRotations.AddRange(proxyMesh.vertexToTransformRotations);
             }
-
-            MagicaManager.Team.SetTeamData(teamId, tdata);
         }
 
         /// <summary>
@@ -500,7 +489,7 @@ namespace MagicaCloth2
             if (isValid == false)
                 return;
 
-            var tdata = MagicaManager.Team.GetTeamData(teamId);
+            ref var tdata = ref MagicaManager.Team.GetTeamDataRef(teamId);
 
             // Transform
             MagicaManager.Bone.RemoveTransform(tdata.proxyTransformChunk);
@@ -522,6 +511,8 @@ namespace MagicaCloth2
             normalAdjustmentRotations.Remove(tdata.proxyCommonChunk);
             //vertexAngleCalcLocalRotations.Remove(tdata.proxyCommonChunk);
             uv.Remove(tdata.proxyCommonChunk);
+            positions.Remove(tdata.proxyCommonChunk);
+            rotations.Remove(tdata.proxyCommonChunk);
             tdata.proxyCommonChunk.Clear();
 
             //vertexToVertexDataArray.Remove(tdata.proxyVertexToVertexDataChunk);
@@ -562,14 +553,15 @@ namespace MagicaCloth2
             vertexToTransformRotations.Remove(tdata.proxyBoneChunk);
             tdata.proxyBoneChunk.Clear();
 
-            MagicaManager.Team.SetTeamData(teamId, tdata);
-
             // 同時に連動するマッピングメッシュも解放する
-            var mappingIndices = tdata.mappingDataIndexSet.ToArray();
-            int mcnt = tdata.mappingDataIndexSet.Length;
+            //var mappingIndices = tdata.mappingDataIndexSet.ToArray();
+            //int mcnt = tdata.mappingDataIndexSet.Length;
+            var mappingList = MagicaManager.Team.teamMappingIndexArray[teamId];
+            int mcnt = mappingList.Length;
             for (int i = 0; i < mcnt; i++)
             {
-                int mappingIndex = mappingIndices[i];
+                //int mappingIndex = mappingIndices[i];
+                int mappingIndex = mappingList[i];
                 ExitMappingMesh(teamId, mappingIndex);
             }
         }
@@ -586,7 +578,8 @@ namespace MagicaCloth2
             if (isValid == false)
                 return DataChunk.Empty;
 
-            var tdata = MagicaManager.Team.GetTeamData(teamId);
+            ref var tdata = ref MagicaManager.Team.GetTeamDataRef(teamId);
+            ref var mappingList = ref MagicaManager.Team.GetTeamMappingRef(teamId);
 
             var mdata = new TeamManager.MappingData();
 
@@ -608,20 +601,20 @@ namespace MagicaCloth2
             // 基本データ
             int vcnt = mappingMesh.VertexCount;
             mdata.mappingCommonChunk = mappingIdArray.AddRange(vcnt, (short)(mappingIndex + 1)); // (+1)されるので注意！
+
             mappingReferenceIndices.AddRange(mappingMesh.referenceIndices);
             mappingAttributes.AddRange(mappingMesh.attributes);
             mappingLocalPositins.AddRange(mappingMesh.localPositions);
             mappingLocalNormals.AddRange(mappingMesh.localNormals);
-            mappingLocalTangents.AddRange(mappingMesh.localTangents);
+            //mappingLocalTangents.AddRange(mappingMesh.localTangents);
             mappingBoneWeights.AddRange(mappingMesh.boneWeights);
             mappingPositions.AddRange(vcnt);
-            mappingRotations.AddRange(vcnt);
+            mappingNormals.AddRange(vcnt);
 
             // 再登録
             MagicaManager.Team.mappingDataArray[mappingIndex] = mdata;
-            tdata.mappingDataIndexSet.Set((short)mappingIndex);
-
-            MagicaManager.Team.SetTeamData(teamId, tdata);
+            //tdata.mappingDataIndexSet.Set((short)mappingIndex);
+            mappingList.Set((short)mappingIndex);
 
             // vmeshにも記録する
             mappingMesh.mappingId = mappingIndex;
@@ -637,8 +630,9 @@ namespace MagicaCloth2
             if (isValid == false)
                 return;
 
-            var tdata = MagicaManager.Team.GetTeamData(teamId);
-            var mdata = MagicaManager.Team.mappingDataArray[mappingIndex];
+            ref var tdata = ref MagicaManager.Team.GetTeamDataRef(teamId);
+            ref var mdata = ref MagicaManager.Team.mappingDataArray.GetRef(mappingIndex);
+            ref var mappingList = ref MagicaManager.Team.GetTeamMappingRef(teamId);
 
             // Transform解放
             MagicaManager.Bone.RemoveTransform(new DataChunk(mdata.centerTransformIndex, 1));
@@ -649,16 +643,16 @@ namespace MagicaCloth2
             mappingAttributes.Remove(mdata.mappingCommonChunk);
             mappingLocalPositins.Remove(mdata.mappingCommonChunk);
             mappingLocalNormals.Remove(mdata.mappingCommonChunk);
-            mappingLocalTangents.Remove(mdata.mappingCommonChunk);
+            //mappingLocalTangents.Remove(mdata.mappingCommonChunk);
             mappingBoneWeights.Remove(mdata.mappingCommonChunk);
             mappingPositions.Remove(mdata.mappingCommonChunk);
-            mappingRotations.Remove(mdata.mappingCommonChunk);
+            mappingNormals.Remove(mdata.mappingCommonChunk);
 
             // チームから削除する
-            tdata.mappingDataIndexSet.RemoveItemAtSwapBack((short)mappingIndex);
+            //tdata.mappingDataIndexSet.RemoveItemAtSwapBack((short)mappingIndex);
+            mappingList.RemoveItemAtSwapBack((short)mappingIndex);
 
             MagicaManager.Team.mappingDataArray.RemoveAndFill(new DataChunk(mappingIndex, 1));
-            MagicaManager.Team.SetTeamData(teamId, tdata);
 
             Develop.DebugLog($"ExitMappingMesh. team:{teamId}, mappingIndex:{mappingIndex}");
         }
@@ -683,6 +677,7 @@ namespace MagicaCloth2
             sm.processingStepParticle.UpdateBuffer(bufferCount);
             sm.processingStepTriangleBending.UpdateBuffer(bufferCount); // mesh cloth (skinning)
             sm.processingStepEdgeCollision.UpdateBuffer(BaseLineCount);
+            sm.processingStepMotionParticle.UpdateBuffer(TriangleCount); // triangle
 
             // バッファクリア
             var clearJob = new ClearProxyMeshUpdateBufferJob()
@@ -690,6 +685,7 @@ namespace MagicaCloth2
                 processingCounter0 = sm.processingStepParticle.Counter,
                 processingCounter1 = sm.processingStepTriangleBending.Counter,
                 processingCounter2 = sm.processingStepEdgeCollision.Counter,
+                processingCounter3 = sm.processingStepMotionParticle.Counter,
             };
             jobHandle = clearJob.Schedule(jobHandle);
 
@@ -698,8 +694,6 @@ namespace MagicaCloth2
             {
                 teamDataArray = tm.teamDataArray.GetNativeArray(),
 
-                //processingCounter0 = sm.processingIntList0.Counter,
-                //processingList0 = sm.processingIntList0.Buffer,
                 processingCounter1 = sm.processingStepTriangleBending.Counter,
                 processingList1 = sm.processingStepTriangleBending.Buffer,
             };
@@ -756,12 +750,14 @@ namespace MagicaCloth2
             public NativeReference<int> processingCounter0;
             public NativeReference<int> processingCounter1;
             public NativeReference<int> processingCounter2;
+            public NativeReference<int> processingCounter3;
 
             public void Execute()
             {
                 processingCounter0.Value = 0;
                 processingCounter1.Value = 0;
                 processingCounter2.Value = 0;
+                processingCounter3.Value = 0;
             }
         }
 
@@ -794,6 +790,8 @@ namespace MagicaCloth2
 
                 var tdata = teamDataArray[teamId];
                 if (tdata.IsEnable == false)
+                    return;
+                if (tdata.IsCullingInvisible)
                     return;
 
                 // 頂点リストに追加
@@ -970,6 +968,10 @@ namespace MagicaCloth2
                 }
 
                 // バインドポーズにスケールが入るので単位化する必要がある
+#if MC2_DEBUG
+                Develop.Assert(math.length(wnor) > 0.0f);
+                Develop.Assert(math.length(wtan) > 0.0f);
+#endif
                 wnor = math.normalize(wnor);
                 wtan = math.normalize(wtan);
                 var wrot = MathUtility.ToRotation(wnor, wtan);
@@ -1000,6 +1002,7 @@ namespace MagicaCloth2
                 processingCounter0 = sm.processingStepParticle.Counter,
                 processingCounter1 = sm.processingStepTriangleBending.Counter,
                 processingCounter2 = sm.processingStepEdgeCollision.Counter,
+                processingCounter3 = sm.processingStepMotionParticle.Counter,
             };
             jobHandle = clearJob.Schedule(jobHandle);
 
@@ -1019,6 +1022,10 @@ namespace MagicaCloth2
                 // Base line
                 processingCounter2 = sm.processingStepEdgeCollision.Counter,
                 processingList2 = sm.processingStepEdgeCollision.Buffer,
+
+                // Triangle
+                processingCounter3 = sm.processingStepMotionParticle.Counter,
+                processingList3 = sm.processingStepMotionParticle.Buffer,
             };
             jobHandle = createUpdateListJob.Schedule(tm.TeamCount, 1, jobHandle);
 
@@ -1059,6 +1066,8 @@ namespace MagicaCloth2
                 // （ローカル座標空間）
                 var triangleNormalTangentJob = new CalcTriangleNormalTangentJob()
                 {
+                    jobTriangleList = sm.processingStepMotionParticle.Buffer,
+
                     teamDataArray = tm.teamDataArray.GetNativeArray(),
 
                     triangleTeamIdArray = triangleTeamIdArray.GetNativeArray(),
@@ -1069,7 +1078,7 @@ namespace MagicaCloth2
                     positions = positions.GetNativeArray(),
                     uv = uv.GetNativeArray(),
                 };
-                jobHandle = triangleNormalTangentJob.Schedule(TriangleCount, 16, jobHandle);
+                jobHandle = triangleNormalTangentJob.Schedule(sm.processingStepMotionParticle.GetJobSchedulePtr(), 16, jobHandle);
 
                 // トライアングルの法線接線から頂点法線接線を平均化して求める
                 // （ローカル座標空間）
@@ -1159,6 +1168,14 @@ namespace MagicaCloth2
             [Unity.Collections.WriteOnly]
             public NativeArray<int> processingList2;
 
+            // triangle
+            [NativeDisableParallelForRestriction]
+            [Unity.Collections.WriteOnly]
+            public NativeReference<int> processingCounter3;
+            [NativeDisableParallelForRestriction]
+            [Unity.Collections.WriteOnly]
+            public NativeArray<int> processingList3;
+
             public void Execute(int teamId)
             {
                 // [0]はグローバルチームなのでスキップ
@@ -1166,6 +1183,8 @@ namespace MagicaCloth2
                     return;
                 var tdata = teamDataArray[teamId];
                 if (tdata.IsEnable == false)
+                    return;
+                if (tdata.IsCullingInvisible)
                     return;
 
                 // トライアングル[0]
@@ -1198,6 +1217,17 @@ namespace MagicaCloth2
                     {
                         int bindex = tdata.baseLineChunk.startIndex + j;
                         processingList2[start + j] = bindex;
+                    }
+                }
+
+                // トライアングル2
+                if (tdata.TriangleCount > 0)
+                {
+                    int start = processingCounter3.InterlockedStartIndex(tdata.proxyTriangleChunk.dataLength);
+                    for (int j = 0; j < tdata.proxyTriangleChunk.dataLength; j++)
+                    {
+                        int tindex = tdata.proxyTriangleChunk.startIndex + j;
+                        processingList3[start + j] = tindex;
                     }
                 }
 
@@ -1266,6 +1296,8 @@ namespace MagicaCloth2
                 var tdata = teamDataArray[teamId];
                 if (tdata.IsEnable == false)
                     return;
+                if (tdata.IsCullingInvisible)
+                    return;
 
                 // parameter
                 var param = parameterArray[teamId];
@@ -1289,8 +1321,8 @@ namespace MagicaCloth2
 
                     // 子の情報
                     var pack = childIndexArray[vindex];
-                    int cstart = DataUtility.Unpack10_22Low(pack);
-                    int ccnt = DataUtility.Unpack10_22Hi(pack);
+                    int cstart = DataUtility.Unpack12_20Low(pack);
+                    int ccnt = DataUtility.Unpack12_20Hi(pack);
 
                     int movecnt = 0;
                     if (ccnt > 0)
@@ -1387,8 +1419,11 @@ namespace MagicaCloth2
         /// 座標系の変換は行わない
         /// </summary>
         [BurstCompile]
-        struct CalcTriangleNormalTangentJob : IJobParallelFor
+        struct CalcTriangleNormalTangentJob : IJobParallelForDefer
         {
+            [Unity.Collections.ReadOnly]
+            public NativeArray<int> jobTriangleList;
+
             // team
             [Unity.Collections.ReadOnly]
             public NativeArray<TeamManager.TeamData> teamDataArray;
@@ -1398,8 +1433,10 @@ namespace MagicaCloth2
             public NativeArray<short> triangleTeamIdArray;
             [Unity.Collections.ReadOnly]
             public NativeArray<int3> triangles;
+            [NativeDisableParallelForRestriction]
             [Unity.Collections.WriteOnly]
             public NativeArray<float3> outTriangleNormals;
+            [NativeDisableParallelForRestriction]
             [Unity.Collections.WriteOnly]
             public NativeArray<float3> outTriangleTangents;
 
@@ -1411,13 +1448,17 @@ namespace MagicaCloth2
 
 
             // トライアングルごと
-            public void Execute(int tindex)
+            public void Execute(int index)
             {
+                int tindex = jobTriangleList[index];
+
                 int teamId = triangleTeamIdArray[tindex];
                 if (teamId == 0)
                     return;
                 var tdata = teamDataArray[teamId];
                 if (tdata.IsEnable == false)
+                    return;
+                if (tdata.IsCullingInvisible)
                     return;
 
                 int3 tri = triangles[tindex];
@@ -1435,16 +1476,26 @@ namespace MagicaCloth2
                 else
                     Debug.LogWarning("CalcTriangleNormalTangentJob.normal = 0!");
 #endif
-                //var nor = MathUtility.TriangleNormal(pos1, pos2, pos3);
-                //outTriangleNormals[tindex] = nor;
-                //Debug.Assert(math.length(nor) > 1e-06f);
 
                 // トライアングル接線を求める
                 var uv1 = uv[start + tri.x];
                 var uv2 = uv[start + tri.y];
                 var uv3 = uv[start + tri.z];
                 var tan = MathUtility.TriangleTangent(pos1, pos2, pos3, uv1, uv2, uv3);
-                outTriangleTangents[tindex] = tan;
+                if (math.lengthsq(tan) > 0.0f)
+                    outTriangleTangents[tindex] = tan;
+#if MC2_DEBUG
+                else
+                    Debug.LogWarning("CalcTriangleNormalTangentJob.tangent = 0!");
+#endif
+                //                len = math.length(tan);
+                //                if (len > 1e-06f)
+                //                    outTriangleTangents[tindex] = tan / len;
+                //#if MC2_DEBUG
+                //                else
+                //                    Debug.LogWarning("CalcTriangleNormalTangentJob.tangent = 0!");
+                //#endif
+
             }
         }
 
@@ -1469,7 +1520,7 @@ namespace MagicaCloth2
             [Unity.Collections.ReadOnly]
             public NativeArray<float3> triangleTangents;
             [Unity.Collections.ReadOnly]
-            public NativeArray<FixedList32Bytes<int>> vertexToTriangles;
+            public NativeArray<FixedList32Bytes<uint>> vertexToTriangles;
             [Unity.Collections.ReadOnly]
             public NativeArray<quaternion> normalAdjustmentRotations;
             [NativeDisableParallelForRestriction]
@@ -1485,7 +1536,6 @@ namespace MagicaCloth2
                     return;
                 var tdata = teamDataArray[teamId];
 
-
                 var tlist = vertexToTriangles[vindex];
                 if (tlist.Length > 0)
                 {
@@ -1493,6 +1543,18 @@ namespace MagicaCloth2
                     float3 tan = 0;
                     for (int i = 0; i < tlist.Length; i++)
                     {
+                        // 12-20bitのパックで格納されている
+                        // 12(hi) = 法線と接線のフリップフラグ
+                        // 20(low) = トライアングルインデックス
+                        uint data = tlist[i];
+                        int flipFlag = DataUtility.Unpack12_20Hi(data);
+                        int tindex = DataUtility.Unpack12_20Low(data);
+
+                        tindex += tdata.proxyTriangleChunk.startIndex;
+                        nor += triangleNormals[tindex] * ((flipFlag & 0x1) == 0 ? 1 : -1);
+                        tan += triangleTangents[tindex] * ((flipFlag & 0x2) == 0 ? 1 : -1);
+
+                        /*
                         // トライアングルインデックスが負の値ならば法線をフリップさせる
                         // トライアングルインデックスは＋１の値が格納されているので注意！
                         int tindex = tlist[i];
@@ -1502,19 +1564,32 @@ namespace MagicaCloth2
 
                         nor += triangleNormals[tindex] * flip;
                         tan += triangleTangents[tindex]; // 接線はフリップさせては駄目！
+                        */
                     }
 
+                    //Debug.Log($"Vertex:{vindex} nor:{nor}, tan:{tan}");
+
+
                     // 法線０を考慮する。法線を０にするとポリゴンが欠けるため
-                    if (math.lengthsq(nor) > 1e-06f)
+                    float ln = math.length(nor);
+                    float lt = math.length(tan);
+                    if (ln > 1e-06f && lt > 1e-06f)
                     {
-                        nor = math.normalize(nor);
-                        tan = math.normalize(tan);
-                        var rot = MathUtility.ToRotation(nor, tan);
+                        nor = nor / ln;
+                        tan = tan / lt;
+                        float dot = math.dot(nor, tan);
+                        if (dot != 1.0f && dot != -1.0f)
+                        {
+                            // トライアングル回転は従法線から算出するように変更(v2.1.7)
+                            //var rot = quaternion.LookRotation(tan, nor);
+                            float3 binor = math.normalize(math.cross(nor, tan));
+                            var rot = quaternion.LookRotation(binor, nor);
 
-                        // 法線調整用回転を乗算する（不要な場合は単位回転が入っている）
-                        rot = math.mul(rot, normalAdjustmentRotations[vindex]);
+                            // 法線調整用回転を乗算する（不要な場合は単位回転が入っている）
+                            rot = math.mul(rot, normalAdjustmentRotations[vindex]);
 
-                        outRotations[vindex] = rot;
+                            outRotations[vindex] = rot;
+                        }
                     }
                 }
             }
@@ -1642,6 +1717,8 @@ namespace MagicaCloth2
                 var iprot = math.inverse(prot);
                 var v = pos - ppos;
                 var lpos = math.mul(iprot, v);
+
+                Develop.Assert(pscl.x > 0.0f && pscl.y > 0.0f && pscl.z > 0.0f);
                 lpos /= pscl;
                 var lrot = math.mul(iprot, rot);
 
@@ -1682,6 +1759,7 @@ namespace MagicaCloth2
 
             // プロキシスキニングの実行
             // （マッピングメッシュのローカル座標空間）
+            // todo:カリングを考えてバッファにすべきかも
             var calcProxySkinningJob = new CalcProxySkinningJob()
             {
                 teamDataArray = tm.teamDataArray.GetNativeArray(),
@@ -1692,10 +1770,10 @@ namespace MagicaCloth2
                 mappingAttributes = mappingAttributes.GetNativeArray(),
                 mappingLocalPositions = mappingLocalPositins.GetNativeArray(),
                 mappingLocalNormals = mappingLocalNormals.GetNativeArray(),
-                mappingLocalTangents = mappingLocalTangents.GetNativeArray(),
+                //mappingLocalTangents = mappingLocalTangents.GetNativeArray(),
                 mappingBoneWeights = mappingBoneWeights.GetNativeArray(),
                 mappingPositions = mappingPositions.GetNativeArray(),
-                mappingRotations = mappingRotations.GetNativeArray(),
+                mappingNormals = mappingNormals.GetNativeArray(),
 
                 proxyPositions = positions.GetNativeArray(),
                 proxyRotations = rotations.GetNativeArray(),
@@ -1739,6 +1817,8 @@ namespace MagicaCloth2
                 var tdata = teamDataArray[mdata.teamId];
                 if (tdata.IsEnable == false)
                     return;
+                if (tdata.IsCullingInvisible)
+                    return;
 
                 // mapping
                 var pos = transformPositionArray[mdata.centerTransformIndex];
@@ -1751,20 +1831,29 @@ namespace MagicaCloth2
                 var prot = transformRotationArray[tdata.centerTransformIndex];
                 var pscl = transformScaleArray[tdata.centerTransformIndex];
 
-                // プロキシメッシュからマッピングメッシュへの座標空間変換
+                // プロキシメッシュとマッピングメッシュの座標空間が等しいか判定
                 bool sameSpace = MathUtility.CompareTransform(pos, rot, scl, ppos, prot, pscl);
                 mdata.sameSpace = sameSpace;
+                //Debug.Log($"sameSpace:{sameSpace}, scl:{scl}, pscl:{pscl}");
 
                 // ワールド空間からマッピングメッシュへの座標空間変換
                 mdata.toMappingMatrix = math.inverse(MathUtility.LocalToWorldMatrix(pos, rot, scl));
                 mdata.toMappingRotation = irot;
 
+                // マッピングメッシュ用のスケール比率
+                // チームのステップ実行とは無関係に毎フレーム適用する必要があるためチームスケール比率と分離する
+                var initScaleLength = math.length(tdata.initScale);
+                Develop.Assert(initScaleLength > 0.0f);
+                mdata.scaleRatio = math.length(pscl) / initScaleLength;
+
                 mappingDataArray[index] = mdata;
+
+                //Debug.Log($"Mapping [{mdata.teamId}] sclRatio:{tdata.scaleRatio}");
             }
         }
 
         /// <summary>
-        /// プロキシメッシュ接続から頂点の座標・法線・接線を計算する
+        /// プロキシメッシュからマッピングメッシュの頂点の座標・法線・接線をスキニングして計算する
         /// </summary>
         [BurstCompile]
         struct CalcProxySkinningJob : IJobParallelFor
@@ -1786,14 +1875,14 @@ namespace MagicaCloth2
             public NativeArray<float3> mappingLocalPositions;
             [Unity.Collections.ReadOnly]
             public NativeArray<float3> mappingLocalNormals;
-            [Unity.Collections.ReadOnly]
-            public NativeArray<float3> mappingLocalTangents;
+            //[Unity.Collections.ReadOnly]
+            //public NativeArray<float3> mappingLocalTangents;
             [Unity.Collections.ReadOnly]
             public NativeArray<VirtualMeshBoneWeight> mappingBoneWeights;
             [Unity.Collections.WriteOnly]
             public NativeArray<float3> mappingPositions;
             [Unity.Collections.WriteOnly]
-            public NativeArray<quaternion> mappingRotations;
+            public NativeArray<float3> mappingNormals;
 
             // proxy mesh
             [Unity.Collections.ReadOnly]
@@ -1823,6 +1912,8 @@ namespace MagicaCloth2
                 var tdata = teamDataArray[mdata.teamId];
                 if (tdata.IsEnable == false)
                     return;
+                if (tdata.IsCullingInvisible)
+                    return;
 
                 // 無効頂点は無視する
                 var attr = mappingAttributes[mvindex];
@@ -1836,7 +1927,7 @@ namespace MagicaCloth2
                 // マッピングメッシュ姿勢
                 float3 lpos = mappingLocalPositions[mvindex];
                 float3 lnor = mappingLocalNormals[mvindex];
-                float3 ltan = mappingLocalTangents[mvindex];
+                //float3 ltan = mappingLocalTangents[mvindex];
 
                 // プロキシメッシュの座標空間に変換する
                 if (mdata.sameSpace == false)
@@ -1844,7 +1935,7 @@ namespace MagicaCloth2
                     // 現在の姿勢ではなくマッピング時の姿勢で変換を行う
                     lpos = math.transform(mdata.toProxyMatrix, lpos);
                     lnor = math.mul(mdata.toProxyRotation, lnor);
-                    ltan = math.mul(mdata.toProxyRotation, ltan);
+                    //ltan = math.mul(mdata.toProxyRotation, ltan);
                 }
 
                 // 以降計算はすべてプロキシメッシュのローカル空間で行う
@@ -1852,8 +1943,9 @@ namespace MagicaCloth2
                 int wcnt = bw.Count;
                 float3 opos = 0;
                 float3 onor = 0;
-                float3 otan = 0;
-                float3 pscl = tdata.initScale; // ProxyMeshスケール
+                //float3 otan = 0;
+                // ProxyMeshスケール
+                float3 pscl = tdata.initScale * mdata.scaleRatio; // 初期スケール x 現在のスケール比率
                 for (int i = 0; i < wcnt; i++)
                 {
                     float w = bw.weights[i];
@@ -1866,7 +1958,7 @@ namespace MagicaCloth2
 
                     float3 pos = math.mul(birot, lpos + bipos);
                     float3 nor = math.mul(birot, lnor);
-                    float3 tan = math.mul(birot, ltan);
+                    //float3 tan = math.mul(birot, ltan);
 
                     float3 ppos = proxyPositions[tvindex];
                     quaternion prot = proxyRotations[tvindex];
@@ -1874,43 +1966,104 @@ namespace MagicaCloth2
                     // ワールド変換
                     pos = math.mul(prot, pos * pscl) + ppos;
                     nor = math.mul(prot, nor);
-                    tan = math.mul(prot, tan);
+                    //tan = math.mul(prot, tan);
 
                     opos += pos.xyz * w;
                     onor += nor.xyz * w;
-                    otan += tan.xyz * w;
+                    //otan += tan.xyz * w;
                 }
 
                 // 単位化しないと駄目な状況が発生。仕方なし。
-                onor = math.normalize(onor);
-                otan = math.normalize(otan);
-                var orot = MathUtility.ToRotation(onor, otan);
+                //onor = math.normalize(onor);
+                //otan = math.normalize(otan);
 
                 // ここまでのopos/orotはワールド空間
                 // マッピングメッシュのローカル空間に変換する
                 opos = math.transform(mdata.toMappingMatrix, opos);
-                orot = math.mul(mdata.toMappingRotation, orot);
+                //onor = MathUtility.TransformDirection(onor, mdata.toMappingMatrix);
+                onor = math.normalize(MathUtility.TransformVector(onor, mdata.toMappingMatrix));
 
                 // 格納
                 mappingPositions[mvindex] = opos;
-                mappingRotations[mvindex] = orot;
+                mappingNormals[mvindex] = onor;
             }
         }
 
         //=========================================================================================
-        public override string ToString()
+        public void InformationLog(StringBuilder allsb)
         {
             StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"========== VMesh Manager ==========");
+            if (IsValid() == false)
+            {
+                sb.AppendLine($"VirtualMesh Manager. Invalid.");
+            }
+            else
+            {
+                sb.AppendLine($"VirtualMesh Manager.");
+                sb.AppendLine($"  -VertexCount:{VertexCount}");
+                sb.AppendLine($"  -EdgeCount:{EdgeCount}");
+                sb.AppendLine($"  -TriangleCount:{TriangleCount}");
+                sb.AppendLine($"  -BaseLineCount:{BaseLineCount}");
+                sb.AppendLine($"  -MeshClothVertexCount:{MeshClothVertexCount}");
 
-            sb.AppendLine($"VirtualMesh Manager.");
-            sb.AppendLine($"  -VertexCount:{VertexCount}");
-            sb.AppendLine($"  -EdgeCount:{EdgeCount}");
-            sb.AppendLine($"  -TriangleCount:{TriangleCount}");
-            sb.AppendLine($"  -BaseLineCount:{BaseLineCount}");
-            sb.AppendLine($"  -MeshClothVertexCount:{MeshClothVertexCount}");
-            sb.AppendLine($"  -MappingVertexCount:{MappingVertexCount}");
+                sb.AppendLine($"  [ProxyMesh]");
+                sb.AppendLine($"    -teamIds:{teamIds.ToSummary()}");
+                sb.AppendLine($"    -attributes:{attributes.ToSummary()}");
+                sb.AppendLine($"    -vertexToTriangles:{vertexToTriangles.ToSummary()}");
+                sb.AppendLine($"    -vertexBindPosePositions:{vertexBindPosePositions.ToSummary()}");
+                sb.AppendLine($"    -vertexBindPoseRotations:{vertexBindPoseRotations.ToSummary()}");
+                sb.AppendLine($"    -vertexDepths:{vertexDepths.ToSummary()}");
+                sb.AppendLine($"    -vertexRootIndices:{vertexRootIndices.ToSummary()}");
+                sb.AppendLine($"    -vertexLocalPositions:{vertexLocalPositions.ToSummary()}");
+                sb.AppendLine($"    -vertexLocalRotations:{vertexLocalRotations.ToSummary()}");
+                sb.AppendLine($"    -vertexParentIndices:{vertexParentIndices.ToSummary()}");
+                sb.AppendLine($"    -vertexChildIndexArray:{vertexChildIndexArray.ToSummary()}");
+                sb.AppendLine($"    -vertexChildDataArray:{vertexChildDataArray.ToSummary()}");
+                sb.AppendLine($"    -normalAdjustmentRotations:{normalAdjustmentRotations.ToSummary()}");
+                sb.AppendLine($"    -uv:{uv.ToSummary()}");
 
-            return sb.ToString();
+                sb.AppendLine($"    -triangleTeamIdArray:{triangleTeamIdArray.ToSummary()}");
+                sb.AppendLine($"    -triangles:{triangles.ToSummary()}");
+                sb.AppendLine($"    -triangleNormals:{triangleNormals.ToSummary()}");
+                sb.AppendLine($"    -triangleTangents:{triangleTangents.ToSummary()}");
+
+                sb.AppendLine($"    -edgeTeamIdArray:{edgeTeamIdArray.ToSummary()}");
+                sb.AppendLine($"    -edges:{edges.ToSummary()}");
+                sb.AppendLine($"    -edgeFlags:{edgeFlags.ToSummary()}");
+
+                sb.AppendLine($"    -baseLineFlags:{baseLineFlags.ToSummary()}");
+                sb.AppendLine($"    -baseLineTeamIds:{baseLineTeamIds.ToSummary()}");
+                sb.AppendLine($"    -baseLineStartDataIndices:{baseLineStartDataIndices.ToSummary()}");
+                sb.AppendLine($"    -baseLineDataCounts:{baseLineDataCounts.ToSummary()}");
+                sb.AppendLine($"    -baseLineData:{baseLineData.ToSummary()}");
+
+                sb.AppendLine($"  [Mesh Common]");
+                sb.AppendLine($"    -localPositions:{localPositions.ToSummary()}");
+                sb.AppendLine($"    -localNormals:{localNormals.ToSummary()}");
+                sb.AppendLine($"    -localTangents:{localTangents.ToSummary()}");
+                sb.AppendLine($"    -boneWeights:{boneWeights.ToSummary()}");
+                sb.AppendLine($"    -skinBoneTransformIndices:{skinBoneTransformIndices.ToSummary()}");
+                sb.AppendLine($"    -skinBoneBindPoses:{skinBoneBindPoses.ToSummary()}");
+
+                sb.AppendLine($"  [Mesh Other]");
+                sb.AppendLine($"    -vertexToTransformRotations:{vertexToTransformRotations.ToSummary()}");
+                sb.AppendLine($"    -positions:{positions.ToSummary()}");
+                sb.AppendLine($"    -rotations:{rotations.ToSummary()}");
+
+                sb.AppendLine($"  [Mapping]");
+                sb.AppendLine($"    -MappingVertexCount:{MappingVertexCount}");
+                sb.AppendLine($"    -mappingReferenceIndices:{mappingReferenceIndices.ToSummary()}");
+                sb.AppendLine($"    -mappingAttributes:{mappingAttributes.ToSummary()}");
+                sb.AppendLine($"    -mappingLocalPositins:{mappingLocalPositins.ToSummary()}");
+                sb.AppendLine($"    -mappingLocalNormals:{mappingLocalNormals.ToSummary()}");
+                sb.AppendLine($"    -mappingBoneWeights:{mappingBoneWeights.ToSummary()}");
+                sb.AppendLine($"    -mappingPositions:{mappingPositions.ToSummary()}");
+                sb.AppendLine($"    -mappingNormals:{mappingNormals.ToSummary()}");
+            }
+            sb.AppendLine();
+            Debug.Log(sb.ToString());
+            allsb.Append(sb);
         }
     }
 }

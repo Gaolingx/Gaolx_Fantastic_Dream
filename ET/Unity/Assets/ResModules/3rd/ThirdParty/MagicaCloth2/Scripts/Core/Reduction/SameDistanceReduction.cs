@@ -72,7 +72,7 @@ namespace MagicaCloth2
                 // グリッドマップ
                 gridMap = new GridMap<int>(vmesh.VertexCount);
 
-                // 最適なグリッドサイズを割り出す
+                // 最適なグリッドサイズを割り出す(mergeLengthは>0が保証されている)
                 float gridSize = mergeLength * 2.0f;
 
                 // 頂点ごとの接続マップ

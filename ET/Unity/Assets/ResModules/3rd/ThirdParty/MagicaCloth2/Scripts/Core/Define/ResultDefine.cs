@@ -9,7 +9,12 @@ namespace MagicaCloth2
         public enum Result
         {
             None = 0,
+
+            /// <summary>
+            /// It is not an error, but the data is empty.
+            /// </summary>
             Empty = 1,
+
             Success = 2,
             Cancel = 3,
             Process = 4,
@@ -26,10 +31,17 @@ namespace MagicaCloth2
             ///////////////////////////////////////////////////////////////////
             Warning = 10000,
 
+            RenderMesh_UnknownWarning = 10100,
+            RenderMesh_VertexWeightIs5BonesOrMore,
+
             ///////////////////////////////////////////////////////////////////
             // Error(20000 - )
             ///////////////////////////////////////////////////////////////////
             Error = 20000,
+
+            // Validating serialized data
+            SerializeData_InvalidData = 20050,
+            SerializeData_Over31Renderers,
 
             // init
             Init_InvalidData = 20100,
@@ -104,6 +116,7 @@ namespace MagicaCloth2
             ClothProcess_Invalid,
             ClothProcess_InvalidRenderHandleList,
             ClothProcess_GenerateSelectionError,
+            ClothProcess_OverflowTeamCount4096,
 
             // Constraint
             Constraint_Exception = 22200,

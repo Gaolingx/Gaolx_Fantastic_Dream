@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using Unity.Collections;
 using Unity.Mathematics;
+using UnityEngine;
 
 namespace MagicaCloth2
 {
@@ -143,7 +144,7 @@ namespace MagicaCloth2
                 var t = windZone.transform;
 
                 // コンポーネントデータのコピー
-                var wind = windDataArray[windId];
+                ref var wind = ref windDataArray.GetRef(windId);
                 wind.mode = windZone.mode;
                 switch (windZone.mode)
                 {
@@ -194,29 +195,35 @@ namespace MagicaCloth2
                     // 減衰カーブ
                     wind.attenuation = DataUtility.ConvertAnimationCurve(windZone.attenuation);
                 }
-
-                windDataArray[windId] = wind;
             }
         }
 
         //=========================================================================================
-        public override string ToString()
+        public void InformationLog(StringBuilder allsb)
         {
             StringBuilder sb = new StringBuilder();
-
-            sb.AppendLine($"Wind Manager. Count:{WindCount}");
-
-            int cnt = WindCount;
-            for (int i = 0; i < cnt; i++)
+            sb.AppendLine($"========== Wind Manager ==========");
+            if (IsValid() == false)
             {
-                var wind = windDataArray[i];
-                if (wind.flag.IsSet(Flag_Valid) == false)
-                    continue;
-
-                sb.AppendLine($"  [{i}] flag:0x{wind.flag.Value:X}, mode:{wind.mode}");
+                sb.AppendLine($"Wind Manager. Invalid.");
             }
+            else
+            {
+                sb.AppendLine($"Wind Manager. Count:{WindCount}");
 
-            return sb.ToString();
+                int cnt = WindCount;
+                for (int i = 0; i < cnt; i++)
+                {
+                    var wind = windDataArray[i];
+                    if (wind.flag.IsSet(Flag_Valid) == false)
+                        continue;
+
+                    sb.AppendLine($"  [{i}] flag:0x{wind.flag.Value:X}, mode:{wind.mode}");
+                }
+            }
+            sb.AppendLine();
+            Debug.Log(sb.ToString());
+            allsb.Append(sb);
         }
     }
 }

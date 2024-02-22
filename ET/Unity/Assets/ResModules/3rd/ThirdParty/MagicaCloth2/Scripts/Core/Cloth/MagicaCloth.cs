@@ -9,6 +9,7 @@ namespace MagicaCloth2
     /// MagicaCloth main component.
     /// </summary>
     [AddComponentMenu("MagicaCloth2/MagicaCloth")]
+    [HelpURL("https://magicasoft.jp/en/mc2_magicaclothcomponent/")]
     public partial class MagicaCloth : ClothBehaviour, IValid
     {
         /// <summary>
@@ -26,7 +27,7 @@ namespace MagicaCloth2
         /// Hidden data that cannot be rewritten at runtime
         /// </summary>
         [SerializeField]
-        private ClothSerializeData2 serializeData2 = new ClothSerializeData2();
+        internal ClothSerializeData2 serializeData2 = new ClothSerializeData2();
 
 #if UNITY_EDITOR
         /// <summary>
@@ -52,7 +53,7 @@ namespace MagicaCloth2
         /// <summary>
         /// Synchronization target.
         /// </summary>
-        public MagicaCloth SyncCloth => SerializeData.selfCollisionConstraint.GetSyncPartner();
+        public MagicaCloth SyncCloth => SerializeData.IsBoneSpring() ? null : SerializeData.selfCollisionConstraint.GetSyncPartner();
 
         /// <summary>
         /// Check if the cloth component is in a valid state.
@@ -73,6 +74,9 @@ namespace MagicaCloth2
         private void Awake()
         {
             Process.Init();
+
+            // If Awake() is called, OnDestroy() will also be called, so remove it from monitoring.
+            MagicaManager.Team.RemoveMonitoringProcess(Process);
         }
 
         private void OnEnable()
@@ -101,7 +105,7 @@ namespace MagicaCloth2
         /// <returns></returns>
         public override int GetMagicaHashCode()
         {
-            int hash = SerializeData.GetHashCode();
+            int hash = SerializeData.GetHashCode() + serializeData2.GetHashCode();
             hash += isActiveAndEnabled ? GetInstanceID() : 0; // component active.
             return hash;
         }

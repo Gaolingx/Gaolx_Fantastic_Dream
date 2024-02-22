@@ -29,13 +29,14 @@ namespace MagicaCloth2
             rect.y += -1;
             rect.x += iconSize + 4;
 
-            foreach (var component in obj.GetComponents<Component>())
+            foreach (var component in obj.GetComponents<ClothBehaviour>())
             {
                 if (component is MagicaSphereCollider
                     || component is MagicaCapsuleCollider
                     || component is MagicaPlaneCollider
                     || component is MagicaCloth
                     || component is MagicaWindZone
+                    || component is MagicaSettings
                     )
                 {
                     var icon = AssetPreview.GetMiniThumbnail(component);

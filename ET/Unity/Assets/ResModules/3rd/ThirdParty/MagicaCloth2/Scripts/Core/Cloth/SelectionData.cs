@@ -111,6 +111,8 @@ namespace MagicaCloth2
             return true;
         }
 
+        public bool IsUserEdit() => userEdit;
+
         public SelectionData Clone()
         {
             var sdata = new SelectionData();
@@ -366,6 +368,7 @@ namespace MagicaCloth2
             using var aabb = new NativeReference<AABB>(Allocator.TempJob);
             JobUtility.CalcAABBRun(toPositions, Count, aabb);
             float serachRadius = aabb.Value.MaxSideLength * 0.2f; // 20%
+            serachRadius = math.max(serachRadius, Define.System.MinimumGridSize);
 
             // 移動元データをグリッドに登録する
             float gridSize = serachRadius * 0.5f;

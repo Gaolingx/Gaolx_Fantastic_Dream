@@ -212,6 +212,7 @@ namespace MagicaCloth2
         }
 
         //=========================================================================================
+#if false
         /// <summary>
         /// NativeMultiHashMapのキーをNativeListに変換するジョブを発行する
         /// ジェネリック型ジョブは明示的に型を<T>で指定する必要があるため型ごとに関数が発生します
@@ -246,8 +247,8 @@ namespace MagicaCloth2
 
             public void Execute()
             {
-                var keySet = new NativeParallelHashSet<T>(hashMap.Count(), Allocator.Temp);
-                var keyArray = hashMap.GetKeyArray(Allocator.Temp);
+                var keySet = new NativeParallelHashSet<T>(hashMap.Count(), Allocator.Temp); // ここが問題となる可能性がある(unity2023.1.5事件)
+                var keyArray = hashMap.GetKeyArray(Allocator.Temp); // ここが問題となる可能性がある(unity2023.1.5事件)
                 // GetKeyArray()の結果はキーが重複しまた順不同なので注意！
                 for (int i = 0; i < keyArray.Length; i++)
                     keySet.Add(keyArray[i]);
@@ -256,6 +257,7 @@ namespace MagicaCloth2
                     list.Add(key);
             }
         }
+#endif
 
         //=========================================================================================
         /// <summary>
@@ -674,7 +676,7 @@ namespace MagicaCloth2
                 int cnt = indexArray.Length;
                 for (int i = 0; i < cnt; i++)
                 {
-                    DataUtility.Unpack10_22(indexArray[i], out var dcnt, out var dstart);
+                    DataUtility.Unpack12_20(indexArray[i], out var dcnt, out var dstart);
 
                     for (int j = 0; j < dcnt; j++)
                     {

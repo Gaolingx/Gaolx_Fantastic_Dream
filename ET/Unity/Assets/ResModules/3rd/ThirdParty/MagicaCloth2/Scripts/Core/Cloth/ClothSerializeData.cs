@@ -118,6 +118,11 @@ namespace MagicaCloth2
         public NormalAlignmentSettings normalAlignmentSetting = new NormalAlignmentSettings();
 
         /// <summary>
+        /// culling settings.
+        /// </summary>
+        public CullingSettings cullingSettings = new CullingSettings();
+
+        /// <summary>
         /// axis to use as normal.
         /// [OK] Runtime changes.
         /// [NG] Export/Import with Presets
@@ -241,5 +246,10 @@ namespace MagicaCloth2
         /// Wind
         /// </summary>
         public WindSettings wind = new WindSettings();
+
+        /// <summary>
+        /// Spring
+        /// </summary>
+        public SpringConstraint.SerializeData springConstraint = new SpringConstraint.SerializeData();
     }
 }

@@ -48,7 +48,7 @@ namespace MagicaCloth2
 
         protected override void CustomReductionStep()
         {
-            // 最適なグリッドサイズを割り出す
+            // 最適なグリッドサイズを割り出す(nowMergeLengthは>0が保証されている)
             float gridSize = nowMergeLength * 2.0f; // 1.5?
 
             // 作業用バッファクリア

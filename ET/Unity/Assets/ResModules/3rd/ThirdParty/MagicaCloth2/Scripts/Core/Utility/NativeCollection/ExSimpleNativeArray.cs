@@ -45,6 +45,7 @@ namespace MagicaCloth2
 
         public ExSimpleNativeArray(T[] dataArray) : this()
         {
+            Debug.Assert(dataArray != null);
             nativeArray = new NativeArray<T>(dataArray, Allocator.Persistent);
             length = dataArray.Length;
             count = length;
@@ -52,6 +53,7 @@ namespace MagicaCloth2
 
         public ExSimpleNativeArray(NativeArray<T> array) : this()
         {
+            Debug.Assert(array.IsCreated);
             nativeArray = new NativeArray<T>(array, Allocator.Persistent);
             length = array.Length;
             count = length;
@@ -59,6 +61,7 @@ namespace MagicaCloth2
 
         public ExSimpleNativeArray(NativeList<T> array) : this()
         {
+            Debug.Assert(array.IsCreated);
             nativeArray = new NativeArray<T>(array.AsArray(), Allocator.Persistent);
             length = array.Length;
             count = length;
@@ -128,8 +131,13 @@ namespace MagicaCloth2
         /// <param name="dataArray"></param>
         public void AddRange(T[] dataArray)
         {
+            Debug.Assert(dataArray != null);
+
             if (length == 0)
             {
+                if (nativeArray.IsCreated)
+                    nativeArray.Dispose();
+
                 nativeArray = new NativeArray<T>(dataArray, Allocator.Persistent);
                 length = dataArray.Length;
                 count = length;
@@ -150,8 +158,13 @@ namespace MagicaCloth2
         /// <param name="dataArray"></param>
         public void AddRange(T[] dataArray, int cnt)
         {
+            Debug.Assert(dataArray != null);
+
             if (length == 0)
             {
+                if (nativeArray.IsCreated)
+                    nativeArray.Dispose();
+
                 nativeArray = new NativeArray<T>(cnt, Allocator.Persistent);
                 // copy
                 NativeArray<T>.Copy(dataArray, 0, nativeArray, 0, cnt);
@@ -182,8 +195,13 @@ namespace MagicaCloth2
 
         public void AddRange(NativeArray<T> narray)
         {
+            Debug.Assert(narray.IsCreated);
+
             if (length == 0)
             {
+                if (nativeArray.IsCreated)
+                    nativeArray.Dispose();
+
                 nativeArray = new NativeArray<T>(narray, Allocator.Persistent);
                 length = narray.Length;
                 count = length;
@@ -200,6 +218,7 @@ namespace MagicaCloth2
 
         public void AddRange(NativeList<T> nlist)
         {
+            Debug.Assert(nlist.IsCreated);
             AddRange(nlist.AsArray());
         }
 
@@ -216,6 +235,8 @@ namespace MagicaCloth2
         /// <returns></returns>
         public unsafe void AddRange<U>(U[] array) where U : struct
         {
+            Debug.Assert(array != null);
+
             int dataLength = array.Length;
             Expand(dataLength);
 
@@ -239,6 +260,8 @@ namespace MagicaCloth2
         /// <returns></returns>
         public unsafe void AddRangeTypeChange<U>(U[] array) where U : struct
         {
+            Debug.Assert(array != null);
+
             int srcSize = UnsafeUtility.SizeOf<U>();
             int dstSize = UnsafeUtility.SizeOf<T>();
             int dataLength = (array.Length * srcSize) / dstSize;
@@ -256,6 +279,8 @@ namespace MagicaCloth2
 
         public unsafe void AddRangeTypeChange<U>(NativeArray<U> array) where U : struct
         {
+            Debug.Assert(array.IsCreated);
+
             int srcSize = UnsafeUtility.SizeOf<U>();
             int dstSize = UnsafeUtility.SizeOf<T>();
             int dataLength = (array.Length * srcSize) / dstSize;
@@ -277,6 +302,7 @@ namespace MagicaCloth2
         /// <returns></returns>
         public unsafe void AddRangeStride<U>(U[] array) where U : struct
         {
+            Debug.Assert(array != null);
             int dataLength = array.Length;
             Expand(dataLength);
 
@@ -457,11 +483,13 @@ namespace MagicaCloth2
         /// <param name="force">強制的に領域を追加</param>
         void Expand(int dataLength, bool force = false)
         {
-            //int newlength = count + dataLength;
             int newlength = force ? length + dataLength : count + dataLength;
 
             if (length == 0)
             {
+                if (nativeArray.IsCreated)
+                    nativeArray.Dispose();
+
                 nativeArray = new NativeArray<T>(dataLength, Allocator.Persistent);
                 length = dataLength;
             }

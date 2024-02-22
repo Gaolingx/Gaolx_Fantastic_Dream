@@ -2,8 +2,10 @@
 // Copyright (c) 2023 MagicaSoft.
 // https://magicasoft.jp
 using System;
+using System.Text;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace MagicaCloth2
 {
@@ -13,26 +15,80 @@ namespace MagicaCloth2
     /// </summary>
     public class InertiaConstraint : IDisposable
     {
+        /// <summary>
+        /// テレポートモード
+        /// Teleport processing mode.
+        /// </summary>
+        public enum TeleportMode
+        {
+            None = 0,
+
+            /// <summary>
+            /// シミュレーションをリセットします
+            /// Reset the simulation.
+            /// </summary>
+            Reset = 1,
+
+            /// <summary>
+            /// テレポート前の状態を継続します
+            /// Continue the state before the teleport.
+            /// </summary>
+            Keep = 2,
+        }
+
         [System.Serializable]
         public class SerializeData : IDataValidate
         {
             /// <summary>
-            /// Movement Influence (0.0 ~ 1.0).
-            /// 移動影響(0.0 ~ 1.0)
+            /// World Influence (0.0 ~ 1.0).
+            /// ワールド移動影響(0.0 ~ 1.0)
             /// [OK] Runtime changes.
             /// [OK] Export/Import with Presets
             /// </summary>
+            [FormerlySerializedAs("movementInertia")]
             [Range(0.0f, 1.0f)]
-            public float movementInertia;
+            public float worldInertia;
 
             /// <summary>
-            /// Rotation influence (0.0 ~ 1.0).
-            /// 回転影響(0.0 ~ 1.0)
+            /// World movement speed limit (m/s).
+            /// ワールド移動速度制限(m/s)
+            /// [OK] Runtime changes.
+            /// [OK] Export/Import with Presets
+            /// </summary>
+            public CheckSliderSerializeData movementSpeedLimit;
+
+            /// <summary>
+            /// World rotation speed limit (deg/s).
+            /// ワールド回転速度制限(deg/s)
+            /// [OK] Runtime changes.
+            /// [OK] Export/Import with Presets
+            /// </summary>
+            public CheckSliderSerializeData rotationSpeedLimit;
+
+            /// <summary>
+            /// Local Influence (0.0 ~ 1.0).
+            /// ローカル慣性影響(0.0 ~ 1.0)
             /// [OK] Runtime changes.
             /// [OK] Export/Import with Presets
             /// </summary>
             [Range(0.0f, 1.0f)]
-            public float rotationInertia;
+            public float localInertia;
+
+            /// <summary>
+            /// Local movement speed limit (m/s).
+            /// ローカル移動速度制限(m/s)
+            /// [OK] Runtime changes.
+            /// [OK] Export/Import with Presets
+            /// </summary>
+            public CheckSliderSerializeData localMovementSpeedLimit;
+
+            /// <summary>
+            /// Local rotation speed limit (deg/s).
+            /// ローカル回転速度制限(deg/s)
+            /// [OK] Runtime changes.
+            /// [OK] Export/Import with Presets
+            /// </summary>
+            public CheckSliderSerializeData localRotationSpeedLimit;
 
             /// <summary>
             /// depth inertia (0.0 ~ 1.0).
@@ -55,22 +111,6 @@ namespace MagicaCloth2
             public float centrifualAcceleration;
 
             /// <summary>
-            /// Movement speed limit (m/s).
-            /// 移動速度制限(m/s)
-            /// [OK] Runtime changes.
-            /// [OK] Export/Import with Presets
-            /// </summary>
-            public CheckSliderSerializeData movementSpeedLimit;
-
-            /// <summary>
-            /// Rotation speed limit (deg/s).
-            /// 回転速度制限(deg/s)
-            /// [OK] Runtime changes.
-            /// [OK] Export/Import with Presets
-            /// </summary>
-            public CheckSliderSerializeData rotationSpeedLimit;
-
-            /// <summary>
             /// Particle Velocity Limit (m/s).
             /// パーティクル速度制限(m/s)
             /// [OK] Runtime changes.
@@ -78,53 +118,112 @@ namespace MagicaCloth2
             /// </summary>
             public CheckSliderSerializeData particleSpeedLimit;
 
+            /// <summary>
+            /// Teleport determination method.
+            /// テレポート判定モード
+            /// [OK] Runtime changes.
+            /// [OK] Export/Import with Presets
+            /// </summary>
+            public TeleportMode teleportMode;
+
+            /// <summary>
+            /// Teleport detection distance.
+            /// テレポート判定距離
+            /// [OK] Runtime changes.
+            /// [OK] Export/Import with Presets
+            /// </summary>
+            public float teleportDistance;
+
+            /// <summary>
+            /// Teleport detection angle(deg).
+            /// テレポート判定回転角度(deg)
+            /// [OK] Runtime changes.
+            /// [OK] Export/Import with Presets
+            /// </summary>
+            public float teleportRotation;
+
             public SerializeData()
             {
-                movementInertia = 1.0f;
-                rotationInertia = 1.0f;
-                depthInertia = 0.0f;
-                centrifualAcceleration = 0.0f;
+                worldInertia = 1.0f;
                 movementSpeedLimit = new CheckSliderSerializeData(true, 5.0f);
                 rotationSpeedLimit = new CheckSliderSerializeData(true, 720.0f);
+                localInertia = 1.0f;
+                localMovementSpeedLimit = new CheckSliderSerializeData(false, 5.0f);
+                localRotationSpeedLimit = new CheckSliderSerializeData(false, 720.0f);
+                depthInertia = 0.0f;
+                centrifualAcceleration = 0.0f;
                 particleSpeedLimit = new CheckSliderSerializeData(true, 4.0f);
+                teleportMode = TeleportMode.None;
+                teleportDistance = 0.5f;
+                teleportRotation = 90.0f;
             }
 
             public SerializeData Clone()
             {
                 return new SerializeData()
                 {
-                    movementInertia = movementInertia,
-                    rotationInertia = rotationInertia,
-                    depthInertia = depthInertia,
-                    centrifualAcceleration = centrifualAcceleration,
+                    worldInertia = worldInertia,
                     movementSpeedLimit = movementSpeedLimit.Clone(),
                     rotationSpeedLimit = rotationSpeedLimit.Clone(),
+                    localInertia = localInertia,
+                    localMovementSpeedLimit = localMovementSpeedLimit.Clone(),
+                    localRotationSpeedLimit = localRotationSpeedLimit.Clone(),
+                    depthInertia = depthInertia,
+                    centrifualAcceleration = centrifualAcceleration,
+                    particleSpeedLimit = particleSpeedLimit.Clone(),
+                    teleportMode = teleportMode,
+                    teleportDistance = teleportDistance,
+                    teleportRotation = teleportRotation,
                 };
             }
 
             public void DataValidate()
             {
-                movementInertia = Mathf.Clamp01(movementInertia);
-                rotationInertia = Mathf.Clamp01(rotationInertia);
-                centrifualAcceleration = Mathf.Clamp01(centrifualAcceleration);
-                depthInertia = Mathf.Clamp01(depthInertia);
+                worldInertia = Mathf.Clamp01(worldInertia);
                 movementSpeedLimit.DataValidate(0.0f, Define.System.MaxMovementSpeedLimit);
                 rotationSpeedLimit.DataValidate(0.0f, Define.System.MaxRotationSpeedLimit);
+                localInertia = Mathf.Clamp01(localInertia);
+                localMovementSpeedLimit.DataValidate(0.0f, Define.System.MaxMovementSpeedLimit);
+                localRotationSpeedLimit.DataValidate(0.0f, Define.System.MaxRotationSpeedLimit);
+                centrifualAcceleration = Mathf.Clamp01(centrifualAcceleration);
+                depthInertia = Mathf.Clamp01(depthInertia);
                 particleSpeedLimit.DataValidate(0.0f, Define.System.MaxParticleSpeedLimit);
+                teleportDistance = Mathf.Max(teleportDistance, 0.0f);
+                teleportRotation = Mathf.Max(teleportRotation, 0.0f);
             }
         }
 
         public struct InertiaConstraintParams
         {
             /// <summary>
-            /// 移動影響(0.0 ~ 1.0)
+            /// ワールド慣性影響(0.0 ~ 1.0)
             /// </summary>
-            public float movementInertia;
+            public float worldInertia;
 
             /// <summary>
-            /// 回転影響(0.0 ~ 1.0)
+            /// ワールド移動速度制限(m/s)
             /// </summary>
-            public float rotationInertia;
+            public float movementSpeedLimit;
+
+            /// <summary>
+            /// ワールド回転速度制限(deg/s)
+            /// </summary>
+            public float rotationSpeedLimit;
+
+            /// <summary>
+            /// ローカル慣性影響(0.0 ~ 1.0)
+            /// </summary>
+            public float localInertia;
+
+            /// <summary>
+            /// ローカル移動速度制限(m/s)
+            /// </summary>
+            public float localMovementSpeedLimit;
+
+            /// <summary>
+            /// ローカル回転速度制限(deg/s)
+            /// </summary>
+            public float localRotationSpeedLimit;
 
             /// <summary>
             /// 深度慣性(0.0 ~ 1.0)
@@ -138,29 +237,39 @@ namespace MagicaCloth2
             public float centrifualAcceleration;
 
             /// <summary>
-            /// 移動速度制限(m/s)
-            /// </summary>
-            public float movementSpeedLimit;
-
-            /// <summary>
-            /// 回転速度制限(deg/s)
-            /// </summary>
-            public float rotationSpeedLimit;
-
-            /// <summary>
             /// パーティクル速度制限(m/s)
             /// </summary>
             public float particleSpeedLimit;
 
+            /// <summary>
+            /// テレポートモード
+            /// </summary>
+            public TeleportMode teleportMode;
+
+            /// <summary>
+            /// テレポート判定距離
+            /// </summary>
+            public float teleportDistance;
+
+            /// <summary>
+            /// テレポート判定角度(deg)
+            /// </summary>
+            public float teleportRotation;
+
             public void Convert(SerializeData sdata)
             {
-                movementInertia = sdata.movementInertia;
-                rotationInertia = sdata.rotationInertia;
-                depthInertia = sdata.depthInertia;
-                centrifualAcceleration = sdata.centrifualAcceleration;
+                worldInertia = sdata.worldInertia;
                 movementSpeedLimit = sdata.movementSpeedLimit.GetValue(-1);
                 rotationSpeedLimit = sdata.rotationSpeedLimit.GetValue(-1);
+                localInertia = sdata.localInertia;
+                localMovementSpeedLimit = sdata.localMovementSpeedLimit.GetValue(-1);
+                localRotationSpeedLimit = sdata.localRotationSpeedLimit.GetValue(-1);
+                depthInertia = sdata.depthInertia;
+                centrifualAcceleration = sdata.centrifualAcceleration;
                 particleSpeedLimit = sdata.particleSpeedLimit.GetValue(-1);
+                teleportMode = sdata.teleportMode;
+                teleportDistance = sdata.teleportDistance;
+                teleportRotation = sdata.teleportRotation;
             }
         }
 
@@ -170,7 +279,35 @@ namespace MagicaCloth2
         /// </summary>
         public struct CenterData
         {
+            /// <summary>
+            /// 参照すべきセンタートランスフォームインデックス
+            /// 同期時は同期先チームのもにになる
+            /// </summary>
             public int centerTransformIndex;
+
+            /// <summary>
+            /// 現フレームのコンポーネント姿勢
+            /// </summary>
+            public float3 componentWorldPosition;
+            public quaternion componentWorldRotation;
+
+            /// <summary>
+            /// 前フレームのコンポーネント姿勢
+            /// </summary>
+            public float3 oldComponentWorldPosition;
+            public quaternion oldComponentWorldRotation;
+
+            /// <summary>
+            /// 現フレームのコンポーネント移動量
+            /// </summary>
+            public float3 frameComponentShiftVector;
+            public quaternion frameComponentShiftRotation;
+
+            /// <summary>
+            /// 現フレームのコンポーネント移動速度と方向
+            /// </summary>
+            public float frameMovingSpeed;
+            public float3 frameMovingDirection;
 
             /// <summary>
             /// 現フレームの姿勢
@@ -199,16 +336,6 @@ namespace MagicaCloth2
             /// </summary>
             public float3 oldWorldPosition;
             public quaternion oldWorldRotation;
-
-            /// <summary>
-            /// 実行ごとの移動ベクトル
-            /// </summary>
-            public float3 frameVector;
-
-            /// <summary>
-            /// 実行ごとの回転
-            /// </summary>
-            public quaternion frameRotation;
 
             /// <summary>
             /// ステップごとの移動力削減割合(0.0~1.0)
@@ -268,10 +395,18 @@ namespace MagicaCloth2
             /// </summary>
             public float3 initLocalGravityDirection;
 
-            /// <summary>
-            /// 初期化時の慣性中心ローカル位置
-            /// </summary>
-            public float3 initLocalCenterPosition;
+            internal void Initialize()
+            {
+                componentWorldRotation = quaternion.identity;
+                oldComponentWorldRotation = quaternion.identity;
+                frameComponentShiftRotation = quaternion.identity;
+
+                frameWorldRotation = quaternion.identity;
+                oldFrameWorldRotation = quaternion.identity;
+                nowWorldRotation = quaternion.identity;
+                oldWorldRotation = quaternion.identity;
+                stepRotation = quaternion.identity;
+            }
         }
 
         /// <summary>
@@ -301,6 +436,15 @@ namespace MagicaCloth2
             fixedArray = null;
         }
 
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"[InertiaConstraint]");
+            sb.AppendLine($"  -fixedArray:{fixedArray.ToSummary()}");
+
+            return sb.ToString();
+        }
+
         //=========================================================================================
         /// <summary>
         /// 制約データの作成
@@ -314,6 +458,7 @@ namespace MagicaCloth2
             {
                 // ■センター
                 var cdata = new CenterData();
+                cdata.Initialize();
                 cdata.centerTransformIndex = proxyMesh.centerTransformIndex;
                 constraintData.centerData = cdata;
 
@@ -368,8 +513,8 @@ namespace MagicaCloth2
         internal void Register(ClothProcess cprocess)
         {
             // センターデータのセンタートランスフォームインデックスをダイレクト値に変更
-            var tdata = MagicaManager.Team.GetTeamData(cprocess.TeamId);
-            var cdata = MagicaManager.Team.centerDataArray[cprocess.TeamId];
+            ref var tdata = ref MagicaManager.Team.GetTeamDataRef(cprocess.TeamId);
+            ref var cdata = ref MagicaManager.Team.centerDataArray.GetRef(cprocess.TeamId);
             cdata.centerTransformIndex = tdata.centerTransformIndex;
 
             // 初期化時のローカル重力方向
@@ -382,21 +527,16 @@ namespace MagicaCloth2
                 c = fixedArray.AddRange(cprocess.ProxyMesh.centerFixedList);
             }
             tdata.fixedDataChunk = c;
-
-            MagicaManager.Team.centerDataArray[cprocess.TeamId] = cdata;
-            MagicaManager.Team.SetTeamData(cprocess.TeamId, tdata);
         }
 
         internal void Exit(ClothProcess cprocess)
         {
             if (cprocess != null && cprocess.TeamId > 0)
             {
-                var tdata = MagicaManager.Team.GetTeamData(cprocess.TeamId);
+                ref var tdata = ref MagicaManager.Team.GetTeamDataRef(cprocess.TeamId);
 
                 fixedArray.Remove(tdata.fixedDataChunk);
                 tdata.fixedDataChunk.Clear();
-
-                MagicaManager.Team.SetTeamData(cprocess.TeamId, tdata);
             }
         }
     }

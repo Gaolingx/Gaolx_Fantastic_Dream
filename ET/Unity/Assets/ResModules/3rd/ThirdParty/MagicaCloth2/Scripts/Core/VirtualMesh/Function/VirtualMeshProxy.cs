@@ -35,13 +35,13 @@ namespace MagicaCloth2
                 }
 
                 // カスタムスキニングボーン追加
-                if (sdata.customSkinningSetting.enable)
+                if (sdata.customSkinningSetting.enable && sdata.IsBoneSpring() == false)
                 {
                     SetCustomSkinningBones(clothTransformRecord, customSkinningBoneRecords);
                 }
 
                 // 頂点に接続するトライアングル
-                vertexToTriangles = new NativeArray<FixedList32Bytes<int>>(VertexCount, Allocator.Persistent);
+                vertexToTriangles = new NativeArray<FixedList32Bytes<uint>>(VertexCount, Allocator.Persistent);
 
                 // 頂点ごとのバインドポーズ
                 vertexBindPosePositions = new NativeArray<float3>(VertexCount, Allocator.Persistent);
@@ -158,6 +158,7 @@ namespace MagicaCloth2
                     {
                         vertexToTriangles = vertexToTriangles,
                         triangleNormals = triNormals,
+                        triangleTangents = triTangents,
                         attributes = attributes.GetNativeArray(),
                     };
                     organizeVertexToTriangleJob.Run(VertexCount);
@@ -245,7 +246,7 @@ namespace MagicaCloth2
                 //JobUtility.CalcAABBRun(localPositions.GetNativeArray(), VertexCount, boundingBox);
 
                 // カスタムスキニング設定
-                if (sdata.customSkinningSetting.enable)
+                if (sdata.customSkinningSetting.enable && sdata.IsBoneSpring() == false)
                 {
                     CreateCustomSkinning(sdata.customSkinningSetting, customSkinningBoneRecords);
                 }
@@ -480,7 +481,7 @@ namespace MagicaCloth2
                 var nrot = lrot;
                 int pindex = vertexParentIndices[vindex];
                 var pack = vertexChildIndexArray[vindex];
-                DataUtility.Unpack10_22(pack, out var dcnt, out var dstart);
+                DataUtility.Unpack12_20(pack, out var dcnt, out var dstart);
                 if (dcnt > 0)
                 {
                     float3 cv = 0;
@@ -601,7 +602,7 @@ namespace MagicaCloth2
                     if (attributes[i].IsMove() == false)
                     {
                         var pack = vertexToVertexIndexArray[i];
-                        DataUtility.Unpack10_22(pack, out var dcnt, out var dstart);
+                        DataUtility.Unpack12_20(pack, out var dcnt, out var dstart);
                         int j = 0;
                         for (; j < dcnt; j++)
                         {
@@ -806,6 +807,7 @@ namespace MagicaCloth2
                 var uv1 = uv[tri.y];
                 var uv2 = uv[tri.z];
                 var tan = MathUtility.TriangleTangent(p0, p1, p2, uv0, uv1, uv2);
+                Develop.Assert(math.lengthsq(tan) > 0.0f);
                 triangleTangents[tindex] = tan;
             }
         }
@@ -819,16 +821,16 @@ namespace MagicaCloth2
             [Unity.Collections.ReadOnly]
             public NativeArray<int3> triangles;
 
-            public NativeArray<FixedList32Bytes<int>> vertexToTriangles;
+            public NativeArray<FixedList32Bytes<uint>> vertexToTriangles;
 
             public void Execute()
             {
-                var ptr = (FixedList32Bytes<int>*)vertexToTriangles.GetUnsafePtr();
+                var ptr = (FixedList32Bytes<uint>*)vertexToTriangles.GetUnsafePtr();
 
                 int tcnt = triangles.Length;
-                for (int tindex = 0; tindex < tcnt; tindex++)
+                for (uint tindex = 0; tindex < tcnt; tindex++)
                 {
-                    int3 tri = triangles[tindex];
+                    int3 tri = triangles[(int)tindex];
 
                     var vset_x = (ptr + tri.x);
                     var vset_y = (ptr + tri.y);
@@ -851,10 +853,13 @@ namespace MagicaCloth2
         [BurstCompile]
         struct Proxy_OrganizeVertexToTrianglsJob : IJobParallelFor
         {
-            public NativeArray<FixedList32Bytes<int>> vertexToTriangles;
+            public NativeArray<FixedList32Bytes<uint>> vertexToTriangles;
 
             [Unity.Collections.ReadOnly]
             public NativeArray<float3> triangleNormals;
+            [Unity.Collections.ReadOnly]
+            public NativeArray<float3> triangleTangents;
+
             public NativeArray<VertexAttribute> attributes;
 
             public void Execute(int vindex)
@@ -871,11 +876,16 @@ namespace MagicaCloth2
 
                 // まず普通に現在のトライアングル面法線から頂点法線を求めてみる
                 float3 finalNormal = 0;
+                float3 finalTangent = 0;
                 for (int i = 0; i < tcnt; i++)
                 {
-                    int tindex = tset[i];
+                    int tindex = (int)tset[i];
                     finalNormal += triangleNormals[tindex];
+                    finalTangent += triangleTangents[tindex];
                 }
+
+                //if (math.length(finalTangent) < 0.5f)
+                //    Debug.LogError($"vindex:{vindex} finalTangent:{finalTangent}");
 
                 // 普通に求めた法線が短い場合は最適な法線を算出する
                 if (math.length(finalNormal) < 0.5f)
@@ -889,13 +899,13 @@ namespace MagicaCloth2
                     for (int i = 0; i < tcnt; i++)
                     {
                         // このトライアングルを基準として計算する
-                        int tindex1 = tset[i];
+                        int tindex1 = (int)tset[i];
                         float3 n = 0;
                         float3 tn1 = triangleNormals[tindex1];
 
                         for (int j = 0; j < tcnt; j++)
                         {
-                            int tindex2 = tset[j];
+                            int tindex2 = (int)tset[j];
                             if (tindex2 == tindex1)
                                 continue;
 
@@ -922,6 +932,72 @@ namespace MagicaCloth2
                     finalNormal = math.normalize(finalNormal);
                 }
 
+                // 普通に求めた接線が短い場合は最適な接線を算出する
+                if (math.length(finalTangent) < 0.5f)
+                {
+                    // すべての接続トライアングルをループ
+                    // ループの最初のトライアングルを基準としてその接線方向に他のトライアングルをあわせてみる
+                    // 接線の合計の長さがもっとも長いものを採用する
+                    float maxDist = -1;
+                    finalTangent = 0;
+
+                    for (int i = 0; i < tcnt; i++)
+                    {
+                        // このトライアングルを基準として計算する
+                        int tindex1 = (int)tset[i];
+                        float3 n = 0;
+                        float3 tt1 = triangleTangents[tindex1];
+
+                        for (int j = 0; j < tcnt; j++)
+                        {
+                            int tindex2 = (int)tset[j];
+                            if (tindex2 == tindex1)
+                                continue;
+
+                            float3 tt2 = triangleTangents[tindex2];
+                            if (math.dot(tt1, tt2) >= 0.0f)
+                                n += tt2;
+                            else
+                                n += -tt2;
+                        }
+
+                        // 計算された接線の長さを判定
+                        // 最も長いものを基準接線として採用する
+                        float ndist = math.lengthsq(n);
+                        if (ndist > maxDist)
+                        {
+                            maxDist = ndist;
+                            finalTangent = tt1;
+                        }
+                    }
+                }
+                else
+                {
+                    // この接線を基準とする
+                    finalTangent = math.normalize(finalTangent);
+                }
+
+                // トライアングルを登録する
+                // 同時に法線と接線の加算方向をフラグとして追加する
+                for (int i = 0; i < tcnt; i++)
+                {
+                    int tindex = (int)tset[i];
+
+                    float3 tn = triangleNormals[tindex];
+                    float3 tt = triangleTangents[tindex];
+
+                    // 反転フラグ
+                    int flipFlag = 0;
+                    if (math.dot(finalNormal, tn) < 0.0f)
+                        flipFlag |= 0x1;
+                    if (math.dot(finalTangent, tt) < 0.0f)
+                        flipFlag |= 0x2;
+
+                    // 12-20bitでuintにパックする
+                    tset[i] = DataUtility.Pack12_20(flipFlag, tindex);
+                }
+
+                /*
                 // 算出された法線向きに合わせるようにトライアングルを登録する
                 // 反転の場合はマイナスのインデックスで登録する
                 for (int i = 0; i < tcnt; i++)
@@ -937,6 +1013,7 @@ namespace MagicaCloth2
                     // 再登録
                     tset[i] = registTriangleIndex;
                 }
+                */
 
                 // 結果格納
                 vertexToTriangles[vindex] = tset;
@@ -955,7 +1032,7 @@ namespace MagicaCloth2
             public NativeArray<float3> triangleTangents;
 
             [Unity.Collections.ReadOnly]
-            public NativeArray<FixedList32Bytes<int>> vertexToTriangles;
+            public NativeArray<FixedList32Bytes<uint>> vertexToTriangles;
             public NativeArray<float3> localNormals;
             public NativeArray<float3> localTangents;
 
@@ -970,22 +1047,33 @@ namespace MagicaCloth2
 
                     for (int i = 0; i < tcnt; i++)
                     {
-                        // インデックスは＋１されているので注意！
-                        int data = tset[i];
-                        int tindex = math.abs(data) - 1;
+                        // 12-20bitのパックで格納されている
+                        uint data = tset[i];
+                        int flipFlag = DataUtility.Unpack12_20Hi(data);
+                        int tindex = DataUtility.Unpack12_20Low(data);
+
+                        nor += triangleNormals[tindex] * ((flipFlag & 0x1) == 0 ? 1 : -1);
+                        tan += triangleTangents[tindex] * ((flipFlag & 0x2) == 0 ? 1 : -1);
+
+                        //int data = tset[i];
+                        //int tindex = math.abs(data) - 1;
 
                         // 法線フリップフラグ
-                        float flip = math.sign(data);
+                        //float flip = math.sign(data);
 
-                        nor += triangleNormals[tindex] * flip;
-                        tan += triangleTangents[tindex]; // 接線はフリップさせては駄目！
+                        //nor += triangleNormals[tindex] * flip;
+                        //tan += triangleTangents[tindex]; // 接線はフリップさせては駄目！
                     }
 
                     nor = math.normalize(nor);
-                    tan = math.normalize(tan);
+
+                    // 従法線に変更(v2.1.7)
+                    //tan = math.normalize(tan);
+                    float3 binor = math.normalize(math.cross(nor, tan));
 
                     localNormals[vindex] = nor;
-                    localTangents[vindex] = tan;
+                    //localTangents[vindex] = tan;
+                    localTangents[vindex] = binor; // 従法線に変更(v2.1.7)
                 }
             }
         }
@@ -1511,6 +1599,7 @@ namespace MagicaCloth2
                 // グリッドサイズ計算
                 // 検索半径（メッシュの平均接続距離とセレクションデータの最大接続距離の大きい方）
                 float searchRadius = math.max(averageVertexDistance.Value, selectionData.maxConnectionDistance);
+                searchRadius = math.max(searchRadius, Define.System.MinimumGridSize);
                 float gridSize = searchRadius * 1.5f;
                 //Develop.DebugLog($"ApplySelectionAttribute. searchRadius:{searchRadius}, gridSize:{gridSize}");
 
@@ -1672,6 +1761,8 @@ namespace MagicaCloth2
 
             // 頂点接続情報から親接続を作成する
             using var nextList = new NativeList<BaseLineWork>(vcnt, Allocator.Persistent);
+            using var markBuff = new NativeArray<byte>(vcnt, Allocator.Persistent, NativeArrayOptions.ClearMemory); // Unity2023.1.5対応
+            using var vertexMap = new NativeParallelHashMap<int, BaseLineWork>(vcnt, Allocator.Persistent); // Unity2023.1.5対応
             var job2 = new BaseLine_Mesh_CreateParentJob2()
             {
                 vcnt = vcnt,
@@ -1687,6 +1778,9 @@ namespace MagicaCloth2
 
                 fixedList = fixedList,
                 nextList = nextList,
+
+                markBuff = markBuff, // Unity2023.1.5対応
+                vertexMap = vertexMap, // Unity2023.1.5対応
             };
             job2.Run();
 
@@ -1781,11 +1875,14 @@ namespace MagicaCloth2
             public NativeList<int> fixedList;
             public NativeList<BaseLineWork> nextList;
 
+            public NativeArray<byte> markBuff; // Unity2023.1.5対応
+            public NativeParallelHashMap<int, BaseLineWork> vertexMap; // Unity2023.1.5対応
+
             public void Execute()
             {
                 // 処理済みマーク
-                var markBuff = new NativeArray<byte>(vcnt, Allocator.Temp, NativeArrayOptions.ClearMemory);
-                var vertexMap = new NativeParallelHashMap<int, BaseLineWork>(vcnt, Allocator.Temp);
+                //var markBuff = new NativeArray<byte>(vcnt, Allocator.Temp, NativeArrayOptions.ClearMemory); // Unity2023.1.5対応
+                //var vertexMap = new NativeParallelHashMap<int, BaseLineWork>(vcnt, Allocator.Temp); // Unity2023.1.5対応
 
                 // 最初の作業バッファを固定頂点で初期化する
                 foreach (int vindex in fixedList)
@@ -1809,7 +1906,7 @@ namespace MagicaCloth2
 
                         // ■親が固定ならば距離が近い方、親が移動ならそのさらに親へのベクトル角度が浅い方を採用する
                         var cost = new ExCostSortedList1(-1, -1);
-                        DataUtility.Unpack10_22(vertexToVertexIndexArray[vindex], out var dcnt, out var dstart);
+                        DataUtility.Unpack12_20(vertexToVertexIndexArray[vindex], out var dcnt, out var dstart);
                         for (int i = 0; i < dcnt; i++)
                         {
                             int tindex = vertexToVertexDataArray[dstart + i];
@@ -1865,7 +1962,7 @@ namespace MagicaCloth2
                         int vindex = data.vindex;
 
                         // 自身の接続を調べる
-                        DataUtility.Unpack10_22(vertexToVertexIndexArray[vindex], out var dcnt, out var dstart);
+                        DataUtility.Unpack12_20(vertexToVertexIndexArray[vindex], out var dcnt, out var dstart);
                         if (dcnt == 0)
                             continue;
 
@@ -1904,7 +2001,12 @@ namespace MagicaCloth2
                     nextList.Clear();
                     if (mapcnt > 0)
                     {
-                        nextList.AddRange(vertexMap.GetValueArray(Allocator.Temp));
+                        // Unity2023.1.5対応
+                        //nextList.AddRange(vertexMap.GetValueArray(Allocator.Temp));
+                        foreach (var kv in vertexMap)
+                        {
+                            nextList.Add(kv.Value);
+                        }
 
                         // 親への距離の昇順にソート
                         nextList.Sort();
@@ -1949,7 +2051,7 @@ namespace MagicaCloth2
         {
             int vcnt = VertexCount;
             vertexParentIndices = new NativeArray<int>(vcnt, Allocator.Persistent);
-            using var dataBuilder = new MultiDataBuilder<ushort>(vcnt, vcnt);
+            using var dataBuilder = new MultiDataBuilder<ushort>(vcnt, vcnt * 2);
 
             // トランスフォーム情報から親子関係を構築する
             // parent
@@ -2044,6 +2146,10 @@ namespace MagicaCloth2
                         {
                             foreach (var data in dataBuilder.Map.GetValuesForKey(index))
                             {
+                                // 移動属性以外は無視する
+                                if (attributes[data].IsDontMove())
+                                    continue;
+
                                 stack.Push(data);
                             }
                         }
@@ -2073,7 +2179,7 @@ namespace MagicaCloth2
 
             [Unity.Collections.ReadOnly]
             public NativeArray<int> parentIndices;
-            [Unity.Collections.WriteOnly]
+            //[Unity.Collections.WriteOnly]
             public NativeParallelMultiHashMap<int, ushort> childMap;
 
             public void Execute()

@@ -168,18 +168,26 @@ namespace MagicaCloth2
         }
 
         //=========================================================================================
-        public override string ToString()
+        public void InformationLog(StringBuilder allsb)
         {
             StringBuilder sb = new StringBuilder();
-
-            sb.AppendLine($"Render Manager. Count({renderDataDict.Count})");
-
-            foreach (var kv in renderDataDict)
+            sb.AppendLine($"========== Render Manager ==========");
+            if (IsValid() == false)
             {
-                sb.AppendLine(kv.Value.ToString());
+                sb.AppendLine($"Render Manager. Invalid.");
             }
+            else
+            {
+                sb.AppendLine($"Render Manager. Count({renderDataDict.Count})");
 
-            return sb.ToString();
+                foreach (var kv in renderDataDict)
+                {
+                    sb.Append(kv.Value.ToString());
+                }
+            }
+            sb.AppendLine();
+            Debug.Log(sb.ToString());
+            allsb.Append(sb);
         }
     }
 }

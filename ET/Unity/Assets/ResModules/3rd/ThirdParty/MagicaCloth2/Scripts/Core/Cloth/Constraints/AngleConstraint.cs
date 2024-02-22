@@ -2,6 +2,7 @@
 // Copyright (c) 2023 MagicaSoft.
 // https://magicasoft.jp
 using System;
+using System.Text;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
@@ -219,6 +220,19 @@ namespace MagicaCloth2
             restorationVectorBuffer.Resize(pcnt, options: NativeArrayOptions.UninitializedMemory);
         }
 
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"[AngleConstraint]");
+            sb.AppendLine($"  -lengthBuffer:{(lengthBuffer.IsCreated ? lengthBuffer.Length : 0)}");
+            sb.AppendLine($"  -localPosBuffer:{(localPosBuffer.IsCreated ? localPosBuffer.Length : 0)}");
+            sb.AppendLine($"  -localRotBuffer:{(localRotBuffer.IsCreated ? localRotBuffer.Length : 0)}");
+            sb.AppendLine($"  -rotationBuffer:{(rotationBuffer.IsCreated ? rotationBuffer.Length : 0)}");
+            sb.AppendLine($"  -restorationVectorBuffer:{(restorationVectorBuffer.IsCreated ? restorationVectorBuffer.Length : 0)}");
+
+            return sb.ToString();
+        }
+
         //=========================================================================================
         /// <summary>
         /// 制約の解決
@@ -238,6 +252,8 @@ namespace MagicaCloth2
             // 微調整および堅牢性を上げるために反復回数を増やしている。
             var job = new AngleConstraintJob()
             {
+                simulationPower = MagicaManager.Time.SimulationPower,
+
                 stepBaseLineIndexArray = sm.processingStepBaseLine.Buffer,
 
                 teamDataArray = tm.teamDataArray.GetNativeArray(),
@@ -271,6 +287,8 @@ namespace MagicaCloth2
         [BurstCompile]
         struct AngleConstraintJob : IJobParallelForDefer
         {
+            public float4 simulationPower;
+
             [Unity.Collections.ReadOnly]
             public NativeArray<int> stepBaseLineIndexArray;
 
@@ -383,7 +401,9 @@ namespace MagicaCloth2
                             float vlen = math.distance(npos, pnpos);
 
                             // 親からの基本姿勢
-                            var v = math.normalize(bpos - pbpos);
+                            var bv = bpos - pbpos;
+                            Develop.Assert(math.length(bv) > 0.0f);
+                            var v = math.normalize(bv);
                             var ipq = math.inverse(pbrot);
                             float3 localPos = math.mul(ipq, v);
                             quaternion localRot = math.mul(ipq, brot);
@@ -466,6 +486,7 @@ namespace MagicaCloth2
                             float vlen = math.length(v);
                             float blen = lengthBufferArray[pindex];
                             vlen = math.lerp(vlen, blen, 0.5f); // 計算前の距離に徐々に近づける
+                            Develop.Assert(vlen > 0.0f);
                             v = math.normalize(v) * vlen;
 
                             // ベクトル角度クランプ
@@ -537,6 +558,7 @@ namespace MagicaCloth2
 
                             // 復元力
                             float restorationStiffness = angleParam.restorationStiffness.EvaluateCurveClamp01(cdepth);
+                            restorationStiffness = math.saturate(restorationStiffness * simulationPower.w);
 
                             //int _pindex = indexBuffer[i] + p_start;
                             //Debug.Log($"i:{i} [{_pindex}] stiffness:{restorationStiffness} cdepth:{cdepth}");

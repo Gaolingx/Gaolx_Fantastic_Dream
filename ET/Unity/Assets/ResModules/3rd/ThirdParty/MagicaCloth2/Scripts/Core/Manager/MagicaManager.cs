@@ -6,10 +6,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.LowLevel;
 using System.Linq;
+using UnityEngine.Scripting;
 #if UNITY_EDITOR
 using UnityEditor.Compilation;
 using UnityEditor;
+#if UNITY_2023_1_OR_NEWER
+using UnityEditor.Build;
 #endif
+#endif
+
+// コードストリッピングを無効化する 
+[assembly: AlwaysLinkAssembly]
 
 namespace MagicaCloth2
 {
@@ -24,14 +31,15 @@ namespace MagicaCloth2
         /// </summary>
         static List<IManager> managers = null;
 
-        public static TeamManager Team => managers?[0] as TeamManager;
-        public static ClothManager Cloth => managers?[1] as ClothManager;
-        public static RenderManager Render => managers?[2] as RenderManager;
-        public static TransformManager Bone => managers?[3] as TransformManager;
-        public static VirtualMeshManager VMesh => managers?[4] as VirtualMeshManager;
-        public static SimulationManager Simulation => managers?[5] as SimulationManager;
-        public static ColliderManager Collider => managers?[6] as ColliderManager;
-        public static WindManager Wind => managers?[7] as WindManager;
+        public static TimeManager Time => managers?[0] as TimeManager;
+        public static TeamManager Team => managers?[1] as TeamManager;
+        public static ClothManager Cloth => managers?[2] as ClothManager;
+        public static RenderManager Render => managers?[3] as RenderManager;
+        public static TransformManager Bone => managers?[4] as TransformManager;
+        public static VirtualMeshManager VMesh => managers?[5] as VirtualMeshManager;
+        public static SimulationManager Simulation => managers?[6] as SimulationManager;
+        public static ColliderManager Collider => managers?[7] as ColliderManager;
+        public static WindManager Wind => managers?[8] as WindManager;
 
         //=========================================================================================
         // player loop delegate
@@ -51,6 +59,11 @@ namespace MagicaCloth2
         /// Update()の後
         /// </summary>
         public static UpdateMethod afterUpdateDelegate;
+
+        /// <summary>
+        /// LateUpdate()の前
+        /// </summary>
+        public static UpdateMethod beforeLateUpdateDelegate;
 
         /// <summary>
         /// LateUpdate()の後
@@ -100,14 +113,15 @@ namespace MagicaCloth2
 
             // 各マネージャの初期化
             managers = new List<IManager>();
-            managers.Add(new TeamManager()); // [0]
-            managers.Add(new ClothManager()); // [1]
-            managers.Add(new RenderManager()); // [2]
-            managers.Add(new TransformManager()); // [3]
-            managers.Add(new VirtualMeshManager()); // [4]
-            managers.Add(new SimulationManager()); // [5]
-            managers.Add(new ColliderManager()); // [6]
-            managers.Add(new WindManager()); // [7]
+            managers.Add(new TimeManager()); // [0]
+            managers.Add(new TeamManager()); // [1]
+            managers.Add(new ClothManager()); // [2]
+            managers.Add(new RenderManager()); // [3]
+            managers.Add(new TransformManager()); // [4]
+            managers.Add(new VirtualMeshManager()); // [5]
+            managers.Add(new SimulationManager()); // [6]
+            managers.Add(new ColliderManager()); // [7]
+            managers.Add(new WindManager()); // [8]
             foreach (var manager in managers)
                 manager.Initialize();
 
@@ -125,9 +139,33 @@ namespace MagicaCloth2
         [InitializeOnLoadMethod]
         static void PlayModeStateChange()
         {
+            // プロジェクトセッティングにMagicaCloth2用デファインシンボルを登録する
+            try
+            {
+#if UNITY_2023_1_OR_NEWER
+                var namedBuildTarget = NamedBuildTarget.FromBuildTargetGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
+                PlayerSettings.GetScriptingDefineSymbols(namedBuildTarget, out string[] newDefines);
+                if (newDefines.Contains(Define.System.DefineSymbol) == false)
+                {
+                    PlayerSettings.SetScriptingDefineSymbols(namedBuildTarget, newDefines.Concat(new string[] { Define.System.DefineSymbol }).ToArray());
+                }
+#else
+                var newDefines = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup).Split(';');
+                if (newDefines.Contains(Define.System.DefineSymbol) == false)
+                {
+                    PlayerSettings.SetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup, newDefines.Concat(new string[] { Define.System.DefineSymbol }).ToArray());
+                }
+#endif
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
+
+            // エディタ状態変更時イベント処理
             EditorApplication.playModeStateChanged += (mode) =>
             {
-                Develop.DebugLog($"PlayModeStateChanged:{mode} F:{Time.frameCount}");
+                Develop.DebugLog($"PlayModeStateChanged:{mode} F:{UnityEngine.Time.frameCount}");
 
                 if (mode == UnityEditor.PlayModeStateChange.EnteredEditMode)
                 {
@@ -315,6 +353,15 @@ namespace MagicaCloth2
             };
             AddPlayerLoop(afterUpdate, ref playerLoop, "Update", "ScriptRunDelayedTasks");
 
+            // before late update 
+            // LateUpdate()の前
+            PlayerLoopSystem beforeLateUpdate = new PlayerLoopSystem()
+            {
+                type = typeof(MagicaManager),
+                updateDelegate = () => beforeLateUpdateDelegate?.Invoke()
+            };
+            AddPlayerLoop(beforeLateUpdate, ref playerLoop, "PreLateUpdate", "ScriptRunBehaviourLateUpdate", before: true);
+
             // after late update 
             // LateUpdate()の後
             PlayerLoopSystem afterLateUpdate = new PlayerLoopSystem()
@@ -356,7 +403,7 @@ namespace MagicaCloth2
         /// <param name="playerLoop"></param>
         /// <param name="categoryName"></param>
         /// <param name="systemName"></param>
-        static void AddPlayerLoop(PlayerLoopSystem method, ref PlayerLoopSystem playerLoop, string categoryName, string systemName, bool last = false)
+        static void AddPlayerLoop(PlayerLoopSystem method, ref PlayerLoopSystem playerLoop, string categoryName, string systemName, bool last = false, bool before = false)
         {
             int sysIndex = Array.FindIndex(playerLoop.subSystemList, (s) => s.type.Name == categoryName);
             PlayerLoopSystem category = playerLoop.subSystemList[sysIndex];
@@ -370,7 +417,10 @@ namespace MagicaCloth2
             else
             {
                 int index = systemList.FindIndex(h => h.type.Name.Contains(systemName));
-                systemList.Insert(index + 1, method);
+                if (before)
+                    systemList.Insert(index, method);
+                else
+                    systemList.Insert(index + 1, method);
             }
 
             category.subSystemList = systemList.ToArray();

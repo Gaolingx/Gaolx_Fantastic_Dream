@@ -3,6 +3,7 @@
 // https://magicasoft.jp
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Unity.Burst;
 using Unity.Collections;
@@ -24,14 +25,14 @@ namespace MagicaCloth2
         public int ReferenceCount { get; private set; }
 
         /// <summary>
-        /// 利用カウント。０になると停止する
-        /// </summary>
-        //public int UseCount { get; private set; }
-
-        /// <summary>
         /// 利用中のプロセス（＝利用カウント）
         /// </summary>
         HashSet<ClothProcess> useProcessSet = new HashSet<ClothProcess>();
+
+        /// <summary>
+        /// Meshへの書き込み停止フラグ
+        /// </summary>
+        bool isSkipWriting;
 
         //=========================================================================================
         // セットアップデータ
@@ -39,7 +40,8 @@ namespace MagicaCloth2
 
         internal string Name => setupData?.name ?? "(empty)";
 
-        internal bool IsSkinning => setupData?.isSkinning ?? false;
+        internal bool HasSkinnedMesh => setupData?.hasSkinnedMesh ?? false;
+        internal bool HasBoneWeight => setupData?.hasBoneWeight ?? false;
 
         //=========================================================================================
         // カスタムメッシュ情報
@@ -147,16 +149,20 @@ namespace MagicaCloth2
                 int vertexCount = setupData.vertexCount;
                 localPositions = new NativeArray<Vector3>(vertexCount, Allocator.Persistent);
                 localNormals = new NativeArray<Vector3>(vertexCount, Allocator.Persistent);
-                boneWeights = new NativeArray<BoneWeight>(vertexCount, Allocator.Persistent);
+                if (HasBoneWeight)
+                    boneWeights = new NativeArray<BoneWeight>(vertexCount, Allocator.Persistent);
 
                 // bind pose
-                int transformCount = setupData.TransformCount;
-                var bindPoseList = new List<Matrix4x4>(transformCount);
-                bindPoseList.AddRange(setupData.bindPoseList);
-                // rootBone/skinning bones
-                while (bindPoseList.Count < transformCount)
-                    bindPoseList.Add(Matrix4x4.identity);
-                customMesh.bindposes = bindPoseList.ToArray();
+                if (HasBoneWeight)
+                {
+                    int transformCount = setupData.TransformCount;
+                    var bindPoseList = new List<Matrix4x4>(transformCount);
+                    bindPoseList.AddRange(setupData.bindPoseList);
+                    // rootBone/skinning bones
+                    while (bindPoseList.Count < transformCount)
+                        bindPoseList.Add(Matrix4x4.identity);
+                    customMesh.bindposes = bindPoseList.ToArray();
+                }
             }
 
             // 作業バッファリセット
@@ -166,7 +172,7 @@ namespace MagicaCloth2
             SetMesh(customMesh);
 
             // スキニング用ボーンを書き換える
-            if (IsSkinning)
+            if (HasBoneWeight)
             {
                 // このリストにはオリジナルのスキニングボーン＋レンダラーのトランスフォームが含まれている
                 setupData.skinRenderer.bones = setupData.transformList.ToArray();
@@ -181,7 +187,7 @@ namespace MagicaCloth2
             var meshData = setupData.meshDataArray[0];
             meshData.GetVertices(localPositions);
             meshData.GetNormals(localNormals);
-            if (IsSkinning)
+            if (HasBoneWeight)
             {
                 setupData.GetBoneWeightsRun(boneWeights);
             }
@@ -235,18 +241,7 @@ namespace MagicaCloth2
         /// </summary>
         public void StartUse(ClothProcess cprocess)
         {
-            //UseCount++;
-            useProcessSet.Add(cprocess);
-
-            //if (UseCount == 1)
-            if (useProcessSet.Count == 1)
-            {
-                // 利用開始
-                // カスタムメッシュに切り替え、および作業バッファ作成
-                // すでにカスタムメッシュが存在する場合は作業バッファのみ最初期化する
-                SwapCustomMesh();
-            }
-            ChangeCustomMesh = true;
+            UpdateUse(cprocess, 1);
         }
 
         /// <summary>
@@ -256,32 +251,72 @@ namespace MagicaCloth2
         /// </summary>
         public void EndUse(ClothProcess cprocess)
         {
-            //Debug.Assert(UseCount > 0);
-            //UseCount--;
             Debug.Assert(useProcessSet.Count > 0);
-            useProcessSet.Remove(cprocess);
+            UpdateUse(cprocess, -1);
+        }
 
-            //if (UseCount == 0)
-            if (useProcessSet.Count == 0)
+        internal void UpdateUse(ClothProcess cprocess, int add)
+        {
+            if (add > 0)
+            {
+                useProcessSet.Add(cprocess);
+            }
+            else if (add < 0)
+            {
+                Debug.Assert(useProcessSet.Count > 0);
+                useProcessSet.Remove(cprocess);
+            }
+
+            // Invisible状態
+            bool invisible = useProcessSet.Any(x => x.IsCullingInvisible() && x.IsCullingKeep() == false);
+
+            // 状態変更
+            if (invisible || useProcessSet.Count == 0)
             {
                 // 利用停止
                 // オリジナルメッシュに切り替え
                 SwapOriginalMesh();
+                ChangeCustomMesh = true;
             }
-            else
+            else if (useProcessSet.Count == 1)
+            {
+                // 利用開始
+                // カスタムメッシュに切り替え、および作業バッファ作成
+                // すでにカスタムメッシュが存在する場合は作業バッファのみ最初期化する
+                SwapCustomMesh();
+                ChangeCustomMesh = true;
+            }
+            else if (add != 0)
             {
                 // 複数から利用されている状態で１つが停止した。
                 // バッファを最初期化する
                 ResetCustomMeshWorkData();
+                ChangeCustomMesh = true;
             }
-            ChangeCustomMesh = true;
+        }
+
+        //=========================================================================================
+        /// <summary>
+        /// Meshへの書き込みフラグを更新する
+        /// </summary>
+        internal void UpdateSkipWriting()
+        {
+            isSkipWriting = false;
+            foreach (var cprocess in useProcessSet)
+            {
+                if (cprocess.IsSkipWriting())
+                    isSkipWriting = true;
+            }
         }
 
         //=========================================================================================
         internal void WriteMesh()
         {
-            //if (UseCustomMesh == false || UseCount == 0)
             if (UseCustomMesh == false || useProcessSet.Count == 0)
+                return;
+
+            // 書き込み停止中ならスキップ
+            if (isSkipWriting)
                 return;
 
             // メッシュに反映
@@ -290,7 +325,7 @@ namespace MagicaCloth2
                 customMesh.SetVertices(localPositions);
                 customMesh.SetNormals(localNormals);
             }
-            if (ChangeBoneWeight && IsSkinning)
+            if (ChangeBoneWeight && HasBoneWeight)
             {
                 customMesh.boneWeights = boneWeights.ToArray();
             }
@@ -326,7 +361,7 @@ namespace MagicaCloth2
                 mappingReferenceIndices = vm.mappingReferenceIndices.GetNativeArray(),
                 mappingAttributes = vm.mappingAttributes.GetNativeArray(),
                 mappingPositions = vm.mappingPositions.GetNativeArray(),
-                mappingRotations = vm.mappingRotations.GetNativeArray(),
+                mappingNormals = vm.mappingNormals.GetNativeArray(),
             };
             jobHandle = job.Schedule(mappingChunk.dataLength, 32, jobHandle);
 
@@ -355,7 +390,7 @@ namespace MagicaCloth2
             [Unity.Collections.ReadOnly]
             public NativeArray<float3> mappingPositions;
             [Unity.Collections.ReadOnly]
-            public NativeArray<quaternion> mappingRotations;
+            public NativeArray<float3> mappingNormals;
 
             public void Execute(int index)
             {
@@ -377,7 +412,7 @@ namespace MagicaCloth2
                 meshLocalPositions[windex] = mappingPositions[vindex];
 
                 // 法線書き込み
-                meshLocalNormals[windex] = MathUtility.ToNormal(mappingRotations[vindex]);
+                meshLocalNormals[windex] = mappingNormals[vindex];
             }
         }
 
@@ -392,9 +427,8 @@ namespace MagicaCloth2
             if (UseCustomMesh == false)
                 return jobHandle;
 
-
             // ボーンウエイトの差分書き換え
-            if (IsSkinning)
+            if (HasBoneWeight)
             {
                 var vm = MagicaManager.VMesh;
 
@@ -457,7 +491,7 @@ namespace MagicaCloth2
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.Append($">>> [{Name}] ref({ReferenceCount}), use:{useProcessSet.Count}");
+            sb.Append($">>> [{Name}] ref:{ReferenceCount}, useProcess:{useProcessSet.Count}, HasSkinnedMesh:{HasSkinnedMesh}, HasBoneWeight:{HasBoneWeight}");
             sb.AppendLine();
 
             return sb.ToString();
