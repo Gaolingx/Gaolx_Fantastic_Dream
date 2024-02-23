@@ -427,6 +427,7 @@ public class ResSvc : MonoBehaviour
         return sd;
     }
 
+    //获取前面星级累加的属性 
     public int GetPropAddValPreLv(int pos, int starlv, int type)
     {
         Dictionary<int, StrongCfg> posDic = null;

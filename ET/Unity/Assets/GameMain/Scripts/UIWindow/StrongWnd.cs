@@ -9,25 +9,25 @@ using UnityEngine.EventSystems;
 public class StrongWnd : WindowRoot
 {
     #region UI Define
-    public Image imgCurtPos;
-    public Text txtStartLv;
-    public Transform starTransGrp;
-    public Text propHP1;
-    public Text propHurt1;
-    public Text propDef1;
+    public Image imgCurtPos; //当前选中位置的图片
+    public Text txtStartLv; //当前星级数量
+    public Transform starTransGrp; //星星父物体的Transform
+    public Text propHP1; //血量
+    public Text propHurt1; //伤害
+    public Text propDef1; //防御
     public Text propHP2;
     public Text propHurt2;
     public Text propDef2;
-    public Image propArr1;
+    public Image propArr1; //箭头
     public Image propArr2;
     public Image propArr3;
 
-    public Text txtNeedLv;
-    public Text txtCostCoin;
-    public Text txtCostCrystal;
+    public Text txtNeedLv; //升级所需的最低等级
+    public Text txtCostCoin; //消耗的金币
+    public Text txtCostCrystal; //消耗的水晶
 
     public Transform costTransRoot;
-    public Text txtCoin;
+    public Text txtCoin; //当前拥有的金币
     #endregion
 
     #region Data Area
@@ -93,6 +93,56 @@ public class StrongWnd : WindowRoot
                 SetSprite(imgs[i], PathDefine.ItemPlatBG);
                 trans.localPosition = new Vector3(0, trans.localPosition.y, 0);
                 trans.GetComponent<RectTransform>().sizeDelta = new Vector2(220, 85);
+            }
+        }
+
+        RefreshItem();
+    }
+
+    private void RefreshItem()
+    {
+        //金币
+        SetText(txtCoin, pd.coin);
+        switch(currentIndex)
+        {
+            case 0:
+                SetSprite(imgCurtPos, PathDefine.ItemToukui);
+                break;
+            case 1:
+                SetSprite(imgCurtPos, PathDefine.ItemBody);
+                break;
+            case 2:
+                SetSprite(imgCurtPos, PathDefine.ItemYaobu);
+                break;
+            case 3:
+                SetSprite(imgCurtPos, PathDefine.ItemHand);
+                break;
+            case 4:
+                SetSprite(imgCurtPos, PathDefine.ItemLeg);
+                break;
+            case 5:
+                SetSprite(imgCurtPos, PathDefine.ItemFoot);
+                break;
+            default:
+                break;
+        }
+        //星级
+        SetText(txtStartLv, pd.strongArr[currentIndex] + "星级");
+
+        int curtStarLv = pd.strongArr[currentIndex];
+        for (int i = 0; i < starTransGrp.childCount; i++)
+        {
+            //遍历获取子物体的Image组件
+            Image img = starTransGrp.GetChild(i).GetComponent<Image>();
+            if(i<curtStarLv)
+            {
+                //如果当前遍历的星级图片<当前星级，说明没达到该新级，显示空的星级图片
+                SetSprite(img, PathDefine.SpStar2);
+            }
+            else
+            {
+                //否则显示实的星级图片
+                SetSprite(img, PathDefine.SpStar1);
             }
         }
     }
