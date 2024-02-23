@@ -99,6 +99,76 @@ float3 LinearColorMix(float3 OriginalColor, float3 EnhancedColor, float mixFacto
     return finalColor;
 }
 
+float4 GetMainTexColor(float2 uv, sampler2D FaceColorMap, float4 FaceColorMapColor,
+    sampler2D HairColorMap, float4 HairColorMapColor,
+    sampler2D UpperBodyColorMap, float4 UpperBodyColorMapColor,
+    sampler2D LowerBodyColorMap, float4 LowerBodyColorMapColor)
+{
+    float4 areaMap = 0;
+    float4 areaColor = 0;
+    //根据不同的Keyword，采样不同的贴图，作为额漫反射颜色
+    #if _AREA_FACE
+        areaMap = tex2D(FaceColorMap, uv);
+        areaColor = areaMap * FaceColorMapColor;
+    #elif _AREA_HAIR
+        areaMap = tex2D(HairColorMap, uv);
+        areaColor = areaMap * HairColorMapColor;
+    #elif _AREA_UPPERBODY
+        areaMap = tex2D(UpperBodyColorMap, uv);
+        areaColor = areaMap * UpperBodyColorMapColor;
+    #elif _AREA_LOWERBODY
+        areaMap = tex2D(LowerBodyColorMap, uv);
+        areaColor = areaMap * LowerBodyColorMapColor;
+    #endif
+    return areaColor;
+}
+
+struct RampColor
+{
+    float3 coolRampCol;
+    float3 warmRampCol;
+};
+
+RampColor RampColorConstruct(float2 rampUV, sampler2D HairCoolRamp, float3 HairCoolRampColor, float HairCoolRampColorMixFactor,
+    sampler2D HairWarmRamp, float3 HairWarmRampColor, float HairWarmRampColorMixFactor,
+    sampler2D BodyCoolRamp, float3 BodyCoolRampColor, float BodyCoolRampColorMixFactor,
+    sampler2D BodyWarmRamp, float3 BodyWarmRampColor, float BodyWarmRampColorMixFactor)
+{
+    RampColor R;
+    float3 coolRampTexCol = 1;
+    float3 warmRampTexCol = 1;
+    float3 coolRampCol = 1;
+    float3 warmRampCol = 1;
+    //hair的Ramp贴图和身体或脸部的不一样，按照keyword采样
+    #if _AREA_HAIR
+        coolRampTexCol = tex2D(HairCoolRamp, rampUV).rgb;
+        warmRampTexCol = tex2D(HairWarmRamp, rampUV).rgb;
+        coolRampCol = LinearColorMix(coolRampTexCol, HairCoolRampColor, HairCoolRampColorMixFactor);
+        warmRampCol = LinearColorMix(warmRampTexCol, HairWarmRampColor, HairWarmRampColorMixFactor);
+    #elif _AREA_FACE || _AREA_UPPERBODY || _AREA_LOWERBODY
+        coolRampTexCol = tex2D(BodyCoolRamp, rampUV).rgb;
+        warmRampTexCol = tex2D(BodyWarmRamp, rampUV).rgb;
+        coolRampCol = LinearColorMix(coolRampTexCol, BodyCoolRampColor, BodyCoolRampColorMixFactor);
+        warmRampCol = LinearColorMix(warmRampTexCol, BodyWarmRampColor, BodyWarmRampColorMixFactor);
+    #endif
+    R.coolRampCol = coolRampCol;
+    R.warmRampCol = warmRampCol;
+    return R;
+}
+
+float4 GetLightMapTex(float2 uv, sampler2D HairLightMap, sampler2D UpperBodyLightMap, sampler2D LowerBodyLightMap)
+{
+    float4 lightMap = 0;
+#if _AREA_HAIR
+    lightMap = tex2D(HairLightMap, uv);
+#elif _AREA_UPPERBODY
+    lightMap = tex2D(UpperBodyLightMap, uv);
+#elif _AREA_LOWERBODY
+    lightMap = tex2D(LowerBodyLightMap, uv);
+#endif
+    return lightMap;
+}
+
 Varyings SRUniversalVertex(Attributes input)
 {
     Varyings output = (Varyings)0;
@@ -154,23 +224,10 @@ float4 colorFragmentTarget(inout Varyings input, bool isFrontFace)
 
     float3 baseColor = 0;
     baseColor = tex2D(_BaseMap, input.uv);
-    float4 areaMap = 0;
-    float4 areaColor = 0;
-    //根据不同的Keyword，采样不同的贴图，作为额漫反射颜色
-    #if _AREA_FACE
-        areaMap = tex2D(_FaceColorMap, input.uv);
-        areaColor = areaMap * _FaceColorMapColor;
-    #elif _AREA_HAIR
-        areaMap = tex2D(_HairColorMap, input.uv);
-        areaColor = areaMap * _HairColorMapColor;
-    #elif _AREA_UPPERBODY
-        areaMap = tex2D(_UpperBodyColorMap, input.uv);
-        areaColor = areaMap * _UpperBodyColorMapColor;
-    #elif _AREA_LOWERBODY
-        areaMap = tex2D(_LowerBodyColorMap, input.uv);
-        areaColor = areaMap * _LowerBodyColorMapColor;
-    #endif
-    baseColor = areaColor.rgb;
+    baseColor = GetMainTexColor(input.uv, _FaceColorMap, _FaceColorMapColor,
+        _HairColorMap, _HairColorMapColor,
+        _UpperBodyColorMap, _UpperBodyColorMapColor,
+        _LowerBodyColorMap, _LowerBodyColorMapColor).rgb;
     baseColor = RGBAdjustment(baseColor, _BaseColorRPower, _BaseColorGPower, _BaseColorBPower);
     //给背面填充颜色，对眼睛，丝袜很有用
     baseColor *= lerp(_BackFaceTintColor, _FrontFaceTintColor, isFrontFace);
@@ -178,15 +235,7 @@ float4 colorFragmentTarget(inout Varyings input, bool isFrontFace)
     float4 lightMap = 0;
 
     #if _AREA_HAIR || _AREA_UPPERBODY || _AREA_LOWERBODY
-        {
-            #if _AREA_HAIR
-                lightMap = tex2D(_HairLightMap, input.uv);
-            #elif _AREA_UPPERBODY
-                lightMap = tex2D(_UpperBodyLightMap, input.uv);
-            #elif _AREA_LOWERBODY
-                lightMap = tex2D(_LowerBodyLightMap, input.uv);
-            #endif
-        }
+        lightMap = GetLightMapTex(input.uv, _HairLightMap, _UpperBodyLightMap, _LowerBodyLightMap);
     #endif
     //对脸部采样 faceMap，脸部的LightMap就是这张FaceMap
     float4 faceMap = 0;
@@ -282,6 +331,8 @@ float4 colorFragmentTarget(inout Varyings input, bool isFrontFace)
         rampRowNum = 8;
     #endif
 
+    float3 coolRampCol = 1;
+    float3 warmRampCol = 1;
     //Ramp Color
     //根据NdotL计算UV的u，由于ramp贴图的变化主要集中在3/4的地方，把uv乘以0.25然后加上0.75
     //这里_ShadowRampOffset=0.75
@@ -290,23 +341,13 @@ float4 colorFragmentTarget(inout Varyings input, bool isFrontFace)
     float rampUVy = (2 * rampRowIndex - 1) * (1.0 / (rampRowNum * 2));
     //float rampUVy = (2 * rampRowIndex + 1) * (1.0 / (rampRowNum * 2));
     float2 rampUV = float2(rampUVx, rampUVy);
-    float3 coolRamp = 1;
-    float3 warmRamp = 1;
-    float3 coolRampCol = 1;
-    float3 warmRampCol = 1;
 
-    //hair的Ramp贴图和身体或脸部的不一样，按照keyword采样
-    #if _AREA_HAIR
-        coolRamp = tex2D(_HairCoolRamp, rampUV).rgb;
-        warmRamp = tex2D(_HairWarmRamp, rampUV).rgb;
-        coolRampCol = LinearColorMix(coolRamp, _HairCoolRampColor, _HairCoolRampColorMixFactor);
-        warmRampCol = LinearColorMix(warmRamp, _HairWarmRampColor, _HairWarmRampColorMixFactor);
-    #elif _AREA_FACE || _AREA_UPPERBODY || _AREA_LOWERBODY
-        coolRamp = tex2D(_BodyCoolRamp, rampUV).rgb;
-        warmRamp = tex2D(_BodyWarmRamp, rampUV).rgb;
-        coolRampCol = LinearColorMix(coolRamp, _BodyCoolRampColor, _BodyCoolRampColorMixFactor);
-        warmRampCol = LinearColorMix(warmRamp, _BodyWarmRampColor, _BodyWarmRampColorMixFactor);
-    #endif
+    RampColor RC = RampColorConstruct(rampUV, _HairCoolRamp, _HairCoolRampColor, _HairCoolRampColorMixFactor,
+        _HairWarmRamp, _HairWarmRampColor, _HairWarmRampColorMixFactor,
+        _BodyCoolRamp, _BodyCoolRampColor, _BodyCoolRampColorMixFactor,
+        _BodyWarmRamp, _BodyWarmRampColor, _BodyWarmRampColorMixFactor);
+    coolRampCol = RC.coolRampCol;
+    warmRampCol = RC.warmRampCol;
     //根据白天夜晚，插值获得最终的rampColor，_DayTime也可以用变量由C#脚本传入Shader
     #if _DayTime_MANUAL_ON
         float DayTime = _DayTime;
@@ -419,7 +460,10 @@ float4 colorFragmentTarget(inout Varyings input, bool isFrontFace)
     float3 emissionColor = 0;
     #if _EMISSION_ON
         {
-            emissionColor = areaMap.a;
+            emissionColor = baseColor = GetMainTexColor(input.uv, _FaceColorMap, _FaceColorMapColor,
+                _HairColorMap, _HairColorMapColor,
+                _UpperBodyColorMap, _UpperBodyColorMapColor,
+                _LowerBodyColorMap, _LowerBodyColorMapColor).a;
             emissionColor *= LinearColorMix(f3one, baseColor, _EmissionMixBaseColor);
             emissionColor *= _EmissionTintColor;
             emissionColor *= _EmissionIntensity;
@@ -434,10 +478,10 @@ float4 colorFragmentTarget(inout Varyings input, bool isFrontFace)
             float3 headForward = normalize(_HeadForward);
             fakeOutlineEffect = smoothstep(0.0, 0.25, pow(saturate(dot(headForward, viewDirectionWS)), 20) * fakeOutline);
             float2 outlineUV = float2(0, 0.0625);
-            coolRamp = tex2D(_BodyCoolRamp, outlineUV).rgb;
-            warmRamp = tex2D(_BodyWarmRamp, outlineUV).rgb;
+            coolRampCol = tex2D(_BodyCoolRamp, outlineUV).rgb;
+            warmRampCol = tex2D(_BodyWarmRamp, outlineUV).rgb;
             #if _USE_RAMP_COLOR_ON
-                float3 OutlineRamp = abs(lerp(coolRamp, warmRamp, 0.5));
+                float3 OutlineRamp = abs(lerp(coolRampCol, warmRampCol, 0.5));
             #else
                 float3 OutlineRamp = _OutlineColor.rgb;
             #endif
