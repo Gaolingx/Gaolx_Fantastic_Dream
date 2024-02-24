@@ -412,6 +412,7 @@ public class ResSvc : MonoBehaviour
             }
         }
     }
+    //获取对应位置对应星级的属性
     public StrongCfg GetStrongData(int pos, int starlv)
     {
         StrongCfg sd = null;
@@ -427,18 +428,21 @@ public class ResSvc : MonoBehaviour
         return sd;
     }
 
-    //获取前面星级累加的属性 
+    //获取某个星级包括前面所有星级在某个属性累加的和 
     public int GetPropAddValPreLv(int pos, int starlv, int type)
     {
+        //获取对应位置所有的强化数据
         Dictionary<int, StrongCfg> posDic = null;
         int val = 0;
         if (strongDic.TryGetValue(pos, out posDic))
         {
+            //根据星级和类型获取对应属性
             for (int i = 0; i < starlv; i++)
             {
                 StrongCfg sd;
                 if (posDic.TryGetValue(i, out sd))
                 {
+                    //根据类型累加数值
                     switch (type)
                     {
                         case 1://hp

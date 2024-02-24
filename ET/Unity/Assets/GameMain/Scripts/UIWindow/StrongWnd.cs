@@ -145,6 +145,15 @@ public class StrongWnd : WindowRoot
                 SetSprite(img, PathDefine.SpStar1);
             }
         }
+
+        //当前星级所有属性加成
+        //resSvc.GetPropAddValPreLv(当前部位, 当前星级, 类型)
+        int sumAddHp = resSvc.GetPropAddValPreLv(currentIndex, curtStarLv, 1);
+        int sumAddHurt = resSvc.GetPropAddValPreLv(currentIndex, curtStarLv, 2);
+        int sumAddDef = resSvc.GetPropAddValPreLv(currentIndex, curtStarLv, 3);
+        SetText(propHP1, "生命  +" + sumAddHp);
+        SetText(propHurt1, "伤害  +" + sumAddHp);
+        SetText(propDef1, "防御  +" + sumAddHp);
     }
 
     public void ClickCloseBtn()
