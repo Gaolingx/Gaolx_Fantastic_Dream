@@ -134,7 +134,7 @@ public class StrongWnd : WindowRoot
         {
             //遍历获取子物体的Image组件
             Image img = starTransGrp.GetChild(i).GetComponent<Image>();
-            if(i<curtStarLv)
+            if (i < curtStarLv)
             {
                 //如果当前遍历的星级图片<当前星级，说明没达到该新级，显示空的星级图片
                 SetSprite(img, PathDefine.SpStar2);
@@ -152,8 +152,8 @@ public class StrongWnd : WindowRoot
         int sumAddHurt = resSvc.GetPropAddValPreLv(currentIndex, curtStarLv, 2);
         int sumAddDef = resSvc.GetPropAddValPreLv(currentIndex, curtStarLv, 3);
         SetText(propHP1, "生命  +" + sumAddHp);
-        SetText(propHurt1, "伤害  +" + sumAddHp);
-        SetText(propDef1, "防御  +" + sumAddHp);
+        SetText(propHurt1, "伤害  +" + sumAddHurt);
+        SetText(propDef1, "防御  +" + sumAddDef);
     }
 
     public void ClickCloseBtn()
