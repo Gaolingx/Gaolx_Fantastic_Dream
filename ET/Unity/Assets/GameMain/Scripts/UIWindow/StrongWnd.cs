@@ -154,6 +154,42 @@ public class StrongWnd : WindowRoot
         SetText(propHP1, "生命  +" + sumAddHp);
         SetText(propHurt1, "伤害  +" + sumAddHurt);
         SetText(propDef1, "防御  +" + sumAddDef);
+
+        int nextStarLv = curtStarLv + 1;
+        //获取下一星级需要的属性数值
+        StrongCfg nextSd = resSvc.GetStrongData(currentIndex, nextStarLv);
+        if (nextSd != null)
+        {
+            SetActive(propHP2);
+            SetActive(propHurt2);
+            SetActive(propDef2);
+
+            SetActive(costTransRoot);
+            SetActive(propArr1);
+            SetActive(propArr2);
+            SetActive(propArr3);
+
+            SetText(propHP2, "强化后 +" + nextSd.addhp);
+            SetText(propHurt2, "+" + nextSd.addhurt);
+            SetText(propDef2, "+" + nextSd.adddef);
+
+            SetText(txtNeedLv, "需要等级：" + nextSd.minlv);
+            SetText(txtCostCoin, "需要消耗：      " + nextSd.coin);
+
+            //SetText(txtCostCrystal, nextSd.crystal + "/" + pd.crystal);
+        }
+        else
+        {
+            //当前星级升满后，不能进行强化（关闭花销部分、隐藏强化所获取的属性加成）
+            SetActive(propHP2, false);
+            SetActive(propHurt2, false);
+            SetActive(propDef2, false);
+
+            SetActive(costTransRoot, false);
+            SetActive(propArr1, false);
+            SetActive(propArr2, false);
+            SetActive(propArr3, false);
+        }
     }
 
     public void ClickCloseBtn()
