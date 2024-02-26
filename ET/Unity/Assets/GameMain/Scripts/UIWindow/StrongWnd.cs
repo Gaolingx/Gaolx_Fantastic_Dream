@@ -176,7 +176,7 @@ public class StrongWnd : WindowRoot
             SetText(txtNeedLv, "需要等级：" + nextSd.minlv);
             SetText(txtCostCoin, "需要消耗：      " + nextSd.coin);
 
-            //SetText(txtCostCrystal, nextSd.crystal + "/" + pd.crystal);
+            SetText(txtCostCrystal, nextSd.crystal + "/" + pd.crystal);
         }
         else
         {
