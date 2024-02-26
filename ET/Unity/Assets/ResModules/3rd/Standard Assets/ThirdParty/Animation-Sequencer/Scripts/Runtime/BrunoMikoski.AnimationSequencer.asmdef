@@ -1,0 +1,29 @@
+{
+    "name": "BrunoMikoski.AnimationSequencer",
+    "rootNamespace": "",
+    "references": [
+        "DOTween.Modules",
+        "Unity.TextMeshPro",
+        "UniTask"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.textmeshpro",
+            "expression": "",
+            "define": "TMP_ENABLED"
+        },
+        {
+            "name": "com.cysharp.unitask",
+            "expression": "",
+            "define": "UNITASK_ENABLED"
+        }
+    ],
+    "noEngineReferences": false
+}
