@@ -1002,14 +1002,15 @@ namespace AmplifyShaderEditor
 			}
 
 			float headerWidth = Mathf.Max( UIUtils.UnZoomedNodeTitleStyle.CalcSize( m_content ).x + m_paddingTitleLeft + m_paddingTitleRight, UIUtils.UnZoomedPropertyValuesTitleStyle.CalcSize( m_additionalContent ).x + m_paddingTitleLeft + m_paddingTitleRight );
-			m_position.width = Mathf.Max( headerWidth, Mathf.Max( MinInsideBoxWidth, m_insideSize.x ) + inSize.x + outSize.x ) + Constants.NODE_HEADER_LEFTRIGHT_MARGIN * 2;
-			//m_position.width += m_extraSize.x;
+			m_position.width = Mathf.Max(headerWidth, Mathf.Max(MinInsideBoxWidth, m_insideSize.x) + inSize.x + outSize.x);/* + Constants.NODE_HEADER_LEFTRIGHT_MARGIN * 2;*/
+			m_position.width = Mathf.Round(m_position.width / 32) * 32 + 32;
+            //m_position.width += m_extraSize.x;
 
-			m_fontHeight = Mathf.Max( inSize.y, outSize.y );
+            m_fontHeight = Mathf.Max( inSize.y, outSize.y );
 
 			m_position.height = Mathf.Max( inputCount, outputCount ) * ( m_fontHeight + Constants.INPUT_PORT_DELTA_Y );// + Constants.INPUT_PORT_DELTA_Y;
 			m_position.height = Mathf.Max( m_position.height, Mathf.Max( MinInsideBoxHeight, m_insideSize.y ) );
-			m_position.height += UIUtils.HeaderMaxHeight + m_extraHeaderHeight + Constants.INPUT_PORT_DELTA_Y;// + m_extraSize.y;
+			m_position.height += UIUtils.HeaderMaxHeight + /*m_extraHeaderHeight +*/ Constants.INPUT_PORT_DELTA_Y;// + m_extraSize.y;
 			if( m_showErrorMessage )
 				m_position.height += 24;
 
@@ -1423,9 +1424,9 @@ namespace AmplifyShaderEditor
 				m_titlePos = m_globalPosition;
 				m_titlePos.height = m_headerPosition.height;
 				if( m_hasSubtitle )
-					m_titlePos.yMin += ( 4 * drawInfo.InvertedZoom );
+					m_titlePos.yMin += ( 2 * drawInfo.InvertedZoom );
 				else
-					m_titlePos.yMin += ( 7 * drawInfo.InvertedZoom );
+					m_titlePos.yMin += ( 8 * drawInfo.InvertedZoom );
 				m_titlePos.width -= ( m_paddingTitleLeft + m_paddingTitleRight ) * drawInfo.InvertedZoom;
 				m_titlePos.x += m_paddingTitleLeft * drawInfo.InvertedZoom;
 
@@ -1434,7 +1435,7 @@ namespace AmplifyShaderEditor
 				{
 					m_addTitlePos = m_titlePos;
 					m_addTitlePos.y = m_globalPosition.y;
-					m_addTitlePos.yMin += ( 19 * drawInfo.InvertedZoom );
+					m_addTitlePos.yMin += ( 15 * drawInfo.InvertedZoom );
 				}
 
 				// Left Dropdown

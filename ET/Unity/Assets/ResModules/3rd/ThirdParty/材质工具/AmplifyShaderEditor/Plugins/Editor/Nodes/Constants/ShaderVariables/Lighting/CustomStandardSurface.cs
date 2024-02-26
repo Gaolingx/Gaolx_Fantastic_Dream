@@ -15,7 +15,7 @@ namespace AmplifyShaderEditor
 	}
 
 	[Serializable]
-	[NodeAttributes( "Standard Surface Light", "Light", "Provides a way to create a standard surface light model in custom lighting mode", NodeAvailabilityFlags = (int)NodeAvailability.CustomLighting )]
+	[NodeAttributes( "Standard Surface Light", "Lighting", "Provides a way to create a standard surface light model in custom lighting mode", NodeAvailabilityFlags = (int)NodeAvailability.CustomLighting )]
 	public sealed class CustomStandardSurface : ParentNode
 	{
 		private const string WorkflowStr = "Workflow";

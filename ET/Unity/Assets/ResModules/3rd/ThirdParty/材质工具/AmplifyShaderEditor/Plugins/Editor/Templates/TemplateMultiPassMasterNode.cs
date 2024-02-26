@@ -2479,40 +2479,6 @@ namespace AmplifyShaderEditor
 				}
 			}
 
-			// here we add ASE attributes to the material properties that allows materials to communicate with ASE
-			//if( m_templateMultiPass.SRPtype != TemplateSRPType.BiRP )
-			{
-				string currentInspector = IsLODMainMasterNode ? m_customInspectorName : ContainerGraph.GetMainMasterNodeOfLOD( -1 ).CurrentInspector;
-				bool isASENativeInspector = Constants.DefaultCustomInspector.Equals( currentInspector );
-				bool isUnityNativeInspector = Constants.UnityNativeInspectors.FindIndex( x => x.Equals( currentInspector ) ) > 0;
-
-				List<PropertyDataCollector> list = new List<PropertyDataCollector>( currDataCollector.PropertiesDict.Values );
-				list.Sort( ( x , y ) => { return x.OrderIndex.CompareTo( y.OrderIndex ); } );
-				if( isUnityNativeInspector )
-				{
-					for( int i = 0 ; i < list.Count ; i++ )
-					{
-						if( !( list[ i ].PropertyName.Contains( "[HideInInspector]" ) || list[ i ].PropertyName.Contains( "//" ) ) )
-						{
-							list[ i ].PropertyName = "[ASEBegin]" + list[ i ].PropertyName;
-							break;
-						}
-					}
-				}
-
-				if( !isASENativeInspector )
-				{
-					for( int i = list.Count - 1 ; i >= 0 ; i-- )
-					{
-						if( !( list[ i ].PropertyName.Contains( "[HideInInspector]" ) || list[ i ].PropertyName.Contains( "//" ) ) )
-						{
-							list[ i ].PropertyName = "[ASEEnd]" + list[ i ].PropertyName;
-							break;
-						}
-					}
-				}
-			}
-
 			m_templateMultiPass.SetPropertyData( currDataCollector.BuildUnformatedPropertiesStringArr() );
 		}
 

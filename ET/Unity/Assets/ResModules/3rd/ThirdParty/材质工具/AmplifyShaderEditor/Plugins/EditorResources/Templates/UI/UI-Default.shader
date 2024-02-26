@@ -60,6 +60,8 @@ Shader /*ase_name*/"Hidden/Templates/UI-Default"/*end*/
             #pragma multi_compile_local _ UNITY_UI_CLIP_RECT
             #pragma multi_compile_local _ UNITY_UI_ALPHACLIP
 
+            /*ase_pragma*/
+
             struct appdata_t
             {
                 float4 vertex   : POSITION;

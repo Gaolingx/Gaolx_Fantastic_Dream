@@ -115,6 +115,7 @@ namespace AmplifyShaderEditor
 			m_ssPort.Visible = ( m_selectedPatternInt == 2 );
 			m_inputPorts[ 2 ].Visible = m_customScreenPos;
 			m_sizeIsDirty = true;
+			SetAdditonalTitleText( string.Format( Constants.SubTitleTypeFormatStr, PatternsStr[ m_selectedPatternInt ] ) );
 		}
 
 		private void GeneratePattern( ref MasterNodeDataCollector dataCollector )

@@ -84,7 +84,7 @@ Shader /*ase_name*/ "Hidden/Universal/2D Custom Lit" /*end*/
 
 			struct VertexInput
 			{
-				float3 vertex : POSITION;
+				float3 positionOS : POSITION;
 				float3 normal : NORMAL;
 				float4 tangent : TANGENT;
 				float4 uv0 : TEXCOORD0;
@@ -131,20 +131,20 @@ Shader /*ase_name*/ "Hidden/Universal/2D Custom Lit" /*end*/
 
 				/*ase_vert_code:v=VertexInput;o=VertexOutput*/
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					float3 defaultVertexValue = v.vertex.xyz;
+					float3 defaultVertexValue = v.positionOS.xyz;
 				#else
 					float3 defaultVertexValue = float3(0, 0, 0);
 				#endif
 				float3 vertexValue = /*ase_vert_out:Vertex Offset;Float3;2;-1;_Vertex*/defaultVertexValue/*end*/;
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					v.vertex.xyz = vertexValue;
+					v.positionOS.xyz = vertexValue;
 				#else
-					v.vertex.xyz += vertexValue;
+					v.positionOS.xyz += vertexValue;
 				#endif
 				v.normal = /*ase_vert_out:Vertex Normal;Float3;3;-1;_VNormal*/v.normal/*end*/;
 				v.tangent.xyz = /*ase_vert_out:Vertex Tangent;Float3;4;-1;_VTangent*/v.tangent.xyz/*end*/;
 
-				VertexPositionInputs vertexInput = GetVertexPositionInputs(v.vertex.xyz);
+				VertexPositionInputs vertexInput = GetVertexPositionInputs(v.positionOS.xyz);
 
 				o.positionCS = vertexInput.positionCS;
 				o.positionWS.xyz =  vertexInput.positionWS;
@@ -227,7 +227,7 @@ Shader /*ase_name*/ "Hidden/Universal/2D Custom Lit" /*end*/
 
 			struct VertexInput
 			{
-				float3 vertex : POSITION;
+				float3 positionOS : POSITION;
 				float3 normal : NORMAL;
 				float4 tangent : TANGENT;
 				/*ase_vdata:p=p;n=n;t=t*/
@@ -263,21 +263,21 @@ Shader /*ase_name*/ "Hidden/Universal/2D Custom Lit" /*end*/
 
 				/*ase_vert_code:v=VertexInput;o=VertexOutput*/
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					float3 defaultVertexValue = v.vertex.xyz;
+					float3 defaultVertexValue = v.positionOS.xyz;
 				#else
 					float3 defaultVertexValue = float3(0, 0, 0);
 				#endif
 				float3 vertexValue = /*ase_vert_out:Vertex Offset;Float3;2;-1;_Vertex*/defaultVertexValue/*end*/;
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					v.vertex.xyz = vertexValue;
+					v.positionOS.xyz = vertexValue;
 				#else
-					v.vertex.xyz += vertexValue;
+					v.positionOS.xyz += vertexValue;
 				#endif
 				v.normal = /*ase_vert_out:Vertex Normal;Float3;3;-1;_VNormal*/v.normal/*end*/;
 				v.tangent.xyz = /*ase_vert_out:Vertex Tangent;Float3;4;-1;_VTangent*/v.tangent.xyz/*end*/;
 
 
-				float3 positionWS = TransformObjectToWorld(v.vertex);
+				float3 positionWS = TransformObjectToWorld(v.positionOS);
 				float4 tangentWS = float4(TransformObjectToWorldDir(v.tangent.xyz), v.tangent.w);
 
 				o.positionCS = TransformWorldToHClip(positionWS);
@@ -348,7 +348,7 @@ Shader /*ase_name*/ "Hidden/Universal/2D Custom Lit" /*end*/
 
             struct VertexInput
 			{
-				float3 vertex : POSITION;
+				float3 positionOS : POSITION;
 				float3 normal : NORMAL;
 				float4 tangent : TANGENT;
 				/*ase_vdata:p=p;n=n;t=t*/
@@ -384,19 +384,19 @@ Shader /*ase_name*/ "Hidden/Universal/2D Custom Lit" /*end*/
 
 				/*ase_vert_code:v=VertexInput;o=VertexOutput*/
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					float3 defaultVertexValue = v.vertex.xyz;
+					float3 defaultVertexValue = v.positionOS.xyz;
 				#else
 					float3 defaultVertexValue = float3(0, 0, 0);
 				#endif
 				float3 vertexValue = /*ase_vert_out:Vertex Offset;Float3;1;-1;_Vertex*/defaultVertexValue/*end*/;
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					v.vertex.xyz = vertexValue;
+					v.positionOS.xyz = vertexValue;
 				#else
-					v.vertex.xyz += vertexValue;
+					v.positionOS.xyz += vertexValue;
 				#endif
 
 
-				float3 positionWS = TransformObjectToWorld(v.vertex);
+				float3 positionWS = TransformObjectToWorld(v.positionOS);
 				o.positionCS = TransformWorldToHClip(positionWS);
 				return o;
 			}
@@ -467,7 +467,7 @@ Shader /*ase_name*/ "Hidden/Universal/2D Custom Lit" /*end*/
 
             struct VertexInput
 			{
-				float3 vertex : POSITION;
+				float3 positionOS : POSITION;
 				float3 normal : NORMAL;
 				float4 tangent : TANGENT;
 				/*ase_vdata:p=p;n=n;t=t*/
@@ -502,18 +502,18 @@ Shader /*ase_name*/ "Hidden/Universal/2D Custom Lit" /*end*/
 
 				/*ase_vert_code:v=VertexInput;o=VertexOutput*/
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					float3 defaultVertexValue = v.vertex.xyz;
+					float3 defaultVertexValue = v.positionOS.xyz;
 				#else
 					float3 defaultVertexValue = float3(0, 0, 0);
 				#endif
 				float3 vertexValue = /*ase_vert_out:Vertex Offset;Float3;1;-1;_Vertex*/defaultVertexValue/*end*/;
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					v.vertex.xyz = vertexValue;
+					v.positionOS.xyz = vertexValue;
 				#else
-					v.vertex.xyz += vertexValue;
+					v.positionOS.xyz += vertexValue;
 				#endif
 
-				float3 positionWS = TransformObjectToWorld(v.vertex);
+				float3 positionWS = TransformObjectToWorld(v.positionOS);
 				o.positionCS = TransformWorldToHClip(positionWS);
 
 				return o;
@@ -584,7 +584,7 @@ Shader /*ase_name*/ "Hidden/Universal/2D Custom Lit" /*end*/
 
             struct VertexInput
 			{
-				float3 vertex : POSITION;
+				float3 positionOS : POSITION;
 				float3 normal : NORMAL;
 				float4 tangent : TANGENT;
 				float4 uv0 : TEXCOORD0;
@@ -629,21 +629,21 @@ Shader /*ase_name*/ "Hidden/Universal/2D Custom Lit" /*end*/
 
 				/*ase_vert_code:v=VertexInput;o=VertexOutput*/
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					float3 defaultVertexValue = v.vertex.xyz;
+					float3 defaultVertexValue = v.positionOS.xyz;
 				#else
 					float3 defaultVertexValue = float3( 0, 0, 0 );
 				#endif
 				float3 vertexValue = /*ase_vert_out:Vertex Offset;Float3;3;-1;_Vertex*/defaultVertexValue/*end*/;
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					v.vertex.xyz = vertexValue;
+					v.positionOS.xyz = vertexValue;
 				#else
-					v.vertex.xyz += vertexValue;
+					v.positionOS.xyz += vertexValue;
 				#endif
 				v.normal = /*ase_vert_out:Vertex Normal;Float3;4;-1;_VNormal*/v.normal/*end*/;
 				v.tangent.xyz = /*ase_vert_out:Vertex Tangent;Float3;5;-1;_VTangent*/v.tangent.xyz/*end*/;
 
 
-				float3 positionWS = TransformObjectToWorld(v.vertex);
+				float3 positionWS = TransformObjectToWorld(v.positionOS);
 
 				o.positionCS = TransformWorldToHClip(positionWS);
 				o.positionWS.xyz =  positionWS;

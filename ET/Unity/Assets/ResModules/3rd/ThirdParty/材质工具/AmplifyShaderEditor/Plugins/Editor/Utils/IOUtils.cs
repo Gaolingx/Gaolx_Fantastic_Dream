@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Linq;
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.Build;
 using System.Threading;
 using UnityEditor.VersionControl;
 using System.Text.RegularExpressions;
@@ -380,12 +381,21 @@ namespace AmplifyShaderEditor
 		////////////////////////////////////////////////////////////////////////////
 		public static void SetAmplifyDefineSymbolOnBuildTargetGroup( BuildTargetGroup targetGroup )
 		{
+		#if UNITY_2021_2_OR_NEWER
+			var namedBuildTarget = NamedBuildTarget.FromBuildTargetGroup( targetGroup );
+			string currData = PlayerSettings.GetScriptingDefineSymbols( namedBuildTarget );
+		#else
 			string currData = PlayerSettings.GetScriptingDefineSymbolsForGroup( targetGroup );
+		#endif
 			if( !currData.Contains( AmplifyShaderEditorDefineSymbol ) )
 			{
 				if( string.IsNullOrEmpty( currData ) )
 				{
-					PlayerSettings.SetScriptingDefineSymbolsForGroup( targetGroup , AmplifyShaderEditorDefineSymbol );
+				#if UNITY_2021_2_OR_NEWER
+					PlayerSettings.SetScriptingDefineSymbols( namedBuildTarget, AmplifyShaderEditorDefineSymbol );
+				#else
+					PlayerSettings.SetScriptingDefineSymbolsForGroup( targetGroup, AmplifyShaderEditorDefineSymbol );
+				#endif
 				}
 				else
 				{
@@ -394,20 +404,35 @@ namespace AmplifyShaderEditor
 						currData += ';';
 					}
 					currData += AmplifyShaderEditorDefineSymbol;
-					PlayerSettings.SetScriptingDefineSymbolsForGroup( targetGroup , currData );
+
+				#if UNITY_2021_2_OR_NEWER
+					PlayerSettings.SetScriptingDefineSymbols( namedBuildTarget, currData );
+				#else
+					PlayerSettings.SetScriptingDefineSymbolsForGroup( targetGroup, currData );
+				#endif
 				}
 			}
 		}
 
 		public static void RemoveAmplifyDefineSymbolOnBuildTargetGroup( BuildTargetGroup targetGroup )
 		{
+		#if UNITY_2021_2_OR_NEWER
+			var namedBuildTarget = NamedBuildTarget.FromBuildTargetGroup( targetGroup );
+			string currData = PlayerSettings.GetScriptingDefineSymbols( namedBuildTarget );
+		#else
 			string currData = PlayerSettings.GetScriptingDefineSymbolsForGroup( targetGroup );
+		#endif
 			if( currData.Contains( AmplifyShaderEditorDefineSymbol ) )
 			{
 				currData = currData.Replace( AmplifyShaderEditorDefineSymbol + ";" , "" );
 				currData = currData.Replace( ";" + AmplifyShaderEditorDefineSymbol , "" );
 				currData = currData.Replace( AmplifyShaderEditorDefineSymbol , "" );
-				PlayerSettings.SetScriptingDefineSymbolsForGroup( targetGroup , currData );
+				
+			#if UNITY_2021_2_OR_NEWER			
+				PlayerSettings.SetScriptingDefineSymbols( namedBuildTarget, currData );
+			#else
+				PlayerSettings.SetScriptingDefineSymbolsForGroup( targetGroup, currData );
+			#endif
 			}
 		}
 

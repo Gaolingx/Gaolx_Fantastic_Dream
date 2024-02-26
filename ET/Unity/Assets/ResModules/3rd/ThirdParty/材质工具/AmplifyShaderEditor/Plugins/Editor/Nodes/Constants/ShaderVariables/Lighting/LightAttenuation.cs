@@ -6,7 +6,7 @@ using UnityEngine;
 namespace AmplifyShaderEditor
 {
 	[System.Serializable]
-	[NodeAttributes( "Light Attenuation", "Light", "Contains light attenuation for all types of light", NodeAvailabilityFlags = (int)( NodeAvailability.CustomLighting | NodeAvailability.TemplateShader ) )]
+	[NodeAttributes( "Light Attenuation", "Lighting", "Contains light attenuation for all types of light", NodeAvailabilityFlags = (int)( NodeAvailability.CustomLighting | NodeAvailability.TemplateShader ) )]
 	public sealed class LightAttenuation : ParentNode
 	{
 		static readonly string SurfaceError = "This node only returns correct information using a custom light model, otherwise returns 1";

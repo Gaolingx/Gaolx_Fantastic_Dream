@@ -463,6 +463,18 @@ namespace AmplifyShaderEditor
 			m_vertexData += "\t\t\t" + Constants.VertexShaderInputStr + ".normal = " + value + ";\n";
 		}
 
+		public void AddToVertexTangent( string value )
+		{
+			if ( string.IsNullOrEmpty( value ) )
+				return;
+
+			if ( !m_dirtyPerVertexData )
+			{
+				OpenPerVertexHeader( true );
+			}
+
+			m_vertexData += "\t\t\t" + Constants.VertexShaderInputStr + ".tangent = " + value + ";\n";
+		}
 
 		public void AddVertexInstruction( string value, int nodeId = -1, bool addDelimiters = true )
 		{
@@ -1775,7 +1787,13 @@ namespace AmplifyShaderEditor
 			get
 			{
 				if( m_dirtyPerVertexData )
+				{
 					return Constants.CustomAppDataFullBody + m_customAppDataItems + "\t\t};\n";
+				}
+				else if ( m_dirtyAppData )
+				{
+					return Constants.CustomAppDataFullBody + "\t\t};\n";
+				}
 
 				return string.Empty;
 			}

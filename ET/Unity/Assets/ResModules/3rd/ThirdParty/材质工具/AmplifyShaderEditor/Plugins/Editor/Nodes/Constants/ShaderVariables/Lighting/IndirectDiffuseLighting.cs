@@ -8,7 +8,7 @@ using UnityEditor;
 namespace AmplifyShaderEditor
 {
 	[Serializable]
-	[NodeAttributes( "Indirect Diffuse Light", "Light", "Indirect Lighting", NodeAvailabilityFlags = (int)( NodeAvailability.CustomLighting | NodeAvailability.TemplateShader ) )]
+	[NodeAttributes( "Indirect Diffuse Light", "Lighting", "Indirect Lighting", NodeAvailabilityFlags = (int)( NodeAvailability.CustomLighting | NodeAvailability.TemplateShader ) )]
 	public sealed class IndirectDiffuseLighting : ParentNode
 	{
 		[SerializeField]
@@ -228,7 +228,20 @@ namespace AmplifyShaderEditor
 							dataCollector.TemplateDataCollectorInstance.RequestNewInterpolator( WirePortDataType.FLOAT4, false, "lightmapUVOrVertexSH" );
 
 							dataCollector.AddToVertexLocalVariables( UniqueId, "OUTPUT_LIGHTMAP_UV( " + texcoord1 + ", unity_LightmapST, " + vOutName + ".lightmapUVOrVertexSH.xy );" );
-							dataCollector.AddToVertexLocalVariables( UniqueId, "OUTPUT_SH( " + worldNormal + ", " + vOutName + ".lightmapUVOrVertexSH.xyz );" );
+
+							if ( ASEPackageManagerHelper.PackageSRPVersion >= ( int )ASESRPBaseline.ASE_SRP_15 )
+							{
+								string worldPos = dataCollector.TemplateDataCollectorInstance.GetWorldPos( false, MasterNodePortCategory.Vertex );
+								dataCollector.AddToVertexLocalVariables( UniqueId, "#if !defined( OUTPUT_SH4 )" );
+								dataCollector.AddToVertexLocalVariables( UniqueId, "OUTPUT_SH( " + worldPos + ", " + worldNormal + ", GetWorldSpaceNormalizeViewDir( " + worldPos + " ), " + vOutName + ".lightmapUVOrVertexSH.xyz );" );
+								dataCollector.AddToVertexLocalVariables( UniqueId, "#else" );
+								dataCollector.AddToVertexLocalVariables( UniqueId, "OUTPUT_SH4( " + worldPos + ", " + worldNormal + ", GetWorldSpaceNormalizeViewDir( " + worldPos + " ), " + vOutName + ".lightmapUVOrVertexSH.xyz );" );
+								dataCollector.AddToVertexLocalVariables( UniqueId, "#endif" );
+							}								
+							else
+							{
+								dataCollector.AddToVertexLocalVariables( UniqueId, "OUTPUT_SH( " + worldNormal + ", " + vOutName + ".lightmapUVOrVertexSH.xyz );" );
+							}
 
 							dataCollector.AddToPragmas( UniqueId, "multi_compile _ DIRLIGHTMAP_COMBINED" );
 							dataCollector.AddToPragmas( UniqueId, "multi_compile _ LIGHTMAP_ON" );

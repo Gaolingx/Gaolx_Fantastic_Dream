@@ -525,7 +525,7 @@ namespace AmplifyShaderEditor
 					EditorGUI.BeginChangeCheck();
 					EditorGUILayout.BeginHorizontal();
 					m_enumNames[ i ] = EditorGUILayoutTextField( "Name", m_enumNames[ i ] );
-					m_enumValues[ i ] = EditorGUILayoutIntField( "Value", m_enumValues[ i ], GUILayout.Width( 100 ) );
+					m_enumValues[ i ] = Mathf.Max( 0, EditorGUILayoutIntField( "Value", m_enumValues[ i ], GUILayout.Width( 100 ) ) );
 					EditorGUILayout.EndHorizontal();
 					if( EditorGUI.EndChangeCheck() )
 					{

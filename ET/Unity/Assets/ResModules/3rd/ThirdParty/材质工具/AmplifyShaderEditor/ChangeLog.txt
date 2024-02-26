@@ -1,3 +1,116 @@
+v1.9.2.2
+
+   Templates
+      * Massive template URP template update (all SRP versions)
+      * Massive template HDRP template update (all SRP versions)
+      * Added Local Vertex Tangent to Surface shader Master Node input      
+      * Deprecated duplicated DepthNormals pass in URP Unlit 12x
+
+   Nodes
+      * Fixed Normalize node when using safe mode
+      * Improved "World Normal Face" shader function precision
+      * Added Safe Normalize toggle to "World Normal Face"
+      * Fixed SRP Additional Light shader function
+      * Fixed Flipbook shader function
+
+v1.9.2.1
+
+   Templates
+      * Added initial support for URP/HDRP 17
+      * Updated all URP/HDRP templates
+      * Force AlphaToMask Off on URP ScenePicking/SceneSelection passes
+      * Fixed URP 14x 15x 16x Decal not working properly on Mac (#217)
+      * Fixed HDRP 12x 14x 15x 16x Unlit errors on Shadow Matte option (#218)
+
+   Nodes
+      * Fixed World Normal node sometimes generating errors on iOS platform (#225)
+      * Fixed dither node not updating subtitle when switching pattern (#229)
+      * Fixed errors in Light Color Node (#227)
+
+   Editor
+      * Proper fix for guistyle typo warning
+
+v1.9.2
+
+   Highlights
+      * Added support for 2023.2 and URP/HDRP 16x
+      * Added URP/HDRP 16x samples
+      * Fixed URP/HDRP 15x samples
+      * Added "Always Align to Grid" option to Preferences
+
+   Editor
+      * Node lengths now align to grid during snap
+      * Node header height now same regardless of subtitle
+      * Shader Function node Icon now white
+      * Removed [ASEBegin]/[ASEEnd] SRP tags
+
+   Samples
+      * Fixed Built-in samples
+      * Removed some Built-in samples conflicting with ASP
+
+v1.9.1.9
+
+   Editor
+      * Adjusted UIUtils toolbar style fix to include Unity 2021.3
+      * Switched from http to https as workaround for connection issues
+
+   Templates
+      * Fixed Decal related errors in Lit template (HDRP 14x 15x)
+      * Fixed OUTPUT_SH errors on URP 15x
+
+v1.9.1.8
+
+   Editor
+      * Fixed Undo-related error spam (#205)
+      * Fix for UIUtils console spam on Unity 2022.3+ (#208)
+      * Fixed "Indirect Diffuse Light" node errors on URP 15 (#209)
+      * Added "Device Depth" node; depth range compatible with "Depth Value" input
+      
+   Templates
+      * Fixed "Depth Value" input issues on URP (#190)
+      * Fixed EarlyZ errors on URP (#191)      
+      * Fixed "Depth Offset" input issues on HDRP
+
+v1.9.1.7
+
+   Editor
+      * Fixed Start Screen high CPU/GPU usage
+
+   Templates
+      * Fixed decal angle fade in (HDRP 12x 14x 15x)
+      * Fixed positionCS errors in Lit shader (URP 15x)
+
+v1.9.1.6
+
+   Editor
+      * Added support for Unity 2023
+      * Fixed NRE caused by Shader Function additional directives
+      * Fixed resize NRE in functions switch
+      * Increased MaxAllowedAmount in FunctionSwitch from 9 to 10
+      * Fixed GetScriptingDefineSymbolsForGroup deprecation warnings
+
+   Samples
+      * Added samples for SRP 15x
+
+   Nodes
+      * New "Metal Reflectance" node
+      * New "All" node
+      * New "Any" node
+      * New "Reciprocal" node
+      * New "Bacteria Smoothstep" node
+      * New "World Normal Face" node
+      * Update "Bacteria Smoothstep" node
+      * Added tags "refl reflect reflection" to "Reflect" node
+      * Renamed "Light" category to "Lighting"
+      * Added SRP 16x to "SwitchBySRPVersion" Node
+
+   Templates
+      * New SRP templates 15x
+      * Added ase_pragma to "UI-Default" template
+      * Updated SRP templates (10x 12x 14x)      
+      * Fixed color mask for light layers in HDRP (12x)
+      * Fixed URP terrain instancing (12x 14x)
+
 v1.9.1.5
 
    Editor

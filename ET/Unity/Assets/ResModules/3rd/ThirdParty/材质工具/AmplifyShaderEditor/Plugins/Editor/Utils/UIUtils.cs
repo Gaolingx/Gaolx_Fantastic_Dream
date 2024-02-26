@@ -448,7 +448,7 @@ namespace AmplifyShaderEditor
 			"Constants And Properties",
 			"Functions",
 			"Image Effects",
-			"Light",
+			"Lighting",
 			"Logical Operators",
 			"Math Operators",
 			"Matrix Operators",
@@ -589,7 +589,7 @@ namespace AmplifyShaderEditor
 			{ "Functions",                          new Color( 1.00f, 0.4f, 0.0f, 1.0f) },
 			{ "Vector Operators",                   new Color( 0.22f, 0.20f, 0.45f, 1.0f)},
 			{ "Matrix Operators",                   new Color( 0.45f, 0.9f, 0.20f, 1.0f) },
-			{ "Light",                              new Color( 1.0f, 0.9f, 0.0f, 1.0f) },
+			{ "Lighting",                           new Color( 1.0f, 0.9f, 0.0f, 1.0f) },
 			{ "Textures",                           new Color( 0.15f, 0.40f, 0.8f, 1.0f)},
 			{ "Commentary",                         new Color( 0.7f, 0.7f, 0.7f, 1.0f)},
 			{ "UV Coordinates",                     new Color( 0.89f, 0.59f, 0.0f, 1.0f) },
@@ -1221,8 +1221,18 @@ namespace AmplifyShaderEditor
 			MinusStyle.imagePosition = ImagePosition.ImageOnly;
 			MinusStyle.overflow = new RectOffset( -2 , 0 , -4 , 0 );
 
-			ToolbarSearchTextfield = new GUIStyle( (GUIStyle)"ToolbarSeachTextField" );
-			ToolbarSearchCancelButton = new GUIStyle( (GUIStyle)"ToolbarSeachCancelButton" );
+			if ( GUI.skin.FindStyle( "ToolbarSearchTextField" ) != null )
+			{
+				// @diogo: new, fixed
+				ToolbarSearchTextfield = new GUIStyle( ( GUIStyle )"ToolbarSearchTextField" );
+				ToolbarSearchCancelButton = new GUIStyle( ( GUIStyle )"ToolbarSearchCancelButton" );
+			}
+			else
+			{
+				// @diogo: old, typo
+				ToolbarSearchTextfield = new GUIStyle( ( GUIStyle )"ToolbarSeachTextField" );
+				ToolbarSearchCancelButton = new GUIStyle( ( GUIStyle )"ToolbarSeachCancelButton" );
+			}
 		}
 
 		public static void UpdateMainSkin( DrawInfo drawInfo )
@@ -2067,7 +2077,16 @@ namespace AmplifyShaderEditor
 			return originalString;
 		}
 
-		public static string RemoveShaderInvalidCharacters( string originalString )
+        public static string RemoveRegisterInvalidCharacters(string originalString)
+        {
+            for (int i = 0; i < Constants.RegisterInvalidChars.Length; i++)
+            {
+                originalString = originalString.Replace(Constants.RegisterInvalidChars[i], string.Empty);
+            }
+            return originalString;
+        }
+
+        public static string RemoveShaderInvalidCharacters( string originalString )
 		{
 			originalString = originalString.Replace( '\\' , '/' );
 			for( int i = 0 ; i < Constants.ShaderInvalidChars.Length ; i++ )

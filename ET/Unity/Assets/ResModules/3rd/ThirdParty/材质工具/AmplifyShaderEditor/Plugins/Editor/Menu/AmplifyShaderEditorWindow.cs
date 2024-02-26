@@ -1839,25 +1839,15 @@ namespace AmplifyShaderEditor
 				break;
 				case ToolButtonType.Share:
 				{
-#if UNITY_2022_1_OR_NEWER
-					if ( PlayerSettings.insecureHttpOption == InsecureHttpOption.NotAllowed )
+					List<ParentNode> selectedNodes = m_mainGraphInstance.SelectedNodes;
+					if ( selectedNodes.Count > 0 )
 					{
-						Debug.LogWarning( "[AmplifyShaderEditor] " + OnlineSharingWarning );
-						ShowMessage( OnlineSharingWarning, MessageSeverity.Warning );
+						CopyToClipboard();
+						StartPasteRequest();
 					}
 					else
-#endif
 					{
-						List<ParentNode> selectedNodes = m_mainGraphInstance.SelectedNodes;
-						if ( selectedNodes.Count > 0 )
-						{
-							CopyToClipboard();
-							StartPasteRequest();
-						}
-						else
-						{
-							ShowMessage( "No nodes selected to share" );
-						}
+						ShowMessage( "No nodes selected to share" );
 					}
 				}
 				break;
@@ -2430,7 +2420,7 @@ namespace AmplifyShaderEditor
 			{
 				if( m_mouseDownOnValidArea && m_insideEditorWindow )
 				{
-					if( m_currentEvent.control )
+					if( m_currentEvent.control || Preferences.GlobalAlwaysSnapToGrid )
 					{
 						m_mainGraphInstance.MoveSelectedNodes( m_cameraZoom * m_currentEvent.delta, true );
 					}
@@ -3513,7 +3503,7 @@ namespace AmplifyShaderEditor
 
 		private void StartPasteRequest()
 		{
-			m_coroutine = SendPostCoroutine( "http://paste.amplify.pt/api/create" );
+			m_coroutine = SendPostCoroutine( "https://paste.amplify.pt/api/create" );
 			EditorApplication.update += PasteRequest;
 		}
 
@@ -3814,20 +3804,10 @@ namespace AmplifyShaderEditor
 
 		void PasteFromClipboard( bool copyConnections )
 		{
-			string result = EditorGUIUtility.systemCopyBuffer;
-			if( result.IndexOf( "http://paste.amplify.pt/view/raw/" ) > -1 )
+			string result = EditorGUIUtility.systemCopyBuffer.Replace( "http://", "https://" );
+			if( result.IndexOf( "https://paste.amplify.pt/view/raw/" ) > -1 )
 			{
-#if UNITY_2022_1_OR_NEWER
-				if ( PlayerSettings.insecureHttpOption == InsecureHttpOption.NotAllowed )
-				{
-					Debug.LogWarning( "[AmplifyShaderEditor] " + OnlineSharingWarning );
-					ShowMessage( OnlineSharingWarning, MessageSeverity.Warning );
-				}
-				else
-#endif
-				{
-					StartGetRequest( result );
-				}
+				StartGetRequest( result );
 				return;
 			}
 
