@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 607bdc4c4d8b3d94996fa1bceaa1f247, type: 3}
+  m_Script: {fileID: 0}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: HSR.NPRShader.Editor:HSR.NPRShader.Editor.Settings:EditorProjectSettings
   AvatarModelPathPattern: ^Assets(/|\\)(.+(/|\\))?Avatar_[^/\\]+\.fbx$
   RampTexturePathPattern: ^Assets(/|\\)(.+(/|\\))?Avatar_[^/\\]+_Ramp[^/\\]+$
   LightMapPathPattern: ^Assets(/|\\)(.+(/|\\))?Avatar_[^/\\]+_LightMap[^/\\]+$

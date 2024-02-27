@@ -33,7 +33,8 @@ MonoBehaviour:
   m_RendererFeatures:
   - {fileID: -3802217009749661322}
   - {fileID: 789956270177716364}
-  m_RendererFeatureMap: 7669ec4ec6cf3bcb8c0809d80a7df60a
+  - {fileID: 1990491725677136378}
+  m_RendererFeatureMap: 7669ec4ec6cf3bcb8c0809d80a7df60afa0957adada59f1b
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -99,3 +100,18 @@ MonoBehaviour:
     DirectLightingStrength: 0.25
     Radius: 0.035
     SampleCount: 4
+--- !u!114 &1990491725677136378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90f480a675b73fa4ebe11bab7b01dc3a, type: 3}
+  m_Name: StarRailForward
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  DepthBias: 1
+  NormalBias: 0
