@@ -130,6 +130,10 @@ MonoBehaviour:
     normalAlignmentSetting:
       alignmentMode: 0
       adjustmentTransform: {fileID: 0}
+    cullingSettings:
+      cameraCullingMode: 30
+      cameraCullingMethod: 0
+      cameraCullingRenderers: []
     normalAxis: 1
     gravity: 2
     gravityDirection:
@@ -193,19 +197,28 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
     inertiaConstraint:
-      movementInertia: 1
-      rotationInertia: 1
-      depthInertia: 1
-      centrifualAcceleration: 0
+      worldInertia: 1
       movementSpeedLimit:
         value: 5
         use: 1
       rotationSpeedLimit:
         value: 720
         use: 1
+      localInertia: 1
+      localMovementSpeedLimit:
+        value: 5
+        use: 0
+      localRotationSpeedLimit:
+        value: 720
+        use: 0
+      depthInertia: 1
+      centrifualAcceleration: 0
       particleSpeedLimit:
         value: 4
         use: 1
+      teleportMode: 0
+      teleportDistance: 0.5
+      teleportRotation: 90
     tetherConstraint:
       distanceCompression: 0.4
     distanceConstraint:
@@ -362,6 +375,34 @@ MonoBehaviour:
       mode: 1
       friction: 0.05
       colliderList: []
+      collisionBones: []
+      limitDistance:
+        value: 0.05
+        useCurve: 0
+        curve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
     selfCollisionConstraint:
       selfMode: 0
       surfaceThickness:
@@ -402,6 +443,12 @@ MonoBehaviour:
       synchronization: 0.7
       depthWeight: 0
       movingWind: 0
+    springConstraint:
+      useSpring: 1
+      springPower: 0.04
+      limitDistance: 0.1
+      normalLimitRatio: 1
+      springNoise: 0
   serializeData2:
     selectionData:
       positions:
@@ -454,6 +501,7 @@ MonoBehaviour:
       animatedPosition: 0
       animatedAxis: 0
       animatedShape: 0
+      inertiaCenter: 1
 --- !u!1 &3615071939378160169
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,6 +569,10 @@ MonoBehaviour:
     normalAlignmentSetting:
       alignmentMode: 0
       adjustmentTransform: {fileID: 0}
+    cullingSettings:
+      cameraCullingMode: 30
+      cameraCullingMethod: 0
+      cameraCullingRenderers: []
     normalAxis: 1
     gravity: 4
     gravityDirection:
@@ -584,19 +636,28 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
     inertiaConstraint:
-      movementInertia: 1
-      rotationInertia: 1
-      depthInertia: 0
-      centrifualAcceleration: 0
+      worldInertia: 1
       movementSpeedLimit:
         value: 3
         use: 1
       rotationSpeedLimit:
         value: 360
         use: 1
+      localInertia: 1
+      localMovementSpeedLimit:
+        value: 5
+        use: 0
+      localRotationSpeedLimit:
+        value: 720
+        use: 0
+      depthInertia: 0
+      centrifualAcceleration: 0
       particleSpeedLimit:
         value: 2
         use: 1
+      teleportMode: 0
+      teleportDistance: 0.5
+      teleportRotation: 90
     tetherConstraint:
       distanceCompression: 0.1
     distanceConstraint:
@@ -753,6 +814,34 @@ MonoBehaviour:
       mode: 1
       friction: 0.05
       colliderList: []
+      collisionBones: []
+      limitDistance:
+        value: 0.05
+        useCurve: 0
+        curve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
     selfCollisionConstraint:
       selfMode: 0
       surfaceThickness:
@@ -793,6 +882,12 @@ MonoBehaviour:
       synchronization: 0.7
       depthWeight: 0
       movingWind: 0
+    springConstraint:
+      useSpring: 1
+      springPower: 0.04
+      limitDistance: 0.1
+      normalLimitRatio: 1
+      springNoise: 0
   serializeData2:
     selectionData:
       positions:
@@ -849,6 +944,7 @@ MonoBehaviour:
       animatedPosition: 0
       animatedAxis: 0
       animatedShape: 0
+      inertiaCenter: 1
 --- !u!1 &3843025141010830297
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,6 +1024,10 @@ MonoBehaviour:
     normalAlignmentSetting:
       alignmentMode: 0
       adjustmentTransform: {fileID: 0}
+    cullingSettings:
+      cameraCullingMode: 30
+      cameraCullingMethod: 0
+      cameraCullingRenderers: []
     normalAxis: 1
     gravity: 5
     gravityDirection:
@@ -991,19 +1091,28 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
     inertiaConstraint:
-      movementInertia: 1
-      rotationInertia: 1
-      depthInertia: 0.7
-      centrifualAcceleration: 0.1
+      worldInertia: 1
       movementSpeedLimit:
         value: 5
         use: 1
       rotationSpeedLimit:
         value: 720
         use: 1
+      localInertia: 1
+      localMovementSpeedLimit:
+        value: 5
+        use: 0
+      localRotationSpeedLimit:
+        value: 720
+        use: 0
+      depthInertia: 0.7
+      centrifualAcceleration: 0.1
       particleSpeedLimit:
         value: 4
         use: 1
+      teleportMode: 0
+      teleportDistance: 0.5
+      teleportRotation: 90
     tetherConstraint:
       distanceCompression: 0.7
     distanceConstraint:
@@ -1162,6 +1271,34 @@ MonoBehaviour:
       colliderList:
       - {fileID: 8664102674041106554}
       - {fileID: 3218805352885343868}
+      collisionBones: []
+      limitDistance:
+        value: 0.05
+        useCurve: 0
+        curve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
     selfCollisionConstraint:
       selfMode: 0
       surfaceThickness:
@@ -1202,6 +1339,12 @@ MonoBehaviour:
       synchronization: 0.7
       depthWeight: 0
       movingWind: 0
+    springConstraint:
+      useSpring: 1
+      springPower: 0.04
+      limitDistance: 0.1
+      normalLimitRatio: 1
+      springNoise: 0
   serializeData2:
     selectionData:
       positions:
@@ -1742,6 +1885,7 @@ MonoBehaviour:
       animatedPosition: 0
       animatedAxis: 0
       animatedShape: 0
+      inertiaCenter: 1
 --- !u!1 &3917853575747517701
 GameObject:
   m_ObjectHideFlags: 0
@@ -1811,6 +1955,10 @@ MonoBehaviour:
     normalAlignmentSetting:
       alignmentMode: 0
       adjustmentTransform: {fileID: 0}
+    cullingSettings:
+      cameraCullingMode: 30
+      cameraCullingMethod: 0
+      cameraCullingRenderers: []
     normalAxis: 1
     gravity: 4
     gravityDirection:
@@ -1874,19 +2022,28 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
     inertiaConstraint:
-      movementInertia: 1
-      rotationInertia: 1
-      depthInertia: 0
-      centrifualAcceleration: 0
+      worldInertia: 1
       movementSpeedLimit:
         value: 3
         use: 1
       rotationSpeedLimit:
         value: 360
         use: 1
+      localInertia: 1
+      localMovementSpeedLimit:
+        value: 5
+        use: 0
+      localRotationSpeedLimit:
+        value: 720
+        use: 0
+      depthInertia: 0
+      centrifualAcceleration: 0
       particleSpeedLimit:
         value: 2
         use: 1
+      teleportMode: 0
+      teleportDistance: 0.5
+      teleportRotation: 90
     tetherConstraint:
       distanceCompression: 0.1
     distanceConstraint:
@@ -2043,6 +2200,34 @@ MonoBehaviour:
       mode: 1
       friction: 0.05
       colliderList: []
+      collisionBones: []
+      limitDistance:
+        value: 0.05
+        useCurve: 0
+        curve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
     selfCollisionConstraint:
       selfMode: 0
       surfaceThickness:
@@ -2083,6 +2268,12 @@ MonoBehaviour:
       synchronization: 0.7
       depthWeight: 0
       movingWind: 0
+    springConstraint:
+      useSpring: 1
+      springPower: 0.04
+      limitDistance: 0.1
+      normalLimitRatio: 1
+      springNoise: 0
   serializeData2:
     selectionData:
       positions:
@@ -2155,6 +2346,7 @@ MonoBehaviour:
       animatedPosition: 0
       animatedAxis: 0
       animatedShape: 0
+      inertiaCenter: 1
 --- !u!1 &5894868765687580754
 GameObject:
   m_ObjectHideFlags: 0
@@ -2283,6 +2475,10 @@ MonoBehaviour:
     normalAlignmentSetting:
       alignmentMode: 0
       adjustmentTransform: {fileID: 0}
+    cullingSettings:
+      cameraCullingMode: 30
+      cameraCullingMethod: 0
+      cameraCullingRenderers: []
     normalAxis: 1
     gravity: 4
     gravityDirection:
@@ -2346,19 +2542,28 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
     inertiaConstraint:
-      movementInertia: 1
-      rotationInertia: 1
-      depthInertia: 0
-      centrifualAcceleration: 0
+      worldInertia: 1
       movementSpeedLimit:
         value: 3
         use: 1
       rotationSpeedLimit:
         value: 360
         use: 1
+      localInertia: 1
+      localMovementSpeedLimit:
+        value: 5
+        use: 0
+      localRotationSpeedLimit:
+        value: 720
+        use: 0
+      depthInertia: 0
+      centrifualAcceleration: 0
       particleSpeedLimit:
         value: 2
         use: 1
+      teleportMode: 0
+      teleportDistance: 0.5
+      teleportRotation: 90
     tetherConstraint:
       distanceCompression: 0.1
     distanceConstraint:
@@ -2515,6 +2720,34 @@ MonoBehaviour:
       mode: 1
       friction: 0.05
       colliderList: []
+      collisionBones: []
+      limitDistance:
+        value: 0.05
+        useCurve: 0
+        curve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
     selfCollisionConstraint:
       selfMode: 0
       surfaceThickness:
@@ -2555,6 +2788,12 @@ MonoBehaviour:
       synchronization: 0.7
       depthWeight: 0
       movingWind: 0
+    springConstraint:
+      useSpring: 1
+      springPower: 0.04
+      limitDistance: 0.1
+      normalLimitRatio: 1
+      springNoise: 0
   serializeData2:
     selectionData:
       positions:
@@ -2607,6 +2846,7 @@ MonoBehaviour:
       animatedPosition: 0
       animatedAxis: 0
       animatedShape: 0
+      inertiaCenter: 1
 --- !u!1001 &6031082356580734184
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4266,6 +4506,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 559578614480546715}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7066c5f152c157f40912f73251590fda,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4029739320334776003}
     - targetCorrespondingSourceObject: {fileID: -3874587685086913128, guid: 7066c5f152c157f40912f73251590fda,
         type: 3}
       insertIndex: -1
@@ -4681,6 +4925,7 @@ MonoBehaviour:
   size: {x: 0.08, y: 0.001, z: 0.6}
   direction: 1
   radiusSeparation: 0
+  alignedOnCenter: 1
 --- !u!4 &1880836380979220443 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -3915695389101319373, guid: 7066c5f152c157f40912f73251590fda,
@@ -6265,6 +6510,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   move: {x: 0, y: 0}
   look: {x: 0, y: 0}
+  zoom: 0
   jump: 0
   sprint: 0
   punchRight: 0
@@ -6293,15 +6539,14 @@ MonoBehaviour:
   SprintSpeed: 5.335
   RotationSmoothTime: 0.12
   SpeedChangeRate: 10
-  LandingAudioClip: {fileID: 0}
-  FootstepAudioClips: []
-  FootstepAudioVolume: 0.5
   JumpHeight: 1.2
+  FlipJumpHeight: 1.4
+  FlipJumpApexBoundVelocityMagnitude: 0.2
+  FlipJumpCapsuleHeight: 0
   Gravity: -15
   JumpTimeout: 0.3
   FallTimeout: 0.15
   Grounded: 1
-  CrouchHeight: 0
   GroundedOffset: -0.14
   GroundedRadius: 0.28
   GroundLayers:
@@ -6310,10 +6555,14 @@ MonoBehaviour:
   CinemachineCameraTarget: {fileID: 2805847535444447113}
   TopClamp: 70
   BottomClamp: -30
+  maxDistance: 5
+  minDistance: 0.5
+  distanceChangeRate: 10
   speedLookx: 1
   speedLooky: 1
   CameraAngleOverride: 0
   LockCameraPosition: 0
+  _timeToFlipJump: 0
 --- !u!114 &5480172967225065025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6353,6 +6602,18 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &4029739320334776003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6878083648144533945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db2c30fabb66baf43855296f5ee4d343, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6894000175924711744 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8349992768098548312, guid: 7066c5f152c157f40912f73251590fda,
@@ -6471,6 +6732,7 @@ MonoBehaviour:
   size: {x: 0.08, y: 0.001, z: 0.6}
   direction: 1
   radiusSeparation: 0
+  alignedOnCenter: 1
 --- !u!4 &7475908880980342131 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5472587166085570149, guid: 7066c5f152c157f40912f73251590fda,
