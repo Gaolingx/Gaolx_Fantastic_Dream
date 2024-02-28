@@ -35,7 +35,7 @@ public class StrongWnd : WindowRoot
     private Image[] imgs = new Image[6];
     private int currentIndex;
     private PlayerData pd;
-    //StrongCfg nextSd;
+    StrongCfg nextSd;
 
     #endregion
 
@@ -157,7 +157,7 @@ public class StrongWnd : WindowRoot
 
         int nextStarLv = curtStarLv + 1;
         //获取下一星级需要的属性数值
-        StrongCfg nextSd = resSvc.GetStrongData(currentIndex, nextStarLv);
+        nextSd = resSvc.GetStrongData(currentIndex, nextStarLv);
         if (nextSd != null)
         {
             SetActive(propHP2);
@@ -198,4 +198,45 @@ public class StrongWnd : WindowRoot
         SetWndState(false);
     }
 
+    public void ClickStrongBtn()
+    {
+        audioSvc.PlayUIAudio(Constants.UIClickBtn);
+
+        //客户端本地数据校验，减小服务器验证压力
+        //判断是否星级已满
+        if (pd.strongArr[currentIndex] < 10)
+        {
+            //判断级别是否足够强化
+            if (pd.lv < nextSd.minlv)
+            {
+                GameRoot.AddTips("角色等级不够");
+                return;
+            }
+            //各种资源...
+            if (pd.coin < nextSd.coin)
+            {
+                GameRoot.AddTips("金币数量不够");
+                return;
+            }
+            if (pd.crystal < nextSd.crystal)
+            {
+                GameRoot.AddTips("水晶不够");
+                return;
+            }
+
+            //发送请求强化数据
+            netSvc.SendMsg(new GameMsg
+            {
+                cmd = (int)CMD.ReqStrong,
+                reqStrong = new ReqStrong
+                {
+                    pos = currentIndex
+                }
+            });
+        }
+        else
+        {
+            GameRoot.AddTips("星级已经升满");
+        }
+    }
 }
