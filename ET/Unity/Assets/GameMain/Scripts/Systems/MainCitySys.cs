@@ -48,6 +48,9 @@ public class MainCitySys : SystemRoot
             // 加载游戏主角
             LoadPlayer(mapData);
 
+            // 初始化主角材质
+            InitPlayerMaterial();
+
             // 加载NPC
             LoadNpcPrefab();
 
@@ -175,6 +178,10 @@ public class MainCitySys : SystemRoot
         Debug.Log("NPC_3预制件加载成功！");
 
 
+    }
+    private void InitPlayerMaterial()
+    {
+        Scene_player.GetComponent<SendVector>().GetMaterialsByReference();
     }
     private void InitGamepad()
     {
