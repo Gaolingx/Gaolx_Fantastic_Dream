@@ -2491,9 +2491,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isTurnOnAudio: 1
-  BGAudioVolumeValue: 0
-  UIAudioVolumeValue: 0
-  CharacterAudioVolumeValue: 0
+  BGAudioVolumeValue: 0.5
+  UIAudioVolumeValue: 0.5
+  CharacterAudioVolumeValue: 0.5
   BGAudioGameObject: {fileID: 0}
   UIAudioGameObject: {fileID: 0}
   BGAudioAudioSource: {fileID: 811291286}

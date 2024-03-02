@@ -146,16 +146,16 @@ public class StrongWnd : WindowRoot
             }
         }
 
+        int nextStarLv = curtStarLv + 1;
         //当前星级所有属性加成
         //resSvc.GetPropAddValPreLv(当前部位, 当前星级, 类型)
-        int sumAddHp = resSvc.GetPropAddValPreLv(currentIndex, curtStarLv, 1);
-        int sumAddHurt = resSvc.GetPropAddValPreLv(currentIndex, curtStarLv, 2);
-        int sumAddDef = resSvc.GetPropAddValPreLv(currentIndex, curtStarLv, 3);
+        int sumAddHp = resSvc.GetPropAddValPreLv(currentIndex, nextStarLv, 1);
+        int sumAddHurt = resSvc.GetPropAddValPreLv(currentIndex, nextStarLv, 2);
+        int sumAddDef = resSvc.GetPropAddValPreLv(currentIndex, nextStarLv, 3);
         SetText(propHP1, "生命  +" + sumAddHp);
         SetText(propHurt1, "伤害  +" + sumAddHurt);
         SetText(propDef1, "防御  +" + sumAddDef);
 
-        int nextStarLv = curtStarLv + 1;
         //获取下一星级需要的属性数值
         nextSd = resSvc.GetStrongData(currentIndex, nextStarLv);
         if (nextSd != null)
@@ -238,5 +238,11 @@ public class StrongWnd : WindowRoot
         {
             GameRoot.AddTips("星级已经升满");
         }
+    }
+
+    public void UpdateUI()
+    {
+        audioSvc.PlayUIAudio(Constants.FBItemEnter);
+        ClickPosItem(currentIndex);
     }
 }

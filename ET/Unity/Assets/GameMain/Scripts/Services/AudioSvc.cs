@@ -40,6 +40,7 @@ public class AudioSvc : MonoBehaviour
     public void GetCharacterAudioSourceComponent()
     {
         CharacterAudioSource = GameObject.FindGameObjectWithTag(Constants.CharPlayerWithTag).GetComponent<AudioSource>();
+        CharacterAudioSource.volume = CharacterAudioVolumeValue;
     }
 
     private void GetAudioSourceValueInit()

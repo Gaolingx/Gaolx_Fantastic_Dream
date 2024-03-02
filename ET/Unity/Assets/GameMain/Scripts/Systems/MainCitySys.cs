@@ -228,7 +228,9 @@ public class MainCitySys : SystemRoot
         //升级后的反馈
         GameRoot.AddTips(Constants.txtColor("战力提升 " + (zhanliNow - zhanliPre), TxtColor.Blue));
 
-
+        //刷新强化和主城界面
+        strongWnd.UpdateUI();
+        maincityWnd.RefreshUI();
     }
     #endregion
 

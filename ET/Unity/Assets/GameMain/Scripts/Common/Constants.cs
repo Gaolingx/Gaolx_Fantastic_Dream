@@ -68,6 +68,7 @@ public class Constants
     public const string UIClickBtn = "uiClickBtn";
     public const string UIExtenBtn = "uiExtenBtn";
     public const string UIOpenPage = "uiOpenPage";
+    public const string FBItemEnter = "fbitem";
 
     //UI∂Øª≠¬∑æ∂≈‰÷√
     public const string openMCmenuAniClipName = "OpenMCMenu";
