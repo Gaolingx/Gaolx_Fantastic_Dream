@@ -215,6 +215,19 @@ public class MainCitySys : SystemRoot
     public void OpenStrongWnd()
     {
         strongWnd.SetWndState(true);
+    }
+
+    public void RspStrong(GameMsg msg)
+    {
+        //计算升级前的战力
+        int zhanliPre = PECommon.GetFightByProps(GameRoot.Instance.PlayerData);
+        //更新玩家属性数据
+        GameRoot.Instance.SetPlayerDataByStrong(msg.rspStrong);
+        //升级后战力
+        int zhanliNow = PECommon.GetFightByProps(GameRoot.Instance.PlayerData);
+        //升级后的反馈
+        GameRoot.AddTips(Constants.txtColor("战力提升 " + (zhanliNow - zhanliPre), TxtColor.Blue));
+
 
     }
     #endregion

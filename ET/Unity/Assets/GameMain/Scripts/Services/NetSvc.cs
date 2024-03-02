@@ -100,9 +100,19 @@ public class NetSvc : MonoBehaviour
                 case ErrorCode.WrongPass:
                     GameRoot.AddTips("密码错误");
                     break;
+                case ErrorCode.LackLevel:
+                    GameRoot.AddTips("角色等级不够");
+                    break;
+                case ErrorCode.LackCoin:
+                    GameRoot.AddTips("金币数量不够");
+                    break;
+                case ErrorCode.LackCrystal:
+                    GameRoot.AddTips("水晶数量不够");
+                    break;
             }
             return;
         }
+
         switch ((CMD)msg.cmd)
         {
             case CMD.RspLogin:
@@ -113,6 +123,9 @@ public class NetSvc : MonoBehaviour
                 break;
             case CMD.RspGuide:
                 MainCitySys.Instance.RspGuide(msg);
+                break;
+            case CMD.RspStrong:
+                MainCitySys.Instance.RspStrong(msg);
                 break;
         }
     }
