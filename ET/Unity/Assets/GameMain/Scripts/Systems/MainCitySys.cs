@@ -17,6 +17,7 @@ public class MainCitySys : SystemRoot
     public GuideWnd guideWnd;
     public StrongWnd strongWnd;
     public SettingsWnd settingsWnd;
+    public ChatWnd chatWnd;
     public FpsWnd fpsWnd;
 
     public GameObject PlayerCameraRoot;
@@ -210,6 +211,13 @@ public class MainCitySys : SystemRoot
         //…Ë÷√∑ΩœÚ
         playerCtrl.Dir = dir;
     }
+
+    #region Chat Wnd
+    public void OpenChatWnd()
+    {
+        chatWnd.SetWndState();
+    }
+    #endregion
 
     #region Strong Wnd
     public void OpenStrongWnd()

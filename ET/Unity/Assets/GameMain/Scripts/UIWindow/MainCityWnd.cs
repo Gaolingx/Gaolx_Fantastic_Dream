@@ -176,6 +176,11 @@ public class MainCityWnd : WindowRoot
         audioSvc.PlayUIAudio(Constants.UIOpenPage);
         MainCitySys.Instance.OpenInfoWnd();
     }
+    public void ClickChatBtn()
+    {
+        audioSvc.PlayUIAudio(Constants.UIOpenPage);
+        MainCitySys.Instance.OpenChatWnd();
+    }
 
     //×¢²á´¥ÃþÊÂ¼þ
     public void RegisterTouchEvts()

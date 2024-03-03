@@ -37,5 +37,7 @@ public class ChatWnd : WindowRoot {
     }
     public void ClickCloseBtn() {
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
+
+        SetWndState(false);
     }
 }
