@@ -32,6 +32,12 @@ public class PathDefine
 
     #endregion
 
+    #region ChatWnd
+    public const string ChatWndBtn1 = "ResImages/btntype1";
+    public const string ChatWndBtn2 = "ResImages/btntype2";
+
+    #endregion
+
     #region AudioSvc
     public const string bgAudioPath = "ResAudio/";
     #endregion
