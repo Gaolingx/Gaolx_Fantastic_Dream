@@ -148,4 +148,7 @@ public class Constants
     public const int CurtTaskDataActID_4 = 4;
     public const int CurtTaskDataActID_5 = 5;
 
+    //ÁÄÌì½çÃæÅäÖÃ
+    public const int TextMaxLength = 12;
+
 }

@@ -64,20 +64,41 @@ public class ChatWnd : WindowRoot {
     }
 
     public void ClickSendBtn() {
+        if (iptChat.text != null && iptChat.text == "" && iptChat.text == " ")
+        {
+            if (iptChat.text.Length > Constants.TextMaxLength)
+            {
+                GameRoot.AddTips("输入信息不能超过" + Constants.TextMaxLength + "个字");
+            }
+            else
+            {
+                //发送网络消息到服务器
 
+            }
+        }
+        else
+        {
+            GameRoot.AddTips("尚未输入聊天信息");
+        }
     }
     public void ClickWorldBtn() {
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
+        chatType = 0;
+        RefreshUI();
     }
     public void ClickGuildBtn() {
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
+        chatType = 1;
+        RefreshUI();
     }
     public void ClickFriendBtn() {
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
+        chatType = 2;
+        RefreshUI();
     }
     public void ClickCloseBtn() {
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
-
+        chatType = 0;
         SetWndState(false);
     }
 }
