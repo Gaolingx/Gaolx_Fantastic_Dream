@@ -73,7 +73,17 @@ public class ChatWnd : WindowRoot {
             else
             {
                 //发送网络消息到服务器
-
+                GameMsg msg = new GameMsg
+                {
+                    cmd = (int)CMD.SndChat,
+                    sndChat = new SndChat
+                    {
+                        chat = iptChat.text
+                    }
+                };
+                //发送消息后清空显示
+                iptChat.text = "";
+                netSvc.SendMsg(msg);
             }
         }
         else
