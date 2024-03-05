@@ -24,7 +24,7 @@ public class SendVector : MonoBehaviour
     private void Start()
     {
         InitComponent();
-        //GetMaterialsByReference();
+        GetMaterialsByReference();
     }
 
     public void GetMaterialsByReference()
