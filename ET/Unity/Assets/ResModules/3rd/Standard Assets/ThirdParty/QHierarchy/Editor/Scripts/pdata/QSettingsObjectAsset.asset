@@ -3,9 +3,8 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -32,19 +31,6 @@ MonoBehaviour:
   - QTools.QHierarchy_Light_AdditionalActiveColor
   - QTools.QHierarchy_Light_AdditionalInactiveColor
   - QTools.QHierarchy_Light_AdditionalSpecialColor
-  - QTools.QHierarchy_Dark_TreeMapColor
-  - QTools.QHierarchy_Dark_SeparatorColor
-  - QTools.QHierarchy_Dark_SeparatorEvenRowShadingColor
-  - QTools.QHierarchy_Dark_SeparatorOddRowShadingColor
-  - QTools.QHierarchy_Dark_TagAndLayerTagLabelColor
-  - QTools.QHierarchy_Dark_TagAndLayerLayerLabelColor
-  - QTools.QHierarchy_Dark_ChildrenCountLabelColor
-  - QTools.QHierarchy_Dark_VerticesAndTrianglesVerticesLabelColor
-  - QTools.QHierarchy_Dark_VerticesAndTrianglesTrianglesLabelColor
-  - QTools.QHierarchy_Dark_AdditionalBackgroundColor
-  - QTools.QHierarchy_Dark_AdditionalActiveColor
-  - QTools.QHierarchy_Dark_AdditionalInactiveColor
-  - QTools.QHierarchy_Dark_AdditionalSpecialColor
   settingStringValues:
   - 905D5D5D
   - A01B6DBB
@@ -54,7 +40,7 @@ MonoBehaviour:
   - 
   - FF333333
   - FF333333
-  - Respawn;Resources/unity_builtin_extra;
+  - 
   - 
   - FF333333
   - FF333333
@@ -65,19 +51,6 @@ MonoBehaviour:
   - CF363636
   - 1E000000
   - FF1D78D5
-  - 39FFFFFF
-  - FF303030
-  - 13000000
-  - 00000000
-  - FFCCCCCC
-  - FFCCCCCC
-  - FFCCCCCC
-  - FFE41F1F
-  - FFCCCCCC
-  - 00383838
-  - FFFFFF80
-  - FF4F4F4F
-  - FF2CA8CA
   settingFloatNames:
   - QTools.QHierarchy_TagAndLayerSizeValuePercent
   - QTools.QHierarchy_TagAndLayerLabelAlpha
@@ -98,7 +71,7 @@ MonoBehaviour:
   - QTools.QHierarchy_VerticesAndTrianglesLabelSize
   - QTools.QHierarchy_ComponentsIconSize
   - QTools.QHierarchy_AdditionalIdentation
-  settingIntValues: 000000000100000000000000000000003d0000000000000000000000020000000000000000000000010000000200000000000000
+  settingIntValues: 000000000100000000000000000000003d0000000000000000000000000000000000000000000000000000000000000000000000
   settingBoolNames:
   - QTools.QHierarchy_TreeMapShow
   - QTools.QHierarchy_TreeMapEnhanced
@@ -155,4 +128,4 @@ MonoBehaviour:
   - QTools.QHierarchy_AdditionalShowHiddenQHierarchyObjectList
   - QTools.QHierarchy_AdditionalHideIconsIfNotFit
   - QTools.QHierarchy_AdditionalShowModifierWarning
-  settingBoolValues: 00010100010100010001010000010000000101010101010101010000000100010001000100010100010000010000010101000001010101
+  settingBoolValues: 01010101010101010001000000000000000101010101010101010000000000010001000100010000010000010000010101000000010101

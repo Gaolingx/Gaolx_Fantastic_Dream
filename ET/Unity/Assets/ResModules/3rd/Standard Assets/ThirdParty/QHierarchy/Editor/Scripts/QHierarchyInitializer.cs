@@ -22,8 +22,8 @@ namespace qtools.qhierarchy
             EditorApplication.hierarchyWindowItemOnGUI -= hierarchyWindowItemOnGUIHandler;
             EditorApplication.hierarchyWindowItemOnGUI += hierarchyWindowItemOnGUIHandler;
             
-            EditorApplication.hierarchyWindowChanged -= hierarchyWindowChanged;
-            EditorApplication.hierarchyWindowChanged += hierarchyWindowChanged;
+            EditorApplication.hierarchyChanged -= hierarchyWindowChanged;
+            EditorApplication.hierarchyChanged += hierarchyWindowChanged;
 
             Undo.undoRedoPerformed -= undoRedoPerformed;
             Undo.undoRedoPerformed += undoRedoPerformed;
