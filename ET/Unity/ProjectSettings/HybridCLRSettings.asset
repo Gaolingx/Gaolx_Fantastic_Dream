@@ -16,24 +16,19 @@ MonoBehaviour:
   useGlobalIl2cpp: 0
   hybridclrRepoURL: https://gitee.com/focus-creative-games/hybridclr
   il2cppPlusRepoURL: https://gitee.com/focus-creative-games/il2cpp_plus
-  hotUpdateAssemblyDefinitions: []
-  hotUpdateAssemblies:
-  - Assembly-CSharp
+  hotUpdateAssemblyDefinitions:
+  - {fileID: 5897886265953266890, guid: 3937b9ddba0797c43a695559e5d42be6, type: 3}
+  hotUpdateAssemblies: []
   preserveHotUpdateAssemblies: []
   hotUpdateDllCompileOutputRootDir: HybridCLRData/HotUpdateDlls
   externalHotUpdateAssembliyDirs:
   - Temp/Bin/Debug
   strippedAOTDllOutputRootDir: HybridCLRData/AssembliesPostIl2CppStrip
   patchAOTAssemblies:
-  - Unity.ThirdParty.dll
-  - Unity.Loader.dll
-  - Unity.Core.dll
-  - MongoDB.Bson.dll
-  - CommandLine.dll
-  - NLog.dll
   - mscorlib.dll
-  - System.dll
-  - System.Core.dll
+  - UnityEngine.CoreModule.dll
+  - YooAsset.dll
+  - UniTask.dll
   outputLinkFile: Scripts/Loader/Plugins/HybridCLR/Generated/link.xml
   outputAOTGenericReferenceFile: Scripts/Loader/Plugins/HybridCLR/Generated/AOTGenericReferences.cs
   maxGenericReferenceIteration: 10
