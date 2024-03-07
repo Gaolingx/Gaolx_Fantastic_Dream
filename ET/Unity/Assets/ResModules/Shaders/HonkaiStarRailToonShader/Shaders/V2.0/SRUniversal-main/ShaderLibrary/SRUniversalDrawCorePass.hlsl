@@ -40,7 +40,7 @@ Gradient GradientConstruct()
 {
     Gradient g;
     g.colorsLength = 2;
-    g.colors[0] = float4(1,1,1,0);
+    g.colors[0] = float4(1,1,1,0); //第四位不是alpha，而是它在轴上的坐标
     g.colors[1] = float4(1,1,1,1);
     g.colors[2] = float4(0,0,0,0);
     g.colors[3] = float4(0,0,0,0);
@@ -317,6 +317,43 @@ float3 GetRimLight(
     return FinalRimColor;
 }
 
+struct Surface
+{
+    half3 color;
+    half specularIntensity;
+    half specularThreshold;
+    half materialId;
+    half MetalSpecularMetallic;
+};
+
+half3 CalculateSpecular(Surface surface, Light light, float3 viewDirWS, half3 normalWS, 
+    half3 specColor, float shininess, float roughness, float intensity, float diffuseFac, float metallic = 0.0)
+{
+    //roughness = lerp(1.0, roughness * roughness, metallic);
+    //float smoothness = exp2(shininess * (1.0 - roughness) + 1.0) + 1.0;
+    float3 halfDirWS = normalize(light.direction + viewDirWS);
+    float blinnPhong = pow(saturate(dot(halfDirWS, normalWS)), shininess);
+    float threshold = 1.0 - surface.specularThreshold;
+    float stepPhong = smoothstep(threshold - roughness, threshold + roughness, blinnPhong);
+
+    float3 f0 = lerp(0.04, surface.color, metallic);
+    float3 fresnel = f0 + (1.0 - f0) * pow(1.0 - saturate(dot(viewDirWS, halfDirWS)), 5.0);
+
+    half3 lightColor = light.color * light.shadowAttenuation;
+    half3 specular = lightColor * specColor * fresnel * stepPhong * lerp(diffuseFac, 1.0, metallic);
+    
+    return specular * intensity * surface.specularIntensity;
+}
+
+half3 CalculateBaseSpecular(Surface surface, Light light, float3 viewDirWS, half3 normalWS, 
+    half3 specColor, float shininess, float roughness, float intensity, float diffuseFac)
+{
+    half3 FinalSpecularColor = 0;
+    float metallic = saturate((abs(surface.materialId - surface.MetalSpecularMetallic) - 0.1) / (0 - 0.1));
+    FinalSpecularColor = CalculateSpecular(surface, light, viewDirWS, normalWS, specColor, shininess, roughness, intensity, diffuseFac, metallic);
+    return FinalSpecularColor;
+}
+
 void DoClipTestToTargetAlphaValue(float alpha, float alphaTestThreshold) 
 {
 #if _UseAlphaClipping
@@ -504,44 +541,27 @@ float4 colorFragmentTarget(inout CharCoreVaryings input, bool isFrontFace)
     #endif
     float3 rampColor = LerpRampColor(coolRampCol, warmRampCol, DayTime);
     rampColor = lerp(f3one, rampColor, _ShadowBoost);
-    mainLightColor *= baseColor * rampColor;
+    float3 FinalDiffuse = mainLightColor * baseColor * rampColor;
 
 
     //高光
-    float3 specularColor = 0;
+    half3 specularColor = 0;
+    half3 viewDirWS = normalize(GetWorldSpaceViewDir(positionWS));
+    float diffuseFac = mainLightShadow;
+
     #if _SPECULAR_ON
         #if _AREA_HAIR || _AREA_UPPERBODY || _AREA_LOWERBODY
             {
-                //计算半程向量
-                float3 halfVectorWS = normalize(viewDirectionWS + lightDirectionWS);
-                float NoH = dot(normalWS, halfVectorWS);
-                float blinnPhong = pow(saturate(NoH), _SpecularExpon);
-                //非金属的反射率一般为0.04
-                float nonMetalSpecular = step(1.04 - blinnPhong, specularThreshold) * _SpecularKsNonMetal;
-                //金属反射率取1
-                float metalSpecular = blinnPhong * specularThreshold * _SpecularKsMetal;
+                Surface specularData;
+                specularData.color = baseColor;
+                specularData.specularIntensity = shadowIntensity;
+                specularData.specularThreshold = specularThreshold;
+                specularData.materialId = materialId;
+                specularData.MetalSpecularMetallic = _MetalSpecularMetallic;
 
-                float metallic = 0;
-                #if _METAL_SPECULAR_ON
-                    #if  _AREA_UPPERBODY || _AREA_LOWERBODY
-                        //金属部分的Alpha值为0.52，此时metallic为1，以0.1为插值范围，确定金属度
-                        metallic = saturate((abs(materialId - _MetalSpecularMetallic) - 0.1)/(0 - 0.1));
-                    #endif
-                #else
-                    //因为头发没有金属，所以头发位置要关掉这个keyword
-                    metallic = 0;
-                #endif
-                specularColor = lerp(nonMetalSpecular, metalSpecular * baseColor, metallic);
-                #if _SPECULAR_COLOR_CUSTOM
-                    //开启该keyword以使用自定义高光颜色
-                    specularColor *= _SpecularColor;
-                #else
-                    //高光颜色与主光源的颜色同步
-                    specularColor *= LightColor.rgb;
-                #endif
-                //强度系数
-                specularColor *= _SpecularBrightness;
-                specularColor *= mainLight.shadowAttenuation;
+                specularColor = CalculateBaseSpecular(specularData, mainLight, viewDirWS, positionWS, _SpecularColor, _SpecularShininess, _SpecularRoughness, _SpecularIntensity, diffuseFac);
+
+                //specularColor *= mainLight.shadowAttenuation;
             }
         #endif
     #else
@@ -561,10 +581,13 @@ float4 colorFragmentTarget(inout CharCoreVaryings input, bool isFrontFace)
                     stockingsMapRG = tex2D(_LowerBodyStockings, input.uv).rg;
                     stockingsMapB = tex2D(_LowerBodyStockings, input.uv * _stockingsMapBChannelUVScale).b;
                 #endif
+                //用法线点乘视角向量模拟皮肤透过丝袜
                 float NoV = dot(normalWS, viewDirectionWS);
                 float fac = NoV;
+                //做一次幂运算，调整亮区大小
                 fac = pow(saturate(fac), _StockingsTransitionPower);
-                fac = saturate((fac - _StockingsTransitionHardness/2)/(1 - _StockingsTransitionHardness));
+                //调整亮暗过渡的硬度
+                fac = saturate((fac - _StockingsTransitionHardness / 2) / (1 - _StockingsTransitionHardness));
                 fac = fac * (stockingsMapB * _StockingsTextureUsage + (1 - _StockingsTextureUsage)); // 细节纹理
                 fac = lerp(fac, 1, stockingsMapRG.g); // 厚度插值亮区
                 Gradient curve = GradientConstruct();
@@ -572,9 +595,9 @@ float4 colorFragmentTarget(inout CharCoreVaryings input, bool isFrontFace)
                 curve.colors[0] = float4(_StockingsDarkColor, 0);
                 curve.colors[1] = float4(_StockingsTransitionColor, _StockingsTransitionThreshold);
                 curve.colors[2] = float4(_StockingsLightColor, 1);
-                float3 stockingsColor = SampleGradient(curve, fac);
+                float3 stockingsColor = SampleGradient(curve, fac); // 将亮区的系数映射成颜色
 
-                stockingsEffect = lerp(1, stockingsColor, stockingsMapRG.r);
+                stockingsEffect = lerp(f3one, stockingsColor, stockingsMapRG.r);
 
             }
         #endif
@@ -626,10 +649,11 @@ float4 colorFragmentTarget(inout CharCoreVaryings input, bool isFrontFace)
             float2 outlineUV = float2(0, 0.0625);
             coolRampCol = tex2D(_BodyCoolRamp, outlineUV).rgb;
             warmRampCol = tex2D(_BodyWarmRamp, outlineUV).rgb;
+            float3 OutlineRamp = 0;
             #if _USE_RAMP_COLOR_ON
-                float3 OutlineRamp = abs(lerp(coolRampCol, warmRampCol, 0.5));
+                OutlineRamp = abs(lerp(coolRampCol, warmRampCol, 0.5));
             #else
-                float3 OutlineRamp = _OutlineColor.rgb;
+                OutlineRamp = _OutlineColor.rgb;
             #endif
             fakeOutlineColor = pow(OutlineRamp, _OutlineGamma);
         }
@@ -637,7 +661,7 @@ float4 colorFragmentTarget(inout CharCoreVaryings input, bool isFrontFace)
 
     float3 albedo = 0;
     albedo += indirectLightColor;
-    albedo += mainLightColor;
+    albedo += FinalDiffuse;
     albedo += specularColor;
     albedo *= stockingsEffect;
     albedo += rimLightColor * lerp(1, albedo, _RimLightMixAlbedo);
