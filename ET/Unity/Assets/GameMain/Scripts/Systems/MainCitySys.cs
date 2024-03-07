@@ -217,6 +217,10 @@ public class MainCitySys : SystemRoot
     {
         chatWnd.SetWndState();
     }
+    public void PshChat(GameMsg msg)
+    {
+        chatWnd.AddChatMsg(msg.pshChat.name, msg.pshChat.chat);
+    }
     #endregion
 
     #region Strong Wnd

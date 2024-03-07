@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 
 public class ChatWnd : WindowRoot {
@@ -24,6 +25,18 @@ public class ChatWnd : WindowRoot {
 
         RefreshUI();
     }
+
+    //显示聊天信息
+    public void AddChatMsg(string name, string chatTxt)
+    {
+        chatLst.Add(Constants.txtColor(name + "：", TxtColor.Blue) + chatTxt);
+        //显示聊天记录达到12后条删除最远的记录
+        if (chatLst.Count > 12)
+        {
+            chatLst.RemoveAt(0);
+        }
+        RefreshUI();
+    }   
 
     private void RefreshUI()
     {
