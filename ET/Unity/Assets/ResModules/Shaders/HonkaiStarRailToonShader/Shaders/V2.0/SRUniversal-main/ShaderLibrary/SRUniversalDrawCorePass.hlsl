@@ -259,7 +259,6 @@ float GetLinearEyeDepthAnyProjection(float4 svPosition)
 struct RimLightData
 {
     float3 rimlightcolor;
-    float3 mainLightColor;
     float rimlightwidth;
     float edgeSoftness;
     float thresholdMin;
@@ -310,42 +309,50 @@ float3 GetRimLight(
     intensity = lerp(intensity, 1, smoothstep(0, rimLightData.edgeSoftness, depthDelta - rimThresholdMax));
     intensity *= lerp(rimLightData.intensityBackFace, rimLightData.intensityFrontFace, isFrontFace);
 
-    float3 FinalRimColor = 0;
-    FinalRimColor = rimLightData.mainLightColor;
-    FinalRimColor *= intensity;
-    
+    float3 FinalRimColor;
+    FinalRimColor = rimLightData.rimlightcolor * intensity;
     return FinalRimColor;
 }
 
-struct Surface
+float3 fresnelSchlickRoughness(float cosTheta, float3 F0, float roughness)
+{
+    //return F0 + (max(float3(1 ,1, 1) * (1 - roughness), F0) - F0) * pow(1.0 - cosTheta, 5.0);
+    return F0 + (max(float3(1.0 - roughness, 1.0 - roughness, 1.0 - roughness), F0) - F0) * pow(1.0 - cosTheta, 5.0);
+}
+
+struct SpecularData
 {
     half3 color;
     half specularIntensity;
     half specularThreshold;
     half materialId;
+    half SpecularKsNonMetal;
+    half SpecularKsMetal;
     half MetalSpecularMetallic;
 };
 
-half3 CalculateSpecular(Surface surface, Light light, float3 viewDirWS, half3 normalWS, 
+half3 CalculateSpecular(SpecularData surface, Light light, float3 viewDirWS, half3 normalWS, 
     half3 specColor, float shininess, float roughness, float intensity, float diffuseFac, float metallic = 0.0)
 {
     //roughness = lerp(1.0, roughness * roughness, metallic);
     //float smoothness = exp2(shininess * (1.0 - roughness) + 1.0) + 1.0;
     float3 halfDirWS = normalize(light.direction + viewDirWS);
+    float NoH = dot(normalWS, halfDirWS);
     float blinnPhong = pow(saturate(dot(halfDirWS, normalWS)), shininess);
     float threshold = 1.0 - surface.specularThreshold;
     float stepPhong = smoothstep(threshold - roughness, threshold + roughness, blinnPhong);
 
-    float3 f0 = lerp(0.04, surface.color, metallic);
-    float3 fresnel = f0 + (1.0 - f0) * pow(1.0 - saturate(dot(viewDirWS, halfDirWS)), 5.0);
+    float3 f0 = lerp(surface.SpecularKsNonMetal, surface.color, metallic);
+    //float3 fresnel = f0 + (1.0 - f0) * pow(1.0 - saturate(dot(viewDirWS, halfDirWS)), 5.0);
+    float3 fresnel = fresnelSchlickRoughness(NoH, f0, roughness);
 
     half3 lightColor = light.color * light.shadowAttenuation;
-    half3 specular = lightColor * specColor * fresnel * stepPhong * lerp(diffuseFac, 1.0, metallic);
+    half3 specular = lightColor * specColor * fresnel * stepPhong * lerp(diffuseFac, surface.SpecularKsMetal, metallic);
     
     return specular * intensity * surface.specularIntensity;
 }
 
-half3 CalculateBaseSpecular(Surface surface, Light light, float3 viewDirWS, half3 normalWS, 
+half3 CalculateBaseSpecular(SpecularData surface, Light light, float3 viewDirWS, half3 normalWS, 
     half3 specColor, float shininess, float roughness, float intensity, float diffuseFac)
 {
     half3 FinalSpecularColor = 0;
@@ -404,7 +411,7 @@ float4 colorFragmentTarget(inout CharCoreVaryings input, bool isFrontFace)
 
     //获取世界空间法线，如果要采样NormalMap，要使用TBN矩阵变换
     #if _NORMAL_MAP_ON
-        float3x3 tangentToWorld = half3x3(input.tangentWS, input.bitangentWS, input.normalWS);
+        float3x3 tangentToWorld = float3x3(input.tangentWS, input.bitangentWS, input.normalWS);
         float4 normalMap = SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, input.uv);
         float3 normalTS = UnpackNormal(normalMap);
         float3 normalWS = TransformTangentToWorld(normalTS, tangentToWorld, true);
@@ -552,11 +559,13 @@ float4 colorFragmentTarget(inout CharCoreVaryings input, bool isFrontFace)
     #if _SPECULAR_ON
         #if _AREA_HAIR || _AREA_UPPERBODY || _AREA_LOWERBODY
             {
-                Surface specularData;
+                SpecularData specularData;
                 specularData.color = baseColor;
                 specularData.specularIntensity = shadowIntensity;
                 specularData.specularThreshold = specularThreshold;
                 specularData.materialId = materialId;
+                specularData.SpecularKsNonMetal = _SpecularKsNonMetal;
+                specularData.SpecularKsMetal = _SpecularKsMetal;
                 specularData.MetalSpecularMetallic = _MetalSpecularMetallic;
 
                 specularColor = CalculateBaseSpecular(specularData, mainLight, viewDirWS, positionWS, _SpecularColor, _SpecularShininess, _SpecularRoughness, _SpecularIntensity, diffuseFac);
@@ -618,7 +627,6 @@ float4 colorFragmentTarget(inout CharCoreVaryings input, bool isFrontFace)
             rimLightData.intensityFrontFace = _RimIntensity;
             rimLightData.intensityBackFace = _RimIntensityBackFace;
             rimLightData.modelScale = _ModelScale;
-            rimLightData.mainLightColor = mainLightColor;
 
             rimLightColor = GetRimLight(rimLightData, input.positionCS, normalize(normalWS), isFrontFace, lightMap);
         }
