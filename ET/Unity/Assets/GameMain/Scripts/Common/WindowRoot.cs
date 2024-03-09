@@ -29,6 +29,12 @@ public class WindowRoot : MonoBehaviour
             ClearWnd();
         }
     }
+
+    protected bool GetWndState()
+    {
+        return gameObject.activeSelf;
+    }
+
     protected virtual void InitWnd()
     {
         //获取单例的引用
@@ -36,6 +42,7 @@ public class WindowRoot : MonoBehaviour
         audioSvc = AudioSvc.Instance;
         netSvc = NetSvc.Instance;
     }
+
     protected virtual void ClearWnd()
     {
         //重置为空

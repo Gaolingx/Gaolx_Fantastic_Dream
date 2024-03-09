@@ -35,7 +35,12 @@ public class ChatWnd : WindowRoot {
         {
             chatLst.RemoveAt(0);
         }
-        RefreshUI();
+        //如果窗口没有激活，则不能刷新UI，否则会出现空引用异常
+        if (GetWndState())
+        {
+            RefreshUI();
+        }
+
     }   
 
     private void RefreshUI()
