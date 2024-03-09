@@ -15,12 +15,12 @@ Material:
   - _AREA_HAIR
   - _DayTime_MANUAL_ON
   - _FAKE_OUTLINE_ON
-  - _METAL_SPECULAR_ON
   - _OUTLINE_ON
   - _RIM_LIGHTING_ON
   - _SPECULAR_ON
   - _USE_RAMP_COLOR_ON
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _METAL_SPECULAR_ON
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -152,6 +152,7 @@ Material:
     - _Alpha: 1
     - _AlphaClip: 0
     - _AlphaToMask: 0
+    - _AnisotropySpecularToggle: 0
     - _Area: 2
     - _BASE_COLOR_WEIGHT: 1
     - _BUMP_MAP_STRENGTH: 0.3
@@ -169,6 +170,7 @@ Material:
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 0
+    - _CullMode: 2
     - _Cutoff: 0.5
     - _DayTime: 12
     - _DayTimeManualON: 1
@@ -200,12 +202,15 @@ Material:
     - _IndirectLightOcclusionUsage: 0.5
     - _IndirectLightUsage: 0
     - _IsFace: 0
+    - _LerpAOIntensity: 1
     - _METALNESS: 0
     - _MainLightBrightnessFactor: 0.75
     - _MainLightColorUsage: 0
+    - _MainLightShadowOffset: -0.1
     - _MetalSpecularMetallic: 0.52
     - _Metallic: 0
     - _Mode: 0
+    - _ModelScale: 1
     - _OcclusionStrength: 1
     - _OutlineGamma: 16
     - _OutlineUseVertexColorSmoothNormal: 0
@@ -220,14 +225,22 @@ Material:
     - _REFLECTIONS_ROUGHNESS: 1
     - _REFLECTIONS_WEIGHT: 1
     - _ReceiveShadows: 1
+    - _RimDark0: 0.5
+    - _RimEdgeSoftness: 0.05
+    - _RimIntensity: 0.5
+    - _RimIntensityBackFace: 0
     - _RimLightBrightness: 1
     - _RimLightFadeout: 1
-    - _RimLightMixAlbedo: 0.9
+    - _RimLightMixAlbedo: 0
+    - _RimLightMixMainLightColor: 0
     - _RimLightThreshold: 0.05
     - _RimLightWidth: 1
+    - _RimThresholdMax: 0.9
+    - _RimThresholdMin: 0.6
+    - _RimWidth0: 0.5
     - _ScrBlendModeOverlay: 1
     - _ShadowBoost: 1
-    - _ShadowRampOffset: 0.25
+    - _ShadowRampOffset: 0.75
     - _ShadowThresholdCenter: 0
     - _ShadowThresholdSoftness: 0.1
     - _Smoothness: 0.4472136
@@ -235,8 +248,11 @@ Material:
     - _SpecularBrightness: 10
     - _SpecularExpon: 50
     - _SpecularHighlights: 1
+    - _SpecularIntensity: 1
     - _SpecularKsMetal: 1
     - _SpecularKsNonMetal: 0.04
+    - _SpecularRoughness: 0.1
+    - _SpecularShininess: 10
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _SrcBlendMode: 1
@@ -254,6 +270,7 @@ Material:
     - _Surface: 0
     - _TRANSPARENCY: 0
     - _UVSec: 0
+    - _UseAlphaClipping: 0
     - _UseDrawOverlay: 0
     - _UseEmission: 0
     - _UseFaceExpression: 0
@@ -265,10 +282,13 @@ Material:
     - _UseStockings: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
+    - _mBloomIntensity0: 1
+    - _stockingsMapBChannelUVScale: 20
     m_Colors:
     - _BASE_COLOR: {r: 0.8, g: 0.8, b: 0.8, a: 1}
     - _BackFaceTintColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColor: {r: 0.9063317, g: 0.9063317, b: 0.9063317, a: 1}
+    - _BloomColor0: {r: 1, g: 1, b: 1, a: 1}
     - _BodyCoolRampColor: {r: 1, g: 1, b: 1, a: 1}
     - _BodyWarmRampColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
@@ -289,6 +309,7 @@ Material:
     - _LowerBodyColorMapColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _REFLECTIONS_COLOR: {r: 1, g: 1, b: 1, a: 1}
+    - _RimColor0: {r: 1, g: 1, b: 1, a: 1}
     - _RimLightTintColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
