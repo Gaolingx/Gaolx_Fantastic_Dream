@@ -136,6 +136,16 @@ public class MainCityWnd : WindowRoot
     #endregion
 
     #region ClickEvts
+    public void ClickBuyPowerBtn()
+    {
+        audioSvc.PlayUIAudio(Constants.UIOpenPage);
+        MainCitySys.Instance.OpenBuyWnd();
+    }
+    public void ClickMKCoinBtn()
+    {
+        audioSvc.PlayUIAudio(Constants.UIOpenPage);
+        MainCitySys.Instance.OpenBuyWnd();
+    }
     public void ClickStrongBtn()
     {
         audioSvc.PlayUIAudio(Constants.UIOpenPage);
