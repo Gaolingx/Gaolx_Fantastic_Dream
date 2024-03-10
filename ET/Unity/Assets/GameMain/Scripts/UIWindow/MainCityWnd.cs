@@ -139,12 +139,12 @@ public class MainCityWnd : WindowRoot
     public void ClickBuyPowerBtn()
     {
         audioSvc.PlayUIAudio(Constants.UIOpenPage);
-        MainCitySys.Instance.OpenBuyWnd();
+        MainCitySys.Instance.OpenBuyWnd(Constants.BuyTypePower);
     }
     public void ClickMKCoinBtn()
     {
         audioSvc.PlayUIAudio(Constants.UIOpenPage);
-        MainCitySys.Instance.OpenBuyWnd();
+        MainCitySys.Instance.OpenBuyWnd(Constants.MakeTypeCoin);
     }
     public void ClickStrongBtn()
     {

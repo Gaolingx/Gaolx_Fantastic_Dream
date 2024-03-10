@@ -15,7 +15,7 @@ public class ChatWnd : WindowRoot {
     public Image imgGuild;
     public Image imgFriend;
 
-    private int chatType;
+    private int chatType; //0：世界，1：公会，2：好友
     private List<string> chatLst = new List<string>();
 
     protected override void InitWnd() {
@@ -82,7 +82,7 @@ public class ChatWnd : WindowRoot {
     }
 
     public void ClickSendBtn() {
-        if (iptChat.text != null && iptChat.text == "" && iptChat.text == " ")
+        if (iptChat.text != null && iptChat.text != "" && iptChat.text != " ")
         {
             if (iptChat.text.Length > Constants.TextMaxLength)
             {

@@ -151,4 +151,9 @@ public class Constants
     //聊天界面配置
     public const int TextMaxLength = 12;
 
+    //购买相关配置
+    public const int BuyTypePower = 0;
+    public const int MakeTypeCoin = 1;
+    public const int BuyCostCrystalOnce = 10;
+
 }
