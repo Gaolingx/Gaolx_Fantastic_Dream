@@ -46,6 +46,17 @@ public class BuyWnd : WindowRoot {
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
 
         //发送网络购买消息
+        GameMsg msg = new GameMsg
+        {
+            cmd = (int)CMD.ReqBuy,
+            reqBuy = new ReqBuy
+            {
+                type = buyType,
+                cost = Constants.BuyCostCrystalOnce
+            }
+        };
+
+        netSvc.SendMsg(msg);
     }
 
     public void ClickCloseBtn() {
