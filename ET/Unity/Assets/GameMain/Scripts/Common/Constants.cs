@@ -154,6 +154,6 @@ public class Constants
     //¹ºÂòÏà¹ØÅäÖÃ
     public const int BuyTypePower = 0;
     public const int MakeTypeCoin = 1;
-    public const int BuyCostCrystalOnce = 10;
+    public const int BuyCostDiamondOnce = 10;
 
 }

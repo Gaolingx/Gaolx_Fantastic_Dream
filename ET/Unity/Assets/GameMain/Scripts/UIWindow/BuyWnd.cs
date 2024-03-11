@@ -30,10 +30,10 @@ public class BuyWnd : WindowRoot {
         {
             case Constants.BuyTypePower:
                 //体力
-                txtInfo.text = "是否花费" + Constants.txtColor(Constants.BuyCostCrystalOnce + "钻石", TxtColor.Red) + "购买" + Constants.txtColor("100体力", TxtColor.Green) + "?";
+                txtInfo.text = "是否花费" + Constants.txtColor(Constants.BuyCostDiamondOnce + "钻石", TxtColor.Red) + "购买" + Constants.txtColor("100体力", TxtColor.Green) + "?";
                 break;
             case Constants.MakeTypeCoin:
-                txtInfo.text = "是否花费" + Constants.txtColor(Constants.BuyCostCrystalOnce + "钻石", TxtColor.Red) + "购买" + Constants.txtColor("1000金币", TxtColor.Green) + "?";
+                txtInfo.text = "是否花费" + Constants.txtColor(Constants.BuyCostDiamondOnce + "钻石", TxtColor.Red) + "购买" + Constants.txtColor("1000金币", TxtColor.Green) + "?";
                 //金币
                 break;
             default:
@@ -52,7 +52,7 @@ public class BuyWnd : WindowRoot {
             reqBuy = new ReqBuy
             {
                 type = buyType,
-                cost = Constants.BuyCostCrystalOnce
+                cost = Constants.BuyCostDiamondOnce
             }
         };
 
