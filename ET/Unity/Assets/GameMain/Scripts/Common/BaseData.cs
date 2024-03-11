@@ -3,6 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public class BuyCfg : BaseData<BuyCfg>
+{
+    public int buyCostDiamondOnce;
+    public int amountEachPurchase;
+
+}
+
 public class StrongCfg : BaseData<StrongCfg>
 {
     public int pos;

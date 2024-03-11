@@ -12,6 +12,7 @@ public class PathDefine
     public const string MapCfg = "ResCfgs/xml/map";
     public const string GuideCfg = "ResCfgs/xml/guide";
     public const string StrongCfg = "ResCfgs/xml/strong";
+    public const string BuyCfg = "ResCfgs/xml/buyCfg";
 
     #endregion
 

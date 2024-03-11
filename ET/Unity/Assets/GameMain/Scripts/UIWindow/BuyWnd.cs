@@ -9,12 +9,14 @@ public class BuyWnd : WindowRoot {
     public Text txtInfo;
     public Button btnSure;
 
-    private int buyType;//0：体力 1：金币
+    private int buyType;//0：体力 1：金币，与buyCfg的ID对应
+    private BuyCfg buyCfg;
 
     //设置购买类型
     public void SetBuyType(int type)
     {
         this.buyType = type;
+        GetBuyCfg(type);
     }
     protected override void InitWnd()
     {
@@ -23,23 +25,30 @@ public class BuyWnd : WindowRoot {
         RefreshUI();
     }
 
+    public void GetBuyCfg(int buyType)
+    {
+        buyCfg = ResSvc.Instance.GetBuyCfg(buyType);
+    }
+
     public void RefreshUI()
     {
+        
         //通过打开窗口时设置buyType，控制窗口的显示，实现不同业务模块共用ui窗口的目的
-        switch(buyType)
+        switch (buyType)
         {
             case Constants.BuyTypePower:
                 //体力
-                txtInfo.text = "是否花费" + Constants.txtColor(Constants.BuyCostDiamondOnce + "钻石", TxtColor.Red) + "购买" + Constants.txtColor("100体力", TxtColor.Green) + "?";
+                txtInfo.text = "是否花费" + Constants.txtColor(buyCfg.buyCostDiamondOnce + "钻石", TxtColor.Red) + "购买" + Constants.txtColor(buyCfg.amountEachPurchase + "体力", TxtColor.Green) + "?";
                 break;
             case Constants.MakeTypeCoin:
-                txtInfo.text = "是否花费" + Constants.txtColor(Constants.BuyCostDiamondOnce + "钻石", TxtColor.Red) + "购买" + Constants.txtColor("1000金币", TxtColor.Green) + "?";
+                txtInfo.text = "是否花费" + Constants.txtColor(buyCfg.buyCostDiamondOnce + "钻石", TxtColor.Red) + "购买" + Constants.txtColor(buyCfg.amountEachPurchase + "金币", TxtColor.Green) + "?";
                 //金币
                 break;
             default:
                 break;
         }
     }
+
 
     public void ClickSureBtn()
     {
@@ -52,7 +61,7 @@ public class BuyWnd : WindowRoot {
             reqBuy = new ReqBuy
             {
                 type = buyType,
-                cost = Constants.BuyCostDiamondOnce
+                cost = buyCfg.amountEachPurchase
             }
         };
 

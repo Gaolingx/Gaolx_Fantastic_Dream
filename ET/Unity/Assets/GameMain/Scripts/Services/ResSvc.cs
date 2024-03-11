@@ -18,6 +18,7 @@ public class ResSvc : MonoBehaviour
         InitMapCfg(PathDefine.MapCfg);
         InitGuideCfg(PathDefine.GuideCfg);
         InitStrongCfg(PathDefine.StrongCfg);
+        InitBuyCfg(PathDefine.BuyCfg);
 
         PECommon.Log("Init ResSvc...");
     }
@@ -459,6 +460,63 @@ public class ResSvc : MonoBehaviour
             }
         }
         return val;
+    }
+    #endregion
+
+    #region 资源交易配置
+    private Dictionary<int, BuyCfg> buyCfgDic = new Dictionary<int, BuyCfg>();
+    private void InitBuyCfg(string path)
+    {
+        TextAsset xml = Resources.Load<TextAsset>(path);
+        if (!xml)
+        {
+            PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
+        }
+        else
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xml.text);
+
+            XmlNodeList nodLst = doc.SelectSingleNode("root").ChildNodes;
+
+            for (int i = 0; i < nodLst.Count; i++)
+            {
+                XmlElement ele = nodLst[i] as XmlElement;
+
+                if (ele.GetAttributeNode("ID") == null)
+                {
+                    continue;
+                }
+                int ID = Convert.ToInt32(ele.GetAttributeNode("ID").InnerText);
+                BuyCfg buyCfg = new BuyCfg
+                {
+                    ID = ID
+                };
+
+                foreach (XmlElement e in nodLst[i].ChildNodes)
+                {
+                    switch (e.Name)
+                    {
+                        case "buyCostDiamondOnce":
+                            buyCfg.buyCostDiamondOnce = int.Parse(e.InnerText);
+                            break;
+                        case "amountEachPurchase":
+                            buyCfg.amountEachPurchase = int.Parse(e.InnerText);
+                            break;
+                    }
+                }
+                buyCfgDic.Add(ID, buyCfg);
+            }
+        }
+    }
+    public BuyCfg GetBuyCfg(int id)
+    {
+        BuyCfg bc = null;
+        if (buyCfgDic.TryGetValue(id, out bc))
+        {
+            return bc;
+        }
+        return null;
     }
     #endregion
     #endregion

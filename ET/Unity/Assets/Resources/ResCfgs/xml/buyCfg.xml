@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<item ID="0">
+		<buyTypeName>体力</buyTypeName>
+		<buyCostDiamondOnce>10</buyCostDiamondOnce>
+        <amountEachPurchase>100</amountEachPurchase>
+	</item>
+    <item ID="1">
+		<buyTypeName>金币</buyTypeName>
+		<buyCostDiamondOnce>5</buyCostDiamondOnce>
+        <amountEachPurchase>1000</amountEachPurchase>
+	</item>
+</root>
