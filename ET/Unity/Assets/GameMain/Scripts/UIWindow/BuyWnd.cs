@@ -21,7 +21,7 @@ public class BuyWnd : WindowRoot {
     protected override void InitWnd()
     {
         base.InitWnd();
-
+        btnSure.interactable = true;
         RefreshUI();
     }
 
@@ -66,6 +66,8 @@ public class BuyWnd : WindowRoot {
         };
 
         netSvc.SendMsg(msg);
+        //关闭确定按钮交互，直到服务器回应消息，防止网络不稳定客户端响应不及时造成重复点击购买
+        btnSure.interactable = false;
     }
 
     public void ClickCloseBtn() {

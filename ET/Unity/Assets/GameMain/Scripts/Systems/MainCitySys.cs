@@ -219,6 +219,18 @@ public class MainCitySys : SystemRoot
         buyWnd.SetBuyType(type);
         buyWnd.SetWndState();
     }
+    public void RspBuy(GameMsg msg)
+    {
+        RspBuy data = msg.rspBuy;
+        //更新玩家数据到GameRoot中
+        GameRoot.Instance.SetPlayerDataByBuy(data);
+        GameRoot.AddTips("购买成功");
+
+        //更新主城界面
+        maincityWnd.RefreshUI();
+        //关闭购买窗口
+        buyWnd.SetWndState(false);
+    }
     #endregion
 
     #region Chat Wnd

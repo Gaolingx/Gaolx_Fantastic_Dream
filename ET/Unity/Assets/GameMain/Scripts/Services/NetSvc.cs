@@ -109,6 +109,9 @@ public class NetSvc : MonoBehaviour
                 case ErrorCode.LackCrystal:
                     GameRoot.AddTips("水晶数量不够");
                     break;
+                case ErrorCode.LackDiamond:
+                    GameRoot.AddTips("钻石数量不够");
+                    break;
             }
             return;
         }
@@ -129,6 +132,9 @@ public class NetSvc : MonoBehaviour
                 break;
             case CMD.PshChat:
                 MainCitySys.Instance.PshChat(msg);
+                break;
+            case CMD.RspBuy:
+                MainCitySys.Instance.RspBuy(msg);
                 break;
         }
     }

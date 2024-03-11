@@ -171,7 +171,7 @@ public class ResSvc : MonoBehaviour
     public string GetRDNameData(bool man = true)
     {
         System.Random rd = new System.Random();
-        string rdName = surnameLst[PETools.RDInt(0, surnameLst.Count - 1)];
+        string rdName = surnameLst[PETools.RDInt(0, surnameLst.Count - 1, rd)];
         if (man)
         {
             rdName += manLst[PETools.RDInt(0, manLst.Count - 1)];
