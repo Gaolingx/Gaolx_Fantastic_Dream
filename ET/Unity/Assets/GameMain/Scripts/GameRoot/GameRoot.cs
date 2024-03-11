@@ -102,7 +102,7 @@ public class GameRoot : MonoBehaviour
 
     public void SetPlayerDataByBuy(RspBuy data)
     {
-        PlayerData.diamond = data.dimond;
+        PlayerData.diamond = data.diamond;
         PlayerData.coin = data.coin;
         PlayerData.power = data.power;
     }

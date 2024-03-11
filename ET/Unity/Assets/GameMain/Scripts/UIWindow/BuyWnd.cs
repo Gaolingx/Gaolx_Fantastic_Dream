@@ -61,7 +61,7 @@ public class BuyWnd : WindowRoot {
             reqBuy = new ReqBuy
             {
                 type = buyType,
-                cost = buyCfg.amountEachPurchase
+                cost = buyCfg.buyCostDiamondOnce
             }
         };
 
