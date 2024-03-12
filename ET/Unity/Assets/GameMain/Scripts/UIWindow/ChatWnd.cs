@@ -81,7 +81,13 @@ public class ChatWnd : WindowRoot {
         }
     }
 
+    private bool canSend = true;
     public void ClickSendBtn() {
+        if (!canSend)
+        {
+            GameRoot.AddTips("聊天消息每5秒钟才能发送一条");
+            return;
+        }
         if (iptChat.text != null && iptChat.text != "" && iptChat.text != " ")
         {
             if (iptChat.text.Length > Constants.TextMaxLength)
@@ -102,6 +108,11 @@ public class ChatWnd : WindowRoot {
                 //发送消息后清空显示
                 iptChat.text = "";
                 netSvc.SendMsg(msg);
+
+                canSend = false;
+
+                //开启携程计时，5秒后将canSend改为true
+                StartCoroutine(MsgTimer());
             }
         }
         else
@@ -109,6 +120,13 @@ public class ChatWnd : WindowRoot {
             GameRoot.AddTips("尚未输入聊天信息");
         }
     }
+
+    IEnumerator MsgTimer()
+    {
+        yield return new WaitForSeconds(Constants.SndMsgWaitForSeconds);
+        canSend = true;
+    }
+
     public void ClickWorldBtn() {
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
         chatType = 0;

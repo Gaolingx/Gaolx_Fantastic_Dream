@@ -150,6 +150,7 @@ public class Constants
 
     //聊天界面配置
     public const int TextMaxLength = 12;
+    public const float SndMsgWaitForSeconds = 5.0f;
 
     //购买相关配置
     public const int BuyTypePower = 0;
