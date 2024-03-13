@@ -4509,7 +4509,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7066c5f152c157f40912f73251590fda,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4029739320334776003}
+      addedObject: {fileID: 9069840229921517547}
     - targetCorrespondingSourceObject: {fileID: -3874587685086913128, guid: 7066c5f152c157f40912f73251590fda,
         type: 3}
       insertIndex: -1
@@ -6602,7 +6602,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &4029739320334776003
+--- !u!114 &9069840229921517547
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6611,9 +6611,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 6878083648144533945}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db2c30fabb66baf43855296f5ee4d343, type: 3}
+  m_Script: {fileID: 11500000, guid: 10c7b1798fcd00441b01d496adf73385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_RampCoolWarmMix: 1
+  m_DitherAlpha: 1
+  m_ExCheekIntensity: 0
+  m_ExShyIntensity: 0
+  m_ExShadowIntensity: 0
+  m_IsCastingShadow: 1
+  m_MMDHeadBone: {fileID: 0}
+  m_MMDHeadBoneForward: 0
+  m_MMDHeadBoneUp: 4
+  m_MMDHeadBoneRight: 3
 --- !u!4 &6894000175924711744 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8349992768098548312, guid: 7066c5f152c157f40912f73251590fda,
