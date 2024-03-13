@@ -7,6 +7,7 @@ using StarterAssets;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using PEProtocol;
+using UnityEngine.InputSystem.XR;
 
 public class MainCitySys : SystemRoot
 {
@@ -20,6 +21,7 @@ public class MainCitySys : SystemRoot
     public ChatWnd chatWnd;
     public BuyWnd buyWnd;
     public FpsWnd fpsWnd;
+    public UIController uiController;
 
     public GameObject PlayerCameraRoot;
     private GameObject Scene_player;
@@ -409,6 +411,7 @@ public class MainCitySys : SystemRoot
     public void OpenSettingsWnd()
     {
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
+        uiController.isPause = true;
         settingsWnd.SetWndState(true);
 
     }

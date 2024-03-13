@@ -9,6 +9,7 @@ public class SettingsWnd : WindowRoot
     public Slider BGAudioSlider, UIAudioSlider, CharacterAudioSlider;
     public Toggle VsyncSettingsBtn;
     public AudioSource WndBGAudioAudioSource, WndUIAudioAudioSource, WndCharacterAudioSource;
+    public UIController uiController;
     protected override void InitWnd()
     {
         base.InitWnd();
@@ -22,7 +23,7 @@ public class SettingsWnd : WindowRoot
     {
         BGAudioSlider.value = WndBGAudioAudioSource.volume;
         UIAudioSlider.value = WndUIAudioAudioSource.volume;
-        CharacterAudioSlider.value = WndCharacterAudioSource.volume;
+        CharacterAudioSlider.value = WndCharacterAudioSource.volume; 
     }
     private void SliderAddListener()
     {
@@ -54,6 +55,7 @@ public class SettingsWnd : WindowRoot
     public void ClickCloseBtn()
     {
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
+        uiController.isPause = false;
         SetWndState(false);
     }
     public void ClickExitGame()

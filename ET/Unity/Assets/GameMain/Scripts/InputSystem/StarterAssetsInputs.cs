@@ -25,86 +25,76 @@ namespace StarterAssets
 		public bool isModified;
 
 
+        [Header("Movement Settings")]
+        public bool analogMovement;
 
-		[Header("Movement Settings")]
-		public bool analogMovement;
-
-		[Header("Mouse Cursor Settings")]
+        [Header("Mouse Cursor Settings")]
         public bool cursorLocked = true;
         public bool cursorInputForLook = true;
 
 
         [SerializeField]
 
-        private void Update()
-        {
-			MouseLockListener();
-			SetLockCursor();
-        }
         public void OnJump(InputValue value)
 		{
             JumpInput(value.isPressed);
         }
 
-		public void OnMove(InputValue value)
-		{
-			MoveInput(value.Get<Vector2>());
-		}
+        public void OnMove(InputValue value)
+        {
+            MoveInput(value.Get<Vector2>());
+        }
 
-		public void OnLook(InputValue value)
-		{
-			if(cursorInputForLook)
-			{
-				LookInput(value.Get<Vector2>());
-			}
-		}
+        public void OnLook(InputValue value)
+        {
+            if (cursorInputForLook)
+            {
+                LookInput(value.Get<Vector2>());
+            }
+        }
 
-		public void OnZoom(InputValue value)
+        public void OnZoom(InputValue value)
 		{
 			ZoomInput(value.Get<float>());
 		}
 
-		public void OnKickModifier(InputValue value)
-		{
+        public void OnKickModifier(InputValue value)
+        {
             KickModifierInput(value.isPressed);
         }
 
-		public void OnRoll(InputValue value)
-		{
-			RollInput(value.isPressed);
-		}
+        public void OnRoll(InputValue value)
+        {
+            RollInput(value.isPressed);
+        }
 
-		public void OnFlipJump(InputValue value)
-		{
-			FlipJumpInput(value.isPressed);
-		}
+        public void OnFlipJump(InputValue value)
+        {
+            FlipJumpInput(value.isPressed);
+        }
 
 
         public void OnCrouch(InputValue value)
         {
-			CrouchInput(value.isPressed);
+            CrouchInput(value.isPressed);
         }
-
 
         public void OnPunchRight(InputValue value)
-		{
-			PunchRightInput(value.isPressed);
-		}
-
-		public void OnPunchLeft(InputValue inputValue) 
-		{
-			PunchLeftInput(inputValue.isPressed);
+        {
+            PunchRightInput(value.isPressed);
         }
 
-       
-
+        public void OnPunchLeft(InputValue inputValue)
+        {
+            PunchLeftInput(inputValue.isPressed);
+        }
 
         public void OnSprint(InputValue value)
-		{
-			SprintInput(value.isPressed);
-		}
+        {
+            SprintInput(value.isPressed);
+        }
 
-		public void OnLockOn(InputValue value)
+        public void OnLockOn(InputValue value)
 		{
             LockOnInput(value.isPressed);
         }
@@ -114,96 +104,60 @@ namespace StarterAssets
             lockOn = isPressed;
         }
 
-		private void KickModifierInput(bool isPressed)
-		{
-			isModified = isPressed;
-		}
+        private void KickModifierInput(bool isPressed)
+        {
+            isModified = isPressed;
+        }
 
 
 
         public void MoveInput(Vector2 newMoveDirection)
-		{
-			move = newMoveDirection;
-		} 
+        {
+            move = newMoveDirection;
+        }
 
-		public void LookInput(Vector2 newLookDirection)
-		{
-			look = newLookDirection;
-		}
+        public void LookInput(Vector2 newLookDirection)
+        {
+            look = newLookDirection;
+        }
 
-		public void ZoomInput(float newZoomValue)
+        public void ZoomInput(float newZoomValue)
 		{
 			zoom = newZoomValue;
 		}
 
-		public void JumpInput(bool newJumpState)
-		{
-			jump = newJumpState;
+        public void JumpInput(bool newJumpState)
+        {
+            jump = newJumpState;
 
-		}
+        }
         private void FlipJumpInput(bool newFlipJumpState)
         {
-			flipJump = newFlipJumpState;
+            flipJump = newFlipJumpState;
         }
         private void CrouchInput(bool newCrouchState)
         {
             crouch = newCrouchState;
         }
 
-		public void RollInput(bool newRollState)
-		{
-			roll = newRollState;
-		}
-
-		public void PunchRightInput(bool newPunchRightState)
-		{
-			punchRight = newPunchRightState;
-		}
-		
-		public void PunchLeftInput(bool newPunchLeftState)
-		{
-			punchLeft = newPunchLeftState;
-		}
-
-		public void SprintInput(bool newSprintState)
-		{
-			sprint = newSprintState;
-		}
-
-		private void MouseLockListener()
-		{
-            if (Input.GetKeyDown(KeyCode.LeftAlt))
-            {
-                cursorLocked = false;
-            }
-            if (Input.GetKeyUp(KeyCode.LeftAlt))
-            {
-                cursorLocked = false;
-            }
+        public void RollInput(bool newRollState)
+        {
+            roll = newRollState;
         }
 
-        private void SetLockCursor()
-		{
-			if(cursorLocked == true)
-			{
-				LockCursor();
-            }
-			else
-			{
-				UnlockCursor();
-            }
-		}
-
-        private void LockCursor()
+        public void PunchRightInput(bool newPunchRightState)
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-		}
+            punchRight = newPunchRightState;
+        }
 
-        private void UnlockCursor()
+        public void PunchLeftInput(bool newPunchLeftState)
         {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            punchLeft = newPunchLeftState;
+        }
+
+        public void SprintInput(bool newSprintState)
+        {
+            sprint = newSprintState;
         }
 
         private void OnApplicationFocus(bool hasFocus)
