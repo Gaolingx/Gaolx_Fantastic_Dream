@@ -3187,6 +3187,7 @@ GameObject:
   - component: {fileID: 2094128808}
   - component: {fileID: 2094128810}
   - component: {fileID: 2094128811}
+  - component: {fileID: 2094128813}
   m_Layer: 5
   m_Name: HotFixRoot
   m_TagString: Untagged
@@ -3348,6 +3349,18 @@ MonoBehaviour:
   Transform_NpcID_3_Position: {x: -70.53331, y: -0.2796433, z: 21.70224}
   Transform_NpcID_3_Rotation: {x: 0, y: 60, z: 0}
   Transform_NpcID_3_Scale: {x: 1, y: 1, z: 1}
+--- !u!114 &2094128813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2094128804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 036eaf121caf2cf4cb620822b091b1fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2123947773
 GameObject:
   m_ObjectHideFlags: 0

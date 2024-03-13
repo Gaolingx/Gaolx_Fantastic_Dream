@@ -49,6 +49,8 @@ public class GameRoot : MonoBehaviour
         audio.InitSvc();
         NpcCfg npcCfg = GetComponent<NpcCfg>();
         npcCfg.InitCfg();
+        TimerSvc timer = GetComponent<TimerSvc>();
+        timer.InitSvc();
 
 
         //业务系统初始化
