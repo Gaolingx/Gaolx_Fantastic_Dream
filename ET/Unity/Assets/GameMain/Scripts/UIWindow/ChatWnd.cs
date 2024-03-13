@@ -111,20 +111,14 @@ public class ChatWnd : WindowRoot {
 
                 canSend = false;
 
-                //开启携程计时，5秒后将canSend改为true
-                StartCoroutine(MsgTimer());
+                //开启计时任务，5秒后将canSend改为true
+                timerSvc.AddTimeTask((int tid) => { canSend = true; }, Constants.SndMsgWaitForSeconds, PETimeUnit.Second);
             }
         }
         else
         {
             GameRoot.AddTips("尚未输入聊天信息");
         }
-    }
-
-    IEnumerator MsgTimer()
-    {
-        yield return new WaitForSeconds(Constants.SndMsgWaitForSeconds);
-        canSend = true;
     }
 
     public void ClickWorldBtn() {

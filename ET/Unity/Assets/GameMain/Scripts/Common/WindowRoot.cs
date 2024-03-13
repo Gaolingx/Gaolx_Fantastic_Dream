@@ -12,6 +12,7 @@ public class WindowRoot : MonoBehaviour
     protected ResSvc resSvc = null;
     protected AudioSvc audioSvc = null;
     protected NetSvc netSvc = null;
+    protected TimerSvc timerSvc = null;
 
     public void SetWndState(bool isActive = true)
     {
@@ -41,6 +42,7 @@ public class WindowRoot : MonoBehaviour
         resSvc = ResSvc.Instance;
         audioSvc = AudioSvc.Instance;
         netSvc = NetSvc.Instance;
+        timerSvc = TimerSvc.Instance;
     }
 
     protected virtual void ClearWnd()
@@ -49,6 +51,7 @@ public class WindowRoot : MonoBehaviour
         resSvc = null;
         audioSvc = null;
         netSvc = null;
+        timerSvc = null;
     }
 
     #region Tool Functions

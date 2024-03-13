@@ -31,9 +31,19 @@ public class TimerSvc : SystemRoot
     }
 
     //增加定时任务
-    public int AddTimeTask(Action<int> callback, double delay, PETimeUnit timeUnit = PETimeUnit.Millisecond, int count = 1) //count为0将一直循环，直到手动取消
+    public int AddTimeTask(Action<int> callback, double delay, PETimeUnit timeUnit = PETimeUnit.Millisecond, int count = 1)
     {
-        return pt.AddTimeTask(callback, delay, timeUnit, count); //返回任务id
+        return pt.AddTimeTask(callback, delay, timeUnit, count);
+    }
+
+    public double GetNowTime()
+    {
+        return pt.GetMillisecondsTime();
+    }
+
+    public void DelTask(int tid)
+    {
+        pt.DeleteTimeTask(tid);
     }
 
 }
