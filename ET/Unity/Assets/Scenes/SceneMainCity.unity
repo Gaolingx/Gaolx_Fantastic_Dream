@@ -1093,6 +1093,11 @@ PrefabInstance:
       propertyPath: m_DrawInstanced
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5735889403594673109, guid: 8d138a718a71f054c9dbc890c4c38cef,
+        type: 3}
+      propertyPath: m_DrawInstanced
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5826068040214853130, guid: 8d138a718a71f054c9dbc890c4c38cef,
         type: 3}
       propertyPath: m_RootOrder
