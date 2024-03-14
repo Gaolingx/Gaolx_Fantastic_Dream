@@ -151,10 +151,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cad055587d759c54ba9822c0a7cc2bb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  frogColor: {r: 0.20784314, g: 0.6392157, b: 0.7882353, a: 1}
   Density: 0.01
-  fogStart: 0
-  fogEnd: 300
+  fogStart: -30
+  fogEnd: 500
   SkyColor: {r: 0.6, g: 0.7, b: 0.7, a: 1}
   SkyColor_int: 1
   EquatorColor: {r: 0.8, g: 0.85, b: 1, a: 1}
