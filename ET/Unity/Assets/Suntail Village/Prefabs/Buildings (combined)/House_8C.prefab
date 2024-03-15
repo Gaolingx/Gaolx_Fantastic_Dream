@@ -1839,9 +1839,9 @@ GameObject:
   - component: {fileID: 8400293673949601928}
   - component: {fileID: 8400293673949601934}
   - component: {fileID: 8400293673949601935}
-  - component: {fileID: 8400293673949601929}
   - component: {fileID: 7223996070538710983}
-  m_Layer: 8
+  - component: {fileID: 4734954617578401249}
+  m_Layer: 0
   m_Name: Indoor Volume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1914,23 +1914,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 9.27623, y: 2.7190905, z: 7.264862}
   m_Center: {x: 0.037736893, y: -0.08829737, z: 0.77564096}
---- !u!114 &8400293673949601929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8400293673949601933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: 0750a72c5464bf249b3d308d500c009f, type: 2}
-  isGlobal: 0
-  blendDistance: 0.25
-  weight: 1
-  priority: 1
 --- !u!114 &7223996070538710983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1948,6 +1931,23 @@ MonoBehaviour:
     type: 2}
   crossfadeTime: 0.5
   triggerTag: Player
+--- !u!114 &4734954617578401249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8400293673949601933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGlobal: 0
+  priority: 1
+  blendDistance: 0.5
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: f778bdc110e74dd4e95a6c7b3fd2bfd5, type: 2}
 --- !u!1001 &5047742598619736994
 PrefabInstance:
   m_ObjectHideFlags: 0

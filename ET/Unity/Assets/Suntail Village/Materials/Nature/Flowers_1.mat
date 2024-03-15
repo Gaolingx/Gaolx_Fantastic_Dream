@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Flowers_1
   m_Shader: {fileID: 4800000, guid: 1d10d370c3f169448b4d855d9b93645f, type: 3}
-  m_ShaderKeywords: _ENABLEWIND_ON _SECONDCOLOROVERLAYTYPE_VERTEX_POSITION_BASED
+  m_ShaderKeywords: _ENABLEWIND_ON _SECONDCOLOROVERLAYTYPE_WORLD_POSITION
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -79,6 +79,19 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _AlphaCutoff: 0.35
     - _Anchorthefoliagebase: 0
@@ -104,6 +117,8 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _QueueControl: 0
+    - _QueueOffset: 0
     - _SecondColorFade: 0.5
     - _SecondColorOffset: 0
     - _SecondColorOverlayType: 0
@@ -130,3 +145,4 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MainColor: {r: 0.9, g: 0.35999995, b: 0.8814703, a: 0}
     - _SecondColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []

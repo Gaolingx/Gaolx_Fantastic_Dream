@@ -1415,9 +1415,9 @@ GameObject:
   - component: {fileID: 6764512613706019664}
   - component: {fileID: 6764512613706019665}
   - component: {fileID: 6764512613706019667}
-  - component: {fileID: 6764512613706019678}
+  - component: {fileID: 6277732510384311307}
   - component: {fileID: 8919491027418117647}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Indoor Volume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1464,7 +1464,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5.25914, y: 2.264289, z: 3.2326965}
   m_Center: {x: 0.058273315, y: -3.1248631, z: 0.0044784546}
---- !u!114 &6764512613706019678
+--- !u!114 &6277732510384311307
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1473,14 +1473,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6764512613706019679}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: 0750a72c5464bf249b3d308d500c009f, type: 2}
   isGlobal: 0
-  blendDistance: 0.25
-  weight: 1
   priority: 1
+  blendDistance: 0.5
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: f778bdc110e74dd4e95a6c7b3fd2bfd5, type: 2}
 --- !u!114 &8919491027418117647
 MonoBehaviour:
   m_ObjectHideFlags: 0

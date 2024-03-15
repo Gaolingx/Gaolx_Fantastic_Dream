@@ -80,9 +80,23 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _AlphaCutoff: 0.3
     - _Anchorthefoliagebase: 1
+    - _Bias1: 0
     - _BumpScale: 1
     - _Color2Enable: 1
     - _Color3Enable: 0
@@ -97,11 +111,12 @@ Material:
     - _EnableHighlighting1: 1
     - _EnableWind: 1
     - _Float0: 2
-    - _Float1: 0
-    - _Float2: 0.5
+    - _Float1: 0.39
+    - _Float2: 0.3
     - _Float3: 0.23
     - _Float4: 0
     - _Float5: 0.609
+    - _Gloss: 0.3
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -111,11 +126,16 @@ Material:
     - _OcclusionStrength: 1
     - _Offset: 0.03
     - _Parallax: 0.02
+    - _Power1: 0
+    - _QueueControl: 0
+    - _QueueOffset: 0
     - _Scale: 1
+    - _Scale1: 0
     - _SecondColorFade: 0.6
     - _SecondColorOffset: -0.2
     - _SecondColorOverlayType: 0
     - _Shininess: 0.2
+    - _Smoot: 0
     - _Smoothness: 0.35
     - _SmoothnessInt: 0
     - _SmoothnessTextureChannel: 0
@@ -151,3 +171,5 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MainColor: {r: 0.052941192, g: 0.5294118, b: 0.25767466, a: 0}
     - _SecondColor: {r: 0.33913046, g: 0.6, b: 0.12, a: 0}
+    - _SpecularColor: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 1}
+  m_BuildTextureStacks: []

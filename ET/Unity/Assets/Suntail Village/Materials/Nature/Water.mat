@@ -59,7 +59,21 @@ Material:
         m_Texture: {fileID: 2800000, guid: d032c1e3046801f48aa63e7f03137957, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
+    - _AlphaCutoff: 0.5
     - _BumpScale: 1
     - _CoastOpacity: 0.4
     - _Cutoff: 0.5
@@ -78,6 +92,8 @@ Material:
     - _OcclusionStrength: 1
     - _Opacity: 1
     - _Parallax: 0.02
+    - _QueueControl: 0
+    - _QueueOffset: 0
     - _RefractionScale: 0.2
     - _Smoothness: 0.91
     - _SmoothnessTextureChannel: 0
@@ -94,3 +110,4 @@ Material:
     - _Color1: {r: 0.3434941, g: 0.6981015, b: 0.7830188, a: 0}
     - _Color2: {r: 0.05490196, g: 0.45894897, b: 0.5764706, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
