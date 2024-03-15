@@ -26,6 +26,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _AREA_FACE
+  - _AUTO_Brightness_ON
   - _DayTime_MANUAL_ON
   - _FAKE_OUTLINE_ON
   - _OUTLINE_ON
@@ -167,6 +168,9 @@ Material:
     - _AlphaToMask: 0
     - _AnisotropySpecularToggle: 0
     - _Area: 1
+    - _AutoBrightnessOffset: 0
+    - _AutoBrightnessThresholdMax: 0.6
+    - _AutoBrightnessThresholdMin: 0.25
     - _BASE_COLOR_WEIGHT: 1
     - _BUMP_MAP_STRENGTH: 0.3
     - _BaseColorBPower: 1
@@ -217,7 +221,7 @@ Material:
     - _IsFace: 1
     - _LerpAOIntensity: 1
     - _METALNESS: 0
-    - _MainLightBrightnessFactor: 0.65
+    - _MainLightBrightnessFactor: 1
     - _MainLightColorUsage: 0
     - _MainLightShadowOffset: 0
     - _MetalSpecularMetallic: 0.52
@@ -284,6 +288,7 @@ Material:
     - _TRANSPARENCY: 0
     - _UVSec: 0
     - _UseAlphaClipping: 0
+    - _UseAutoBrightness: 1
     - _UseDrawOverlay: 0
     - _UseEmission: 0
     - _UseFaceExpression: 0
