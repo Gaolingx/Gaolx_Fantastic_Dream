@@ -5,7 +5,7 @@
 		<sceneName>SceneMainCity</sceneName>
 		<mainCamPos>0,1.375,0</mainCamPos>
 		<mainCamRote>0,0,0</mainCamRote>
-		<playerBornPos>-13.95606,-2.047709,12.09718</playerBornPos>
+		<playerBornPos>140.35,10,121</playerBornPos>
 		<playerBornRote>0,0,0</playerBornRote>
 	</item>
 </root>
