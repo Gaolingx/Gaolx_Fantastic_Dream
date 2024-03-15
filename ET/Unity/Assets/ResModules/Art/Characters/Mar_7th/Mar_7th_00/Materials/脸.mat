@@ -217,9 +217,9 @@ Material:
     - _IsFace: 1
     - _LerpAOIntensity: 1
     - _METALNESS: 0
-    - _MainLightBrightnessFactor: 0.75
+    - _MainLightBrightnessFactor: 0.65
     - _MainLightColorUsage: 0
-    - _MainLightShadowOffset: -0.1
+    - _MainLightShadowOffset: 0
     - _MetalSpecularMetallic: 0.52
     - _Metallic: 0
     - _Mode: 0

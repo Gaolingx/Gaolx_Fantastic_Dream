@@ -15,7 +15,7 @@ MonoBehaviour:
   active: 1
   postExposure:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 1.2
   contrast:
     m_OverrideState: 1
     m_Value: 10
@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
-  m_Name: Suntail Outdoor Volume
+  m_Name: SceneMainCityGlobalVolumeProfile
   m_EditorClassIdentifier: 
   components:
   - {fileID: 1362013733241479368}
