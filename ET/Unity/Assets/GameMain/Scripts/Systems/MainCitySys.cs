@@ -161,25 +161,25 @@ public class MainCitySys : SystemRoot
         NPC0.transform.position = NpcCfg.Instance.Transform_NpcID_0_Position;
         NPC0.transform.localEulerAngles = NpcCfg.Instance.Transform_NpcID_0_Rotation;
         NPC0.transform.localScale = NpcCfg.Instance.Transform_NpcID_0_Scale;
-        Debug.Log("NPC_0预制件加载成功！");
+        Debug.Log(PathDefine.AssissnCityNPC0Prefab + " 预制件加载成功！");
 
         GameObject NPC1 = resSvc.LoadPrefab(PathDefine.AssissnCityNPC1Prefab, true);
         NPC1.transform.position = NpcCfg.Instance.Transform_NpcID_1_Position;
         NPC1.transform.localEulerAngles = NpcCfg.Instance.Transform_NpcID_1_Rotation;
         NPC1.transform.localScale = NpcCfg.Instance.Transform_NpcID_1_Scale;
-        Debug.Log("NPC_1预制件加载成功！");
+        Debug.Log(PathDefine.AssissnCityNPC1Prefab + " 预制件加载成功！");
 
         GameObject NPC2 = resSvc.LoadPrefab(PathDefine.AssissnCityNPC2Prefab, true);
         NPC2.transform.position = NpcCfg.Instance.Transform_NpcID_2_Position;
         NPC2.transform.localEulerAngles = NpcCfg.Instance.Transform_NpcID_2_Rotation;
         NPC2.transform.localScale = NpcCfg.Instance.Transform_NpcID_2_Scale;
-        Debug.Log("NPC_2预制件加载成功！");
+        Debug.Log(PathDefine.AssissnCityNPC2Prefab + " 预制件加载成功！");
 
         GameObject NPC3 = resSvc.LoadPrefab(PathDefine.AssissnCityNPC3Prefab, true);
         NPC3.transform.position = NpcCfg.Instance.Transform_NpcID_3_Position;
         NPC3.transform.localEulerAngles = NpcCfg.Instance.Transform_NpcID_3_Rotation;
         NPC3.transform.localScale = NpcCfg.Instance.Transform_NpcID_3_Scale;
-        Debug.Log("NPC_3预制件加载成功！");
+        Debug.Log(PathDefine.AssissnCityNPC3Prefab + " 预制件加载成功！");
 
 
     }
