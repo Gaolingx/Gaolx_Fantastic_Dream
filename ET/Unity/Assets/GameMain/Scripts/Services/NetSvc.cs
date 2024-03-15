@@ -136,6 +136,9 @@ public class NetSvc : MonoBehaviour
             case CMD.RspBuy:
                 MainCitySys.Instance.RspBuy(msg);
                 break;
+            case CMD.PshPower:
+                MainCitySys.Instance.PshPower(msg);
+                break;
         }
     }
 }

@@ -235,6 +235,15 @@ public class MainCitySys : SystemRoot
     }
     #endregion
 
+    #region Power Handle
+    public void PshPower(GameMsg msg)
+    {
+        PshPower data = msg.pshPower;
+        GameRoot.Instance.SetPlayerDataByPower(data);
+        maincityWnd.RefreshUI();
+    }
+    #endregion
+
     #region Chat Wnd
     public void OpenChatWnd()
     {

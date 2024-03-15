@@ -108,4 +108,9 @@ public class GameRoot : MonoBehaviour
         PlayerData.coin = data.coin;
         PlayerData.power = data.power;
     }
+
+    public void SetPlayerDataByPower(PshPower data)
+    {
+        PlayerData.power = data.power;
+    }
 }
