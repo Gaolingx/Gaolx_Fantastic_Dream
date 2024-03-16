@@ -240,7 +240,11 @@ public class MainCitySys : SystemRoot
     {
         PshPower data = msg.pshPower;
         GameRoot.Instance.SetPlayerDataByPower(data);
-        maincityWnd.RefreshUI();
+        if(maincityWnd.gameObject.activeSelf)
+        {
+            maincityWnd.RefreshUI();
+        }
+        
     }
     #endregion
 
