@@ -93,7 +93,7 @@ public class MainCitySys : SystemRoot
         GameObject player = resSvc.LoadPrefab(PathDefine.AssissnCityPlayerPrefab, true);
         if (player != null)
         {
-            Debug.Log("Player预制件加载成功！");
+            Debug.Log(PathDefine.AssissnCityPlayerPrefab + " 预制件加载成功！");
             //初始化玩家位置
             player.transform.position = mapData.playerBornPos;
             player.transform.localEulerAngles = mapData.playerBornRote;
@@ -121,7 +121,7 @@ public class MainCitySys : SystemRoot
         }
         else
         {
-            Debug.LogError("Player预制件加载失败！");
+            Debug.LogError(PathDefine.AssissnCityPlayerPrefab + " 预制件加载失败！");
         }
 
         //相机初始化
@@ -129,7 +129,7 @@ public class MainCitySys : SystemRoot
         GameObject CM_player = resSvc.LoadPrefab(PathDefine.AssissnCityCharacterCameraPrefab, true);
         if (CM_player != null)
         {
-            Debug.Log("PlayerFollowCamera预制件加载成功！");
+            Debug.Log(PathDefine.AssissnCityCharacterCameraPrefab + " 预制件加载成功！");
             //设置实例化对象时候的位置、旋转
             Vector3 CM_player_Pos = mapData.mainCamPos;
             Vector3 CM_player_Rote = mapData.mainCamRote;
@@ -150,7 +150,7 @@ public class MainCitySys : SystemRoot
         }
         else
         {
-            Debug.LogError("PlayerFollowCamera预制件加载失败！");
+            Debug.LogError(PathDefine.AssissnCityCharacterCameraPrefab + " 预制件加载失败！");
         }
 
     }
