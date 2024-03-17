@@ -43,6 +43,21 @@ public class MapCfg : BaseData<MapCfg>
     public Vector3 playerBornRote;
 }
 
+//任务奖励配置
+public class TaskRewardCfg : BaseData<TaskRewardCfg>
+{
+    public string taskName;
+    public int count;
+    public int exp;
+    public int coin;
+}
+
+//子任务状态（进度/是否被领取）
+public class TaskRewardData : BaseData<TaskRewardData>
+{
+    public int prgs;
+    public bool taked;
+}
 
 public class BaseData<T>
 {

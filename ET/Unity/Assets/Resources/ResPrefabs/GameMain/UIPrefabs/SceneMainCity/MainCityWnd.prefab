@@ -850,7 +850,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114860408572210020}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1122169537177148142}
+        m_TargetAssemblyTypeName: MainCityWnd, GameMain
+        m_MethodName: ClickBuyPowerBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1137935172830634
 GameObject:
   m_ObjectHideFlags: 0
@@ -1502,7 +1514,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114333561356593638}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1122169537177148142}
+        m_TargetAssemblyTypeName: MainCityWnd, GameMain
+        m_MethodName: ClickTaskBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1188042014499410
 GameObject:
   m_ObjectHideFlags: 0
@@ -3664,7 +3688,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114499445915784124}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1122169537177148142}
+        m_TargetAssemblyTypeName: MainCityWnd, GameMain
+        m_MethodName: ClickMKCoinBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1694651147976062
 GameObject:
   m_ObjectHideFlags: 0
@@ -4883,8 +4919,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 1122169537177148142}
+        m_TargetAssemblyTypeName: MainCityWnd, GameMain
         m_MethodName: ClickChatBtn
         m_Mode: 1
         m_Arguments:

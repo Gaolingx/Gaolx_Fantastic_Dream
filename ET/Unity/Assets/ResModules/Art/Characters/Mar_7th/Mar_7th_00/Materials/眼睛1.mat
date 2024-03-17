@@ -13,8 +13,6 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _FAKE_OUTLINE_ON
-  - _OUTLINE_ON
-  - _RIM_LIGHTING_ON
   - _USE_RAMP_COLOR_ON
   m_InvalidKeywords:
   - _AREA_NONE
@@ -23,7 +21,7 @@ Material:
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2450
   stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
@@ -171,6 +169,7 @@ Material:
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
+    - _ColorSaturation: 1
     - _Cull: 2
     - _CullMode: 2
     - _Cutoff: 0.5
@@ -200,6 +199,7 @@ Material:
     - _HairCoolRampColorMixFactor: 0
     - _HairWarmRampColorMixFactor: 0
     - _IndirectLightFlattenNormal: 0
+    - _IndirectLightIntensity: 1
     - _IndirectLightMixBaseColor: 1
     - _IndirectLightOcclusionUsage: 0.5
     - _IndirectLightUsage: 0.5
@@ -279,9 +279,9 @@ Material:
     - _UseFaceExpression: 0
     - _UseFakeOutline: 1
     - _UseNormalMap: 0
-    - _UseOutline: 1
+    - _UseOutline: 0
     - _UseRampColor: 1
-    - _UseRimLight: 1
+    - _UseRimLight: 0
     - _UseStockings: 0
     - _WorkflowMode: 1
     - _ZWrite: 1

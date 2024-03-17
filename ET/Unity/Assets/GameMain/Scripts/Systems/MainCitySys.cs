@@ -20,6 +20,7 @@ public class MainCitySys : SystemRoot
     public SettingsWnd settingsWnd;
     public ChatWnd chatWnd;
     public BuyWnd buyWnd;
+    public TaskWnd taskWnd;
     public FpsWnd fpsWnd;
     public UIController uiController;
 
@@ -30,7 +31,7 @@ public class MainCitySys : SystemRoot
     private AutoGuideCfg curtTaskData;
     private Transform[] npcPosTrans;
     private NavMeshAgent nav;
-    StarterAssetsInputs playerInput;
+    private StarterAssetsInputs playerInput;
 
     public override void InitSys()
     {
@@ -214,6 +215,13 @@ public class MainCitySys : SystemRoot
         //…Ë÷√∑ΩœÚ
         playerCtrl.Dir = dir;
     }
+
+    #region Task Wnd
+    public void OpenTaskRewardWnd()
+    {
+        taskWnd.SetWndState();
+    }
+    #endregion
 
     #region Buy Wnd
     public void OpenBuyWnd(int type)

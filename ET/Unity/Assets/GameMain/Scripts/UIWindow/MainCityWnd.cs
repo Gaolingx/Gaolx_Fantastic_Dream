@@ -136,6 +136,11 @@ public class MainCityWnd : WindowRoot
     #endregion
 
     #region ClickEvts
+    public void ClickTaskBtn()
+    {
+        audioSvc.PlayUIAudio(Constants.UIOpenPage);
+        MainCitySys.Instance.OpenTaskRewardWnd();
+    }
     public void ClickBuyPowerBtn()
     {
         audioSvc.PlayUIAudio(Constants.UIOpenPage);
