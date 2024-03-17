@@ -53,9 +53,6 @@ public class MainCitySys : SystemRoot
             // 加载游戏主角
             LoadPlayer(mapData);
 
-            // 初始化主角材质
-            InitPlayerMaterial();
-
             // 加载NPC
             LoadNpcPrefab();
 
@@ -184,10 +181,7 @@ public class MainCitySys : SystemRoot
 
 
     }
-    private void InitPlayerMaterial()
-    {
-        Scene_player.GetComponent<SendVector>().GetMaterialsByReference();
-    }
+
     private void InitGamepad()
     {
         GameObject GamePad = GameObject.Find(Constants.GamepadBind_StarterAssetsInputs_Joysticks);
