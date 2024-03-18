@@ -19,6 +19,7 @@ public class ResSvc : MonoBehaviour
         InitGuideCfg(PathDefine.GuideCfg);
         InitStrongCfg(PathDefine.StrongCfg);
         InitBuyCfg(PathDefine.BuyCfg);
+        InitTaskRewardCfg(PathDefine.TaskRewardCfg);
 
         PECommon.Log("Init ResSvc...");
     }
@@ -168,7 +169,7 @@ public class ResSvc : MonoBehaviour
 
     }
 
-    public string GetRDNameData(bool man = true)
+    public string GetRDNameCfg(bool man = true)
     {
         System.Random rd = new System.Random();
         string rdName = surnameLst[PETools.RDInt(0, surnameLst.Count - 1, rd)];
@@ -255,7 +256,7 @@ public class ResSvc : MonoBehaviour
             }
         }
     }
-    public MapCfg GetMapCfgData(int id)
+    public MapCfg GetMapCfgCfg(int id)
     {
         MapCfg data;
         if (mapCfgDataDic.TryGetValue(id, out data))
@@ -321,7 +322,7 @@ public class ResSvc : MonoBehaviour
             }
         }
     }
-    public AutoGuideCfg GetAutoGuideData(int id)
+    public AutoGuideCfg GetAutoGuideCfg(int id)
     {
         AutoGuideCfg agc = null;
         if (guideTaskDic.TryGetValue(id, out agc))
@@ -414,7 +415,7 @@ public class ResSvc : MonoBehaviour
         }
     }
     //获取对应位置对应星级的属性
-    public StrongCfg GetStrongData(int pos, int starlv)
+    public StrongCfg GetStrongCfg(int pos, int starlv)
     {
         StrongCfg sd = null;
         Dictionary<int, StrongCfg> dic = null;
@@ -515,6 +516,69 @@ public class ResSvc : MonoBehaviour
         if (buyCfgDic.TryGetValue(id, out bc))
         {
             return bc;
+        }
+        return null;
+    }
+    #endregion
+
+    #region 任务奖励配置
+    private Dictionary<int, TaskRewardCfg> taskRewareDic = new Dictionary<int, TaskRewardCfg>();
+    private void InitTaskRewardCfg(string path)
+    {
+        TextAsset xml = Resources.Load<TextAsset>(path);
+        if (!xml)
+        {
+            PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
+        }
+        else
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xml.text);
+
+            XmlNodeList nodLst = doc.SelectSingleNode("root").ChildNodes;
+
+            for (int i = 0; i < nodLst.Count; i++)
+            {
+                XmlElement ele = nodLst[i] as XmlElement;
+
+                if (ele.GetAttributeNode("ID") == null)
+                {
+                    continue;
+                }
+                int ID = Convert.ToInt32(ele.GetAttributeNode("ID").InnerText);
+                TaskRewardCfg trc = new TaskRewardCfg
+                {
+                    ID = ID
+                };
+
+                foreach (XmlElement e in nodLst[i].ChildNodes)
+                {
+                    switch (e.Name)
+                    {
+                        case "taskName":
+                            trc.taskName = e.InnerText;
+                            break;
+                        case "count":
+                            trc.count = int.Parse(e.InnerText);
+                            break;
+                        case "exp":
+                            trc.exp = int.Parse(e.InnerText);
+                            break;
+                        case "coin":
+                            trc.coin = int.Parse(e.InnerText);
+                            break;
+                    }
+                }
+                taskRewareDic.Add(ID, trc);
+            }
+        }
+    }
+    public TaskRewardCfg GetTaskRewardCfg(int id)
+    {
+        TaskRewardCfg trc = null;
+        if (taskRewareDic.TryGetValue(id, out trc))
+        {
+            return trc;
         }
         return null;
     }

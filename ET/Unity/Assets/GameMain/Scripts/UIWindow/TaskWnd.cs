@@ -10,6 +10,7 @@ public class TaskWnd : WindowRoot {
     public Transform scrollTrans;
 
     private PlayerData pd = null;
+    private List<TaskRewardData> trdLst = new List<TaskRewardData>();
 
     protected override void InitWnd() {
         base.InitWnd();
@@ -19,6 +20,9 @@ public class TaskWnd : WindowRoot {
     }
 
     public void RefreshUI() {
+        trdLst.Clear();
+
+
     }
 
     public void ClickCloseBtn() {

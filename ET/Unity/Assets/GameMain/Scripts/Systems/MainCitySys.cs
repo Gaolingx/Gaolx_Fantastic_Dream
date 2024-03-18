@@ -44,7 +44,7 @@ public class MainCitySys : SystemRoot
     public void EnterMainCity()
     {
         //通过id获取主城配置后，加载场景
-        MapCfg mapData = resSvc.GetMapCfgData(Constants.MainCityMapID);
+        MapCfg mapData = resSvc.GetMapCfgCfg(Constants.MainCityMapID);
         //加载主城场景
         resSvc.AsyncLoadScene(mapData.sceneName, () =>
         {

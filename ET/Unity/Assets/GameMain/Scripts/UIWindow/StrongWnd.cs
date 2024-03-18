@@ -157,7 +157,7 @@ public class StrongWnd : WindowRoot
         SetText(propDef1, "防御  +" + sumAddDef);
 
         //获取下一星级需要的属性数值
-        nextSd = resSvc.GetStrongData(currentIndex, nextStarLv);
+        nextSd = resSvc.GetStrongCfg(currentIndex, nextStarLv);
         if (nextSd != null)
         {
             SetActive(propHP2);

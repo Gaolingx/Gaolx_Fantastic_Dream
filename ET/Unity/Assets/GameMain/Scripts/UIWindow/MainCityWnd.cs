@@ -94,7 +94,7 @@ public class MainCityWnd : WindowRoot
         #endregion
 
         //设置自动任务图标
-        curtTaskData = resSvc.GetAutoGuideData(pd.guideid);
+        curtTaskData = resSvc.GetAutoGuideCfg(pd.guideid);
         if(curtTaskData != null)
         {
             SetGuideBtnIcon(curtTaskData.npcID);

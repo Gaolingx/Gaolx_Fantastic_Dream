@@ -16,14 +16,14 @@ public class CreateWnd : WindowRoot
 
 
         //显示一个随机名字
-        iptName.text = resSvc.GetRDNameData(false);
+        iptName.text = resSvc.GetRDNameCfg(false);
     }
 
     public void ClickRandBtn()
     {
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
 
-        string rdName = resSvc.GetRDNameData(false);
+        string rdName = resSvc.GetRDNameCfg(false);
         iptName.text = rdName;
     }
 
