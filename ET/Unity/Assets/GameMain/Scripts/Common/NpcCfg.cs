@@ -54,9 +54,7 @@ public class NpcCfg : MonoBehaviour
     {
         GetNpcCfg(NpcType);
         GameObject NPC_GO = resSvc.LoadPrefab(NpcPrefabPath, true);
-        NPC_GO.transform.position = Transform_NpcID_Position;
-        NPC_GO.transform.localEulerAngles = Transform_NpcID_Rotation;
-        NPC_GO.transform.localScale = Transform_NpcID_Scale;
+        GameRoot.Instance.GetGameObjectTrans(NPC_GO.gameObject, Transform_NpcID_Position, Transform_NpcID_Rotation, Transform_NpcID_Scale);
 
         Debug.Log("NPC预制件加载成功！" + " 类型：" + NpcType + " 路径：" + NpcPrefabPath);
         return NPC_GO;

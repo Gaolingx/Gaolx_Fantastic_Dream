@@ -113,4 +113,15 @@ public class GameRoot : MonoBehaviour
     {
         PlayerData.power = data.power;
     }
+
+    public Transform GetGameObjectTrans(GameObject GO, Vector3 NpcPos, Vector3 NpcRota, Vector3 NpcScal)
+    {
+        GO.transform.position = NpcPos;
+        GO.transform.localEulerAngles = NpcRota;
+        GO.transform.localScale = NpcScal;
+
+        Transform GOTrans = GO.transform;
+        return GOTrans;
+    }
+
 }
