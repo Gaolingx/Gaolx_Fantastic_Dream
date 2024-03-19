@@ -157,4 +157,10 @@ public class Constants
     public const int MakeTypeCoin = 1;
     public const int BuyCostDiamondOnce = 10;
 
+    //npcID≈‰÷√
+    public const int NpcTypeID_0 = 0;
+    public const int NpcTypeID_1 = 1;
+    public const int NpcTypeID_2 = 2;
+    public const int NpcTypeID_3 = 3;
+
 }

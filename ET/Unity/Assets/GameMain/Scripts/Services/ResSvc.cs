@@ -20,6 +20,7 @@ public class ResSvc : MonoBehaviour
         InitStrongCfg(PathDefine.StrongCfg);
         InitBuyCfg(PathDefine.BuyCfg);
         InitTaskRewardCfg(PathDefine.TaskRewardCfg);
+        InitNpcCfg(PathDefine.NpcCfg);
 
         PECommon.Log("Init ResSvc...");
     }
@@ -579,6 +580,84 @@ public class ResSvc : MonoBehaviour
         if (taskRewareDic.TryGetValue(id, out trc))
         {
             return trc;
+        }
+        return null;
+    }
+    #endregion
+
+    #region »´æ÷NPC≈‰÷√
+    private Dictionary<int, NpcData> npcDic = new Dictionary<int, NpcData>();
+    private void InitNpcCfg(string path)
+    {
+        TextAsset xml = Resources.Load<TextAsset>(path);
+        if (!xml)
+        {
+            PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
+        }
+        else
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xml.text);
+
+            XmlNodeList nodLst = doc.SelectSingleNode("root").ChildNodes;
+
+            for (int i = 0; i < nodLst.Count; i++)
+            {
+                XmlElement ele = nodLst[i] as XmlElement;
+
+                if (ele.GetAttributeNode("ID") == null)
+                {
+                    continue;
+                }
+                int ID = Convert.ToInt32(ele.GetAttributeNode("ID").InnerText);
+                NpcData nd = new NpcData
+                {
+                    ID = ID
+                };
+
+                foreach (XmlElement e in nodLst[i].ChildNodes)
+                {
+                    switch (e.Name)
+                    {
+                        case "NPC_Transform_Position_X":
+                            nd.NPC_Transform_Position_X = float.Parse(e.InnerText);
+                            break;
+                        case "NPC_Transform_Position_Y":
+                            nd.NPC_Transform_Position_Y = float.Parse(e.InnerText);
+                            break;
+                        case "NPC_Transform_Position_Z":
+                            nd.NPC_Transform_Position_Z = float.Parse(e.InnerText);
+                            break;
+                        case "NPC_Transform_Rotation_X":
+                            nd.NPC_Transform_Rotation_X = float.Parse(e.InnerText);
+                            break;
+                        case "NPC_Transform_Rotation_Y":
+                            nd.NPC_Transform_Rotation_Y = float.Parse(e.InnerText);
+                            break;
+                        case "NPC_Transform_Rotation_Z":
+                            nd.NPC_Transform_Rotation_Z = float.Parse(e.InnerText);
+                            break;
+                        case "NPC_Transform_Scale_X":
+                            nd.NPC_Transform_Scale_X = float.Parse(e.InnerText);
+                            break;
+                        case "NPC_Transform_Scale_Y":
+                            nd.NPC_Transform_Scale_Y = float.Parse(e.InnerText);
+                            break;
+                        case "NPC_Transform_Scale_Z":
+                            nd.NPC_Transform_Scale_Z = float.Parse(e.InnerText);
+                            break;
+                    }
+                }
+                npcDic.Add(ID, nd);
+            }
+        }
+    }
+    public NpcData GetNpcCfg(int id)
+    {
+        NpcData nd = null;
+        if (npcDic.TryGetValue(id, out nd))
+        {
+            return nd;
         }
         return null;
     }

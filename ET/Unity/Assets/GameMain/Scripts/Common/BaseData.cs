@@ -59,6 +59,19 @@ public class TaskRewardData : BaseData<TaskRewardData>
     public bool taked;
 }
 
+public class NpcData : BaseData<NpcData>
+{
+    public float NPC_Transform_Position_X;
+    public float NPC_Transform_Position_Y;
+    public float NPC_Transform_Position_Z;
+    public float NPC_Transform_Rotation_X;
+    public float NPC_Transform_Rotation_Y;
+    public float NPC_Transform_Rotation_Z;
+    public float NPC_Transform_Scale_X;
+    public float NPC_Transform_Scale_Y;
+    public float NPC_Transform_Scale_Z;
+}
+
 public class BaseData<T>
 {
     public int ID;

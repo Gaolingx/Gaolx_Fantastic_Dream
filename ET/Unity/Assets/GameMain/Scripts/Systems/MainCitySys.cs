@@ -93,9 +93,7 @@ public class MainCitySys : SystemRoot
         {
             Debug.Log(PathDefine.AssissnCityPlayerPrefab + " 预制件加载成功！");
             //初始化玩家位置
-            player.transform.position = mapData.playerBornPos;
-            player.transform.localEulerAngles = mapData.playerBornRote;
-            player.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            GameRoot.Instance.GetGameObjectTrans(player, mapData.playerBornPos, mapData.playerBornRote, new Vector3(1.0f, 1.0f, 1.0f));
 
             //原方案
             //相机初始化
