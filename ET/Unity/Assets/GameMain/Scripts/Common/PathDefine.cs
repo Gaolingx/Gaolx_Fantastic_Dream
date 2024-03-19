@@ -62,6 +62,10 @@ public class PathDefine
 
     #endregion
 
+    #region TaskReward
+    public const string TaskItemPrefab = "ResPrefabs/GameMain/UIPrefabs/GameRoot/ItemTask";
+    #endregion
+
     #region Player
     public const string AssissnCityPlayerPrefab = "ResPrefabs/GameMain/AvatarPrefabs/PlayerPrefabs/Player_Avatar_March_7th Variant";
 

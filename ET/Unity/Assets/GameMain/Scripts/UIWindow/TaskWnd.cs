@@ -22,7 +22,42 @@ public class TaskWnd : WindowRoot {
     public void RefreshUI() {
         trdLst.Clear();
 
+        List<TaskRewardData> todoLst = new List<TaskRewardData>();
+        List<TaskRewardData> doneLst = new List<TaskRewardData>();
 
+        //数据格式：1|0|0
+        for(int i = 0;i<pd.taskArr.Length;i++)
+        {
+            //分割字符串
+            string[] taskInfo = pd.taskArr[i].Split('|');
+            TaskRewardData trd = new TaskRewardData
+            {
+                ID = int.Parse(taskInfo[0]),
+                prgs = int.Parse(taskInfo[1]),
+                taked = taskInfo[2].Equals("1") //注意数据类型
+            };
+
+            //判断奖励是否被领取
+            if(trd.taked)
+            {
+                doneLst.Add(trd);
+            }
+            else
+            {
+                todoLst.Add(trd);
+            }
+        }
+
+        //按照任务完成度排序
+        trdLst.AddRange(todoLst);
+        trdLst.AddRange(doneLst);
+
+        //将排序完的trdLst分别实例化Prefab
+        for(int i = 0;i<trdLst.Count;i++)
+        {
+            GameObject go = resSvc.LoadPrefab(PathDefine.TaskItemPrefab);
+            go.transform.SetParent(scrollTrans);
+        }
     }
 
     public void ClickCloseBtn() {
