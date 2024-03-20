@@ -53,10 +53,26 @@ public class TaskWnd : WindowRoot {
         trdLst.AddRange(doneLst);
 
         //将排序完的trdLst分别实例化Prefab
-        for(int i = 0;i<trdLst.Count;i++)
+        for (int i = 0; i < trdLst.Count; i++)
         {
             GameObject go = resSvc.LoadPrefab(PathDefine.TaskItemPrefab);
             go.transform.SetParent(scrollTrans);
+            GameRoot.Instance.SetGameObjectTrans(go, Vector3.zero, Vector3.zero, Vector3.one);
+            go.name = "taskItem_" + i;
+
+            TaskRewardData trd = trdLst[i];
+            TaskRewardCfg trf = resSvc.GetTaskRewardCfg(trd.ID);
+
+            //通过父物体的transform查找
+            SetText(GetTrans(go.transform, "txtName"), trf.taskName);
+            SetText(GetTrans(go.transform, "txtPrg"), trd.prgs + "/" + trf.count);
+            SetText(GetTrans(go.transform, "txtExp"), "奖励：    经验" + trf.exp);
+            SetText(GetTrans(go.transform, "txtCoin"), "金币" + trf.coin);
+            Image imgPrg = GetTrans(go.transform, "prgBar/prgVal").GetComponent<Image>();
+            float prgVal = trd.prgs * 1.0f / trf.count;
+            imgPrg.fillAmount = prgVal;
+
+
         }
     }
 

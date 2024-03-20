@@ -110,6 +110,17 @@ public class WindowRoot : MonoBehaviour
         return t;
     }
 
+    protected Transform GetTrans(Transform trans, string name)
+    {
+        if (trans != null)
+        {
+            return trans.Find(name);
+        }
+        else
+        {
+            return transform.Find(name);
+        }
+    }
     #endregion
 
     #region Click Evts

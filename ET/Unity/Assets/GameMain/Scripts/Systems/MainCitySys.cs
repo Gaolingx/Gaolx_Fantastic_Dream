@@ -93,7 +93,7 @@ public class MainCitySys : SystemRoot
         {
             Debug.Log(PathDefine.AssissnCityPlayerPrefab + " 预制件加载成功！");
             //初始化玩家位置
-            GameRoot.Instance.GetGameObjectTrans(player, mapData.playerBornPos, mapData.playerBornRote, new Vector3(1.0f, 1.0f, 1.0f));
+            GameRoot.Instance.SetGameObjectTrans(player, mapData.playerBornPos, mapData.playerBornRote, new Vector3(1.0f, 1.0f, 1.0f));
 
             //原方案
             //相机初始化
@@ -129,8 +129,7 @@ public class MainCitySys : SystemRoot
             //设置实例化对象时候的位置、旋转
             Vector3 CM_player_Pos = mapData.mainCamPos;
             Vector3 CM_player_Rote = mapData.mainCamRote;
-            CM_player.transform.position = CM_player_Pos;
-            CM_player.transform.localEulerAngles = CM_player_Rote;
+            GameRoot.Instance.SetGameObjectTrans(CM_player, CM_player_Pos, CM_player_Rote, Vector3.one);
 
             // 获取虚拟相机预制件上的CinemachineVirtualCamera组件  
             CinemachineVirtualCamera cinemachineVirtualCamera = CM_player.GetComponent<CinemachineVirtualCamera>();
