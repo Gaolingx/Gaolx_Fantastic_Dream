@@ -12,7 +12,8 @@ public class TaskWnd : WindowRoot {
     private PlayerData pd = null;
     private List<TaskRewardData> trdLst = new List<TaskRewardData>();
 
-    protected override void InitWnd() {
+    protected override void InitWnd()
+    {
         base.InitWnd();
 
         pd = GameRoot.Instance.PlayerData;
@@ -51,6 +52,12 @@ public class TaskWnd : WindowRoot {
         trdLst.AddRange(todoLst);
         trdLst.AddRange(doneLst);
 
+        //刷新前删除所有子物体，避免每次打开重复生成
+        for (int i = 0; i < scrollTrans.childCount; i++)
+        {
+            Destroy(scrollTrans.GetChild(i).gameObject);
+        }
+
         //将排序完的trdLst分别实例化Prefab
         for (int i = 0; i < trdLst.Count; i++)
         {
@@ -73,8 +80,8 @@ public class TaskWnd : WindowRoot {
 
             Button btnTake = GetTrans(go.transform, "btnTake").GetComponent<Button>();
             //lambda表达式用于传参，知道玩家点击的到底是哪个任务的领取按钮
-            btnTake.onClick.AddListener(() =>
-            {
+            //btnTake.onClick.AddListener(ClickTakeBtn);
+            btnTake.onClick.AddListener(() => {
                 ClickTakeBtn(go.name);
             });
 
