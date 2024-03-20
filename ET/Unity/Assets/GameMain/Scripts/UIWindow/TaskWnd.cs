@@ -26,7 +26,7 @@ public class TaskWnd : WindowRoot {
         List<TaskRewardData> doneLst = new List<TaskRewardData>();
 
         //数据格式：1|0|0
-        for(int i = 0;i<pd.taskArr.Length;i++)
+        for (int i = 0; i < pd.taskArr.Length; i++)
         {
             //分割字符串
             string[] taskInfo = pd.taskArr[i].Split('|');
@@ -37,8 +37,7 @@ public class TaskWnd : WindowRoot {
                 taked = taskInfo[2].Equals("1") //注意数据类型
             };
 
-            //判断奖励是否被领取
-            if(trd.taked)
+            if (trd.taked)
             {
                 doneLst.Add(trd);
             }
@@ -72,8 +71,40 @@ public class TaskWnd : WindowRoot {
             float prgVal = trd.prgs * 1.0f / trf.count;
             imgPrg.fillAmount = prgVal;
 
+            Button btnTake = GetTrans(go.transform, "btnTake").GetComponent<Button>();
+            //lambda表达式用于传参，知道玩家点击的到底是哪个任务的领取按钮
+            btnTake.onClick.AddListener(() =>
+            {
+                ClickTakeBtn(go.name);
+            });
+
+            Transform transComp = GetTrans(go.transform, "imgComp");
+            if(trd.taked)
+            {
+                btnTake.interactable = false; //奖励被领取则不能交互
+                SetActive(transComp);
+            }
+            else
+            {
+                SetActive(transComp, false);
+                //交互性考虑没有完成的情况
+                if(trd.prgs >= trf.count)
+                {
+                    btnTake.interactable = true; //达到指定次数，可领取奖励
+                }
+                else
+                {
+                    btnTake.interactable = false;
+                }
+            }
+
 
         }
+    }
+
+    private void ClickTakeBtn(string name)
+    {
+        Debug.Log("Name:" + name);
     }
 
     public void ClickCloseBtn() {
