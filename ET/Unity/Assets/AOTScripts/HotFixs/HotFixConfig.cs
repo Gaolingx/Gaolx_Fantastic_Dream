@@ -7,13 +7,12 @@ using static System.Net.WebRequestMethods;
 public class HotFixConfig : MonoBehaviour
 {
     // 资源系统运行模式
-    public EPlayMode PlayMode = EPlayMode.EditorSimulateMode;
+    public EPlayMode _ePlayMode = EPlayMode.EditorSimulateMode;
 
     //CDN地址
     public string hostServerIP = "http://127.0.0.1";
     string appVersion = "v1.0";
 
-    private EPlayMode _ePlayMode = EPlayMode.HostPlayMode;
 
     #region CDNServerConfig
     /// <summary>
