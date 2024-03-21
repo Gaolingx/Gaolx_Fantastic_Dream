@@ -94,6 +94,10 @@ public class NetSvc : MonoBehaviour
                     PECommon.Log("数据库更新异常", PELogType.Error);
                     GameRoot.AddTips("网络不稳定");
                     break;
+                case ErrorCode.ClientDataError:
+                    PECommon.Log("客户端数据异常", PELogType.Error);
+                    break;
+                    break;
                 case ErrorCode.AcctIsOnline:
                     GameRoot.AddTips("当前账号已经上线");
                     break;
