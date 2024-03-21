@@ -112,6 +112,24 @@ public class TaskWnd : WindowRoot {
     private void ClickTakeBtn(string name)
     {
         Debug.Log("Name:" + name);
+
+        string[] nameArr = name.Split('_');
+        int index = int.Parse(nameArr[1]);
+        GameMsg msg = new GameMsg
+        {
+            cmd = (int)CMD.ReqTakeTaskReward,
+            reqTakeTaskReward = new ReqTakeTaskReward
+            {
+                rid = trdLst[index].ID
+            }
+        };
+
+        netSvc.SendMsg(msg);
+
+        TaskRewardCfg trc = resSvc.GetTaskRewardCfg(trdLst[index].ID);
+        int coin = trc.coin;
+        int exp = trc.exp;
+        GameRoot.AddTips(Constants.txtColor("获得奖励：", TxtColor.Blue) + Constants.txtColor(" 金币 +" + coin + " 经验 +" + exp, TxtColor.Green));
     }
 
     public void ClickCloseBtn() {
