@@ -1,7 +1,6 @@
 ﻿//功能：客户端网络会话
 using PENet;
 using PEProtocol;
-using static Codice.Client.BaseCommands.KnownCommandOptions;
 
 
 public class ClientSession : PESession<GameMsg>

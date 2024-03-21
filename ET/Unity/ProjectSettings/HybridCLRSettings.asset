@@ -29,7 +29,7 @@ MonoBehaviour:
   - UnityEngine.CoreModule.dll
   - YooAsset.dll
   - UniTask.dll
-  outputLinkFile: Scripts/Loader/Plugins/HybridCLR/Generated/link.xml
-  outputAOTGenericReferenceFile: Scripts/Loader/Plugins/HybridCLR/Generated/AOTGenericReferences.cs
+  outputLinkFile: HybridCLRData/Generated/link.xml
+  outputAOTGenericReferenceFile: HybridCLRData/Generated/AOTGenericReferences.cs
   maxGenericReferenceIteration: 10
   maxMethodBridgeGenericIteration: 10
