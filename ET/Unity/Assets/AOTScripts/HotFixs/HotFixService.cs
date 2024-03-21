@@ -1,4 +1,5 @@
 using HybridCLR;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -90,17 +91,27 @@ public class HotFixService : MonoBehaviour
 
     private IEnumerator PrepareAssets()
     {
+        yield return new WaitForSeconds(1f);
+
+        // 创建默认的资源包
+        string packageName = "DefaultPackage";
+        var package = YooAssets.TryGetPackage(packageName);
+
         //1. InitYooAsset
         YooAssets.Initialize();
-        _yooAssetResourcePackage = YooAssets.CreatePackage("DefaultPackage");
-        YooAssets.SetDefaultPackage(_yooAssetResourcePackage);
+        if (package == null)
+        {
+            _yooAssetResourcePackage = YooAssets.CreatePackage(packageName);
+            YooAssets.SetDefaultPackage(_yooAssetResourcePackage);
+        }
         EPlayMode PlayMode = _hotFixConfig.GetEPlayMode();
         switch (PlayMode)
         {
+            // 编辑器下的模拟模式
             case EPlayMode.EditorSimulateMode:
                 {
                     var initParameters = new EditorSimulateModeParameters();
-                    initParameters.SimulateManifestFilePath = EditorSimulateModeHelper.SimulateBuild("DefaultPackage");
+                    initParameters.SimulateManifestFilePath = EditorSimulateModeHelper.SimulateBuild(packageName);
                     var initOperation = _yooAssetResourcePackage.InitializeAsync(initParameters);
                     yield return initOperation;
 
@@ -116,12 +127,15 @@ public class HotFixService : MonoBehaviour
                         yield break;
                     }
                 }
+            // 联机运行模式
             case EPlayMode.HostPlayMode:
                 {
+                    string defaultHostServer = _hotFixConfig.GetHostServerURL();
+                    string fallbackHostServer = _hotFixConfig.GetHostServerURL();
                     var initParameters = new HostPlayModeParameters();
-                    initParameters.QueryServices = new GameQueryServices();
-                    initParameters.DefaultHostServer = _hotFixConfig.GetCNDServerAddress();
-                    initParameters.FallbackHostServer = _hotFixConfig.GetCNDServerAddress();
+                    initParameters.BuildinQueryServices = new GameQueryServices();
+                    initParameters.DeliveryQueryServices = new DefaultDeliveryQueryServices();
+                    initParameters.RemoteServices = new RemoteServices(defaultHostServer, fallbackHostServer);
                     var initOperation = _yooAssetResourcePackage.InitializeAsync(initParameters);
                     yield return initOperation;
 
@@ -136,6 +150,7 @@ public class HotFixService : MonoBehaviour
                     }
                 }
                 break;
+            // 单机运行模式
             case EPlayMode.OfflinePlayMode:
                 {
                     var initParameters = new OfflinePlayModeParameters();
@@ -267,6 +282,44 @@ public class HotFixService : MonoBehaviour
             // 加载assembly对应的dll，会自动为它hook。一旦aot泛型函数的native函数不存在，用解释器版本代码
             LoadImageErrorCode err = RuntimeApi.LoadMetadataForAOTAssembly(dllBytes, mode);
             Debug.Log($"LoadMetadataForAOTAssembly:{aotDllName}. mode:{mode} return:{err}");
+        }
+    }
+
+    /// <summary>
+    /// 远端资源地址查询服务类
+    /// </summary>
+    private class RemoteServices : IRemoteServices
+    {
+        private readonly string _defaultHostServer;
+        private readonly string _fallbackHostServer;
+
+        public RemoteServices(string defaultHostServer, string fallbackHostServer)
+        {
+            _defaultHostServer = defaultHostServer;
+            _fallbackHostServer = fallbackHostServer;
+        }
+        string IRemoteServices.GetRemoteMainURL(string fileName)
+        {
+            return $"{_defaultHostServer}/{fileName}";
+        }
+        string IRemoteServices.GetRemoteFallbackURL(string fileName)
+        {
+            return $"{_fallbackHostServer}/{fileName}";
+        }
+    }
+
+    /// <summary>
+    /// 默认的分发资源查询服务类
+    /// </summary>
+    private class DefaultDeliveryQueryServices : IDeliveryQueryServices
+    {
+        public DeliveryFileInfo GetDeliveryFileInfo(string packageName, string fileName)
+        {
+            throw new NotImplementedException();
+        }
+        public bool QueryDeliveryFiles(string packageName, string fileName)
+        {
+            return false;
         }
     }
 }

@@ -6,5 +6,5 @@ using UnityEngine;
 /// </summary>
 public class BuildinFileManifest : ScriptableObject
 {
-    public List<string> BuildinFiles = new List<string>();
+	public List<string> BuildinFiles = new List<string>();
 }
