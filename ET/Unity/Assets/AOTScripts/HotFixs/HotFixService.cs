@@ -10,16 +10,20 @@ using YooAsset;
 
 public class HotFixService : MonoBehaviour
 {
-    private static string[] AOTMetaAssemblyNamesArray =
+
+    //补充元数据dll的列表，Yooasset中不需要带后缀
+    public static List<string> AOTMetaAssemblyNames { get; } = new List<string>()
     {
-        "Assets/AssetBundles/Scripts/System.dll.bytes",
+        "Assets/AssetBundles/Scripts/PESocket.dll.bytes",
+        "Assets/AssetBundles/Scripts/PEProtocol.dll.bytes",
+        "Assets/AssetBundles/Scripts/PETimer.dll.bytes",
         "Assets/AssetBundles/Scripts/UniTask.dll.bytes",
-        "Assets/AssetBundles/Scripts/UnityEngine.CoreModule.dll.bytes",
         "Assets/AssetBundles/Scripts/YooAsset.dll.bytes",
+        "Assets/AssetBundles/Scripts/Cinemachine.dll.bytes",
+        "Assets/AssetBundles/Scripts/Unity.InputSystem.dll.bytes",
+        "Assets/AssetBundles/Scripts/UnityEngine.CoreModule.dll.bytes",
         "Assets/AssetBundles/Scripts/mscorlib.dll.bytes"
     };
-    //补充元数据dll的列表，Yooasset中不需要带后缀
-    public static List<string> AOTMetaAssemblyNames { get; } = new List<string>(AOTMetaAssemblyNamesArray);
 
 
     public string HotDllName = "Assets/AssetBundles/Scripts/GameMain.dll";
