@@ -192,6 +192,19 @@ public class MainCitySys : SystemRoot
     {
         taskWnd.SetWndState();
     }
+    public void RspTakeTaskReward(GameMsg msg)
+    {
+        RspTakeTaskReward data = msg.rspTakeTaskReward;
+        GameRoot.Instance.SetPlayerDataByTask(data);
+
+        taskWnd.RefreshUI();
+        maincityWnd.RefreshUI();
+    }
+    public void PshTaskPrgs(GameMsg msg)
+    {
+        PshTaskPrgs data = msg.pshTaskPrgs;
+        GameRoot.Instance.SetPlayerDataByTaskPsh(data);
+    }
     #endregion
 
     #region Buy Wnd

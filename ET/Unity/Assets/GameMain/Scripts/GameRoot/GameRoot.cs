@@ -123,4 +123,17 @@ public class GameRoot : MonoBehaviour
         return GOTrans;
     }
 
+    public void SetPlayerDataByTask(RspTakeTaskReward data)
+    {
+        PlayerData.coin = data.coin;
+        PlayerData.lv = data.lv;
+        PlayerData.exp = data.exp;
+        PlayerData.taskArr = data.taskArr;
+    }
+
+    public void SetPlayerDataByTaskPsh(PshTaskPrgs data)
+    {
+        PlayerData.taskArr = data.taskArr;
+    }
+
 }
