@@ -14,20 +14,20 @@ public class HotFixService : MonoBehaviour
     //补充元数据dll的列表，Yooasset中不需要带后缀
     public static List<string> AOTMetaAssemblyNames { get; } = new List<string>()
     {
-        "Assets/AssetBundles/Scripts/PESocket.dll.bytes",
-        "Assets/AssetBundles/Scripts/PEProtocol.dll.bytes",
-        "Assets/AssetBundles/Scripts/PETimer.dll.bytes",
-        "Assets/AssetBundles/Scripts/UniTask.dll.bytes",
-        "Assets/AssetBundles/Scripts/YooAsset.dll.bytes",
-        "Assets/AssetBundles/Scripts/Cinemachine.dll.bytes",
-        "Assets/AssetBundles/Scripts/Unity.InputSystem.dll.bytes",
-        "Assets/AssetBundles/Scripts/UnityEngine.CoreModule.dll.bytes",
-        "Assets/AssetBundles/Scripts/mscorlib.dll.bytes"
+        "Assets/AssetBundles/Scripts/Dlls/PESocket.dll.bytes",
+        "Assets/AssetBundles/Scripts/Dlls/PEProtocol.dll.bytes",
+        "Assets/AssetBundles/Scripts/Dlls/PETimer.dll.bytes",
+        "Assets/AssetBundles/Scripts/Dlls/UniTask.dll.bytes",
+        "Assets/AssetBundles/Scripts/Dlls/YooAsset.dll.bytes",
+        "Assets/AssetBundles/Scripts/Dlls/Cinemachine.dll.bytes",
+        "Assets/AssetBundles/Scripts/Dlls/Unity.InputSystem.dll.bytes",
+        "Assets/AssetBundles/Scripts/Dlls/UnityEngine.CoreModule.dll.bytes",
+        "Assets/AssetBundles/Scripts/Dlls/mscorlib.dll.bytes"
     };
 
 
-    public string HotDllName = "Assets/AssetBundles/Scripts/GameMain.dll";
-    public string GameRootObject = "Assets/AssetBundles/Prefabs/HotFixRoot.prefab";
+    public string HotDllName = "Assets/AssetBundles/Scripts/Dlls/GameMain.dll";
+    public string GameRootObject = "Assets/AssetBundles/Prefabs/RootPrefabs/HotFixRoot.prefab";
 
     //获取资源二进制
     private static Dictionary<string, byte[]> _dllAssetDataDict = new Dictionary<string, byte[]>();
