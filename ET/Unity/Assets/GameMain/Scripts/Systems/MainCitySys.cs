@@ -187,6 +187,13 @@ public class MainCitySys : SystemRoot
         playerCtrl.Dir = dir;
     }
 
+    #region Enter FubenSys
+    public void EnterFuben()
+    {
+        FubenSys.Instance.EnterFuben();
+    }
+    #endregion
+
     #region Task Wnd
     public void OpenTaskRewardWnd()
     {

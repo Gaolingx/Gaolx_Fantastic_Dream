@@ -136,6 +136,11 @@ public class MainCityWnd : WindowRoot
     #endregion
 
     #region ClickEvts
+    public void ClickFubenBtn()
+    {
+        audioSvc.PlayUIAudio(Constants.UIOpenPage);
+        MainCitySys.Instance.EnterFuben();
+    }
     public void ClickTaskBtn()
     {
         audioSvc.PlayUIAudio(Constants.UIOpenPage);
