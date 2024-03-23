@@ -190,6 +190,7 @@ public class MainCitySys : SystemRoot
     #region Enter FubenSys
     public void EnterFuben()
     {
+        StopNavTask();
         FubenSys.Instance.EnterFuben();
     }
     #endregion
@@ -197,6 +198,7 @@ public class MainCitySys : SystemRoot
     #region Task Wnd
     public void OpenTaskRewardWnd()
     {
+        StopNavTask();
         taskWnd.SetWndState();
     }
     public void RspTakeTaskReward(GameMsg msg)
@@ -222,6 +224,7 @@ public class MainCitySys : SystemRoot
     #region Buy Wnd
     public void OpenBuyWnd(int type)
     {
+        StopNavTask();
         buyWnd.SetBuyType(type);
         buyWnd.SetWndState();
     }
@@ -264,6 +267,7 @@ public class MainCitySys : SystemRoot
     #region Chat Wnd
     public void OpenChatWnd()
     {
+        StopNavTask();
         chatWnd.SetWndState();
     }
     public void PshChat(GameMsg msg)
@@ -275,7 +279,8 @@ public class MainCitySys : SystemRoot
     #region Strong Wnd
     public void OpenStrongWnd()
     {
-        strongWnd.SetWndState(true);
+        StopNavTask();
+        strongWnd.SetWndState();
     }
 
     public void RspStrong(GameMsg msg)
@@ -455,19 +460,24 @@ public class MainCitySys : SystemRoot
                 //与智者对话
                 break;
             case Constants.CurtTaskDataActID_1:
-                //TODO 进入副本
+                //进入副本
+                EnterFuben();
                 break;
             case Constants.CurtTaskDataActID_2:
-                //TODO 进入强化界面
+                //进入强化界面
+                OpenStrongWnd();
                 break;
             case Constants.CurtTaskDataActID_3:
-                //TODO 进入体力购买
+                //进入体力购买
+                OpenBuyWnd(Constants.BuyTypePower);
                 break;
             case Constants.CurtTaskDataActID_4:
-                //TODO 进入金币铸造
+                //进入金币铸造
+                OpenBuyWnd(Constants.MakeTypeCoin);
                 break;
             case Constants.CurtTaskDataActID_5:
-                //TODO 进入世界聊天
+                //进入世界聊天
+                OpenChatWnd();
                 break;
         }
 
