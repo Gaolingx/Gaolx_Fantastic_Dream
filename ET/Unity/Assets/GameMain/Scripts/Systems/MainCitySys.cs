@@ -204,6 +204,11 @@ public class MainCitySys : SystemRoot
     {
         PshTaskPrgs data = msg.pshTaskPrgs;
         GameRoot.Instance.SetPlayerDataByTaskPsh(data);
+
+        if(taskWnd.GetWndState())
+        {
+            taskWnd.RefreshUI();
+        }
     }
     #endregion
 
@@ -215,15 +220,24 @@ public class MainCitySys : SystemRoot
     }
     public void RspBuy(GameMsg msg)
     {
-        RspBuy data = msg.rspBuy;
+        RspBuy rspBuydata = msg.rspBuy;
         //更新玩家数据到GameRoot中
-        GameRoot.Instance.SetPlayerDataByBuy(data);
+        GameRoot.Instance.SetPlayerDataByBuy(rspBuydata);
         GameRoot.AddTips("购买成功");
 
         //更新主城界面
         maincityWnd.RefreshUI();
         //关闭购买窗口
         buyWnd.SetWndState(false);
+
+        if(msg.pshTaskPrgs !=  null)
+        {
+            GameRoot.Instance.SetPlayerDataByTaskPsh(msg.pshTaskPrgs);
+            if (taskWnd.GetWndState())
+            {
+                taskWnd.RefreshUI();
+            }
+        }
     }
     #endregion
 
@@ -232,7 +246,7 @@ public class MainCitySys : SystemRoot
     {
         PshPower data = msg.pshPower;
         GameRoot.Instance.SetPlayerDataByPower(data);
-        if(maincityWnd.gameObject.activeSelf)
+        if(maincityWnd.GetWndState())
         {
             maincityWnd.RefreshUI();
         }

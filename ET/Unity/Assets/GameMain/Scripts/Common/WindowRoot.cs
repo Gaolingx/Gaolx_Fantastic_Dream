@@ -31,7 +31,7 @@ public class WindowRoot : MonoBehaviour
         }
     }
 
-    protected bool GetWndState()
+    public bool GetWndState()
     {
         return gameObject.activeSelf;
     }
