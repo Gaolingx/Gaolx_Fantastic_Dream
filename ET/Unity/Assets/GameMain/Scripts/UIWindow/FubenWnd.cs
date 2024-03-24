@@ -40,6 +40,13 @@ public class FubenWnd : WindowRoot {
         }
     }
     
+    public void ClickTaskBtn(int fbid)
+    {
+        audioSvc.PlayUIAudio(Constants.UIClickBtn);
+
+        //检查体力是否足够
+        //int powerInMission = resSvc.GetMapCfg();
+    }
 
     public void ClickCloseBtn() {
         audioSvc.PlayUIAudio(Constants.UIClickBtn);

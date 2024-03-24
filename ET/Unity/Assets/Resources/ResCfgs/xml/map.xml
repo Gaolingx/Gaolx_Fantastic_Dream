@@ -3,9 +3,92 @@
 	<item ID="10000">
 		<mapName>圣光主城</mapName>
 		<sceneName>SceneMainCity</sceneName>
+		<power>0</power>
 		<mainCamPos>0,1.375,0</mainCamPos>
 		<mainCamRote>0,0,0</mainCamRote>
 		<playerBornPos>140.35,10,121</playerBornPos>
 		<playerBornRote>0,0,0</playerBornRote>
+		<monsterLst></monsterLst>
+		<exp></exp>
+		<coin></coin>
+		<crystal></crystal>
+	</item>
+	<item ID="10001">
+		<mapName>荒野遗迹</mapName>
+		<sceneName>SceneOrge</sceneName>
+		<power>5</power>
+		<mainCamPos>216.39,6.84,448.95</mainCamPos>
+		<mainCamRote>0,101.531,0</mainCamRote>
+		<playerBornPos>220.1,4.878,448.65</playerBornPos>
+		<playerBornRote>0,90,0</playerBornRote>
+		<monsterLst></monsterLst>
+		<exp></exp>
+		<coin></coin>
+		<crystal></crystal>
+	</item>
+	<item ID="10002">
+		<mapName>荒野遗迹</mapName>
+		<sceneName>SceneOrge</sceneName>
+		<power>5</power>
+		<mainCamPos>216.39,6.84,448.95</mainCamPos>
+		<mainCamRote>0,101.531,0</mainCamRote>
+		<playerBornPos>220.1,4.878,448.65</playerBornPos>
+		<playerBornRote>0,90,0</playerBornRote>
+		<monsterLst></monsterLst>
+		<exp></exp>
+		<coin></coin>
+		<crystal></crystal>
+	</item>
+	<item ID="10003">
+		<mapName>荒野遗迹</mapName>
+		<sceneName>SceneOrge</sceneName>
+		<power>5</power>
+		<mainCamPos>216.39,6.84,448.95</mainCamPos>
+		<mainCamRote>0,101.531,0</mainCamRote>
+		<playerBornPos>220.1,4.878,448.65</playerBornPos>
+		<playerBornRote>0,90,0</playerBornRote>
+		<monsterLst></monsterLst>
+		<exp></exp>
+		<coin></coin>
+		<crystal></crystal>
+	</item>
+	<item ID="10004">
+		<mapName>荒野遗迹</mapName>
+		<sceneName>SceneOrge</sceneName>
+		<power>5</power>
+		<mainCamPos>216.39,6.84,448.95</mainCamPos>
+		<mainCamRote>0,101.531,0</mainCamRote>
+		<playerBornPos>220.1,4.878,448.65</playerBornPos>
+		<playerBornRote>0,90,0</playerBornRote>
+		<monsterLst></monsterLst>
+		<exp></exp>
+		<coin></coin>
+		<crystal></crystal>
+	</item>
+	<item ID="10005">
+		<mapName>荒野遗迹</mapName>
+		<sceneName>SceneOrge</sceneName>
+		<power>5</power>
+		<mainCamPos>216.39,6.84,448.95</mainCamPos>
+		<mainCamRote>0,101.531,0</mainCamRote>
+		<playerBornPos>220.1,4.878,448.65</playerBornPos>
+		<playerBornRote>0,90,0</playerBornRote>
+		<monsterLst></monsterLst>
+		<exp></exp>
+		<coin></coin>
+		<crystal></crystal>
+	</item>
+	<item ID="10006">
+		<mapName>荒野遗迹</mapName>
+		<sceneName>SceneOrge</sceneName>
+		<power>5</power>
+		<mainCamPos>216.39,6.84,448.95</mainCamPos>
+		<mainCamRote>0,101.531,0</mainCamRote>
+		<playerBornPos>220.1,4.878,448.65</playerBornPos>
+		<playerBornRote>0,90,0</playerBornRote>
+		<monsterLst></monsterLst>
+		<exp></exp>
+		<coin></coin>
+		<crystal></crystal>
 	</item>
 </root>
