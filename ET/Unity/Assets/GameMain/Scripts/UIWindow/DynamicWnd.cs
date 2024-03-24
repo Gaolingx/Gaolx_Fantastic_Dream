@@ -10,7 +10,6 @@ public class DynamicWnd : WindowRoot
 {
     public Animation tipsAni;
     public Text txtTips;
-    public string TipsAniClipName = "TipsShowAni";
 
 
     private bool isTipsShow = false;
@@ -49,7 +48,7 @@ public class DynamicWnd : WindowRoot
         SetActive(txtTips);
         SetText(txtTips, tips);
 
-        AnimationClip clip = tipsAni.GetClip(TipsAniClipName);
+        AnimationClip clip = tipsAni.GetClip(Constants.TipsAniClipName);
         tipsAni.Play();
         //ÑÓÊ±¹Ø±Õ¼¤»î×´Ì¬
 

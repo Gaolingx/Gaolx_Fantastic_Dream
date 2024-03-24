@@ -25,6 +25,8 @@ public class Constants
     public const string ColorYellowHex = "#FFFF00FF";
     #endregion
 
+    //Dynamic Wnd
+    public const string TipsAniClipName = "TipsShowAni";
 
     //AutoGuideNPC
     public const int NPCWiseMan = 0;
