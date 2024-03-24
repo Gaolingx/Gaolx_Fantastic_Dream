@@ -38,10 +38,10 @@ public class BuyWnd : WindowRoot {
         {
             case Constants.BuyTypePower:
                 //体力
-                txtInfo.text = "是否花费" + Constants.txtColor(buyCfg.buyCostDiamondOnce + "钻石", TxtColor.Red) + "购买" + Constants.txtColor(buyCfg.amountEachPurchase + "体力", TxtColor.Green) + "?";
+                txtInfo.text = "是否花费" + GetTextWithHexColor(buyCfg.buyCostDiamondOnce + "钻石", TextColorCode.Red) + "购买" + GetTextWithHexColor(buyCfg.amountEachPurchase + "体力", TextColorCode.Green) + "?";
                 break;
             case Constants.MakeTypeCoin:
-                txtInfo.text = "是否花费" + Constants.txtColor(buyCfg.buyCostDiamondOnce + "钻石", TxtColor.Red) + "购买" + Constants.txtColor(buyCfg.amountEachPurchase + "金币", TxtColor.Green) + "?";
+                txtInfo.text = "是否花费" + GetTextWithHexColor(buyCfg.buyCostDiamondOnce + "钻石", TextColorCode.Red) + "购买" + GetTextWithHexColor(buyCfg.amountEachPurchase + "金币", TextColorCode.Green) + "?";
                 //金币
                 break;
             default:

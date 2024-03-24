@@ -29,7 +29,7 @@ public class ChatWnd : WindowRoot {
     //显示聊天信息
     public void AddChatMsg(string name, string chatTxt)
     {
-        chatLst.Add(Constants.txtColor(name + "：", TxtColor.Blue) + chatTxt);
+        chatLst.Add(GetTextWithHexColor(name + "：", TextColorCode.Blue) + chatTxt);
         //显示聊天记录达到12后条删除最远的记录
         if (chatLst.Count > 12)
         {

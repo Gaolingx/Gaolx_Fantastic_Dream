@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //注意：业务相关的数据、配置等由于频繁发生变动，为了方便调整，尽量不要直接写死在代码中，而是做成一个配置，在统一的地方进行修改
-public enum TxtColor
+public enum TextColorCode
 {
+    White,
     Red,
     Green,
     Blue,
@@ -15,33 +16,14 @@ public enum TxtColor
 
 public class Constants
 {
+    #region ColorHex Code
     //文字颜色
-    private const string ColorRed = "<color=#FF0000FF>";
-    private const string ColorGreen = "<color=#00FF00FF>";
-    private const string ColorBlue = "<color=#00B4FFFF>";
-    private const string ColorYellow = "<color=#FFFF00FF>";
-    private const string ColorEnd = "</color>";
-
-    public static string txtColor(string str,TxtColor color)
-    {
-        string result = "";
-        switch(color)
-        {
-            case TxtColor.Red:
-                result = ColorRed + str + ColorEnd;
-                break;
-            case TxtColor.Green:
-                result = ColorGreen + str + ColorEnd;
-                break;
-            case TxtColor.Blue:
-                result = ColorBlue + str + ColorEnd;
-                break;
-            case TxtColor.Yellow:
-                result = ColorYellow + str + ColorEnd;
-                break;
-        }
-        return result;
-    }
+    public const string ColorWhiteHex = "#FFFFFF";
+    public const string ColorRedHex = "#FF0000FF";
+    public const string ColorGreenHex = "#00FF00FF";
+    public const string ColorBlueHex = "#00B4FFFF";
+    public const string ColorYellowHex = "#FFFF00FF";
+    #endregion
 
 
     //AutoGuideNPC

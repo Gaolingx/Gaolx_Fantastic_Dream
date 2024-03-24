@@ -96,7 +96,6 @@ public class NetSvc : MonoBehaviour
                 case ErrorCode.ClientDataError:
                     PECommon.Log("客户端数据异常", PELogType.Error);
                     break;
-                    break;
                 case ErrorCode.AcctIsOnline:
                     GameRoot.AddTips("当前账号已经上线");
                     break;

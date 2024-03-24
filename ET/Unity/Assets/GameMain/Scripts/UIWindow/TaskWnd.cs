@@ -129,7 +129,7 @@ public class TaskWnd : WindowRoot {
         TaskRewardCfg trc = resSvc.GetTaskRewardCfg(trdLst[index].ID);
         int coin = trc.coin;
         int exp = trc.exp;
-        GameRoot.AddTips(Constants.txtColor("获得奖励：", TxtColor.Blue) + Constants.txtColor(" 金币 +" + coin + " 经验 +" + exp, TxtColor.Green));
+        GameRoot.AddTips(GetTextWithHexColor("获得奖励：", TextColorCode.Blue) + GetTextWithHexColor(" 金币 +" + coin + " 经验 +" + exp, TextColorCode.Green));
     }
 
     public void ClickCloseBtn() {

@@ -123,6 +123,53 @@ public class WindowRoot : MonoBehaviour
     }
     #endregion
 
+    #region RichText
+    public static string GetTextWithHexColor(string text, TextColorCode textColor)
+    {
+        string result = "";
+        string colorStart = "<color=";
+        string colorEnd = ">";
+        string textEnd = "</color>";
+        switch (textColor)
+        {
+            case TextColorCode.White:
+                result = colorStart + Constants.ColorWhiteHex + colorEnd + text + textEnd;
+                break;
+            case TextColorCode.Red:
+                result = colorStart + Constants.ColorRedHex + colorEnd + text + textEnd;
+                break;
+            case TextColorCode.Green:
+                result = colorStart + Constants.ColorGreenHex + colorEnd + text + textEnd;
+                break;
+            case TextColorCode.Blue:
+                result = colorStart + Constants.ColorBlueHex + colorEnd + text + textEnd;
+                break;
+            case TextColorCode.Yellow:
+                result = colorStart + Constants.ColorYellowHex + colorEnd + text + textEnd;
+                break;
+            default:
+                result = colorStart + Constants.ColorWhiteHex + colorEnd + text + textEnd;
+                break;
+        }
+        return result;
+    }
+
+    protected string GetTextWithBoldFont(string text)
+    {
+        return "<b>" + text + "</b>";
+    }
+
+    protected string GetTextWithItalicFont(string text)
+    {
+        return "<i>" + text + "</i>";
+    }
+
+    protected string GetTextWithSizeFont(string text, int sizeNum)
+    {
+        return "<size=" + sizeNum + ">" + text + "</size>";
+    }
+    #endregion
+
     #region Click Evts
     protected void OnClick(GameObject go, Action<object> cb, object args)
     {

@@ -292,7 +292,7 @@ public class MainCitySys : SystemRoot
         //升级后战力
         int zhanliNow = PECommon.GetFightByProps(GameRoot.Instance.PlayerData);
         //升级后的反馈
-        GameRoot.AddTips(Constants.txtColor("战力提升 " + (zhanliNow - zhanliPre), TxtColor.Blue));
+        GameRoot.AddTips(WindowRoot.GetTextWithHexColor("战力提升 " + (zhanliNow - zhanliPre), TextColorCode.Blue));
 
         //刷新强化和主城界面
         strongWnd.UpdateUI();
@@ -451,7 +451,7 @@ public class MainCitySys : SystemRoot
     {
         RspGuide data = msg.rspGuide;
 
-        GameRoot.AddTips(Constants.txtColor("任务奖励 金币+" + curtTaskData.coin + "  经验+" + curtTaskData.exp, TxtColor.Blue));
+        GameRoot.AddTips(WindowRoot.GetTextWithHexColor("任务奖励 金币+" + curtTaskData.coin + "  经验+" + curtTaskData.exp, TextColorCode.Blue));
 
         //读取任务actionID，进行相应操作
         switch (curtTaskData.actID)
