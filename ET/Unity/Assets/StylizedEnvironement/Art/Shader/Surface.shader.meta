@@ -3,10 +3,10 @@ guid: e6b8e477d36c87148816656334738f02
 ShaderImporter:
   externalObjects: {}
   defaultTextures:
-  - _NoiseMaskCoverage: {fileID: 2800000, guid: 56627a94b6eb77f488f73154bbc9ddba, type: 3}
+  - _NoiseMaskCoverage: {fileID: 2800000, guid: 56627a94b6eb77f488f73154bbc9ddba,
+      type: 3}
   - _BlendingNoise: {fileID: 2800000, guid: 56627a94b6eb77f488f73154bbc9ddba, type: 3}
   nonModifiableTextures: []
-  preprocessorOverride: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
