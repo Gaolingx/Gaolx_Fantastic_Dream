@@ -26,8 +26,8 @@ public class HotFixService : MonoBehaviour
     };
 
 
-    public string HotDllName = "Assets/AssetBundles/Scripts/Dlls/GameMain.dll";
-    public string GameRootObject = "Assets/AssetBundles/Prefabs/RootPrefabs/HotFixRoot.prefab";
+    [SerializeField] private string HotDllName = "Assets/AssetBundles/Scripts/Dlls/GameMain.dll";
+    [SerializeField] private string GameRootObject = "Assets/AssetBundles/Prefabs/RootPrefabs/HotFixRoot.prefab";
 
     //获取资源二进制
     private static Dictionary<string, byte[]> _dllAssetDataDict = new Dictionary<string, byte[]>();

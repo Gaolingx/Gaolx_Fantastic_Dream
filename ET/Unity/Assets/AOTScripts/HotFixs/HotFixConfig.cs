@@ -11,7 +11,7 @@ public class HotFixConfig : MonoBehaviour
 
     //CDNµÿ÷∑
     public string hostServerIP = "http://127.0.0.1";
-    string appVersion = "v1.0";
+    public string appVersion = "v1.0";
 
 
     #region CDNServerConfig
