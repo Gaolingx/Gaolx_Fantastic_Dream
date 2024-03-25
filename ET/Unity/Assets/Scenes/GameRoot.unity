@@ -531,18 +531,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &639626385 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2328927584244089490, guid: 6dfcc94853349114c883c40ca082c88a,
-    type: 3}
-  m_PrefabInstance: {fileID: 3310344769241245618}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a364b094d6fcc764bbafdbd36ff177b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &734957263
 GameObject:
   m_ObjectHideFlags: 0
@@ -1631,41 +1619,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3339353836520809606, guid: 6dfcc94853349114c883c40ca082c88a,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3339353836520809606, guid: 6dfcc94853349114c883c40ca082c88a,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3339353836520809606, guid: 6dfcc94853349114c883c40ca082c88a,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 639626385}
-    - target: {fileID: 3339353836520809606, guid: 6dfcc94853349114c883c40ca082c88a,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3339353836520809606, guid: 6dfcc94853349114c883c40ca082c88a,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ClickFubenBtn
-      objectReference: {fileID: 0}
-    - target: {fileID: 3339353836520809606, guid: 6dfcc94853349114c883c40ca082c88a,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: MainCityWnd, GameMain
-      objectReference: {fileID: 0}
-    - target: {fileID: 3339353836520809606, guid: 6dfcc94853349114c883c40ca082c88a,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 9219833685541573652, guid: 6dfcc94853349114c883c40ca082c88a,
         type: 3}

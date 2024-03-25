@@ -21,23 +21,23 @@ public class FubenSys : SystemRoot
 
     public void EnterFuben()
     {
-        OpenFubenWnd();
+        SetFubenWndState();
     }
 
     #region Fuben Wnd
-    public void OpenFubenWnd()
+    public void SetFubenWndState(bool isActive = true)
     {
-        fubenWnd.SetWndState();
+        fubenWnd.SetWndState(isActive);
     }
     #endregion
 
     public void RspFBFight(GameMsg msg)
     {
         GameRoot.Instance.SetPlayerDataByFBStart(msg.rspFBFight);
-
         MainCitySys.Instance.maincityWnd.SetWndState(false);
-
+        SetFubenWndState(false);
         //加载对应的战斗场景，开始副本战斗任务
+        BattleSys.Instance.StartBattle(msg.rspFBFight.fbid);
     }
 
 }
