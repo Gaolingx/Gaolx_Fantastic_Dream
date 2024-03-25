@@ -2,4 +2,4 @@
 
 ## About
 
-This is a simple ARPG game who develop by Gaolingx.
+This is a simple ARPG game which develop by Gaolingx.
