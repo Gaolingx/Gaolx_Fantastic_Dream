@@ -227,6 +227,9 @@ public class ResSvc : MonoBehaviour
                         case "sceneName":
                             mapCfg.sceneName = e.InnerText;
                             break;
+                        case "power":
+                            mapCfg.power = int.Parse(e.InnerText);
+                            break;
                         case "mainCamPos":
                             {
                                 string[] valArr = e.InnerText.Split(',');
@@ -257,7 +260,7 @@ public class ResSvc : MonoBehaviour
             }
         }
     }
-    public MapCfg GetMapCfgCfg(int id)
+    public MapCfg GetMapCfg(int id)
     {
         MapCfg data;
         if (mapCfgDataDic.TryGetValue(id, out data))
