@@ -1,2 +1,5 @@
 # Gaolx_Fantastic_Dream
- simple mmo based on et 7.2
+
+## About
+
+This is a simple ARPG game who develop by Gaolingx.
