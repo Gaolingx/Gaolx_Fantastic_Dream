@@ -7,6 +7,6 @@ public class SkillMgr : MonoBehaviour
 {
     public void Init()
     {
-
+        PECommon.Log("Init SkillMgr Done.");
     }
 }

@@ -7,6 +7,7 @@ public class MapMgr : MonoBehaviour
 {
     public void Init()
     {
+        PECommon.Log("Init MapMgr Done.");
 
     }
 }

@@ -84,7 +84,7 @@ public class MainCitySys : SystemRoot
 
     }
 
-    private void LoadPlayer(MapCfg mapData)
+    private void LoadPlayerInstance(MapCfg mapData)
     {
         //玩家初始化
         //获取Prefab实例化的对象
@@ -119,7 +119,10 @@ public class MainCitySys : SystemRoot
         {
             Debug.LogError(PathDefine.AssissnCityPlayerPrefab + " 预制件加载失败！");
         }
+    }
 
+    private void LoadVirtualCameraInstance(MapCfg mapData)
+    {
         //相机初始化
         //首先要加载虚拟相机的预制件
         GameObject CM_player = resSvc.LoadPrefab(PathDefine.AssissnCityCharacterCameraPrefab, true);
@@ -147,7 +150,12 @@ public class MainCitySys : SystemRoot
         {
             Debug.LogError(PathDefine.AssissnCityCharacterCameraPrefab + " 预制件加载失败！");
         }
+    }
 
+    private void LoadPlayer(MapCfg mapData)
+    {
+        LoadPlayerInstance(mapData);
+        LoadVirtualCameraInstance(mapData);
     }
 
     private void LoadNpcPrefab()
@@ -161,7 +169,7 @@ public class MainCitySys : SystemRoot
 
     private void InitGamepad()
     {
-        Transform GamePadTrans = transform.Find(Constants.Path_StarterAssetsInputs_Joysticks);
+        Transform GamePadTrans = transform.Find(Constants.Path_Joysticks_MainCitySys);
         if (GamePadTrans != null)
         {
             GamePadTrans.gameObject.SetActive(true);

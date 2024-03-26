@@ -7,6 +7,6 @@ public class StateMgr : MonoBehaviour
 {
     public void Init()
     {
-
+        PECommon.Log("Init StateMgr Done.");
     }
 }

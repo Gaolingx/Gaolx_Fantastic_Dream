@@ -44,6 +44,7 @@ public class Constants
     //背景音效名称
     public const string BGLogin = "bgLogin";
     public const string BGMainCity = "bgMainCity";
+    public const string BGHuangYe = "bgHuangYe";
 
     //登录按钮音效
     public const string UILoginBtn = "uiLoginBtn";
@@ -101,7 +102,8 @@ public class Constants
     public const string CharPlayerWithTag = "Player";
 
     //GamePad配置
-    public const string Path_StarterAssetsInputs_Joysticks = "Canvas/UI_Canvas_StarterAssetsInputs_Joysticks";
+    public const string Path_Joysticks_MainCitySys = "Canvas/UI_Canvas_StarterAssetsInputs_Joysticks";
+    public const string Path_Joysticks_BattleMgr = "UI_Canvas_StarterAssetsInputs_Joysticks";
 
     //自动任务图标配置
     public const int DefaultGuideBtnIconID = -1;
@@ -147,4 +149,6 @@ public class Constants
     public const int NpcTypeID_2 = 2;
     public const int NpcTypeID_3 = 3;
 
+    //Battle Mgr配置
+    public const string MapRootGOTag = "MapRoot";
 }
