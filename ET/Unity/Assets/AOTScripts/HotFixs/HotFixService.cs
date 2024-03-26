@@ -79,6 +79,7 @@ public class HotFixService : MonoBehaviour
             var obj = _yooAssetResourcePackage.LoadRawFileSync(dllName);
             byte[] fileData = obj.GetRawFileData();
             _dllAssetDataDict.Add(dllName, fileData);
+            Debug.Log($"dll:{dllName}  size:{fileData.Length}");
         }
     }
 
@@ -96,18 +97,19 @@ public class HotFixService : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        // 创建默认的资源包
         string packageName = "DefaultPackage";
         var package = YooAssets.TryGetPackage(packageName);
 
-        //1. InitYooAsset
+        // 1.初始化资源系统
         YooAssets.Initialize();
         if (package == null)
         {
+            // 创建默认的资源包
             _yooAssetResourcePackage = YooAssets.CreatePackage(packageName);
+            // 设置该资源包为默认的资源包，可以使用YooAssets相关加载接口加载该资源包内容。
             YooAssets.SetDefaultPackage(_yooAssetResourcePackage);
         }
-        EPlayMode PlayMode = _hotFixConfig.GetEPlayMode();
+        EPlayMode PlayMode = _hotFixConfig.GetEPlayMode(); // 资源系统运行模式
         switch (PlayMode)
         {
             // 编辑器下的模拟模式
@@ -174,7 +176,7 @@ public class HotFixService : MonoBehaviour
                 }
         }
 
-        //2. UpdatePackageVersion
+        //2.获取资源版本
         var updatePackageVersionOperation = _yooAssetResourcePackage.UpdatePackageVersionAsync();
         yield return updatePackageVersionOperation;
 
@@ -185,7 +187,7 @@ public class HotFixService : MonoBehaviour
         }
         string packageVersion = updatePackageVersionOperation.PackageVersion;
 
-        //3. UpdatePackageManifest
+        //3.更新补丁清单
         bool savePackageVersion = true;
         var updatePackageManifestOperation = _yooAssetResourcePackage.UpdatePackageManifestAsync(packageVersion, savePackageVersion);
         yield return updatePackageManifestOperation;
@@ -196,7 +198,7 @@ public class HotFixService : MonoBehaviour
             yield break;
         }
 
-        //4. Download
+        //4.下载补丁包
         PrepareDownloader();
         yield break;
     }
@@ -205,7 +207,8 @@ public class HotFixService : MonoBehaviour
     {
         int downloadingMaxNum = 10;
         int failedTryAgain = 3;
-        var downloader = _yooAssetResourcePackage.CreateResourceDownloader(downloadingMaxNum, failedTryAgain);
+        int timeout = 60;
+        var downloader = _yooAssetResourcePackage.CreateResourceDownloader(downloadingMaxNum, failedTryAgain, timeout);
 
         if (downloader.TotalDownloadCount == 0)
         {
@@ -214,9 +217,11 @@ public class HotFixService : MonoBehaviour
             return;
         }
 
+        //需要下载的文件总数和总大小
         int totalDownloadCount = downloader.TotalDownloadCount;
         long totalDownloadBytes = downloader.TotalDownloadBytes;
-
+        Debug.Log($"文件总数:{totalDownloadCount}:::总大小:{totalDownloadBytes}");
+        //注册回调方法
         downloader.OnDownloadErrorCallback = OnDownloadErrorFunction;
         downloader.OnDownloadProgressCallback = OnDownloadProgressUpdateFunction;
         downloader.OnDownloadOverCallback = OnDownloadOverFunction;
@@ -232,9 +237,12 @@ public class HotFixService : MonoBehaviour
 
     private IEnumerator RunDownloader(ResourceDownloaderOperation downloader)
     {
+        //开启下载
         downloader.BeginDownload();
         _hotFixWindow.SetTips("正在下载更新中");
         yield return downloader;
+
+        //检测下载结果
         if (downloader.Status == EOperationStatus.Succeed)
         {
             Debug.Log("下载成功");
@@ -246,6 +254,14 @@ public class HotFixService : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 开始下载
+    /// </summary>
+    /// <param name="totalDownloadCount"></param>
+    /// <param name="currentDownloadCount"></param>
+    /// <param name="totalDownloadBytes"></param>
+    /// <param name="currentDownloadBytes"></param>
+    /// <exception cref="NotImplementedException"></exception>
     private void OnDownloadProgressUpdateFunction(int totalDownloadCount, int currentDownloadCount, long totalDownloadBytes, long currentDownloadBytes)
     {
         Debug.Log($"文件总数: {totalDownloadCount}, 已下载文件数： {currentDownloadCount}, 总大小: {totalDownloadBytes}, 已下载大小: {currentDownloadBytes}");
@@ -253,19 +269,36 @@ public class HotFixService : MonoBehaviour
         _hotFixWindow.SetLoadingProgress(progress);
     }
 
+    /// <summary>
+    /// 开始下载
+    /// </summary>
+    /// <param name="fileName"></param>
+    /// <param name="sizeBytes"></param>
+    /// <exception cref="NotImplementedException"></exception>
     private void OnStartDownloadFileFunction(string fileName, long sizeBytes)
     {
-        Debug.Log($"开始下载: {fileName}, 文件大小: {sizeBytes}");
+        Debug.Log(string.Format("开始下载：文件名：{0}, 文件大小：{1}", fileName, sizeBytes));
     }
 
+    /// <summary>
+    /// 下载完成
+    /// </summary>
+    /// <param name="isSucceed"></param>
+    /// <exception cref="NotImplementedException"></exception>
     private void OnDownloadOverFunction(bool isSucceed)
     {
-        Debug.Log($"下载完成情况: {isSucceed}");
+        Debug.Log("下载" + (isSucceed ? "成功" : "失败"));
     }
 
+    /// <summary>
+    /// 下载出错
+    /// </summary>
+    /// <param name="fileName"></param>
+    /// <param name="error"></param>
+    /// <exception cref="NotImplementedException"></exception>
     private void OnDownloadErrorFunction(string fileName, string error)
     {
-        Debug.Log($"下载出错: {fileName}, 出错原因: {error}");
+        Debug.LogError(string.Format("下载出错：文件名：{0}, 错误信息：{1}", fileName, error));
     }
 
     private static byte[] GetAssetData(string dllName)
@@ -273,11 +306,14 @@ public class HotFixService : MonoBehaviour
         return _dllAssetDataDict[dllName];
     }
 
+    /// <summary>
+    /// 为aot assembly加载原始metadata， 这个代码放aot或者热更新都行。
+    /// 一旦加载后，如果AOT泛型函数对应native实现不存在，则自动替换为解释模式执行
+    /// </summary>
     private static void LoadMetadataForAOTAssemblies()
     {
         /// 注意，补充元数据是给AOT dll补充元数据，而不是给热更新dll补充元数据。
         /// 热更新dll不缺元数据，不需要补充，如果调用LoadMetadataForAOTAssembly会返回错误
-        /// 
         HomologousImageMode mode = HomologousImageMode.SuperSet;
         foreach (var aotDllName in AOTMetaAssemblyNames)
         {
