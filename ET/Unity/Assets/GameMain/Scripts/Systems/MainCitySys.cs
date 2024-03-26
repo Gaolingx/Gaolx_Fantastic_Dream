@@ -161,11 +161,15 @@ public class MainCitySys : SystemRoot
 
     private void InitGamepad()
     {
-        GameObject GamePad = GameObject.Find(Constants.GamepadBind_StarterAssetsInputs_Joysticks);
-        UICanvasControllerInput uICanvasControllerInput = GamePad.GetComponent<UICanvasControllerInput>();
-        StarterAssetsInputs StarterAssetsInputs_player = Scene_player.GetComponent<StarterAssetsInputs>();
+        Transform GamePadTrans = transform.Find(Constants.Path_StarterAssetsInputs_Joysticks);
+        if (GamePadTrans != null)
+        {
+            GamePadTrans.gameObject.SetActive(true);
+            UICanvasControllerInput uICanvasControllerInput = GamePadTrans.GetComponent<UICanvasControllerInput>();
+            StarterAssetsInputs StarterAssetsInputs_player = Scene_player.GetComponent<StarterAssetsInputs>();
 
-        uICanvasControllerInput.starterAssetsInputs = StarterAssetsInputs_player;
+            uICanvasControllerInput.starterAssetsInputs = StarterAssetsInputs_player;
+        }
     }
 
 

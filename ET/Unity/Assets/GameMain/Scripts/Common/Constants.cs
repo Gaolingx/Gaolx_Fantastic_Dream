@@ -101,7 +101,7 @@ public class Constants
     public const string CharPlayerWithTag = "Player";
 
     //GamePad配置
-    public const string GamepadBind_StarterAssetsInputs_Joysticks = "UI_Canvas_StarterAssetsInputs_Joysticks";
+    public const string Path_StarterAssetsInputs_Joysticks = "Canvas/UI_Canvas_StarterAssetsInputs_Joysticks";
 
     //自动任务图标配置
     public const int DefaultGuideBtnIconID = -1;
