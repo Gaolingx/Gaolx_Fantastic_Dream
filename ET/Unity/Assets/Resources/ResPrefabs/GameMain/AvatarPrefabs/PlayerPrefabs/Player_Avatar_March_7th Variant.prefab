@@ -4104,7 +4104,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 6766706dacd2d7344a8b70ed64658cfc, type: 2}
+      objectReference: {fileID: 9100000, guid: 0b07df1ad17e58b42adb12e153b2b5e6, type: 2}
     - target: {fileID: 5866666021909216657, guid: 7066c5f152c157f40912f73251590fda,
         type: 3}
       propertyPath: m_ApplyRootMotion
@@ -6514,6 +6514,7 @@ MonoBehaviour:
   jump: 0
   sprint: 0
   crouch: 0
+  flipJump: 0
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
@@ -6537,6 +6538,7 @@ MonoBehaviour:
   FootstepAudioClips: []
   FootstepAudioVolume: 0.5
   JumpHeight: 1.2
+  FlipJumpHeight: 1.4
   Gravity: -15
   JumpTimeout: 0.3
   FallTimeout: 0.15

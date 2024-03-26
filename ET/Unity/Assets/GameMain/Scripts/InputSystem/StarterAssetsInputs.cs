@@ -14,6 +14,7 @@ namespace StarterAssets
         public bool jump;
 		public bool sprint;
         public bool crouch;
+        public bool flipJump;
 
         [Header("Movement Settings")]
 		public bool analogMovement;
@@ -41,6 +42,11 @@ namespace StarterAssets
 			JumpInput(value.isPressed);
 		}
 
+        public void OnFlipJump(InputValue value)
+        {
+            FlipJumpInput(value.isPressed);
+        }
+        
 		public void OnSprint(InputValue value)
 		{
 			SprintInput(value.isPressed);
@@ -72,8 +78,13 @@ namespace StarterAssets
 		{
 			jump = newJumpState;
 		}
+        private void FlipJumpInput(bool newFlipJumpState)
+		{
+			flipJump = newFlipJumpState;
+		}
 
-		public void SprintInput(bool newSprintState)
+
+        public void SprintInput(bool newSprintState)
 		{
 			sprint = newSprintState;
 		}

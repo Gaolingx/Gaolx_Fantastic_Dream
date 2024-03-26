@@ -38,6 +38,10 @@ namespace StarterAssets
         [Tooltip("The height the player can jump")]
         public float JumpHeight = 1.2f;
 
+        [Space(10)]
+        [Tooltip("The height the player can flip jump")]
+        public float FlipJumpHeight = 1.4f;
+
         [Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
         public float Gravity = -15.0f;
 
@@ -112,6 +116,7 @@ namespace StarterAssets
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
         private int _animIDCrouch;
+        private int _animIDFlip;
 
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
@@ -215,6 +220,7 @@ namespace StarterAssets
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
             _animIDCrouch = Animator.StringToHash("Crouch");
+            _animIDFlip = Animator.StringToHash("Flip");
         }
 
         private void GroundedCheck()
@@ -364,8 +370,22 @@ namespace StarterAssets
                     _verticalVelocity = -2f;
                 }
 
+                if (_input.flipJump && _jumpTimeoutDelta <= 0.0f)
+                {
+                    // the square root of H * -2 * G = how much velocity needed to reach desired height
+                    _verticalVelocity = Mathf.Sqrt(FlipJumpHeight * -2f * Gravity);
+
+                    // update animator if using character
+                    if (_hasAnimator)
+                    {
+                        _animator.SetBool(_animIDFlip, true);
+                        _animator.SetBool(_animIDCrouch, false);
+                    }
+
+                    _tryToCrouch = false;
+                }
                 // Jump
-                if (_input.jump && _jumpTimeoutDelta <= 0.0f)
+                else if (_input.jump && _jumpTimeoutDelta <= 0.0f)
                 {
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
                     _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
@@ -400,11 +420,13 @@ namespace StarterAssets
                     if (_hasAnimator)
                     {
                         _animator.SetBool(_animIDFreeFall, true);
+                        _animator.SetBool(_animIDFlip, false);
                     }
                 }
 
                 // if we are not grounded, do not jump
                 _input.jump = false;
+                _input.flipJump = false;
             }
 
             // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
