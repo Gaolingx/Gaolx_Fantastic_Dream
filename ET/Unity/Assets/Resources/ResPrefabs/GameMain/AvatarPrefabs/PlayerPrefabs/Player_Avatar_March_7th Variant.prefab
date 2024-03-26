@@ -6313,7 +6313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: d3902ee841239cc4c9e713d1563601ae,
+  m_Actions: {fileID: -944628639613478452, guid: 4419d82f33d36e848b3ed5af4c8da37e,
     type: 3}
   m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
@@ -6513,13 +6513,7 @@ MonoBehaviour:
   zoom: 0
   jump: 0
   sprint: 0
-  punchRight: 0
-  punchLeft: 0
   crouch: 0
-  flipJump: 0
-  roll: 0
-  lockOn: 0
-  isModified: 0
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
@@ -6539,10 +6533,10 @@ MonoBehaviour:
   SprintSpeed: 5.335
   RotationSmoothTime: 0.12
   SpeedChangeRate: 10
+  LandingAudioClip: {fileID: 0}
+  FootstepAudioClips: []
+  FootstepAudioVolume: 0.5
   JumpHeight: 1.2
-  FlipJumpHeight: 1.4
-  FlipJumpApexBoundVelocityMagnitude: 0.2
-  FlipJumpCapsuleHeight: 0
   Gravity: -15
   JumpTimeout: 0.3
   FallTimeout: 0.15
@@ -6555,14 +6549,13 @@ MonoBehaviour:
   CinemachineCameraTarget: {fileID: 2805847535444447113}
   TopClamp: 70
   BottomClamp: -30
+  speedLook: 1
   maxDistance: 5
   minDistance: 0.5
   distanceChangeRate: 10
-  speedLookx: 1
-  speedLooky: 1
   CameraAngleOverride: 0
   LockCameraPosition: 0
-  _timeToFlipJump: 0
+  isSkillMove: 0
 --- !u!114 &5480172967225065025
 MonoBehaviour:
   m_ObjectHideFlags: 0

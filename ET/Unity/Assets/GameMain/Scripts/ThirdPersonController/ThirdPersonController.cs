@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Cinemachine;
+using System.Xml.Serialization;
 using UnityEngine;
-using Cinemachine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -30,20 +30,13 @@ namespace StarterAssets
         [Tooltip("Acceleration and deceleration")]
         public float SpeedChangeRate = 10.0f;
 
+        public AudioClip LandingAudioClip;
+        public AudioClip[] FootstepAudioClips;
+        [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
 
         [Space(10)]
         [Tooltip("The height the player can jump")]
         public float JumpHeight = 1.2f;
-
-        [Space(10)]
-        [Tooltip("The height the player can flip jump")]
-        public float FlipJumpHeight = 1.4f;
-
-        [Tooltip("The max absolute value that the characters y-velocity can have before the FlipJumpApex is triggered")]
-        public float FlipJumpApexBoundVelocityMagnitude = 0.2f;
-
-        [Tooltip("Hight of the capsule when the characters is in the appex of a flip-jump")]
-        public float FlipJumpCapsuleHeight;
 
         [Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
         public float Gravity = -15.0f;
@@ -78,15 +71,12 @@ namespace StarterAssets
         [Tooltip("How far in degrees can you move the camera down")]
         public float BottomClamp = -30.0f;
 
+        [Tooltip("How fast in speed can you move the camera in X axis")]
+        public float speedLook = 1.0f;
+
         public float maxDistance = 5.0f;
         public float minDistance = 0.5f;
         public float distanceChangeRate = 10.0f;
-
-        [Tooltip("How fast in speed can you move the camera in X axis")]
-        public float speedLookx = 1.0f;
-
-        [Tooltip("How fast in speed can you move the camera in Y axis")]
-        public float speedLooky = 1.0f;
 
         [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
         public float CameraAngleOverride = 0.0f;
@@ -94,6 +84,8 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
+        [Header("Player Skills")]
+        public bool isSkillMove;
 
         // cinemachine
         private float _cinemachineTargetYaw;
@@ -108,7 +100,6 @@ namespace StarterAssets
         private float _rotationVelocity;
         private float _verticalVelocity;
         private float _terminalVelocity = 53.0f;
-        private float _standingHeight;
 
         // timeout deltatime
         private float _jumpTimeoutDelta;
@@ -120,44 +111,22 @@ namespace StarterAssets
         private int _animIDJump;
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
-        private int _animIDRightPunchTrigger;
-        private int _animIDLeftPunchTrigger;
-        private int _animIDRightKickTrigger;
-        private int _animIDLeftKickTrigger;
         private int _animIDCrouch;
-        private int _animIDSlide;
-        private int _animIDFlip;
-        private int _animIDRoll;
-
-        private int _animStateIDIdle;
 
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
 #endif
         private Animator _animator;
         private CharacterController _controller;
-        private Cinemachine3rdPersonFollow _personFollow;
-        protected StarterAssetsInputs _starterAssetInputs;
-        protected InputWrapper _input;
+        private StarterAssetsInputs _input;
         private GameObject _mainCamera;
+        private Cinemachine3rdPersonFollow _personFollow;
 
         private const float _threshold = 0.01f;
 
-        protected bool _hasAnimator;
-
-        private bool _previouslyAttacking;
+        private bool _hasAnimator;
 
         private bool _tryToCrouch;
-        private bool _tryToSlide;
-        private float _slideTimer;
-        private float _slideResetTimer;
-
-        private bool _tryToRoll;
-        private float _rollTimer;
-        private float _rollResetTimer;
-        private bool _previouslyGrounded;
-        [SerializeField] private float _timeToFlipJump;
-
 
         private bool IsCurrentDeviceMouse
         {
@@ -171,8 +140,8 @@ namespace StarterAssets
             }
         }
 
-
-        private void Awake()
+        #region MonoBehaviour
+        public void ClassAwake()
         {
             // get a reference to our main camera
             if (_mainCamera == null)
@@ -180,32 +149,15 @@ namespace StarterAssets
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
         }
-
-        private void Start()
-        {
-            ClassStart();
-
-        }
-
-        public virtual void ClassStart()
+        public void ClassStart()
         {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
-            
+
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
             _personFollow = GameObject.FindGameObjectWithTag(Constants.PlayerFollowCameraWithTag).GetComponent<CinemachineVirtualCamera>()
                 .GetCinemachineComponent<Cinemachine3rdPersonFollow>();
-
-            _starterAssetInputs = GetComponent<StarterAssetsInputs>();
-
-            if (_starterAssetInputs != null)
-            {
-                _input = new InputWrapper(_starterAssetInputs);
-            }
-            else
-            {
-                _input = new InputWrapper();
-            }
+            _input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM 
             _playerInput = GetComponent<PlayerInput>();
 #else
@@ -220,32 +172,39 @@ namespace StarterAssets
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
         }
+        public void ClassUpdate()
+        {
+            _hasAnimator = TryGetComponent(out _animator);
+
+            JumpAndGravity();
+            GroundedCheck();
+            Crouch();
+            Move();
+        }
+        public void ClassLateUpdate()
+        {
+            CameraRotation();
+        }
+        #endregion
+
+        private void Awake()
+        {
+            ClassAwake();
+        }
+
+        private void Start()
+        {
+            ClassStart();
+        }
 
         private void Update()
         {
             ClassUpdate();
-
-        }
-
-        public virtual void ClassUpdate()
-        {
-            SetInputs();
-
-            _hasAnimator = TryGetComponent(out _animator);
-
-            Crouch();
-            JumpAndGravity();
-            GroundedCheck();
-            Move();
-        }
-        public virtual void SetInputs()
-        {
-            _input.SetInputs(_starterAssetInputs);
         }
 
         private void LateUpdate()
         {
-            CameraRotation();
+            ClassLateUpdate();
         }
 
         private void AssignAnimationIDs()
@@ -255,16 +214,7 @@ namespace StarterAssets
             _animIDJump = Animator.StringToHash("Jump");
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
-            _animIDRightPunchTrigger = Animator.StringToHash("PunchRightTrigger");
-            _animIDLeftPunchTrigger = Animator.StringToHash("PunchLeftTrigger");
-            _animIDRightKickTrigger = Animator.StringToHash("KickRightTrigger");
-            _animIDLeftKickTrigger = Animator.StringToHash("KickLeftTrigger");
             _animIDCrouch = Animator.StringToHash("Crouch");
-            _animIDSlide = Animator.StringToHash("Slide");
-            _animIDFlip = Animator.StringToHash("Flip");
-            _animIDRoll = Animator.StringToHash("Roll");
-
-            _animStateIDIdle = Animator.StringToHash("Idle Walk Run Blend");
         }
 
         private void GroundedCheck()
@@ -287,13 +237,13 @@ namespace StarterAssets
             float zoom = _input.zoom;
 
             // if there is an input and camera position is not fixed
-            if (_input.Look.sqrMagnitude >= _threshold && !LockCameraPosition)
+            if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
             {
                 //Don't multiply mouse input by Time.deltaTime;
                 float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
-                _cinemachineTargetYaw += _input.Look.x * deltaTimeMultiplier;
-                _cinemachineTargetPitch += _input.Look.y * deltaTimeMultiplier;
+                _cinemachineTargetYaw += _input.look.x * speedLook * deltaTimeMultiplier;
+                _cinemachineTargetPitch += _input.look.y * speedLook * deltaTimeMultiplier;
             }
 
             // clamp our rotations so our values are limited 360 degrees
@@ -303,7 +253,7 @@ namespace StarterAssets
             // Zoom
             _targetCameraDistance -= zoom / 360.0f;
             _targetCameraDistance = Mathf.Clamp(_targetCameraDistance, minDistance, maxDistance);
-            _cameraDistance = Mathf.Lerp(_cameraDistance,  _targetCameraDistance, 
+            _cameraDistance = Mathf.Lerp(_cameraDistance, _targetCameraDistance,
                 Time.deltaTime * distanceChangeRate);
             //_cameraDistance -= zoom * Time.deltaTime * distanceChangeRate / 18.0f;
             //_cameraDistance = Mathf.Clamp(_cameraDistance, minDistance, maxDistance);
@@ -317,7 +267,7 @@ namespace StarterAssets
         private void Crouch()
         {
             bool currCrouch = _tryToCrouch;
-            _tryToCrouch = _input.Crouch;
+            _tryToCrouch = _input.crouch;
             if (_hasAnimator)
             {
                 _animator.SetBool(_animIDCrouch, _tryToCrouch);
@@ -328,24 +278,19 @@ namespace StarterAssets
         private void Move()
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
-            float targetSpeed = _input.Sprint ? SprintSpeed : MoveSpeed;
+            float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 
-            if (_tryToCrouch)
-            {
-                // limit speed to crouch speed
-                Math.Clamp(targetSpeed, targetSpeed, 6f); //TODO: creat variable for crouch speed
-            }
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is no input, set the target speed to 0
-            if (_input.Move == Vector2.zero) targetSpeed = 0.0f;
+            if (_input.move == Vector2.zero) targetSpeed = 0.0f;
 
             // a reference to the players current horizontal velocity
             float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
 
             float speedOffset = 0.1f;
-            float inputMagnitude = _input.analogMovement ? _input.Move.magnitude : 1f;
+            float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
 
             // accelerate or decelerate to target speed
             if (currentHorizontalSpeed < targetSpeed - speedOffset ||
@@ -368,11 +313,11 @@ namespace StarterAssets
             if (_animationBlend < 0.01f) _animationBlend = 0f;
 
             // normalise input direction
-            Vector3 inputDirection = new Vector3(_input.Move.x, 0.0f, _input.Move.y).normalized;
+            Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
 
             // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is a move input rotate player when the player is moving
-            if (_input.Move != Vector2.zero)
+            if (_input.move != Vector2.zero)
             {
                 _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
                                   _mainCamera.transform.eulerAngles.y;
@@ -396,11 +341,8 @@ namespace StarterAssets
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
                 _animator.SetBool(_animIDCrouch, _tryToCrouch);
-                _animator.SetBool(_animIDSlide, _tryToSlide);
-                _animator.SetBool(_animIDRoll, _tryToRoll);
             }
         }
-
 
         private void JumpAndGravity()
         {
@@ -414,7 +356,6 @@ namespace StarterAssets
                 {
                     _animator.SetBool(_animIDJump, false);
                     _animator.SetBool(_animIDFreeFall, false);
-                    _animator.SetBool(_animIDFlip, false);
                 }
 
                 // stop our velocity dropping infinitely when grounded
@@ -423,24 +364,8 @@ namespace StarterAssets
                     _verticalVelocity = -2f;
                 }
 
-                if (_input.FlipJump && _jumpTimeoutDelta <= 0.0f)
-                {
-                    // the square root of H * -2 * G = how much velocity needed to reach desired height
-                    _verticalVelocity = Mathf.Sqrt(FlipJumpHeight * -2f * Gravity);
-
-                    // update animator if using character
-                    if (_hasAnimator)
-                    {
-                        _animator.SetBool(_animIDFlip, true);
-                        _animator.SetBool(_animIDCrouch, false);
-                        _animator.SetBool(_animIDSlide, false);
-                    }
-
-                    _tryToCrouch = false;
-                    _tryToSlide = false;
-                }
                 // Jump
-                else if (_input.Jump && _jumpTimeoutDelta <= 0.0f)
+                if (_input.jump && _jumpTimeoutDelta <= 0.0f)
                 {
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
                     _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
@@ -450,11 +375,7 @@ namespace StarterAssets
                     {
                         _animator.SetBool(_animIDJump, true);
                         _animator.SetBool(_animIDCrouch, false);
-                        _animator.SetBool(_animIDSlide, false);
                     }
-
-                    _tryToCrouch = false;
-                    _tryToSlide = false;
                 }
 
                 // jump timeout
@@ -465,10 +386,8 @@ namespace StarterAssets
             }
             else
             {
-                // reset the jump timeout timer\
-                // TODO: this looks wrong
+                // reset the jump timeout timer
                 _jumpTimeoutDelta = JumpTimeout;
-                bool flipJumping = _animator.GetBool(_animIDFlip);
 
                 // fall timeout
                 if (_fallTimeoutDelta >= 0.0f)
@@ -485,8 +404,7 @@ namespace StarterAssets
                 }
 
                 // if we are not grounded, do not jump
-                _input.Jump = false;
-                _input.FlipJump = false;
+                _input.jump = false;
             }
 
             // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
