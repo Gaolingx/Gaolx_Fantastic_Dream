@@ -23,6 +23,7 @@ public class UIController : MonoBehaviour
     public bool isMainCitySceneLoad = false;
     public bool isPause = false;
     public string mainCitySceneName = "SceneMainCity";
+    public string FubenSceneName = "SceneOrge";
     public bool _isPressingEsc = false;
     public bool _isPressingAlt = false;
 
@@ -42,7 +43,7 @@ public class UIController : MonoBehaviour
 
     private void Update()
     {
-        isMainCitySceneLoad = IsSceneLoaded(mainCitySceneName);
+        isMainCitySceneLoad = IsSceneLoaded(mainCitySceneName) || IsSceneLoaded(FubenSceneName);
 
         bool esc = Convert.ToBoolean(_esc.ReadValue<float>());
         bool alt = Convert.ToBoolean(_alt.ReadValue<float>());

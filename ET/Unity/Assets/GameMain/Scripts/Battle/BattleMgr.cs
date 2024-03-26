@@ -29,6 +29,7 @@ public class BattleMgr : MonoBehaviour
 
             player.GetComponent<ThirdPersonController>().MoveSpeed = Constants.PlayerMoveSpeed;
             player.GetComponent<ThirdPersonController>().SprintSpeed = Constants.PlayerSprintSpeed;
+            player.GetComponent<ThirdPersonController>().isSkillMove = true;
 
             playerInput = player.GetComponent<StarterAssetsInputs>();
 
@@ -101,6 +102,8 @@ public class BattleMgr : MonoBehaviour
             GameRoot.Instance.SetGameObjectTrans(mapRoot, Vector3.zero, Vector3.zero, Vector3.one);
 
             LoadPlayerInstance(mapData);
+            //配置角色声音源
+            AudioSvc.Instance.GetCharacterAudioSourceComponent();
             LoadVirtualCameraInstance(mapData);
             InitGamepad();
 

@@ -89,7 +89,7 @@ namespace StarterAssets
         public bool LockCameraPosition = false;
 
         [Header("Player Skills")]
-        public bool isSkillMove;
+        public bool isSkillMove = false;
 
         // cinemachine
         private float _cinemachineTargetYaw;
