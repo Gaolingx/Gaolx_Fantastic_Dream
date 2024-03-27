@@ -198,7 +198,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114365216504253808}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114985754309171160}
+        m_TargetAssemblyTypeName: FubenWnd, GameMain
+        m_MethodName: ClickTaskBtn
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10004
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1038804148184030
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,7 +843,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114397383960903194}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114985754309171160}
+        m_TargetAssemblyTypeName: FubenWnd, GameMain
+        m_MethodName: ClickTaskBtn
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10006
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1363292288934746
 GameObject:
   m_ObjectHideFlags: 0
@@ -1026,7 +1050,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114634346027948474}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114985754309171160}
+        m_TargetAssemblyTypeName: FubenWnd, GameMain
+        m_MethodName: ClickTaskBtn
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10001
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1408135213590820
 GameObject:
   m_ObjectHideFlags: 0
@@ -2169,7 +2205,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114742827331262792}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114985754309171160}
+        m_TargetAssemblyTypeName: FubenWnd, GameMain
+        m_MethodName: ClickTaskBtn
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10002
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1704033292437126
 GameObject:
   m_ObjectHideFlags: 0
@@ -2186,7 +2234,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &224572680420962774
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3079,7 +3127,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114824837885929384}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114985754309171160}
+        m_TargetAssemblyTypeName: FubenWnd, GameMain
+        m_MethodName: ClickTaskBtn
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10005
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1828641991174856
 GameObject:
   m_ObjectHideFlags: 0
@@ -3399,7 +3459,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114234322003121304}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114985754309171160}
+        m_TargetAssemblyTypeName: FubenWnd, GameMain
+        m_MethodName: ClickTaskBtn
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10003
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1923283387367634
 GameObject:
   m_ObjectHideFlags: 0
