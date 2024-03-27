@@ -7,6 +7,7 @@ using UnityEngine;
 public class BattleSys : SystemRoot
 {
     public static BattleSys Instance = null;
+    public PlayerCtrlWnd playerCtrlWnd;
 
     public override void InitSys()
     {
@@ -28,5 +29,11 @@ public class BattleSys : SystemRoot
         BattleMgr battleMgr = go.AddComponent<BattleMgr>();
 
         battleMgr.Init(mapid);
+        SetPlayerCtrlWndState();
+    }
+
+    public void SetPlayerCtrlWndState(bool isActive = true)
+    {
+        playerCtrlWnd.SetWndState(isActive);
     }
 }

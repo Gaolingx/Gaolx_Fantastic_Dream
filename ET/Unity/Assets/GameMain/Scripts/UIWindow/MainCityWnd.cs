@@ -12,6 +12,7 @@ public class MainCityWnd : WindowRoot
     public Image imgTouch;
     public Image imgDirBg;
     public Image imgDirPoint;
+
     public Animation menuAni;
     public Button btnMenu;
 
