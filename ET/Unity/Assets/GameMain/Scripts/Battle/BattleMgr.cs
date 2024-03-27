@@ -6,6 +6,7 @@ using StarterAssets;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using static Codice.Client.Commands.WkTree.WorkspaceTreeNode;
 
 public class BattleMgr : MonoBehaviour
 {
@@ -109,5 +110,54 @@ public class BattleMgr : MonoBehaviour
 
             audioSvc.PlayBGMusic(Constants.BGHuangYe);
         });
+    }
+
+    //设置玩家移动方向
+    public void SetSelfPlayerMoveDir(Vector2 dir)
+    {
+        PECommon.Log(dir.ToString());
+    }
+
+    public void ReqPlayerReleaseSkill(int skillIndex)
+    {
+        switch(skillIndex)
+        {
+            case 0:
+                PlayerReleaseNormalAtk();
+                break;
+            case 1:
+                PlayerReleaseSkill01();
+                break;
+            case 2:
+                PlayerReleaseSkill02();
+                break;
+            case 3:
+                PlayerReleaseSkill03();
+                break;
+            default:
+                Debug.LogError("不存在指定类型的技能，技能类型：" + skillIndex);
+                break;
+        }
+    }
+
+    //释放相关技能
+    private void PlayerReleaseNormalAtk()
+    {
+        PECommon.Log("Click Normal Atk");
+    }
+
+    private void PlayerReleaseSkill01()
+    {
+        PECommon.Log("Click Skill01");
+    }
+
+    private void PlayerReleaseSkill02()
+    {
+        PECommon.Log("Click Skill02");
+    }
+
+    private void PlayerReleaseSkill03()
+    {
+        PECommon.Log("Click Skill03");
     }
 }

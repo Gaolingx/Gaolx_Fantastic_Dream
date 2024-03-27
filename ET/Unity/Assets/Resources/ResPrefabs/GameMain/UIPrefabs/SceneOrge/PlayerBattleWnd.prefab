@@ -124,9 +124,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: ClickSkill1Atk
+      - m_Target: {fileID: 5186525922862661629}
+        m_TargetAssemblyTypeName: PlayerCtrlWnd, GameMain
+        m_MethodName: ClickPlayerSkill01Atk
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1801,9 +1801,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: ClickNormalAtk
+      - m_Target: {fileID: 5186525922862661629}
+        m_TargetAssemblyTypeName: PlayerCtrlWnd, GameMain
+        m_MethodName: ClickPlayerNormalAtk
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2465,9 +2465,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: ClickSkill3Atk
+      - m_Target: {fileID: 5186525922862661629}
+        m_TargetAssemblyTypeName: PlayerCtrlWnd, GameMain
+        m_MethodName: ClickPlayerSkill03Atk
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3755,9 +3755,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: ClickSkill2Atk
+      - m_Target: {fileID: 5186525922862661629}
+        m_TargetAssemblyTypeName: PlayerCtrlWnd, GameMain
+        m_MethodName: ClickPlayerSkill02Atk
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -208,6 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCtrlWnd: {fileID: 3395126156215279337}
+  battleMgr: {fileID: 0}
 --- !u!1 &1238387904315550107
 GameObject:
   m_ObjectHideFlags: 0

@@ -34,6 +34,7 @@ public class PlayerCtrlWnd : WindowRoot
         RefreshUI();
     }
 
+    #region RegEvts
     //注册触摸事件
     public void RegisterTouchEvts()
     {
@@ -50,7 +51,7 @@ public class PlayerCtrlWnd : WindowRoot
             imgDirBg.transform.position = defaultPos;
             SetActive(imgDirPoint, false);
             imgDirPoint.transform.localPosition = Vector2.zero;
-            //MainCitySys.Instance.SetMoveDir(Vector2.zero);
+            BattleSys.Instance.SetPlayerMoveDir(Vector2.zero);
         });
         //摇杆拖动
         OnDrag(imgTouch.gameObject, (PointerEventData evt) =>
@@ -67,9 +68,31 @@ public class PlayerCtrlWnd : WindowRoot
             {
                 imgDirPoint.transform.position = evt.position;
             }
-            //MainCitySys.Instance.SetMoveDir(dragDir.normalized);
+            BattleSys.Instance.SetPlayerMoveDir(dragDir.normalized);
         });
     }
+
+    //释放技能
+    public void ClickPlayerNormalAtk()
+    {
+        BattleSys.Instance.ReqPlayerReleaseSkill(0);
+    }
+
+    public void ClickPlayerSkill01Atk()
+    {
+        BattleSys.Instance.ReqPlayerReleaseSkill(1);
+    }
+
+    public void ClickPlayerSkill02Atk()
+    {
+        BattleSys.Instance.ReqPlayerReleaseSkill(2);
+    }
+
+    public void ClickPlayerSkill03Atk()
+    {
+        BattleSys.Instance.ReqPlayerReleaseSkill(3);
+    }
+    #endregion
 
     public void RefreshUI()
     {

@@ -8,6 +8,7 @@ public class BattleSys : SystemRoot
 {
     public static BattleSys Instance = null;
     public PlayerCtrlWnd playerCtrlWnd;
+    public BattleMgr battleMgr;
 
     public override void InitSys()
     {
@@ -26,7 +27,7 @@ public class BattleSys : SystemRoot
 
         //成为GameRoot的子物体
         go.transform.SetParent(GameRoot.Instance.transform);
-        BattleMgr battleMgr = go.AddComponent<BattleMgr>();
+        battleMgr = go.AddComponent<BattleMgr>();
 
         battleMgr.Init(mapid);
         SetPlayerCtrlWndState();
@@ -35,5 +36,15 @@ public class BattleSys : SystemRoot
     public void SetPlayerCtrlWndState(bool isActive = true)
     {
         playerCtrlWnd.SetWndState(isActive);
+    }
+
+    public void SetPlayerMoveDir(Vector2 dir)
+    {
+        battleMgr.SetSelfPlayerMoveDir(dir);
+    }
+
+    public void ReqPlayerReleaseSkill(int skillIndex)
+    {
+        battleMgr.ReqPlayerReleaseSkill(skillIndex);
     }
 }
