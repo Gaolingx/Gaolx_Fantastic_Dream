@@ -1,0 +1,3789 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!29 &1
+OcclusionCullingSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_OcclusionBakeSettings:
+    smallestOccluder: 5
+    smallestHole: 0.25
+    backfaceThreshold: 100
+  m_SceneGUID: 00000000000000000000000000000000
+  m_OcclusionCullingData: {fileID: 0}
+--- !u!104 &2
+RenderSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 9
+  m_Fog: 0
+  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_FogMode: 3
+  m_FogDensity: 0.01
+  m_LinearFogStart: 0
+  m_LinearFogEnd: 300
+  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
+  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
+  m_AmbientIntensity: 1
+  m_AmbientMode: 0
+  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_HaloStrength: 0.5
+  m_FlareStrength: 1
+  m_FlareFadeSpeed: 3
+  m_HaloTexture: {fileID: 0}
+  m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
+  m_DefaultReflectionMode: 0
+  m_DefaultReflectionResolution: 128
+  m_ReflectionBounces: 1
+  m_ReflectionIntensity: 1
+  m_CustomReflection: {fileID: 0}
+  m_Sun: {fileID: 0}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_UseRadianceAmbientProbe: 0
+--- !u!157 &3
+LightmapSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 12
+  m_GIWorkflowMode: 1
+  m_GISettings:
+    serializedVersion: 2
+    m_BounceScale: 1
+    m_IndirectOutputScale: 1
+    m_AlbedoBoost: 1
+    m_EnvironmentLightingMode: 0
+    m_EnableBakedLightmaps: 1
+    m_EnableRealtimeLightmaps: 0
+  m_LightmapEditorSettings:
+    serializedVersion: 12
+    m_Resolution: 2
+    m_BakeResolution: 40
+    m_AtlasSize: 1024
+    m_AO: 0
+    m_AOMaxDistance: 1
+    m_CompAOExponent: 1
+    m_CompAOExponentDirect: 0
+    m_ExtractAmbientOcclusion: 0
+    m_Padding: 2
+    m_LightmapParameters: {fileID: 0}
+    m_LightmapsBakeMode: 1
+    m_TextureCompression: 1
+    m_FinalGather: 0
+    m_FinalGatherFiltering: 1
+    m_FinalGatherRayCount: 256
+    m_ReflectionCompression: 2
+    m_MixedBakeMode: 2
+    m_BakeBackend: 1
+    m_PVRSampling: 1
+    m_PVRDirectSampleCount: 32
+    m_PVRSampleCount: 512
+    m_PVRBounces: 2
+    m_PVREnvironmentSampleCount: 256
+    m_PVREnvironmentReferencePointCount: 2048
+    m_PVRFilteringMode: 1
+    m_PVRDenoiserTypeDirect: 1
+    m_PVRDenoiserTypeIndirect: 1
+    m_PVRDenoiserTypeAO: 1
+    m_PVRFilterTypeDirect: 0
+    m_PVRFilterTypeIndirect: 0
+    m_PVRFilterTypeAO: 0
+    m_PVREnvironmentMIS: 1
+    m_PVRCulling: 1
+    m_PVRFilteringGaussRadiusDirect: 1
+    m_PVRFilteringGaussRadiusIndirect: 5
+    m_PVRFilteringGaussRadiusAO: 2
+    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+    m_PVRFilteringAtrousPositionSigmaIndirect: 2
+    m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ExportTrainingData: 0
+    m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
+  m_LightingDataAsset: {fileID: 0}
+  m_LightingSettings: {fileID: 0}
+--- !u!196 &4
+NavMeshSettings:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_BuildSettings:
+    serializedVersion: 3
+    agentTypeID: 0
+    agentRadius: 0.5
+    agentHeight: 2
+    agentSlope: 45
+    agentClimb: 0.4
+    ledgeDropHeight: 0
+    maxJumpAcrossDistance: 0
+    minRegionArea: 2
+    manualCellSize: 0
+    cellSize: 0.16666667
+    manualTileSize: 0
+    tileSize: 256
+    buildHeightMesh: 0
+    maxJobWorkers: 0
+    preserveTilesOutsideBounds: 0
+    debug:
+      m_Flags: 0
+  m_NavMeshData: {fileID: 0}
+--- !u!1 &421174640
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 421174644}
+  - component: {fileID: 421174643}
+  - component: {fileID: 421174642}
+  - component: {fileID: 421174641}
+  m_Layer: 0
+  m_Name: Plane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!64 &421174641
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421174640}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &421174642
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421174640}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &421174643
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421174640}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &421174644
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421174640}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &437767075
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: "\u8116\u9970 (Instance)"
+  m_Shader: {fileID: 4800000, guid: 058e290f78df7d8418a839d4f60418fe, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _AREA_LOWERBODY
+  - _AUTO_Brightness_ON
+  - _DayTime_MANUAL_ON
+  - _FAKE_OUTLINE_ON
+  - _OUTLINE_ON
+  - _RIM_LIGHTING_ON
+  - _SPECULAR_ON
+  - _USE_RAMP_COLOR_ON
+  m_InvalidKeywords:
+  - _METAL_SPECULAR_ON
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BASE_COLOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BUMP_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BodyCoolRamp:
+        m_Texture: {fileID: 2800000, guid: 7d0f34bd4f4b58348acd6228334cd49e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BodyWarmRamp:
+        m_Texture: {fileID: 2800000, guid: 7c248311b1b79e849ae995b8ecb177f4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EMISSION_COLOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ExpressionMap:
+        m_Texture: {fileID: 2800000, guid: 1d3505447de021b45bffda2a38ae4a1f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FaceColorMap:
+        m_Texture: {fileID: 2800000, guid: 1fe63ba77ced3eb44acec2d39f5c7e56, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FaceMap:
+        m_Texture: {fileID: 2800000, guid: 491f4b124aa83cc42bfadeb5b0d0f6e1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HairColorMap:
+        m_Texture: {fileID: 2800000, guid: addbb9a6759ca704f8a5de24f213eb9e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HairCoolRamp:
+        m_Texture: {fileID: 2800000, guid: 468a4d164f8b8074fb61c687a0f68696, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HairLightMap:
+        m_Texture: {fileID: 2800000, guid: 8fac5fb863f56d74b9a20b1828c56575, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HairWarmRamp:
+        m_Texture: {fileID: 2800000, guid: 6f4ba5f1896900b45a20b5842f35be5d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LowerBodyColorMap:
+        m_Texture: {fileID: 2800000, guid: bc1c887ef814bdd48ad99b95bfcd55af, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LowerBodyLightMap:
+        m_Texture: {fileID: 2800000, guid: e2f3d316bfbd5b643801f1c5f7fabcbb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LowerBodyStockings:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _METALNESS_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineZOffsetMaskTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _REFLECTIONS_COLOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _REFLECTIONS_IOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _REFLECTIONS_ROUGHNESS_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TRANSPARENCY_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _UpperBodyColorMap:
+        m_Texture: {fileID: 2800000, guid: f78de14d822d0b14480d84621049f0e6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _UpperBodyLightMap:
+        m_Texture: {fileID: 2800000, guid: 13b6f74213e09e64798a82892ccab6dd, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _UpperBodyStockings:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Alpha: 1
+    - _AlphaClip: 0
+    - _AlphaToMask: 0
+    - _AnisotropySpecularToggle: 0
+    - _Area: 4
+    - _AutoBrightnessOffset: 0
+    - _AutoBrightnessThresholdMax: 0.6
+    - _AutoBrightnessThresholdMin: 0.25
+    - _BASE_COLOR_WEIGHT: 1
+    - _BUMP_MAP_STRENGTH: 0.3
+    - _BaseColorBPower: 1
+    - _BaseColorGPower: 1
+    - _BaseColorRPower: 1
+    - _Blend: 0
+    - _BlendModePreserveSpecular: 1
+    - _BlendOp: 0
+    - _BlendOpOverlay: 0
+    - _BloomIntensity0: 0.4
+    - _BodyCoolRampColorMixFactor: 0
+    - _BodyWarmRampColorMixFactor: 0
+    - _BumpScale: 1
+    - _ClearCoatMask: 0
+    - _ClearCoatSmoothness: 0
+    - _ColorSaturation: 1
+    - _Cull: 0
+    - _CullMode: 2
+    - _Cutoff: 0.5
+    - _DayTime: 12
+    - _DayTimeManualON: 1
+    - _DetailAlbedoMapScale: 1
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _DstBlendAlpha: 0
+    - _DstBlendMode: 0
+    - _DstBlendModeOverlay: 0
+    - _EMISSION_WEIGHT: 1
+    - _EmissionIntensity: 1
+    - _EmissionMixBaseColor: 1
+    - _EnableCustomSpecularColor: 0
+    - _EnableMetalSpecular: 1
+    - _EnableSpecular: 1
+    - _EnvironmentReflections: 1
+    - _ExCheekIntensity: 0
+    - _ExShadowIntensity: 0
+    - _ExShyIntensity: 0
+    - _FaceShadowOffset: -0.01
+    - _FaceShadowTransitionSoftness: 0.05
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _HairCoolRampColorMixFactor: 0
+    - _HairWarmRampColorMixFactor: 0
+    - _IndirectLightFlattenNormal: 0
+    - _IndirectLightIntensity: 0
+    - _IndirectLightMixBaseColor: 1
+    - _IndirectLightOcclusionUsage: 0.5
+    - _IndirectLightUsage: 0.5
+    - _IsFace: 0
+    - _LerpAOIntensity: 1
+    - _METALNESS: 0
+    - _MainLightBrightnessFactor: 1
+    - _MainLightColorUsage: 0
+    - _MainLightShadowOffset: 0
+    - _MetalSpecularMetallic: 0.52
+    - _Metallic: 0
+    - _Mode: 0
+    - _ModelScale: 1
+    - _OcclusionStrength: 1
+    - _OutlineGamma: 16
+    - _OutlineUseVertexColorSmoothNormal: 0
+    - _OutlineWidth: 1
+    - _OutlineZOffset: 0.0001
+    - _OutlineZOffsetMaskRemapEnd: 1
+    - _OutlineZOffsetMaskRemapStart: 0
+    - _Parallax: 0.02
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _REFLECTIONS_IOR: 1.52
+    - _REFLECTIONS_ROUGHNESS: 1
+    - _REFLECTIONS_WEIGHT: 1
+    - _ReceiveShadows: 1
+    - _RimDark0: 0.5
+    - _RimEdgeSoftness: 0.05
+    - _RimIntensity: 0.5
+    - _RimIntensityBackFace: 0
+    - _RimLightBrightness: 1
+    - _RimLightFadeout: 1
+    - _RimLightMixAlbedo: 0
+    - _RimLightMixMainLightColor: 0
+    - _RimLightThreshold: 0.05
+    - _RimLightWidth: 1
+    - _RimThresholdMax: 0.9
+    - _RimThresholdMin: 0.6
+    - _RimWidth0: 0.5
+    - _ScrBlendModeOverlay: 1
+    - _ShadowBoost: 1
+    - _ShadowRampOffset: 0.75
+    - _ShadowThresholdCenter: 0
+    - _ShadowThresholdSoftness: 0.1
+    - _Smoothness: 0.4472136
+    - _SmoothnessTextureChannel: 0
+    - _SpecularBrightness: 10
+    - _SpecularExpon: 50
+    - _SpecularHighlights: 1
+    - _SpecularIntensity: 1
+    - _SpecularKsMetal: 1
+    - _SpecularKsNonMetal: 0.04
+    - _SpecularRoughness: 0.1
+    - _SpecularShininess: 10
+    - _SrcBlend: 1
+    - _SrcBlendAlpha: 1
+    - _SrcBlendMode: 1
+    - _StencilComp: 0
+    - _StencilCompOverlay: 0
+    - _StencilFailOp: 0
+    - _StencilPassOp: 0
+    - _StencilRef: 0
+    - _StencilRefOverlay: 0
+    - _StencilZFailOp: 0
+    - _StockingsTextureUsage: 0.1
+    - _StockingsTransitionHardness: 0.4
+    - _StockingsTransitionPower: 1
+    - _StockingsTransitionThreshold: 0.58
+    - _Surface: 0
+    - _TRANSPARENCY: 0
+    - _UVSec: 0
+    - _UseAlphaClipping: 0
+    - _UseAutoBrightness: 1
+    - _UseDrawOverlay: 0
+    - _UseEmission: 0
+    - _UseFaceExpression: 0
+    - _UseFakeOutline: 1
+    - _UseNormalMap: 0
+    - _UseOutline: 1
+    - _UseRampColor: 1
+    - _UseRimLight: 1
+    - _UseStockings: 0
+    - _WorkflowMode: 1
+    - _ZWrite: 1
+    - _mBloomIntensity0: 1
+    - _stockingsMapBChannelUVScale: 20
+    m_Colors:
+    - _BASE_COLOR: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+    - _BackFaceTintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.9063317, g: 0.9063317, b: 0.9063317, a: 1}
+    - _BloomColor0: {r: 1, g: 1, b: 1, a: 1}
+    - _BodyCoolRampColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BodyWarmRampColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EMISSION_COLOR: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionTintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ExCheekColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ExEyeColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ExShadowColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ExShyColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FaceColorMapColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FrontFaceTintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HairColorMapColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HairCoolRampColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HairWarmRampColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HeadForward: {r: 0, g: 0, b: 1, a: 0}
+    - _HeadRight: {r: 1, g: 0, b: 0, a: 0}
+    - _LowerBodyColorMapColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _REFLECTIONS_COLOR: {r: 1, g: 1, b: 1, a: 1}
+    - _RimColor0: {r: 1, g: 1, b: 1, a: 1}
+    - _RimLightTintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
+    - _StockingsDarkColor: {r: 0, g: 0, b: 0, a: 1}
+    - _StockingsLightColor: {r: 1.8, g: 1.48299, b: 0.856821, a: 1}
+    - _StockingsTransitionColor: {r: 0.36038098, g: 0.24298596, b: 0.35813096, a: 1}
+    - _UpperBodyColorMapColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+--- !u!21 &533085170
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: "\u773C\u775B1 (Instance)"
+  m_Shader: {fileID: 4800000, guid: 058e290f78df7d8418a839d4f60418fe, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _FAKE_OUTLINE_ON
+  - _USE_RAMP_COLOR_ON
+  m_InvalidKeywords:
+  - _AREA_NONE
+  - _METAL_SPECULAR_ON
+  - _SPECULAR_COLOR_CUSTOM
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 2450
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BASE_COLOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BUMP_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BodyCoolRamp:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BodyWarmRamp:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EMISSION_COLOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ExpressionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FaceColorMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FaceMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HairColorMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HairCoolRamp:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HairLightMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HairWarmRamp:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LowerBodyColorMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LowerBodyLightMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LowerBodyStockings:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _METALNESS_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineZOffsetMaskTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _REFLECTIONS_COLOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _REFLECTIONS_IOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _REFLECTIONS_ROUGHNESS_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TRANSPARENCY_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _UpperBodyColorMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _UpperBodyLightMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _UpperBodyStockings:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Alpha: 0.5
+    - _AlphaClip: 0
+    - _AlphaToMask: 0
+    - _AnisotropySpecularToggle: 0
+    - _Area: 0
+    - _AutoBrightnessOffset: 0
+    - _AutoBrightnessThresholdMax: 1
+    - _AutoBrightnessThresholdMin: 0.5
+    - _BASE_COLOR_WEIGHT: 1
+    - _BUMP_MAP_STRENGTH: 0.3
+    - _BaseColorBPower: 1
+    - _BaseColorGPower: 1
+    - _BaseColorRPower: 1
+    - _Blend: 0
+    - _BlendModePreserveSpecular: 1
+    - _BlendOp: 0
+    - _BlendOpOverlay: 0
+    - _BloomIntensity0: 0.5
+    - _BodyCoolRampColorMixFactor: 0
+    - _BodyWarmRampColorMixFactor: 0
+    - _BumpScale: 1
+    - _ClearCoatMask: 0
+    - _ClearCoatSmoothness: 0
+    - _ColorSaturation: 1
+    - _Cull: 2
+    - _CullMode: 2
+    - _Cutoff: 0.5
+    - _DayTime: 12
+    - _DayTimeManualON: 0
+    - _DetailAlbedoMapScale: 1
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _DstBlendAlpha: 0
+    - _DstBlendMode: 10
+    - _DstBlendModeOverlay: 0
+    - _EMISSION_WEIGHT: 1
+    - _EmissionIntensity: 1
+    - _EmissionMixBaseColor: 1
+    - _EnableCustomSpecularColor: 1
+    - _EnableMetalSpecular: 1
+    - _EnableSpecular: 0
+    - _EnvironmentReflections: 1
+    - _ExCheekIntensity: 0
+    - _ExShadowIntensity: 0
+    - _ExShyIntensity: 0
+    - _FaceShadowOffset: -0.01
+    - _FaceShadowTransitionSoftness: 0.05
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _HairCoolRampColorMixFactor: 0
+    - _HairWarmRampColorMixFactor: 0
+    - _IndirectLightFlattenNormal: 0
+    - _IndirectLightIntensity: 1
+    - _IndirectLightMixBaseColor: 1
+    - _IndirectLightOcclusionUsage: 0.5
+    - _IndirectLightUsage: 0.5
+    - _IsFace: 0
+    - _LerpAOIntensity: 1
+    - _METALNESS: 0
+    - _MainLightBrightnessFactor: 1
+    - _MainLightColorUsage: 1
+    - _MainLightShadowOffset: 0
+    - _MetalSpecularMetallic: 0.52
+    - _Metallic: 0
+    - _Mode: 0
+    - _ModelScale: 1
+    - _OcclusionStrength: 1
+    - _OutlineGamma: 16
+    - _OutlineUseVertexColorSmoothNormal: 0
+    - _OutlineWidth: 1
+    - _OutlineZOffset: 0.0001
+    - _OutlineZOffsetMaskRemapEnd: 1
+    - _OutlineZOffsetMaskRemapStart: 0
+    - _Parallax: 0.02
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _REFLECTIONS_IOR: 1.52
+    - _REFLECTIONS_ROUGHNESS: 1
+    - _REFLECTIONS_WEIGHT: 1
+    - _ReceiveShadows: 1
+    - _RimDark0: 0.5
+    - _RimEdgeSoftness: 0.05
+    - _RimIntensity: 0.5
+    - _RimIntensityBackFace: 0
+    - _RimLightBrightness: 1
+    - _RimLightFadeout: 1
+    - _RimLightMixAlbedo: 0.9
+    - _RimLightMixMainLightColor: 0
+    - _RimLightThreshold: 0.05
+    - _RimLightWidth: 1
+    - _RimThresholdMax: 0.9
+    - _RimThresholdMin: 0.6
+    - _RimWidth0: 0.5
+    - _ScrBlendModeOverlay: 1
+    - _ShadowBoost: 1
+    - _ShadowRampOffset: 0.75
+    - _ShadowThresholdCenter: 0
+    - _ShadowThresholdSoftness: 0.1
+    - _Smoothness: 0.4472136
+    - _SmoothnessTextureChannel: 0
+    - _SpecularBrightness: 10
+    - _SpecularExpon: 50
+    - _SpecularHighlights: 1
+    - _SpecularIntensity: 1
+    - _SpecularKsMetal: 1
+    - _SpecularKsNonMetal: 0.04
+    - _SpecularRoughness: 0.1
+    - _SpecularShininess: 10
+    - _SrcBlend: 1
+    - _SrcBlendAlpha: 1
+    - _SrcBlendMode: 5
+    - _StencilComp: 0
+    - _StencilCompOverlay: 0
+    - _StencilFailOp: 0
+    - _StencilPassOp: 0
+    - _StencilRef: 0
+    - _StencilRefOverlay: 0
+    - _StencilZFailOp: 0
+    - _StockingsTextureUsage: 0.1
+    - _StockingsTransitionHardness: 0.4
+    - _StockingsTransitionPower: 1
+    - _StockingsTransitionThreshold: 0.58
+    - _Surface: 0
+    - _TRANSPARENCY: 0
+    - _UVSec: 0
+    - _UseAlphaClipping: 0
+    - _UseAutoBrightness: 0
+    - _UseDrawOverlay: 0
+    - _UseEmission: 0
+    - _UseFaceExpression: 0
+    - _UseFakeOutline: 1
+    - _UseNormalMap: 0
+    - _UseOutline: 0
+    - _UseRampColor: 1
+    - _UseRimLight: 0
+    - _UseStockings: 0
+    - _WorkflowMode: 1
+    - _ZWrite: 1
+    - _mBloomIntensity0: 1
+    - _stockingsMapBChannelUVScale: 20
+    m_Colors:
+    - _BASE_COLOR: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+    - _BackFaceTintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.9063317, g: 0.9063317, b: 0.9063317, a: 1}
+    - _BloomColor0: {r: 1, g: 1, b: 1, a: 1}
+    - _BodyCoolRampColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BodyWarmRampColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EMISSION_COLOR: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionTintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ExCheekColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ExEyeColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ExShadowColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ExShyColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FaceColorMapColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FrontFaceTintColor: {r: 0, g: 0, b: 0, a: 1}
+    - _HairColorMapColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HairCoolRampColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HairWarmRampColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HeadForward: {r: 0, g: 0, b: 1, a: 0}
+    - _HeadRight: {r: 1, g: 0, b: 0, a: 0}
+    - _LowerBodyColorMapColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _REFLECTIONS_COLOR: {r: 1, g: 1, b: 1, a: 1}
+    - _RimColor0: {r: 1, g: 1, b: 1, a: 1}
+    - _RimLightTintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
+    - _StockingsDarkColor: {r: 0, g: 0, b: 0, a: 1}
+    - _StockingsLightColor: {r: 1.8, g: 1.48299, b: 0.856821, a: 1}
+    - _StockingsTransitionColor: {r: 0.36038098, g: 0.24298596, b: 0.35813096, a: 1}
+    - _UpperBodyColorMapColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+--- !u!1001 &644779765
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.maxConnectionDistance
+      value: 0.05741093
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[0].x
+      value: 0.055962026
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[0].z
+      value: 0.110170364
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[1].z
+      value: 0.11274338
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[2].x
+      value: 0.064301014
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[2].z
+      value: 0.11531639
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[3].z
+      value: 0.11789131
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[4].x
+      value: 0.07264
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[4].y
+      value: 0.922622
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[4].z
+      value: 0.12046623
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[5].x
+      value: 0.07680899
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[6].x
+      value: 0.08097798
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[6].z
+      value: 0.12561989
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[7].x
+      value: 0.08514702
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[7].z
+      value: 0.12819672
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[8].x
+      value: 0.089316964
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[8].y
+      value: 0.809761
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[8].z
+      value: 0.13077354
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[9].x
+      value: 0.10224801
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[10].x
+      value: 0.10986602
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[10].z
+      value: 0.085897446
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[11].x
+      value: 0.11748397
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[11].y
+      value: 0.98118
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[11].z
+      value: 0.08729172
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[12].x
+      value: 0.12510097
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[12].y
+      value: 0.95352703
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[12].z
+      value: 0.0886879
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[13].x
+      value: 0.13271898
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[13].y
+      value: 0.92588
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[14].y
+      value: 0.89823705
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[16].x
+      value: 0.155572
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[16].z
+      value: 0.09428787
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[17].x
+      value: 0.16319
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[17].y
+      value: 0.81533104
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[18].x
+      value: 0.13085496
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[20].x
+      value: 0.150352
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[20].y
+      value: 0.98338
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[20].z
+      value: 0.04598236
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[21].x
+      value: 0.160101
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[21].y
+      value: 0.956371
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[21].z
+      value: 0.0456295
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[22].x
+      value: 0.16984999
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[22].z
+      value: 0.045280457
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[23].x
+      value: 0.18934798
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[24].x
+      value: 0.19909704
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[24].z
+      value: 0.044237137
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[25].x
+      value: 0.20884597
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[25].z
+      value: 0.043893814
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[26].x
+      value: 0.13683498
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[27].x
+      value: 0.14702898
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[27].z
+      value: 0.0015335083
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[28].x
+      value: 0.157224
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[28].z
+      value: -0.0012493134
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[29].x
+      value: 0.167418
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[29].z
+      value: -0.004032135
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[30].x
+      value: 0.17761302
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[30].y
+      value: 0.93146306
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[30].z
+      value: -0.006816864
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[31].x
+      value: 0.18780696
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[31].z
+      value: -0.009597778
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[32].x
+      value: 0.19800198
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[32].z
+      value: -0.012378693
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[33].x
+      value: 0.20819592
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[33].z
+      value: -0.015159607
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[34].x
+      value: 0.21839094
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[34].y
+      value: 0.82531506
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[35].x
+      value: 0.11915499
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[35].z
+      value: -0.03323555
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[36].x
+      value: 0.12803298
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[36].z
+      value: -0.03951645
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[37].x
+      value: 0.13690996
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[37].z
+      value: -0.04579544
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[38].x
+      value: 0.145787
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[39].x
+      value: 0.16354203
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[40].x
+      value: 0.17241907
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[41].x
+      value: 0.18129599
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[42].x
+      value: 0.19017398
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[43].x
+      value: 0.08087301
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[44].x
+      value: 0.08689797
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[45].x
+      value: 0.092922986
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[46].x
+      value: 0.098948
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[47].x
+      value: 0.110998034
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[47].y
+      value: 0.90397304
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[48].x
+      value: 0.117024004
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[48].z
+      value: -0.11667633
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[49].x
+      value: 0.12304902
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[49].z
+      value: -0.12568855
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[50].x
+      value: 0.12907398
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[50].y
+      value: 0.824789
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[50].z
+      value: -0.13470078
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[51].x
+      value: 0.028605998
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[51].z
+      value: -0.07864189
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[52].x
+      value: 0.030737996
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[52].z
+      value: -0.08916283
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[53].x
+      value: 0.03286898
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[53].z
+      value: -0.09968376
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[54].x
+      value: 0.034999967
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[55].x
+      value: 0.039261997
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[55].y
+      value: 0.902716
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[55].z
+      value: -0.13124466
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[56].x
+      value: 0.041393995
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[57].x
+      value: 0.04352498
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[57].y
+      value: 0.84971005
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[57].z
+      value: -0.15228462
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[58].x
+      value: 0.045656025
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[59].x
+      value: -0.028605998
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[59].z
+      value: -0.07864189
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[60].x
+      value: -0.030737996
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[60].z
+      value: -0.08916283
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[61].x
+      value: -0.03286898
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[61].z
+      value: -0.09968376
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[62].x
+      value: -0.034999967
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[63].x
+      value: -0.03713101
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[64].x
+      value: -0.039261997
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[64].y
+      value: 0.902716
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[64].z
+      value: -0.13124466
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[65].x
+      value: -0.041393995
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[66].x
+      value: -0.04352498
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[66].y
+      value: 0.84971005
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[66].z
+      value: -0.15228462
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[67].x
+      value: -0.045656025
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[68].x
+      value: -0.08087301
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[69].x
+      value: -0.08689797
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[70].x
+      value: -0.092922986
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[71].x
+      value: -0.098948
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[71].y
+      value: 0.956775
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[72].x
+      value: -0.10497302
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[73].x
+      value: -0.110997975
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[73].y
+      value: 0.90397304
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[74].x
+      value: -0.117024004
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[74].z
+      value: -0.11667633
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[75].x
+      value: -0.12304902
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[75].z
+      value: -0.12568855
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[76].x
+      value: -0.12907398
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[76].z
+      value: -0.13470078
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[77].x
+      value: -0.11915499
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[77].z
+      value: -0.03323555
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[78].x
+      value: -0.12803298
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[78].z
+      value: -0.03951645
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[79].x
+      value: -0.13690996
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[79].y
+      value: 0.98429805
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[79].z
+      value: -0.04579544
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[80].x
+      value: -0.145787
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[80].y
+      value: 0.95794004
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[81].x
+      value: -0.15466398
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[81].y
+      value: 0.93158704
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[81].z
+      value: -0.058345795
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[82].x
+      value: -0.16354203
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[82].y
+      value: 0.90524
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[83].x
+      value: -0.17241901
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[83].y
+      value: 0.87889796
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[84].x
+      value: -0.18129599
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[84].y
+      value: 0.85255903
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[85].x
+      value: -0.19017398
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[86].x
+      value: -0.13683498
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[87].x
+      value: -0.14702898
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[87].z
+      value: 0.0015335083
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[88].x
+      value: -0.157224
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[88].z
+      value: -0.0012493134
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[89].x
+      value: -0.167418
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[89].z
+      value: -0.004032135
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[90].x
+      value: -0.17761302
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[90].y
+      value: 0.93146306
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[90].z
+      value: -0.006816864
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[91].x
+      value: -0.18780696
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[91].z
+      value: -0.009597778
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[92].x
+      value: -0.19800198
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[92].z
+      value: -0.012378693
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[93].x
+      value: -0.20819598
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[93].z
+      value: -0.015159607
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[94].x
+      value: -0.218391
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[94].y
+      value: 0.82531506
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[95].x
+      value: -0.13085496
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[97].x
+      value: -0.150352
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[97].y
+      value: 0.98338
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[97].z
+      value: 0.04598236
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[98].x
+      value: -0.160101
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[98].y
+      value: 0.956371
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[98].z
+      value: 0.0456295
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[99].x
+      value: -0.16984999
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[99].z
+      value: 0.045280457
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[100].x
+      value: -0.18934798
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[100].y
+      value: 0.875374
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[101].x
+      value: -0.19909704
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[101].y
+      value: 0.848383
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[101].z
+      value: 0.044237137
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[102].x
+      value: -0.20884597
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[102].z
+      value: 0.043893814
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[103].x
+      value: -0.10224801
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[104].x
+      value: -0.10986602
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[104].z
+      value: 0.085897446
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[105].x
+      value: -0.11748397
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[105].y
+      value: 0.98118
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[105].z
+      value: 0.08729172
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[106].x
+      value: -0.12510097
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[106].y
+      value: 0.95352703
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[106].z
+      value: 0.0886879
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[107].y
+      value: 0.92588
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[110].x
+      value: -0.155572
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[110].y
+      value: 0.84296304
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[110].z
+      value: 0.09428787
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[111].x
+      value: -0.16319
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[112].x
+      value: -0.055962026
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[112].z
+      value: 0.110170364
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[113].z
+      value: 0.11274338
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[114].x
+      value: -0.064301014
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[114].z
+      value: 0.11531639
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[115].z
+      value: 0.11789131
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[116].x
+      value: -0.07264
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[116].z
+      value: 0.12046623
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[117].x
+      value: -0.07680899
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[118].x
+      value: -0.08097798
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[118].y
+      value: 0.86618894
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[118].z
+      value: 0.12561989
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[119].x
+      value: -0.08514702
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[119].y
+      value: 0.83797497
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[119].z
+      value: 0.12819672
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[120].x
+      value: -0.089317024
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[120].z
+      value: 0.13077354
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[122].z
+      value: 0.12223816
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[124].y
+      value: 0.94974405
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[124].z
+      value: 0.1282196
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[125].y
+      value: 0.921297
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[125].z
+      value: 0.13120842
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[126].z
+      value: 0.13419724
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[128].y
+      value: 0.83595604
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[128].z
+      value: 0.14017868
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[129].y
+      value: 0.807509
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572728142490096803, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[129].z
+      value: 0.1431675
+      objectReference: {fileID: 0}
+    - target: {fileID: 2587126874769717085, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.maxConnectionDistance
+      value: 0.041653194
+      objectReference: {fileID: 0}
+    - target: {fileID: 2587126874769717085, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[0].x
+      value: 0.056936026
+      objectReference: {fileID: 0}
+    - target: {fileID: 2587126874769717085, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[0].z
+      value: -0.009197235
+      objectReference: {fileID: 0}
+    - target: {fileID: 2587126874769717085, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[1].x
+      value: 0.05449301
+      objectReference: {fileID: 0}
+    - target: {fileID: 2587126874769717085, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[1].z
+      value: -0.0058174133
+      objectReference: {fileID: 0}
+    - target: {fileID: 2587126874769717085, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[2].x
+      value: 0.05402702
+      objectReference: {fileID: 0}
+    - target: {fileID: 2587126874769717085, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[3].z
+      value: 0.03991127
+      objectReference: {fileID: 0}
+    - target: {fileID: 2587126874769717085, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[4].x
+      value: -0.056936026
+      objectReference: {fileID: 0}
+    - target: {fileID: 2587126874769717085, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[4].z
+      value: -0.009197235
+      objectReference: {fileID: 0}
+    - target: {fileID: 2587126874769717085, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[5].x
+      value: -0.05449301
+      objectReference: {fileID: 0}
+    - target: {fileID: 2587126874769717085, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[6].x
+      value: -0.05402696
+      objectReference: {fileID: 0}
+    - target: {fileID: 2587126874769717085, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[7].x
+      value: -0.057124853
+      objectReference: {fileID: 0}
+    - target: {fileID: 2587126874769717085, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[7].z
+      value: 0.03991127
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281212027681363510, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.maxConnectionDistance
+      value: 0.03526841
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281212027681363510, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[0].x
+      value: 0.07659298
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281212027681363510, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[0].z
+      value: 0.07122803
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281212027681363510, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[1].x
+      value: 0.091744006
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281212027681363510, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[2].x
+      value: 0.100953996
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281212027681363510, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[3].x
+      value: 0.079846025
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281212027681363510, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[3].z
+      value: 0.04210663
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281212027681363510, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[4].x
+      value: 0.097588
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281212027681363510, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[4].z
+      value: 0.035633087
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281212027681363510, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[5].x
+      value: 0.11332297
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281212027681363510, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[6].x
+      value: -0.09577799
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281212027681363510, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[6].z
+      value: -0.04537773
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281212027681363510, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[7].x
+      value: -0.10750699
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281212027681363510, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[8].x
+      value: -0.11636603
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281212027681363510, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[8].z
+      value: -0.051382065
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687592596279980468, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.maxConnectionDistance
+      value: 0.045121226
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687592596279980468, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[0].x
+      value: 0.06915903
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687592596279980468, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[1].x
+      value: 0.07288897
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687592596279980468, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[1].z
+      value: 0.05394554
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687592596279980468, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[2].x
+      value: 0.071636975
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687592596279980468, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[2].z
+      value: 0.055807114
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687592596279980468, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[3].x
+      value: 0.042816997
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687592596279980468, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[4].x
+      value: 0.052654028
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687592596279980468, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[4].z
+      value: 0.07482529
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687592596279980468, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[5].x
+      value: -0.07630199
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687592596279980468, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[5].z
+      value: 0.05306053
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687592596279980468, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[6].x
+      value: -0.079465985
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687592596279980468, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[8].x
+      value: -0.02523601
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687592596279980468, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[9].x
+      value: -0.027926028
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687592596279980468, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[9].z
+      value: 0.095724106
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687592596279980468, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[10].x
+      value: 0.008144021
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687592596279980468, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[11].x
+      value: 0.004595995
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687592596279980468, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[11].z
+      value: 0.10557747
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687592596279980468, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[12].x
+      value: 0.00052398443
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687592596279980468, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[12].z
+      value: 0.10310745
+      objectReference: {fileID: 0}
+    - target: {fileID: 4977333077780466106, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 914528638}
+    - target: {fileID: 4977333077780466106, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 533085170}
+    - target: {fileID: 4977333077780466106, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 437767075}
+    - target: {fileID: 4977333077780466106, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 1222438251}
+    - target: {fileID: 4977333077780466106, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 1225530408}
+    - target: {fileID: 4977333077780466106, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 1298728884}
+    - target: {fileID: 6068613754258699011, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.2053356
+      objectReference: {fileID: 0}
+    - target: {fileID: 6068613754258699011, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6068613754258699011, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 11.60647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6068613754258699011, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6068613754258699011, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6068613754258699011, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6068613754258699011, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6068613754258699011, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6068613754258699011, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6068613754258699011, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878083648144533945, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: m_Name
+      value: Player_Avatar_March_7th Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 8470308833946596824, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.maxConnectionDistance
+      value: 0.09484807
+      objectReference: {fileID: 0}
+    - target: {fileID: 8470308833946596824, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[0].x
+      value: -0.08569801
+      objectReference: {fileID: 0}
+    - target: {fileID: 8470308833946596824, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[1].x
+      value: -0.09176099
+      objectReference: {fileID: 0}
+    - target: {fileID: 8470308833946596824, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[2].x
+      value: 0.08965099
+      objectReference: {fileID: 0}
+    - target: {fileID: 8470308833946596824, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[2].z
+      value: -0.043949127
+      objectReference: {fileID: 0}
+    - target: {fileID: 8470308833946596824, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[3].x
+      value: 0.096434
+      objectReference: {fileID: 0}
+    - target: {fileID: 8470308833946596824, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[3].z
+      value: -0.052167892
+      objectReference: {fileID: 0}
+    - target: {fileID: 8470308833946596824, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[4].x
+      value: 0.03574097
+      objectReference: {fileID: 0}
+    - target: {fileID: 8470308833946596824, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[4].z
+      value: -0.11231232
+      objectReference: {fileID: 0}
+    - target: {fileID: 8470308833946596824, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[5].x
+      value: 0.03357303
+      objectReference: {fileID: 0}
+    - target: {fileID: 8470308833946596824, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[6].x
+      value: -0.04732901
+      objectReference: {fileID: 0}
+    - target: {fileID: 8470308833946596824, guid: 63f91ae723923be48b9604a4f481443f,
+        type: 3}
+      propertyPath: serializeData2.selectionData.positions.Array.data[7].x
+      value: -0.052308023
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 63f91ae723923be48b9604a4f481443f, type: 3}
+--- !u!21 &914528638
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: "\u8138 (Instance)"
+  m_Shader: {fileID: 4800000, guid: 058e290f78df7d8418a839d4f60418fe, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _AREA_FACE
+  - _AUTO_Brightness_ON
+  - _DayTime_MANUAL_ON
+  - _FAKE_OUTLINE_ON
+  - _OUTLINE_ON
+  - _RIM_LIGHTING_ON
+  - _SPECULAR_ON
+  - _USE_RAMP_COLOR_ON
+  m_InvalidKeywords:
+  - _METAL_SPECULAR_ON
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BASE_COLOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BUMP_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BodyCoolRamp:
+        m_Texture: {fileID: 2800000, guid: 7d0f34bd4f4b58348acd6228334cd49e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BodyWarmRamp:
+        m_Texture: {fileID: 2800000, guid: 7c248311b1b79e849ae995b8ecb177f4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EMISSION_COLOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ExpressionMap:
+        m_Texture: {fileID: 2800000, guid: 1d3505447de021b45bffda2a38ae4a1f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FaceColorMap:
+        m_Texture: {fileID: 2800000, guid: 1fe63ba77ced3eb44acec2d39f5c7e56, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FaceMap:
+        m_Texture: {fileID: 2800000, guid: 491f4b124aa83cc42bfadeb5b0d0f6e1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HairColorMap:
+        m_Texture: {fileID: 2800000, guid: addbb9a6759ca704f8a5de24f213eb9e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HairCoolRamp:
+        m_Texture: {fileID: 2800000, guid: 468a4d164f8b8074fb61c687a0f68696, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HairLightMap:
+        m_Texture: {fileID: 2800000, guid: 8fac5fb863f56d74b9a20b1828c56575, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HairWarmRamp:
+        m_Texture: {fileID: 2800000, guid: 6f4ba5f1896900b45a20b5842f35be5d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LowerBodyColorMap:
+        m_Texture: {fileID: 2800000, guid: bc1c887ef814bdd48ad99b95bfcd55af, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LowerBodyLightMap:
+        m_Texture: {fileID: 2800000, guid: e2f3d316bfbd5b643801f1c5f7fabcbb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LowerBodyStockings:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _METALNESS_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineZOffsetMaskTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _REFLECTIONS_COLOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _REFLECTIONS_IOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _REFLECTIONS_ROUGHNESS_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TRANSPARENCY_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _UpperBodyColorMap:
+        m_Texture: {fileID: 2800000, guid: f78de14d822d0b14480d84621049f0e6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _UpperBodyLightMap:
+        m_Texture: {fileID: 2800000, guid: 13b6f74213e09e64798a82892ccab6dd, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _UpperBodyStockings:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Alpha: 1
+    - _AlphaClip: 0
+    - _AlphaToMask: 0
+    - _AnisotropySpecularToggle: 0
+    - _Area: 1
+    - _AutoBrightnessOffset: 0
+    - _AutoBrightnessThresholdMax: 0.6
+    - _AutoBrightnessThresholdMin: 0.25
+    - _BASE_COLOR_WEIGHT: 1
+    - _BUMP_MAP_STRENGTH: 0.3
+    - _BaseColorBPower: 1
+    - _BaseColorGPower: 1
+    - _BaseColorRPower: 1
+    - _Blend: 0
+    - _BlendModePreserveSpecular: 1
+    - _BlendOp: 0
+    - _BlendOpOverlay: 0
+    - _BloomIntensity0: 0.4
+    - _BodyCoolRampColorMixFactor: 0
+    - _BodyWarmRampColorMixFactor: 0
+    - _BumpScale: 1
+    - _ClearCoatMask: 0
+    - _ClearCoatSmoothness: 0
+    - _ColorSaturation: 1
+    - _Cull: 0
+    - _CullMode: 2
+    - _Cutoff: 0.5
+    - _DayTime: 12
+    - _DayTimeManualON: 1
+    - _DetailAlbedoMapScale: 1
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _DstBlendAlpha: 0
+    - _DstBlendMode: 0
+    - _DstBlendModeOverlay: 0
+    - _EMISSION_WEIGHT: 1
+    - _EmissionIntensity: 1
+    - _EmissionMixBaseColor: 1
+    - _EnableCustomSpecularColor: 0
+    - _EnableMetalSpecular: 1
+    - _EnableSpecular: 1
+    - _EnvironmentReflections: 1
+    - _ExCheekIntensity: 0
+    - _ExShadowIntensity: 0
+    - _ExShyIntensity: 0
+    - _FaceShadowOffset: -0.01
+    - _FaceShadowTransitionSoftness: 0.05
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _HairCoolRampColorMixFactor: 0
+    - _HairWarmRampColorMixFactor: 0
+    - _IndirectLightFlattenNormal: 0
+    - _IndirectLightIntensity: 0
+    - _IndirectLightMixBaseColor: 1
+    - _IndirectLightOcclusionUsage: 0.5
+    - _IndirectLightUsage: 0.5
+    - _IsFace: 1
+    - _LerpAOIntensity: 1
+    - _METALNESS: 0
+    - _MainLightBrightnessFactor: 1
+    - _MainLightColorUsage: 0
+    - _MainLightShadowOffset: 0
+    - _MetalSpecularMetallic: 0.52
+    - _Metallic: 0
+    - _Mode: 0
+    - _ModelScale: 1
+    - _OcclusionStrength: 1
+    - _OutlineGamma: 16
+    - _OutlineUseVertexColorSmoothNormal: 0
+    - _OutlineWidth: 1
+    - _OutlineZOffset: 0.0001
+    - _OutlineZOffsetMaskRemapEnd: 1
+    - _OutlineZOffsetMaskRemapStart: 0
+    - _Parallax: 0.02
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _REFLECTIONS_IOR: 1.52
+    - _REFLECTIONS_ROUGHNESS: 1
+    - _REFLECTIONS_WEIGHT: 1
+    - _ReceiveShadows: 1
+    - _RimDark0: 0.5
+    - _RimEdgeSoftness: 0.05
+    - _RimIntensity: 0.5
+    - _RimIntensityBackFace: 0
+    - _RimLightBrightness: 1
+    - _RimLightFadeout: 1
+    - _RimLightMixAlbedo: 0
+    - _RimLightMixMainLightColor: 0
+    - _RimLightThreshold: 0.05
+    - _RimLightWidth: 1
+    - _RimThresholdMax: 0.9
+    - _RimThresholdMin: 0.6
+    - _RimWidth0: 0.5
+    - _ScrBlendModeOverlay: 1
+    - _ShadowBoost: 1
+    - _ShadowRampOffset: 0.75
+    - _ShadowThresholdCenter: 0
+    - _ShadowThresholdSoftness: 0.1
+    - _Smoothness: 0.4472136
+    - _SmoothnessTextureChannel: 0
+    - _SpecularBrightness: 10
+    - _SpecularExpon: 50
+    - _SpecularHighlights: 1
+    - _SpecularIntensity: 1
+    - _SpecularKsMetal: 1
+    - _SpecularKsNonMetal: 0.04
+    - _SpecularRoughness: 0.1
+    - _SpecularShininess: 10
+    - _SrcBlend: 1
+    - _SrcBlendAlpha: 1
+    - _SrcBlendMode: 1
+    - _StencilComp: 0
+    - _StencilCompOverlay: 0
+    - _StencilFailOp: 0
+    - _StencilPassOp: 0
+    - _StencilRef: 0
+    - _StencilRefOverlay: 0
+    - _StencilZFailOp: 0
+    - _StockingsTextureUsage: 0.1
+    - _StockingsTransitionHardness: 0.4
+    - _StockingsTransitionPower: 1
+    - _StockingsTransitionThreshold: 0.58
+    - _Surface: 0
+    - _TRANSPARENCY: 0
+    - _UVSec: 0
+    - _UseAlphaClipping: 0
+    - _UseAutoBrightness: 1
+    - _UseDrawOverlay: 0
+    - _UseEmission: 0
+    - _UseFaceExpression: 0
+    - _UseFakeOutline: 1
+    - _UseNormalMap: 0
+    - _UseOutline: 1
+    - _UseRampColor: 1
+    - _UseRimLight: 1
+    - _UseStockings: 0
+    - _WorkflowMode: 1
+    - _ZWrite: 1
+    - _mBloomIntensity0: 1
+    - _stockingsMapBChannelUVScale: 20
+    m_Colors:
+    - _BASE_COLOR: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+    - _BackFaceTintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.9063317, g: 0.9063317, b: 0.9063317, a: 1}
+    - _BloomColor0: {r: 1, g: 1, b: 1, a: 1}
+    - _BodyCoolRampColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BodyWarmRampColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EMISSION_COLOR: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionTintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ExCheekColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ExEyeColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ExShadowColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ExShyColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FaceColorMapColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FrontFaceTintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HairColorMapColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HairCoolRampColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HairWarmRampColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HeadForward: {r: 0, g: 0, b: 1, a: 0}
+    - _HeadRight: {r: 1, g: 0, b: 0, a: 0}
+    - _LowerBodyColorMapColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _REFLECTIONS_COLOR: {r: 1, g: 1, b: 1, a: 1}
+    - _RimColor0: {r: 1, g: 1, b: 1, a: 1}
+    - _RimLightTintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
+    - _StockingsDarkColor: {r: 0, g: 0, b: 0, a: 1}
+    - _StockingsLightColor: {r: 1.8, g: 1.48299, b: 0.856821, a: 1}
+    - _StockingsTransitionColor: {r: 0.36038098, g: 0.24298596, b: 0.35813096, a: 1}
+    - _UpperBodyColorMapColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+--- !u!1 &937862029
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 937862032}
+  - component: {fileID: 937862031}
+  - component: {fileID: 937862030}
+  - component: {fileID: 937862033}
+  m_Layer: 0
+  m_Name: Main Camera
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!81 &937862030
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937862029}
+  m_Enabled: 1
+--- !u!20 &937862031
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937862029}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: -1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!4 &937862032
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937862029}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &937862033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937862029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    quality: 3
+    frameInfluence: 0.1
+    jitterScale: 1
+    mipBias: 0
+    varianceClampScale: 0.9
+    contrastAdaptiveSharpening: 0
+--- !u!21 &1222438251
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: "\u8896\u5B502 (Instance)"
+  m_Shader: {fileID: 4800000, guid: 058e290f78df7d8418a839d4f60418fe, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _AREA_UPPERBODY
+  - _AUTO_Brightness_ON
+  - _DayTime_MANUAL_ON
+  - _FAKE_OUTLINE_ON
+  - _OUTLINE_ON
+  - _RIM_LIGHTING_ON
+  - _SPECULAR_ON
+  - _USE_RAMP_COLOR_ON
+  m_InvalidKeywords:
+  - _METAL_SPECULAR_ON
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BASE_COLOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BUMP_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BodyCoolRamp:
+        m_Texture: {fileID: 2800000, guid: 7d0f34bd4f4b58348acd6228334cd49e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BodyWarmRamp:
+        m_Texture: {fileID: 2800000, guid: 7c248311b1b79e849ae995b8ecb177f4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EMISSION_COLOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ExpressionMap:
+        m_Texture: {fileID: 2800000, guid: 1d3505447de021b45bffda2a38ae4a1f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FaceColorMap:
+        m_Texture: {fileID: 2800000, guid: 1fe63ba77ced3eb44acec2d39f5c7e56, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FaceMap:
+        m_Texture: {fileID: 2800000, guid: 491f4b124aa83cc42bfadeb5b0d0f6e1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HairColorMap:
+        m_Texture: {fileID: 2800000, guid: addbb9a6759ca704f8a5de24f213eb9e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HairCoolRamp:
+        m_Texture: {fileID: 2800000, guid: 468a4d164f8b8074fb61c687a0f68696, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HairLightMap:
+        m_Texture: {fileID: 2800000, guid: 8fac5fb863f56d74b9a20b1828c56575, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HairWarmRamp:
+        m_Texture: {fileID: 2800000, guid: 6f4ba5f1896900b45a20b5842f35be5d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LowerBodyColorMap:
+        m_Texture: {fileID: 2800000, guid: bc1c887ef814bdd48ad99b95bfcd55af, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LowerBodyLightMap:
+        m_Texture: {fileID: 2800000, guid: e2f3d316bfbd5b643801f1c5f7fabcbb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LowerBodyStockings:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _METALNESS_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineZOffsetMaskTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _REFLECTIONS_COLOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _REFLECTIONS_IOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _REFLECTIONS_ROUGHNESS_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TRANSPARENCY_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _UpperBodyColorMap:
+        m_Texture: {fileID: 2800000, guid: f78de14d822d0b14480d84621049f0e6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _UpperBodyLightMap:
+        m_Texture: {fileID: 2800000, guid: 13b6f74213e09e64798a82892ccab6dd, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _UpperBodyStockings:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Alpha: 1
+    - _AlphaClip: 0
+    - _AlphaToMask: 0
+    - _AnisotropySpecularToggle: 0
+    - _Area: 3
+    - _AutoBrightnessOffset: 0
+    - _AutoBrightnessThresholdMax: 0.6
+    - _AutoBrightnessThresholdMin: 0.25
+    - _BASE_COLOR_WEIGHT: 1
+    - _BUMP_MAP_STRENGTH: 0.3
+    - _BaseColorBPower: 1
+    - _BaseColorGPower: 1
+    - _BaseColorRPower: 1
+    - _Blend: 0
+    - _BlendModePreserveSpecular: 1
+    - _BlendOp: 0
+    - _BlendOpOverlay: 0
+    - _BloomIntensity0: 0.4
+    - _BodyCoolRampColorMixFactor: 0
+    - _BodyWarmRampColorMixFactor: 0
+    - _BumpScale: 1
+    - _ClearCoatMask: 0
+    - _ClearCoatSmoothness: 0
+    - _ColorSaturation: 1
+    - _Cull: 0
+    - _CullMode: 2
+    - _Cutoff: 0.5
+    - _DayTime: 12
+    - _DayTimeManualON: 1
+    - _DetailAlbedoMapScale: 1
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _DstBlendAlpha: 0
+    - _DstBlendMode: 0
+    - _DstBlendModeOverlay: 0
+    - _EMISSION_WEIGHT: 1
+    - _EmissionIntensity: 1
+    - _EmissionMixBaseColor: 1
+    - _EnableCustomSpecularColor: 0
+    - _EnableMetalSpecular: 1
+    - _EnableSpecular: 1
+    - _EnvironmentReflections: 1
+    - _ExCheekIntensity: 0
+    - _ExShadowIntensity: 0
+    - _ExShyIntensity: 0
+    - _FaceShadowOffset: -0.01
+    - _FaceShadowTransitionSoftness: 0.05
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _HairCoolRampColorMixFactor: 0
+    - _HairWarmRampColorMixFactor: 0
+    - _IndirectLightFlattenNormal: 0
+    - _IndirectLightIntensity: 0
+    - _IndirectLightMixBaseColor: 1
+    - _IndirectLightOcclusionUsage: 0.5
+    - _IndirectLightUsage: 0.5
+    - _IsFace: 0
+    - _LerpAOIntensity: 1
+    - _METALNESS: 0
+    - _MainLightBrightnessFactor: 1
+    - _MainLightColorUsage: 0
+    - _MainLightShadowOffset: 0
+    - _MetalSpecularMetallic: 0.52
+    - _Metallic: 0
+    - _Mode: 0
+    - _ModelScale: 1
+    - _OcclusionStrength: 1
+    - _OutlineGamma: 16
+    - _OutlineUseVertexColorSmoothNormal: 0
+    - _OutlineWidth: 1
+    - _OutlineZOffset: 0.0001
+    - _OutlineZOffsetMaskRemapEnd: 1
+    - _OutlineZOffsetMaskRemapStart: 0
+    - _Parallax: 0.02
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _REFLECTIONS_IOR: 1.52
+    - _REFLECTIONS_ROUGHNESS: 1
+    - _REFLECTIONS_WEIGHT: 1
+    - _ReceiveShadows: 1
+    - _RimDark0: 0.5
+    - _RimEdgeSoftness: 0.05
+    - _RimIntensity: 0.5
+    - _RimIntensityBackFace: 0
+    - _RimLightBrightness: 1
+    - _RimLightFadeout: 1
+    - _RimLightMixAlbedo: 0
+    - _RimLightMixMainLightColor: 0
+    - _RimLightThreshold: 0.05
+    - _RimLightWidth: 1
+    - _RimThresholdMax: 0.9
+    - _RimThresholdMin: 0.6
+    - _RimWidth0: 0.5
+    - _ScrBlendModeOverlay: 1
+    - _ShadowBoost: 1
+    - _ShadowRampOffset: 0.75
+    - _ShadowThresholdCenter: 0
+    - _ShadowThresholdSoftness: 0.1
+    - _Smoothness: 0.4472136
+    - _SmoothnessTextureChannel: 0
+    - _SpecularBrightness: 10
+    - _SpecularExpon: 50
+    - _SpecularHighlights: 1
+    - _SpecularIntensity: 1
+    - _SpecularKsMetal: 1
+    - _SpecularKsNonMetal: 0.04
+    - _SpecularRoughness: 0.1
+    - _SpecularShininess: 10
+    - _SrcBlend: 1
+    - _SrcBlendAlpha: 1
+    - _SrcBlendMode: 1
+    - _StencilComp: 0
+    - _StencilCompOverlay: 0
+    - _StencilFailOp: 0
+    - _StencilPassOp: 0
+    - _StencilRef: 0
+    - _StencilRefOverlay: 0
+    - _StencilZFailOp: 0
+    - _StockingsTextureUsage: 0.1
+    - _StockingsTransitionHardness: 0.4
+    - _StockingsTransitionPower: 1
+    - _StockingsTransitionThreshold: 0.58
+    - _Surface: 0
+    - _TRANSPARENCY: 0
+    - _UVSec: 0
+    - _UseAlphaClipping: 0
+    - _UseAutoBrightness: 1
+    - _UseDrawOverlay: 0
+    - _UseEmission: 0
+    - _UseFaceExpression: 0
+    - _UseFakeOutline: 1
+    - _UseNormalMap: 0
+    - _UseOutline: 1
+    - _UseRampColor: 1
+    - _UseRimLight: 1
+    - _UseStockings: 0
+    - _WorkflowMode: 1
+    - _ZWrite: 1
+    - _mBloomIntensity0: 1
+    - _stockingsMapBChannelUVScale: 20
+    m_Colors:
+    - _BASE_COLOR: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+    - _BackFaceTintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.9063317, g: 0.9063317, b: 0.9063317, a: 1}
+    - _BloomColor0: {r: 1, g: 1, b: 1, a: 1}
+    - _BodyCoolRampColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BodyWarmRampColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EMISSION_COLOR: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionTintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ExCheekColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ExEyeColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ExShadowColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ExShyColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FaceColorMapColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FrontFaceTintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HairColorMapColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HairCoolRampColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HairWarmRampColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HeadForward: {r: 0, g: 0, b: 1, a: 0}
+    - _HeadRight: {r: 1, g: 0, b: 0, a: 0}
+    - _LowerBodyColorMapColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _REFLECTIONS_COLOR: {r: 1, g: 1, b: 1, a: 1}
+    - _RimColor0: {r: 1, g: 1, b: 1, a: 1}
+    - _RimLightTintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
+    - _StockingsDarkColor: {r: 0, g: 0, b: 0, a: 1}
+    - _StockingsLightColor: {r: 1.8, g: 1.48299, b: 0.856821, a: 1}
+    - _StockingsTransitionColor: {r: 0.36038098, g: 0.24298596, b: 0.35813096, a: 1}
+    - _UpperBodyColorMapColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+--- !u!21 &1225530408
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: "\u5934\u53D1 (Instance)"
+  m_Shader: {fileID: 4800000, guid: 058e290f78df7d8418a839d4f60418fe, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _AREA_HAIR
+  - _AUTO_Brightness_ON
+  - _DayTime_MANUAL_ON
+  - _FAKE_OUTLINE_ON
+  - _OUTLINE_ON
+  - _RIM_LIGHTING_ON
+  - _SPECULAR_ON
+  - _USE_RAMP_COLOR_ON
+  m_InvalidKeywords:
+  - _METAL_SPECULAR_ON
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BASE_COLOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BUMP_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BodyCoolRamp:
+        m_Texture: {fileID: 2800000, guid: 7d0f34bd4f4b58348acd6228334cd49e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BodyWarmRamp:
+        m_Texture: {fileID: 2800000, guid: 7c248311b1b79e849ae995b8ecb177f4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EMISSION_COLOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ExpressionMap:
+        m_Texture: {fileID: 2800000, guid: 1d3505447de021b45bffda2a38ae4a1f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FaceColorMap:
+        m_Texture: {fileID: 2800000, guid: 1fe63ba77ced3eb44acec2d39f5c7e56, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FaceMap:
+        m_Texture: {fileID: 2800000, guid: 491f4b124aa83cc42bfadeb5b0d0f6e1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HairColorMap:
+        m_Texture: {fileID: 2800000, guid: addbb9a6759ca704f8a5de24f213eb9e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HairCoolRamp:
+        m_Texture: {fileID: 2800000, guid: 468a4d164f8b8074fb61c687a0f68696, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HairLightMap:
+        m_Texture: {fileID: 2800000, guid: 8fac5fb863f56d74b9a20b1828c56575, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HairWarmRamp:
+        m_Texture: {fileID: 2800000, guid: 6f4ba5f1896900b45a20b5842f35be5d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LowerBodyColorMap:
+        m_Texture: {fileID: 2800000, guid: bc1c887ef814bdd48ad99b95bfcd55af, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LowerBodyLightMap:
+        m_Texture: {fileID: 2800000, guid: e2f3d316bfbd5b643801f1c5f7fabcbb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LowerBodyStockings:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _METALNESS_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineZOffsetMaskTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _REFLECTIONS_COLOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _REFLECTIONS_IOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _REFLECTIONS_ROUGHNESS_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TRANSPARENCY_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _UpperBodyColorMap:
+        m_Texture: {fileID: 2800000, guid: f78de14d822d0b14480d84621049f0e6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _UpperBodyLightMap:
+        m_Texture: {fileID: 2800000, guid: 13b6f74213e09e64798a82892ccab6dd, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _UpperBodyStockings:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Alpha: 1
+    - _AlphaClip: 0
+    - _AlphaToMask: 0
+    - _AnisotropySpecularToggle: 0
+    - _Area: 2
+    - _AutoBrightnessOffset: 0
+    - _AutoBrightnessThresholdMax: 0.6
+    - _AutoBrightnessThresholdMin: 0.25
+    - _BASE_COLOR_WEIGHT: 1
+    - _BUMP_MAP_STRENGTH: 0.3
+    - _BaseColorBPower: 1
+    - _BaseColorGPower: 1
+    - _BaseColorRPower: 1
+    - _Blend: 0
+    - _BlendModePreserveSpecular: 1
+    - _BlendOp: 0
+    - _BlendOpOverlay: 0
+    - _BloomIntensity0: 0.4
+    - _BodyCoolRampColorMixFactor: 0
+    - _BodyWarmRampColorMixFactor: 0
+    - _BumpScale: 1
+    - _ClearCoatMask: 0
+    - _ClearCoatSmoothness: 0
+    - _ColorSaturation: 1
+    - _Cull: 0
+    - _CullMode: 2
+    - _Cutoff: 0.5
+    - _DayTime: 12
+    - _DayTimeManualON: 1
+    - _DetailAlbedoMapScale: 1
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _DstBlendAlpha: 0
+    - _DstBlendMode: 0
+    - _DstBlendModeOverlay: 0
+    - _EMISSION_WEIGHT: 1
+    - _EmissionIntensity: 1
+    - _EmissionMixBaseColor: 1
+    - _EnableCustomSpecularColor: 0
+    - _EnableMetalSpecular: 1
+    - _EnableSpecular: 1
+    - _EnvironmentReflections: 1
+    - _ExCheekIntensity: 0
+    - _ExShadowIntensity: 0
+    - _ExShyIntensity: 0
+    - _FaceShadowOffset: -0.01
+    - _FaceShadowTransitionSoftness: 0.05
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _HairCoolRampColorMixFactor: 0
+    - _HairWarmRampColorMixFactor: 0
+    - _IndirectLightFlattenNormal: 0
+    - _IndirectLightIntensity: 0
+    - _IndirectLightMixBaseColor: 1
+    - _IndirectLightOcclusionUsage: 0.5
+    - _IndirectLightUsage: 0.5
+    - _IsFace: 0
+    - _LerpAOIntensity: 1
+    - _METALNESS: 0
+    - _MainLightBrightnessFactor: 1
+    - _MainLightColorUsage: 0
+    - _MainLightShadowOffset: 0
+    - _MetalSpecularMetallic: 0.52
+    - _Metallic: 0
+    - _Mode: 0
+    - _ModelScale: 1
+    - _OcclusionStrength: 1
+    - _OutlineGamma: 16
+    - _OutlineUseVertexColorSmoothNormal: 0
+    - _OutlineWidth: 1
+    - _OutlineZOffset: 0.0001
+    - _OutlineZOffsetMaskRemapEnd: 1
+    - _OutlineZOffsetMaskRemapStart: 0
+    - _Parallax: 0.02
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _REFLECTIONS_IOR: 1.52
+    - _REFLECTIONS_ROUGHNESS: 1
+    - _REFLECTIONS_WEIGHT: 1
+    - _ReceiveShadows: 1
+    - _RimDark0: 0.5
+    - _RimEdgeSoftness: 0.05
+    - _RimIntensity: 0.5
+    - _RimIntensityBackFace: 0
+    - _RimLightBrightness: 1
+    - _RimLightFadeout: 1
+    - _RimLightMixAlbedo: 0
+    - _RimLightMixMainLightColor: 0
+    - _RimLightThreshold: 0.05
+    - _RimLightWidth: 1
+    - _RimThresholdMax: 0.9
+    - _RimThresholdMin: 0.6
+    - _RimWidth0: 0.5
+    - _ScrBlendModeOverlay: 1
+    - _ShadowBoost: 1
+    - _ShadowRampOffset: 0.75
+    - _ShadowThresholdCenter: 0
+    - _ShadowThresholdSoftness: 0.1
+    - _Smoothness: 0.4472136
+    - _SmoothnessTextureChannel: 0
+    - _SpecularBrightness: 10
+    - _SpecularExpon: 50
+    - _SpecularHighlights: 1
+    - _SpecularIntensity: 1
+    - _SpecularKsMetal: 1
+    - _SpecularKsNonMetal: 0.04
+    - _SpecularRoughness: 0.1
+    - _SpecularShininess: 10
+    - _SrcBlend: 1
+    - _SrcBlendAlpha: 1
+    - _SrcBlendMode: 1
+    - _StencilComp: 0
+    - _StencilCompOverlay: 0
+    - _StencilFailOp: 0
+    - _StencilPassOp: 0
+    - _StencilRef: 0
+    - _StencilRefOverlay: 0
+    - _StencilZFailOp: 0
+    - _StockingsTextureUsage: 0.1
+    - _StockingsTransitionHardness: 0.4
+    - _StockingsTransitionPower: 1
+    - _StockingsTransitionThreshold: 0.58
+    - _Surface: 0
+    - _TRANSPARENCY: 0
+    - _UVSec: 0
+    - _UseAlphaClipping: 0
+    - _UseAutoBrightness: 1
+    - _UseDrawOverlay: 0
+    - _UseEmission: 0
+    - _UseFaceExpression: 0
+    - _UseFakeOutline: 1
+    - _UseNormalMap: 0
+    - _UseOutline: 1
+    - _UseRampColor: 1
+    - _UseRimLight: 1
+    - _UseStockings: 0
+    - _WorkflowMode: 1
+    - _ZWrite: 1
+    - _mBloomIntensity0: 1
+    - _stockingsMapBChannelUVScale: 20
+    m_Colors:
+    - _BASE_COLOR: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+    - _BackFaceTintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.9063317, g: 0.9063317, b: 0.9063317, a: 1}
+    - _BloomColor0: {r: 1, g: 1, b: 1, a: 1}
+    - _BodyCoolRampColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BodyWarmRampColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EMISSION_COLOR: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionTintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ExCheekColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ExEyeColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ExShadowColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ExShyColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FaceColorMapColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FrontFaceTintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HairColorMapColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HairCoolRampColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HairWarmRampColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HeadForward: {r: 0, g: 0, b: 1, a: 0}
+    - _HeadRight: {r: 1, g: 0, b: 0, a: 0}
+    - _LowerBodyColorMapColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _REFLECTIONS_COLOR: {r: 1, g: 1, b: 1, a: 1}
+    - _RimColor0: {r: 1, g: 1, b: 1, a: 1}
+    - _RimLightTintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
+    - _StockingsDarkColor: {r: 0, g: 0, b: 0, a: 1}
+    - _StockingsLightColor: {r: 1.8, g: 1.48299, b: 0.856821, a: 1}
+    - _StockingsTransitionColor: {r: 0.36038098, g: 0.24298596, b: 0.35813096, a: 1}
+    - _UpperBodyColorMapColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+--- !u!21 &1298728884
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: "\u8868\u60C5 (Instance)"
+  m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _EMISSION
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap:
+    RenderType: Opaque
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BASE_COLOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BUMP_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EMISSION_COLOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _METALNESS_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _REFLECTIONS_COLOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _REFLECTIONS_IOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _REFLECTIONS_ROUGHNESS_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TRANSPARENCY_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaClip: 0
+    - _AlphaToMask: 0
+    - _BASE_COLOR_WEIGHT: 1
+    - _BUMP_MAP_STRENGTH: 0.3
+    - _Blend: 0
+    - _BlendModePreserveSpecular: 1
+    - _BlendOp: 0
+    - _BumpScale: 1
+    - _ClearCoatMask: 0
+    - _ClearCoatSmoothness: 0
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DetailAlbedoMapScale: 1
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _DstBlendAlpha: 0
+    - _EMISSION_WEIGHT: 1
+    - _EnvironmentReflections: 1
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _METALNESS: 0
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _REFLECTIONS_IOR: 1.52
+    - _REFLECTIONS_ROUGHNESS: 1
+    - _REFLECTIONS_WEIGHT: 1
+    - _ReceiveShadows: 1
+    - _SampleGI: 0
+    - _Smoothness: 0.4472136
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _SrcBlendAlpha: 1
+    - _Surface: 0
+    - _TRANSPARENCY: 0
+    - _UVSec: 0
+    - _WorkflowMode: 1
+    - _ZWrite: 1
+    m_Colors:
+    - _BASE_COLOR: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+    - _BaseColor: {r: 0.9063317, g: 0.9063317, b: 0.9063317, a: 1}
+    - _Color: {r: 0.9063317, g: 0.9063317, b: 0.9063317, a: 1}
+    - _EMISSION_COLOR: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _REFLECTIONS_COLOR: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+  m_BuildTextureStacks: []
+--- !u!1 &2113439911
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2113439913}
+  - component: {fileID: 2113439912}
+  - component: {fileID: 2113439914}
+  m_Layer: 0
+  m_Name: Directional Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!108 &2113439912
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2113439911}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 1
+  m_Shape: 0
+  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Intensity: 1
+  m_Range: 10
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 2
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &2113439913
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2113439911}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &2113439914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2113439911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+--- !u!1660057539 &9223372036854775807
+SceneRoots:
+  m_ObjectHideFlags: 0
+  m_Roots:
+  - {fileID: 937862032}
+  - {fileID: 2113439913}
+  - {fileID: 421174644}
+  - {fileID: 644779765}
