@@ -68,6 +68,7 @@ public class PathDefine
 
     #region Player
     public const string AssissnCityPlayerPrefab = "ResPrefabs/GameMain/AvatarPrefabs/PlayerPrefabs/Player_Avatar_March_7th Variant";
+    public const string AssissnBattlePlayerPrefab = "ResPrefabs/GameMain/AvatarPrefabs/PlayerPrefabs/Player_Avatar_March_7th Variant";
 
     #endregion
 

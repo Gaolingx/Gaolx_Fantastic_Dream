@@ -19,12 +19,12 @@ public class BattleMgr : MonoBehaviour
     private GameObject Scene_player;
     private StarterAssetsInputs playerInput;
 
-    private void LoadPlayerInstance(MapCfg mapData)
+    private void LoadPlayerInstance(string playerPrefabPath, MapCfg mapData)
     {
-        GameObject player = resSvc.LoadPrefab(PathDefine.AssissnCityPlayerPrefab, true);
+        GameObject player = resSvc.LoadPrefab(playerPrefabPath, true);
         if (player != null)
         {
-            Debug.Log(PathDefine.AssissnCityPlayerPrefab + " 预制件加载成功！");
+            Debug.Log(playerPrefabPath + " 预制件加载成功！");
             GameRoot.Instance.SetGameObjectTrans(player, mapData.playerBornPos, mapData.playerBornRote, new Vector3(1.0f, 1.0f, 1.0f));
 
             player.GetComponent<ThirdPersonController>().MoveSpeed = Constants.PlayerMoveSpeed;
@@ -37,16 +37,16 @@ public class BattleMgr : MonoBehaviour
         }
         else
         {
-            Debug.LogError(PathDefine.AssissnCityPlayerPrefab + " 预制件加载失败！");
+            Debug.LogError(playerPrefabPath + " 预制件加载失败！");
         }
     }
 
-    private void LoadVirtualCameraInstance(MapCfg mapData)
+    private void LoadVirtualCameraInstance(string virtualCameraPrefabPath, MapCfg mapData)
     {
-        GameObject CM_player = resSvc.LoadPrefab(PathDefine.AssissnCityCharacterCameraPrefab, true);
+        GameObject CM_player = resSvc.LoadPrefab(virtualCameraPrefabPath, true);
         if (CM_player != null)
         {
-            Debug.Log(PathDefine.AssissnCityCharacterCameraPrefab + " 预制件加载成功！");
+            Debug.Log(virtualCameraPrefabPath + " 预制件加载成功！");
 
             Vector3 CM_player_Pos = mapData.mainCamPos;
             Vector3 CM_player_Rote = mapData.mainCamRote;
@@ -61,7 +61,7 @@ public class BattleMgr : MonoBehaviour
         }
         else
         {
-            Debug.LogError(PathDefine.AssissnCityCharacterCameraPrefab + " 预制件加载失败！");
+            Debug.LogError(virtualCameraPrefabPath + " 预制件加载失败！");
         }
     }
 
@@ -101,10 +101,10 @@ public class BattleMgr : MonoBehaviour
 
             GameRoot.Instance.SetGameObjectTrans(mapRoot, Vector3.zero, Vector3.zero, Vector3.one);
 
-            LoadPlayerInstance(mapData);
+            LoadPlayerInstance(PathDefine.AssissnBattlePlayerPrefab, mapData);
             //配置角色声音源
             AudioSvc.Instance.GetCharacterAudioSourceComponent();
-            LoadVirtualCameraInstance(mapData);
+            LoadVirtualCameraInstance(PathDefine.AssissnCityCharacterCameraPrefab, mapData);
             InitGamepad();
 
             audioSvc.PlayBGMusic(Constants.BGHuangYe);

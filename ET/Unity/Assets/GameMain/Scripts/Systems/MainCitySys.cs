@@ -84,14 +84,14 @@ public class MainCitySys : SystemRoot
 
     }
 
-    private void LoadPlayerInstance(MapCfg mapData)
+    private void LoadPlayerInstance(string playerPrefabPath, MapCfg mapData)
     {
         //玩家初始化
         //获取Prefab实例化的对象
-        GameObject player = resSvc.LoadPrefab(PathDefine.AssissnCityPlayerPrefab, true);
+        GameObject player = resSvc.LoadPrefab(playerPrefabPath, true);
         if (player != null)
         {
-            Debug.Log(PathDefine.AssissnCityPlayerPrefab + " 预制件加载成功！");
+            Debug.Log(playerPrefabPath + " 预制件加载成功！");
             //初始化玩家位置
             GameRoot.Instance.SetGameObjectTrans(player, mapData.playerBornPos, mapData.playerBornRote, new Vector3(1.0f, 1.0f, 1.0f));
 
@@ -117,18 +117,18 @@ public class MainCitySys : SystemRoot
         }
         else
         {
-            Debug.LogError(PathDefine.AssissnCityPlayerPrefab + " 预制件加载失败！");
+            Debug.LogError(playerPrefabPath + " 预制件加载失败！");
         }
     }
 
-    private void LoadVirtualCameraInstance(MapCfg mapData)
+    private void LoadVirtualCameraInstance(string virtualCameraPrefabPath, MapCfg mapData)
     {
         //相机初始化
         //首先要加载虚拟相机的预制件
-        GameObject CM_player = resSvc.LoadPrefab(PathDefine.AssissnCityCharacterCameraPrefab, true);
+        GameObject CM_player = resSvc.LoadPrefab(virtualCameraPrefabPath, true);
         if (CM_player != null)
         {
-            Debug.Log(PathDefine.AssissnCityCharacterCameraPrefab + " 预制件加载成功！");
+            Debug.Log(virtualCameraPrefabPath + " 预制件加载成功！");
             //设置实例化对象时候的位置、旋转
             Vector3 CM_player_Pos = mapData.mainCamPos;
             Vector3 CM_player_Rote = mapData.mainCamRote;
@@ -148,14 +148,14 @@ public class MainCitySys : SystemRoot
         }
         else
         {
-            Debug.LogError(PathDefine.AssissnCityCharacterCameraPrefab + " 预制件加载失败！");
+            Debug.LogError(virtualCameraPrefabPath + " 预制件加载失败！");
         }
     }
 
     private void LoadPlayer(MapCfg mapData)
     {
-        LoadPlayerInstance(mapData);
-        LoadVirtualCameraInstance(mapData);
+        LoadPlayerInstance(PathDefine.AssissnCityPlayerPrefab, mapData);
+        LoadVirtualCameraInstance(PathDefine.AssissnCityCharacterCameraPrefab, mapData);
     }
 
     private void LoadNpcPrefab()
