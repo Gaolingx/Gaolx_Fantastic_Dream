@@ -2,5 +2,7 @@
 
 public class EntityBase
 {
+    //Íæ¼Òµ±Ç°×´Ì¬
+    public AniState currentAniState = AniState.None;
 
 }

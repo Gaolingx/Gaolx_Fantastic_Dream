@@ -8,3 +8,10 @@ public interface IState
 
     void ExitState(EntityBase entity);
 }
+
+public enum AniState
+{
+    None,
+    Idle,
+    Move,
+}
