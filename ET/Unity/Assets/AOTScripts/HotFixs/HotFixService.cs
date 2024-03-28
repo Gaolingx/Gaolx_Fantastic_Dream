@@ -14,19 +14,22 @@ public class HotFixService : MonoBehaviour
     //补充元数据dll的列表，Yooasset中不需要带后缀
     public static List<string> AOTMetaAssemblyNames { get; } = new List<string>()
     {
-        "Assets/AssetBundles/Scripts/Dlls/PESocket.dll.bytes",
-        "Assets/AssetBundles/Scripts/Dlls/PEProtocol.dll.bytes",
-        "Assets/AssetBundles/Scripts/Dlls/PETimer.dll.bytes",
-        "Assets/AssetBundles/Scripts/Dlls/UniTask.dll.bytes",
-        "Assets/AssetBundles/Scripts/Dlls/YooAsset.dll.bytes",
-        "Assets/AssetBundles/Scripts/Dlls/Cinemachine.dll.bytes",
-        "Assets/AssetBundles/Scripts/Dlls/Unity.InputSystem.dll.bytes",
-        "Assets/AssetBundles/Scripts/Dlls/UnityEngine.CoreModule.dll.bytes",
-        "Assets/AssetBundles/Scripts/Dlls/mscorlib.dll.bytes"
+        "mscorlib.dll",
+        "System.dll",
+        "System.Core.dll",
+        "System.Xml.dll",
+        "UnityEngine.CoreModule.dll",
+        "Unity.InputSystem.dll",
+        "Cinemachine.dll",
+        "PESocket.dll",
+        "PEProtocol.dll",
+        "PETimer.dll",
+        "UniTask.dll",
+        "YooAsset.dll",
     };
 
 
-    [SerializeField] private string HotDllName = "Assets/AssetBundles/Scripts/Dlls/GameMain.dll";
+    [SerializeField] private string HotDllName = "GameMain.dll";
     [SerializeField] private string GameRootObject = "Assets/AssetBundles/Prefabs/RootPrefabs/HotFixRoot.prefab";
 
     //获取资源二进制
@@ -312,8 +315,12 @@ public class HotFixService : MonoBehaviour
     /// </summary>
     private static void LoadMetadataForAOTAssemblies()
     {
+        // 可以加载任意aot assembly的对应的dll。但要求dll必须与unity build过程中生成的裁剪后的dll一致，而不能直接使用原始dll。
+        // 我们在BuildProcessors里添加了处理代码，这些裁剪后的dll在打包时自动被复制到 {项目目录}/HybridCLRData/AssembliesPostIl2CppStrip/{Target} 目录。
+
         /// 注意，补充元数据是给AOT dll补充元数据，而不是给热更新dll补充元数据。
         /// 热更新dll不缺元数据，不需要补充，如果调用LoadMetadataForAOTAssembly会返回错误
+        /// 
         HomologousImageMode mode = HomologousImageMode.SuperSet;
         foreach (var aotDllName in AOTMetaAssemblyNames)
         {
