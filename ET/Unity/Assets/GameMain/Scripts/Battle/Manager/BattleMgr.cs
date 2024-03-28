@@ -6,7 +6,6 @@ using StarterAssets;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
-using static Codice.Client.Commands.WkTree.WorkspaceTreeNode;
 
 public class BattleMgr : MonoBehaviour
 {
@@ -30,9 +29,15 @@ public class BattleMgr : MonoBehaviour
 
             player.GetComponent<ThirdPersonController>().MoveSpeed = Constants.PlayerMoveSpeed;
             player.GetComponent<ThirdPersonController>().SprintSpeed = Constants.PlayerSprintSpeed;
-            player.GetComponent<ThirdPersonController>().isSkillMove = true;
+            player.GetComponent<ThirdPersonController>().targetPlayerState = 0;
 
             playerInput = player.GetComponent<StarterAssetsInputs>();
+
+            //实例化玩家逻辑实体
+            EntityPlayer entitySelfPlayer = new EntityPlayer
+            {
+                stateMgr = stateMgr //将stateMgr注入逻辑实体类中
+            };
 
             Scene_player = GameObject.FindGameObjectWithTag(Constants.CharPlayerWithTag);
         }

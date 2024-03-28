@@ -88,8 +88,8 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
-        [Header("Player Skills")]
-        public bool isSkillMove = false;
+        [Header("Player State")]
+        public int targetPlayerState = 0;
 
         // cinemachine
         private float _cinemachineTargetYaw;
@@ -145,6 +145,24 @@ namespace StarterAssets
             }
         }
 
+        public void PlayerStateInController()
+        {
+            switch(targetPlayerState)
+            {
+                case 0: //Idle
+                    Move();
+                    Crouch();
+                    break;
+                case 1: //Move
+                    Move();
+                    Crouch();
+                    JumpAndGravity();
+                    break;
+                default:
+                    break;
+            }
+        }
+
         #region MonoBehaviour
         public void ClassAwake()
         {
@@ -181,10 +199,8 @@ namespace StarterAssets
         {
             _hasAnimator = TryGetComponent(out _animator);
 
-            JumpAndGravity();
             GroundedCheck();
-            Crouch();
-            Move();
+            PlayerStateInController();
         }
         public void ClassLateUpdate()
         {
