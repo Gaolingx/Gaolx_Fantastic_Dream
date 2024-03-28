@@ -152,6 +152,7 @@ namespace StarterAssets
                 case 0: //Idle
                     Move();
                     Crouch();
+                    JumpAndGravity();
                     break;
                 case 1: //Move
                     Move();
