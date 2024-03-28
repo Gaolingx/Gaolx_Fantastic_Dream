@@ -3,6 +3,6 @@
 
 public class EntityPlayer : EntityBase
 {
-
+    
 }
 

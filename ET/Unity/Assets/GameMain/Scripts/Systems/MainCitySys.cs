@@ -108,8 +108,10 @@ public class MainCitySys : SystemRoot
             //获取player导航组件
             nav = player.GetComponent<NavMeshAgent>();
 
-            player.GetComponent<ThirdPersonController>().MoveSpeed = Constants.PlayerMoveSpeed;
-            player.GetComponent<ThirdPersonController>().SprintSpeed = Constants.PlayerSprintSpeed;
+            ThirdPersonController controller = player.GetComponent<ThirdPersonController>();
+            controller.MoveSpeed = Constants.PlayerMoveSpeed;
+            controller.SprintSpeed = Constants.PlayerSprintSpeed;
+            controller.targetPlayerState = 0;
 
             playerInput = player.GetComponent<StarterAssetsInputs>();
 

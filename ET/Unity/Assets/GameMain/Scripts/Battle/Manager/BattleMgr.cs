@@ -27,9 +27,10 @@ public class BattleMgr : MonoBehaviour
             Debug.Log(playerPrefabPath + " 预制件加载成功！");
             GameRoot.Instance.SetGameObjectTrans(player, mapData.playerBornPos, mapData.playerBornRote, new Vector3(1.0f, 1.0f, 1.0f));
 
-            player.GetComponent<ThirdPersonController>().MoveSpeed = Constants.PlayerMoveSpeed;
-            player.GetComponent<ThirdPersonController>().SprintSpeed = Constants.PlayerSprintSpeed;
-            player.GetComponent<ThirdPersonController>().targetPlayerState = 0;
+            ThirdPersonController controller = player.GetComponent<ThirdPersonController>();
+            controller.MoveSpeed = Constants.PlayerMoveSpeed;
+            controller.SprintSpeed = Constants.PlayerSprintSpeed;
+            controller.targetPlayerState = 0;
 
             playerInput = player.GetComponent<StarterAssetsInputs>();
 
@@ -38,6 +39,8 @@ public class BattleMgr : MonoBehaviour
             {
                 stateMgr = stateMgr //将stateMgr注入逻辑实体类中
             };
+
+            entitySelfPlayer.PlayerController = controller;
 
             Scene_player = GameObject.FindGameObjectWithTag(Constants.CharPlayerWithTag);
         }

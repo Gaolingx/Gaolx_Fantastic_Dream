@@ -1,11 +1,15 @@
 //功能：逻辑实体基类
 
+using StarterAssets;
+
 public class EntityBase
 {
     //玩家当前状态
     public AniState currentAniState = AniState.None;
 
     public StateMgr stateMgr = null;
+    public ThirdPersonController PlayerController = null;
+    public Controller controller = null;
 
     //玩家状态切换
     public void PlayerStateMove()
