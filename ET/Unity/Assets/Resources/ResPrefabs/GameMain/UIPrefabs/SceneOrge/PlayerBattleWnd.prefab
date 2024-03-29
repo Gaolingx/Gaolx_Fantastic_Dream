@@ -565,9 +565,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba6c426ae6cf99247a6e25c0e3133ca2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imgTouch: {fileID: 184219487740746573}
-  imgDirBg: {fileID: 180654423668256343}
-  imgDirPoint: {fileID: 183726173074047027}
   txtLevel: {fileID: 170388019348430828}
   txtName: {fileID: 184583247976741709}
   txtExpPrg: {fileID: 184356879662308103}

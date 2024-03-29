@@ -1211,11 +1211,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8549510451735545887}
     m_Modifications:
-    - target: {fileID: 244143679962726970, guid: 6dfcc94853349114c883c40ca082c88a,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 429316410449987901, guid: 6dfcc94853349114c883c40ca082c88a,
         type: 3}
       propertyPath: uiController

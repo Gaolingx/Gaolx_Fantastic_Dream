@@ -169,7 +169,6 @@ MonoBehaviour:
   taskWnd: {fileID: 662377767552011033}
   fpsWnd: {fileID: 5439361434457884722}
   uiController: {fileID: 0}
-  PlayerCameraRoot: {fileID: 0}
 --- !u!114 &8267285274660475252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -606,7 +605,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00012207031, y: -0.000061035156}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 380, y: -180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6550779186639200467
@@ -821,12 +820,12 @@ RectTransform:
   - {fileID: 8475396925825032928}
   - {fileID: 7310766373890408348}
   - {fileID: 3042154575146986140}
-  - {fileID: 2295111956707412744}
   - {fileID: 2999466491753917164}
   - {fileID: 7722361560618327775}
   - {fileID: 845530792040923129}
   - {fileID: 4494417146422876838}
   - {fileID: 7557879209460268415}
+  - {fileID: 2295111956707412744}
   - {fileID: 4774145813179052363}
   - {fileID: 3282998853866319472}
   - {fileID: 3693786210928856610}
@@ -3454,6 +3453,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerBattleWnd
       objectReference: {fileID: 0}
+    - target: {fileID: 8568355230608369753, guid: c6e6e72f730b4074480dae9796842549,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2328927584244089490}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
