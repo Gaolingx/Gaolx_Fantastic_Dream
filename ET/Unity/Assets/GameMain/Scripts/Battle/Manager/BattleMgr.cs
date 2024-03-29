@@ -32,7 +32,7 @@ public class BattleMgr : MonoBehaviour
         if (player != null)
         {
             Debug.Log(playerPrefabPath + " 预制件加载成功！");
-            GameRoot.Instance.SetGameObjectTrans(player, mapData.playerBornPos, mapData.playerBornRote, new Vector3(1.0f, 1.0f, 1.0f));
+            GameRoot.Instance.SetGameObjectTrans(player, mapData.playerBornPos, mapData.playerBornRote, new Vector3(0.8f, 0.8f, 0.8f));
 
             //实例化玩家逻辑实体
             entitySelfPlayer = new EntityPlayer
@@ -115,7 +115,7 @@ public class BattleMgr : MonoBehaviour
             mapMgr = mapRoot.GetComponent<MapMgr>();
             mapMgr.Init();
 
-            GameRoot.Instance.SetGameObjectTrans(mapRoot, Vector3.zero, Vector3.zero, new Vector3(0.8f, 0.8f, 0.8f));
+            GameRoot.Instance.SetGameObjectTrans(mapRoot, Vector3.zero, Vector3.zero, Vector3.one);
 
             LoadPlayerInstance(PathDefine.AssissnBattlePlayerPrefab, mapData);
 
