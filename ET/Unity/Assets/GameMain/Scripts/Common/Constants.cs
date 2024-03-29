@@ -103,7 +103,7 @@ public class Constants
 
     //GamePad配置
     public const string Path_Joysticks_MainCitySys = "Canvas/UI_Canvas_StarterAssetsInputs_Joysticks";
-    public const string Path_Joysticks_BattleMgr = "Canvas/UI_Canvas_StarterAssetsInputs_Joysticks";
+    public const string Path_Joysticks_BattleSys = "Canvas/UI_Canvas_StarterAssetsInputs_Joysticks";
 
     //自动任务图标配置
     public const int DefaultGuideBtnIconID = -1;

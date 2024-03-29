@@ -28,6 +28,7 @@ public class BattleSys : SystemRoot
         //成为GameRoot的子物体
         go.transform.SetParent(GameRoot.Instance.transform);
         battleMgr = go.AddComponent<BattleMgr>();
+        battleMgr.GamePadTrans = transform.Find(Constants.Path_Joysticks_BattleSys);
 
         battleMgr.Init(mapid);
         SetPlayerCtrlWndState();

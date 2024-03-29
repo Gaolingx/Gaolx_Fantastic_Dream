@@ -24,9 +24,8 @@ public class MainCitySys : SystemRoot
     public FpsWnd fpsWnd;
     public UIController uiController;
 
-    public GameObject PlayerCameraRoot;
-    private GameObject Scene_player;
-    private PlayerController playerCtrl;
+    private GameObject mainCityPlayer;
+    //private PlayerController playerCtrl;
     private Transform charCamTrans;
     private AutoGuideCfg curtTaskData;
     private Transform[] npcPosTrans;
@@ -60,7 +59,7 @@ public class MainCitySys : SystemRoot
             maincityWnd.SetWndState();
 
             // 初始化摇杆插件
-            InitGamepad();
+            InitGamepad(mainCityPlayer.GetComponent<StarterAssetsInputs>());
 
             //配置角色声音源
             AudioSvc.Instance.GetCharacterAudioSourceComponent();
@@ -115,7 +114,7 @@ public class MainCitySys : SystemRoot
 
             playerInput = player.GetComponent<StarterAssetsInputs>();
 
-            Scene_player = GameObject.FindGameObjectWithTag(Constants.CharPlayerWithTag);
+            mainCityPlayer = player;
         }
         else
         {
@@ -169,14 +168,13 @@ public class MainCitySys : SystemRoot
 
     }
 
-    private void InitGamepad()
+    private void InitGamepad(StarterAssetsInputs StarterAssetsInputs_player)
     {
         Transform GamePadTrans = transform.Find(Constants.Path_Joysticks_MainCitySys);
         if (GamePadTrans != null)
         {
             GamePadTrans.gameObject.SetActive(true);
             UICanvasControllerInput uICanvasControllerInput = GamePadTrans.GetComponent<UICanvasControllerInput>();
-            StarterAssetsInputs StarterAssetsInputs_player = Scene_player.GetComponent<StarterAssetsInputs>();
 
             uICanvasControllerInput.starterAssetsInputs = StarterAssetsInputs_player;
         }
@@ -187,7 +185,7 @@ public class MainCitySys : SystemRoot
     public void SetMoveDir(Vector2 dir)
     {
         StopNavTask();
-
+        /*
         //设置动画
         if (dir == Vector2.zero)
         {
@@ -199,6 +197,7 @@ public class MainCitySys : SystemRoot
         }
         //设置方向
         playerCtrl.Dir = dir;
+        */
     }
 
     #region Enter FubenSys
@@ -325,8 +324,8 @@ public class MainCitySys : SystemRoot
         }
 
         //设置人物展示相机相对位置（主角）、旋转
-        charCamTrans.localPosition = Scene_player.transform.position + Scene_player.transform.forward * Constants.CharShowCamDistanceOffset + new Vector3(0, Constants.CharShowCamHeightOffset, 0);
-        charCamTrans.localEulerAngles = new Vector3(0, 180 + Scene_player.transform.localEulerAngles.y, 0);
+        charCamTrans.localPosition = mainCityPlayer.transform.position + mainCityPlayer.transform.forward * Constants.CharShowCamDistanceOffset + new Vector3(0, Constants.CharShowCamHeightOffset, 0);
+        charCamTrans.localEulerAngles = new Vector3(0, 180 + mainCityPlayer.transform.localEulerAngles.y, 0);
         charCamTrans.localScale = Vector3.one;
         charCamTrans.gameObject.SetActive(true);
         infoWnd.SetWndState();
@@ -344,12 +343,12 @@ public class MainCitySys : SystemRoot
     private float startRoate = 0;
     public void SetStartRoate()
     {
-        startRoate = Scene_player.transform.localEulerAngles.y;
+        startRoate = mainCityPlayer.transform.localEulerAngles.y;
     }
 
     public void SetPlayerRoate(float roate)
     {
-        Scene_player.transform.localEulerAngles = new Vector3(0, startRoate + roate, 0);
+        mainCityPlayer.transform.localEulerAngles = new Vector3(0, startRoate + roate, 0);
     }
     #endregion
 
@@ -374,7 +373,7 @@ public class MainCitySys : SystemRoot
         //判断是否需要寻路（找到npc）
         if (curtTaskData.npcID != -1)
         {
-            float dis = Vector3.Distance(Scene_player.transform.position, npcPosTrans[agc.npcID].position); //此处的npcID与配置表guide定义的npcID一一对应
+            float dis = Vector3.Distance(mainCityPlayer.transform.position, npcPosTrans[agc.npcID].position); //此处的npcID与配置表guide定义的npcID一一对应
             //判断当前游戏主角与目标npc之间的距离
             if (dis < Constants.NavNpcDst)
             {
@@ -415,7 +414,7 @@ public class MainCitySys : SystemRoot
 
     private void IsArriveNavPos()
     {
-        float dis = Vector3.Distance(Scene_player.transform.position, npcPosTrans[curtTaskData.npcID].position);
+        float dis = Vector3.Distance(mainCityPlayer.transform.position, npcPosTrans[curtTaskData.npcID].position);
         if (dis < Constants.NavNpcDst)
         {
             Debug.Log("已经到达目的地，导航结束！");

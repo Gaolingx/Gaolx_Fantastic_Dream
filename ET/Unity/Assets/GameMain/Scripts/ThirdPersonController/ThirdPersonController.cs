@@ -1,4 +1,5 @@
 ﻿using Cinemachine;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
@@ -90,6 +91,21 @@ namespace StarterAssets
 
         [Header("Player State")]
         public int targetPlayerState = 0;
+
+        [Header("Player FX")]
+        public GameObject daggerskill1fx;
+        public GameObject daggerskill2fx;
+        public GameObject daggerskill3fx;
+
+        public GameObject daggeratk1fx;
+        public GameObject daggeratk2fx;
+        public GameObject daggeratk3fx;
+        public GameObject daggeratk4fx;
+        public GameObject daggeratk5fx;
+
+        // Player FX
+        private Dictionary<string, GameObject> fxDic = new Dictionary<string, GameObject>();
+        private TimerSvc timerSvc;
 
         // cinemachine
         private float _cinemachineTargetYaw;
@@ -497,5 +513,59 @@ namespace StarterAssets
                 AudioSvc.Instance.PlayLanding();
             }
         }
+
+
+        #region Player FX
+        public void InitFX()
+        {
+            timerSvc = TimerSvc.Instance;
+
+            if (daggerskill1fx != null)
+            {
+                fxDic.Add(daggerskill1fx.name, daggerskill1fx);
+            }
+            if (daggeratk2fx != null)
+            {
+                fxDic.Add(daggerskill2fx.name, daggerskill2fx);
+            }
+            if (daggeratk3fx != null)
+            {
+                fxDic.Add(daggerskill3fx.name, daggerskill3fx);
+            }
+
+            if (daggeratk1fx != null)
+            {
+                fxDic.Add(daggeratk1fx.name, daggeratk1fx);
+            }
+            if (daggeratk2fx != null)
+            {
+                fxDic.Add(daggeratk2fx.name, daggeratk2fx);
+            }
+            if (daggeratk3fx != null)
+            {
+                fxDic.Add(daggeratk3fx.name, daggeratk3fx);
+            }
+            if (daggeratk4fx != null)
+            {
+                fxDic.Add(daggeratk4fx.name, daggeratk4fx);
+            }
+            if (daggeratk5fx != null)
+            {
+                fxDic.Add(daggeratk5fx.name, daggeratk5fx);
+            }
+        }
+
+        public void SetFX(string name, float destroy)
+        {
+            GameObject go;
+            if (fxDic.TryGetValue(name, out go))
+            {
+                go.SetActive(true);
+                timerSvc.AddTimeTask((int tid) => {
+                    go.SetActive(false);
+                }, destroy);
+            }
+        }
+        #endregion
     }
 }

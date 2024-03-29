@@ -9,6 +9,8 @@ using UnityEngine.InputSystem;
 
 public class BattleMgr : MonoBehaviour
 {
+    public Transform GamePadTrans;
+
     private ResSvc resSvc;
     private AudioSvc audioSvc;
 
@@ -16,7 +18,6 @@ public class BattleMgr : MonoBehaviour
     private SkillMgr skillMgr;
     private MapMgr mapMgr;
 
-    private GameObject Scene_player;
     private EntityPlayer entitySelfPlayer;
     private ThirdPersonController controller;
     private StarterAssetsInputs playerInput;
@@ -29,22 +30,21 @@ public class BattleMgr : MonoBehaviour
             Debug.Log(playerPrefabPath + " 预制件加载成功！");
             GameRoot.Instance.SetGameObjectTrans(player, mapData.playerBornPos, mapData.playerBornRote, new Vector3(1.0f, 1.0f, 1.0f));
 
-            controller = player.GetComponent<ThirdPersonController>();
-            controller.MoveSpeed = Constants.PlayerMoveSpeed;
-            controller.SprintSpeed = Constants.PlayerSprintSpeed;
-            controller.targetPlayerState = 0;
-
-            playerInput = player.GetComponent<StarterAssetsInputs>();
-
             //实例化玩家逻辑实体
             entitySelfPlayer = new EntityPlayer
             {
                 stateMgr = stateMgr //将stateMgr注入逻辑实体类中
             };
 
-            entitySelfPlayer.PlayerController = controller;
+            controller = player.GetComponent<ThirdPersonController>();
+            controller.MoveSpeed = Constants.PlayerMoveSpeed;
+            controller.SprintSpeed = Constants.PlayerSprintSpeed;
+            controller.targetPlayerState = 0;
+            entitySelfPlayer.playerController = controller;
 
-            Scene_player = GameObject.FindGameObjectWithTag(Constants.CharPlayerWithTag);
+            playerInput = player.GetComponent<StarterAssetsInputs>();
+            entitySelfPlayer.playerInput = playerInput;
+
         }
         else
         {
@@ -76,14 +76,12 @@ public class BattleMgr : MonoBehaviour
         }
     }
 
-    private void InitGamepad()
+    private void InitGamepad(StarterAssetsInputs StarterAssetsInputs_player)
     {
-        Transform GamePadTrans = transform.Find(Constants.Path_Joysticks_BattleMgr);
         if (GamePadTrans != null)
         {
             GamePadTrans.gameObject.SetActive(true);
             UICanvasControllerInput uICanvasControllerInput = GamePadTrans.GetComponent<UICanvasControllerInput>();
-            StarterAssetsInputs StarterAssetsInputs_player = Scene_player.GetComponent<StarterAssetsInputs>();
 
             uICanvasControllerInput.starterAssetsInputs = StarterAssetsInputs_player;
         }
@@ -116,7 +114,7 @@ public class BattleMgr : MonoBehaviour
             //配置角色声音源
             AudioSvc.Instance.GetCharacterAudioSourceComponent();
             LoadVirtualCameraInstance(PathDefine.AssissnCityCharacterCameraPrefab, mapData);
-            InitGamepad();
+            InitGamepad(entitySelfPlayer.playerInput);
 
             audioSvc.PlayBGMusic(Constants.BGHuangYe);
         });
@@ -126,7 +124,7 @@ public class BattleMgr : MonoBehaviour
     public void SetSelfPlayerMoveDir(Vector2 dir)
     {
         //PECommon.Log(dir.ToString());
-        if (playerInput.move == Vector2.zero)
+        if (entitySelfPlayer.playerInput.move == Vector2.zero)
         {
             entitySelfPlayer.PlayerStateIdle();
         }

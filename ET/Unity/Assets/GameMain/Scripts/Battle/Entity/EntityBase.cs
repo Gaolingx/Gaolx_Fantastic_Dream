@@ -2,13 +2,14 @@
 
 using StarterAssets;
 
-public class EntityBase
+public abstract class EntityBase
 {
     //Íæ¼Òµ±Ç°×´Ì¬
     public AniState currentAniState = AniState.None;
 
     public StateMgr stateMgr = null;
-    public ThirdPersonController PlayerController = null;
+    public ThirdPersonController playerController = null;
+    public StarterAssetsInputs playerInput = null;
     public Controller controller = null;
 
     //Íæ¼Ò×´Ì¬ÇÐ»»
