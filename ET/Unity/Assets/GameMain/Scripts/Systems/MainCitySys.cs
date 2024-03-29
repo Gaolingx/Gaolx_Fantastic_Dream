@@ -62,7 +62,7 @@ public class MainCitySys : SystemRoot
             InitGamepad(mainCityPlayer.GetComponent<StarterAssetsInputs>());
 
             //配置角色声音源
-            AudioSvc.Instance.GetCharacterAudioSourceComponent();
+            audioSvc.GetCharacterAudioSourceComponent(mainCityPlayer);
 
             //播放主城背景音乐
             audioSvc.PlayBGMusic(Constants.BGMainCity);

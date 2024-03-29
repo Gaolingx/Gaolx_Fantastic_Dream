@@ -24,6 +24,7 @@ public class BattleMgr : MonoBehaviour
     public EntityPlayer entitySelfPlayer;
     private ThirdPersonController controller;
     private StarterAssetsInputs playerInput;
+    private GameObject battlePlayer;
 
     private void LoadPlayerInstance(string playerPrefabPath, MapCfg mapData)
     {
@@ -48,6 +49,7 @@ public class BattleMgr : MonoBehaviour
             playerInput = player.GetComponent<StarterAssetsInputs>();
             entitySelfPlayer.playerInput = playerInput;
 
+            battlePlayer = player;
         }
         else
         {
@@ -116,11 +118,12 @@ public class BattleMgr : MonoBehaviour
             GameRoot.Instance.SetGameObjectTrans(mapRoot, Vector3.zero, Vector3.zero, Vector3.one);
 
             LoadPlayerInstance(PathDefine.AssissnBattlePlayerPrefab, mapData);
-            //配置角色声音源
-            AudioSvc.Instance.GetCharacterAudioSourceComponent();
+
             LoadVirtualCameraInstance(PathDefine.AssissnCityCharacterCameraPrefab, mapData);
             InitGamepad(entitySelfPlayer.playerInput);
 
+            //配置角色声音源
+            audioSvc.GetCharacterAudioSourceComponent(battlePlayer);
             audioSvc.PlayBGMusic(Constants.BGHuangYe);
         });
     }
