@@ -115,7 +115,7 @@ public class BattleMgr : MonoBehaviour
             mapMgr = mapRoot.GetComponent<MapMgr>();
             mapMgr.Init();
 
-            GameRoot.Instance.SetGameObjectTrans(mapRoot, Vector3.zero, Vector3.zero, Vector3.one);
+            GameRoot.Instance.SetGameObjectTrans(mapRoot, Vector3.zero, Vector3.zero, new Vector3(0.8f, 0.8f, 0.8f));
 
             LoadPlayerInstance(PathDefine.AssissnBattlePlayerPrefab, mapData);
 

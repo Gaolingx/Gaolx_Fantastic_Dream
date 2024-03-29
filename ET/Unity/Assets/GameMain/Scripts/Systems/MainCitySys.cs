@@ -92,7 +92,7 @@ public class MainCitySys : SystemRoot
         {
             Debug.Log(playerPrefabPath + " 预制件加载成功！");
             //初始化玩家位置
-            GameRoot.Instance.SetGameObjectTrans(player, mapData.playerBornPos, mapData.playerBornRote, new Vector3(1.0f, 1.0f, 1.0f));
+            GameRoot.Instance.SetGameObjectTrans(player, mapData.playerBornPos, mapData.playerBornRote, new Vector3(0.8f, 0.8f, 0.8f));
 
             //原方案
             //相机初始化
