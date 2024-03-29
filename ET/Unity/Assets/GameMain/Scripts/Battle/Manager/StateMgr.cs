@@ -19,7 +19,7 @@ public class StateMgr : MonoBehaviour
 
     public void ChangeStatus(EntityBase entity, AniState targetState)
     {
-        if(entity.currentAniState== targetState)
+        if (entity.currentAniState == targetState)
         {
             return;
         }
@@ -27,7 +27,10 @@ public class StateMgr : MonoBehaviour
         if (fsmDic.ContainsKey(targetState))
         {
             //从字典中取出当前实体中对应的状态，选择相应状态
-            fsmDic[entity.currentAniState].ExitState(entity);
+            if (entity.currentAniState != AniState.None)
+            {
+                fsmDic[entity.currentAniState].ExitState(entity);
+            }
             fsmDic[targetState].EnterState(entity);
             fsmDic[targetState].ProcessState(entity);
         }

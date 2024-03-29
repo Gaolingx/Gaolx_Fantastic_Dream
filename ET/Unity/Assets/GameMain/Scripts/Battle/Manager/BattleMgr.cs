@@ -17,6 +17,8 @@ public class BattleMgr : MonoBehaviour
     private MapMgr mapMgr;
 
     private GameObject Scene_player;
+    private EntityPlayer entitySelfPlayer;
+    private ThirdPersonController controller;
     private StarterAssetsInputs playerInput;
 
     private void LoadPlayerInstance(string playerPrefabPath, MapCfg mapData)
@@ -27,7 +29,7 @@ public class BattleMgr : MonoBehaviour
             Debug.Log(playerPrefabPath + " 预制件加载成功！");
             GameRoot.Instance.SetGameObjectTrans(player, mapData.playerBornPos, mapData.playerBornRote, new Vector3(1.0f, 1.0f, 1.0f));
 
-            ThirdPersonController controller = player.GetComponent<ThirdPersonController>();
+            controller = player.GetComponent<ThirdPersonController>();
             controller.MoveSpeed = Constants.PlayerMoveSpeed;
             controller.SprintSpeed = Constants.PlayerSprintSpeed;
             controller.targetPlayerState = 0;
@@ -35,7 +37,7 @@ public class BattleMgr : MonoBehaviour
             playerInput = player.GetComponent<StarterAssetsInputs>();
 
             //实例化玩家逻辑实体
-            EntityPlayer entitySelfPlayer = new EntityPlayer
+            entitySelfPlayer = new EntityPlayer
             {
                 stateMgr = stateMgr //将stateMgr注入逻辑实体类中
             };
@@ -123,7 +125,15 @@ public class BattleMgr : MonoBehaviour
     //设置玩家移动方向
     public void SetSelfPlayerMoveDir(Vector2 dir)
     {
-        PECommon.Log(dir.ToString());
+        //PECommon.Log(dir.ToString());
+        if (playerInput.move == Vector2.zero)
+        {
+            entitySelfPlayer.PlayerStateIdle();
+        }
+        else
+        {
+            entitySelfPlayer.PlayerStateMove();
+        }
     }
 
     public void ReqPlayerReleaseSkill(int skillIndex)
