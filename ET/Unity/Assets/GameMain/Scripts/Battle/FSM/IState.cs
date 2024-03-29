@@ -2,11 +2,11 @@
 
 public interface IState
 {
-    void EnterState(EntityBase entity);
+    void StateEnter(EntityBase entity, params object[] args);//可变参数
 
-    void ProcessState(EntityBase entity);
+    void StateProcess(EntityBase entity, params object[] args);
 
-    void ExitState(EntityBase entity);
+    void StateExit(EntityBase entity, params object[] args);
 }
 
 public enum AniState

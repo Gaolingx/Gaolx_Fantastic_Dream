@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class StateMgr : MonoBehaviour
 {
-    private Dictionary<AniState,IState> fsmDic = new Dictionary<AniState,IState>();
+    private Dictionary<AniState, IState> fsmDic = new Dictionary<AniState, IState>();
 
     public void Init()
     {
@@ -17,7 +17,7 @@ public class StateMgr : MonoBehaviour
         PECommon.Log("Init StateMgr Done.");
     }
 
-    public void ChangeStatus(EntityBase entity, AniState targetState)
+    public void ChangeStatus(EntityBase entity, AniState targetState, params object[] args)
     {
         if (entity.currentAniState == targetState)
         {
@@ -29,10 +29,10 @@ public class StateMgr : MonoBehaviour
             //从字典中取出当前实体中对应的状态，选择相应状态
             if (entity.currentAniState != AniState.None)
             {
-                fsmDic[entity.currentAniState].ExitState(entity);
+                fsmDic[entity.currentAniState].StateExit(entity, args);
             }
-            fsmDic[targetState].EnterState(entity);
-            fsmDic[targetState].ProcessState(entity);
+            fsmDic[targetState].StateEnter(entity, args);
+            fsmDic[targetState].StateProcess(entity, args);
         }
     }
 }

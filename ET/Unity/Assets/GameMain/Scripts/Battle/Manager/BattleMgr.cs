@@ -9,6 +9,8 @@ using UnityEngine.InputSystem;
 
 public class BattleMgr : MonoBehaviour
 {
+    public static BattleMgr Instance = null;
+
     public Transform GamePadTrans;
 
     private ResSvc resSvc;
@@ -18,7 +20,8 @@ public class BattleMgr : MonoBehaviour
     private SkillMgr skillMgr;
     private MapMgr mapMgr;
 
-    private EntityPlayer entitySelfPlayer;
+    [HideInInspector]
+    public EntityPlayer entitySelfPlayer;
     private ThirdPersonController controller;
     private StarterAssetsInputs playerInput;
 
@@ -89,6 +92,8 @@ public class BattleMgr : MonoBehaviour
 
     public void Init(int mapid)
     {
+        Instance = this;
+
         //初始化服务模块
         resSvc = ResSvc.Instance;
         audioSvc = AudioSvc.Instance;
@@ -124,7 +129,7 @@ public class BattleMgr : MonoBehaviour
     public void SetSelfPlayerMoveDir(Vector2 dir)
     {
         //PECommon.Log(dir.ToString());
-        if (entitySelfPlayer.playerInput.move == Vector2.zero)
+        if (dir == Vector2.zero)
         {
             entitySelfPlayer.PlayerStateIdle();
         }

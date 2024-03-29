@@ -1,6 +1,7 @@
 //功能：玩家控制界面
 
 using PEProtocol;
+using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
@@ -10,66 +11,38 @@ using UnityEngine.UI;
 
 public class PlayerCtrlWnd : WindowRoot
 {
-    public Image imgTouch;
-    public Image imgDirBg;
-    public Image imgDirPoint;
     public Text txtLevel;
     public Text txtName;
     public Text txtExpPrg;
     public Transform expPrgTrans;
 
-    private float pointDis;
-    private Vector2 startPos = Vector2.zero;
-    private Vector2 defaultPos = Vector2.zero;
+    private BattleMgr battleMgr;
+
+    private EntityPlayer wndEntitySelfPlayer;
 
     protected override void InitWnd()
     {
         base.InitWnd();
 
-        pointDis = Screen.height * 1.0f / Constants.ScreenStandardHeight * Constants.ScreenOPDis;
-        defaultPos = imgDirBg.transform.position;
-        SetActive(imgDirPoint, false);
-
-        RegisterTouchEvts();
+        battleMgr = BattleMgr.Instance;
         RefreshUI();
+    }
+
+    private void Update()
+    {
+        if(battleMgr.entitySelfPlayer != null)
+        {
+            ListeningTouchEvts();
+        }
     }
 
     #region RegEvts
     //注册触摸事件
-    public void RegisterTouchEvts()
+    public void ListeningTouchEvts()
     {
-        //摇杆按下
-        OnClickDown(imgTouch.gameObject, (PointerEventData evt) =>
-        {
-            startPos = evt.position;
-            SetActive(imgDirPoint);
-            imgDirBg.transform.position = evt.position;
-        });
-        //摇杆抬起
-        OnClickUp(imgTouch.gameObject, (PointerEventData evt) =>
-        {
-            imgDirBg.transform.position = defaultPos;
-            SetActive(imgDirPoint, false);
-            imgDirPoint.transform.localPosition = Vector2.zero;
-            BattleSys.Instance.SetPlayerMoveDir(Vector2.zero);
-        });
-        //摇杆拖动
-        OnDrag(imgTouch.gameObject, (PointerEventData evt) =>
-        {
-            Vector2 dragDir = evt.position - startPos;
-            float dragLen = dragDir.magnitude;
-
-            if (dragLen > pointDis)
-            {
-                Vector2 clampDragDir = Vector2.ClampMagnitude(dragDir, pointDis);
-                imgDirPoint.transform.position = startPos + clampDragDir;
-            }
-            else
-            {
-                imgDirPoint.transform.position = evt.position;
-            }
-            BattleSys.Instance.SetPlayerMoveDir(dragDir.normalized);
-        });
+        wndEntitySelfPlayer = battleMgr.entitySelfPlayer;
+        StarterAssetsInputs playerInput = wndEntitySelfPlayer.playerInput;
+        BattleSys.Instance.SetPlayerMoveDir(playerInput.move);
     }
 
     //释放技能

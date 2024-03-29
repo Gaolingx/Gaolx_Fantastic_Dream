@@ -2,18 +2,18 @@
 
 public class StateIdle : IState
 {
-    public void EnterState(EntityBase entity)
+    public void StateEnter(EntityBase entity, params object[] args)
     {
         entity.currentAniState = AniState.Idle;
         PECommon.Log("StateIdle:Enter State.");
     }
 
-    public void ExitState(EntityBase entity)
+    public void StateExit(EntityBase entity, params object[] args)
     {
         PECommon.Log("StateIdle:Exit State.");
     }
 
-    public void ProcessState(EntityBase entity)
+    public void StateProcess(EntityBase entity, params object[] args)
     {
         PECommon.Log("StateIdle:Process State.");
     }

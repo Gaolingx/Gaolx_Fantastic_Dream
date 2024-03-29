@@ -15,11 +15,11 @@ public abstract class EntityBase
     //Íæ¼Ò×´Ì¬ÇÐ»»
     public void PlayerStateMove()
     {
-        stateMgr.ChangeStatus(this, AniState.Move);
+        stateMgr.ChangeStatus(this, AniState.Move, null);
     }
 
     public void PlayerStateIdle()
     {
-        stateMgr.ChangeStatus(this, AniState.Idle);
+        stateMgr.ChangeStatus(this, AniState.Idle, null);
     }
 }

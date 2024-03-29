@@ -175,6 +175,8 @@ namespace StarterAssets
                     Crouch();
                     JumpAndGravity();
                     break;
+                case 10: //can't Control
+                    break;
                 default:
                     break;
             }
