@@ -7,7 +7,7 @@ Shader "Vegetation"
 		[HideInInspector] _EmissionColor("Emission Color", Color) = (1,1,1,1)
 		[HideInInspector] _AlphaCutoff("Alpha Cutoff ", Range(0, 1)) = 0.5
 		_Texture00("Vegetation TXT", 2D) = "white" {}
-		_Cutoff("Cutoff", Range( 0 , 1)) = 0.35
+		_Cutoff("Cutoff", Range( 0 , 1)) = 0.7
 		_Base("Base", Color) = (0.3764706,0.4784314,0.2235294,1)
 		_Top("Top", Color) = (0.5536901,0.702,0.2817887,1)
 		_Variation("Variation", Color) = (0.5536901,0.702,0.2817887,1)
@@ -2478,7 +2478,9 @@ Shader "Vegetation"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/LODCrossFade.hlsl"
             #endif
 
-			
+			#pragma shader_feature_local _WIND_ON
+			#pragma shader_feature_local _FIXTHEBASEOFFOLIAGE_ON
+
 
 			#if defined(ASE_EARLY_Z_DEPTH_OPTIMIZE) && (SHADER_TARGET >= 45)
 				#define ASE_SV_DEPTH SV_DepthLessEqual
@@ -2493,7 +2495,7 @@ Shader "Vegetation"
 				float4 positionOS : POSITION;
 				float3 normalOS : NORMAL;
 				float4 tangentOS : TANGENT;
-				
+				float4 ase_texcoord : TEXCOORD0;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -2509,7 +2511,7 @@ Shader "Vegetation"
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR) && defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
 					float4 shadowCoord : TEXCOORD4;
 				#endif
-				
+				float4 ase_texcoord5 : TEXCOORD5;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -2563,9 +2565,38 @@ Shader "Vegetation"
 				int _PassValue;
 			#endif
 
+			sampler2D _Texture00;
+
+
+			float3 mod2D289( float3 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
+			float2 mod2D289( float2 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
+			float3 permute( float3 x ) { return mod2D289( ( ( x * 34.0 ) + 1.0 ) * x ); }
+			float snoise( float2 v )
+			{
+				const float4 C = float4( 0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439 );
+				float2 i = floor( v + dot( v, C.yy ) );
+				float2 x0 = v - i + dot( i, C.xx );
+				float2 i1;
+				i1 = ( x0.x > x0.y ) ? float2( 1.0, 0.0 ) : float2( 0.0, 1.0 );
+				float4 x12 = x0.xyxy + C.xxzz;
+				x12.xy -= i1;
+				i = mod2D289( i );
+				float3 p = permute( permute( i.y + float3( 0.0, i1.y, 1.0 ) ) + i.x + float3( 0.0, i1.x, 1.0 ) );
+				float3 m = max( 0.5 - float3( dot( x0, x0 ), dot( x12.xy, x12.xy ), dot( x12.zw, x12.zw ) ), 0.0 );
+				m = m * m;
+				m = m * m;
+				float3 x = 2.0 * frac( p * C.www ) - 1.0;
+				float3 h = abs( x ) - 0.5;
+				float3 ox = floor( x + 0.5 );
+				float3 a0 = x - ox;
+				m *= 1.79284291400159 - 0.85373472095314 * ( a0 * a0 + h * h );
+				float3 g;
+				g.x = a0.x * x0.x + h.x * x0.y;
+				g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+				return 130.0 * dot( m, g );
+			}
 			
 
-			
 			VertexOutput VertexFunction( VertexInput v  )
 			{
 				VertexOutput o = (VertexOutput)0;
@@ -2573,14 +2604,35 @@ Shader "Vegetation"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
+				float3 ase_worldPos = TransformObjectToWorld( (v.positionOS).xyz );
+				float mulTime34 = _TimeParameters.x * ( _WindSpeed * 5 );
+				float simplePerlin2D35 = snoise( ( ase_worldPos + mulTime34 ).xy*_WindWavesScale );
+				float temp_output_231_0 = ( simplePerlin2D35 * 0.01 );
+				float2 texCoord357 = v.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				#ifdef _FIXTHEBASEOFFOLIAGE_ON
+				float staticSwitch376 = ( temp_output_231_0 * pow( texCoord357.y , 2.0 ) );
+				#else
+				float staticSwitch376 = temp_output_231_0;
+				#endif
+				#ifdef _WIND_ON
+				float staticSwitch341 = ( staticSwitch376 * _WindForce );
+				#else
+				float staticSwitch341 = 0.0;
+				#endif
+				float Wind191 = staticSwitch341;
+				float3 temp_cast_1 = (Wind191).xxx;
 				
+				o.ase_texcoord5.xy = v.ase_texcoord.xy;
+				
+				//setting value to unused interpolator channels and avoid initialization warnings
+				o.ase_texcoord5.zw = 0;
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.positionOS.xyz;
 				#else
 					float3 defaultVertexValue = float3(0, 0, 0);
 				#endif
 
-				float3 vertexValue = defaultVertexValue;
+				float3 vertexValue = temp_cast_1;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					v.positionOS.xyz = vertexValue;
@@ -2618,7 +2670,8 @@ Shader "Vegetation"
 				float4 vertex : INTERNALTESSPOS;
 				float3 normalOS : NORMAL;
 				float4 tangentOS : TANGENT;
-				
+				float4 ase_texcoord : TEXCOORD0;
+
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -2636,7 +2689,7 @@ Shader "Vegetation"
 				o.vertex = v.positionOS;
 				o.normalOS = v.normalOS;
 				o.tangentOS = v.tangentOS;
-				
+				o.ase_texcoord = v.ase_texcoord;
 				return o;
 			}
 
@@ -2676,7 +2729,7 @@ Shader "Vegetation"
 				o.positionOS = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
 				o.normalOS = patch[0].normalOS * bary.x + patch[1].normalOS * bary.y + patch[2].normalOS * bary.z;
 				o.tangentOS = patch[0].tangentOS * bary.x + patch[1].tangentOS * bary.y + patch[2].tangentOS * bary.z;
-				
+				o.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
@@ -2726,11 +2779,14 @@ Shader "Vegetation"
 					#endif
 				#endif
 
+				float2 uv_Texture00 = IN.ase_texcoord5.xy * _Texture00_ST.xy + _Texture00_ST.zw;
+				float4 tex2DNode1 = tex2D( _Texture00, uv_Texture00 );
+				float Alpha263 = tex2DNode1.a;
 				
 
 				float3 Normal = float3(0, 0, 1);
-				float Alpha = 1;
-				float AlphaClipThreshold = 0.5;
+				float Alpha = Alpha263;
+				float AlphaClipThreshold = _Cutoff;
 				#ifdef ASE_DEPTH_WRITE_ON
 					float DepthValue = IN.positionCS.z;
 				#endif
@@ -2850,7 +2906,13 @@ Shader "Vegetation"
 				#define ENABLE_TERRAIN_PERPIXEL_NORMAL
 			#endif
 
-			
+			#define ASE_NEEDS_FRAG_WORLD_POSITION
+			#pragma shader_feature_local _WIND_ON
+			#pragma shader_feature_local _FIXTHEBASEOFFOLIAGE_ON
+			#pragma shader_feature_local _TOPCOLORENABLE_ON
+			#pragma shader_feature_local _TOPCOLORENABLE2_ON
+			#pragma shader_feature_local _TOPCOLORENABLE1_ON
+
 
 			#if defined(ASE_EARLY_Z_DEPTH_OPTIMIZE) && (SHADER_TARGET >= 45)
 				#define ASE_SV_DEPTH SV_DepthLessEqual
@@ -2887,7 +2949,7 @@ Shader "Vegetation"
 				#if defined(DYNAMICLIGHTMAP_ON)
 				float2 dynamicLightmapUV : TEXCOORD7;
 				#endif
-				
+				float4 ase_texcoord8 : TEXCOORD8;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -2941,11 +3003,58 @@ Shader "Vegetation"
 				int _PassValue;
 			#endif
 
-			
+			sampler2D _Texture00;
+			sampler2D _Gradient;
+			sampler2D _WindTXT;
+
 
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/UnityGBuffer.hlsl"
 
+			float3 mod2D289( float3 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
+			float2 mod2D289( float2 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
+			float3 permute( float3 x ) { return mod2D289( ( ( x * 34.0 ) + 1.0 ) * x ); }
+			float snoise( float2 v )
+			{
+				const float4 C = float4( 0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439 );
+				float2 i = floor( v + dot( v, C.yy ) );
+				float2 x0 = v - i + dot( i, C.xx );
+				float2 i1;
+				i1 = ( x0.x > x0.y ) ? float2( 1.0, 0.0 ) : float2( 0.0, 1.0 );
+				float4 x12 = x0.xyxy + C.xxzz;
+				x12.xy -= i1;
+				i = mod2D289( i );
+				float3 p = permute( permute( i.y + float3( 0.0, i1.y, 1.0 ) ) + i.x + float3( 0.0, i1.x, 1.0 ) );
+				float3 m = max( 0.5 - float3( dot( x0, x0 ), dot( x12.xy, x12.xy ), dot( x12.zw, x12.zw ) ), 0.0 );
+				m = m * m;
+				m = m * m;
+				float3 x = 2.0 * frac( p * C.www ) - 1.0;
+				float3 h = abs( x ) - 0.5;
+				float3 ox = floor( x + 0.5 );
+				float3 a0 = x - ox;
+				m *= 1.79284291400159 - 0.85373472095314 * ( a0 * a0 + h * h );
+				float3 g;
+				g.x = a0.x * x0.x + h.x * x0.y;
+				g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+				return 130.0 * dot( m, g );
+			}
 			
+			float3 HSVToRGB( float3 c )
+			{
+				float4 K = float4( 1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0 );
+				float3 p = abs( frac( c.xxx + K.xyz ) * 6.0 - K.www );
+				return c.z * lerp( K.xxx, saturate( p - K.xxx ), c.y );
+			}
+			
+			float3 RGBToHSV(float3 c)
+			{
+				float4 K = float4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
+				float4 p = lerp( float4( c.bg, K.wz ), float4( c.gb, K.xy ), step( c.b, c.g ) );
+				float4 q = lerp( float4( p.xyw, c.r ), float4( c.r, p.yzx ), step( p.x, c.r ) );
+				float d = q.x - min( q.w, q.y );
+				float e = 1.0e-10;
+				return float3( abs(q.z + (q.w - q.y) / (6.0 * d + e)), d / (q.x + e), q.x);
+			}
+
 			VertexOutput VertexFunction( VertexInput v  )
 			{
 				VertexOutput o = (VertexOutput)0;
@@ -2953,14 +3062,35 @@ Shader "Vegetation"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
+				float3 ase_worldPos = TransformObjectToWorld( (v.positionOS).xyz );
+				float mulTime34 = _TimeParameters.x * ( _WindSpeed * 5 );
+				float simplePerlin2D35 = snoise( ( ase_worldPos + mulTime34 ).xy*_WindWavesScale );
+				float temp_output_231_0 = ( simplePerlin2D35 * 0.01 );
+				float2 texCoord357 = v.texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				#ifdef _FIXTHEBASEOFFOLIAGE_ON
+				float staticSwitch376 = ( temp_output_231_0 * pow( texCoord357.y , 2.0 ) );
+				#else
+				float staticSwitch376 = temp_output_231_0;
+				#endif
+				#ifdef _WIND_ON
+				float staticSwitch341 = ( staticSwitch376 * _WindForce );
+				#else
+				float staticSwitch341 = 0.0;
+				#endif
+				float Wind191 = staticSwitch341;
+				float3 temp_cast_1 = (Wind191).xxx;
 				
+				o.ase_texcoord8.xy = v.texcoord.xy;
+				
+				//setting value to unused interpolator channels and avoid initialization warnings
+				o.ase_texcoord8.zw = 0;
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.positionOS.xyz;
 				#else
 					float3 defaultVertexValue = float3(0, 0, 0);
 				#endif
 
-				float3 vertexValue = defaultVertexValue;
+				float3 vertexValue = temp_cast_1;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					v.positionOS.xyz = vertexValue;
@@ -3142,17 +3272,54 @@ Shader "Vegetation"
 
 				WorldViewDirection = SafeNormalize( WorldViewDirection );
 
+				float2 uv_Texture00 = IN.ase_texcoord8.xy * _Texture00_ST.xy + _Texture00_ST.zw;
+				float4 tex2DNode1 = tex2D( _Texture00, uv_Texture00 );
+				float4 temp_output_10_0 = ( _Base * tex2DNode1 );
+				float2 uv_Gradient = IN.ase_texcoord8.xy * _Gradient_ST.xy + _Gradient_ST.zw;
+				float4 Gradient403 = saturate( ( tex2D( _Gradient, uv_Gradient ) * _GradientFade ) );
+				float4 lerpResult332 = lerp( temp_output_10_0 , ( _Top * tex2D( _Texture00, uv_Texture00 ) ) , Gradient403);
+				float4 lerpResult430 = lerp( lerpResult332 , ( _Variation * tex2D( _Texture00, uv_Texture00 ) ) , Gradient403);
+				float simplePerlin2D421 = snoise( WorldPosition.xy*_PerlinVariation );
+				simplePerlin2D421 = simplePerlin2D421*0.5 + 0.5;
+				#ifdef _TOPCOLORENABLE2_ON
+				float staticSwitch462 = saturate( simplePerlin2D421 );
+				#else
+				float staticSwitch462 = 0.0;
+				#endif
+				float4 lerpResult424 = lerp( lerpResult332 , lerpResult430 , staticSwitch462);
+				float mulTime34 = _TimeParameters.x * ( _WindSpeed * 5 );
+				float simplePerlin2D35 = snoise( ( WorldPosition + mulTime34 ).xy*_WindWavesScale );
+				float WindColor431 = simplePerlin2D35;
+				float2 temp_cast_2 = (( WorldPosition.x / _Size )).xx;
+				float4 WindDiffuse451 = ( ( WindColor431 * _WindForceColor ) * tex2D( _WindTXT, temp_cast_2 ) );
+				float4 lerpResult453 = lerp( lerpResult424 , ( _WindColor * tex2D( _Texture00, uv_Texture00 ) ) , WindDiffuse451);
+				#ifdef _TOPCOLORENABLE1_ON
+				float4 staticSwitch461 = lerpResult453;
+				#else
+				float4 staticSwitch461 = lerpResult424;
+				#endif
+				float4 lerpResult454 = lerp( lerpResult424 , staticSwitch461 , Gradient403);
+				#ifdef _TOPCOLORENABLE_ON
+				float4 staticSwitch340 = lerpResult454;
+				#else
+				float4 staticSwitch340 = temp_output_10_0;
+				#endif
+				float3 hsvTorgb411 = RGBToHSV( staticSwitch340.rgb );
+				float3 hsvTorgb415 = HSVToRGB( float3(( _hue + hsvTorgb411.x ),( _Saturation + hsvTorgb411.y ),( _Brightness + hsvTorgb411.z )) );
+				float3 Albedo259 = hsvTorgb415;
+				
+				float Alpha263 = tex2DNode1.a;
 				
 
-				float3 BaseColor = float3(0.5, 0.5, 0.5);
+				float3 BaseColor = Albedo259;
 				float3 Normal = float3(0, 0, 1);
 				float3 Emission = 0;
 				float3 Specular = 0.5;
 				float Metallic = 0;
-				float Smoothness = 0.5;
+				float Smoothness = _Smoothness;
 				float Occlusion = 1;
-				float Alpha = 1;
-				float AlphaClipThreshold = 0.5;
+				float Alpha = Alpha263;
+				float AlphaClipThreshold = _Cutoff;
 				float AlphaClipThresholdShadow = 0.5;
 				float3 BakedGI = 0;
 				float3 RefractionColor = 1;
@@ -3291,20 +3458,22 @@ Shader "Vegetation"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
-			
+			#pragma shader_feature_local _WIND_ON
+			#pragma shader_feature_local _FIXTHEBASEOFFOLIAGE_ON
+
 
 			struct VertexInput
 			{
 				float4 positionOS : POSITION;
 				float3 normalOS : NORMAL;
-				
+				float4 ase_texcoord : TEXCOORD0;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
 			struct VertexOutput
 			{
 				float4 positionCS : SV_POSITION;
-				
+				float4 ase_texcoord : TEXCOORD0;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -3358,9 +3527,38 @@ Shader "Vegetation"
 				int _PassValue;
 			#endif
 
+			sampler2D _Texture00;
+
+
+			float3 mod2D289( float3 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
+			float2 mod2D289( float2 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
+			float3 permute( float3 x ) { return mod2D289( ( ( x * 34.0 ) + 1.0 ) * x ); }
+			float snoise( float2 v )
+			{
+				const float4 C = float4( 0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439 );
+				float2 i = floor( v + dot( v, C.yy ) );
+				float2 x0 = v - i + dot( i, C.xx );
+				float2 i1;
+				i1 = ( x0.x > x0.y ) ? float2( 1.0, 0.0 ) : float2( 0.0, 1.0 );
+				float4 x12 = x0.xyxy + C.xxzz;
+				x12.xy -= i1;
+				i = mod2D289( i );
+				float3 p = permute( permute( i.y + float3( 0.0, i1.y, 1.0 ) ) + i.x + float3( 0.0, i1.x, 1.0 ) );
+				float3 m = max( 0.5 - float3( dot( x0, x0 ), dot( x12.xy, x12.xy ), dot( x12.zw, x12.zw ) ), 0.0 );
+				m = m * m;
+				m = m * m;
+				float3 x = 2.0 * frac( p * C.www ) - 1.0;
+				float3 h = abs( x ) - 0.5;
+				float3 ox = floor( x + 0.5 );
+				float3 a0 = x - ox;
+				m *= 1.79284291400159 - 0.85373472095314 * ( a0 * a0 + h * h );
+				float3 g;
+				g.x = a0.x * x0.x + h.x * x0.y;
+				g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+				return 130.0 * dot( m, g );
+			}
 			
 
-			
 			struct SurfaceDescription
 			{
 				float Alpha;
@@ -3376,7 +3574,28 @@ Shader "Vegetation"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
+				float3 ase_worldPos = TransformObjectToWorld( (v.positionOS).xyz );
+				float mulTime34 = _TimeParameters.x * ( _WindSpeed * 5 );
+				float simplePerlin2D35 = snoise( ( ase_worldPos + mulTime34 ).xy*_WindWavesScale );
+				float temp_output_231_0 = ( simplePerlin2D35 * 0.01 );
+				float2 texCoord357 = v.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				#ifdef _FIXTHEBASEOFFOLIAGE_ON
+				float staticSwitch376 = ( temp_output_231_0 * pow( texCoord357.y , 2.0 ) );
+				#else
+				float staticSwitch376 = temp_output_231_0;
+				#endif
+				#ifdef _WIND_ON
+				float staticSwitch341 = ( staticSwitch376 * _WindForce );
+				#else
+				float staticSwitch341 = 0.0;
+				#endif
+				float Wind191 = staticSwitch341;
+				float3 temp_cast_1 = (Wind191).xxx;
 				
+				o.ase_texcoord.xy = v.ase_texcoord.xy;
+				
+				//setting value to unused interpolator channels and avoid initialization warnings
+				o.ase_texcoord.zw = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.positionOS.xyz;
@@ -3384,7 +3603,7 @@ Shader "Vegetation"
 					float3 defaultVertexValue = float3(0, 0, 0);
 				#endif
 
-				float3 vertexValue = defaultVertexValue;
+				float3 vertexValue = temp_cast_1;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					v.positionOS.xyz = vertexValue;
@@ -3406,7 +3625,8 @@ Shader "Vegetation"
 			{
 				float4 vertex : INTERNALTESSPOS;
 				float3 normalOS : NORMAL;
-				
+				float4 ase_texcoord : TEXCOORD0;
+
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -3423,7 +3643,7 @@ Shader "Vegetation"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				o.vertex = v.positionOS;
 				o.normalOS = v.normalOS;
-				
+				o.ase_texcoord = v.ase_texcoord;
 				return o;
 			}
 
@@ -3462,7 +3682,7 @@ Shader "Vegetation"
 				VertexInput o = (VertexInput) 0;
 				o.positionOS = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
 				o.normalOS = patch[0].normalOS * bary.x + patch[1].normalOS * bary.y + patch[2].normalOS * bary.z;
-				
+				o.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
@@ -3484,10 +3704,13 @@ Shader "Vegetation"
 			{
 				SurfaceDescription surfaceDescription = (SurfaceDescription)0;
 
+				float2 uv_Texture00 = IN.ase_texcoord.xy * _Texture00_ST.xy + _Texture00_ST.zw;
+				float4 tex2DNode1 = tex2D( _Texture00, uv_Texture00 );
+				float Alpha263 = tex2DNode1.a;
 				
 
-				surfaceDescription.Alpha = 1;
-				surfaceDescription.AlphaClipThreshold = 0.5;
+				surfaceDescription.Alpha = Alpha263;
+				surfaceDescription.AlphaClipThreshold = _Cutoff;
 
 				#if _ALPHATEST_ON
 					float alphaClipThreshold = 0.01f;
@@ -3547,20 +3770,22 @@ Shader "Vegetation"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
-			
+			#pragma shader_feature_local _WIND_ON
+			#pragma shader_feature_local _FIXTHEBASEOFFOLIAGE_ON
+
 
 			struct VertexInput
 			{
 				float4 positionOS : POSITION;
 				float3 normalOS : NORMAL;
-				
+				float4 ase_texcoord : TEXCOORD0;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
 			struct VertexOutput
 			{
 				float4 positionCS : SV_POSITION;
-				
+				float4 ase_texcoord : TEXCOORD0;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -3614,9 +3839,38 @@ Shader "Vegetation"
 				int _PassValue;
 			#endif
 
+			sampler2D _Texture00;
+
+
+			float3 mod2D289( float3 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
+			float2 mod2D289( float2 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
+			float3 permute( float3 x ) { return mod2D289( ( ( x * 34.0 ) + 1.0 ) * x ); }
+			float snoise( float2 v )
+			{
+				const float4 C = float4( 0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439 );
+				float2 i = floor( v + dot( v, C.yy ) );
+				float2 x0 = v - i + dot( i, C.xx );
+				float2 i1;
+				i1 = ( x0.x > x0.y ) ? float2( 1.0, 0.0 ) : float2( 0.0, 1.0 );
+				float4 x12 = x0.xyxy + C.xxzz;
+				x12.xy -= i1;
+				i = mod2D289( i );
+				float3 p = permute( permute( i.y + float3( 0.0, i1.y, 1.0 ) ) + i.x + float3( 0.0, i1.x, 1.0 ) );
+				float3 m = max( 0.5 - float3( dot( x0, x0 ), dot( x12.xy, x12.xy ), dot( x12.zw, x12.zw ) ), 0.0 );
+				m = m * m;
+				m = m * m;
+				float3 x = 2.0 * frac( p * C.www ) - 1.0;
+				float3 h = abs( x ) - 0.5;
+				float3 ox = floor( x + 0.5 );
+				float3 a0 = x - ox;
+				m *= 1.79284291400159 - 0.85373472095314 * ( a0 * a0 + h * h );
+				float3 g;
+				g.x = a0.x * x0.x + h.x * x0.y;
+				g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+				return 130.0 * dot( m, g );
+			}
 			
 
-			
 			struct SurfaceDescription
 			{
 				float Alpha;
@@ -3632,7 +3886,28 @@ Shader "Vegetation"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
+				float3 ase_worldPos = TransformObjectToWorld( (v.positionOS).xyz );
+				float mulTime34 = _TimeParameters.x * ( _WindSpeed * 5 );
+				float simplePerlin2D35 = snoise( ( ase_worldPos + mulTime34 ).xy*_WindWavesScale );
+				float temp_output_231_0 = ( simplePerlin2D35 * 0.01 );
+				float2 texCoord357 = v.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				#ifdef _FIXTHEBASEOFFOLIAGE_ON
+				float staticSwitch376 = ( temp_output_231_0 * pow( texCoord357.y , 2.0 ) );
+				#else
+				float staticSwitch376 = temp_output_231_0;
+				#endif
+				#ifdef _WIND_ON
+				float staticSwitch341 = ( staticSwitch376 * _WindForce );
+				#else
+				float staticSwitch341 = 0.0;
+				#endif
+				float Wind191 = staticSwitch341;
+				float3 temp_cast_1 = (Wind191).xxx;
 				
+				o.ase_texcoord.xy = v.ase_texcoord.xy;
+				
+				//setting value to unused interpolator channels and avoid initialization warnings
+				o.ase_texcoord.zw = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.positionOS.xyz;
@@ -3640,7 +3915,7 @@ Shader "Vegetation"
 					float3 defaultVertexValue = float3(0, 0, 0);
 				#endif
 
-				float3 vertexValue = defaultVertexValue;
+				float3 vertexValue = temp_cast_1;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					v.positionOS.xyz = vertexValue;
@@ -3661,7 +3936,8 @@ Shader "Vegetation"
 			{
 				float4 vertex : INTERNALTESSPOS;
 				float3 normalOS : NORMAL;
-				
+				float4 ase_texcoord : TEXCOORD0;
+
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -3678,7 +3954,7 @@ Shader "Vegetation"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				o.vertex = v.positionOS;
 				o.normalOS = v.normalOS;
-				
+				o.ase_texcoord = v.ase_texcoord;
 				return o;
 			}
 
@@ -3717,7 +3993,7 @@ Shader "Vegetation"
 				VertexInput o = (VertexInput) 0;
 				o.positionOS = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
 				o.normalOS = patch[0].normalOS * bary.x + patch[1].normalOS * bary.y + patch[2].normalOS * bary.z;
-				
+				o.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
@@ -3739,10 +4015,13 @@ Shader "Vegetation"
 			{
 				SurfaceDescription surfaceDescription = (SurfaceDescription)0;
 
+				float2 uv_Texture00 = IN.ase_texcoord.xy * _Texture00_ST.xy + _Texture00_ST.zw;
+				float4 tex2DNode1 = tex2D( _Texture00, uv_Texture00 );
+				float Alpha263 = tex2DNode1.a;
 				
 
-				surfaceDescription.Alpha = 1;
-				surfaceDescription.AlphaClipThreshold = 0.5;
+				surfaceDescription.Alpha = Alpha263;
+				surfaceDescription.AlphaClipThreshold = _Cutoff;
 
 				#if _ALPHATEST_ON
 					float alphaClipThreshold = 0.01f;
@@ -3849,7 +4128,7 @@ Node;AmplifyShaderEditor.RegisterLocalVarNode;191;-3056.409,1201.691;Inherit;Fal
 Node;AmplifyShaderEditor.RegisterLocalVarNode;259;-3696.589,-2344.558;Inherit;False;Albedo;-1;True;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode;263;-6673.475,-2116.263;Inherit;False;Alpha;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleAddOpNode;464;-7935.093,400.6955;Inherit;True;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode;156;-2652.326,-1265.964;Inherit;False;Property;_Cutoff;Cutoff;1;0;Create;True;0;0;0;False;0;False;0.35;0.45;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;156;-2652.326,-1265.964;Inherit;False;Property;_Cutoff;Cutoff;1;0;Create;True;0;0;0;False;0;False;0.7;0.45;0;1;0;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;152;-2653.891,-1179.921;Inherit;False;Property;_Smoothness;Smoothness;14;0;Create;True;0;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode;236;-2545.864,-917.1938;Inherit;False;191;Wind;1;0;OBJECT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;212;-2551.975,-1094.695;Inherit;False;Constant;_Translucency;Translucency;14;0;Create;True;0;0;0;False;0;False;1;1;0;0;0;1;FLOAT;0
@@ -3955,4 +4234,4 @@ WireConnection;393;6;267;0
 WireConnection;393;7;156;0
 WireConnection;393;8;236;0
 ASEEND*/
-//CHKSM=94360188E8007F944B461B135F4ED7E6FA56E1B3
+//CHKSM=D6FB4FB137D11EACD57E3D7474CEAD88DE9D9C93
