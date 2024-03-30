@@ -142,6 +142,7 @@ namespace StarterAssets
         private StarterAssetsInputs _input;
         private GameObject _mainCamera;
         private Cinemachine3rdPersonFollow _personFollow;
+        private AudioSvc _audioSvc;
 
         private const float _threshold = 0.01f;
 
@@ -218,6 +219,9 @@ namespace StarterAssets
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
+
+            // Init AudioSvc
+            _audioSvc = AudioSvc.Instance;
         }
         public void ClassUpdate()
         {
@@ -499,25 +503,34 @@ namespace StarterAssets
 
         private void OnFootstep(AnimationEvent animationEvent)
         {
-            if (animationEvent.animatorClipInfo.weight > 0.5f)
+            if (_audioSvc != null)
             {
-                AudioSvc.Instance.PlayFootStep();
+                if (animationEvent.animatorClipInfo.weight > 0.5f)
+                {
+                    _audioSvc.PlayFootStep();
+                }
             }
         }
 
         private void OnJump(AnimationEvent animationEvent)
         {
-            if (animationEvent.animatorClipInfo.weight > 0.5f)
+            if (_audioSvc != null)
             {
-                AudioSvc.Instance.PlayJumpEffort();
+                if (animationEvent.animatorClipInfo.weight > 0.5f)
+                {
+                    _audioSvc.PlayJumpEffort();
+                }
             }
         }
 
         private void OnLand(AnimationEvent animationEvent)
         {
-            if (animationEvent.animatorClipInfo.weight > 0.5f)
+            if (_audioSvc != null)
             {
-                AudioSvc.Instance.PlayLanding();
+                if (animationEvent.animatorClipInfo.weight > 0.5f)
+                {
+                    _audioSvc.PlayLanding();
+                }
             }
         }
 
