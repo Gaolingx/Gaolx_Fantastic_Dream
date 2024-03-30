@@ -43,7 +43,7 @@ public class BattleMgr : MonoBehaviour
             controller = player.GetComponent<ThirdPersonController>();
             controller.MoveSpeed = Constants.PlayerMoveSpeed;
             controller.SprintSpeed = Constants.PlayerSprintSpeed;
-            controller.targetPlayerState = 0;
+            controller.targetPlayerState = Constants.State_Mar7th00_Blend_Idle;
             entitySelfPlayer.playerController = controller;
 
             playerInput = player.GetComponent<StarterAssetsInputs>();
