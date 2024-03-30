@@ -228,6 +228,9 @@ namespace StarterAssets
 
             // Init AudioSvc
             _audioSvc = AudioSvc.Instance;
+
+            // Init FX
+            InitFX();
         }
         private void ClassUpdate()
         {

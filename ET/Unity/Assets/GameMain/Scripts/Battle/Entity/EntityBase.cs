@@ -33,4 +33,12 @@ public abstract class EntityBase
             playerController.SetAniBlend(blend);
         }
     }
+
+    public virtual void SetAction(int action)
+    {
+        if (playerController != null)
+        {
+            playerController.SetAniBlend(action);
+        }
+    }
 }
