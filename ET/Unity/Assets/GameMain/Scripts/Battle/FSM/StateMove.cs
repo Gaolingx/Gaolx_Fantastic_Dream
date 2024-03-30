@@ -17,6 +17,7 @@ public class StateMove : IState
     public void StateProcess(EntityBase entity, params object[] args)
     {
         PECommon.Log("StateMove:Process State.");
+        entity.SetAniBlend(Constants.State_Mar7th00_Blend_Move);
     }
 }
 

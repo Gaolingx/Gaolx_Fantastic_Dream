@@ -16,5 +16,6 @@ public class StateIdle : IState
     public void StateProcess(EntityBase entity, params object[] args)
     {
         PECommon.Log("StateIdle:Process State.");
+        entity.SetAniBlend(Constants.State_Mar7th00_Blend_Idle);
     }
 }

@@ -22,4 +22,12 @@ public abstract class EntityBase
     {
         stateMgr.ChangeStatus(this, AniState.Idle, null);
     }
+
+    public virtual void SetAniBlend(int blend)
+    {
+        if(playerController != null)
+        {
+            playerController.SetAniBlend(blend);
+        }
+    }
 }

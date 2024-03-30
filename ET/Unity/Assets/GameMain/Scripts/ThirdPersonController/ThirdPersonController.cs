@@ -161,21 +161,26 @@ namespace StarterAssets
             }
         }
 
-        public void PlayerStateInController()
+        public void SetAniBlend(int blend)
+        {
+            targetPlayerState = blend;
+        }
+
+        private void PlayerStateInController()
         {
             switch(targetPlayerState)
             {
-                case 0: //Idle
+                case Constants.State_Mar7th00_Blend_Idle: //Idle
                     Move();
                     Crouch();
                     JumpAndGravity();
                     break;
-                case 1: //Move
+                case Constants.State_Mar7th00_Blend_Move: //Move
                     Move();
                     Crouch();
                     JumpAndGravity();
                     break;
-                case 10: //can't Control
+                case Constants.State_Mar7th00_Blend_CantControl: //can't Control
                     break;
                 default:
                     break;
