@@ -17,10 +17,13 @@ public abstract class EntityBase
     {
         stateMgr.ChangeStatus(this, AniState.Move, null);
     }
-
     public void PlayerStateIdle()
     {
         stateMgr.ChangeStatus(this, AniState.Idle, null);
+    }
+    public void PlayerStateAttack()
+    {
+        stateMgr.ChangeStatus(this, AniState.Attack, null);
     }
 
     public virtual void SetAniBlend(int blend)

@@ -14,4 +14,5 @@ public enum AniState
     None,
     Idle,
     Move,
+    Attack,
 }
