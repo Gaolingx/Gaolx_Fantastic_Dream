@@ -33,6 +33,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "AtkSkill01",
+                    "type": "Button",
+                    "id": "07c82348-c9cd-434c-9dbb-197bd371dd22",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Sprint",
                     "type": "PassThrough",
                     "id": "980e881e-182c-404c-8cbf-3d09fdb48fef",
@@ -333,6 +342,17 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9385bea4-0422-4517-bce4-c510cc40161a",
+                    "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "AtkSkill01",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

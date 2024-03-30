@@ -133,6 +133,7 @@ namespace StarterAssets
         private int _animIDMotionSpeed;
         private int _animIDCrouch;
         private int _animIDFlip;
+        private int _animIDSkillAction;
 
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
@@ -149,6 +150,7 @@ namespace StarterAssets
         private bool _hasAnimator;
 
         private bool _tryToCrouch;
+        private bool _tryToReleaseSkill;
 
         private bool IsCurrentDeviceMouse
         {
@@ -180,6 +182,10 @@ namespace StarterAssets
                     Move();
                     Crouch();
                     JumpAndGravity();
+                    break;
+                case Constants.State_Mar7th00_Blend_Skill_01: //Skill01
+                    Move();
+                    AtkSkill01();
                     break;
                 case Constants.State_Mar7th00_Blend_CantControl: //can't Control
                     break;
@@ -265,6 +271,7 @@ namespace StarterAssets
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
             _animIDCrouch = Animator.StringToHash("Crouch");
             _animIDFlip = Animator.StringToHash("Flip");
+            _animIDSkillAction = Animator.StringToHash("SkillAction");
         }
 
         private void GroundedCheck()
@@ -478,6 +485,22 @@ namespace StarterAssets
             {
                 _verticalVelocity += Gravity * Time.deltaTime;
             }
+        }
+
+        private void AtkSkill01()
+        {
+            bool currAtkSkill01 = _input.skill01;
+            if (_hasAnimator && currAtkSkill01)
+            {
+                _tryToReleaseSkill = true;
+                _animator.SetInteger(_animIDSkillAction, 1);
+            }
+            if (_hasAnimator && !currAtkSkill01)
+            {
+                _tryToReleaseSkill = false;
+                _animator.SetInteger(_animIDSkillAction, -1);
+            }
+            _input.skill01 = false;
         }
 
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)

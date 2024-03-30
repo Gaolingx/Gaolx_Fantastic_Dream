@@ -155,5 +155,6 @@ public class Constants
     //Mar_7th_00 ¶¯»­²ÎÊıÅäÖÃ
     public const int State_Mar7th00_Blend_Idle = 0;
     public const int State_Mar7th00_Blend_Move = 1;
+    public const int State_Mar7th00_Blend_Skill_01 = 2;
     public const int State_Mar7th00_Blend_CantControl = 10;
 }
