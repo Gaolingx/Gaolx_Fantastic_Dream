@@ -150,7 +150,7 @@ namespace StarterAssets
         private bool _hasAnimator;
 
         private bool _tryToCrouch;
-        private bool _tryToReleaseSkill;
+
 
         private bool IsCurrentDeviceMouse
         {
@@ -159,7 +159,7 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM
                 return _playerInput.currentControlScheme == "KeyboardMouse";
 #else
-				return false;
+                return false;
 #endif
             }
         }
@@ -171,7 +171,7 @@ namespace StarterAssets
 
         private void PlayerStateInController()
         {
-            switch(targetPlayerState)
+            switch (targetPlayerState)
             {
                 case Constants.State_Mar7th00_Blend_Idle: //Idle
                     Move();
@@ -195,7 +195,7 @@ namespace StarterAssets
         }
 
         #region MonoBehaviour
-        public void ClassAwake()
+        private void ClassAwake()
         {
             // get a reference to our main camera
             if (_mainCamera == null)
@@ -203,7 +203,7 @@ namespace StarterAssets
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
         }
-        public void ClassStart()
+        private void ClassStart()
         {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
 
@@ -215,7 +215,7 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM 
             _playerInput = GetComponent<PlayerInput>();
 #else
-			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
+            Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
             _cameraDistance = _personFollow.CameraDistance;
             _targetCameraDistance = _cameraDistance;
@@ -229,14 +229,14 @@ namespace StarterAssets
             // Init AudioSvc
             _audioSvc = AudioSvc.Instance;
         }
-        public void ClassUpdate()
+        private void ClassUpdate()
         {
             _hasAnimator = TryGetComponent(out _animator);
 
             GroundedCheck();
             PlayerStateInController();
         }
-        public void ClassLateUpdate()
+        private void ClassLateUpdate()
         {
             CameraRotation();
         }
@@ -398,6 +398,7 @@ namespace StarterAssets
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
                 _animator.SetBool(_animIDCrouch, _tryToCrouch);
+                _animator.SetInteger(_animIDSkillAction, -1);
             }
         }
 
@@ -490,15 +491,12 @@ namespace StarterAssets
         private void AtkSkill01()
         {
             bool currAtkSkill01 = _input.skill01;
-            if (_hasAnimator && currAtkSkill01)
+            if (_hasAnimator)
             {
-                _tryToReleaseSkill = true;
-                _animator.SetInteger(_animIDSkillAction, 1);
-            }
-            if (_hasAnimator && !currAtkSkill01)
-            {
-                _tryToReleaseSkill = false;
-                _animator.SetInteger(_animIDSkillAction, -1);
+                if (currAtkSkill01 == true)
+                {
+                    _animator.SetInteger(_animIDSkillAction, 1);
+                }
             }
             _input.skill01 = false;
         }

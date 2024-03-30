@@ -3453,6 +3453,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerBattleWnd
       objectReference: {fileID: 0}
+    - target: {fileID: 2268411135972945128, guid: c6e6e72f730b4074480dae9796842549,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6550779186639200467}
+    - target: {fileID: 2606435446959400356, guid: c6e6e72f730b4074480dae9796842549,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2158106377546586473}
+    - target: {fileID: 3089189238334018391, guid: c6e6e72f730b4074480dae9796842549,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2158106377546586473}
+    - target: {fileID: 4117491394288692680, guid: c6e6e72f730b4074480dae9796842549,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2158106377546586473}
     - target: {fileID: 8568355230608369753, guid: c6e6e72f730b4074480dae9796842549,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

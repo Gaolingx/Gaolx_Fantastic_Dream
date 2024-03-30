@@ -17,6 +17,7 @@ public class PlayerCtrlWnd : WindowRoot
     public Transform expPrgTrans;
 
     private BattleMgr battleMgr;
+    StarterAssetsInputs playerInput;
 
     private EntityPlayer wndEntitySelfPlayer;
 
@@ -32,7 +33,14 @@ public class PlayerCtrlWnd : WindowRoot
     {
         if(battleMgr.entitySelfPlayer != null)
         {
+            wndEntitySelfPlayer = battleMgr.entitySelfPlayer;
+            playerInput = wndEntitySelfPlayer.playerInput;
+
             ListeningTouchEvts();
+            ListeningClickPlayerNormalAtk();
+            ListeningClickPlayerSkill01Atk();
+            ListeningClickPlayerSkill02Atk();
+            ListeningClickPlayerSkill03Atk();
         }
     }
 
@@ -40,30 +48,31 @@ public class PlayerCtrlWnd : WindowRoot
     //注册触摸事件
     public void ListeningTouchEvts()
     {
-        wndEntitySelfPlayer = battleMgr.entitySelfPlayer;
-        StarterAssetsInputs playerInput = wndEntitySelfPlayer.playerInput;
         BattleSys.Instance.SetPlayerMoveDir(playerInput.move);
     }
 
     //释放技能
-    public void ClickPlayerNormalAtk()
+    public void ListeningClickPlayerNormalAtk()
     {
-        BattleSys.Instance.ReqPlayerReleaseSkill(0);
+
     }
 
-    public void ClickPlayerSkill01Atk()
+    public void ListeningClickPlayerSkill01Atk()
     {
-        BattleSys.Instance.ReqPlayerReleaseSkill(1);
+        if (playerInput.skill01)
+        {
+            BattleSys.Instance.ReqPlayerReleaseSkill(1);
+        }
     }
 
-    public void ClickPlayerSkill02Atk()
+    public void ListeningClickPlayerSkill02Atk()
     {
-        BattleSys.Instance.ReqPlayerReleaseSkill(2);
+        
     }
 
-    public void ClickPlayerSkill03Atk()
+    public void ListeningClickPlayerSkill03Atk()
     {
-        BattleSys.Instance.ReqPlayerReleaseSkill(3);
+        
     }
     #endregion
 

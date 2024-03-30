@@ -65,7 +65,7 @@ namespace StarterAssets
 
         public void OnAtkSkill01(InputValue value)
         {
-            Attack01Input(value.isPressed);
+            Skill01Input(value.isPressed);
         }
 #endif
 
@@ -104,7 +104,7 @@ namespace StarterAssets
             crouch = newCrouchState;
         }
 
-        public void Attack01Input(bool newAttack01State)
+        public void Skill01Input(bool newAttack01State)
         {
             skill01 = newAttack01State;
         }

@@ -28,7 +28,7 @@ public abstract class EntityBase
 
     public virtual void SetAniBlend(int blend)
     {
-        if(playerController != null)
+        if (playerController != null)
         {
             playerController.SetAniBlend(blend);
         }

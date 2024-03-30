@@ -15,6 +15,7 @@ public class StateAttack : IState
 
     public void StateProcess(EntityBase entity, params object[] args)
     {
+        entity.SetAniBlend(Constants.State_Mar7th00_Blend_Skill_01);
         PECommon.Log("StateAttack:Process State.");
     }
 }
