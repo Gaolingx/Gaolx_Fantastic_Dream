@@ -150,6 +150,8 @@ namespace StarterAssets
         private bool _hasAnimator;
 
         private bool _tryToCrouch;
+        private int skillAction;
+        private bool skillRelease;
 
 
         private bool IsCurrentDeviceMouse
@@ -169,6 +171,12 @@ namespace StarterAssets
             targetPlayerState = blend;
         }
 
+        public void SetAction(int action, bool isReleaseSkill)
+        {
+            skillAction = action;
+            skillRelease = isReleaseSkill;
+        }
+
         private void PlayerStateInController()
         {
             switch (targetPlayerState)
@@ -177,15 +185,13 @@ namespace StarterAssets
                     Move();
                     Crouch();
                     JumpAndGravity();
+                    SetAtkSkill();
                     break;
                 case Constants.State_Mar7th00_Blend_Move: //Move
                     Move();
                     Crouch();
                     JumpAndGravity();
-                    break;
-                case Constants.State_Mar7th00_Blend_Skill_01: //Skill01
-                    Move();
-                    AtkSkill01();
+                    SetAtkSkill();
                     break;
                 case Constants.State_Mar7th00_Blend_CantControl: //can't Control
                     break;
@@ -491,17 +497,16 @@ namespace StarterAssets
             }
         }
 
-        private void AtkSkill01()
+        private void SetAtkSkill()
         {
-            bool currAtkSkill01 = _input.skill01;
+            bool currAtkSkill = skillRelease;
             if (_hasAnimator)
             {
-                if (currAtkSkill01 == true)
+                if (currAtkSkill == true)
                 {
-                    _animator.SetInteger(_animIDSkillAction, 1);
+                    _animator.SetInteger(_animIDSkillAction, skillAction);
                 }
             }
-            _input.skill01 = false;
         }
 
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)

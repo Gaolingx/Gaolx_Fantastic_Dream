@@ -34,11 +34,12 @@ public abstract class EntityBase
         }
     }
 
-    public virtual void SetAction(int action)
+    public virtual void SetAction(int action, bool inputValues = true)
     {
         if (playerController != null)
         {
-            playerController.SetAniBlend(action);
+            playerController.SetAction(action, inputValues);
         }
     }
+
 }

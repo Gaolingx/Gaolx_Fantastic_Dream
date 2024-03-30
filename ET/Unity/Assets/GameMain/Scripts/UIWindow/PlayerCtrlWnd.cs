@@ -31,7 +31,7 @@ public class PlayerCtrlWnd : WindowRoot
 
     private void Update()
     {
-        if(battleMgr.entitySelfPlayer != null)
+        if (battleMgr.entitySelfPlayer != null)
         {
             wndEntitySelfPlayer = battleMgr.entitySelfPlayer;
             playerInput = wndEntitySelfPlayer.playerInput;
@@ -67,12 +67,12 @@ public class PlayerCtrlWnd : WindowRoot
 
     public void ListeningClickPlayerSkill02Atk()
     {
-        
+
     }
 
     public void ListeningClickPlayerSkill03Atk()
     {
-        
+
     }
     #endregion
 
