@@ -73,6 +73,15 @@ public class NpcData : BaseData<NpcData>
     public float NPC_Transform_Scale_Z;
 }
 
+public class SkillCfg : BaseData<SkillCfg>
+{
+    public string skillName;
+    public int skillTime; //技能持续时间
+    public int aniAction; //动画控制参数
+    public string fx; //特效名称
+    public List<int> skillMoveLst;
+}
+
 public class BaseData<T>
 {
     public int ID;
