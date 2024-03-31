@@ -1,6 +1,7 @@
 //功能：逻辑实体基类
 
 using StarterAssets;
+using UnityEngine.InputSystem;
 
 public abstract class EntityBase
 {
@@ -8,6 +9,7 @@ public abstract class EntityBase
     public AniState currentAniState = AniState.None;
 
     public StateMgr stateMgr = null;
+    public SkillMgr skillMgr = null;
     public ThirdPersonController playerController = null;
     public StarterAssetsInputs playerInput = null;
     public Controller controller = null;
@@ -21,9 +23,9 @@ public abstract class EntityBase
     {
         stateMgr.ChangeStatus(this, AniState.Idle, null);
     }
-    public void PlayerStateAttack()
+    public void PlayerStateAttack(int skillID, bool inputValue)
     {
-        stateMgr.ChangeStatus(this, AniState.Attack, null);
+        stateMgr.ChangeStatus(this, AniState.Attack, skillID, inputValue);
     }
 
     public virtual void SetAniBlend(int blend)
@@ -40,6 +42,11 @@ public abstract class EntityBase
         {
             playerController.SetAction(action, inputValues);
         }
+    }
+
+    public void AttackEffect(int skillID)
+    {
+        skillMgr.AttackEffect(this, skillID);
     }
 
 }

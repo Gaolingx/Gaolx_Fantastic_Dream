@@ -9,4 +9,12 @@ public class SkillMgr : MonoBehaviour
     {
         PECommon.Log("Init SkillMgr Done.");
     }
+
+    /// <summary>
+    /// 技能效果表现
+    /// </summary>
+    public void AttackEffect(EntityBase entity, int skillID)
+    {
+
+    }
 }

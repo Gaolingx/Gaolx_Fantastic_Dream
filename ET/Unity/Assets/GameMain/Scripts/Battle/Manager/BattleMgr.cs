@@ -37,7 +37,8 @@ public class BattleMgr : MonoBehaviour
             //实例化玩家逻辑实体
             entitySelfPlayer = new EntityPlayer
             {
-                stateMgr = stateMgr //将stateMgr注入逻辑实体类中
+                stateMgr = stateMgr, //将stateMgr注入逻辑实体类中
+                skillMgr = skillMgr,
             };
 
             controller = player.GetComponent<ThirdPersonController>();
@@ -173,7 +174,7 @@ public class BattleMgr : MonoBehaviour
     private void PlayerReleaseSkill01()
     {
         //PECommon.Log("Click Skill01");
-        entitySelfPlayer.PlayerStateAttack();
+        entitySelfPlayer.PlayerStateAttack(101, entitySelfPlayer.playerInput.skill01);
     }
 
     private void PlayerReleaseSkill02()
