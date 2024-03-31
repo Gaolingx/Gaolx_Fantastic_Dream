@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class SkillMgr : MonoBehaviour
 {
+    private ResSvc resSvc;
+
     public void Init()
     {
+        resSvc = ResSvc.Instance;
         PECommon.Log("Init SkillMgr Done.");
     }
 
@@ -15,6 +18,12 @@ public class SkillMgr : MonoBehaviour
     /// </summary>
     public void AttackEffect(EntityBase entity, int skillID)
     {
+        SkillCfg skillData = resSvc.GetSkillCfg(skillID);
+
+        //设置技能动作
+        entity.SetAction(skillData.aniAction);
+        //设置特效
+        entity.SetCFX(skillData.fx, skillData.skillTime);
 
     }
 }
