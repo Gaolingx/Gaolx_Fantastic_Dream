@@ -1,5 +1,6 @@
 ﻿//功能：攻击状态
 
+
 public class StateAttack : IState
 {
     public void StateEnter(EntityBase entity, params object[] args)
@@ -10,14 +11,14 @@ public class StateAttack : IState
 
     public void StateExit(EntityBase entity, params object[] args)
     {
-        //entity.SetAction(-1);
-        entity.playerInput.skill01 = false;
+        entity.SetAction(Constants.SkillActionDefault);
         PECommon.Log("StateAttack:Exit State.");
     }
 
     public void StateProcess(EntityBase entity, params object[] args)
     {
         entity.AttackEffect((int)args[0]);
+        entity.SetInputBool((int)args[0]);
         PECommon.Log("StateAttack:Process State.");
     }
 }

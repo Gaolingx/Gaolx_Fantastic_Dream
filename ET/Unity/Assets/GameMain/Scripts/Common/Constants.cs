@@ -157,4 +157,7 @@ public class Constants
     public const int State_Mar7th00_Blend_Move = 1;
     public const int State_Mar7th00_Blend_Skill_01 = 2;
     public const int State_Mar7th00_Blend_CantControl = 10;
+
+    //Action´¥·¢²ÎÊý
+    public const int SkillActionDefault = -1;
 }

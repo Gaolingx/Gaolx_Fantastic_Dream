@@ -174,7 +174,7 @@ public class BattleMgr : MonoBehaviour
     private void PlayerReleaseSkill01()
     {
         //PECommon.Log("Click Skill01");
-        entitySelfPlayer.PlayerStateAttack(101, entitySelfPlayer.playerInput);
+        entitySelfPlayer.PlayerStateAttack(101);
     }
 
     private void PlayerReleaseSkill02()

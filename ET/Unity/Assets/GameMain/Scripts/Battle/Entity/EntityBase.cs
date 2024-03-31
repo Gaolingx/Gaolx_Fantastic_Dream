@@ -23,9 +23,9 @@ public abstract class EntityBase
     {
         stateMgr.ChangeStatus(this, AniState.Idle, null);
     }
-    public void PlayerStateAttack(int skillID, StarterAssetsInputs inputType)
+    public void PlayerStateAttack(int skillID)
     {
-        stateMgr.ChangeStatus(this, AniState.Attack, skillID, inputType);
+        stateMgr.ChangeStatus(this, AniState.Attack, skillID);
     }
 
     public virtual void SetAniBlend(int blend)
@@ -43,9 +43,24 @@ public abstract class EntityBase
             playerController.SetAction(action, inputValues);
         }
     }
+    public virtual void SetInputBool(int inputSkillID, bool inputValue = false)
+    {
+        if (playerInput != null)
+        {
+            switch (inputSkillID)
+            {
+                case 101:
+                    playerInput.skill01 = inputValue;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
     public virtual void SetCFX(string fxName, float destroyTime)
     {
-        if(playerController != null)
+        if (playerController != null)
         {
             playerController.SetFX(fxName, destroyTime);
         }
