@@ -49,7 +49,7 @@ public abstract class EntityBase
         {
             switch (inputSkillID)
             {
-                case 101:
+                case Constants.SkillID_Mar7th00_skill01:
                     playerInput.skill01 = inputValue;
                     break;
                 default:

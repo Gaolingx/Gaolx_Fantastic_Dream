@@ -24,6 +24,9 @@ namespace StarterAssets
         [Tooltip("Sprint speed of the character in m/s")]
         public float SprintSpeed = 5.335f;
 
+        [Tooltip("Skill Move speed of the character in m/s")]
+        public float SkillMoveSpeed = 0f;
+
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
         public float RotationSmoothTime = 0.12f;
@@ -152,6 +155,7 @@ namespace StarterAssets
         private bool _tryToCrouch;
         private int skillAction;
         private bool skillRelease;
+        private bool _isSkillMove = false;
 
 
         private bool IsCurrentDeviceMouse
@@ -177,18 +181,43 @@ namespace StarterAssets
             skillRelease = isReleaseSkill;
         }
 
+        public void SetSkillMove(bool isSkillMove, float skillMoveSpeed = 0f)
+        {
+            SkillMoveSpeed = skillMoveSpeed;
+            if (isSkillMove)
+            {
+                _isSkillMove = true;
+            }
+            else
+            {
+                _isSkillMove = false;
+            }
+        }
+
+        private void SetMove()
+        {
+            if (_isSkillMove)
+            {
+                Move(SkillMoveSpeed);
+            }
+            else
+            {
+                Move(MoveSpeed);
+            }
+        }
+
         private void PlayerStateInController()
         {
             switch (targetPlayerState)
             {
                 case Constants.State_Mar7th00_Blend_Idle: //Idle
-                    Move();
+                    SetMove();
                     Crouch();
                     JumpAndGravity();
                     SetAtkSkill();
                     break;
                 case Constants.State_Mar7th00_Blend_Move: //Move
-                    Move();
+                    SetMove();
                     Crouch();
                     JumpAndGravity();
                     SetAtkSkill();
@@ -341,10 +370,10 @@ namespace StarterAssets
 
         }
 
-        private void Move()
+        private void Move(float moveSpeed)
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
-            float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+            float targetSpeed = _input.sprint ? SprintSpeed : moveSpeed;
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 

@@ -160,4 +160,7 @@ public class Constants
 
     //Action触发参数
     public const int SkillActionDefault = -1;
+
+    //技能ID配置
+    public const int SkillID_Mar7th00_skill01 = 101;
 }
