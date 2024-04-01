@@ -57,7 +57,6 @@ public abstract class EntityBase
             }
         }
     }
-
     public virtual void SetCFX(string fxName, float destroyTime)
     {
         if (playerController != null)
@@ -65,8 +64,15 @@ public abstract class EntityBase
             playerController.SetFX(fxName, destroyTime);
         }
     }
+    public virtual void SetSkillMoveState(bool move, float speed = 0f)
+    {
+        if (playerController != null)
+        {
+            playerController.SetSkillMove(move, speed);
+        }
+    }
 
-    public void AttackEffect(int skillID)
+    public virtual void AttackEffect(int skillID)
     {
         skillMgr.AttackEffect(this, skillID);
     }
