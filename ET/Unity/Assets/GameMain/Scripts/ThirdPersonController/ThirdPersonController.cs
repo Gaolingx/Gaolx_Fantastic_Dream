@@ -198,11 +198,11 @@ namespace StarterAssets
         {
             if (_isSkillMove)
             {
-                Move(SkillMoveSpeed);
+                Move(true);
             }
             else
             {
-                Move(MoveSpeed);
+                Move();
             }
         }
 
@@ -370,10 +370,18 @@ namespace StarterAssets
 
         }
 
-        private void Move(float moveSpeed)
+        private void Move(bool isSkillMove = false)
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
-            float targetSpeed = _input.sprint ? SprintSpeed : moveSpeed;
+            float targetSpeed;
+            if (isSkillMove)
+            {
+                targetSpeed = SkillMoveSpeed;
+            }
+            else
+            {
+                targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+            }
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
