@@ -15,7 +15,9 @@ public class PathDefine
     public const string BuyCfg = "ResCfgs/xml/buyCfg";
     public const string TaskRewardCfg = "ResCfgs/xml/taskreward";
     public const string NpcCfg = "ResCfgs/xml/npcCfg";
+
     public const string SkillCfg = "ResCfgs/xml/skill";
+    public const string SkillMoveCfg = "ResCfgs/xml/skillmove";
 
     #endregion
 

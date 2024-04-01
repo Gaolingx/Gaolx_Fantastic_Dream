@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <item ID="1011">
+    <delayTime>0</delayTime>
+    <moveTime>80</moveTime>
+    <moveDis>5.5</moveDis>
+  </item>
+</root>

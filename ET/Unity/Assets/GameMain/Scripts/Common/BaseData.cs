@@ -82,6 +82,14 @@ public class SkillCfg : BaseData<SkillCfg>
     public List<int> skillMoveLst;
 }
 
+public class SkillMoveCfg : BaseData<SkillMoveCfg>
+{
+    public int delayTime;
+    public int moveTime;
+    public float moveDis;
+}
+
+
 public class BaseData<T>
 {
     public int ID;

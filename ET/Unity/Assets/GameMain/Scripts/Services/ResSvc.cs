@@ -23,6 +23,7 @@ public class ResSvc : MonoBehaviour
         InitNpcCfg(PathDefine.NpcCfg);
 
         InitSkillCfg(PathDefine.SkillCfg);
+        InitSkillMoveCfg(PathDefine.SkillMoveCfg);
 
         PECommon.Log("Init ResSvc...");
     }
@@ -737,6 +738,66 @@ public class ResSvc : MonoBehaviour
         if (skillDic.TryGetValue(id, out sc))
         {
             return sc;
+        }
+        return null;
+    }
+    #endregion
+
+    #region ººƒ‹Œª“∆≈‰÷√
+    private Dictionary<int, SkillMoveCfg> skillMoveDic = new Dictionary<int, SkillMoveCfg>();
+    private void InitSkillMoveCfg(string path)
+    {
+        TextAsset xml = Resources.Load<TextAsset>(path);
+        if (!xml)
+        {
+            PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
+        }
+        else
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xml.text);
+
+            XmlNodeList nodLst = doc.SelectSingleNode("root").ChildNodes;
+
+            for (int i = 0; i < nodLst.Count; i++)
+            {
+                XmlElement ele = nodLst[i] as XmlElement;
+
+                if (ele.GetAttributeNode("ID") == null)
+                {
+                    continue;
+                }
+                int ID = Convert.ToInt32(ele.GetAttributeNode("ID").InnerText);
+                SkillMoveCfg smc = new SkillMoveCfg
+                {
+                    ID = ID
+                };
+
+                foreach (XmlElement e in nodLst[i].ChildNodes)
+                {
+                    switch (e.Name)
+                    {
+                        case "delayTime":
+                            smc.delayTime = int.Parse(e.InnerText);
+                            break;
+                        case "moveTime":
+                            smc.moveTime = int.Parse(e.InnerText);
+                            break;
+                        case "moveDis":
+                            smc.moveDis = float.Parse(e.InnerText);
+                            break;
+                    }
+                }
+                skillMoveDic.Add(ID, smc);
+            }
+        }
+    }
+    public SkillMoveCfg GetSkillMoveCfg(int id)
+    {
+        SkillMoveCfg smc = null;
+        if (skillMoveDic.TryGetValue(id, out smc))
+        {
+            return smc;
         }
         return null;
     }
