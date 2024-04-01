@@ -46,9 +46,10 @@ public class SkillMgr : MonoBehaviour
         {
             SkillMoveCfg skillMoveCfg = resSvc.GetSkillMoveCfg(skillData.skillMoveLst[i]);
             float speed = skillMoveCfg.moveDis / (skillMoveCfg.moveTime / 1000f);
-            sum += skillMoveCfg.delayTime;
+            sum += skillMoveCfg.delayTime; //多段位移技能要累加延迟时间
             if (sum > 0)
             {
+                //延迟执行SkillMove
                 timerSvc.AddTimeTask((int tid) => {
                     entity.SetSkillMoveState(true, speed);
                 }, sum);
@@ -58,7 +59,8 @@ public class SkillMgr : MonoBehaviour
                 entity.SetSkillMoveState(true, speed);
             }
 
-            sum += skillMoveCfg.moveTime;
+            sum += skillMoveCfg.moveTime; //同理，累加技能移动时间
+            //延迟关闭SkillMove
             timerSvc.AddTimeTask((int tid) => {
                 entity.SetSkillMoveState(false);
             }, sum);
