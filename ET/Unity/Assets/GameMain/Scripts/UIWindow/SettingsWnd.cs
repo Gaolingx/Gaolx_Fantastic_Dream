@@ -81,4 +81,11 @@ public class SettingsWnd : WindowRoot
             Debug.Log("已关闭垂直同步！");
         }
     }
+
+    //Reload Cfg Data
+    public void ClickResetCfgsBtn()
+    {
+        resSvc.ResetSkillCfgs();
+        GameRoot.AddTips("技能数据重置成功！");
+    }
 }

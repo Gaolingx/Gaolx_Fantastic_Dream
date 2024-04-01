@@ -28,6 +28,17 @@ public class ResSvc : MonoBehaviour
         PECommon.Log("Init ResSvc...");
     }
 
+    public void ResetSkillCfgs()
+    {
+        //清空字典，避免key冲突
+        skillDic.Clear();
+        InitSkillCfg(PathDefine.SkillCfg);
+        skillMoveDic.Clear();
+        InitSkillMoveCfg(PathDefine.SkillMoveCfg);
+
+        PECommon.Log("Reset Skill Cfgs Done.");
+    }
+
     private Action prgCB = null;  //更新的回调
 
     //异步的加载场景，需要显示进度条
