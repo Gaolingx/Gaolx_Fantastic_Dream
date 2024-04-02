@@ -31,6 +31,10 @@ public class SkillMgr : MonoBehaviour
         //设置技能位移
         CalcSkillMove(entity, skillData);
 
+        //我们希望当技能施放的时候，移动不生效，直到技能结束
+        entity.canControl = false;
+        entity.PlayerCanControl();
+
         timerSvc.AddTimeTask((int tid) =>
         {
             entity.SetAniBlend(Constants.State_Mar7th00_Blend_Idle);

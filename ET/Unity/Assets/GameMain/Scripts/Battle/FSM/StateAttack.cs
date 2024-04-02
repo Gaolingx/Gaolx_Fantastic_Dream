@@ -11,6 +11,8 @@ public class StateAttack : IState
 
     public void StateExit(EntityBase entity, params object[] args)
     {
+        entity.canControl = true;
+        entity.PlayerCanControl();
         entity.SetAction(Constants.SkillActionDefault);
         PECommon.Log("StateAttack:Exit State.");
     }

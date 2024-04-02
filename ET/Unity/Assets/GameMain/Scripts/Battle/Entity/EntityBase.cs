@@ -1,7 +1,9 @@
 //功能：逻辑实体基类
 
 using StarterAssets;
+using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 
 public abstract class EntityBase
 {
@@ -13,6 +15,11 @@ public abstract class EntityBase
     public ThirdPersonController playerController = null;
     public StarterAssetsInputs playerInput = null;
     public Controller controller = null;
+
+    private InputActionAsset _inputActionAsset;
+    private InputActionMap _player;
+
+    public bool canControl = true;
 
     //玩家状态切换
     public void PlayerStateMove()
@@ -26,6 +33,23 @@ public abstract class EntityBase
     public void PlayerStateAttack(int skillID)
     {
         stateMgr.ChangeStatus(this, AniState.Attack, skillID);
+    }
+    public void PlayerCanControl()
+    {
+        _inputActionAsset = GameObject.Find("EventSystem").GetComponent<InputSystemUIInputModule>().actionsAsset;
+        _player = _inputActionAsset.FindActionMap("Player");
+        if (_player != null)
+        {
+            if (canControl != true)
+            {
+                _player.Disable();
+                playerInput.move = Vector2.zero;
+            }
+            else
+            {
+                _player.Enable();
+            }
+        }
     }
 
     public virtual void SetAniBlend(int blend)

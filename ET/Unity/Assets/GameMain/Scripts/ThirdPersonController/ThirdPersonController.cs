@@ -93,7 +93,8 @@ namespace StarterAssets
         public bool LockCameraPosition = false;
 
         [Header("Player State")]
-        public int targetPlayerState = 0;
+        [SerializeField]
+        private int targetPlayerState = 0;
 
         [Header("Player FX")]
         public GameObject daggerskill1fx;

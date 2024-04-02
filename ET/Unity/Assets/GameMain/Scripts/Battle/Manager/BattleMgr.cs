@@ -44,7 +44,7 @@ public class BattleMgr : MonoBehaviour
             controller = player.GetComponent<ThirdPersonController>();
             controller.MoveSpeed = Constants.PlayerMoveSpeed;
             controller.SprintSpeed = Constants.PlayerSprintSpeed;
-            controller.targetPlayerState = Constants.State_Mar7th00_Blend_Idle;
+            controller.SetAniBlend(Constants.State_Mar7th00_Blend_Idle);
             entitySelfPlayer.playerController = controller;
 
             playerInput = player.GetComponent<StarterAssetsInputs>();
@@ -133,6 +133,7 @@ public class BattleMgr : MonoBehaviour
     public void SetSelfPlayerMoveDir(Vector2 dir)
     {
         //PECommon.Log(dir.ToString());
+
         if (dir == Vector2.zero)
         {
             entitySelfPlayer.PlayerStateIdle();
