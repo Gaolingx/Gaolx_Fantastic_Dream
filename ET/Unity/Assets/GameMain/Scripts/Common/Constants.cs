@@ -25,6 +25,9 @@ public class Constants
     public const string ColorYellowHex = "#FFFF00FF";
     #endregion
 
+    //HotfixVersion
+    public const string HotfixBuildVersion = "1.0.0";
+
     //Dynamic Wnd
     public const string TipsAniClipName = "TipsShowAni";
 

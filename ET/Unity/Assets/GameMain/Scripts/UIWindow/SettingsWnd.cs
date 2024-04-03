@@ -10,6 +10,7 @@ public class SettingsWnd : WindowRoot
     public Toggle VsyncSettingsBtn;
     public AudioSource WndBGAudioAudioSource, WndUIAudioAudioSource, WndCharacterAudioSource;
     public UIController uiController;
+    public FpsWnd fpsWnd;
     protected override void InitWnd()
     {
         base.InitWnd();
@@ -17,6 +18,7 @@ public class SettingsWnd : WindowRoot
         GetAudioSourceComponent();
         SliderAddListener();
         InitSliderValue();
+        fpsWnd.SetWndState();
     }
 
     private void InitSliderValue()
@@ -56,6 +58,7 @@ public class SettingsWnd : WindowRoot
     {
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
         uiController.isPause = false;
+        fpsWnd.SetWndState(false);
         SetWndState(false);
     }
     public void ClickExitGame()

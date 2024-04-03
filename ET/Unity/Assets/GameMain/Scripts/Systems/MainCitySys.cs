@@ -76,9 +76,6 @@ public class MainCitySys : SystemRoot
                 charCamTrans.gameObject.SetActive(false);
             }
 
-            //加载性能计数器
-            fpsWnd.InitWnd();
-
         });
 
     }

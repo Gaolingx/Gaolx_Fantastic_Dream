@@ -3,36 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FpsWnd : MonoBehaviour
+public class FpsWnd : WindowRoot
 {
     public GameObject FpsWindow;
     public GameObject FpsWindowScript;
     public Button ShowDebugInfoBtn;
-    private bool fpsWndState;
 
-    public void InitWnd()
+    protected override void InitWnd()
     {
-        FpsWindow.SetActive(true);
-        SetFpsWindowScriptActive();
+        base.InitWnd();
+
     }
     public void ClickShowDebugInfoBtn()
     {
 
         if(FpsWindowScript.activeSelf == true)
         {
-            fpsWndState = false;
+            SetFpsWindowScriptActive(false);
         }
         else
         {
-            fpsWndState = true;
+            SetFpsWindowScriptActive();
         }
-        SetFpsWindowScriptActive();
-
     }
 
-    private void SetFpsWindowScriptActive()
+    private void SetFpsWindowScriptActive(bool isFpsWndActive = true)
     {
-        if (fpsWndState)
+        if (isFpsWndActive)
         {
             FpsWindowScript.SetActive(true);
         }

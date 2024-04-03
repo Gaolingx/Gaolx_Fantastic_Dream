@@ -7,7 +7,7 @@ namespace HotFix.Utils
 {
     public class Fps : MonoBehaviour
     {
-        private static string Version = "1.0.4";
+        private static string Version = Constants.HotfixBuildVersion;
 
         [SerializeField] private Text txtInfo;
 
