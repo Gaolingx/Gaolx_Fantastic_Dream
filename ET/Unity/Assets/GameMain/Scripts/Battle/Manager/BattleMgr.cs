@@ -37,6 +37,7 @@ public class BattleMgr : MonoBehaviour
             //实例化玩家逻辑实体
             entitySelfPlayer = new EntityPlayer
             {
+                battleMgr = this,
                 stateMgr = stateMgr, //将stateMgr注入逻辑实体类中
                 skillMgr = skillMgr,
             };
@@ -186,5 +187,10 @@ public class BattleMgr : MonoBehaviour
     private void PlayerReleaseSkill03()
     {
         PECommon.Log("Click Skill03");
+    }
+
+    public Vector2 GetDirInput()
+    {
+        return BattleSys.Instance.GetDirInput();
     }
 }

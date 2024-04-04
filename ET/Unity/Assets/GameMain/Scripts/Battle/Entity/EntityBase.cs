@@ -10,6 +10,7 @@ public abstract class EntityBase
     //Íæ¼Òµ±Ç°×´Ì¬
     public AniState currentAniState = AniState.None;
 
+    public BattleMgr battleMgr = null;
     public StateMgr stateMgr = null;
     public SkillMgr skillMgr = null;
     public ThirdPersonController playerController = null;
@@ -99,6 +100,11 @@ public abstract class EntityBase
     public virtual void AttackEffect(int skillID)
     {
         skillMgr.AttackEffect(this, skillID);
+    }
+
+    public virtual Vector2 GetDirInput()
+    {
+        return Vector2.zero;
     }
 
 }

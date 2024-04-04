@@ -16,8 +16,11 @@ public class PlayerCtrlWnd : WindowRoot
     public Text txtExpPrg;
     public Transform expPrgTrans;
 
+    [HideInInspector]
+    public Vector2 currentDir;
+
     private BattleMgr battleMgr;
-    StarterAssetsInputs playerInput;
+    private StarterAssetsInputs playerInput;
 
     private EntityPlayer wndEntitySelfPlayer;
 
@@ -41,7 +44,13 @@ public class PlayerCtrlWnd : WindowRoot
             ListeningClickPlayerSkill01Atk();
             ListeningClickPlayerSkill02Atk();
             ListeningClickPlayerSkill03Atk();
+            SetCurrentDir();
         }
+    }
+
+    private void SetCurrentDir()
+    {
+        currentDir = playerInput.move;
     }
 
     #region RegEvts
