@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root Version="2.4">
+  <Common AutoAddressable="False" LocationToLower="False" IncludeAssetGUID="False" UniqueBundleName="False" ShowPackageView="True" ShowEditorAlias="False" />
+  <Package PackageName="DefaultPackage" PackageDesc="">
+    <Group GroupActiveRule="EnableGroup" GroupName="ABPrefabs" GroupDesc="" AssetTags="">
+      <Collector CollectPath="Assets/AssetBundles/Prefabs" CollectGUID="4ed0f7ff4ec8cdf46bf241604d603bfe" CollectType="MainAssetCollector" AddressRule="AddressByFileName" PackRule="PackDirectory" FilterRule="CollectAll" UserData="" AssetTags="" />
+    </Group>
+    <Group GroupActiveRule="EnableGroup" GroupName="ABScripts" GroupDesc="" AssetTags="">
+      <Collector CollectPath="Assets/AssetBundles/Scripts/Dlls" CollectGUID="6326b1c771c578b439c7003f1a40e0e2" CollectType="MainAssetCollector" AddressRule="AddressByFileName" PackRule="PackRawFile" FilterRule="CollectAll" UserData="" AssetTags="" />
+    </Group>
+  </Package>
+</root>

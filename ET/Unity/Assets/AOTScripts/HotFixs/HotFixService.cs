@@ -14,22 +14,22 @@ public class HotFixService : MonoBehaviour
     //补充元数据dll的列表，Yooasset中不需要带后缀
     public static List<string> AOTMetaAssemblyNames { get; } = new List<string>()
     {
-        "mscorlib.dll",
-        "System.dll",
-        "System.Core.dll",
-        "System.Xml.dll",
-        "UnityEngine.CoreModule.dll",
-        "Unity.InputSystem.dll",
-        "Cinemachine.dll",
-        "PESocket.dll",
-        "PEProtocol.dll",
-        "PETimer.dll",
-        "UniTask.dll",
-        "YooAsset.dll",
+        "Assets/AssetBundles/Scripts/Dlls/mscorlib.dll",
+        "Assets/AssetBundles/Scripts/Dlls/System.dll",
+        "Assets/AssetBundles/Scripts/Dlls/System.Core.dll",
+        "Assets/AssetBundles/Scripts/Dlls/System.Xml.dll",
+        "Assets/AssetBundles/Scripts/Dlls/UnityEngine.CoreModule.dll",
+        "Assets/AssetBundles/Scripts/Dlls/Unity.InputSystem.dll",
+        "Assets/AssetBundles/Scripts/Dlls/Cinemachine.dll",
+        "Assets/AssetBundles/Scripts/Dlls/PESocket.dll",
+        "Assets/AssetBundles/Scripts/Dlls/PEProtocol.dll",
+        "Assets/AssetBundles/Scripts/Dlls/PETimer.dll",
+        "Assets/AssetBundles/Scripts/Dlls/UniTask.dll",
+        "Assets/AssetBundles/Scripts/Dlls/YooAsset.dll",
     };
 
 
-    [SerializeField] private string HotDllName = "GameMain.dll";
+    [SerializeField] private string HotDllName = "Assets/AssetBundles/Scripts/Dlls/GameMain.dll";
     [SerializeField] private string GameRootObject = "Assets/AssetBundles/Prefabs/RootPrefabs/HotFixRoot.prefab";
 
     //获取资源二进制
@@ -91,6 +91,8 @@ public class HotFixService : MonoBehaviour
         var asset1 = _yooAssetResourcePackage.LoadAssetSync<GameObject>(GameRootObject);
         GameObject hotFixRoot = asset1.InstantiateSync();
         hotFixRoot.transform.SetParent(_hotFixRootParent);
+        hotFixRoot.transform.position = Vector3.zero;
+        hotFixRoot.transform.localScale = Vector3.one;
         RectTransform rect = hotFixRoot.GetComponent<RectTransform>();
         rect.offsetMax = new Vector2(0, 0);
         _hotFixWindow.gameObject.SetActive(false);
@@ -100,12 +102,12 @@ public class HotFixService : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        string packageName = "DefaultPackage";
-        var package = YooAssets.TryGetPackage(packageName);
-
         // 1.初始化资源系统
         YooAssets.Initialize();
-        if (package == null)
+        string packageName = "DefaultPackage";
+        _yooAssetResourcePackage = YooAssets.TryGetPackage(packageName);
+
+        if (_yooAssetResourcePackage == null)
         {
             // 创建默认的资源包
             _yooAssetResourcePackage = YooAssets.CreatePackage(packageName);
@@ -119,7 +121,8 @@ public class HotFixService : MonoBehaviour
             case EPlayMode.EditorSimulateMode:
                 {
                     var initParameters = new EditorSimulateModeParameters();
-                    initParameters.SimulateManifestFilePath = EditorSimulateModeHelper.SimulateBuild(packageName);
+                    var simulateManifestFilePath = EditorSimulateModeHelper.SimulateBuild(packageName);
+                    initParameters.SimulateManifestFilePath = simulateManifestFilePath;
                     var initOperation = _yooAssetResourcePackage.InitializeAsync(initParameters);
                     yield return initOperation;
 

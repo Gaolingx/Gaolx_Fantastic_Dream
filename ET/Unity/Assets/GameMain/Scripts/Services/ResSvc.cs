@@ -6,14 +6,20 @@ using System.Xml;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using YooAsset;
 
 
 public class ResSvc : MonoBehaviour
 {
     public static ResSvc Instance = null;
+
+    private ResourcePackage _yooAssetResourcePackage;
+
     public void InitSvc()
     {
         Instance = this;
+        _yooAssetResourcePackage = YooAssets.GetPackage(Constants.ResourcePackgeName);
+
         InitRDNameCfg(PathDefine.RDNameCfg);
         InitMapCfg(PathDefine.MapCfg);
         InitGuideCfg(PathDefine.GuideCfg);
@@ -96,26 +102,20 @@ public class ResSvc : MonoBehaviour
 
     }
 
-    private Dictionary<string, GameObject> goDic = new Dictionary<string, GameObject>();
+
     //获取Prefab的类
     public GameObject LoadPrefab(string path, bool iscache = false)
     {
         GameObject prefab = null;
-        if (!goDic.TryGetValue(path, out prefab))
-        {
-            //没有缓存则从Resources加载
-            prefab = Resources.Load<GameObject>(path);
-            if (iscache)
-            {
-                goDic.Add(path, prefab);
-            }
-        }
+        //没有缓存则从Resources加载
+        var assetPrefab = _yooAssetResourcePackage.LoadAssetSync<GameObject>(path);
+        prefab = assetPrefab.InstantiateSync();
 
         //prefab加载完成后的实例化
         GameObject go = null;
         if (prefab != null)
         {
-            go = Instantiate(prefab);
+            go = prefab;
         }
         return go;
     }

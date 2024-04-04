@@ -66,25 +66,25 @@ public class PathDefine
     #endregion
 
     #region TaskReward
-    public const string TaskItemPrefab = "ResPrefabs/GameMain/UIPrefabs/GameRoot/ItemTask";
+    public const string TaskItemPrefab = "Assets/AssetBundles/Prefabs/GameMain/UIPrefabs/GameRoot/ItemTask";
     #endregion
 
     #region Player
-    public const string AssissnCityPlayerPrefab = "ResPrefabs/GameMain/AvatarPrefabs/PlayerPrefabs/Player_Avatar_March_7th Variant";
-    public const string AssissnBattlePlayerPrefab = "ResPrefabs/GameMain/AvatarPrefabs/PlayerPrefabs/Player_Avatar_March_7th Variant";
+    public const string AssissnCityPlayerPrefab = "Assets/AssetBundles/Prefabs/GameMain/AvatarPrefabs/PlayerPrefabs/Player_Avatar_March_7th Variant";
+    public const string AssissnBattlePlayerPrefab = "Assets/AssetBundles/Prefabs/GameMain/AvatarPrefabs/PlayerPrefabs/Player_Avatar_March_7th Variant";
 
     #endregion
 
     #region NPC
-    public const string AssissnCityNPC0Prefab = "ResPrefabs/GameMain/PrefabNPC/NPC_0";
-    public const string AssissnCityNPC1Prefab = "ResPrefabs/GameMain/PrefabNPC/NPC_1";
-    public const string AssissnCityNPC2Prefab = "ResPrefabs/GameMain/PrefabNPC/NPC_2";
-    public const string AssissnCityNPC3Prefab = "ResPrefabs/GameMain/PrefabNPC/NPC_3";
+    public const string AssissnCityNPC0Prefab = "Assets/AssetBundles/Prefabs/GameMain/PrefabNPC/NPC_0";
+    public const string AssissnCityNPC1Prefab = "Assets/AssetBundles/Prefabs/GameMain/PrefabNPC/NPC_1";
+    public const string AssissnCityNPC2Prefab = "Assets/AssetBundles/Prefabs/GameMain/PrefabNPC/NPC_2";
+    public const string AssissnCityNPC3Prefab = "Assets/AssetBundles/Prefabs/GameMain/PrefabNPC/NPC_3";
 
     #endregion
 
     #region Camera
-    public const string AssissnCityCharacterCameraPrefab = "ResPrefabs/GameMain/Cameras/SceneMainCity/PlayerFollowCamera";
+    public const string AssissnCityCharacterCameraPrefab = "Assets/AssetBundles/Prefabs/GameMain/Cameras/SceneMainCity/PlayerFollowCamera";
 
     #endregion
 

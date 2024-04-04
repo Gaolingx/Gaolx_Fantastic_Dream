@@ -15,17 +15,21 @@
     <type fullname="PEProtocol.PlayerData" preserve="all" />
     <type fullname="PEProtocol.PshChat" preserve="all" />
     <type fullname="PEProtocol.PshPower" preserve="all" />
+    <type fullname="PEProtocol.PshTaskPrgs" preserve="all" />
     <type fullname="PEProtocol.ReqBuy" preserve="all" />
+    <type fullname="PEProtocol.ReqFBFight" preserve="all" />
     <type fullname="PEProtocol.ReqGuide" preserve="all" />
     <type fullname="PEProtocol.ReqLogin" preserve="all" />
     <type fullname="PEProtocol.ReqRename" preserve="all" />
     <type fullname="PEProtocol.ReqStrong" preserve="all" />
     <type fullname="PEProtocol.ReqTakeTaskReward" preserve="all" />
     <type fullname="PEProtocol.RspBuy" preserve="all" />
+    <type fullname="PEProtocol.RspFBFight" preserve="all" />
     <type fullname="PEProtocol.RspGuide" preserve="all" />
     <type fullname="PEProtocol.RspLogin" preserve="all" />
     <type fullname="PEProtocol.RspRename" preserve="all" />
     <type fullname="PEProtocol.RspStrong" preserve="all" />
+    <type fullname="PEProtocol.RspTakeTaskReward" preserve="all" />
     <type fullname="PEProtocol.SndChat" preserve="all" />
   </assembly>
   <assembly fullname="PESocket">
@@ -41,8 +45,11 @@
     <type fullname="UIController" preserve="all" />
   </assembly>
   <assembly fullname="Unity.InputSystem">
+    <type fullname="UnityEngine.InputSystem.InputActionAsset" preserve="all" />
+    <type fullname="UnityEngine.InputSystem.InputActionMap" preserve="all" />
     <type fullname="UnityEngine.InputSystem.InputValue" preserve="all" />
     <type fullname="UnityEngine.InputSystem.PlayerInput" preserve="all" />
+    <type fullname="UnityEngine.InputSystem.UI.InputSystemUIInputModule" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.AIModule">
     <type fullname="UnityEngine.AI.NavMeshAgent" preserve="all" />
@@ -63,7 +70,6 @@
     <type fullname="Unity.Profiling.ProfilerRecorder" preserve="all" />
     <type fullname="Unity.Profiling.ProfilerRecorderOptions" preserve="all" />
     <type fullname="UnityEngine.Application" preserve="all" />
-    <type fullname="UnityEngine.AsyncOperation" preserve="all" />
     <type fullname="UnityEngine.Behaviour" preserve="all" />
     <type fullname="UnityEngine.Camera" preserve="all" />
     <type fullname="UnityEngine.Color" preserve="all" />
@@ -81,6 +87,7 @@
     <type fullname="UnityEngine.GameObject" preserve="all" />
     <type fullname="UnityEngine.Gizmos" preserve="all" />
     <type fullname="UnityEngine.HeaderAttribute" preserve="all" />
+    <type fullname="UnityEngine.HideInInspector" preserve="all" />
     <type fullname="UnityEngine.KeyCode" preserve="all" />
     <type fullname="UnityEngine.LayerMask" preserve="all" />
     <type fullname="UnityEngine.Mathf" preserve="all" />
@@ -97,7 +104,8 @@
     <type fullname="UnityEngine.Rendering.GraphicsDeviceType" preserve="all" />
     <type fullname="UnityEngine.RequireComponent" preserve="all" />
     <type fullname="UnityEngine.Resources" preserve="all" />
-    <type fullname="UnityEngine.SceneManagement.SceneManager" preserve="all" />
+    <type fullname="UnityEngine.SceneManagement.LoadSceneMode" preserve="all" />
+    <type fullname="UnityEngine.SceneManagement.Scene" preserve="all" />
     <type fullname="UnityEngine.Screen" preserve="all" />
     <type fullname="UnityEngine.SerializeField" preserve="all" />
     <type fullname="UnityEngine.SpaceAttribute" preserve="all" />
@@ -160,6 +168,12 @@
   <assembly fullname="UnityEngine.UIModule">
     <type fullname="UnityEngine.RectTransformUtility" preserve="all" />
   </assembly>
+  <assembly fullname="YooAsset">
+    <type fullname="YooAsset.OperationHandleBase" preserve="all" />
+    <type fullname="YooAsset.ResourcePackage" preserve="all" />
+    <type fullname="YooAsset.SceneOperationHandle" preserve="all" />
+    <type fullname="YooAsset.YooAssets" preserve="all" />
+  </assembly>
   <assembly fullname="netstandard">
     <type fullname="System.Action" preserve="all" />
     <type fullname="System.Action`1" preserve="all" />
@@ -172,6 +186,7 @@
     <type fullname="System.Collections.Generic.IEnumerator`1" preserve="all" />
     <type fullname="System.Collections.Generic.List`1" preserve="all" />
     <type fullname="System.Collections.Generic.Queue`1" preserve="all" />
+    <type fullname="System.Collections.IEnumerable" preserve="all" />
     <type fullname="System.Collections.IEnumerator" preserve="all" />
     <type fullname="System.ComponentModel.EditorBrowsableAttribute" preserve="all" />
     <type fullname="System.ComponentModel.EditorBrowsableState" preserve="all" />
@@ -184,9 +199,9 @@
     <type fullname="System.IDisposable" preserve="all" />
     <type fullname="System.Int32" preserve="all" />
     <type fullname="System.Int64" preserve="all" />
-    <type fullname="System.Math" preserve="all" />
     <type fullname="System.NotSupportedException" preserve="all" />
     <type fullname="System.Object" preserve="all" />
+    <type fullname="System.ParamArrayAttribute" preserve="all" />
     <type fullname="System.Random" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.CompilationRelaxationsAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.CompilerGeneratedAttribute" preserve="all" />
