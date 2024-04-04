@@ -67,10 +67,18 @@ public class GameRoot : MonoBehaviour
 
     }
 
-    public GameObject GetEventSystem()
+    private Dictionary<string, GameObject> goDic = new Dictionary<string, GameObject>();
+    public GameObject GetEventSystemObject(string path, bool iscache = true)
     {
         GameObject eventSystem = null;
-        eventSystem = GameObject.Find(Constants.EventSystemGOName);
+        if (!goDic.TryGetValue(path, out eventSystem))
+        {
+            eventSystem = GameObject.Find(path);
+            if(iscache)
+            {
+                goDic.Add(path, eventSystem);
+            }
+        }
         return eventSystem;
     }
 

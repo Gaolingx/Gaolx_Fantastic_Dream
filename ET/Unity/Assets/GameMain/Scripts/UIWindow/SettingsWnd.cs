@@ -58,7 +58,7 @@ public class SettingsWnd : WindowRoot
     public void ClickCloseBtn()
     {
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
-        GameRoot.Instance.GetEventSystem().GetComponent<UIController>().isPause = false;
+        GameRoot.Instance.GetEventSystemObject(Constants.EventSystemGOName).GetComponent<UIController>().isPause = false;
         fpsWnd.SetWndState(false);
         SetWndState(false);
     }
