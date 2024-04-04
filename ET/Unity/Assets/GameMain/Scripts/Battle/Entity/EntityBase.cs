@@ -36,7 +36,7 @@ public abstract class EntityBase
     }
     public void PlayerCanControl()
     {
-        _inputActionAsset = GameObject.Find("EventSystem").GetComponent<InputSystemUIInputModule>().actionsAsset;
+        _inputActionAsset = GameRoot.Instance.GetEventSystem().GetComponent<InputSystemUIInputModule>().actionsAsset;
         _player = _inputActionAsset.FindActionMap("Player");
         if (_player != null)
         {

@@ -67,6 +67,13 @@ public class GameRoot : MonoBehaviour
 
     }
 
+    public GameObject GetEventSystem()
+    {
+        GameObject eventSystem = null;
+        eventSystem = GameObject.Find(Constants.EventSystemGOName);
+        return eventSystem;
+    }
+
     public static void AddTips(string tips)
     {
         Instance.dynamicWnd.AddTips(tips);

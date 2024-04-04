@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
 public class SettingsWnd : WindowRoot
@@ -57,7 +58,7 @@ public class SettingsWnd : WindowRoot
     public void ClickCloseBtn()
     {
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
-        uiController.isPause = false;
+        GameRoot.Instance.GetEventSystem().GetComponent<UIController>().isPause = false;
         fpsWnd.SetWndState(false);
         SetWndState(false);
     }

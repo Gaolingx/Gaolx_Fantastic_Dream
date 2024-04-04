@@ -22,7 +22,6 @@ public class MainCitySys : SystemRoot
     public BuyWnd buyWnd;
     public TaskWnd taskWnd;
     public FpsWnd fpsWnd;
-    public UIController uiController;
 
     private GameObject mainCityPlayer;
     //private PlayerController playerCtrl;
@@ -452,7 +451,7 @@ public class MainCitySys : SystemRoot
     public void OpenSettingsWnd()
     {
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
-        uiController.isPause = true;
+        GameRoot.Instance.GetEventSystem().GetComponent<UIController>().isPause = true;
         settingsWnd.SetWndState(true);
 
     }

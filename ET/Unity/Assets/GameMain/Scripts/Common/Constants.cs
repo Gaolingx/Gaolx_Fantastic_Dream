@@ -169,4 +169,7 @@ public class Constants
 
     //¼¼ÄÜIDÅäÖÃ
     public const int SkillID_Mar7th00_skill01 = 101;
+
+    //EventSystemÅäÖÃ
+    public const string EventSystemGOName = "EventSystem";
 }
