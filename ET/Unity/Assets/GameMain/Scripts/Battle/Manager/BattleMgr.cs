@@ -20,8 +20,7 @@ public class BattleMgr : MonoBehaviour
     private SkillMgr skillMgr;
     private MapMgr mapMgr;
 
-    [HideInInspector]
-    public EntityPlayer entitySelfPlayer;
+    private EntityPlayer entitySelfPlayer;
     private ThirdPersonController controller;
     private StarterAssetsInputs playerInput;
     private GameObject battlePlayer;
@@ -192,5 +191,10 @@ public class BattleMgr : MonoBehaviour
     public Vector2 GetDirInput()
     {
         return BattleSys.Instance.GetDirInput();
+    }
+
+    public EntityPlayer GetEntityPlayer()
+    {
+        return entitySelfPlayer;
     }
 }

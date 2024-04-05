@@ -22,7 +22,7 @@ public class PlayerCtrlWnd : WindowRoot
     private BattleMgr battleMgr;
     private StarterAssetsInputs playerInput;
 
-    private EntityPlayer wndEntitySelfPlayer;
+    private EntityPlayer entitySelfPlayer;
 
     protected override void InitWnd()
     {
@@ -34,10 +34,10 @@ public class PlayerCtrlWnd : WindowRoot
 
     private void Update()
     {
-        if (battleMgr.entitySelfPlayer != null)
+        if (battleMgr.GetEntityPlayer() != null)
         {
-            wndEntitySelfPlayer = battleMgr.entitySelfPlayer;
-            playerInput = wndEntitySelfPlayer.playerInput;
+            entitySelfPlayer = battleMgr.GetEntityPlayer();
+            playerInput = entitySelfPlayer.playerInput;
 
             ListeningTouchEvts();
             ListeningClickPlayerNormalAtk();

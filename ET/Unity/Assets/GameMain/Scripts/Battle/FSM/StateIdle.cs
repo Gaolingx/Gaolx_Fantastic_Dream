@@ -21,6 +21,7 @@ public class StateIdle : IState
         {
             //玩家实体，且在UI中有操作
             entity.PlayerStateMove();
+            entity.SetAniBlend(Constants.State_Mar7th00_Blend_Move);
         }
         else
         {
