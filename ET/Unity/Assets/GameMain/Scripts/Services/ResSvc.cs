@@ -22,6 +22,7 @@ public class ResSvc : MonoBehaviour
 
         InitRDNameCfg(PathDefine.RDNameCfg);
         InitMapCfg(PathDefine.MapCfg);
+        InitMonsterCfg(PathDefine.MonsterCfg);
         InitGuideCfg(PathDefine.GuideCfg);
         InitStrongCfg(PathDefine.StrongCfg);
         InitBuyCfg(PathDefine.BuyCfg);
@@ -228,7 +229,8 @@ public class ResSvc : MonoBehaviour
                 int ID = Convert.ToInt32(ele.GetAttributeNode("ID").InnerText);
                 MapCfg mapCfg = new MapCfg
                 {
-                    ID = ID
+                    ID = ID,
+                    monsterLst = new List<MonsterData>()
                 };
 
                 foreach (XmlElement e in nodLst[i].ChildNodes)
@@ -266,6 +268,38 @@ public class ResSvc : MonoBehaviour
                             {
                                 string[] valArr = e.InnerText.Split(',');
                                 mapCfg.playerBornRote = new Vector3(float.Parse(valArr[0]), float.Parse(valArr[1]), float.Parse(valArr[2]));
+                            }
+                            break;
+                        case "monsterLst":
+                            {
+                                string[] valArr = e.InnerText.Split('#');
+                                for (int waveIndex = 0; waveIndex < valArr.Length; waveIndex++)
+                                {
+                                    if (waveIndex == 0)
+                                    {
+                                        continue;
+                                    }
+                                    string[] tempArr = valArr[waveIndex].Split('|');
+                                    for (int j = 0; j < tempArr.Length; j++)
+                                    {
+                                        if (j == 0)
+                                        {
+                                            continue;
+                                        }
+                                        string[] arr = tempArr[j].Split(',');
+                                        MonsterData md = new MonsterData
+                                        {
+                                            ID = int.Parse(arr[0]),
+                                            mWave = waveIndex,
+                                            mIndex = j,
+                                            mCfg = GetMonsterCfg(int.Parse(arr[0])),
+                                            mBornPos = new Vector3(float.Parse(arr[1]), float.Parse(arr[2]), float.Parse(arr[3])),
+                                            mBornRote = new Vector3(0, float.Parse(arr[4]), 0),
+                                            mLevel = int.Parse(arr[5])
+                                        };
+                                        mapCfg.monsterLst.Add(md);
+                                    }
+                                }
                             }
                             break;
                     }
@@ -809,6 +843,88 @@ public class ResSvc : MonoBehaviour
         if (skillMoveDic.TryGetValue(id, out smc))
         {
             return smc;
+        }
+        return null;
+    }
+    #endregion
+
+    #region ¹ÖÎïÊôÐÔÅäÖÃ
+    private Dictionary<int, MonsterCfg> monsterCfgDataDic = new Dictionary<int, MonsterCfg>();
+    private void InitMonsterCfg(string path)
+    {
+        TextAsset xml = Resources.Load<TextAsset>(path);
+        if (!xml)
+        {
+            PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
+        }
+        else
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xml.text);
+
+            XmlNodeList nodLst = doc.SelectSingleNode("root").ChildNodes;
+
+            for (int i = 0; i < nodLst.Count; i++)
+            {
+                XmlElement ele = nodLst[i] as XmlElement;
+
+                if (ele.GetAttributeNode("ID") == null)
+                {
+                    continue;
+                }
+                int ID = Convert.ToInt32(ele.GetAttributeNode("ID").InnerText);
+                MonsterCfg mc = new MonsterCfg
+                {
+                    ID = ID,
+                    bps = new BattleProps()
+                };
+
+                foreach (XmlElement e in nodLst[i].ChildNodes)
+                {
+                    switch (e.Name)
+                    {
+                        case "mName":
+                            mc.mName = e.InnerText;
+                            break;
+                        case "resPath":
+                            mc.resPath = e.InnerText;
+                            break;
+                        case "hp":
+                            mc.bps.hp = int.Parse(e.InnerText);
+                            break;
+                        case "ad":
+                            mc.bps.ad = int.Parse(e.InnerText);
+                            break;
+                        case "ap":
+                            mc.bps.ap = int.Parse(e.InnerText);
+                            break;
+                        case "addef":
+                            mc.bps.addef = int.Parse(e.InnerText);
+                            break;
+                        case "apdef":
+                            mc.bps.apdef = int.Parse(e.InnerText);
+                            break;
+                        case "dodge":
+                            mc.bps.dodge = int.Parse(e.InnerText);
+                            break;
+                        case "pierce":
+                            mc.bps.pierce = int.Parse(e.InnerText);
+                            break;
+                        case "critical":
+                            mc.bps.critical = int.Parse(e.InnerText);
+                            break;
+                    }
+                }
+                monsterCfgDataDic.Add(ID, mc);
+            }
+        }
+    }
+    public MonsterCfg GetMonsterCfg(int id)
+    {
+        MonsterCfg data;
+        if (monsterCfgDataDic.TryGetValue(id, out data))
+        {
+            return data;
         }
         return null;
     }

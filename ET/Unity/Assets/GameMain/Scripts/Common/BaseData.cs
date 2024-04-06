@@ -33,6 +33,35 @@ public class AutoGuideCfg : BaseData<AutoGuideCfg>
 
 }
 
+public class BattleProps
+{
+    public int hp;
+    public int ad;
+    public int ap;
+    public int addef;
+    public int apdef;
+    public int dodge;
+    public int pierce;
+    public int critical;
+}
+
+public class MonsterCfg : BaseData<MonsterCfg>
+{
+    public string mName; //怪物名字
+    public string resPath; //资源路径
+    public BattleProps bps;
+}
+
+public class MonsterData : BaseData<MonsterData>
+{
+    public int mWave;//批次
+    public int mIndex;//序号
+    public MonsterCfg mCfg;
+    public Vector3 mBornPos;
+    public Vector3 mBornRote;
+    public int mLevel;
+}
+
 public class MapCfg : BaseData<MapCfg>
 {
     public string mapName; //地图名称
@@ -42,6 +71,7 @@ public class MapCfg : BaseData<MapCfg>
     public Vector3 mainCamRote; //相机旋转
     public Vector3 playerBornPos; //玩家出生位置
     public Vector3 playerBornRote;
+    public List<MonsterData> monsterLst;
 }
 
 //任务奖励配置
