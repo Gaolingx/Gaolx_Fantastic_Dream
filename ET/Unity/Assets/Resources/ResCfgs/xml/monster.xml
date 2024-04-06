@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<item ID="1001">
+		<mName>铁甲战士</mName>
+		<resPath>PrefabNPC/MonsterSoldier_1</resPath>
+		<hp>20000</hp>
+		<ad>100</ad>
+		<ap>80</ap>
+		<addef>5</addef>
+		<apdef>10</apdef>
+		<dodge>5</dodge>
+		<pierce>5</pierce>
+		<critical>2</critical>
+	</item>
+	<item ID="2001">
+		<mName>地狱魔卫</mName>
+		<resPath>PrefabNPC/MonsterBoss_1</resPath>
+		<hp>80000</hp>
+		<ad>250</ad>
+		<ap>180</ap>
+		<addef>55</addef>
+		<apdef>60</apdef>
+		<dodge>20</dodge>
+		<pierce>10</pierce>
+		<critical>5</critical>
+	</item>
+</root>
