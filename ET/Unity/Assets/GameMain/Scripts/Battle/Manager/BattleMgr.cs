@@ -115,7 +115,7 @@ public class BattleMgr : MonoBehaviour
             //初始化地图数据
             GameObject mapRoot = GameObject.FindGameObjectWithTag(Constants.MapRootGOTag);
             mapMgr = mapRoot.GetComponent<MapMgr>();
-            mapMgr.Init();
+            mapMgr.Init(this);
 
             GameRoot.Instance.SetGameObjectTrans(mapRoot, Vector3.zero, Vector3.zero, Vector3.one);
 
