@@ -670,6 +670,9 @@ public class ResSvc : MonoBehaviour
                 {
                     switch (e.Name)
                     {
+                        case "NPC_ResPath":
+                            nd.npcResPath = e.InnerText;
+                            break;
                         case "NPC_Transform_Position_X":
                             nd.NPC_Transform_Position_X = float.Parse(e.InnerText);
                             break;

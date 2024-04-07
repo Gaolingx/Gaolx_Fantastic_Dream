@@ -6,6 +6,7 @@ public class NpcCfg : MonoBehaviour
     public static ResSvc resSvc = null;
 
     #region Npc Data
+    private string ResPath;
     private Vector3 Transform_NpcID_Position;
     private Vector3 Transform_NpcID_Rotation;
     private Vector3 Transform_NpcID_Scale;
@@ -20,7 +21,7 @@ public class NpcCfg : MonoBehaviour
         PECommon.Log("Init NpcCfg...");
     }
 
-    public void GetNpcCfgFromXml(int npcType)
+    private void GetNpcCfgFromXml(int npcType)
     {
         npcData = ResSvc.Instance.GetNpcCfg(npcType);
     }
@@ -32,21 +33,25 @@ public class NpcCfg : MonoBehaviour
         switch (NpcType)
         {
             case Constants.NpcTypeID_0:
+                ResPath = npcData.npcResPath;
                 Transform_NpcID_Position = new Vector3(npcData.NPC_Transform_Position_X, npcData.NPC_Transform_Position_Y, npcData.NPC_Transform_Position_Z);
-                Transform_NpcID_Rotation = new Vector3(npcData.NPC_Transform_Rotation_X, npcData.NPC_Transform_Rotation_Y,npcData.NPC_Transform_Rotation_Z);
+                Transform_NpcID_Rotation = new Vector3(npcData.NPC_Transform_Rotation_X, npcData.NPC_Transform_Rotation_Y, npcData.NPC_Transform_Rotation_Z);
                 Transform_NpcID_Scale = new Vector3(npcData.NPC_Transform_Scale_X, npcData.NPC_Transform_Scale_Y, npcData.NPC_Transform_Scale_Z);
                 break;
             case Constants.NpcTypeID_1:
+                ResPath = npcData.npcResPath;
                 Transform_NpcID_Position = new Vector3(npcData.NPC_Transform_Position_X, npcData.NPC_Transform_Position_Y, npcData.NPC_Transform_Position_Z);
                 Transform_NpcID_Rotation = new Vector3(npcData.NPC_Transform_Rotation_X, npcData.NPC_Transform_Rotation_Y, npcData.NPC_Transform_Rotation_Z);
                 Transform_NpcID_Scale = new Vector3(npcData.NPC_Transform_Scale_X, npcData.NPC_Transform_Scale_Y, npcData.NPC_Transform_Scale_Z);
                 break;
             case Constants.NpcTypeID_2:
+                ResPath = npcData.npcResPath;
                 Transform_NpcID_Position = new Vector3(npcData.NPC_Transform_Position_X, npcData.NPC_Transform_Position_Y, npcData.NPC_Transform_Position_Z);
                 Transform_NpcID_Rotation = new Vector3(npcData.NPC_Transform_Rotation_X, npcData.NPC_Transform_Rotation_Y, npcData.NPC_Transform_Rotation_Z);
                 Transform_NpcID_Scale = new Vector3(npcData.NPC_Transform_Scale_X, npcData.NPC_Transform_Scale_Y, npcData.NPC_Transform_Scale_Z);
                 break;
             case Constants.NpcTypeID_3:
+                ResPath = npcData.npcResPath;
                 Transform_NpcID_Position = new Vector3(npcData.NPC_Transform_Position_X, npcData.NPC_Transform_Position_Y, npcData.NPC_Transform_Position_Z);
                 Transform_NpcID_Rotation = new Vector3(npcData.NPC_Transform_Rotation_X, npcData.NPC_Transform_Rotation_Y, npcData.NPC_Transform_Rotation_Z);
                 Transform_NpcID_Scale = new Vector3(npcData.NPC_Transform_Scale_X, npcData.NPC_Transform_Scale_Y, npcData.NPC_Transform_Scale_Z);
@@ -57,14 +62,14 @@ public class NpcCfg : MonoBehaviour
         }
     }
 
-    public GameObject LoadMapNpc(int NpcType, string NpcPrefabPath)
+    public GameObject LoadMapNpc(int NpcType)
     {
         GetNpcCfgFromXml(NpcType);
         GetNpcTrans(NpcType);
-        GameObject NPC_GO = resSvc.LoadPrefab(NpcPrefabPath, true);
+        GameObject NPC_GO = resSvc.LoadPrefab(ResPath, true);
         GameRoot.Instance.SetGameObjectTrans(NPC_GO.gameObject, Transform_NpcID_Position, Transform_NpcID_Rotation, Transform_NpcID_Scale);
 
-        Debug.Log("NPC预制件加载成功！" + " 类型：" + NpcType + " 路径：" + NpcPrefabPath);
+        Debug.Log("NPC预制件加载成功！" + " 类型：" + NpcType + " 路径：" + ResPath);
         return NPC_GO;
 
     }

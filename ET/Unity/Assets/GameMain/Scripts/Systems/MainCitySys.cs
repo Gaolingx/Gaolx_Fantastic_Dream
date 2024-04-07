@@ -157,10 +157,10 @@ public class MainCitySys : SystemRoot
 
     private void LoadNpcPrefab()
     {
-        NpcCfg.Instance.LoadMapNpc(0, PathDefine.AssissnCityNPC0Prefab);
-        NpcCfg.Instance.LoadMapNpc(1, PathDefine.AssissnCityNPC1Prefab);
-        NpcCfg.Instance.LoadMapNpc(2, PathDefine.AssissnCityNPC2Prefab);
-        NpcCfg.Instance.LoadMapNpc(3, PathDefine.AssissnCityNPC3Prefab);
+        NpcCfg.Instance.LoadMapNpc(0);
+        NpcCfg.Instance.LoadMapNpc(1);
+        NpcCfg.Instance.LoadMapNpc(2);
+        NpcCfg.Instance.LoadMapNpc(3);
 
     }
 

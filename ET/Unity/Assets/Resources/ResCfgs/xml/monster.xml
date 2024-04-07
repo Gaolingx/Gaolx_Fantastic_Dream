@@ -2,7 +2,7 @@
 <root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<item ID="1001">
 		<mName>铁甲战士</mName>
-		<resPath>PrefabNPC/MonsterSoldier_1</resPath>
+		<resPath>Assets/AssetBundles/Prefabs/GameMain/PrefabNPC/MonsterSoldier_1.prefab</resPath>
 		<hp>20000</hp>
 		<ad>100</ad>
 		<ap>80</ap>
@@ -14,7 +14,7 @@
 	</item>
 	<item ID="2001">
 		<mName>地狱魔卫</mName>
-		<resPath>PrefabNPC/MonsterBoss_1</resPath>
+		<resPath>Assets/AssetBundles/Prefabs/GameMain/PrefabNPC/MonsterBoss_1.prefab</resPath>
 		<hp>80000</hp>
 		<ad>250</ad>
 		<ap>180</ap>

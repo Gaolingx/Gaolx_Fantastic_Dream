@@ -92,6 +92,8 @@ public class TaskRewardData : BaseData<TaskRewardData>
 
 public class NpcData : BaseData<NpcData>
 {
+    public string npcResPath;
+    public string npcName;
     public float NPC_Transform_Position_X;
     public float NPC_Transform_Position_Y;
     public float NPC_Transform_Position_Z;
