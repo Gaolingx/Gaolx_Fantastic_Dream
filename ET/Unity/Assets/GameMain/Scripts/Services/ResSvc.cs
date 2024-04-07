@@ -21,8 +21,8 @@ public class ResSvc : MonoBehaviour
         _yooAssetResourcePackage = YooAssets.GetPackage(Constants.ResourcePackgeName);
 
         InitRDNameCfg(PathDefine.RDNameCfg);
-        InitMapCfg(PathDefine.MapCfg);
         InitMonsterCfg(PathDefine.MonsterCfg);
+        InitMapCfg(PathDefine.MapCfg);
         InitGuideCfg(PathDefine.GuideCfg);
         InitStrongCfg(PathDefine.StrongCfg);
         InitBuyCfg(PathDefine.BuyCfg);

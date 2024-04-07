@@ -24,6 +24,7 @@ public class BattleMgr : MonoBehaviour
     private ThirdPersonController controller;
     private StarterAssetsInputs playerInput;
     private GameObject battlePlayer;
+    private MapCfg mapCfg;
 
     private void LoadPlayerInstance(string playerPrefabPath, MapCfg mapData)
     {
@@ -38,7 +39,7 @@ public class BattleMgr : MonoBehaviour
             {
                 battleMgr = this,
                 stateMgr = stateMgr, //将stateMgr注入逻辑实体类中
-                skillMgr = skillMgr,
+                skillMgr = skillMgr
             };
 
             controller = player.GetComponent<ThirdPersonController>();
@@ -108,8 +109,8 @@ public class BattleMgr : MonoBehaviour
         skillMgr.Init();
 
         //加载战场地图
-        MapCfg mapData = resSvc.GetMapCfg(mapid);
-        resSvc.AsyncLoadScene(mapData.sceneName, () =>
+        mapCfg = resSvc.GetMapCfg(mapid);
+        resSvc.AsyncLoadScene(mapCfg.sceneName, () =>
         {
             //初始化地图数据
             GameObject mapRoot = GameObject.FindGameObjectWithTag(Constants.MapRootGOTag);
@@ -118,9 +119,10 @@ public class BattleMgr : MonoBehaviour
 
             GameRoot.Instance.SetGameObjectTrans(mapRoot, Vector3.zero, Vector3.zero, Vector3.one);
 
-            LoadPlayerInstance(PathDefine.AssissnBattlePlayerPrefab, mapData);
+            LoadPlayerInstance(PathDefine.AssissnBattlePlayerPrefab, mapCfg);
+            entitySelfPlayer.PlayerStateIdle();
 
-            LoadVirtualCameraInstance(PathDefine.AssissnCityCharacterCameraPrefab, mapData);
+            LoadVirtualCameraInstance(PathDefine.AssissnCityCharacterCameraPrefab, mapCfg);
             InitGamepad(entitySelfPlayer.playerInput);
 
             //配置角色声音源
@@ -129,6 +131,37 @@ public class BattleMgr : MonoBehaviour
         });
     }
 
+    //通过批次ID生成怪物
+    public void LoadMonsterByWaveID(int wave)
+    {
+        for (int i = 0; i < mapCfg.monsterLst.Count; i++)
+        {
+            MonsterData md = mapCfg.monsterLst[i];
+            //判断是否为对应批次的怪物，是则实例化
+            if (md.mWave == wave)
+            {
+                GameObject m = resSvc.LoadPrefab(md.mCfg.resPath, true);
+                GameRoot.Instance.SetGameObjectTrans(m, md.mBornPos, md.mBornRote, Vector3.one);
+
+                m.name = "m" + md.mWave + "_" + md.mIndex;
+
+                EntityMonster em = new EntityMonster
+                {
+                    battleMgr = this,
+                    stateMgr = stateMgr, //将stateMgr注入逻辑实体类中
+                    skillMgr = skillMgr
+                };
+
+                MonsterController mc = m.GetComponent<MonsterController>();
+                mc.Init();
+                em.controller = mc;
+
+                m.SetActive(false);
+            }
+        }
+    }
+
+    #region 技能施放与角色控制
     //设置玩家移动方向
     public void SetSelfPlayerMoveDir(Vector2 dir)
     {
@@ -143,7 +176,6 @@ public class BattleMgr : MonoBehaviour
             entitySelfPlayer.PlayerStateMove();
         }
     }
-
     public void ReqPlayerReleaseSkill(int skillIndex)
     {
         switch(skillIndex)
@@ -165,36 +197,31 @@ public class BattleMgr : MonoBehaviour
                 break;
         }
     }
-
     //释放相关技能
     private void PlayerReleaseNormalAtk()
     {
         PECommon.Log("Click Normal Atk");
     }
-
     private void PlayerReleaseSkill01()
     {
         //PECommon.Log("Click Skill01");
         entitySelfPlayer.PlayerStateAttack(Constants.SkillID_Mar7th00_skill01);
     }
-
     private void PlayerReleaseSkill02()
     {
         PECommon.Log("Click Skill02");
     }
-
     private void PlayerReleaseSkill03()
     {
         PECommon.Log("Click Skill03");
     }
-
     public Vector2 GetDirInput()
     {
         return BattleSys.Instance.GetDirInput();
     }
-
     public EntityPlayer GetEntityPlayer()
     {
         return entitySelfPlayer;
     }
+    #endregion
 }
