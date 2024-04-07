@@ -100,7 +100,9 @@ public class ResSvc : MonoBehaviour
         AudioClip au = null;
         if (!adDic.TryGetValue(path, out au))
         {
-            au = Resources.Load<AudioClip>(path);
+            //au = Resources.Load<AudioClip>(path);
+            var auHandle = _yooAssetResourcePackage.LoadAssetSync<AudioClip>(path);
+            au = auHandle.AssetObject as AudioClip;
             if (iscache)
             {
                 adDic.Add(path, au);

@@ -49,7 +49,7 @@ public class PathDefine
     #endregion
 
     #region AudioSvc
-    public const string bgAudioPath = "ResAudio/";
+    public const string bgAudioPath = "Assets/AssetBundles/Audios/ResAudio/";
     #endregion
 
     #region AutoGuide
