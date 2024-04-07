@@ -130,14 +130,25 @@ public class ResSvc : MonoBehaviour
         return go;
     }
 
+    public TextAsset LoadCfgData(string path)
+    {
+        TextAsset textAsset = null;
+        var taHandle = _yooAssetResourcePackage.LoadAssetSync<TextAsset>(path);
+        textAsset = taHandle.AssetObject as TextAsset;
+
+        return textAsset;
+    }
+
     private Dictionary<string, Sprite> spDic = new Dictionary<string, Sprite>();
-    public Sprite LoadSprite(string path, bool cache = false)
+    public Sprite LoadSprite(string path, bool iscache = false)
     {
         Sprite sp = null;
         if (!spDic.TryGetValue(path, out sp))
         {
-            sp = Resources.Load<Sprite>(path);
-            if (cache)
+            //sp = Resources.Load<Sprite>(path);
+            var spHandle = _yooAssetResourcePackage.LoadAssetSync<Sprite>(path);
+            sp = spHandle.AssetObject as Sprite;
+            if (iscache)
             {
                 spDic.Add(path, sp);
             }
@@ -152,7 +163,7 @@ public class ResSvc : MonoBehaviour
     private List<string> womanLst = new List<string>();
     private void InitRDNameCfg(string path)
     {
-        TextAsset xml = Resources.Load<TextAsset>(path);
+        TextAsset xml = LoadCfgData(path);
         if (!xml)
         {
             PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -215,7 +226,7 @@ public class ResSvc : MonoBehaviour
     private Dictionary<int, MapCfg> mapCfgDataDic = new Dictionary<int, MapCfg>();
     private void InitMapCfg(string path)
     {
-        TextAsset xml = Resources.Load<TextAsset>(path);
+        TextAsset xml = LoadCfgData(path);
         if (!xml)
         {
             PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -332,7 +343,7 @@ public class ResSvc : MonoBehaviour
     private Dictionary<int, AutoGuideCfg> guideTaskDic = new Dictionary<int, AutoGuideCfg>();
     private void InitGuideCfg(string path)
     {
-        TextAsset xml = Resources.Load<TextAsset>(path);
+        TextAsset xml = LoadCfgData(path);
         if (!xml)
         {
             PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -398,7 +409,7 @@ public class ResSvc : MonoBehaviour
     private Dictionary<int, Dictionary<int, StrongCfg>> strongDic = new Dictionary<int, Dictionary<int, StrongCfg>>();
     private void InitStrongCfg(string path)
     {
-        TextAsset xml = Resources.Load<TextAsset>(path);
+        TextAsset xml = LoadCfgData(path);
         if (!xml)
         {
             PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -529,7 +540,7 @@ public class ResSvc : MonoBehaviour
     private Dictionary<int, BuyCfg> buyCfgDic = new Dictionary<int, BuyCfg>();
     private void InitBuyCfg(string path)
     {
-        TextAsset xml = Resources.Load<TextAsset>(path);
+        TextAsset xml = LoadCfgData(path);
         if (!xml)
         {
             PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -586,7 +597,7 @@ public class ResSvc : MonoBehaviour
     private Dictionary<int, TaskRewardCfg> taskRewardDic = new Dictionary<int, TaskRewardCfg>();
     private void InitTaskRewardCfg(string path)
     {
-        TextAsset xml = Resources.Load<TextAsset>(path);
+        TextAsset xml = LoadCfgData(path);
         if (!xml)
         {
             PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -649,7 +660,7 @@ public class ResSvc : MonoBehaviour
     private Dictionary<int, NpcData> npcDic = new Dictionary<int, NpcData>();
     private void InitNpcCfg(string path)
     {
-        TextAsset xml = Resources.Load<TextAsset>(path);
+        TextAsset xml = LoadCfgData(path);
         if (!xml)
         {
             PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -730,7 +741,7 @@ public class ResSvc : MonoBehaviour
     private Dictionary<int, SkillCfg> skillDic = new Dictionary<int, SkillCfg>();
     private void InitSkillCfg(string path)
     {
-        TextAsset xml = Resources.Load<TextAsset>(path);
+        TextAsset xml = LoadCfgData(path);
         if (!xml)
         {
             PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -804,7 +815,7 @@ public class ResSvc : MonoBehaviour
     private Dictionary<int, SkillMoveCfg> skillMoveDic = new Dictionary<int, SkillMoveCfg>();
     private void InitSkillMoveCfg(string path)
     {
-        TextAsset xml = Resources.Load<TextAsset>(path);
+        TextAsset xml = LoadCfgData(path);
         if (!xml)
         {
             PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -864,7 +875,7 @@ public class ResSvc : MonoBehaviour
     private Dictionary<int, MonsterCfg> monsterCfgDataDic = new Dictionary<int, MonsterCfg>();
     private void InitMonsterCfg(string path)
     {
-        TextAsset xml = Resources.Load<TextAsset>(path);
+        TextAsset xml = LoadCfgData(path);
         if (!xml)
         {
             PECommon.Log("xml file:" + path + " not exist", PELogType.Error);

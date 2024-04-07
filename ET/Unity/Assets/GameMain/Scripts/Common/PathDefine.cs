@@ -11,40 +11,40 @@ public class PathDefine
     #endregion
 
     #region Configs
-    public const string RDNameCfg = "ResCfgs/xml/rdname";
-    public const string MapCfg = "ResCfgs/xml/map";
-    public const string MonsterCfg = "ResCfgs/xml/monster";
-    public const string GuideCfg = "ResCfgs/xml/guide";
-    public const string StrongCfg = "ResCfgs/xml/strong";
-    public const string BuyCfg = "ResCfgs/xml/buyCfg";
-    public const string TaskRewardCfg = "ResCfgs/xml/taskreward";
-    public const string NpcCfg = "ResCfgs/xml/npcCfg";
+    public const string RDNameCfg = "Assets/AssetBundles/Configs/ResCfgs/xml/rdname";
+    public const string MapCfg = "Assets/AssetBundles/Configs/ResCfgs/xml/map";
+    public const string MonsterCfg = "Assets/AssetBundles/Configs/ResCfgs/xml/monster";
+    public const string GuideCfg = "Assets/AssetBundles/Configs/ResCfgs/xml/guide";
+    public const string StrongCfg = "Assets/AssetBundles/Configs/ResCfgs/xml/strong";
+    public const string BuyCfg = "Assets/AssetBundles/Configs/ResCfgs/xml/buyCfg";
+    public const string TaskRewardCfg = "Assets/AssetBundles/Configs/ResCfgs/xml/taskreward";
+    public const string NpcCfg = "Assets/AssetBundles/Configs/ResCfgs/xml/npcCfg";
 
-    public const string SkillCfg = "ResCfgs/xml/skill";
-    public const string SkillMoveCfg = "ResCfgs/xml/skillmove";
+    public const string SkillCfg = "Assets/AssetBundles/Configs/ResCfgs/xml/skill";
+    public const string SkillMoveCfg = "Assets/AssetBundles/Configs/ResCfgs/xml/skillmove";
 
     #endregion
 
     #region Strong
-    public const string ItemArrorBG = "ResImages/btnstrong";
-    public const string ItemPlatBG = "ResImages/charbg3";
+    public const string ItemArrorBG = "Assets/AssetBundles/UIs/ResImages/btnstrong";
+    public const string ItemPlatBG = "Assets/AssetBundles/UIs/ResImages/charbg3";
 
-    public const string ItemToukui = "ResImages/toukui";
-    public const string ItemBody = "ResImages/body";
-    public const string ItemYaobu = "ResImages/yaobu";
-    public const string ItemHand = "ResImages/hand";
-    public const string ItemLeg = "ResImages/leg";
-    public const string ItemFoot = "ResImages/foot";
+    public const string ItemToukui = "Assets/AssetBundles/UIs/ResImages/toukui";
+    public const string ItemBody = "Assets/AssetBundles/UIs/ResImages/body";
+    public const string ItemYaobu = "Assets/AssetBundles/UIs/ResImages/yaobu";
+    public const string ItemHand = "Assets/AssetBundles/UIs/ResImages/hand";
+    public const string ItemLeg = "Assets/AssetBundles/UIs/ResImages/leg";
+    public const string ItemFoot = "Assets/AssetBundles/UIs/ResImages/foot";
 
-    public const string SpStar1 = "ResImages/star1";
-    public const string SpStar2 = "ResImages/star2";
+    public const string SpStar1 = "Assets/AssetBundles/UIs/ResImages/star1";
+    public const string SpStar2 = "Assets/AssetBundles/UIs/ResImages/star2";
 
 
     #endregion
 
     #region ChatWnd
-    public const string ChatWndBtn1 = "ResImages/btntype1";
-    public const string ChatWndBtn2 = "ResImages/btntype2";
+    public const string ChatWndBtn1 = "Assets/AssetBundles/UIs/ResImages/btntype1";
+    public const string ChatWndBtn2 = "Assets/AssetBundles/UIs/ResImages/btntype2";
 
     #endregion
 
@@ -53,18 +53,18 @@ public class PathDefine
     #endregion
 
     #region AutoGuide
-    public const string TaskHead = "ResImages/task";
-    public const string WiseManHead = "ResImages/wiseman";
-    public const string GeneralHead = "ResImages/general";
-    public const string ArtisanHead = "ResImages/artisan";
-    public const string TraderHead = "ResImages/trader";
+    public const string TaskHead = "Assets/AssetBundles/UIs/ResImages/task";
+    public const string WiseManHead = "Assets/AssetBundles/UIs/ResImages/wiseman";
+    public const string GeneralHead = "Assets/AssetBundles/UIs/ResImages/general";
+    public const string ArtisanHead = "Assets/AssetBundles/UIs/ResImages/artisan";
+    public const string TraderHead = "Assets/AssetBundles/UIs/ResImages/trader";
 
-    public const string SelfIcon = "ResImages/assassin";
-    public const string GuideIcon = "ResImages/npcguide";
-    public const string WiseManIcon = "ResImages/npc0";
-    public const string GeneralIcon = "ResImages/npc1";
-    public const string ArtisanIcon = "ResImages/npc2";
-    public const string TraderIcon = "ResImages/npc3";
+    public const string SelfIcon = "Assets/AssetBundles/UIs/ResImages/assassin";
+    public const string GuideIcon = "Assets/AssetBundles/UIs/ResImages/npcguide";
+    public const string WiseManIcon = "Assets/AssetBundles/UIs/ResImages/npc0";
+    public const string GeneralIcon = "Assets/AssetBundles/UIs/ResImages/npc1";
+    public const string ArtisanIcon = "Assets/AssetBundles/UIs/ResImages/npc2";
+    public const string TraderIcon = "Assets/AssetBundles/UIs/ResImages/npc3";
 
 
     #endregion

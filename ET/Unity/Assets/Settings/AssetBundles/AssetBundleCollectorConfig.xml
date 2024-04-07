@@ -14,5 +14,11 @@
     <Group GroupActiveRule="EnableGroup" GroupName="ABAudio" GroupDesc="" AssetTags="">
       <Collector CollectPath="Assets/AssetBundles/Audios" CollectGUID="7f1bba38894248c46899e6f7665cfecb" CollectType="MainAssetCollector" AddressRule="AddressByFileName" PackRule="PackDirectory" FilterRule="CollectAll" UserData="" AssetTags="" />
     </Group>
+    <Group GroupActiveRule="EnableGroup" GroupName="ABConfig" GroupDesc="" AssetTags="">
+      <Collector CollectPath="Assets/AssetBundles/Configs" CollectGUID="6cfca9b40c7a4b147affc92c9121db65" CollectType="MainAssetCollector" AddressRule="AddressByFileName" PackRule="PackDirectory" FilterRule="CollectAll" UserData="" AssetTags="" />
+    </Group>
+    <Group GroupActiveRule="EnableGroup" GroupName="ABSprite" GroupDesc="" AssetTags="">
+      <Collector CollectPath="Assets/AssetBundles/UIs/ResImages" CollectGUID="f9068679b61ad9845b92d29ba13590d0" CollectType="MainAssetCollector" AddressRule="AddressByFileName" PackRule="PackDirectory" FilterRule="CollectAll" UserData="" AssetTags="" />
+    </Group>
   </Package>
 </root>
