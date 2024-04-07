@@ -42,7 +42,6 @@ public class Constants
 
 
     //³¡¾°Ãû³Æ/ID
-    public const string SceneLogin = "SceneLogin";
     public const int MainCityMapID = 10000;
     //public const string SceneMainCity = "SceneMainCity";
     

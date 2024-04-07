@@ -2,7 +2,7 @@
 <root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<item ID="10000">
 		<mapName>圣光主城</mapName>
-		<sceneName>SceneMainCity</sceneName>
+		<sceneName>Assets/AssetBundles/Scenes/SceneMainCity</sceneName>
 		<power>0</power>
 		<mainCamPos>0,1.375,0</mainCamPos>
 		<mainCamRote>0,0,0</mainCamRote>
@@ -15,7 +15,7 @@
 	</item>
 	<item ID="10001">
 		<mapName>荒野遗迹</mapName>
-		<sceneName>SceneOrge</sceneName>
+		<sceneName>Assets/AssetBundles/Scenes/SceneOrge</sceneName>
 		<power>5</power>
 		<mainCamPos>216.39,6.84,448.95</mainCamPos>
 		<mainCamRote>0,101.531,0</mainCamRote>
@@ -39,7 +39,7 @@
 	</item>
 	<item ID="10002">
 		<mapName>荒野遗迹</mapName>
-		<sceneName>SceneOrge</sceneName>
+		<sceneName>Assets/AssetBundles/Scenes/SceneOrge</sceneName>
 		<power>5</power>
 		<mainCamPos>216.39,6.84,448.95</mainCamPos>
 		<mainCamRote>0,101.531,0</mainCamRote>
@@ -63,7 +63,7 @@
 	</item>
 	<item ID="10003">
 		<mapName>荒野遗迹</mapName>
-		<sceneName>SceneOrge</sceneName>
+		<sceneName>Assets/AssetBundles/Scenes/SceneOrge</sceneName>
 		<power>5</power>
 		<mainCamPos>216.39,6.84,448.95</mainCamPos>
 		<mainCamRote>0,101.531,0</mainCamRote>
@@ -87,7 +87,7 @@
 	</item>
 	<item ID="10004">
 		<mapName>荒野遗迹</mapName>
-		<sceneName>SceneOrge</sceneName>
+		<sceneName>Assets/AssetBundles/Scenes/SceneOrge</sceneName>
 		<power>5</power>
 		<mainCamPos>216.39,6.84,448.95</mainCamPos>
 		<mainCamRote>0,101.531,0</mainCamRote>
@@ -111,7 +111,7 @@
 	</item>
 	<item ID="10005">
 		<mapName>荒野遗迹</mapName>
-		<sceneName>SceneOrge</sceneName>
+		<sceneName>Assets/AssetBundles/Scenes/SceneOrge</sceneName>
 		<power>5</power>
 		<mainCamPos>216.39,6.84,448.95</mainCamPos>
 		<mainCamRote>0,101.531,0</mainCamRote>
@@ -135,7 +135,7 @@
 	</item>
 	<item ID="10006">
 		<mapName>荒野遗迹</mapName>
-		<sceneName>SceneOrge</sceneName>
+		<sceneName>Assets/AssetBundles/Scenes/SceneOrge</sceneName>
 		<power>5</power>
 		<mainCamPos>216.39,6.84,448.95</mainCamPos>
 		<mainCamRote>0,101.531,0</mainCamRote>

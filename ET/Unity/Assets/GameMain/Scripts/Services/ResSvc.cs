@@ -14,7 +14,7 @@ public class ResSvc : MonoBehaviour
     public static ResSvc Instance = null;
 
     private ResourcePackage _yooAssetResourcePackage;
-
+    private SceneOperationHandle handle;
     public void InitSvc()
     {
         Instance = this;
@@ -53,11 +53,10 @@ public class ResSvc : MonoBehaviour
     {
         GameRoot.Instance.loadingWnd.SetWndState();
 
-
-        AsyncOperation sceneAsync = SceneManager.LoadSceneAsync(sceneName);
+        StartCoroutine(LoadSceneAsync(sceneName));
         prgCB = () =>
         {
-            float val = sceneAsync.progress;  //当前异步操作加载的进度
+            float val = handle.Progress;  //当前异步操作加载的进度
             GameRoot.Instance.loadingWnd.SetProgress(val);
 
             if (val == 1)
@@ -67,12 +66,20 @@ public class ResSvc : MonoBehaviour
                     loaded();
                 }
                 prgCB = null;
-                sceneAsync = null;
+                handle = null;
                 GameRoot.Instance.loadingWnd.SetWndState(false);
 
             }
         };
 
+    }
+
+    IEnumerator LoadSceneAsync(string location)
+    {
+        var sceneMode = UnityEngine.SceneManagement.LoadSceneMode.Single;
+        bool suspendLoad = false;
+        handle = _yooAssetResourcePackage.LoadSceneAsync(location, sceneMode, suspendLoad);
+        yield return handle;
     }
     private void Update()
     {

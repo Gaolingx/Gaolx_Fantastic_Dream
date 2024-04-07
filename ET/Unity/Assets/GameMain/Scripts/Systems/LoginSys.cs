@@ -27,7 +27,7 @@ public class LoginSys : SystemRoot
     {
         //异步的加载登录场景
         //并显示加载的进度
-        resSvc.AsyncLoadScene(Constants.SceneLogin, () => {
+        resSvc.AsyncLoadScene(PathDefine.SceneLogin, () => {
             //加载完成以后再打开注册登录界面
             loginWnd.SetWndState();
             audioSvc.PlayBGMusic(Constants.BGLogin);

@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class PathDefine
 {
+    #region Scenes
+    public const string SceneLogin = "Assets/AssetBundles/Scenes/SceneLogin";
+    #endregion
 
     #region Configs
     public const string RDNameCfg = "ResCfgs/xml/rdname";
