@@ -16,6 +16,11 @@ public class SkillMgr : MonoBehaviour
         PECommon.Log("Init SkillMgr Done.");
     }
 
+    public void AttackDamage(EntityBase entity, int skillID)
+    {
+
+    }
+
     /// <summary>
     /// 技能效果表现
     /// </summary>

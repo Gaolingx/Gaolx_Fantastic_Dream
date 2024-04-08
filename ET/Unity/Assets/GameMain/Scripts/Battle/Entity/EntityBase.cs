@@ -101,6 +101,10 @@ public abstract class EntityBase
     {
         skillMgr.AttackEffect(this, skillID);
     }
+    public virtual void AttackDamage(int skillID)
+    {
+        skillMgr.AttackDamage(this, skillID);
+    }
 
     public virtual Vector2 GetDirInput()
     {
