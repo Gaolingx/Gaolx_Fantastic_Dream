@@ -14,7 +14,7 @@ public class ResSvc : MonoBehaviour
     public static ResSvc Instance = null;
 
     private ResourcePackage _yooAssetResourcePackage;
-    private SceneOperationHandle handleScene;
+    private SceneOperationHandle sceneHandle;
     public void InitSvc()
     {
         Instance = this;
@@ -56,7 +56,7 @@ public class ResSvc : MonoBehaviour
         StartCoroutine(LoadSceneAsync(sceneName));
         prgCB = () =>
         {
-            float val = handleScene.Progress;  //当前异步操作加载的进度
+            float val = sceneHandle.Progress;  //当前异步操作加载的进度
             GameRoot.Instance.loadingWnd.SetProgress(val);
 
             if (val == 1)
@@ -66,7 +66,7 @@ public class ResSvc : MonoBehaviour
                     loaded();
                 }
                 prgCB = null;
-                handleScene = null;
+                sceneHandle = null;
                 GameRoot.Instance.loadingWnd.SetWndState(false);
 
             }
@@ -78,8 +78,8 @@ public class ResSvc : MonoBehaviour
     {
         var sceneMode = UnityEngine.SceneManagement.LoadSceneMode.Single;
         bool suspendLoad = false;
-        handleScene = _yooAssetResourcePackage.LoadSceneAsync(location, sceneMode, suspendLoad);
-        yield return handleScene;
+        sceneHandle = _yooAssetResourcePackage.LoadSceneAsync(location, sceneMode, suspendLoad);
+        yield return sceneHandle;
     }
     private void Update()
     {
@@ -102,7 +102,10 @@ public class ResSvc : MonoBehaviour
         {
             //au = Resources.Load<AudioClip>(path);
             var auHandle = _yooAssetResourcePackage.LoadAssetSync<AudioClip>(path);
-            au = auHandle.AssetObject as AudioClip;
+            auHandle.Completed += (AssetOperationHandle handle) =>
+            {
+                au = handle.AssetObject as AudioClip;
+            };
             if (iscache)
             {
                 adDic.Add(path, au);
@@ -118,8 +121,11 @@ public class ResSvc : MonoBehaviour
     {
         GameObject prefab = null;
         //没有缓存则从Resources加载
-        var assetPrefab = _yooAssetResourcePackage.LoadAssetSync<GameObject>(path);
-        prefab = assetPrefab.InstantiateSync();
+        var prefabHandle = _yooAssetResourcePackage.LoadAssetSync<GameObject>(path);
+        prefabHandle.Completed += (AssetOperationHandle handle) =>
+        {
+            prefab = handle.InstantiateSync();
+        };
 
         //prefab加载完成后的实例化
         GameObject go = null;
@@ -134,7 +140,10 @@ public class ResSvc : MonoBehaviour
     {
         TextAsset textAsset = null;
         var taHandle = _yooAssetResourcePackage.LoadAssetSync<TextAsset>(path);
-        textAsset = taHandle.AssetObject as TextAsset;
+        taHandle.Completed += (AssetOperationHandle handle) =>
+        {
+            textAsset = handle.AssetObject as TextAsset;
+        };
 
         return textAsset;
     }
@@ -147,7 +156,10 @@ public class ResSvc : MonoBehaviour
         {
             //sp = Resources.Load<Sprite>(path);
             var spHandle = _yooAssetResourcePackage.LoadAssetSync<Sprite>(path);
-            sp = spHandle.AssetObject as Sprite;
+            spHandle.Completed += (AssetOperationHandle handle) =>
+            {
+                sp = handle.AssetObject as Sprite;
+            };
             if (iscache)
             {
                 spDic.Add(path, sp);
