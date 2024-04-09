@@ -14,7 +14,7 @@ public class ResSvc : MonoBehaviour
     public static ResSvc Instance = null;
 
     private ResourcePackage _yooAssetResourcePackage;
-    private SceneOperationHandle sceneHandle;
+
     public void InitSvc()
     {
         Instance = this;
@@ -48,6 +48,7 @@ public class ResSvc : MonoBehaviour
 
     private Action prgCB = null;  //更新的回调
 
+    private SceneOperationHandle sceneHandle;
     //异步的加载场景，需要显示进度条
     public void AsyncLoadScene(string sceneName, Action loaded)
     {
@@ -115,25 +116,34 @@ public class ResSvc : MonoBehaviour
 
     }
 
-
+    private Dictionary<string, AssetOperationHandle> prefabHandleDic = new Dictionary<string, AssetOperationHandle>();
+    private GameObject instanceGO;
     //获取Prefab的类
     public GameObject LoadPrefab(string path, bool iscache = false)
     {
-        GameObject prefab = null;
+        AssetOperationHandle prefabHandle = null;
         //没有缓存则从Resources加载
-        var prefabHandle = _yooAssetResourcePackage.LoadAssetSync<GameObject>(path);
-        prefabHandle.Completed += (AssetOperationHandle handle) =>
+        if (!prefabHandleDic.TryGetValue(path, out prefabHandle))
         {
-            prefab = handle.InstantiateSync();
-        };
+            prefabHandle = _yooAssetResourcePackage.LoadAssetSync<GameObject>(path);
+            if (iscache)
+            {
+                prefabHandleDic.Add(path, prefabHandle);
+            }
+        }
 
         //prefab加载完成后的实例化
         GameObject go = null;
-        if (prefab != null)
+        if (prefabHandle != null)
         {
-            go = prefab;
+            prefabHandle.Completed += PrefabHandle;
+            go = instanceGO;
         }
         return go;
+    }
+    private void PrefabHandle(AssetOperationHandle handle)
+    {
+        instanceGO = handle.InstantiateSync();
     }
 
     public TextAsset LoadCfgData(string path)
