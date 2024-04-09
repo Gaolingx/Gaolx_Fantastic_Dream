@@ -31,6 +31,7 @@ public class ResSvc : MonoBehaviour
 
         InitSkillCfg(PathDefine.SkillCfg);
         InitSkillMoveCfg(PathDefine.SkillMoveCfg);
+        InitSkillActionCfg(PathDefine.SkillActionCfg);
 
         PECommon.Log("Init ResSvc...");
     }
@@ -42,6 +43,8 @@ public class ResSvc : MonoBehaviour
         InitSkillCfg(PathDefine.SkillCfg);
         skillMoveDic.Clear();
         InitSkillMoveCfg(PathDefine.SkillMoveCfg);
+        skillActionDic.Clear();
+        InitSkillActionCfg(PathDefine.SkillActionCfg);
 
         PECommon.Log("Reset Skill Cfgs Done.");
     }
@@ -787,7 +790,8 @@ public class ResSvc : MonoBehaviour
                 SkillCfg sc = new SkillCfg
                 {
                     ID = ID,
-                    skillMoveLst = new List<int>()
+                    skillMoveLst = new List<int>(),
+                    skillActionLst = new List<int>()
                 };
 
                 foreach (XmlElement e in nodLst[i].ChildNodes)
@@ -813,6 +817,16 @@ public class ResSvc : MonoBehaviour
                                 if (skMoveArr[j] != "")
                                 {
                                     sc.skillMoveLst.Add(int.Parse(skMoveArr[j]));
+                                }
+                            }
+                            break;
+                        case "skillActionLst":
+                            string[] skActionArr = e.InnerText.Split('|');
+                            for (int j = 0; j < skActionArr.Length; j++)
+                            {
+                                if (skActionArr[j] != "")
+                                {
+                                    sc.skillActionLst.Add(int.Parse(skActionArr[j]));
                                 }
                             }
                             break;
@@ -888,6 +902,66 @@ public class ResSvc : MonoBehaviour
         if (skillMoveDic.TryGetValue(id, out smc))
         {
             return smc;
+        }
+        return null;
+    }
+    #endregion
+
+    #region ¼¼ÄÜActionÅäÖÃ
+    private Dictionary<int, SkillActionCfg> skillActionDic = new Dictionary<int, SkillActionCfg>();
+    private void InitSkillActionCfg(string path)
+    {
+        TextAsset xml = Resources.Load<TextAsset>(path);
+        if (!xml)
+        {
+            PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
+        }
+        else
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xml.text);
+
+            XmlNodeList nodLst = doc.SelectSingleNode("root").ChildNodes;
+
+            for (int i = 0; i < nodLst.Count; i++)
+            {
+                XmlElement ele = nodLst[i] as XmlElement;
+
+                if (ele.GetAttributeNode("ID") == null)
+                {
+                    continue;
+                }
+                int ID = Convert.ToInt32(ele.GetAttributeNode("ID").InnerText);
+                SkillActionCfg sac = new SkillActionCfg
+                {
+                    ID = ID
+                };
+
+                foreach (XmlElement e in nodLst[i].ChildNodes)
+                {
+                    switch (e.Name)
+                    {
+                        case "delayTime":
+                            sac.delayTime = int.Parse(e.InnerText);
+                            break;
+                        case "radius":
+                            sac.radius = float.Parse(e.InnerText);
+                            break;
+                        case "angle":
+                            sac.angle = int.Parse(e.InnerText);
+                            break;
+                    }
+                }
+                skillActionDic.Add(ID, sac);
+            }
+        }
+    }
+    public SkillActionCfg GetSkillActionCfg(int id)
+    {
+        SkillActionCfg sac = null;
+        if (skillActionDic.TryGetValue(id, out sac))
+        {
+            return sac;
         }
         return null;
     }

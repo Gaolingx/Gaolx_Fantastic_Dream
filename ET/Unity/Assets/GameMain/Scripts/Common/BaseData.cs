@@ -105,6 +105,20 @@ public class NpcData : BaseData<NpcData>
     public float NPC_Transform_Scale_Z;
 }
 
+public class SkillMoveCfg : BaseData<SkillMoveCfg>
+{
+    public int delayTime;
+    public int moveTime;
+    public float moveDis;
+}
+
+public class SkillActionCfg : BaseData<SkillActionCfg>
+{
+    public int delayTime;
+    public float radius; //伤害计算范围
+    public int angle; //伤害有效角度
+}
+
 public class SkillCfg : BaseData<SkillCfg>
 {
     public string skillName;
@@ -112,13 +126,7 @@ public class SkillCfg : BaseData<SkillCfg>
     public int aniAction; //动画控制参数
     public string fx; //特效名称
     public List<int> skillMoveLst;
-}
-
-public class SkillMoveCfg : BaseData<SkillMoveCfg>
-{
-    public int delayTime;
-    public int moveTime;
-    public float moveDis;
+    public List<int> skillActionLst;
 }
 
 

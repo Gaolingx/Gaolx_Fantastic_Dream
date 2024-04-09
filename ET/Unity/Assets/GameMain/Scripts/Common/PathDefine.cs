@@ -22,6 +22,7 @@ public class PathDefine
 
     public const string SkillCfg = "Assets/AssetBundles/Configs/ResCfgs/xml/skill";
     public const string SkillMoveCfg = "Assets/AssetBundles/Configs/ResCfgs/xml/skillmove";
+    public const string SkillActionCfg = "Assets/AssetBundles/Configs/ResCfgs/xml/skillaction";
 
     #endregion
 
