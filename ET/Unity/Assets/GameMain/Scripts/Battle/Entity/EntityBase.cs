@@ -97,13 +97,9 @@ public abstract class EntityBase
         }
     }
 
-    public virtual void AttackEffect(int skillID)
+    public virtual void SkillAttack(int skillID)
     {
-        skillMgr.AttackEffect(this, skillID);
-    }
-    public virtual void AttackDamage(int skillID)
-    {
-        skillMgr.AttackDamage(this, skillID);
+        skillMgr.SkillAttack(this, skillID);
     }
 
     public virtual Vector2 GetDirInput()
