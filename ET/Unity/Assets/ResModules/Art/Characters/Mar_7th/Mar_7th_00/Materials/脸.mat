@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7977608167789786830
+--- !u!114 &-6594674994676367886
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -33,8 +33,7 @@ Material:
   - _RIM_LIGHTING_ON
   - _SPECULAR_ON
   - _USE_RAMP_COLOR_ON
-  m_InvalidKeywords:
-  - _METAL_SPECULAR_ON
+  m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -170,24 +169,20 @@ Material:
     - _Area: 1
     - _AutoBrightnessOffset: 0
     - _AutoBrightnessThresholdMax: 0.6
-    - _AutoBrightnessThresholdMin: 0.25
+    - _AutoBrightnessThresholdMin: 0.4
     - _BASE_COLOR_WEIGHT: 1
     - _BUMP_MAP_STRENGTH: 0.3
-    - _BaseColorBPower: 1
-    - _BaseColorGPower: 1
-    - _BaseColorRPower: 1
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BlendOp: 0
     - _BlendOpOverlay: 0
-    - _BloomIntensity0: 0.4
     - _BodyCoolRampColorMixFactor: 0
     - _BodyWarmRampColorMixFactor: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _ColorSaturation: 1
-    - _Cull: 0
+    - _Cull: 2
     - _CullMode: 2
     - _Cutoff: 0.5
     - _DayTime: 12
@@ -196,13 +191,13 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _DstBlendMode: 0
-    - _DstBlendModeOverlay: 0
+    - _DstBlendModeAlpha: 0
+    - _DstBlendModeAlphaOverlay: 0
+    - _DstBlendModeColor: 0
+    - _DstBlendModeColorOverlay: 0
     - _EMISSION_WEIGHT: 1
     - _EmissionIntensity: 1
     - _EmissionMixBaseColor: 1
-    - _EnableCustomSpecularColor: 0
-    - _EnableMetalSpecular: 1
     - _EnableSpecular: 1
     - _EnvironmentReflections: 1
     - _ExCheekIntensity: 0
@@ -219,8 +214,8 @@ Material:
     - _IndirectLightIntensity: 0
     - _IndirectLightMixBaseColor: 1
     - _IndirectLightOcclusionUsage: 0.5
-    - _IndirectLightUsage: 0.5
-    - _IsFace: 1
+    - _IndirectLightUsage: 0
+    - _IsFace: 0
     - _LerpAOIntensity: 1
     - _METALNESS: 0
     - _MainLightBrightnessFactor: 1
@@ -248,24 +243,15 @@ Material:
     - _RimEdgeSoftness: 0.05
     - _RimIntensity: 0.5
     - _RimIntensityBackFace: 0
-    - _RimLightBrightness: 1
-    - _RimLightFadeout: 1
-    - _RimLightMixAlbedo: 0
-    - _RimLightMixMainLightColor: 0
-    - _RimLightThreshold: 0.05
-    - _RimLightWidth: 1
     - _RimThresholdMax: 0.9
     - _RimThresholdMin: 0.6
     - _RimWidth0: 0.5
-    - _ScrBlendModeOverlay: 1
     - _ShadowBoost: 1
     - _ShadowRampOffset: 0.75
     - _ShadowThresholdCenter: 0
     - _ShadowThresholdSoftness: 0.1
     - _Smoothness: 0.4472136
     - _SmoothnessTextureChannel: 0
-    - _SpecularBrightness: 10
-    - _SpecularExpon: 50
     - _SpecularHighlights: 1
     - _SpecularIntensity: 1
     - _SpecularKsMetal: 1
@@ -274,13 +260,18 @@ Material:
     - _SpecularShininess: 10
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
-    - _SrcBlendMode: 1
+    - _SrcBlendModeAlpha: 1
+    - _SrcBlendModeAlphaOverlay: 1
+    - _SrcBlendModeColor: 1
+    - _SrcBlendModeColorOverlay: 1
     - _StencilComp: 0
     - _StencilCompOverlay: 0
     - _StencilFailOp: 0
     - _StencilPassOp: 0
+    - _StencilReadMask: 255
     - _StencilRef: 0
     - _StencilRefOverlay: 0
+    - _StencilWriteMask: 255
     - _StencilZFailOp: 0
     - _StockingsTextureUsage: 0.1
     - _StockingsTransitionHardness: 0.4
@@ -289,6 +280,7 @@ Material:
     - _Surface: 0
     - _TRANSPARENCY: 0
     - _UVSec: 0
+    - _UseAdditionalLighting: 0
     - _UseAlphaClipping: 0
     - _UseAutoBrightness: 1
     - _UseDrawOverlay: 0
@@ -302,7 +294,7 @@ Material:
     - _UseStockings: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _mBloomIntensity0: 1
+    - _mmBloomIntensity0: 0
     - _stockingsMapBChannelUVScale: 20
     m_Colors:
     - _BASE_COLOR: {r: 0.8, g: 0.8, b: 0.8, a: 1}
@@ -330,7 +322,6 @@ Material:
     - _OutlineColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _REFLECTIONS_COLOR: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor0: {r: 1, g: 1, b: 1, a: 1}
-    - _RimLightTintColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _StockingsDarkColor: {r: 0, g: 0, b: 0, a: 1}
