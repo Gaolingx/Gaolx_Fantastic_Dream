@@ -1,6 +1,8 @@
 //功能：音频播放服务
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 
@@ -55,24 +57,26 @@ public class AudioSvc : MonoBehaviour
         }
     }
 
-    public void PlayBGMusic(string name, bool isLoop = true)
+    public async void PlayBGMusic(string name, bool isLoop = true, bool isCache = true)
     {
         if (!_isTurnOnAudio) { return; }
-        AudioClip audio = ResSvc.Instance.LoadAudio(bgAudioPath + name, true);
-        if(BGAudioAudioSource.clip == null || BGAudioAudioSource.clip.name != audio.name)
+        string path = bgAudioPath + name;
+        AudioClip audioClip = await ResSvc.Instance.LoadAudioClipAsync(path, isCache);
+        if (BGAudioAudioSource.clip == null || BGAudioAudioSource.clip.name != audioClip.name)
         {
-            BGAudioAudioSource.clip = audio;
+            BGAudioAudioSource.clip = audioClip;
             BGAudioAudioSource.loop = isLoop;
             BGAudioAudioSource.volume = BGAudioVolumeValue;
             BGAudioAudioSource.Play();
         }
     }
 
-    public void PlayUIAudio(string name)
+    public async void PlayUIAudio(string name, bool isCache = true)
     {
         if (!_isTurnOnAudio) { return; }
-        AudioClip audio = ResSvc.Instance.LoadAudio(bgAudioPath + name, true);
-        UIAudioAudioSource.clip = audio;
+        string path = bgAudioPath + name;
+        AudioClip audioClip = await ResSvc.Instance.LoadAudioClipAsync(path, isCache);
+        UIAudioAudioSource.clip = audioClip;
         UIAudioAudioSource.volume = UIAudioVolumeValue;
         UIAudioAudioSource.Play();
     }

@@ -697,6 +697,14 @@
         },
         {
             "Address": "",
+            "AssetPath": "Assets/AssetBundles/Configs/ResCfgs/xml/skillaction.xml",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 28,
+            "DependIDs": []
+        },
+        {
+            "Address": "",
             "AssetPath": "Assets/AssetBundles/Configs/ResCfgs/xml/skillmove.xml",
             "AssetGUID": "",
             "AssetTags": [],
@@ -770,6 +778,14 @@
         {
             "Address": "",
             "AssetPath": "Assets/AssetBundles/Configs/ResCfgs/xml/format/skill_format_v1.xml",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 29,
+            "DependIDs": []
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/AssetBundles/Configs/ResCfgs/xml/format/skillaction_format_v1.xml",
             "AssetGUID": "",
             "AssetTags": [],
             "BundleID": 29,

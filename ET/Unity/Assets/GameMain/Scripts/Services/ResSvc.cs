@@ -1,4 +1,5 @@
 //功能：资源加载服务
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -97,25 +98,22 @@ public class ResSvc : MonoBehaviour
     }
 
     //定义一个字典，存储当前加载的Audio，与后面的cache有关系
-    private Dictionary<string, AudioClip> adDic = new Dictionary<string, AudioClip>();
-    public AudioClip LoadAudio(string path, bool iscache = false)
+    private Dictionary<string, AudioClip> acDic = new Dictionary<string, AudioClip>();
+    public async UniTask<AudioClip> LoadAudioClipAsync(string path, bool iscache = false)
     {
         //音乐加载
-        AudioClip au = null;
-        if (!adDic.TryGetValue(path, out au))
+        AudioClip audioClip = null;
+        if (!acDic.TryGetValue(path, out audioClip))
         {
-            //au = Resources.Load<AudioClip>(path);
-            var auHandle = _yooAssetResourcePackage.LoadAssetSync<AudioClip>(path);
-            auHandle.Completed += (AssetOperationHandle handle) =>
-            {
-                au = handle.AssetObject as AudioClip;
-            };
+            AssetOperationHandle handle = _yooAssetResourcePackage.LoadAssetAsync<AudioClip>(path);
+            await handle.Task;
+            audioClip = handle.AssetObject as AudioClip;
             if (iscache)
             {
-                adDic.Add(path, au);
+                acDic.Add(path, audioClip);
             }
         }
-        return au;
+        return audioClip;
 
     }
 
