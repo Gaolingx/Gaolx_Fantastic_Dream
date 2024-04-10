@@ -94,9 +94,9 @@ public class WindowRoot : MonoBehaviour
         SetText(txt, num.ToString());
     }
 
-    protected void SetSprite(Image img,string path)
+    protected async void SetSprite(Image img,string path)
     {
-        Sprite sp = resSvc.LoadSprite(path, true);
+        Sprite sp = await resSvc.LoadSpriteAsync(path, true);
         img.sprite = sp;
     }
 

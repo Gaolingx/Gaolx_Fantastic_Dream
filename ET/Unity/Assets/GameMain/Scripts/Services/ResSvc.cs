@@ -147,30 +147,25 @@ public class ResSvc : MonoBehaviour
         instanceGO = handle.InstantiateSync();
     }
 
-    public TextAsset LoadCfgData(string path)
+    public async UniTask<TextAsset> LoadCfgDataAsync(string path)
     {
         TextAsset textAsset = null;
-        var taHandle = _yooAssetResourcePackage.LoadAssetSync<TextAsset>(path);
-        taHandle.Completed += (AssetOperationHandle handle) =>
-        {
-            textAsset = handle.AssetObject as TextAsset;
-        };
+        AssetOperationHandle handle = _yooAssetResourcePackage.LoadAssetAsync<TextAsset>(path);
+        await handle.Task;
+        textAsset = handle.AssetObject as TextAsset;
 
         return textAsset;
     }
 
     private Dictionary<string, Sprite> spDic = new Dictionary<string, Sprite>();
-    public Sprite LoadSprite(string path, bool iscache = false)
+    public async UniTask<Sprite> LoadSpriteAsync(string path, bool iscache = false)
     {
         Sprite sp = null;
         if (!spDic.TryGetValue(path, out sp))
         {
-            //sp = Resources.Load<Sprite>(path);
-            var spHandle = _yooAssetResourcePackage.LoadAssetSync<Sprite>(path);
-            spHandle.Completed += (AssetOperationHandle handle) =>
-            {
-                sp = handle.AssetObject as Sprite;
-            };
+            AssetOperationHandle handle = _yooAssetResourcePackage.LoadAssetAsync<Sprite>(path);
+            await handle.Task;
+            sp = handle.AssetObject as Sprite;
             if (iscache)
             {
                 spDic.Add(path, sp);
@@ -184,9 +179,9 @@ public class ResSvc : MonoBehaviour
     private List<string> surnameLst = new List<string>();
     private List<string> manLst = new List<string>();
     private List<string> womanLst = new List<string>();
-    private void InitRDNameCfg(string path)
+    private async void InitRDNameCfg(string path)
     {
-        TextAsset xml = LoadCfgData(path);
+        TextAsset xml = await LoadCfgDataAsync(path);
         if (!xml)
         {
             PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -247,9 +242,9 @@ public class ResSvc : MonoBehaviour
 
     #region 地图
     private Dictionary<int, MapCfg> mapCfgDataDic = new Dictionary<int, MapCfg>();
-    private void InitMapCfg(string path)
+    private async void InitMapCfg(string path)
     {
-        TextAsset xml = LoadCfgData(path);
+        TextAsset xml = await LoadCfgDataAsync(path);
         if (!xml)
         {
             PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -364,9 +359,9 @@ public class ResSvc : MonoBehaviour
 
     #region 自动引导配置
     private Dictionary<int, AutoGuideCfg> guideTaskDic = new Dictionary<int, AutoGuideCfg>();
-    private void InitGuideCfg(string path)
+    private async void InitGuideCfg(string path)
     {
-        TextAsset xml = LoadCfgData(path);
+        TextAsset xml = await LoadCfgDataAsync(path);
         if (!xml)
         {
             PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -430,9 +425,9 @@ public class ResSvc : MonoBehaviour
 
     #region 强化升级配置
     private Dictionary<int, Dictionary<int, StrongCfg>> strongDic = new Dictionary<int, Dictionary<int, StrongCfg>>();
-    private void InitStrongCfg(string path)
+    private async void InitStrongCfg(string path)
     {
-        TextAsset xml = LoadCfgData(path);
+        TextAsset xml = await LoadCfgDataAsync(path);
         if (!xml)
         {
             PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -561,9 +556,9 @@ public class ResSvc : MonoBehaviour
 
     #region 资源交易配置
     private Dictionary<int, BuyCfg> buyCfgDic = new Dictionary<int, BuyCfg>();
-    private void InitBuyCfg(string path)
+    private async void InitBuyCfg(string path)
     {
-        TextAsset xml = LoadCfgData(path);
+        TextAsset xml = await LoadCfgDataAsync(path);
         if (!xml)
         {
             PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -618,9 +613,9 @@ public class ResSvc : MonoBehaviour
 
     #region 任务奖励配置
     private Dictionary<int, TaskRewardCfg> taskRewardDic = new Dictionary<int, TaskRewardCfg>();
-    private void InitTaskRewardCfg(string path)
+    private async void InitTaskRewardCfg(string path)
     {
-        TextAsset xml = LoadCfgData(path);
+        TextAsset xml = await LoadCfgDataAsync(path);
         if (!xml)
         {
             PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -681,9 +676,9 @@ public class ResSvc : MonoBehaviour
 
     #region 全局NPC配置
     private Dictionary<int, NpcData> npcDic = new Dictionary<int, NpcData>();
-    private void InitNpcCfg(string path)
+    private async void InitNpcCfg(string path)
     {
-        TextAsset xml = LoadCfgData(path);
+        TextAsset xml = await LoadCfgDataAsync(path);
         if (!xml)
         {
             PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -762,9 +757,9 @@ public class ResSvc : MonoBehaviour
 
     #region 技能配置
     private Dictionary<int, SkillCfg> skillDic = new Dictionary<int, SkillCfg>();
-    private void InitSkillCfg(string path)
+    private async void InitSkillCfg(string path)
     {
-        TextAsset xml = LoadCfgData(path);
+        TextAsset xml = await LoadCfgDataAsync(path);
         if (!xml)
         {
             PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -847,9 +842,9 @@ public class ResSvc : MonoBehaviour
 
     #region 技能位移配置
     private Dictionary<int, SkillMoveCfg> skillMoveDic = new Dictionary<int, SkillMoveCfg>();
-    private void InitSkillMoveCfg(string path)
+    private async void InitSkillMoveCfg(string path)
     {
-        TextAsset xml = LoadCfgData(path);
+        TextAsset xml = await LoadCfgDataAsync(path);
         if (!xml)
         {
             PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -907,9 +902,9 @@ public class ResSvc : MonoBehaviour
 
     #region 技能Action配置
     private Dictionary<int, SkillActionCfg> skillActionDic = new Dictionary<int, SkillActionCfg>();
-    private void InitSkillActionCfg(string path)
+    private async void InitSkillActionCfg(string path)
     {
-        TextAsset xml = Resources.Load<TextAsset>(path);
+        TextAsset xml = await LoadCfgDataAsync(path);
         if (!xml)
         {
             PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -967,9 +962,9 @@ public class ResSvc : MonoBehaviour
 
     #region 怪物属性配置
     private Dictionary<int, MonsterCfg> monsterCfgDataDic = new Dictionary<int, MonsterCfg>();
-    private void InitMonsterCfg(string path)
+    private async void InitMonsterCfg(string path)
     {
-        TextAsset xml = LoadCfgData(path);
+        TextAsset xml = await LoadCfgDataAsync(path);
         if (!xml)
         {
             PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
