@@ -32,27 +32,84 @@ public class SkillMgr : MonoBehaviour
         int sum = 0;
         for (int i = 0; i < actonLst.Count; i++)
         {
-            SkillActionCfg skillAction = resSvc.GetSkillActionCfg(actonLst[i]);
-            sum += skillAction.delayTime;
+            SkillActionCfg skillActionCfg = resSvc.GetSkillActionCfg(actonLst[i]);
+            sum += skillActionCfg.delayTime;
             if (sum > 0)
             {
                 //延时伤害计算
                 timerSvc.AddTimeTask((int tid) =>
                 {
-                    SkillAction(entity, skillAction.ID);
+                    SkillAction(entity, skillActionCfg.ID);
                 }, sum);
             }
             else
             {
                 //瞬时技能
-                SkillAction(entity, skillAction.ID);
+                SkillAction(entity, skillActionCfg.ID);
             }
         }
     }
 
     public void SkillAction(EntityBase entity, int actionID)
     {
+        //获取场景里所有的怪物实体，遍历运算（计算满足条件的伤害）
+        List<EntityMonster> monsterLst = entity.battleMgr.GetEntityMonsters();
+        SkillActionCfg skillActionCfg = resSvc.GetSkillActionCfg(actionID);
+        for (int i = 0; i < monsterLst.Count; i++)
+        {
+            EntityMonster em = monsterLst[i];
+            //判断怪物与玩家的距离，角度
+            if (InRange(entity.GetPlayerPos(), em.GetPos(), skillActionCfg.radius)
+                && InAngle(entity.GetPlayerTrans(), em.GetPos(), skillActionCfg.angle))
+            {
+                //满足所有条件，计算伤害
+            }
+        }
+    }
 
+    /// <summary>
+    /// 玩家打怪物——范围判定
+    /// </summary>
+    /// <param name="from">起始位置</param>
+    /// <param name="to">目标位置</param>
+    /// <param name="range">两者的范围</param>
+    /// <returns>是否在距离范围中</returns>
+    private bool InRange(Vector3 from, Vector3 to, float range)
+    {
+        float dis = Vector3.Distance(from, to);
+        if (dis <= range)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// 玩家打怪物——角度判定
+    /// </summary>
+    /// <param name="trans">施法主体的Transform</param>
+    /// <param name="to">目标位置</param>
+    /// <param name="angle">角度的范围</param>
+    /// <returns>是否在角度范围中</returns>
+    private bool InAngle(Transform trans, Vector3 to, float angle)
+    {
+        if (angle == 360)
+        {
+            return true;
+        }
+        else
+        {
+            Vector3 start = trans.forward;
+            Vector3 dir = (to - trans.position).normalized;
+
+            float ang = Vector3.Angle(start, dir);
+
+            if (ang <= angle / 2)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 
     /// <summary>

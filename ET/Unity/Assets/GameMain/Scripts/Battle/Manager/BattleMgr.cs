@@ -3,6 +3,7 @@
 
 using Cinemachine;
 using StarterAssets;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -25,6 +26,8 @@ public class BattleMgr : MonoBehaviour
     private StarterAssetsInputs playerInput;
     private GameObject battlePlayer;
     private MapCfg mapCfg;
+
+    private Dictionary<string,EntityMonster> monsterDic = new Dictionary<string,EntityMonster>();
 
     private void LoadPlayerInstance(string playerPrefabPath, MapCfg mapData)
     {
@@ -159,6 +162,17 @@ public class BattleMgr : MonoBehaviour
                 m.SetActive(false);
             }
         }
+    }
+
+    //获取所有怪物实体
+    public List<EntityMonster> GetEntityMonsters()
+    {
+        List<EntityMonster> monsterLst = new List<EntityMonster>();
+        foreach(var item in monsterDic)
+        {
+            monsterLst.Add(item.Value);
+        }
+        return monsterLst;
     }
 
     #region 技能施放与角色控制

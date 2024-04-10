@@ -107,4 +107,21 @@ public abstract class EntityBase
         return Vector2.zero;
     }
 
+    public virtual Vector3 GetPlayerPos()
+    {
+        return playerController.transform.position;
+    }
+    public virtual Vector3 GetPos()
+    {
+        return controller.transform.position;
+    }
+
+    public virtual Transform GetPlayerTrans()
+    {
+        return playerController.transform;
+    }
+    public virtual Transform GetTrans()
+    {
+        return controller.transform;
+    }
 }
