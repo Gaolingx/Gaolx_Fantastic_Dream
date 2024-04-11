@@ -13,6 +13,13 @@ public enum TextColorCode
     Yellow
 }
 
+//伤害类型
+public enum DamageType
+{
+    None,
+    AD = 1,//物理伤害
+    AP = 2//魔法伤害
+}
 
 public class Constants
 {

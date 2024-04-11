@@ -785,6 +785,20 @@ public class ResSvc : MonoBehaviour
                         case "fx":
                             sc.fx = e.InnerText;
                             break;
+                        case "dmgType":
+                            if (e.InnerText.Equals("1"))
+                            {
+                                sc.dmgType = DamageType.AD;
+                            }
+                            else if (e.InnerText.Equals("2"))
+                            {
+                                sc.dmgType = DamageType.AP;
+                            }
+                            else
+                            {
+                                PECommon.Log("dmgType ERROR");
+                            }
+                            break;
                         case "skillMoveLst":
                             string[] skMoveArr = e.InnerText.Split('|');
                             for (int j = 0; j < skMoveArr.Length; j++)

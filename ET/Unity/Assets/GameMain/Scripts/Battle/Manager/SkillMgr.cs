@@ -51,7 +51,7 @@ public class SkillMgr : MonoBehaviour
         }
     }
 
-    public void SkillAction(EntityBase entity, SkillCfg skillCfg,int index)
+    public void SkillAction(EntityBase entity, SkillCfg skillCfg, int index)
     {
         SkillActionCfg skillActionCfg = resSvc.GetSkillActionCfg(skillCfg.skillActionLst[index]);
 
@@ -66,14 +66,39 @@ public class SkillMgr : MonoBehaviour
                 && InAngle(entity.GetPlayerTrans(), em.GetPos(), skillActionCfg.angle))
             {
                 //满足所有条件，计算伤害
-                CalcDamage(entity, damage);
+                CalcDamage(entity, em, skillCfg, damage);
             }
         }
     }
-
-    private void CalcDamage(EntityBase entity,int damage)
+    /// <summary>
+    /// 根据不同类型计算伤害
+    /// </summary>
+    /// <param name="entity">玩家实体</param>
+    /// <param name="target">怪物实体</param>
+    /// <param name="skillCfg">技能配置</param>
+    /// <param name="damage">技能加成</param>
+    private void CalcDamage(EntityBase entity, EntityBase target, SkillCfg skillCfg, int damage)
     {
+        int dmgSum = damage;
+        //根据不同属性计算伤害
+        if (skillCfg.dmgType == DamageType.AP)
+        {
+            //计算闪避
 
+            //计算属性加成（基础属性+技能加成）
+
+            //计算暴击
+
+            //计算穿甲
+
+        }
+        else if (skillCfg.dmgType == DamageType.AD)
+        {
+            //计算属性加成（基础属性+技能加成）
+
+            //计算魔法抗性
+
+        }
     }
 
     /// <summary>

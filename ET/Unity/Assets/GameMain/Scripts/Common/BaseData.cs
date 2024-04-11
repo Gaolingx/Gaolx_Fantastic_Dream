@@ -125,6 +125,7 @@ public class SkillCfg : BaseData<SkillCfg>
     public int skillTime; //技能持续时间
     public int aniAction; //动画控制参数
     public string fx; //特效名称
+    public DamageType dmgType; //伤害类型
     public List<int> skillMoveLst;
     public List<int> skillActionLst;
     public List<int> skillDamageLst;
