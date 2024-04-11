@@ -117,34 +117,16 @@ public class ResSvc : MonoBehaviour
 
     }
 
-    private Dictionary<string, AssetOperationHandle> prefabHandleDic = new Dictionary<string, AssetOperationHandle>();
-    private GameObject instanceGO;
     //获取Prefab的类
     public GameObject LoadPrefab(string path, bool iscache = false)
     {
         AssetOperationHandle prefabHandle = null;
-        //没有缓存则从Resources加载
-        if (!prefabHandleDic.TryGetValue(path, out prefabHandle))
-        {
-            prefabHandle = _yooAssetResourcePackage.LoadAssetSync<GameObject>(path);
-            if (iscache)
-            {
-                prefabHandleDic.Add(path, prefabHandle);
-            }
-        }
+        prefabHandle = _yooAssetResourcePackage.LoadAssetSync<GameObject>(path);
 
-        //prefab加载完成后的实例化
         GameObject go = null;
-        if (prefabHandle != null)
-        {
-            prefabHandle.Completed += PrefabHandle;
-            go = instanceGO;
-        }
+        //prefab加载完成后的实例化
+        go = prefabHandle.InstantiateSync();
         return go;
-    }
-    private void PrefabHandle(AssetOperationHandle handle)
-    {
-        instanceGO = handle.InstantiateSync();
     }
 
     public async UniTask<TextAsset> LoadCfgDataAsync(string path)
