@@ -805,6 +805,16 @@ public class ResSvc : MonoBehaviour
                                 }
                             }
                             break;
+                        case "skillDamageLst":
+                            string[] skDamageArr = e.InnerText.Split('|');
+                            for (int j = 0; j < skDamageArr.Length; j++)
+                            {
+                                if (skDamageArr[j] != "")
+                                {
+                                    sc.skillDamageLst.Add(int.Parse(skDamageArr[j]));
+                                }
+                            }
+                            break;
                     }
                 }
                 skillDic.Add(ID, sc);

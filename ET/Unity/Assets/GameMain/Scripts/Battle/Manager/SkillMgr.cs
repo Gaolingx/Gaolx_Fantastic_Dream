@@ -34,27 +34,30 @@ public class SkillMgr : MonoBehaviour
         {
             SkillActionCfg skillActionCfg = resSvc.GetSkillActionCfg(actonLst[i]);
             sum += skillActionCfg.delayTime;
+            int index = i; //action索引号
             if (sum > 0)
             {
                 //延时伤害计算
                 timerSvc.AddTimeTask((int tid) =>
                 {
-                    SkillAction(entity, skillActionCfg.ID);
+                    SkillAction(entity, skillData, index);
                 }, sum);
             }
             else
             {
                 //瞬时技能
-                SkillAction(entity, skillActionCfg.ID);
+                SkillAction(entity, skillData, index);
             }
         }
     }
 
-    public void SkillAction(EntityBase entity, int actionID)
+    public void SkillAction(EntityBase entity, SkillCfg skillCfg,int index)
     {
+        SkillActionCfg skillActionCfg = resSvc.GetSkillActionCfg(skillCfg.skillActionLst[index]);
+
+        int damage = skillCfg.skillDamageLst[index];
         //获取场景里所有的怪物实体，遍历运算（计算满足条件的伤害）
         List<EntityMonster> monsterLst = entity.battleMgr.GetEntityMonsters();
-        SkillActionCfg skillActionCfg = resSvc.GetSkillActionCfg(actionID);
         for (int i = 0; i < monsterLst.Count; i++)
         {
             EntityMonster em = monsterLst[i];
@@ -63,6 +66,7 @@ public class SkillMgr : MonoBehaviour
                 && InAngle(entity.GetPlayerTrans(), em.GetPos(), skillActionCfg.angle))
             {
                 //满足所有条件，计算伤害
+                CalcDamage(entity, damage);
             }
         }
     }

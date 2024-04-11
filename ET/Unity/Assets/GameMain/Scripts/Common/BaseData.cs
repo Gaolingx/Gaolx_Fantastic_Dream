@@ -127,6 +127,7 @@ public class SkillCfg : BaseData<SkillCfg>
     public string fx; //ÌØĞ§Ãû³Æ
     public List<int> skillMoveLst;
     public List<int> skillActionLst;
+    public List<int> skillDamageLst;
 }
 
 
