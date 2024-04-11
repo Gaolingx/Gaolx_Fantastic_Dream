@@ -67,6 +67,11 @@ public class SkillMgr : MonoBehaviour
         }
     }
 
+    private void CalcDamage(EntityBase entity,int damage)
+    {
+
+    }
+
     /// <summary>
     /// 玩家打怪物——范围判定
     /// </summary>
@@ -99,10 +104,10 @@ public class SkillMgr : MonoBehaviour
         }
         else
         {
-            Vector3 start = trans.forward;
-            Vector3 dir = (to - trans.position).normalized;
+            Vector3 start = trans.forward; //玩家朝向向量
+            Vector3 dir = (to - trans.position).normalized; //目标朝向
 
-            float ang = Vector3.Angle(start, dir);
+            float ang = Vector3.Angle(start, dir); //夹角，无符号
 
             if (ang <= angle / 2)
             {
