@@ -71,10 +71,10 @@ public abstract class EntityBase
         }
     }
 
-    public virtual void SetBattleProps(BattleProps battleProps)
+    public virtual void SetBattleProps(BattleProps props)
     {
         HP = props.hp;
-        Props = battleProps;
+        Props = props;
     }
 
     public virtual void SetAniBlend(int blend)

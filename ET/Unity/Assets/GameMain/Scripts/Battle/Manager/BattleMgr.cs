@@ -169,7 +169,9 @@ public class BattleMgr : MonoBehaviour
                     stateMgr = stateMgr, //将stateMgr注入逻辑实体类中
                     skillMgr = skillMgr
                 };
-                //em.SetBattleProps();
+                //设置初始属性
+                em.md = md;
+                em.SetBattleProps(md.mCfg.bps);
 
                 MonsterController mc = m.GetComponent<MonsterController>();
                 mc.Init();
