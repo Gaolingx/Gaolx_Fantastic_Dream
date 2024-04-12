@@ -766,7 +766,8 @@ public class ResSvc : MonoBehaviour
                 {
                     ID = ID,
                     skillMoveLst = new List<int>(),
-                    skillActionLst = new List<int>()
+                    skillActionLst = new List<int>(),
+                    skillDamageLst = new List<int>()
                 };
 
                 foreach (XmlElement e in nodLst[i].ChildNodes)
