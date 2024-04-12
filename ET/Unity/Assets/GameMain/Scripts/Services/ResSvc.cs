@@ -797,7 +797,7 @@ public class ResSvc : MonoBehaviour
                             }
                             else
                             {
-                                PECommon.Log("dmgType ERROR");
+                                PECommon.Log("dmgType ERROR", PELogType.Error);
                             }
                             break;
                         case "skillMoveLst":

@@ -70,6 +70,8 @@ public class SkillMgr : MonoBehaviour
             }
         }
     }
+
+    System.Random rd = new System.Random();
     /// <summary>
     /// 根据不同类型计算伤害
     /// </summary>
@@ -83,21 +85,46 @@ public class SkillMgr : MonoBehaviour
         //根据不同属性计算伤害
         if (skillCfg.dmgType == DamageType.AD)
         {
-            //计算闪避
-
+            //计算闪避（优先计算）
+            int dodgeNum = PETools.RDInt(1, 100, rd);
+            if (dodgeNum <= target.Props.dodge)
+            {
+                //UI显示闪避
+                PECommon.Log("闪避Rate:" + dodgeNum + "/" + target.Props.dodge);
+                return;
+            }
             //计算属性加成（基础属性+技能加成）
+            dmgSum += caster.Props.ad;
 
             //计算暴击
+            int criticalNum = PETools.RDInt(1, 100, rd); //暴击概率
+            if (criticalNum <= caster.Props.critical)
+            {
+                float criticalRate = 1 + (PETools.RDInt(1, 100, rd) / 100.0f); //暴击倍率
+                dmgSum = (int)criticalRate * dmgSum; //暴击伤害
+                PECommon.Log("暴击Rate:" + criticalNum + "/" + caster.Props.critical);
+            }
 
             //计算穿甲
-
+            int addef = (int)(1 - caster.Props.pierce / 100.0f) * target.Props.addef; //计算护甲
+            dmgSum -= addef; //减去护甲抵消伤害
         }
         else if (skillCfg.dmgType == DamageType.AP)
         {
             //计算属性加成（基础属性+技能加成）
-
+            dmgSum += caster.Props.ap;
             //计算魔法抗性
+            dmgSum -= target.Props.apdef;
+        }
+        else
+        {
+            PECommon.Log("DamageType dose not exist, DamageType:" + skillCfg.dmgType, PELogType.Error);
+        }
 
+        //最终伤害
+        if (dmgSum < 0)
+        {
+            dmgSum = 0;
         }
     }
 
