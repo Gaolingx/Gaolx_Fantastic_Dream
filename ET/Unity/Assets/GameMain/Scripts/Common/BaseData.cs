@@ -33,18 +33,6 @@ public class AutoGuideCfg : BaseData<AutoGuideCfg>
 
 }
 
-public class BattleProps
-{
-    public int hp;
-    public int ad;
-    public int ap;
-    public int addef;
-    public int apdef;
-    public int dodge;
-    public int pierce;
-    public int critical;
-}
-
 public class MonsterCfg : BaseData<MonsterCfg>
 {
     public string mName; //怪物名字
@@ -135,5 +123,18 @@ public class SkillCfg : BaseData<SkillCfg>
 public class BaseData<T>
 {
     public int ID;
+}
+
+//战斗数值属性
+public class BattleProps
+{
+    public int hp;
+    public int ad;
+    public int ap;
+    public int addef;
+    public int apdef;
+    public int dodge;
+    public int pierce;
+    public int critical;
 }
 

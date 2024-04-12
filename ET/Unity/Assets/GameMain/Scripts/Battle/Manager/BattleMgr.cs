@@ -2,6 +2,7 @@
 
 
 using Cinemachine;
+using PEProtocol;
 using StarterAssets;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,6 +38,19 @@ public class BattleMgr : MonoBehaviour
             Debug.Log(playerPrefabPath + " 预制件加载成功！");
             GameRoot.Instance.SetGameObjectTrans(player, mapData.playerBornPos, mapData.playerBornRote, new Vector3(0.8f, 0.8f, 0.8f));
 
+            PlayerData pd = GameRoot.Instance.PlayerData;
+            BattleProps props = new BattleProps
+            {
+                hp = pd.hp,
+                ad = pd.ad,
+                ap = pd.ap,
+                addef = pd.addef,
+                apdef = pd.apdef,
+                dodge = pd.dodge,
+                pierce = pd.pierce,
+                critical = pd.critical
+            };
+
             //实例化玩家逻辑实体
             entitySelfPlayer = new EntityPlayer
             {
@@ -44,6 +58,7 @@ public class BattleMgr : MonoBehaviour
                 stateMgr = stateMgr, //将stateMgr注入逻辑实体类中
                 skillMgr = skillMgr
             };
+            entitySelfPlayer.SetBattleProps(props);
 
             controller = player.GetComponent<ThirdPersonController>();
             controller.MoveSpeed = Constants.PlayerMoveSpeed;
@@ -154,6 +169,7 @@ public class BattleMgr : MonoBehaviour
                     stateMgr = stateMgr, //将stateMgr注入逻辑实体类中
                     skillMgr = skillMgr
                 };
+                //em.SetBattleProps();
 
                 MonsterController mc = m.GetComponent<MonsterController>();
                 mc.Init();

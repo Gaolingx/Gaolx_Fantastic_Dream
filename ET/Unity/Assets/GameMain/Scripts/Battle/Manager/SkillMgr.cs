@@ -51,37 +51,37 @@ public class SkillMgr : MonoBehaviour
         }
     }
 
-    public void SkillAction(EntityBase entity, SkillCfg skillCfg, int index)
+    public void SkillAction(EntityBase caster, SkillCfg skillCfg, int index)
     {
         SkillActionCfg skillActionCfg = resSvc.GetSkillActionCfg(skillCfg.skillActionLst[index]);
 
         int damage = skillCfg.skillDamageLst[index];
         //获取场景里所有的怪物实体，遍历运算（计算满足条件的伤害）
-        List<EntityMonster> monsterLst = entity.battleMgr.GetEntityMonsters();
+        List<EntityMonster> monsterLst = caster.battleMgr.GetEntityMonsters();
         for (int i = 0; i < monsterLst.Count; i++)
         {
-            EntityMonster em = monsterLst[i];
+            EntityMonster target = monsterLst[i];
             //判断怪物与玩家的距离，角度
-            if (InRange(entity.GetPlayerPos(), em.GetPos(), skillActionCfg.radius)
-                && InAngle(entity.GetPlayerTrans(), em.GetPos(), skillActionCfg.angle))
+            if (InRange(caster.GetPlayerPos(), target.GetPos(), skillActionCfg.radius)
+                && InAngle(caster.GetPlayerTrans(), target.GetPos(), skillActionCfg.angle))
             {
                 //满足所有条件，计算伤害
-                CalcDamage(entity, em, skillCfg, damage);
+                CalcDamage(caster, target, skillCfg, damage);
             }
         }
     }
     /// <summary>
     /// 根据不同类型计算伤害
     /// </summary>
-    /// <param name="entity">玩家实体</param>
-    /// <param name="target">怪物实体</param>
+    /// <param name="caster">施法者</param>
+    /// <param name="target">目标实体</param>
     /// <param name="skillCfg">技能配置</param>
     /// <param name="damage">技能加成</param>
-    private void CalcDamage(EntityBase entity, EntityBase target, SkillCfg skillCfg, int damage)
+    private void CalcDamage(EntityBase caster, EntityBase target, SkillCfg skillCfg, int damage)
     {
         int dmgSum = damage;
         //根据不同属性计算伤害
-        if (skillCfg.dmgType == DamageType.AP)
+        if (skillCfg.dmgType == DamageType.AD)
         {
             //计算闪避
 
@@ -92,7 +92,7 @@ public class SkillMgr : MonoBehaviour
             //计算穿甲
 
         }
-        else if (skillCfg.dmgType == DamageType.AD)
+        else if (skillCfg.dmgType == DamageType.AP)
         {
             //计算属性加成（基础属性+技能加成）
 

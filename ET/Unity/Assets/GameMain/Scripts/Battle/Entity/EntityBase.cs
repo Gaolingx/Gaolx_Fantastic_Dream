@@ -22,6 +22,24 @@ public abstract class EntityBase
 
     public bool canControl = true;
 
+    private BattleProps props;
+    public BattleProps Props { get { return props; } protected set { props = value; } } //只能在继承他的子类中修改
+
+    private int hp; //战斗中的hp
+    public int HP
+    {
+        get
+        {
+            return hp;
+        }
+        set
+        {
+            //通知UI层TODO
+
+            hp = value;
+        }
+    }
+
     //玩家状态切换
     public void PlayerStateMove()
     {
@@ -51,6 +69,12 @@ public abstract class EntityBase
                 _player.Enable();
             }
         }
+    }
+
+    public virtual void SetBattleProps(BattleProps battleProps)
+    {
+        HP = props.hp;
+        Props = battleProps;
     }
 
     public virtual void SetAniBlend(int blend)
