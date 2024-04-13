@@ -178,4 +178,7 @@ public class Constants
 
     //EventSystem≈‰÷√
     public const string EventSystemGOName = "EventSystem";
+
+    //Monster≈‰÷√
+    public const int ActiveMonsterDelayTime = 500; //µ•Œª£∫ms
 }

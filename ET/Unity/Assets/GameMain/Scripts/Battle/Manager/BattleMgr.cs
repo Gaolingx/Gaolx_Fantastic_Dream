@@ -143,6 +143,9 @@ public class BattleMgr : MonoBehaviour
             LoadVirtualCameraInstance(PathDefine.AssissnCityCharacterCameraPrefab, mapCfg);
             InitGamepad(entitySelfPlayer.playerInput);
 
+            //延迟激活第一批次怪物
+            ActiveCurrentBatchMonsters();
+
             //配置角色声音源
             audioSvc.GetCharacterAudioSourceComponent(battlePlayer);
             audioSvc.PlayBGMusic(Constants.BGHuangYe);
@@ -178,8 +181,21 @@ public class BattleMgr : MonoBehaviour
                 em.controller = mc;
 
                 m.SetActive(false);
+                monsterDic.Add(m.name, em);
             }
         }
+    }
+
+    //延迟激活当前批次怪物
+    public void ActiveCurrentBatchMonsters()
+    {
+        TimerSvc.Instance.AddTimeTask((int tid) =>
+        {
+            foreach(var item in monsterDic)
+            {
+                item.Value.controller.gameObject.SetActive(true);
+            }
+        }, Constants.ActiveMonsterDelayTime);
     }
 
     //获取所有怪物实体

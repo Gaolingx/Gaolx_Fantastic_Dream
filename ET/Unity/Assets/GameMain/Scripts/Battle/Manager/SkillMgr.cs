@@ -106,7 +106,7 @@ public class SkillMgr : MonoBehaviour
             }
 
             //计算穿甲
-            int addef = (int)(1 - caster.Props.pierce / 100.0f) * target.Props.addef; //计算护甲
+            int addef = (int)((1 - caster.Props.pierce / 100.0f) * target.Props.addef); //计算护甲
             dmgSum -= addef; //减去护甲抵消伤害
         }
         else if (skillCfg.dmgType == DamageType.AP)
