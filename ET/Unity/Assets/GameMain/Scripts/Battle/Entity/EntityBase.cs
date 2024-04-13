@@ -95,6 +95,10 @@ public abstract class EntityBase
         {
             playerController.SetAction(action, inputValues);
         }
+        if (controller != null)
+        {
+            controller.SetAction(action);
+        }
     }
     public virtual void SetInputBool(int inputSkillID, bool inputValue = false)
     {

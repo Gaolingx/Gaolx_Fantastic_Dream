@@ -22,7 +22,7 @@ public class LoadingWnd : WindowRoot
 
         fgWidth = imgFG.GetComponent<RectTransform>().sizeDelta.x;
 
-        SetText(txtTips, "这是一条游戏Tips");
+        SetText(txtTips, "按住Alt键不放可显示光标");
         SetText(txtPrg, "0%");
         imgFG.fillAmount = 0;
         //计算进度条点的位置
