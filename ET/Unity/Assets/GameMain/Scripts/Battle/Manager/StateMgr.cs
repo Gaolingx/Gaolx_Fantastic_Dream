@@ -11,6 +11,7 @@ public class StateMgr : MonoBehaviour
     public void Init()
     {
         //实例化所有状态
+        fsmDic.Add(AniState.Born, new StateBorn());
         fsmDic.Add(AniState.Idle, new StateIdle());
         fsmDic.Add(AniState.Move, new StateMove());
         fsmDic.Add(AniState.Attack, new StateAttack());

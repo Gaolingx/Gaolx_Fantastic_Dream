@@ -17,6 +17,7 @@ public class BattleMgr : MonoBehaviour
 
     private ResSvc resSvc;
     private AudioSvc audioSvc;
+    private TimerSvc timerSvc;
 
     private StateMgr stateMgr;
     private SkillMgr skillMgr;
@@ -119,6 +120,7 @@ public class BattleMgr : MonoBehaviour
         //初始化服务模块
         resSvc = ResSvc.Instance;
         audioSvc = AudioSvc.Instance;
+        timerSvc = TimerSvc.Instance;
 
         //初始化各管理器
         stateMgr = gameObject.AddComponent<StateMgr>();
@@ -138,7 +140,7 @@ public class BattleMgr : MonoBehaviour
             GameRoot.Instance.SetGameObjectTrans(mapRoot, Vector3.zero, Vector3.zero, Vector3.one);
 
             LoadPlayerInstance(PathDefine.AssissnBattlePlayerPrefab, mapCfg);
-            entitySelfPlayer.PlayerStateIdle();
+            entitySelfPlayer.StateIdle();
 
             LoadVirtualCameraInstance(PathDefine.AssissnCityCharacterCameraPrefab, mapCfg);
             InitGamepad(entitySelfPlayer.playerInput);
@@ -189,11 +191,18 @@ public class BattleMgr : MonoBehaviour
     //延迟激活当前批次怪物
     public void ActiveCurrentBatchMonsters()
     {
-        TimerSvc.Instance.AddTimeTask((int tid) =>
+        timerSvc.AddTimeTask((int tid) =>
         {
             foreach(var item in monsterDic)
             {
                 item.Value.controller.gameObject.SetActive(true);
+                //进入Born状态
+                item.Value.StateBorn();
+                timerSvc.AddTimeTask((int tid1) =>
+                {
+                    //出生1秒钟后进入Idle状态
+                    item.Value.StateIdle();
+                }, Constants.StateIdleMonsterDelayTime);
             }
         }, Constants.ActiveMonsterDelayTime);
     }
@@ -217,11 +226,11 @@ public class BattleMgr : MonoBehaviour
 
         if (dir == Vector2.zero)
         {
-            entitySelfPlayer.PlayerStateIdle();
+            entitySelfPlayer.StateIdle();
         }
         else
         {
-            entitySelfPlayer.PlayerStateMove();
+            entitySelfPlayer.StateMove();
         }
     }
     public void ReqPlayerReleaseSkill(int skillIndex)
@@ -253,7 +262,7 @@ public class BattleMgr : MonoBehaviour
     private void PlayerReleaseSkill01()
     {
         //PECommon.Log("Click Skill01");
-        entitySelfPlayer.PlayerStateAttack(Constants.SkillID_Mar7th00_skill01);
+        entitySelfPlayer.StateAttack(Constants.SkillID_Mar7th00_skill01);
     }
     private void PlayerReleaseSkill02()
     {

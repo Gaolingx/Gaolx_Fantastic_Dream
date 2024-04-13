@@ -5,6 +5,7 @@
 		<skillTime>900</skillTime>
 		<aniAction>1</aniAction>
 		<fx>dagger_skill1</fx>
+		<dmgType>1</dmgType>
 		<skillMoveLst>1011</skillMoveLst>
 		<skillActionLst>1011|1011</skillActionLst>
 		<skillDamageLst>26|36</skillDamageLst>

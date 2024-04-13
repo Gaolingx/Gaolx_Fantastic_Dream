@@ -40,16 +40,20 @@ public abstract class EntityBase
         }
     }
 
-    //Íæ¼Ò×´Ì¬ÇÐ»»
-    public void PlayerStateMove()
+    //×´Ì¬ÇÐ»»
+    public void StateBorn()
+    {
+        stateMgr.ChangeStatus(this, AniState.Born, null);
+    }
+    public void StateMove()
     {
         stateMgr.ChangeStatus(this, AniState.Move, null);
     }
-    public void PlayerStateIdle()
+    public void StateIdle()
     {
         stateMgr.ChangeStatus(this, AniState.Idle, null);
     }
-    public void PlayerStateAttack(int skillID)
+    public void StateAttack(int skillID)
     {
         stateMgr.ChangeStatus(this, AniState.Attack, skillID);
     }

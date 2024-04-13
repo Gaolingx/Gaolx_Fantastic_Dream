@@ -12,6 +12,7 @@ public interface IState
 public enum AniState
 {
     None,
+    Born,
     Idle,
     Move,
     Attack,

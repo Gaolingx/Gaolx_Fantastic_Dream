@@ -13,7 +13,7 @@ public class StateAttack : IState
     {
         entity.canControl = true;
         entity.PlayerCanControl();
-        entity.SetAction(Constants.SkillActionDefault);
+        entity.SetAction(Constants.ActionDefault);
         PECommon.Log("StateAttack:Exit State.");
     }
 

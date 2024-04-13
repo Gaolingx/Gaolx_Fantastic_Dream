@@ -170,8 +170,10 @@ public class Constants
     public const int State_Mar7th00_Blend_Skill_01 = 2;
     public const int State_Mar7th00_Blend_CantControl = 10;
 
-    //Action触发参数
-    public const int SkillActionDefault = -1;
+    //Action触发参数（对应animator）
+    public const int ActionDefault = -1;
+    public const int ActionBorn = 0;
+    public const int ActionDie = 100;
 
     //技能ID配置
     public const int SkillID_Mar7th00_skill01 = 101;
@@ -181,4 +183,6 @@ public class Constants
 
     //Monster配置
     public const int ActiveMonsterDelayTime = 500; //单位：ms
+    public const int StateIdleMonsterDelayTime = 1000;
+    public const int StateBornMonsterDurationTime = 500;
 }

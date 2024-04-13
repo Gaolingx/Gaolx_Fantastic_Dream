@@ -20,7 +20,7 @@ public class StateIdle : IState
         if (entity.GetDirInput() != Vector2.zero)
         {
             //玩家实体，且在UI中有操作
-            entity.PlayerStateMove();
+            entity.StateMove();
             entity.SetAniBlend(Constants.State_Mar7th00_Blend_Move);
         }
         else
