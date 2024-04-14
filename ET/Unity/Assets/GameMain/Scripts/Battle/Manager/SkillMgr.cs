@@ -125,7 +125,21 @@ public class SkillMgr : MonoBehaviour
         if (dmgSum < 0)
         {
             dmgSum = 0;
+            return;
         }
+
+        //目标应用伤害
+        if (target.HP < dmgSum)
+        {
+            target.HP = 0;
+            //目标死亡
+            target.StateDie();
+        }
+        else
+        {
+            target.HP -= dmgSum;
+        }
+
     }
 
     /// <summary>

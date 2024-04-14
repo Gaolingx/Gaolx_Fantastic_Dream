@@ -185,4 +185,5 @@ public class Constants
     public const int ActiveMonsterDelayTime = 500; //µ¥Î»£ºms
     public const int StateIdleMonsterDelayTime = 1000;
     public const int StateBornMonsterDurationTime = 500;
+    public const int StateDieMonsterAnimTime = 5000;
 }

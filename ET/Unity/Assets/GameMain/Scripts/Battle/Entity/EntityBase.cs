@@ -35,7 +35,7 @@ public abstract class EntityBase
         set
         {
             //Í¨ÖªUI²ãTODO
-
+            PECommon.Log("hp change:" + hp + " to " + value);
             hp = value;
         }
     }
@@ -57,6 +57,11 @@ public abstract class EntityBase
     {
         stateMgr.ChangeStatus(this, AniState.Attack, skillID);
     }
+    public void StateDie()
+    {
+        stateMgr.ChangeStatus(this, AniState.Die, null);
+    }
+
     public void PlayerCanControl()
     {
         _inputActionAsset = GameRoot.Instance.GetEventSystemObject(Constants.EventSystemGOName).GetComponent<InputSystemUIInputModule>().actionsAsset;

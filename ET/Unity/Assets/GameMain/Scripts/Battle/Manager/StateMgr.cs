@@ -15,6 +15,7 @@ public class StateMgr : MonoBehaviour
         fsmDic.Add(AniState.Idle, new StateIdle());
         fsmDic.Add(AniState.Move, new StateMove());
         fsmDic.Add(AniState.Attack, new StateAttack());
+        fsmDic.Add(AniState.Die, new StateDie());
 
         PECommon.Log("Init StateMgr Done.");
     }
