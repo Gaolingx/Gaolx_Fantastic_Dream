@@ -10,7 +10,6 @@
 ///////////////////////////////////////////////////////////////////////////////////////
 
 // all sampler2D don't need to put inside CBUFFER 
-sampler2D _OutlineZOffsetMaskTex;
 
 TEXTURE2D(_BaseMap);
 SAMPLER(sampler_BaseMap);
@@ -53,24 +52,22 @@ SAMPLER(sampler_UpperBodyStockings);
 TEXTURE2D(_LowerBodyStockings);
 SAMPLER(sampler_LowerBodyStockings);
 
+TEXTURE2D(_LUTMap);
+SAMPLER(sampler_LUTMap);
+
 // put all your uniforms(usually things inside .shader file's properties{}) inside this CBUFFER, in order to make SRP batcher compatible
 // see -> https://blogs.unity3d.com/2019/02/28/srp-batcher-speed-up-your-rendering/
 CBUFFER_START(UnityPerMaterial);
 float3 _HeadForward;
 float3 _HeadRight;
 
-//sampler2D _BaseMap;
 float4 _BaseMap_ST;
 
 
 // MainTex
-//sampler2D _FaceColorMap;
 float4 _FaceColorMapColor;
-//sampler2D _HairColorMap;
 float4 _HairColorMapColor;
-//sampler2D _UpperBodyColorMap;
 float4 _UpperBodyColorMapColor;
-//sampler2D _LowerBodyColorMap;
 float4 _LowerBodyColorMapColor;
 
 // ColorSaturation
@@ -86,10 +83,15 @@ float _Alpha;
 float _AlphaClip;
 
 
-// LightMap
-//sampler2D _HairLightMap;
-//sampler2D _UpperBodyLightMap;
-//sampler2D _LowerBodyLightMap;
+// Setting
+float _RampV0;
+float _RampV1;
+float _RampV2;
+float _RampV3;
+float _RampV4;
+float _RampV5;
+float _RampV6;
+float _RampV7;
 
 
 // DayTime
@@ -97,15 +99,11 @@ float _DayTime;
 
 
 // RampColor
-//sampler2D _HairCoolRamp;
-//sampler2D _HairWarmRamp;
 float3 _HairCoolRampColor;
 float3 _HairWarmRampColor;
 float _HairCoolRampColorMixFactor;
 float _HairWarmRampColorMixFactor;
 
-//sampler2D _BodyCoolRamp;
-//sampler2D _BodyWarmRamp;
 float3 _BodyCoolRampColor;
 float3 _BodyWarmRampColor;
 float _BodyCoolRampColorMixFactor;
@@ -159,8 +157,6 @@ half _MetalSpecularMetallic;
 
 
 // Stockings
-//sampler2D _UpperBodyStockings;
-//sampler2D _LowerBodyStockings;
 float _stockingsMapBChannelUVScale;
 float3 _StockingsDarkColor;
 float3 _StockingsLightColor;
@@ -182,6 +178,7 @@ float _RimWidth0;
 float4 _RimColor0;
 float _RimDark0;
 
+
 // Emission
 float _EmissionMixBaseColor;
 float3 _EmissionTintColor;
@@ -189,13 +186,18 @@ float _EmissionIntensity;
 
 
 // Outline
-float   _IsFace;
-float   _OutlineZOffset;
-float   _OutlineZOffsetMaskRemapStart;
-float   _OutlineZOffsetMaskRemapEnd;
-float3  _OutlineColor;
+float4 _OutlineColor;
+float4 _OutlineColor0;
+float4 _OutlineColor1;
+float4 _OutlineColor2;
+float4 _OutlineColor3;
+float4 _OutlineColor4;
+float4 _OutlineColor5;
+float4 _OutlineColor6;
+float4 _OutlineColor7;
 float _OutlineWidth;
-float _OutlineGamma;
+float _OutlineWidthMin;
+float _OutlineWidthMax;
 
 
 // Bloom
