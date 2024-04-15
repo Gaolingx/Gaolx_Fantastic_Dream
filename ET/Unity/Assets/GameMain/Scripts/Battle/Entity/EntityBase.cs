@@ -57,6 +57,10 @@ public abstract class EntityBase
     {
         stateMgr.ChangeStatus(this, AniState.Attack, skillID);
     }
+    public void StateHit()
+    {
+        stateMgr.ChangeStatus(this, AniState.Hit, null);
+    }
     public void StateDie()
     {
         stateMgr.ChangeStatus(this, AniState.Die, null);
@@ -93,7 +97,17 @@ public abstract class EntityBase
             playerController.SetAniBlend(blend);
         }
     }
-
+    public virtual void SetDir(Vector2 dir)
+    {
+        if (controller != null)
+        {
+            controller.Dir = dir;
+        }
+        if (playerController != null)
+        {
+            PlayerCanControl();
+        }
+    }
     public virtual void SetAction(int action, bool inputValues = true)
     {
         if (playerController != null)

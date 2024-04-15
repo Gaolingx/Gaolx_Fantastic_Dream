@@ -174,6 +174,7 @@ public class Constants
     public const int ActionDefault = -1;
     public const int ActionBorn = 0;
     public const int ActionDie = 100;
+    public const int ActionHit = 101;
 
     //¼¼ÄÜIDÅäÖÃ
     public const int SkillID_Mar7th00_skill01 = 101;
