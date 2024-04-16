@@ -43,13 +43,9 @@ public class StateHit : IState
             {
                 return clips[i].length;
             }
-            else
-            {
-                PECommon.Log("Hit Animation Clip:" + clipName + " Not Found.", PELogType.Warn);
-            }
         }
         //保护值
-        return 1; //不应该出现的情况，需要策划注意
+        return 1;
     }
 }
 
