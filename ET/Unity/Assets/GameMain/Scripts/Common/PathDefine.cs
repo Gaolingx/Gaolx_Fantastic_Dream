@@ -78,6 +78,8 @@ public class PathDefine
     public const string AssissnCityPlayerPrefab = "Assets/AssetBundles/Prefabs/GameMain/AvatarPrefabs/PlayerPrefabs/Player_Avatar_March_7th Variant";
     public const string AssissnBattlePlayerPrefab = "Assets/AssetBundles/Prefabs/GameMain/AvatarPrefabs/PlayerPrefabs/Player_Avatar_March_7th Variant";
 
+    public const string HPItemPrefab = "Assets/AssetBundles/Prefabs/GameMain/UIPrefabs/GameRoot/ItemEntityHp";
+
     #endregion
 
     #region NPC

@@ -10,10 +10,11 @@ public class DynamicWnd : WindowRoot
 {
     public Animation tipsAni;
     public Text txtTips;
-
+    public Transform hpItemRoot;
 
     private bool isTipsShow = false;
     private Queue<string> tipsQue = new Queue<string>();
+    private Dictionary<string, ItemEntityHP> itemDic = new Dictionary<string, ItemEntityHP>();
     protected override void InitWnd()
     {
         base.InitWnd();
@@ -32,9 +33,9 @@ public class DynamicWnd : WindowRoot
 
     private void Update()
     {
-        if(tipsQue.Count > 0 && isTipsShow == false)
+        if (tipsQue.Count > 0 && isTipsShow == false)
         {
-            lock(tipsQue)
+            lock (tipsQue)
             {
                 string tips = tipsQue.Dequeue();
                 isTipsShow = true;
@@ -63,10 +64,29 @@ public class DynamicWnd : WindowRoot
     private IEnumerator AniPlayDone(float sec, Action cb)
     {
         yield return new WaitForSeconds(sec);
-        if(cb != null)
+        if (cb != null)
         {
             cb();
         }
     }
     #endregion
+
+    public void AddHpItemInfo(string mName, int hp)
+    {
+        ItemEntityHP item = null;
+        if (itemDic.TryGetValue(mName, out item))
+        {
+            return;
+        }
+        else
+        {
+            //加载对应item，并放入ItemRoot下
+            GameObject go = resSvc.LoadPrefab(PathDefine.HPItemPrefab, true);
+            go.transform.SetParent(hpItemRoot);
+            GameRoot.Instance.SetGameObjectTrans(go, new Vector3(-1000, 0, 0), Vector3.zero, Vector3.one); //默认设置在屏幕外
+            ItemEntityHP ieh = go.GetComponent<ItemEntityHP>();
+            ieh.SetItemInfo(hp); //将hp设置到Item中
+            itemDic.Add(mName, ieh);
+        }
+    }
 }

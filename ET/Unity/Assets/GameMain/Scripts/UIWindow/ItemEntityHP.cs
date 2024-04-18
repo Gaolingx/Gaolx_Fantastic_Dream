@@ -21,6 +21,16 @@ public class ItemEntityHP : MonoBehaviour
     public Text txtHp;
     #endregion
 
+    private int hpVal;
+
+    public void SetItemInfo(int hp)
+    {
+        hpVal = hp;
+        imgHPGray.fillAmount = 1;
+        imgHPRed.fillAmount = 1;
+
+    }
+
     public void SetCritical(int critical)
     {
         criticalAni.Stop();

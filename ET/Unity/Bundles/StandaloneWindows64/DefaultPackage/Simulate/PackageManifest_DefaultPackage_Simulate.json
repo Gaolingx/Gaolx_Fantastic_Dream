@@ -321,6 +321,14 @@
         },
         {
             "Address": "",
+            "AssetPath": "Assets/AssetBundles/Prefabs/GameMain/UIPrefabs/GameRoot/ItemEntityHp.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 8,
+            "DependIDs": []
+        },
+        {
+            "Address": "",
             "AssetPath": "Assets/AssetBundles/Prefabs/GameMain/UIPrefabs/GameRoot/ItemTask.prefab",
             "AssetGUID": "",
             "AssetTags": [],

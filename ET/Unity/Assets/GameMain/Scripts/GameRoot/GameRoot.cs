@@ -30,8 +30,6 @@ public class GameRoot : MonoBehaviour
         {
             canvas.GetChild(i).gameObject.SetActive(false);
         }
-
-        dynamicWnd.SetWndState();
     }
 
     //初始化各个系统和服务模块
@@ -41,7 +39,6 @@ public class GameRoot : MonoBehaviour
         //服务模块初始化
         NetSvc net = GetComponent<NetSvc>();
         net.InitSvc();
-
         ResSvc res = GetComponent<ResSvc>();
         res.InitSvc();
         AudioSvc audio = GetComponent<AudioSvc>();
@@ -62,6 +59,7 @@ public class GameRoot : MonoBehaviour
         BattleSys battleSys = GetComponent<BattleSys>();
         battleSys.InitSys();
 
+        dynamicWnd.SetWndState();
         //进入登录场景并加载相应UI
         loginSys.EnterLogin();
 

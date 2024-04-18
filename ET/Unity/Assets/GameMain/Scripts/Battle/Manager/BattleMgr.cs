@@ -184,6 +184,7 @@ public class BattleMgr : MonoBehaviour
 
                 m.SetActive(false);
                 monsterDic.Add(m.name, em);
+                GameRoot.Instance.dynamicWnd.AddHpItemInfo(m.name, em.HP);
             }
         }
     }
