@@ -481,6 +481,7 @@ GameObject:
   - component: {fileID: 4153092537514056539}
   - component: {fileID: 3510059370149624364}
   - component: {fileID: 1450072267982802815}
+  - component: {fileID: 8548715099905510669}
   m_Layer: 0
   m_Name: ItemEntityHp
   m_TagString: Untagged
@@ -550,3 +551,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8548715099905510669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6252026455088134490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01f181ac1004c204fbd62631cbc8d0d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  imgHPGray: {fileID: 7839999220859278009}
+  imgHPRed: {fileID: 6161767482393926898}
+  criticalAni: {fileID: 1833604247347183318}
+  txtCritical: {fileID: 9204687363797691206}
+  dodgeAni: {fileID: 6012346634870240353}
+  txtDodge: {fileID: 6948396231865479526}
+  hpAni: {fileID: 5093337783912229343}
+  txtHp: {fileID: 6221888442078120333}

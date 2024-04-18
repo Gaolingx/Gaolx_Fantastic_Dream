@@ -21,6 +21,7 @@ public class DynamicWnd : WindowRoot
         SetActive(txtTips, false);
     }
 
+    #region Tipsœ‡πÿ
     public void AddTips(string tips)
     {
         lock (tipsQue)
@@ -67,4 +68,5 @@ public class DynamicWnd : WindowRoot
             cb();
         }
     }
+    #endregion
 }
