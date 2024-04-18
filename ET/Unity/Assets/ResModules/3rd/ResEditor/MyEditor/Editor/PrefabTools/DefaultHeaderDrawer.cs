@@ -7,28 +7,28 @@ using UnityEditorInternal;
 [InitializeOnLoad]
 public static class DefaultHeaderDrawer
 {
-    [MenuItem("Funplus/组件复制/开启快捷复制组件", true)]
+    [MenuItem("CopyTools/组件复制/开启快捷复制组件", true)]
     static bool CheckEnableCopy()
     {
         return !EditorPrefs.GetBool("EnableCopyComponent", false);
     }
 
 
-    [MenuItem("Funplus/组件复制/开启快捷复制组件", false)]
+    [MenuItem("CopyTools/组件复制/开启快捷复制组件", false)]
     static void EnableCopy()
     {
         EditorPrefs.SetBool("EnableCopyComponent", true);
     }
 
 
-    [MenuItem("Funplus/组件复制/关闭快捷复制组件", true)]
+    [MenuItem("CopyTools/组件复制/关闭快捷复制组件", true)]
     static bool CheckDisableCopy()
     {
         return EditorPrefs.GetBool("EnableCopyComponent", false);
     }
 
 
-    [MenuItem("Funplus/组件复制/关闭快捷复制组件", false)]
+    [MenuItem("CopyTools/组件复制/关闭快捷复制组件", false)]
     static void DisableCopy()
     {
         EditorPrefs.SetBool("EnableCopyComponent", false);
