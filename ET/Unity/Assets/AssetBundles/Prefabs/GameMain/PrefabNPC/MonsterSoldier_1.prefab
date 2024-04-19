@@ -1098,4 +1098,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ani: {fileID: 9500000}
   ctrl: {fileID: 0}
-  hpRoot: {fileID: 0}
+  hpRoot: {fileID: 400052}

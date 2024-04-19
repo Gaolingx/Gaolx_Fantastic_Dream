@@ -6,8 +6,8 @@
 		<power>0</power>
 		<mainCamPos>0,1.375,0</mainCamPos>
 		<mainCamRote>0,0,0</mainCamRote>
-		<playerBornPos>140.35,10,121</playerBornPos>
-		<playerBornRote>0,0,0</playerBornRote>
+		<playerBornPos>137.5,10,124</playerBornPos>
+		<playerBornRote>0,-5.5,0</playerBornRote>
 		<monsterLst></monsterLst>
 		<exp></exp>
 		<coin></coin>

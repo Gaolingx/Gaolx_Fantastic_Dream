@@ -30,7 +30,7 @@ public class ItemEntityHP : MonoBehaviour
     private void Update()
     {
         //将场景中怪物的Transform映射成屏幕空间坐标
-        if (rootTrans == null)
+        if (rootTrans != null)
         {
             Vector3 screenPos = Camera.main.WorldToScreenPoint(rootTrans.position);
             rect.anchoredPosition = screenPos * scaleRate;
