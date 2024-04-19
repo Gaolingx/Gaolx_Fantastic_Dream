@@ -130,9 +130,17 @@ public class GameRoot : MonoBehaviour
         PlayerData.power = data.power;
     }
 
-    public Transform SetGameObjectTrans(GameObject GO, Vector3 GameObjectPos, Vector3 GameObjectRota, Vector3 GameObjectScal)
+    public Transform SetGameObjectTrans(GameObject GO, Vector3 GameObjectPos, Vector3 GameObjectRota, Vector3 GameObjectScal, bool isLocalPos = false)
     {
-        GO.transform.position = GameObjectPos;
+        if (isLocalPos)
+        {
+            GO.transform.localPosition = GameObjectPos;
+        }
+        else
+        {
+            GO.transform.position = GameObjectPos;
+        }
+
         GO.transform.localEulerAngles = GameObjectRota;
         GO.transform.localScale = GameObjectScal;
 

@@ -71,7 +71,7 @@ public class DynamicWnd : WindowRoot
     }
     #endregion
 
-    public void AddHpItemInfo(string mName, int hp)
+    public void AddHpItemInfo(string mName, Transform trans, int hp)
     {
         ItemEntityHP item = null;
         if (itemDic.TryGetValue(mName, out item))
@@ -83,9 +83,9 @@ public class DynamicWnd : WindowRoot
             //加载对应item，并放入ItemRoot下
             GameObject go = resSvc.LoadPrefab(PathDefine.HPItemPrefab, true);
             go.transform.SetParent(hpItemRoot);
-            GameRoot.Instance.SetGameObjectTrans(go, new Vector3(-1000, 0, 0), Vector3.zero, Vector3.one); //默认设置在屏幕外
+            GameRoot.Instance.SetGameObjectTrans(go, new Vector3(-1000, 0, 0), Vector3.zero, Vector3.one, true); //默认设置在屏幕外
             ItemEntityHP ieh = go.GetComponent<ItemEntityHP>();
-            ieh.SetItemInfo(hp); //将hp设置到Item中
+            ieh.InitItemInfo(trans, hp); //将hp设置到Item中
             itemDic.Add(mName, ieh);
         }
     }

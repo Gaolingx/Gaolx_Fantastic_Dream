@@ -29,7 +29,7 @@ public class BattleMgr : MonoBehaviour
     private GameObject battlePlayer;
     private MapCfg mapCfg;
 
-    private Dictionary<string,EntityMonster> monsterDic = new Dictionary<string,EntityMonster>();
+    private Dictionary<string, EntityMonster> monsterDic = new Dictionary<string, EntityMonster>();
 
     private void LoadPlayerInstance(string playerPrefabPath, MapCfg mapData)
     {
@@ -184,7 +184,7 @@ public class BattleMgr : MonoBehaviour
 
                 m.SetActive(false);
                 monsterDic.Add(m.name, em);
-                GameRoot.Instance.dynamicWnd.AddHpItemInfo(m.name, em.HP);
+                GameRoot.Instance.dynamicWnd.AddHpItemInfo(m.name, m.transform, em.HP);
             }
         }
     }
@@ -194,7 +194,7 @@ public class BattleMgr : MonoBehaviour
     {
         timerSvc.AddTimeTask((int tid) =>
         {
-            foreach(var item in monsterDic)
+            foreach (var item in monsterDic)
             {
                 item.Value.controller.gameObject.SetActive(true);
                 //进入Born状态
@@ -212,7 +212,7 @@ public class BattleMgr : MonoBehaviour
     public List<EntityMonster> GetEntityMonsters()
     {
         List<EntityMonster> monsterLst = new List<EntityMonster>();
-        foreach(var item in monsterDic)
+        foreach (var item in monsterDic)
         {
             monsterLst.Add(item.Value);
         }
@@ -236,7 +236,7 @@ public class BattleMgr : MonoBehaviour
     }
     public void ReqPlayerReleaseSkill(int skillIndex)
     {
-        switch(skillIndex)
+        switch (skillIndex)
         {
             case 0:
                 PlayerReleaseNormalAtk();
