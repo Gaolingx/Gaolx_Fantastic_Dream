@@ -9,7 +9,7 @@ public class ItemEntityHP : MonoBehaviour
 {
     #region UI Define
     public Image imgHPGray;
-    public Image imgHPRed;
+    public Image imgHPRed; //实际血量
 
     public Animation criticalAni;
     public Text txtCritical;
@@ -19,6 +19,8 @@ public class ItemEntityHP : MonoBehaviour
 
     public Animation hpAni;
     public Text txtHp;
+
+    public float SPvalOffset = 0f;
     #endregion
 
     private RectTransform rect;
@@ -35,13 +37,16 @@ public class ItemEntityHP : MonoBehaviour
             Vector3 screenPos = Camera.main.WorldToScreenPoint(rootTrans.position);
             rect.anchoredPosition = screenPos * scaleRate;
         }
+
+        currentPrg = UITween.UpdateMixBlend(currentPrg, targetPrg, Constants.AccelerHPSpeed, SPvalOffset);
+        imgHPGray.fillAmount = currentPrg;
     }
 
     public void InitItemInfo(Transform trans, int hp)
     {
         rect = transform.GetComponent<RectTransform>();
         rootTrans = trans;
-        hpVal = hp;
+        hpVal = hp; //总血量
         imgHPGray.fillAmount = 1;
         imgHPRed.fillAmount = 1;
     }
@@ -67,10 +72,15 @@ public class ItemEntityHP : MonoBehaviour
         hpAni.Play();
     }
 
+    private float currentPrg;
+    private float targetPrg;
     public void SetHPVal(int oldVal, int newVal)
     {
         //计算血量变化
-
+        currentPrg = oldVal * 1.0f / hpVal;
+        targetPrg = newVal * 1.0f / hpVal;
+        //设置目标血量
+        imgHPRed.fillAmount = targetPrg;
         //产生渐变动画
     }
 }

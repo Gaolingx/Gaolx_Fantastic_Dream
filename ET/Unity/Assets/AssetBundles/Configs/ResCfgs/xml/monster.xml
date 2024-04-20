@@ -3,7 +3,7 @@
 	<item ID="1001">
 		<mName>铁甲战士</mName>
 		<resPath>Assets/AssetBundles/Prefabs/GameMain/PrefabNPC/MonsterSoldier_1.prefab</resPath>
-		<hp>20000</hp>
+		<hp>2000</hp>
 		<ad>100</ad>
 		<ap>80</ap>
 		<addef>5</addef>
@@ -15,7 +15,7 @@
 	<item ID="2001">
 		<mName>地狱魔卫</mName>
 		<resPath>Assets/AssetBundles/Prefabs/GameMain/PrefabNPC/MonsterBoss_1.prefab</resPath>
-		<hp>80000</hp>
+		<hp>8000</hp>
 		<ad>250</ad>
 		<ap>180</ap>
 		<addef>55</addef>

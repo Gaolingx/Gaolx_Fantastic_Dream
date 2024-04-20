@@ -93,6 +93,7 @@ public class Constants
 
     //运动平滑加速度
     public const float AccelerSpeed = 5;
+    public const float AccelerHPSpeed = 0.3f;
 
     //PlayerFollowCamera标签
     public const string PlayerFollowCameraWithTag = "PlayerFollowCam";
