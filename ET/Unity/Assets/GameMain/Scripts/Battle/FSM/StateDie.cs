@@ -18,7 +18,7 @@ public class StateDie : IState
         entity.SetAction(Constants.ActionDie);
         TimerSvc.Instance.AddTimeTask((int tid) =>
         {
-            entity.controller.gameObject.SetActive(false);
+            entity.SetActive(false);
         }, Constants.StateDieMonsterAnimTime);
     }
 }

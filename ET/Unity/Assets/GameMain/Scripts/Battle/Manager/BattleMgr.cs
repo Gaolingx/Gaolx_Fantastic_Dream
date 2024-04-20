@@ -15,6 +15,8 @@ public class BattleMgr : MonoBehaviour
 
     public Transform GamePadTrans;
 
+    PlayerData pd;
+
     private ResSvc resSvc;
     private AudioSvc audioSvc;
     private TimerSvc timerSvc;
@@ -59,6 +61,7 @@ public class BattleMgr : MonoBehaviour
                 stateMgr = stateMgr, //将stateMgr注入逻辑实体类中
                 skillMgr = skillMgr
             };
+            entitySelfPlayer.Name = pd.name;
             entitySelfPlayer.SetBattleProps(props);
 
             controller = player.GetComponent<ThirdPersonController>();
@@ -116,6 +119,8 @@ public class BattleMgr : MonoBehaviour
     public void Init(int mapid)
     {
         Instance = this;
+
+        pd = GameRoot.Instance.PlayerData;
 
         //初始化服务模块
         resSvc = ResSvc.Instance;
@@ -177,10 +182,11 @@ public class BattleMgr : MonoBehaviour
                 //设置初始属性
                 em.md = md;
                 em.SetBattleProps(md.mCfg.bps);
+                em.Name = m.name;
 
                 MonsterController mc = m.GetComponent<MonsterController>();
                 mc.Init();
-                em.controller = mc;
+                em.SetCtrl(mc);
 
                 m.SetActive(false);
                 monsterDic.Add(m.name, em);
@@ -196,7 +202,7 @@ public class BattleMgr : MonoBehaviour
         {
             foreach (var item in monsterDic)
             {
-                item.Value.controller.gameObject.SetActive(true);
+                item.Value.SetActive(true);
                 //进入Born状态
                 item.Value.StateBorn();
                 timerSvc.AddTimeTask((int tid1) =>

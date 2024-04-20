@@ -33,7 +33,7 @@ public class StateHit : IState
     {
         //获取entity上animator中受击动画长度(对应状态的motion长度)
         //实现思路：遍历动画状态机，遍历所有包含_hit名称的动画片段的受击动作，获取其Length（需规范命名，程序中做兼容性适配（如：大小写..））
-        AnimationClip[] clips = entity.controller.ani.runtimeAnimatorController.animationClips;
+        AnimationClip[] clips = entity.GetAniClips();
         for (int i = 0; i < clips.Length; i++)
         {
             string clipName = clips[i].name;

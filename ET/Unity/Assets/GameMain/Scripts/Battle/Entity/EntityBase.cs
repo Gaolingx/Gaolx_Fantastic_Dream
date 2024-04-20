@@ -15,8 +15,10 @@ public abstract class EntityBase
     public SkillMgr skillMgr = null;
     public ThirdPersonController playerController = null;
     public StarterAssetsInputs playerInput = null;
-    public Controller controller = null;
+    protected Controller controller = null;
 
+    private string name;
+    public string Name { get { return name; } set { name = value; } }
     private InputActionAsset _inputActionAsset;
     private InputActionMap _player;
 
@@ -66,6 +68,18 @@ public abstract class EntityBase
     public void StateDie()
     {
         stateMgr.ChangeStatus(this, AniState.Die, null);
+    }
+
+    public void SetCtrl(Controller ctrl)
+    {
+        controller = ctrl;
+    }
+    public void SetActive(bool active = true)
+    {
+        if (controller != null)
+        {
+            controller.gameObject.SetActive(active);
+        }
     }
 
     public void PlayerCanControl()
@@ -154,28 +168,28 @@ public abstract class EntityBase
     {
         if (controller != null)
         {
-            GameRoot.Instance.dynamicWnd.SetDodge(controller.gameObject.name);
+            GameRoot.Instance.dynamicWnd.SetDodge(Name);
         }
     }
     public virtual void SetCritical(int critical)
     {
         if (controller != null)
         {
-            GameRoot.Instance.dynamicWnd.SetCritical(controller.gameObject.name, critical);
+            GameRoot.Instance.dynamicWnd.SetCritical(Name, critical);
         }
     }
     public virtual void SetHurt(int hurt)
     {
         if (controller != null)
         {
-            GameRoot.Instance.dynamicWnd.SetHurt(controller.gameObject.name, hurt);
+            GameRoot.Instance.dynamicWnd.SetHurt(Name, hurt);
         }
     }
     public virtual void SetHPVal(int oldval, int newval)
     {
         if (controller != null)
         {
-            GameRoot.Instance.dynamicWnd.SetHPVal(controller.gameObject.name, oldval, newval);
+            GameRoot.Instance.dynamicWnd.SetHPVal(Name, oldval, newval);
         }
     }
 
@@ -205,5 +219,14 @@ public abstract class EntityBase
     public virtual Transform GetTrans()
     {
         return controller.transform;
+    }
+
+    public AnimationClip[] GetAniClips()
+    {
+        if (controller != null)
+        {
+            return controller.ani.runtimeAnimatorController.animationClips;
+        }
+        return null;
     }
 }
