@@ -89,4 +89,31 @@ public class DynamicWnd : WindowRoot
             itemDic.Add(mName, ieh);
         }
     }
+
+    public void SetDodge(string key)
+    {
+        ItemEntityHP item = null;
+        if (itemDic.TryGetValue(key, out item))
+        {
+            item.SetDodge();
+        }
+    }
+
+    public void SetCritical(string key, int critical)
+    {
+        ItemEntityHP item = null;
+        if (itemDic.TryGetValue(key, out item))
+        {
+            item.SetCritical(critical);
+        }
+    }
+
+    public void SetHurt(string key, int hurt)
+    {
+        ItemEntityHP item = null;
+        if (itemDic.TryGetValue(key, out item))
+        {
+            item.SetHurt(hurt);
+        }
+    }
 }

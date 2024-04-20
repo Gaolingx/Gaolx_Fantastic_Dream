@@ -91,6 +91,7 @@ public class SkillMgr : MonoBehaviour
             {
                 //UI显示闪避
                 PECommon.Log("闪避Rate:" + dodgeNum + "/" + target.Props.dodge);
+                target.SetDodge();
                 return;
             }
             //计算属性加成（基础属性+技能加成）
@@ -103,6 +104,7 @@ public class SkillMgr : MonoBehaviour
                 float criticalRate = 1 + (PETools.RDInt(1, 100, rd) / 100.0f); //暴击倍率
                 dmgSum = (int)criticalRate * dmgSum; //暴击伤害
                 PECommon.Log("暴击Rate:" + criticalNum + "/" + caster.Props.critical);
+                target.SetCritical(dmgSum);
             }
 
             //计算穿甲
@@ -127,6 +129,7 @@ public class SkillMgr : MonoBehaviour
             dmgSum = 0;
             return;
         }
+        target.SetHurt(dmgSum);
 
         //目标应用伤害
         if (target.HP < dmgSum)

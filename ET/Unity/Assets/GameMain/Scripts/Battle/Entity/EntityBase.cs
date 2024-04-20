@@ -148,6 +148,19 @@ public abstract class EntityBase
         }
     }
 
+    public virtual void SetDodge()
+    {
+        GameRoot.Instance.dynamicWnd.SetDodge(controller.gameObject.name);
+    }
+    public virtual void SetCritical(int critical)
+    {
+        GameRoot.Instance.dynamicWnd.SetCritical(controller.gameObject.name, critical);
+    }
+    public virtual void SetHurt(int hurt)
+    {
+        GameRoot.Instance.dynamicWnd.SetHurt(controller.gameObject.name, hurt);
+    }
+
     public virtual void SkillAttack(int skillID)
     {
         skillMgr.SkillAttack(this, skillID);
