@@ -32,10 +32,12 @@ public abstract class EntityBase
         {
             return hp;
         }
+
         set
         {
-            //通知UI层TODO
             PECommon.Log("hp change:" + hp + " to " + value);
+            //通知UI层
+            SetHPVal(hp, value); //无需在其他地方调用
             hp = value;
         }
     }
@@ -159,6 +161,10 @@ public abstract class EntityBase
     public virtual void SetHurt(int hurt)
     {
         GameRoot.Instance.dynamicWnd.SetHurt(controller.gameObject.name, hurt);
+    }
+    public virtual void SetHPVal(int oldval,int newval)
+    {
+        GameRoot.Instance.dynamicWnd.SetHPVal(controller.gameObject.name, oldval, newval);
     }
 
     public virtual void SkillAttack(int skillID)

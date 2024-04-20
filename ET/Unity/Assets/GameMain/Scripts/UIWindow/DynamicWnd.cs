@@ -116,4 +116,13 @@ public class DynamicWnd : WindowRoot
             item.SetHurt(hurt);
         }
     }
+
+    public void SetHPVal(string key, int oldVal, int newVal)
+    {
+        ItemEntityHP item = null;
+        if (itemDic.TryGetValue(key, out item))
+        {
+            item.SetHPVal(oldVal, newVal);
+        }
+    }
 }

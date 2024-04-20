@@ -52,16 +52,25 @@ public class ItemEntityHP : MonoBehaviour
         txtCritical.text = "暴击 " + critical;
         criticalAni.Play();
     }
+
     public void SetDodge()
     {
         dodgeAni.Stop();
         txtDodge.text = "闪避";
         dodgeAni.Play();
     }
+
     public void SetHurt(int hurt)
     {
         hpAni.Stop();
         txtHp.text = "-" + hurt;
         hpAni.Play();
+    }
+
+    public void SetHPVal(int oldVal, int newVal)
+    {
+        //计算血量变化
+
+        //产生渐变动画
     }
 }
