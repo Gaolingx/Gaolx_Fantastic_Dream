@@ -11,7 +11,6 @@ using UnityEngine.InputSystem;
 
 public class BattleMgr : MonoBehaviour
 {
-    public static BattleMgr Instance = null;
 
     public Transform GamePadTrans;
 
@@ -116,7 +115,6 @@ public class BattleMgr : MonoBehaviour
 
     public void Init(int mapid)
     {
-        Instance = this;
 
         //初始化服务模块
         resSvc = ResSvc.Instance;
@@ -152,6 +150,8 @@ public class BattleMgr : MonoBehaviour
             //配置角色声音源
             audioSvc.GetCharacterAudioSourceComponent(battlePlayer);
             audioSvc.PlayBGMusic(Constants.BGHuangYe);
+
+            SetEntityPlayer(entitySelfPlayer);
         });
     }
 
@@ -291,9 +291,9 @@ public class BattleMgr : MonoBehaviour
     {
         return BattleSys.Instance.GetDirInput();
     }
-    public EntityPlayer GetEntityPlayer()
+    public void SetEntityPlayer(EntityPlayer player)
     {
-        return entitySelfPlayer;
+        GameRoot.Instance.SetCurrentPlayer(player);
     }
     #endregion
 }

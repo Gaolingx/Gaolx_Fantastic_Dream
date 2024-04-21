@@ -18,7 +18,19 @@ public class PlayerCtrlWnd : WindowRoot
     [HideInInspector]
     public Vector2 currentDir;
 
-    private BattleMgr battleMgr;
+    #region Skill
+    #region SK1
+    public Image imgSk1CD;
+    public Text txtSk1CD;
+    private bool isSk1CD = false;
+    private float sk1CDTime;
+    private int sk1Num;
+    private float sk1FillCount = 0;
+    private float sk1NumCount = 0;
+    #endregion
+
+    #endregion
+
     private StarterAssetsInputs playerInput;
 
     private EntityPlayer entitySelfPlayer;
@@ -27,8 +39,6 @@ public class PlayerCtrlWnd : WindowRoot
     {
         base.InitWnd();
 
-        battleMgr = BattleMgr.Instance;
-
         sk1CDTime = resSvc.GetSkillCfg(Constants.SkillID_Mar7th00_skill01).cdTime / 1000.0f;
 
         RefreshUI();
@@ -36,9 +46,9 @@ public class PlayerCtrlWnd : WindowRoot
 
     private void Update()
     {
-        if (battleMgr.GetEntityPlayer() != null)
+        entitySelfPlayer = GameRoot.Instance.GetCurrentPlayer();
+        if (entitySelfPlayer != null)
         {
-            entitySelfPlayer = battleMgr.GetEntityPlayer();
             playerInput = entitySelfPlayer.playerInput;
 
             ListeningTouchEvts();
@@ -48,7 +58,43 @@ public class PlayerCtrlWnd : WindowRoot
             ListeningClickPlayerSkill03Atk();
             SetCurrentDir();
         }
+
+        float delta = Time.deltaTime;
+        UpdateSk1CD(delta);
     }
+
+    #region Skill CD
+    private void UpdateSk1CD(float deltaTime)
+    {
+        playerInput.skill01 = false;
+        if (isSk1CD)
+        {
+            //遮罩控制
+            sk1FillCount += deltaTime;
+            if (sk1FillCount >= sk1CDTime)
+            {
+                //CD完成
+                isSk1CD = false;
+                SetActive(imgSk1CD, false);
+                sk1FillCount = 0;
+            }
+            else
+            {
+                //更新冷却进度（从1到0）
+                imgSk1CD.fillAmount = 1 - sk1FillCount / sk1CDTime;
+            }
+
+            //时间显示
+            sk1NumCount += deltaTime;
+            if(sk1NumCount >= 1)
+            {
+                sk1NumCount -= 1;
+                sk1Num -= 1;
+                SetText(txtSk1CD, sk1Num);
+            }
+        }
+    }
+    #endregion
 
     private void SetCurrentDir()
     {
@@ -68,13 +114,6 @@ public class PlayerCtrlWnd : WindowRoot
 
     }
 
-    public Image imgSk1CD;
-    public Text txtSk1CD;
-
-    private bool isSk1CD = false;
-    private float sk1CDTime;
-
-    private int sk1Num;
 
     public void ListeningClickPlayerSkill01Atk()
     {

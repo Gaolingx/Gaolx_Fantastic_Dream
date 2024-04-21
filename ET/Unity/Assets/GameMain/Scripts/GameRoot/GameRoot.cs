@@ -166,4 +166,14 @@ public class GameRoot : MonoBehaviour
         PlayerData.power = data.power;
     }
 
+    private EntityPlayer entityPlayer = null;
+    public void SetCurrentPlayer(EntityPlayer player)
+    {
+        entityPlayer = player;
+    }
+    public EntityPlayer GetCurrentPlayer()
+    {
+        return entityPlayer;
+    }
+
 }

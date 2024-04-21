@@ -569,6 +569,9 @@ MonoBehaviour:
   txtName: {fileID: 184583247976741709}
   txtExpPrg: {fileID: 184356879662308103}
   expPrgTrans: {fileID: 1378962314757351}
+  currentDir: {x: 0, y: 0}
+  imgSk1CD: {fileID: 6660441056791843953}
+  txtSk1CD: {fileID: 8429912741715362716}
 --- !u!1 &224252817337836731
 GameObject:
   m_ObjectHideFlags: 0
