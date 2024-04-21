@@ -137,6 +137,7 @@ public class SkillMgr : MonoBehaviour
             target.HP = 0;
             //目标死亡
             target.StateDie();
+            target.battleMgr.RmvMonster(target.Name);
         }
         else
         {

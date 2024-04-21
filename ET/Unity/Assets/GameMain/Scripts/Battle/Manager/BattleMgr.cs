@@ -15,8 +15,6 @@ public class BattleMgr : MonoBehaviour
 
     public Transform GamePadTrans;
 
-    PlayerData pd;
-
     private ResSvc resSvc;
     private AudioSvc audioSvc;
     private TimerSvc timerSvc;
@@ -120,8 +118,6 @@ public class BattleMgr : MonoBehaviour
     {
         Instance = this;
 
-        pd = GameRoot.Instance.PlayerData;
-
         //初始化服务模块
         resSvc = ResSvc.Instance;
         audioSvc = AudioSvc.Instance;
@@ -223,6 +219,18 @@ public class BattleMgr : MonoBehaviour
             monsterLst.Add(item.Value);
         }
         return monsterLst;
+    }
+
+    public void RmvMonster(string key)
+    {
+        EntityMonster entityMonster;
+        if(monsterDic.TryGetValue(key, out entityMonster))
+        {
+            //移除数据
+            monsterDic.Remove(key);
+            //移除血条
+            GameRoot.Instance.dynamicWnd.RmvHpItemInfo(key);
+        }
     }
 
     #region 技能施放与角色控制

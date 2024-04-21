@@ -90,6 +90,18 @@ public class DynamicWnd : WindowRoot
         }
     }
 
+    public void RmvHpItemInfo(string mName)
+    {
+        ItemEntityHP item = null;
+        if (itemDic.TryGetValue(mName, out item))
+        {
+            //销毁血条物体
+            Destroy(item.gameObject);
+            //移除字典数据
+            itemDic.Remove(mName);
+        }
+    }
+
     public void SetDodge(string key)
     {
         ItemEntityHP item = null;
