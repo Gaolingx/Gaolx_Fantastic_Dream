@@ -9,6 +9,7 @@ public class BattleSys : SystemRoot
     public static BattleSys Instance = null;
     public PlayerCtrlWnd playerCtrlWnd;
     public BattleMgr battleMgr;
+    public Transform playerInputObj;
 
     public override void InitSys()
     {
@@ -28,7 +29,9 @@ public class BattleSys : SystemRoot
         //成为GameRoot的子物体
         go.transform.SetParent(GameRoot.Instance.transform);
         battleMgr = go.AddComponent<BattleMgr>();
-        battleMgr.GamePadTrans = transform.Find(Constants.Path_Joysticks_BattleSys);
+
+        playerInputObj.gameObject.SetActive(true);
+        battleMgr.playerInputObj = playerInputObj;
 
         battleMgr.Init(mapid);
         SetPlayerCtrlWndState();
@@ -51,6 +54,6 @@ public class BattleSys : SystemRoot
 
     public Vector2 GetDirInput()
     {
-        return playerCtrlWnd.currentDir;
+        return playerCtrlWnd.GetCurrentDir();
     }
 }

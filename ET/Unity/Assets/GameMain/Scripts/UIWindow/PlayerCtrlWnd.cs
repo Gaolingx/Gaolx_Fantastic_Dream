@@ -14,9 +14,10 @@ public class PlayerCtrlWnd : WindowRoot
     public Text txtName;
     public Text txtExpPrg;
     public Transform expPrgTrans;
+    public StarterAssetsInputs playerInput;
+    public Transform GamePadTrans;
 
-    [HideInInspector]
-    public Vector2 currentDir;
+    private Vector2 currentDir;
 
     #region Skill
     #region SK1
@@ -31,9 +32,7 @@ public class PlayerCtrlWnd : WindowRoot
 
     #endregion
 
-    private StarterAssetsInputs playerInput;
-
-    private EntityPlayer entitySelfPlayer;
+    private StarterAssetsInputs _playerInput;
 
     protected override void InitWnd()
     {
@@ -44,12 +43,26 @@ public class PlayerCtrlWnd : WindowRoot
         RefreshUI();
     }
 
+    private void InitGamepad(StarterAssetsInputs StarterAssetsInputs)
+    {
+        if (GamePadTrans != null)
+        {
+            GamePadTrans.gameObject.SetActive(true);
+            UICanvasControllerInput uICanvasControllerInput = GamePadTrans.GetComponent<UICanvasControllerInput>();
+
+            uICanvasControllerInput.starterAssetsInputs = StarterAssetsInputs;
+        }
+    }
+
     private void Update()
     {
-        entitySelfPlayer = GameRoot.Instance.GetCurrentPlayer();
-        if (entitySelfPlayer != null)
+        SetStarterAssetsInputs();
+
+        float delta = Time.deltaTime;
+
+        if (_playerInput != null)
         {
-            playerInput = entitySelfPlayer.playerInput;
+            InitGamepad(_playerInput);
 
             ListeningTouchEvts();
             ListeningClickPlayerNormalAtk();
@@ -57,16 +70,21 @@ public class PlayerCtrlWnd : WindowRoot
             ListeningClickPlayerSkill02Atk();
             ListeningClickPlayerSkill03Atk();
             SetCurrentDir();
+
+            UpdateSk1CD(delta);
         }
 
-        float delta = Time.deltaTime;
-        UpdateSk1CD(delta);
+    }
+
+    private void SetStarterAssetsInputs()
+    {
+        _playerInput = playerInput;
     }
 
     #region Skill CD
     private void UpdateSk1CD(float deltaTime)
     {
-        playerInput.skill01 = false;
+        _playerInput.skill01 = false;
         if (isSk1CD)
         {
             //遮罩控制
@@ -86,7 +104,7 @@ public class PlayerCtrlWnd : WindowRoot
 
             //时间显示
             sk1NumCount += deltaTime;
-            if(sk1NumCount >= 1)
+            if (sk1NumCount >= 1)
             {
                 sk1NumCount -= 1;
                 sk1Num -= 1;
@@ -98,14 +116,22 @@ public class PlayerCtrlWnd : WindowRoot
 
     private void SetCurrentDir()
     {
-        currentDir = playerInput.move;
+        currentDir = _playerInput.move;
+    }
+
+    public Vector2 GetCurrentDir()
+    {
+        return currentDir;
     }
 
     #region RegEvts
     //注册触摸事件
     public void ListeningTouchEvts()
     {
-        BattleSys.Instance.SetPlayerMoveDir(playerInput.move);
+        if (GameRoot.Instance.GetCurrentPlayer() != null)
+        {
+            BattleSys.Instance.SetPlayerMoveDir(currentDir);
+        }
     }
 
     //释放技能
@@ -114,14 +140,15 @@ public class PlayerCtrlWnd : WindowRoot
 
     }
 
-
     public void ListeningClickPlayerSkill01Atk()
     {
-        if (isSk1CD == false)
+        if (_playerInput.skill01)
         {
-            if (playerInput.skill01)
+            SetInputBool(Constants.SkillID_Mar7th00_skill01, true);
+            if (isSk1CD == false)
             {
                 BattleSys.Instance.ReqPlayerReleaseSkill(1);
+                SetInputBool(Constants.SkillID_Mar7th00_skill01, false);
                 isSk1CD = true;
                 SetActive(imgSk1CD);
                 imgSk1CD.fillAmount = 1;
@@ -185,5 +212,20 @@ public class PlayerCtrlWnd : WindowRoot
             }
         }
         #endregion
+    }
+
+    private void SetInputBool(int inputSkillID, bool inputValue)
+    {
+        if (isSk1CD == false)
+        {
+            switch (inputSkillID)
+            {
+                case Constants.SkillID_Mar7th00_skill01:
+                    _playerInput.skill01 = inputValue;
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

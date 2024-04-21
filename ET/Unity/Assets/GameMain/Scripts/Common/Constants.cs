@@ -115,6 +115,7 @@ public class Constants
     public const string CharPlayerWithTag = "Player";
 
     //GamePad≈‰÷√
+    public const string Path_PlayerInputs_Obj = "Canvas/PlayerInputs";
     public const string Path_Joysticks_MainCitySys = "Canvas/UI_Canvas_StarterAssetsInputs_Joysticks";
     public const string Path_Joysticks_BattleSys = "Canvas/UI_Canvas_StarterAssetsInputs_Joysticks";
 

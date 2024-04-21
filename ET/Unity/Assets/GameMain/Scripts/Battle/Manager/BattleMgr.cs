@@ -11,9 +11,6 @@ using UnityEngine.InputSystem;
 
 public class BattleMgr : MonoBehaviour
 {
-
-    public Transform GamePadTrans;
-
     private ResSvc resSvc;
     private AudioSvc audioSvc;
     private TimerSvc timerSvc;
@@ -24,9 +21,10 @@ public class BattleMgr : MonoBehaviour
 
     private EntityPlayer entitySelfPlayer;
     private ThirdPersonController controller;
-    private StarterAssetsInputs playerInput;
+    private StarterAssetsInputs starterAssetsInputs;
     private GameObject battlePlayer;
     private MapCfg mapCfg;
+    public Transform playerInputObj;
 
     private Dictionary<string, EntityMonster> monsterDic = new Dictionary<string, EntityMonster>();
 
@@ -62,13 +60,18 @@ public class BattleMgr : MonoBehaviour
             entitySelfPlayer.SetBattleProps(props);
 
             controller = player.GetComponent<ThirdPersonController>();
+
+            controller.PlayerInput = playerInputObj.gameObject.GetComponent<PlayerInput>();
+
+            starterAssetsInputs = playerInputObj.gameObject.GetComponent<StarterAssetsInputs>();
+            controller.StarterAssetsInputs = starterAssetsInputs;
+
             controller.MoveSpeed = Constants.PlayerMoveSpeed;
             controller.SprintSpeed = Constants.PlayerSprintSpeed;
             controller.SetAniBlend(Constants.State_Mar7th00_Blend_Idle);
             entitySelfPlayer.playerController = controller;
 
-            playerInput = player.GetComponent<StarterAssetsInputs>();
-            entitySelfPlayer.playerInput = playerInput;
+            entitySelfPlayer.playerInput = starterAssetsInputs;
 
             battlePlayer = player;
         }
@@ -102,17 +105,6 @@ public class BattleMgr : MonoBehaviour
         }
     }
 
-    private void InitGamepad(StarterAssetsInputs StarterAssetsInputs_player)
-    {
-        if (GamePadTrans != null)
-        {
-            GamePadTrans.gameObject.SetActive(true);
-            UICanvasControllerInput uICanvasControllerInput = GamePadTrans.GetComponent<UICanvasControllerInput>();
-
-            uICanvasControllerInput.starterAssetsInputs = StarterAssetsInputs_player;
-        }
-    }
-
     public void Init(int mapid)
     {
 
@@ -142,7 +134,6 @@ public class BattleMgr : MonoBehaviour
             entitySelfPlayer.StateIdle();
 
             LoadVirtualCameraInstance(PathDefine.AssissnCityCharacterCameraPrefab, mapCfg);
-            InitGamepad(entitySelfPlayer.playerInput);
 
             //延迟激活第一批次怪物
             ActiveCurrentBatchMonsters();

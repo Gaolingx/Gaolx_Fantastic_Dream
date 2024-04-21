@@ -91,7 +91,6 @@ public abstract class EntityBase
             if (canControl != true)
             {
                 _player.Disable();
-                playerInput.move = Vector2.zero;
             }
             else
             {
@@ -135,20 +134,7 @@ public abstract class EntityBase
             controller.SetAction(action);
         }
     }
-    public virtual void SetInputBool(int inputSkillID, bool inputValue = false)
-    {
-        if (playerInput != null)
-        {
-            switch (inputSkillID)
-            {
-                case Constants.SkillID_Mar7th00_skill01:
-                    playerInput.skill01 = inputValue;
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
+    
     public virtual void SetCFX(string fxName, float destroyTime)
     {
         if (playerController != null)

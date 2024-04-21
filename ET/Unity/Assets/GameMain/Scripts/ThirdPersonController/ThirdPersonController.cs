@@ -17,6 +17,10 @@ namespace StarterAssets
 #endif
     public class ThirdPersonController : MonoBehaviour
     {
+        public PlayerInput PlayerInput;
+
+        public StarterAssetsInputs StarterAssetsInputs;
+
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
@@ -33,10 +37,6 @@ namespace StarterAssets
 
         [Tooltip("Acceleration and deceleration")]
         public float SpeedChangeRate = 10.0f;
-
-        public AudioClip LandingAudioClip;
-        public AudioClip[] FootstepAudioClips;
-        [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
 
         [Space(10)]
         [Tooltip("The height the player can jump")]
@@ -195,6 +195,15 @@ namespace StarterAssets
             }
         }
 
+        private PlayerInput SetPlayerInput()
+        {
+            return PlayerInput;
+        }
+        private StarterAssetsInputs SetStarterAssetsInputs()
+        {
+            return StarterAssetsInputs;
+        }
+
         private void SetMove()
         {
             if (_isSkillMove)
@@ -247,9 +256,9 @@ namespace StarterAssets
             _controller = GetComponent<CharacterController>();
             _personFollow = GameObject.FindGameObjectWithTag(Constants.PlayerFollowCameraWithTag).GetComponent<CinemachineVirtualCamera>()
                 .GetCinemachineComponent<Cinemachine3rdPersonFollow>();
-            _input = GetComponent<StarterAssetsInputs>();
+            _input = SetStarterAssetsInputs();
 #if ENABLE_INPUT_SYSTEM 
-            _playerInput = GetComponent<PlayerInput>();
+            _playerInput = SetPlayerInput();
 #else
             Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif

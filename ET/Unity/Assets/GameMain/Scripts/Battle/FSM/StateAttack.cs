@@ -20,7 +20,6 @@ public class StateAttack : IState
     public void StateProcess(EntityBase entity, params object[] args)
     {
         entity.SkillAttack((int)args[0]);
-        entity.SetInputBool((int)args[0]);
         //PECommon.Log("StateAttack:Process State.");
     }
 }

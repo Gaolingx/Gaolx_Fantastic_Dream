@@ -22,6 +22,7 @@ public class MainCitySys : SystemRoot
     public BuyWnd buyWnd;
     public TaskWnd taskWnd;
     public FpsWnd fpsWnd;
+    public GameObject playerInput;
 
     private GameObject mainCityPlayer;
     //private PlayerController playerCtrl;
@@ -29,7 +30,7 @@ public class MainCitySys : SystemRoot
     private AutoGuideCfg curtTaskData;
     private Transform[] npcPosTrans;
     private NavMeshAgent nav;
-    private StarterAssetsInputs playerInput;
+    private StarterAssetsInputs starterAssetsInputs;
 
     public override void InitSys()
     {
@@ -48,6 +49,7 @@ public class MainCitySys : SystemRoot
         {
             PECommon.Log("Init MainCitySys...");
 
+            transform.Find(Constants.Path_PlayerInputs_Obj).gameObject.SetActive(true);
             // 加载游戏主角
             LoadPlayer(mapData);
 
@@ -58,7 +60,7 @@ public class MainCitySys : SystemRoot
             maincityWnd.SetWndState();
 
             // 初始化摇杆插件
-            InitGamepad(mainCityPlayer.GetComponent<StarterAssetsInputs>());
+            InitGamepad(playerInput.GetComponent<StarterAssetsInputs>());
 
             //配置角色声音源
             audioSvc.GetCharacterAudioSourceComponent(mainCityPlayer);
@@ -104,11 +106,14 @@ public class MainCitySys : SystemRoot
             nav = player.GetComponent<NavMeshAgent>();
 
             ThirdPersonController controller = player.GetComponent<ThirdPersonController>();
+
+            controller.PlayerInput = playerInput.GetComponent<PlayerInput>();
+            starterAssetsInputs = playerInput.GetComponent<StarterAssetsInputs>();
+            controller.StarterAssetsInputs = starterAssetsInputs;
+
             controller.MoveSpeed = Constants.PlayerMoveSpeed;
             controller.SprintSpeed = Constants.PlayerSprintSpeed;
             controller.SetAniBlend(Constants.State_Mar7th00_Blend_Idle);
-
-            playerInput = player.GetComponent<StarterAssetsInputs>();
 
             mainCityPlayer = player;
         }
@@ -164,7 +169,7 @@ public class MainCitySys : SystemRoot
 
     }
 
-    private void InitGamepad(StarterAssetsInputs StarterAssetsInputs_player)
+    private void InitGamepad(StarterAssetsInputs StarterAssetsInputs)
     {
         Transform GamePadTrans = transform.Find(Constants.Path_Joysticks_MainCitySys);
         if (GamePadTrans != null)
@@ -172,7 +177,7 @@ public class MainCitySys : SystemRoot
             GamePadTrans.gameObject.SetActive(true);
             UICanvasControllerInput uICanvasControllerInput = GamePadTrans.GetComponent<UICanvasControllerInput>();
 
-            uICanvasControllerInput.starterAssetsInputs = StarterAssetsInputs_player;
+            uICanvasControllerInput.starterAssetsInputs = StarterAssetsInputs;
         }
     }
 
@@ -377,7 +382,7 @@ public class MainCitySys : SystemRoot
                 //找到目标npc，停止导航
                 isNavGuide = false;
                 nav.isStopped = true;
-                playerInput.move = new Vector2(0, 0);
+                starterAssetsInputs.move = new Vector2(0, 0);
                 nav.enabled = false;
 
                 OpenGuideWnd();
@@ -390,7 +395,7 @@ public class MainCitySys : SystemRoot
                 nav.enabled = true; //激活导航组件
                 nav.speed = Constants.PlayerMoveSpeedNav; //导航速度
                 nav.SetDestination(npcPosTrans[agc.npcID].position); //设置导航目标点
-                playerInput.move = new Vector2(0, 1);
+                starterAssetsInputs.move = new Vector2(0, 1);
             }
         }
         else
@@ -416,7 +421,7 @@ public class MainCitySys : SystemRoot
             Debug.Log("已经到达目的地，导航结束！");
             isNavGuide = false;
             nav.isStopped = true;
-            playerInput.move = new Vector2(0, 0);
+            starterAssetsInputs.move = new Vector2(0, 0);
             nav.enabled = false;
 
             OpenGuideWnd();
@@ -432,7 +437,7 @@ public class MainCitySys : SystemRoot
 
             nav.isStopped = true;
             nav.enabled = false;
-            playerInput.move = new Vector2(0, 0);
+            starterAssetsInputs.move = new Vector2(0, 0);
         }
     }
 
