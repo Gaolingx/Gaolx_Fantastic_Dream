@@ -3,6 +3,7 @@
 	<item ID="101">
 		<skillName>突袭</skillName>
 		<skillTime>900</skillTime>
+		<cdTime>6000</cdTime>
 		<aniAction>1</aniAction>
 		<fx>dagger_skill1</fx>
 		<dmgType>1</dmgType>

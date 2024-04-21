@@ -4,7 +4,6 @@ using PEProtocol;
 using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -29,6 +28,9 @@ public class PlayerCtrlWnd : WindowRoot
         base.InitWnd();
 
         battleMgr = BattleMgr.Instance;
+
+        sk1CDTime = resSvc.GetSkillCfg(Constants.SkillID_Mar7th00_skill01).cdTime / 1000.0f;
+
         RefreshUI();
     }
 
@@ -66,11 +68,27 @@ public class PlayerCtrlWnd : WindowRoot
 
     }
 
+    public Image imgSk1CD;
+    public Text txtSk1CD;
+
+    private bool isSk1CD = false;
+    private float sk1CDTime;
+
+    private int sk1Num;
+
     public void ListeningClickPlayerSkill01Atk()
     {
-        if (playerInput.skill01)
+        if (isSk1CD == false)
         {
-            BattleSys.Instance.ReqPlayerReleaseSkill(1);
+            if (playerInput.skill01)
+            {
+                BattleSys.Instance.ReqPlayerReleaseSkill(1);
+                isSk1CD = true;
+                SetActive(imgSk1CD);
+                imgSk1CD.fillAmount = 1;
+                sk1Num = (int)sk1CDTime;
+                SetText(txtSk1CD, sk1Num);
+            }
         }
     }
 

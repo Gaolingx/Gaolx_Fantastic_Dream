@@ -777,6 +777,9 @@ public class ResSvc : MonoBehaviour
                         case "skillName":
                             sc.skillName = e.InnerText;
                             break;
+                        case "cdTime":
+                            sc.cdTime = int.Parse(e.InnerText);
+                            break;
                         case "skillTime":
                             sc.skillTime = int.Parse(e.InnerText);
                             break;

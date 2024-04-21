@@ -110,6 +110,7 @@ public class SkillActionCfg : BaseData<SkillActionCfg>
 public class SkillCfg : BaseData<SkillCfg>
 {
     public string skillName;
+    public int cdTime;
     public int skillTime; //技能持续时间
     public int aniAction; //动画控制参数
     public string fx; //特效名称
