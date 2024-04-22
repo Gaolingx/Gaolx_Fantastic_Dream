@@ -30,6 +30,26 @@ public class PlayerCtrlWnd : WindowRoot
     private float sk1NumCount = 0;
     #endregion
 
+    #region SK2
+    public Image imgSk2CD;
+    public Text txtSk2CD;
+    private bool isSk2CD = false;
+    private float sk2CDTime;
+    private int sk2Num;
+    private float sk2FillCount = 0;
+    private float sk2NumCount = 0;
+    #endregion
+
+    #region SK3
+    public Image imgSk3CD;
+    public Text txtSk3CD;
+    private bool isSk3CD = false;
+    private float sk3CDTime;
+    private int sk3Num;
+    private float sk3FillCount = 0;
+    private float sk3NumCount = 0;
+    #endregion
+
     #endregion
 
     private StarterAssetsInputs _playerInput;
@@ -38,20 +58,9 @@ public class PlayerCtrlWnd : WindowRoot
     {
         base.InitWnd();
 
-        sk1CDTime = resSvc.GetSkillCfg(Constants.SkillID_Mar7th00_skill01).cdTime / 1000.0f;
+        InitSkCDTime();
 
         RefreshUI();
-    }
-
-    private void InitGamepad(StarterAssetsInputs StarterAssetsInputs)
-    {
-        if (GamePadTrans != null)
-        {
-            GamePadTrans.gameObject.SetActive(true);
-            UICanvasControllerInput uICanvasControllerInput = GamePadTrans.GetComponent<UICanvasControllerInput>();
-
-            uICanvasControllerInput.starterAssetsInputs = StarterAssetsInputs;
-        }
     }
 
     private void Update()
@@ -65,15 +74,35 @@ public class PlayerCtrlWnd : WindowRoot
             InitGamepad(_playerInput);
 
             ListeningTouchEvts();
+            SetCurrentDir();
             ListeningClickPlayerNormalAtk();
             ListeningClickPlayerSkill01Atk();
             ListeningClickPlayerSkill02Atk();
             ListeningClickPlayerSkill03Atk();
-            SetCurrentDir();
 
             UpdateSk1CD(delta);
+            UpdateSk2CD(delta);
+            UpdateSk3CD(delta);
         }
 
+    }
+
+    private void InitSkCDTime()
+    {
+        sk1CDTime = resSvc.GetSkillCfg(Constants.SkillID_Mar7th00_skill01).cdTime / 1000.0f;
+        sk2CDTime = resSvc.GetSkillCfg(Constants.SkillID_Mar7th00_skill02).cdTime / 1000.0f;
+        sk3CDTime = resSvc.GetSkillCfg(Constants.SkillID_Mar7th00_skill03).cdTime / 1000.0f;
+    }
+
+    private void InitGamepad(StarterAssetsInputs StarterAssetsInputs)
+    {
+        if (GamePadTrans != null)
+        {
+            GamePadTrans.gameObject.SetActive(true);
+            UICanvasControllerInput uICanvasControllerInput = GamePadTrans.GetComponent<UICanvasControllerInput>();
+
+            uICanvasControllerInput.starterAssetsInputs = StarterAssetsInputs;
+        }
     }
 
     private void SetStarterAssetsInputs()
@@ -109,6 +138,58 @@ public class PlayerCtrlWnd : WindowRoot
                 sk1NumCount -= 1;
                 sk1Num -= 1;
                 SetText(txtSk1CD, sk1Num);
+            }
+        }
+    }
+    private void UpdateSk2CD(float deltaTime)
+    {
+        _playerInput.skill02 = false;
+        if (isSk2CD)
+        {
+            sk2FillCount += deltaTime;
+            if (sk2FillCount >= sk2CDTime)
+            {
+                isSk2CD = false;
+                SetActive(imgSk2CD, false);
+                sk2FillCount = 0;
+            }
+            else
+            {
+                imgSk2CD.fillAmount = 1 - sk2FillCount / sk2CDTime;
+            }
+
+            sk2NumCount += deltaTime;
+            if (sk2NumCount >= 1)
+            {
+                sk2NumCount -= 1;
+                sk2Num -= 1;
+                SetText(txtSk2CD, sk2Num);
+            }
+        }
+    }
+    private void UpdateSk3CD(float deltaTime)
+    {
+        _playerInput.skill03 = false;
+        if (isSk3CD)
+        {
+            sk3FillCount += deltaTime;
+            if (sk3FillCount >= sk3CDTime)
+            {
+                isSk3CD = false;
+                SetActive(imgSk3CD, false);
+                sk3FillCount = 0;
+            }
+            else
+            {
+                imgSk3CD.fillAmount = 1 - sk3FillCount / sk3CDTime;
+            }
+
+            sk3NumCount += deltaTime;
+            if (sk3NumCount >= 1)
+            {
+                sk3NumCount -= 1;
+                sk3Num -= 1;
+                SetText(txtSk3CD, sk3Num);
             }
         }
     }
@@ -160,12 +241,38 @@ public class PlayerCtrlWnd : WindowRoot
 
     public void ListeningClickPlayerSkill02Atk()
     {
-
+        if (_playerInput.skill02)
+        {
+            SetInputBool(Constants.SkillID_Mar7th00_skill02, true);
+            if (isSk2CD == false)
+            {
+                BattleSys.Instance.ReqPlayerReleaseSkill(2);
+                SetInputBool(Constants.SkillID_Mar7th00_skill02, false);
+                isSk2CD = true;
+                SetActive(imgSk2CD);
+                imgSk2CD.fillAmount = 1;
+                sk2Num = (int)sk2CDTime;
+                SetText(txtSk1CD, sk2Num);
+            }
+        }
     }
 
     public void ListeningClickPlayerSkill03Atk()
     {
-
+        if (_playerInput.skill03)
+        {
+            SetInputBool(Constants.SkillID_Mar7th00_skill03, true);
+            if (isSk3CD == false)
+            {
+                BattleSys.Instance.ReqPlayerReleaseSkill(3);
+                SetInputBool(Constants.SkillID_Mar7th00_skill03, false);
+                isSk3CD = true;
+                SetActive(imgSk3CD);
+                imgSk3CD.fillAmount = 1;
+                sk3Num = (int)sk3CDTime;
+                SetText(txtSk3CD, sk3Num);
+            }
+        }
     }
     #endregion
 
@@ -216,16 +323,29 @@ public class PlayerCtrlWnd : WindowRoot
 
     private void SetInputBool(int inputSkillID, bool inputValue)
     {
-        if (isSk1CD == false)
+        switch (inputSkillID)
         {
-            switch (inputSkillID)
-            {
-                case Constants.SkillID_Mar7th00_skill01:
+            case Constants.SkillID_Mar7th00_skill01:
+                if (isSk1CD == false)
+                {
                     _playerInput.skill01 = inputValue;
-                    break;
-                default:
-                    break;
-            }
+                }
+                break;
+            case Constants.SkillID_Mar7th00_skill02:
+                if (isSk2CD == false)
+                {
+                    _playerInput.skill02 = inputValue;
+                }
+                break;
+            case Constants.SkillID_Mar7th00_skill03:
+                if (isSk3CD == false)
+                {
+                    _playerInput.skill03 = inputValue;
+                }
+                break;
+            default:
+                break;
         }
+
     }
 }

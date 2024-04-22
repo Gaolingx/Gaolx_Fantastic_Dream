@@ -28,9 +28,19 @@ namespace StarterAssets
             starterAssetsInputs.SprintInput(virtualSprintState);
         }
 
-        public void VirtualSkill01Input(bool virtualSprintState)
+        public void VirtualSkill01Input(bool virtualSkill01State)
         {
-            starterAssetsInputs.Skill01Input(virtualSprintState);
+            starterAssetsInputs.Skill01Input(virtualSkill01State);
+        }
+
+        public void VirtualSkill02Input(bool virtualSkill02State)
+        {
+            starterAssetsInputs.Skill02Input(virtualSkill02State);
+        }
+
+        public void VirtualSkill03Input(bool virtualSkill03State)
+        {
+            starterAssetsInputs.Skill03Input(virtualSkill03State);
         }
 
     }

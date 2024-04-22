@@ -16,6 +16,8 @@ namespace StarterAssets
         public bool crouch;
         public bool flipJump;
         public bool skill01;
+        public bool skill02;
+        public bool skill03;
 
         [Header("Movement Settings")]
         public bool analogMovement;
@@ -67,6 +69,16 @@ namespace StarterAssets
         {
             Skill01Input(value.isPressed);
         }
+
+        public void OnAtkSkill02(InputValue value)
+        {
+            Skill02Input(value.isPressed);
+        }
+
+        public void OnAtkSkill03(InputValue value)
+        {
+            Skill03Input(value.isPressed);
+        }
 #endif
 
 
@@ -104,9 +116,19 @@ namespace StarterAssets
             crouch = newCrouchState;
         }
 
-        public void Skill01Input(bool newAttack01State)
+        public void Skill01Input(bool newSkill01State)
         {
-            skill01 = newAttack01State;
+            skill01 = newSkill01State;
+        }
+
+        public void Skill02Input(bool newSkill02State)
+        {
+            skill02 = newSkill02State;
+        }
+
+        public void Skill03Input(bool newSkill03State)
+        {
+            skill03 = newSkill03State;
         }
 
         private void OnApplicationFocus(bool hasFocus)
