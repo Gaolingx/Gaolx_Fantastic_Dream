@@ -42,6 +42,24 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "AtkSkill02",
+                    "type": "Button",
+                    "id": "fd5cc32f-e1a0-4ffd-a323-3604c63d95be",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "AtkSkill03",
+                    "type": "Button",
+                    "id": "3ea7e705-506a-44b3-8911-9be593f43a40",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Sprint",
                     "type": "PassThrough",
                     "id": "980e881e-182c-404c-8cbf-3d09fdb48fef",
@@ -348,11 +366,33 @@
                 {
                     "name": "",
                     "id": "9385bea4-0422-4517-bce4-c510cc40161a",
-                    "path": "<Keyboard>/j",
+                    "path": "<Keyboard>/u",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "AtkSkill01",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "17ca21f2-e431-4b97-aad1-642db4554a21",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "AtkSkill02",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d3717554-ebbe-44e8-9d9d-fe8c3bbf64d4",
+                    "path": "<Keyboard>/o",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "AtkSkill03",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

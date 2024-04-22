@@ -393,10 +393,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1378962314757351}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1353.8999, y: -3.5}
-  m_SizeDelta: {x: 115.4, y: 7}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3449340455264615
 CanvasRenderer:
@@ -468,10 +468,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1378962314757351}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1479.2999, y: -3.5}
-  m_SizeDelta: {x: 115.4, y: 7}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4187255384740963
 CanvasRenderer:
@@ -569,9 +569,14 @@ MonoBehaviour:
   txtName: {fileID: 184583247976741709}
   txtExpPrg: {fileID: 184356879662308103}
   expPrgTrans: {fileID: 1378962314757351}
-  currentDir: {x: 0, y: 0}
+  playerInput: {fileID: 0}
+  GamePadTrans: {fileID: 0}
   imgSk1CD: {fileID: 6660441056791843953}
   txtSk1CD: {fileID: 8429912741715362716}
+  imgSk2CD: {fileID: 108545776909717355}
+  txtSk2CD: {fileID: 3042712436143469378}
+  imgSk3CD: {fileID: 1386893078237251159}
+  txtSk3CD: {fileID: 8795459375361050423}
 --- !u!1 &224252817337836731
 GameObject:
   m_ObjectHideFlags: 0
@@ -827,10 +832,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1378962314757351}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1103.1, y: -3.5}
-  m_SizeDelta: {x: 115.4, y: 7}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4139577274421795
 CanvasRenderer:
@@ -902,10 +907,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1378962314757351}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 977.7, y: -3.5}
-  m_SizeDelta: {x: 115.4, y: 7}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &509949624813291
 CanvasRenderer:
@@ -977,10 +982,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1378962314757351}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1228.5, y: -3.5}
-  m_SizeDelta: {x: 115.4, y: 7}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4122024216508335
 CanvasRenderer:
@@ -1052,10 +1057,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1378962314757351}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 350.7, y: -3.5}
-  m_SizeDelta: {x: 115.4, y: 7}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3415340143476353
 CanvasRenderer:
@@ -1127,10 +1132,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1378962314757351}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 852.3, y: -3.5}
-  m_SizeDelta: {x: 115.4, y: 7}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4461870007817797
 CanvasRenderer:
@@ -1202,10 +1207,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1378962314757351}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 726.9, y: -3.5}
-  m_SizeDelta: {x: 115.4, y: 7}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3466015144518231
 CanvasRenderer:
@@ -1561,10 +1566,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1378962314757351}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 476.1, y: -3.5}
-  m_SizeDelta: {x: 115.4, y: 7}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3563081493365687
 CanvasRenderer:
@@ -1636,10 +1641,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1378962314757351}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 601.5, y: -3.5}
-  m_SizeDelta: {x: 115.4, y: 7}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4070115445200603
 CanvasRenderer:
@@ -2466,16 +2471,16 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+        m_TargetAssemblyTypeName: StarterAssets.UICanvasControllerInput, GameMain
+        m_MethodName: VirtualSkill03Input
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &1878396597975291003
 GameObject:
@@ -3756,16 +3761,16 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+        m_TargetAssemblyTypeName: StarterAssets.UICanvasControllerInput, GameMain
+        m_MethodName: VirtualSkill02Input
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &6085187789688475960
 GameObject:
