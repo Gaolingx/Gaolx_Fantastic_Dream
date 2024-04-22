@@ -97,24 +97,16 @@ public class ResSvc : MonoBehaviour
         }
     }
 
-    //定义一个字典，存储当前加载的Audio，与后面的cache有关系
-    private Dictionary<string, AudioClip> acDic = new Dictionary<string, AudioClip>();
+
     public async UniTask<AudioClip> LoadAudioClipAsync(string path, bool iscache = false)
     {
         //音乐加载
         AudioClip audioClip = null;
-        if (!acDic.TryGetValue(path, out audioClip))
-        {
-            AssetOperationHandle handle = _yooAssetResourcePackage.LoadAssetAsync<AudioClip>(path);
-            await handle.Task;
-            audioClip = handle.AssetObject as AudioClip;
-            if (iscache)
-            {
-                acDic.Add(path, audioClip);
-            }
-        }
-        return audioClip;
+        AssetOperationHandle handle = _yooAssetResourcePackage.LoadAssetAsync<AudioClip>(path);
+        await handle.Task;
+        audioClip = handle.AssetObject as AudioClip;
 
+        return audioClip;
     }
 
     //获取Prefab的类
@@ -126,6 +118,7 @@ public class ResSvc : MonoBehaviour
         GameObject go = null;
         //prefab加载完成后的实例化
         go = prefabHandle.InstantiateSync();
+
         return go;
     }
 
@@ -139,20 +132,13 @@ public class ResSvc : MonoBehaviour
         return textAsset;
     }
 
-    private Dictionary<string, Sprite> spDic = new Dictionary<string, Sprite>();
     public async UniTask<Sprite> LoadSpriteAsync(string path, bool iscache = false)
     {
         Sprite sp = null;
-        if (!spDic.TryGetValue(path, out sp))
-        {
-            AssetOperationHandle handle = _yooAssetResourcePackage.LoadAssetAsync<Sprite>(path);
-            await handle.Task;
-            sp = handle.AssetObject as Sprite;
-            if (iscache)
-            {
-                spDic.Add(path, sp);
-            }
-        }
+        AssetOperationHandle handle = _yooAssetResourcePackage.LoadAssetAsync<Sprite>(path);
+        await handle.Task;
+        sp = handle.AssetObject as Sprite;
+
         return sp;
     }
 
