@@ -182,6 +182,7 @@ public class Constants
     public const int SkillID_Mar7th00_skill01 = 101;
     public const int SkillID_Mar7th00_skill02 = 102;
     public const int SkillID_Mar7th00_skill03 = 103;
+    public const int SkillID_Mar7th00_normalAtk01 = 111;
 
     //EventSystem≈‰÷√
     public const string EventSystemGOName = "EventSystem";

@@ -18,6 +18,7 @@ namespace StarterAssets
         public bool skill01;
         public bool skill02;
         public bool skill03;
+        public bool normalAtk;
 
         [Header("Movement Settings")]
         public bool analogMovement;
@@ -79,6 +80,11 @@ namespace StarterAssets
         {
             Skill03Input(value.isPressed);
         }
+
+        public void OnNormalAtk(InputValue value)
+        {
+            NormalAtkInput(value.isPressed);
+        }
 #endif
 
 
@@ -129,6 +135,11 @@ namespace StarterAssets
         public void Skill03Input(bool newSkill03State)
         {
             skill03 = newSkill03State;
+        }
+
+        public void NormalAtkInput(bool newNormalAtkState)
+        {
+            normalAtk = newNormalAtkState;
         }
 
         private void OnApplicationFocus(bool hasFocus)

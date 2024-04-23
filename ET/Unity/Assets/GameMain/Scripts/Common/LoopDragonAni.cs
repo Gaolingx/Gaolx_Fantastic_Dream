@@ -9,6 +9,8 @@
 using UnityEngine;
 
 public class LoopDragonAni : MonoBehaviour {
+    public float AniRepeatTime = 20.0f;
+
     private Animation ani;
 
     private void Awake() {
@@ -17,7 +19,7 @@ public class LoopDragonAni : MonoBehaviour {
 
     private void Start() {
         if (ani != null) {
-            InvokeRepeating("PlayDragonAni", 0, 20);
+            InvokeRepeating("PlayDragonAni", 0, AniRepeatTime);
         }
     }
 

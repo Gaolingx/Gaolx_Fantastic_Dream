@@ -1,6 +1,6 @@
 {
     "ShaderTotalCount": 35,
-    "VariantTotalCount": 101,
+    "VariantTotalCount": 106,
     "ShaderVariantInfos": [
         {
             "AssetPath": "Resources/unity_builtin_extra",
@@ -875,7 +875,7 @@
         {
             "AssetPath": "Assets/ResModules/Shaders/HonkaiStarRailToonShader/Shaders/V2.1/SRUniversal-main/Shaders/SRUniversal.shader",
             "ShaderName": "Custom/SRUniversal",
-            "ShaderVariantCount": 20,
+            "ShaderVariantCount": 25,
             "ShaderVariantElements": [
                 {
                     "PassType": 13,
@@ -1022,6 +1022,25 @@
                     "PassType": 13,
                     "Keywords": [
                         "_ADDITIONAL_LIGHTS",
+                        "_AREA_FACE",
+                        "_AUTO_Brightness_ON",
+                        "_CUSTOMOUTLINEVARENUM_OVERLAY",
+                        "_CUSTOM_RAMP_MAPPING",
+                        "_DayTime_MANUAL_ON",
+                        "_EMISSION_ON",
+                        "_FAKE_OUTLINE_ON",
+                        "_IS_FACE",
+                        "_MAIN_LIGHT_SHADOWS_CASCADE",
+                        "_OUTLINENORMALCHANNEL_NORMAL",
+                        "_RIM_LIGHTING_ON",
+                        "_SPECULAR_ON",
+                        "_USE_RAMP_COLOR_ON"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
                         "_AREA_HAIR",
                         "_AUTO_Brightness_ON",
                         "_CUSTOMOUTLINEVARENUM_OVERLAY",
@@ -1050,6 +1069,23 @@
                         "_OUTLINENORMALCHANNEL_NORMAL",
                         "_RIM_LIGHTING_ON",
                         "_SHADOWS_SOFT",
+                        "_SPECULAR_ON",
+                        "_USE_RAMP_COLOR_ON"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_AREA_HAIR",
+                        "_AUTO_Brightness_ON",
+                        "_CUSTOMOUTLINEVARENUM_OVERLAY",
+                        "_CUSTOM_RAMP_MAPPING",
+                        "_DayTime_MANUAL_ON",
+                        "_FAKE_OUTLINE_ON",
+                        "_MAIN_LIGHT_SHADOWS_CASCADE",
+                        "_OUTLINENORMALCHANNEL_NORMAL",
+                        "_RIM_LIGHTING_ON",
                         "_SPECULAR_ON",
                         "_USE_RAMP_COLOR_ON"
                     ]
@@ -1087,6 +1123,24 @@
                         "_OUTLINENORMALCHANNEL_NORMAL",
                         "_RIM_LIGHTING_ON",
                         "_SHADOWS_SOFT",
+                        "_SPECULAR_ON",
+                        "_USE_LUT_MAP",
+                        "_USE_RAMP_COLOR_ON"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_AREA_LOWERBODY",
+                        "_AUTO_Brightness_ON",
+                        "_CUSTOMOUTLINEVARENUM_MULTIPLY",
+                        "_CUSTOM_RAMP_MAPPING",
+                        "_DayTime_MANUAL_ON",
+                        "_FAKE_OUTLINE_ON",
+                        "_MAIN_LIGHT_SHADOWS_CASCADE",
+                        "_OUTLINENORMALCHANNEL_NORMAL",
+                        "_RIM_LIGHTING_ON",
                         "_SPECULAR_ON",
                         "_USE_LUT_MAP",
                         "_USE_RAMP_COLOR_ON"
@@ -1134,6 +1188,24 @@
                     "PassType": 13,
                     "Keywords": [
                         "_ADDITIONAL_LIGHTS",
+                        "_AREA_UPPERBODY",
+                        "_AUTO_Brightness_ON",
+                        "_CUSTOMOUTLINEVARENUM_MULTIPLY",
+                        "_CUSTOM_RAMP_MAPPING",
+                        "_DayTime_MANUAL_ON",
+                        "_FAKE_OUTLINE_ON",
+                        "_MAIN_LIGHT_SHADOWS_CASCADE",
+                        "_OUTLINENORMALCHANNEL_NORMAL",
+                        "_RIM_LIGHTING_ON",
+                        "_SPECULAR_ON",
+                        "_USE_LUT_MAP",
+                        "_USE_RAMP_COLOR_ON"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
                         "_CUSTOMOUTLINEVARENUM_DISABLE",
                         "_CUSTOM_RAMP_MAPPING",
                         "_ENABLE_OUTLINE",
@@ -1156,6 +1228,20 @@
                         "_OUTLINENORMALCHANNEL_NORMAL",
                         "_RIM_LIGHTING_ON",
                         "_SHADOWS_SOFT",
+                        "_SPECULAR_ON",
+                        "_USE_RAMP_COLOR_ON"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_CUSTOMOUTLINEVARENUM_DISABLE",
+                        "_CUSTOM_RAMP_MAPPING",
+                        "_FAKE_OUTLINE_ON",
+                        "_MAIN_LIGHT_SHADOWS_CASCADE",
+                        "_OUTLINENORMALCHANNEL_NORMAL",
+                        "_RIM_LIGHTING_ON",
                         "_SPECULAR_ON",
                         "_USE_RAMP_COLOR_ON"
                     ]

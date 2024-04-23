@@ -1345,6 +1345,7 @@ MonoBehaviour:
   skill01: 0
   skill02: 0
   skill03: 0
+  normalAtk: 0
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
@@ -3675,7 +3676,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2158106377546586473}
+      objectReference: {fileID: 6550779186639200467}
     - target: {fileID: 3089189238334018391, guid: c6e6e72f730b4074480dae9796842549,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

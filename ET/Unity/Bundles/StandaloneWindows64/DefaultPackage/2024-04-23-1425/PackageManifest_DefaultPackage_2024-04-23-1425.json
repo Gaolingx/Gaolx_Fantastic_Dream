@@ -5,7 +5,7 @@
     "IncludeAssetGUID": false,
     "OutputNameStyle": 1,
     "PackageName": "DefaultPackage",
-    "PackageVersion": "2024-04-23-990",
+    "PackageVersion": "2024-04-23-1425",
     "AssetList": [
         {
             "Address": "",
@@ -642,6 +642,38 @@
         {
             "Address": "",
             "AssetPath": "Assets/AssetBundles/Audios/ResAudio/uiClickBtn.mp3",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 27,
+            "DependIDs": []
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/AssetBundles/Audios/ResAudio/uiCloseBtn.mp3",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 27,
+            "DependIDs": []
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/AssetBundles/Audios/ResAudio/uiExtenBtn.mp3",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 27,
+            "DependIDs": []
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/AssetBundles/Audios/ResAudio/uiLoginBtn.mp3",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 27,
+            "DependIDs": []
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/AssetBundles/Audios/ResAudio/uiOpenPage.mp3",
             "AssetGUID": "",
             "AssetTags": [],
             "BundleID": 27,

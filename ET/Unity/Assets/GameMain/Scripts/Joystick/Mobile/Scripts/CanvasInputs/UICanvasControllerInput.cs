@@ -43,6 +43,11 @@ namespace StarterAssets
             starterAssetsInputs.Skill03Input(virtualSkill03State);
         }
 
+        public void VirtualNormalAtkInput(bool virtualNormalAtkState)
+        {
+            starterAssetsInputs.NormalAtkInput(virtualNormalAtkState);
+        }
+
     }
 
 }

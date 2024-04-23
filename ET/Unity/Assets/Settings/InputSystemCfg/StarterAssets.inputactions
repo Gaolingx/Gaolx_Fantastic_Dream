@@ -33,6 +33,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "NormalAtk",
+                    "type": "Button",
+                    "id": "eac83a30-1630-45a5-a735-2fa8fb9dd42f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "AtkSkill01",
                     "type": "Button",
                     "id": "07c82348-c9cd-434c-9dbb-197bd371dd22",
@@ -393,6 +402,17 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "AtkSkill03",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "72bb7023-3ed4-4ef7-a91d-b9321422a6c3",
+                    "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "NormalAtk",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -218,7 +218,7 @@ public class PlayerCtrlWnd : WindowRoot
     //ÊÍ·Å¼¼ÄÜ
     public void ListeningClickPlayerNormalAtk()
     {
-
+        BattleSys.Instance.ReqPlayerReleaseSkill(0);
     }
 
     public void ListeningClickPlayerSkill01Atk()

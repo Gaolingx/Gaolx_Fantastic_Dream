@@ -263,7 +263,8 @@ public class BattleMgr : MonoBehaviour
     //释放相关技能
     private void PlayerReleaseNormalAtk()
     {
-        PECommon.Log("Click Normal Atk");
+        //PECommon.Log("Click Normal Atk");
+        entitySelfPlayer.StateAttack(Constants.SkillID_Mar7th00_normalAtk01);
     }
     private void PlayerReleaseSkill01()
     {
