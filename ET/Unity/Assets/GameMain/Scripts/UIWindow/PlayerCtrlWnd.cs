@@ -65,7 +65,7 @@ public class PlayerCtrlWnd : WindowRoot
 
     private void Update()
     {
-        SetStarterAssetsInputs();
+        SetStarterAssetsInputs(playerInput);
 
         float delta = Time.deltaTime;
 
@@ -105,15 +105,14 @@ public class PlayerCtrlWnd : WindowRoot
         }
     }
 
-    private void SetStarterAssetsInputs()
+    private void SetStarterAssetsInputs(StarterAssetsInputs inputs)
     {
-        _playerInput = playerInput;
+        _playerInput = inputs;
     }
 
     #region Skill CD
     private void UpdateSk1CD(float deltaTime)
     {
-        _playerInput.skill01 = false;
         if (isSk1CD)
         {
             //ÕÚÕÖ¿ØÖÆ
@@ -143,7 +142,6 @@ public class PlayerCtrlWnd : WindowRoot
     }
     private void UpdateSk2CD(float deltaTime)
     {
-        _playerInput.skill02 = false;
         if (isSk2CD)
         {
             sk2FillCount += deltaTime;
@@ -169,7 +167,6 @@ public class PlayerCtrlWnd : WindowRoot
     }
     private void UpdateSk3CD(float deltaTime)
     {
-        _playerInput.skill03 = false;
         if (isSk3CD)
         {
             sk3FillCount += deltaTime;
@@ -221,17 +218,15 @@ public class PlayerCtrlWnd : WindowRoot
         if (_playerInput.normalAtk)
         {
             BattleSys.Instance.ReqPlayerReleaseSkill(0);
-            SetInputBool(Constants.SkillID_Mar7th00_normalAtk01, true);
         }
 
-        SetInputBool(Constants.SkillID_Mar7th00_normalAtk01, false);
+        _playerInput.normalAtk = false;
     }
 
     public void ListeningClickPlayerSkill01Atk()
     {
         if (_playerInput.skill01)
         {
-            SetInputBool(Constants.SkillID_Mar7th00_skill01, true);
             if (isSk1CD == false)
             {
                 BattleSys.Instance.ReqPlayerReleaseSkill(1);
@@ -243,14 +238,13 @@ public class PlayerCtrlWnd : WindowRoot
             }
         }
 
-        SetInputBool(Constants.SkillID_Mar7th00_skill01, false);
+        _playerInput.skill01 = false;
     }
 
     public void ListeningClickPlayerSkill02Atk()
     {
         if (_playerInput.skill02)
         {
-            SetInputBool(Constants.SkillID_Mar7th00_skill02, true);
             if (isSk2CD == false)
             {
                 BattleSys.Instance.ReqPlayerReleaseSkill(2);
@@ -262,14 +256,13 @@ public class PlayerCtrlWnd : WindowRoot
             }
         }
 
-        SetInputBool(Constants.SkillID_Mar7th00_skill02, false);
+        _playerInput.skill02 = false;
     }
 
     public void ListeningClickPlayerSkill03Atk()
     {
         if (_playerInput.skill03)
         {
-            SetInputBool(Constants.SkillID_Mar7th00_skill03, true);
             if (isSk3CD == false)
             {
                 BattleSys.Instance.ReqPlayerReleaseSkill(3);
@@ -281,7 +274,7 @@ public class PlayerCtrlWnd : WindowRoot
             }
         }
 
-        SetInputBool(Constants.SkillID_Mar7th00_skill03, false);
+        _playerInput.skill03 = false;
     }
     #endregion
 
@@ -328,36 +321,5 @@ public class PlayerCtrlWnd : WindowRoot
             }
         }
         #endregion
-    }
-
-    private void SetInputBool(int inputSkillID, bool inputValue)
-    {
-        switch (inputSkillID)
-        {
-            case Constants.SkillID_Mar7th00_skill01:
-                if (isSk1CD == false)
-                {
-                    _playerInput.skill01 = inputValue;
-                }
-                break;
-            case Constants.SkillID_Mar7th00_skill02:
-                if (isSk2CD == false)
-                {
-                    _playerInput.skill02 = inputValue;
-                }
-                break;
-            case Constants.SkillID_Mar7th00_skill03:
-                if (isSk3CD == false)
-                {
-                    _playerInput.skill03 = inputValue;
-                }
-                break;
-            case Constants.SkillID_Mar7th00_normalAtk01:
-                _playerInput.normalAtk = inputValue;
-                break;
-            default:
-                break;
-        }
-
     }
 }
