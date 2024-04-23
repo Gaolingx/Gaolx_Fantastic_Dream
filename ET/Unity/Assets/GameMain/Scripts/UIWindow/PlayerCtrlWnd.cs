@@ -218,7 +218,13 @@ public class PlayerCtrlWnd : WindowRoot
     //ÊÍ·Å¼¼ÄÜ
     public void ListeningClickPlayerNormalAtk()
     {
-        BattleSys.Instance.ReqPlayerReleaseSkill(0);
+        if (_playerInput.normalAtk)
+        {
+            BattleSys.Instance.ReqPlayerReleaseSkill(0);
+            SetInputBool(Constants.SkillID_Mar7th00_normalAtk01, true);
+        }
+
+        SetInputBool(Constants.SkillID_Mar7th00_normalAtk01, false);
     }
 
     public void ListeningClickPlayerSkill01Atk()
@@ -229,7 +235,6 @@ public class PlayerCtrlWnd : WindowRoot
             if (isSk1CD == false)
             {
                 BattleSys.Instance.ReqPlayerReleaseSkill(1);
-                SetInputBool(Constants.SkillID_Mar7th00_skill01, false);
                 isSk1CD = true;
                 SetActive(imgSk1CD);
                 imgSk1CD.fillAmount = 1;
@@ -237,6 +242,8 @@ public class PlayerCtrlWnd : WindowRoot
                 SetText(txtSk1CD, sk1Num);
             }
         }
+
+        SetInputBool(Constants.SkillID_Mar7th00_skill01, false);
     }
 
     public void ListeningClickPlayerSkill02Atk()
@@ -247,7 +254,6 @@ public class PlayerCtrlWnd : WindowRoot
             if (isSk2CD == false)
             {
                 BattleSys.Instance.ReqPlayerReleaseSkill(2);
-                SetInputBool(Constants.SkillID_Mar7th00_skill02, false);
                 isSk2CD = true;
                 SetActive(imgSk2CD);
                 imgSk2CD.fillAmount = 1;
@@ -255,6 +261,8 @@ public class PlayerCtrlWnd : WindowRoot
                 SetText(txtSk1CD, sk2Num);
             }
         }
+
+        SetInputBool(Constants.SkillID_Mar7th00_skill02, false);
     }
 
     public void ListeningClickPlayerSkill03Atk()
@@ -265,7 +273,6 @@ public class PlayerCtrlWnd : WindowRoot
             if (isSk3CD == false)
             {
                 BattleSys.Instance.ReqPlayerReleaseSkill(3);
-                SetInputBool(Constants.SkillID_Mar7th00_skill03, false);
                 isSk3CD = true;
                 SetActive(imgSk3CD);
                 imgSk3CD.fillAmount = 1;
@@ -273,6 +280,8 @@ public class PlayerCtrlWnd : WindowRoot
                 SetText(txtSk3CD, sk3Num);
             }
         }
+
+        SetInputBool(Constants.SkillID_Mar7th00_skill03, false);
     }
     #endregion
 
@@ -342,6 +351,9 @@ public class PlayerCtrlWnd : WindowRoot
                 {
                     _playerInput.skill03 = inputValue;
                 }
+                break;
+            case Constants.SkillID_Mar7th00_normalAtk01:
+                _playerInput.normalAtk = inputValue;
                 break;
             default:
                 break;
