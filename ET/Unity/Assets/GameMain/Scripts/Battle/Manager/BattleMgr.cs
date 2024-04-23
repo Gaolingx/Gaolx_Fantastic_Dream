@@ -272,11 +272,13 @@ public class BattleMgr : MonoBehaviour
     }
     private void PlayerReleaseSkill02()
     {
-        PECommon.Log("Click Skill02");
+        //PECommon.Log("Click Skill02");
+        entitySelfPlayer.StateAttack(Constants.SkillID_Mar7th00_skill02);
     }
     private void PlayerReleaseSkill03()
     {
-        PECommon.Log("Click Skill03");
+        //PECommon.Log("Click Skill03");
+        entitySelfPlayer.StateAttack(Constants.SkillID_Mar7th00_skill03);
     }
     public Vector2 GetDirInput()
     {
