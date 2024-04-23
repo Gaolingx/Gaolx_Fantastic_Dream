@@ -73,12 +73,16 @@ public class PlayerCtrlWnd : WindowRoot
         {
             InitGamepad(_playerInput);
 
-            ListeningTouchEvts();
             SetCurrentDir();
-            ListeningClickPlayerNormalAtk();
-            ListeningClickPlayerSkill01Atk();
-            ListeningClickPlayerSkill02Atk();
-            ListeningClickPlayerSkill03Atk();
+
+            if (GameRoot.Instance.GetCurrentPlayer() != null)
+            {
+                ListeningTouchEvts();
+                ListeningClickPlayerNormalAtk();
+                ListeningClickPlayerSkill01Atk();
+                ListeningClickPlayerSkill02Atk();
+                ListeningClickPlayerSkill03Atk();
+            }
 
             UpdateSk1CD(delta);
             UpdateSk2CD(delta);
@@ -206,10 +210,7 @@ public class PlayerCtrlWnd : WindowRoot
     //注册触摸事件
     public void ListeningTouchEvts()
     {
-        if (GameRoot.Instance.GetCurrentPlayer() != null)
-        {
-            BattleSys.Instance.SetPlayerMoveDir(currentDir);
-        }
+        BattleSys.Instance.SetPlayerMoveDir(currentDir);
     }
 
     //释放技能
