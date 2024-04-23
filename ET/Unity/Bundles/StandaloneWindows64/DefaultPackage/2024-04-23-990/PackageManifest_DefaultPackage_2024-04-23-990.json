@@ -5,7 +5,7 @@
     "IncludeAssetGUID": false,
     "OutputNameStyle": 1,
     "PackageName": "DefaultPackage",
-    "PackageVersion": "2024-04-13-710",
+    "PackageVersion": "2024-04-23-990",
     "AssetList": [
         {
             "Address": "",
@@ -314,6 +314,14 @@
         {
             "Address": "",
             "AssetPath": "Assets/AssetBundles/Prefabs/GameMain/UIPrefabs/GameRoot/InfoWnd.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 8,
+            "DependIDs": []
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/AssetBundles/Prefabs/GameMain/UIPrefabs/GameRoot/ItemEntityHp.prefab",
             "AssetGUID": "",
             "AssetTags": [],
             "BundleID": 8,
@@ -2046,6 +2054,22 @@
             "AssetTags": [],
             "BundleID": 35,
             "DependIDs": []
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/AssetBundles/Shaders/ShaderVariants/MyShaderVariants.json",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 36,
+            "DependIDs": []
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/AssetBundles/Shaders/ShaderVariants/MyShaderVariants.shadervariants",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 37,
+            "DependIDs": []
         }
     ],
     "BundleList": [
@@ -2436,6 +2460,28 @@
         },
         {
             "BundleName": "assets_assetbundles_uis_resimages_common_window.bundle",
+            "UnityCRC": 0,
+            "FileHash": "00000000000000000000000000000000",
+            "FileCRC": "00000000",
+            "FileSize": 0,
+            "IsRawFile": false,
+            "LoadMethod": 0,
+            "Tags": [],
+            "ReferenceIDs": []
+        },
+        {
+            "BundleName": "assets_assetbundles_shaders_shadervariants.bundle",
+            "UnityCRC": 0,
+            "FileHash": "00000000000000000000000000000000",
+            "FileCRC": "00000000",
+            "FileSize": 0,
+            "IsRawFile": false,
+            "LoadMethod": 0,
+            "Tags": [],
+            "ReferenceIDs": []
+        },
+        {
+            "BundleName": "unityshaders.bundle",
             "UnityCRC": 0,
             "FileHash": "00000000000000000000000000000000",
             "FileCRC": "00000000",
