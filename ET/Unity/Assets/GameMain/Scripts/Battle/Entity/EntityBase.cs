@@ -49,6 +49,8 @@ public abstract class EntityBase
     public Queue<int> comboQue = new Queue<int>();
     public int nextSkillID = 0;
 
+    public SkillCfg curtSkillCfg; //当前正在施放技能的id
+
     //状态切换
     public void StateBorn()
     {
@@ -223,14 +225,19 @@ public abstract class EntityBase
     public void ExitCurtSkill()
     {
         canControl = true;
-        PlayerCanControl();
-        if (comboQue.Count > 0)
+
+        //连招数据更新
+        if (curtSkillCfg.isCombo)
         {
-            nextSkillID = comboQue.Dequeue();
-        }
-        else
-        {
-            nextSkillID = 0;
+            PlayerCanControl();
+            if (comboQue.Count > 0)
+            {
+                nextSkillID = comboQue.Dequeue();
+            }
+            else
+            {
+                nextSkillID = 0;
+            }
         }
         SetAction(Constants.ActionDefault);
     }

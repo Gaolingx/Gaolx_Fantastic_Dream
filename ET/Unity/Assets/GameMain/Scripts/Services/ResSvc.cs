@@ -775,6 +775,9 @@ public class ResSvc : MonoBehaviour
                         case "fx":
                             sc.fx = e.InnerText;
                             break;
+                        case "isCombo":
+                            sc.isCombo = e.InnerText.Equals("1");
+                            break;
                         case "dmgType":
                             if (e.InnerText.Equals("1"))
                             {

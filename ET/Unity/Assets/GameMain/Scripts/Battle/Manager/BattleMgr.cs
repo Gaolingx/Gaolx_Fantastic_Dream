@@ -273,22 +273,34 @@ public class BattleMgr : MonoBehaviour
             double nowAtkTime = timerSvc.GetNowTime();
             if (nowAtkTime - lastAtkTime < Constants.ComboSpace01 && lastAtkTime != 0)
             {
-                comboIndex += 1;
-                entitySelfPlayer.comboQue.Enqueue(comboArr[comboIndex]); //记录连招id
-                lastAtkTime = nowAtkTime;
+                //防止数组越界
+                if (comboArr[comboIndex] != comboArr[comboArr.Length - 1])
+                {
+                    comboIndex += 1;
+                    entitySelfPlayer.comboQue.Enqueue(comboArr[comboIndex]); //记录连招id
+                    lastAtkTime = nowAtkTime;
+                }
+                else
+                {
+                    //如果连招已经注册满，重置
+                    lastAtkTime = 0;
+                    comboIndex = 0;
+                }
             }
         }
         else if (entitySelfPlayer.currentAniState == AniState.Idle ||
             entitySelfPlayer.currentAniState == AniState.Move)
         {
+            comboIndex = 0;
             lastAtkTime = timerSvc.GetNowTime();
-            entitySelfPlayer.StateAttack(Constants.SkillID_Mar7th00_normalAtk01);
+            entitySelfPlayer.StateAttack(comboArr[comboIndex]);
         }
     }
+
     private void PlayerReleaseNormalAtk()
     {
         //PECommon.Log("Click Normal Atk");
-        
+        CalcNormalAtkCombo();
     }
     private void PlayerReleaseSkill01()
     {

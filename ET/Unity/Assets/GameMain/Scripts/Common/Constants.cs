@@ -186,7 +186,7 @@ public class Constants
 
     //连招配置
     //1.普攻连招有效间隔（单位：ms）
-    public const int ComboSpace01 = 500;
+    public const int ComboSpace01 = 2500;
     public static int[] comboArr01 = { 111, 112, 113, 114, 115 };
 
     //EventSystem配置
