@@ -260,11 +260,35 @@ public class BattleMgr : MonoBehaviour
                 break;
         }
     }
+
     //释放相关技能
+    public double lastAtkTime = 0; //上一次释放普攻时间
+    private int[] comboArr = Constants.comboArr01; //普攻连招技能id
+    public int comboIndex = 0; //记录当前要存储的连招的id为第n个
+    private void CalcNormalAtkCombo()
+    {
+        if (entitySelfPlayer.currentAniState == AniState.Attack)
+        {
+            //在500ms以内进行第二次点击，保存点击数据
+            double nowAtkTime = timerSvc.GetNowTime();
+            if (nowAtkTime - lastAtkTime < Constants.ComboSpace01 && lastAtkTime != 0)
+            {
+                comboIndex += 1;
+                entitySelfPlayer.comboQue.Enqueue(comboArr[comboIndex]); //记录连招id
+                lastAtkTime = nowAtkTime;
+            }
+        }
+        else if (entitySelfPlayer.currentAniState == AniState.Idle ||
+            entitySelfPlayer.currentAniState == AniState.Move)
+        {
+            lastAtkTime = timerSvc.GetNowTime();
+            entitySelfPlayer.StateAttack(Constants.SkillID_Mar7th00_normalAtk01);
+        }
+    }
     private void PlayerReleaseNormalAtk()
     {
         //PECommon.Log("Click Normal Atk");
-        entitySelfPlayer.StateAttack(Constants.SkillID_Mar7th00_normalAtk01);
+        
     }
     private void PlayerReleaseSkill01()
     {

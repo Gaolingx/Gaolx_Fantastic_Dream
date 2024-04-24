@@ -184,6 +184,11 @@ public class Constants
     public const int SkillID_Mar7th00_skill03 = 103;
     public const int SkillID_Mar7th00_normalAtk01 = 111;
 
+    //连招配置
+    //1.普攻连招有效间隔（单位：ms）
+    public const int ComboSpace01 = 500;
+    public static int[] comboArr01 = { 111, 112, 113, 114, 115 };
+
     //EventSystem配置
     public const string EventSystemGOName = "EventSystem";
 
