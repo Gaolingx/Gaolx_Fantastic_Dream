@@ -1,6 +1,7 @@
 //功能：逻辑实体基类
 
 using StarterAssets;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
@@ -43,6 +44,10 @@ public abstract class EntityBase
             hp = value;
         }
     }
+
+    //用队列存储连招对应的技能id，当释放完此次普攻后，检测是否存在下一次技能id。
+    public Queue<int> comboQue = new Queue<int>();
+    public int nextSkillID = 0;
 
     //状态切换
     public void StateBorn()
@@ -118,10 +123,7 @@ public abstract class EntityBase
         {
             controller.Dir = dir;
         }
-        if (playerController != null)
-        {
-            PlayerCanControl();
-        }
+
     }
     public virtual void SetAction(int action, bool inputValues = true)
     {
@@ -134,7 +136,7 @@ public abstract class EntityBase
             controller.SetAction(action);
         }
     }
-    
+
     public virtual void SetCFX(string fxName, float destroyTime)
     {
         if (playerController != null)
@@ -214,5 +216,22 @@ public abstract class EntityBase
             return controller.ani.runtimeAnimatorController.animationClips;
         }
         return null;
+    }
+
+    //连招思路：按下普攻时，写入队列。当普通攻击完成后，退出Attack状态时检测，判断存储连招数据的队列中是否有数据，
+    //有则取出一条skillID赋值给nextSkillID。进入Idle状态时候，如果nextSkillID不为零，进入攻击状态，释放下一个技能
+    public void ExitCurtSkill()
+    {
+        canControl = true;
+        PlayerCanControl();
+        if (comboQue.Count > 0)
+        {
+            nextSkillID = comboQue.Dequeue();
+        }
+        else
+        {
+            nextSkillID = 0;
+        }
+        SetAction(Constants.ActionDefault);
     }
 }
