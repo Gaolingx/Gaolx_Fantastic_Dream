@@ -225,11 +225,11 @@ public abstract class EntityBase
     public void ExitCurtSkill()
     {
         canControl = true;
+        PlayerCanControl();
 
         //连招数据更新
         if (curtSkillCfg.isCombo)
         {
-            PlayerCanControl();
             if (comboQue.Count > 0)
             {
                 nextSkillID = comboQue.Dequeue();
