@@ -199,6 +199,17 @@ public class SkillMgr : MonoBehaviour
     {
         SkillCfg skillData = resSvc.GetSkillCfg(skillID);
 
+        //设置技能方向
+        if(entity.GetDirInput() == Vector2.zero)
+        {
+            //搜索最近的怪物
+        }
+        else
+        {
+            //将方向设置到实体类
+            //entity.SetAtkRotation(entity.GetDirInput());
+        }
+
         //设置技能动作
         entity.SetAction(skillData.aniAction);
         //设置特效
@@ -209,11 +220,11 @@ public class SkillMgr : MonoBehaviour
 
         //我们希望当技能施放的时候，移动不生效，直到技能结束
         entity.canControl = false;
-        entity.PlayerCanControl();
+        entity.SetDir(Vector2.zero);
 
         timerSvc.AddTimeTask((int tid) =>
         {
-            entity.SetAniBlend(Constants.State_Mar7th00_Blend_Idle);
+            entity.StateIdle();
             //不要直接在这里设置action，要考虑技能被打断的情况，因此我们需要在FSM中设置
         }, skillData.skillTime);
     }

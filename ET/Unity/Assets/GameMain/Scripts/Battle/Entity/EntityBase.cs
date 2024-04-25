@@ -125,7 +125,10 @@ public abstract class EntityBase
         {
             controller.Dir = dir;
         }
-
+        if (playerController != null)
+        {
+            PlayerCanControl();
+        }
     }
     public virtual void SetAction(int action, bool inputValues = true)
     {
@@ -151,6 +154,17 @@ public abstract class EntityBase
         if (playerController != null)
         {
             playerController.SetSkillMove(move, speed);
+        }
+    }
+    public virtual void SetAtkRotation(Vector2 dir)
+    {
+        if (controller != null)
+        {
+            controller.SetAtkRotationLocal(dir);
+        }
+        if (playerController != null)
+        {
+            playerController.SetAtkRotationLocal(dir);
         }
     }
 

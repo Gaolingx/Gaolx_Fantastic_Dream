@@ -195,6 +195,13 @@ namespace StarterAssets
             }
         }
 
+        public void SetAtkRotationLocal(Vector2 atkDir)
+        {
+            float angle = Vector2.SignedAngle(atkDir, new Vector2(0, 1));
+            Vector3 eulerAngles = new Vector3(0, angle, 0);
+            transform.localEulerAngles = eulerAngles;
+        }
+
         private PlayerInput SetPlayerInput()
         {
             return PlayerInput;
