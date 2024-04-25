@@ -57,7 +57,7 @@ public class NpcCfg : MonoBehaviour
                 Transform_NpcID_Scale = new Vector3(npcData.NPC_Transform_Scale_X, npcData.NPC_Transform_Scale_Y, npcData.NPC_Transform_Scale_Z);
                 break;
             default:
-                Debug.LogError("未成功加载指定类型的NPC，NPC类型：" + NpcType);
+                PECommon.Log("NPC Type dose not exist. NpcType:" + NpcType, PELogType.Error);
                 break;
         }
     }

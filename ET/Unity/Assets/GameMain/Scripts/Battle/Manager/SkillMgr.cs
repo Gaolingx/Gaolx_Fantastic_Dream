@@ -120,7 +120,7 @@ public class SkillMgr : MonoBehaviour
         }
         else
         {
-            PECommon.Log("DamageType dose not exist, DamageType:" + skillCfg.dmgType, PELogType.Error);
+            PECommon.Log("DamageType dose not exist. DamageType:" + skillCfg.dmgType, PELogType.Error);
         }
 
         //最终伤害

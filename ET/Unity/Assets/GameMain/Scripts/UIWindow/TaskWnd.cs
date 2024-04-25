@@ -111,7 +111,7 @@ public class TaskWnd : WindowRoot {
 
     private void ClickTakeBtn(string name)
     {
-        Debug.Log("Name:" + name);
+        Debug.Log("Take Task Name:" + name);
 
         string[] nameArr = name.Split('_');
         int index = int.Parse(nameArr[1]);
