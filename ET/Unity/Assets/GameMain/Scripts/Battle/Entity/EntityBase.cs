@@ -207,22 +207,32 @@ public abstract class EntityBase
         return Vector2.zero;
     }
 
-    public virtual Vector3 GetPlayerPos()
-    {
-        return playerController.transform.position;
-    }
     public virtual Vector3 GetPos()
     {
-        return controller.transform.position;
+        if (controller != null)
+        {
+            return controller.transform.position;
+        }
+        if (playerController != null)
+        {
+            return playerController.transform.position;
+        }
+
+        return Vector3.zero;
     }
 
-    public virtual Transform GetPlayerTrans()
-    {
-        return playerController.transform;
-    }
     public virtual Transform GetTrans()
     {
-        return controller.transform;
+        if (controller != null)
+        {
+            return controller.transform;
+        }
+        if (playerController != null)
+        {
+            return playerController.transform;
+        }
+
+        return null;
     }
 
     public AnimationClip[] GetAniClips()
@@ -232,6 +242,11 @@ public abstract class EntityBase
             return controller.ani.runtimeAnimatorController.animationClips;
         }
         return null;
+    }
+
+    public virtual Vector2 CalcTargetDir()
+    {
+        return Vector2.zero;
     }
 
     //连招思路：按下普攻时，写入队列。当普通攻击完成后，退出Attack状态时检测，判断存储连招数据的队列中是否有数据，

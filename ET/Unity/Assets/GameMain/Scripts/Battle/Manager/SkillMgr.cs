@@ -62,8 +62,8 @@ public class SkillMgr : MonoBehaviour
         {
             EntityMonster target = monsterLst[i];
             //判断怪物与玩家的距离，角度
-            if (InRange(caster.GetPlayerPos(), target.GetPos(), skillActionCfg.radius)
-                && InAngle(caster.GetPlayerTrans(), target.GetPos(), skillActionCfg.angle))
+            if (InRange(caster.GetPos(), target.GetPos(), skillActionCfg.radius)
+                && InAngle(caster.GetTrans(), target.GetPos(), skillActionCfg.angle))
             {
                 //满足所有条件，计算伤害
                 CalcDamage(caster, target, skillCfg, damage);
@@ -203,6 +203,11 @@ public class SkillMgr : MonoBehaviour
         if(entity.GetDirInput() == Vector2.zero)
         {
             //搜索最近的怪物
+            Vector2 dir = entity.CalcTargetDir();
+            if(dir != Vector2.zero)
+            {
+                entity.SetAtkRotation(dir);
+            }
         }
         else
         {
