@@ -33,7 +33,6 @@ public class BattleMgr : MonoBehaviour
         GameObject player = resSvc.LoadPrefab(playerPrefabPath, true);
         if (player != null)
         {
-            Debug.Log(playerPrefabPath + " 预制件加载成功！");
             GameRoot.Instance.SetGameObjectTrans(player, mapData.playerBornPos, mapData.playerBornRote, new Vector3(0.8f, 0.8f, 0.8f));
 
             PlayerData pd = GameRoot.Instance.PlayerData;
@@ -75,10 +74,6 @@ public class BattleMgr : MonoBehaviour
 
             battlePlayer = player;
         }
-        else
-        {
-            Debug.LogError(playerPrefabPath + " 预制件加载失败！");
-        }
     }
 
     private void LoadVirtualCameraInstance(string virtualCameraPrefabPath, MapCfg mapData)
@@ -86,7 +81,6 @@ public class BattleMgr : MonoBehaviour
         GameObject CM_player = resSvc.LoadPrefab(virtualCameraPrefabPath, true);
         if (CM_player != null)
         {
-            Debug.Log(virtualCameraPrefabPath + " 预制件加载成功！");
 
             Vector3 CM_player_Pos = mapData.mainCamPos;
             Vector3 CM_player_Rote = mapData.mainCamRote;
@@ -98,10 +92,6 @@ public class BattleMgr : MonoBehaviour
 
             cinemachineVirtualCamera.m_Lens.FarClipPlane = Constants.CinemachineVirtualCameraFarClipPlane;
             cinemachineVirtualCamera.m_Lens.NearClipPlane = Constants.CinemachineVirtualCameraNearClipPlane;
-        }
-        else
-        {
-            Debug.LogError(virtualCameraPrefabPath + " 预制件加载失败！");
         }
     }
 

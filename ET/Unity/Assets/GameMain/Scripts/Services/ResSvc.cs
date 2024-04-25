@@ -119,6 +119,7 @@ public class ResSvc : MonoBehaviour
         //prefab加载完成后的实例化
         go = prefabHandle.InstantiateSync();
 
+        PECommon.Log("Prefab load. name:" + go.name + ". path:" + path);
         return go;
     }
 

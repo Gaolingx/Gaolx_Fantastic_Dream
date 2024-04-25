@@ -88,7 +88,6 @@ public class MainCitySys : SystemRoot
         GameObject player = resSvc.LoadPrefab(playerPrefabPath, true);
         if (player != null)
         {
-            Debug.Log(playerPrefabPath + " 预制件加载成功！");
             //初始化玩家位置
             GameRoot.Instance.SetGameObjectTrans(player, mapData.playerBornPos, mapData.playerBornRote, new Vector3(0.8f, 0.8f, 0.8f));
 
@@ -117,10 +116,6 @@ public class MainCitySys : SystemRoot
 
             mainCityPlayer = player;
         }
-        else
-        {
-            Debug.LogError(playerPrefabPath + " 预制件加载失败！");
-        }
     }
 
     private void LoadVirtualCameraInstance(string virtualCameraPrefabPath, MapCfg mapData)
@@ -130,7 +125,7 @@ public class MainCitySys : SystemRoot
         GameObject CM_player = resSvc.LoadPrefab(virtualCameraPrefabPath, true);
         if (CM_player != null)
         {
-            Debug.Log(virtualCameraPrefabPath + " 预制件加载成功！");
+
             //设置实例化对象时候的位置、旋转
             Vector3 CM_player_Pos = mapData.mainCamPos;
             Vector3 CM_player_Rote = mapData.mainCamRote;
@@ -147,10 +142,6 @@ public class MainCitySys : SystemRoot
             //通过读取配置表设置CinemachineVirtualCamera相裁剪平面
             cinemachineVirtualCamera.m_Lens.FarClipPlane = Constants.CinemachineVirtualCameraFarClipPlane;
             cinemachineVirtualCamera.m_Lens.NearClipPlane = Constants.CinemachineVirtualCameraNearClipPlane;
-        }
-        else
-        {
-            Debug.LogError(virtualCameraPrefabPath + " 预制件加载失败！");
         }
     }
 

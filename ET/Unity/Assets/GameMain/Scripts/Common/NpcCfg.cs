@@ -69,7 +69,6 @@ public class NpcCfg : MonoBehaviour
         GameObject NPC_GO = resSvc.LoadPrefab(ResPath, true);
         GameRoot.Instance.SetGameObjectTrans(NPC_GO.gameObject, Transform_NpcID_Position, Transform_NpcID_Rotation, Transform_NpcID_Scale);
 
-        Debug.Log("NPC预制件加载成功！" + " 类型：" + NpcType + " 路径：" + ResPath);
         return NPC_GO;
 
     }
