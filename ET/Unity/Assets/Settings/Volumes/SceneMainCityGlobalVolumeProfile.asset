@@ -205,7 +205,7 @@ MonoBehaviour:
   active: 1
   Intensity:
     m_OverrideState: 1
-    m_Value: 0.75
+    m_Value: 1
   Threshold:
     m_OverrideState: 0
     m_Value: 0.7
@@ -217,7 +217,7 @@ MonoBehaviour:
     m_Value: 2
   CharactersOnly:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   BlurFirstRTWidth:
     m_OverrideState: 0
     m_Value: 310

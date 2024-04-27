@@ -359,14 +359,14 @@ Material:
     - _SrcBlendModeAlphaOverlay: 1
     - _SrcBlendModeColor: 1
     - _SrcBlendModeColorOverlay: 1
-    - _StencilComp: 0
+    - _StencilComp: 8
     - _StencilCompOverlay: 0
     - _StencilFailOp: 0
-    - _StencilPassOp: 0
+    - _StencilPassOp: 2
     - _StencilReadMask: 255
-    - _StencilRef: 0
+    - _StencilRef: 1
     - _StencilRefOverlay: 0
-    - _StencilWriteMask: 255
+    - _StencilWriteMask: 1
     - _StencilZFailOp: 0
     - _StockingsTextureUsage: 0.1
     - _StockingsTransitionHardness: 0.4
