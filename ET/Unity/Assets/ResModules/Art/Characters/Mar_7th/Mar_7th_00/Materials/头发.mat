@@ -159,7 +159,7 @@ Material:
     m_Floats:
     - _Alpha: 1
     - _AlphaClip: 0
-    - _AlphaTestThreshold: 0.333
+    - _AlphaTestThreshold: 0
     - _AlphaToMask: 0
     - _AnisotropySpecularToggle: 0
     - _Area: 2

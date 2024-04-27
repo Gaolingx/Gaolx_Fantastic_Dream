@@ -19,11 +19,8 @@ Material:
   - _CUSTOMRIMSHADOWVARENUM_DISABLE
   - _CUSTOMSPECULARVARENUM_DISABLE
   - _CUSTOM_RAMP_MAPPING
-  - _ENABLE_OUTLINE
   - _FAKE_OUTLINE_ON
   - _OUTLINENORMALCHANNEL_NORMAL
-  - _RIM_LIGHTING_ON
-  - _SPECULAR_ON
   - _USE_RAMP_COLOR_ON
   m_InvalidKeywords:
   - _AREA_NONE
@@ -157,7 +154,7 @@ Material:
     m_Floats:
     - _Alpha: 0.5
     - _AlphaClip: 0
-    - _AlphaTestThreshold: 0.333
+    - _AlphaTestThreshold: 0
     - _AlphaToMask: 0
     - _AnisotropySpecularToggle: 0
     - _Area: 0
@@ -200,8 +197,8 @@ Material:
     - _EMISSION_WEIGHT: 1
     - _EmissionIntensity: 1
     - _EmissionMixBaseColor: 1
-    - _EnableOutlineToggle: 1
-    - _EnableSpecular: 1
+    - _EnableOutlineToggle: 0
+    - _EnableSpecular: 0
     - _EnvironmentReflections: 1
     - _ExCheekIntensity: 0
     - _ExShadowIntensity: 0
@@ -369,7 +366,7 @@ Material:
     - _UseLutMapToggle: 0
     - _UseNormalMap: 0
     - _UseRampColor: 1
-    - _UseRimLight: 1
+    - _UseRimLight: 0
     - _UseRimShadow: 0
     - _UseStockings: 0
     - _WorkflowMode: 1
