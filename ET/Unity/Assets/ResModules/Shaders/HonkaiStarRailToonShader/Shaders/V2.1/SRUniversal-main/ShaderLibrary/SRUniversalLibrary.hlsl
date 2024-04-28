@@ -324,7 +324,7 @@ half GetMetalIndex()
 }
 
 // LutMap
-half3 SampleLUTMap(int materialId, int renderType)
+half4 SampleLUTMap(int materialId, int renderType)
 {
     return _LUTMap.Load(int3(materialId, renderType, 0));
 }
@@ -357,6 +357,14 @@ half3 GetLUTMapOutlineColor(int materialId)
 half3 GetLUTMapRimLightColor(int materialId)
 {
     return SampleLUTMap((int)GetRampLineIndex(materialId), 3).rgb;
+}
+half GetLUTMapRimLightEdgeSoftness(int materialId)
+{
+    return SampleLUTMap((int)GetRampLineIndex(materialId), 4).g;
+}
+half GetLUTMapRimLightDark(int materialId)
+{
+    return SampleLUTMap((int)GetRampLineIndex(materialId), 4).b;
 }
 
 // LutMap RimShadow
@@ -428,7 +436,8 @@ RimLightAreaData GetRimLightAreaData(half materialId, half3 rimLightColor)
         _RimWidth7,
     };
     
-    float overlayWidth = overlayWidths[GetRampLineIndex(materialId)];
+    float overlayWidth = 0;
+    overlayWidth = overlayWidths[GetRampLineIndex(materialId)];
 
     const float rimDarks[8] = {
         _RimDark0,
@@ -441,7 +450,12 @@ RimLightAreaData GetRimLightAreaData(half materialId, half3 rimLightColor)
         _RimDark7,
     };
     
-    float overlayDark = rimDarks[GetRampLineIndex(materialId)];
+    float overlayDark = 0;
+    #if _USE_LUT_MAP
+        overlayDark = GetLUTMapRimLightDark(materialId);
+    #else
+        overlayDark = rimDarks[GetRampLineIndex(materialId)];
+    #endif
 
     const float rimEdgeSoftnesses[8] = {
         _RimEdgeSoftness0,
@@ -454,7 +468,12 @@ RimLightAreaData GetRimLightAreaData(half materialId, half3 rimLightColor)
         _RimEdgeSoftness7,
     };
     
-    float overlayEdgeSoftness = rimEdgeSoftnesses[GetRampLineIndex(materialId)];
+    float overlayEdgeSoftness = 0;
+    #if _USE_LUT_MAP
+        overlayEdgeSoftness = GetLUTMapRimLightEdgeSoftness(materialId);
+    #else
+        overlayEdgeSoftness = rimEdgeSoftnesses[GetRampLineIndex(materialId)];
+    #endif
 
     float3 finalRimColor = 0;
     #ifdef _CUSTOMRIMLIGHTVARENUM_DISABLE
