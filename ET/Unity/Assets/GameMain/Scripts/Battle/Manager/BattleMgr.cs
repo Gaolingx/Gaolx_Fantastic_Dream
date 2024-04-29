@@ -67,7 +67,7 @@ public class BattleMgr : MonoBehaviour
 
             controller.MoveSpeed = Constants.PlayerMoveSpeed;
             controller.SprintSpeed = Constants.PlayerSprintSpeed;
-            controller.SetAniBlend(Constants.State_Mar7th00_Blend_Idle);
+            controller.SetMoveMode(false);
             entitySelfPlayer.playerController = controller;
 
             entitySelfPlayer.playerInput = starterAssetsInputs;
@@ -215,10 +215,14 @@ public class BattleMgr : MonoBehaviour
     }
 
     #region 技能施放与角色控制
-    //设置玩家移动方向
     public void SetSelfPlayerMoveDir(Vector2 dir)
     {
+        //设置玩家移动
         //PECommon.Log(dir.ToString());
+        if (entitySelfPlayer.CanControl == false)
+        {
+            return;
+        }
 
         if (dir == Vector2.zero)
         {
@@ -227,6 +231,7 @@ public class BattleMgr : MonoBehaviour
         else
         {
             entitySelfPlayer.StateMove();
+            entitySelfPlayer.SetDir(dir);
         }
     }
     public void ReqPlayerReleaseSkill(int skillIndex)

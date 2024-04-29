@@ -3,7 +3,7 @@
 	<item ID="101">
 		<skillName>突袭</skillName>
 		<cdTime>6000</cdTime>
-		<skillTime>900</skillTime>
+		<skillTime>1800</skillTime>
 		<aniAction>1</aniAction>
 		<fx>dagger_skill1</fx>
 		<isCombo>0</isCombo>
@@ -15,7 +15,7 @@
 	<item ID="102">
 		<skillName>穿刺</skillName>
 		<cdTime>8000</cdTime>
-		<skillTime>1400</skillTime>
+		<skillTime>2400</skillTime>
 		<aniAction>2</aniAction>
 		<fx>dagger_skill2</fx>
 		<isCombo>0</isCombo>
@@ -27,7 +27,7 @@
 	<item ID="103">
 		<skillName>旋风</skillName>
 		<cdTime>10000</cdTime>
-		<skillTime>1600</skillTime>
+		<skillTime>3200</skillTime>
 		<aniAction>3</aniAction>
 		<fx>dagger_skill3</fx>
 		<isCombo>0</isCombo>
@@ -39,7 +39,7 @@
 	<item ID="111">
 		<skillName>普攻1</skillName>
 		<cdTime>0</cdTime>
-		<skillTime>660</skillTime>
+		<skillTime>1320</skillTime>
 		<aniAction>11</aniAction>
 		<fx>dagger_atk1</fx>
 		<isCombo>1</isCombo>
@@ -51,7 +51,7 @@
 	<item ID="112">
 		<skillName>普攻2</skillName>
 		<cdTime>0</cdTime>
-		<skillTime>860</skillTime>
+		<skillTime>1720</skillTime>
 		<aniAction>12</aniAction>
 		<fx>dagger_atk2</fx>
 		<isCombo>1</isCombo>
@@ -63,7 +63,7 @@
 	<item ID="113">
 		<skillName>普攻3</skillName>
 		<cdTime>0</cdTime>
-		<skillTime>730</skillTime>
+		<skillTime>1460</skillTime>
 		<aniAction>13</aniAction>
 		<fx>dagger_atk3</fx>
 		<isCombo>1</isCombo>
@@ -75,7 +75,7 @@
 	<item ID="114">
 		<skillName>普攻4</skillName>
 		<cdTime>0</cdTime>
-		<skillTime>860</skillTime>
+		<skillTime>1720</skillTime>
 		<aniAction>14</aniAction>
 		<fx>dagger_atk4</fx>
 		<isCombo>1</isCombo>
@@ -87,7 +87,7 @@
 	<item ID="115">
 		<skillName>普攻5</skillName>
 		<cdTime>0</cdTime>
-		<skillTime>800</skillTime>
+		<skillTime>1600</skillTime>
 		<aniAction>15</aniAction>
 		<fx>dagger_atk5</fx>
 		<isCombo>1</isCombo>

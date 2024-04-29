@@ -29,13 +29,12 @@ public class StateIdle : IState
             {
                 //玩家实体，且在UI中有操作
                 entity.StateMove();
-                entity.SetAniBlend(Constants.State_Mar7th00_Blend_Move);
                 entity.SetDir(entity.GetDirInput());
             }
             else
             {
                 //怪物实体，进入Idle状态
-                entity.SetAniBlend(Constants.State_Mar7th00_Blend_Idle);
+                entity.SetAniBlend(Constants.BlendIdle);
             }
             //PECommon.Log("StateIdle:Process State.");
         }

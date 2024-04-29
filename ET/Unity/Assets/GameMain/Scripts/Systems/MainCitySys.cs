@@ -110,9 +110,9 @@ public class MainCitySys : SystemRoot
             starterAssetsInputs = playerInput.GetComponent<StarterAssetsInputs>();
             controller.StarterAssetsInputs = starterAssetsInputs;
 
+            controller.SetMoveMode(true);
             controller.MoveSpeed = Constants.PlayerMoveSpeed;
             controller.SprintSpeed = Constants.PlayerSprintSpeed;
-            controller.SetAniBlend(Constants.State_Mar7th00_Blend_Idle);
 
             mainCityPlayer = player;
         }

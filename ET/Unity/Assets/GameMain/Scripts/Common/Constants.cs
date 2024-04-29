@@ -198,6 +198,4 @@ public class Constants
     public const int StateBornMonsterDurationTime = 500;
     public const int StateDieMonsterAnimTime = 5000;
 
-    //Attack Effect≈‰÷√
-    public const bool IsSetAtkRotation = false;
 }

@@ -20,10 +20,9 @@ public abstract class EntityBase
 
     private string name;
     public string Name { get { return name; } set { name = value; } }
-    private InputActionAsset _inputActionAsset;
-    private InputActionMap _player;
 
-    public bool canControl = true;
+    private bool canControl = true;
+    public bool CanControl { get { return canControl; } }
 
     private BattleProps props;
     public BattleProps Props { get { return props; } protected set { props = value; } } //只能在继承他的子类中修改
@@ -89,21 +88,9 @@ public abstract class EntityBase
         }
     }
 
-    public void PlayerCanControl()
+    public void PlayerCanControl(bool cancontrol = true)
     {
-        _inputActionAsset = GameRoot.Instance.GetEventSystemObject(Constants.EventSystemGOName).GetComponent<InputSystemUIInputModule>().actionsAsset;
-        _player = _inputActionAsset.FindActionMap("Player");
-        if (_player != null)
-        {
-            if (canControl != true)
-            {
-                _player.Disable();
-            }
-            else
-            {
-                _player.Enable();
-            }
-        }
+        canControl = cancontrol;
     }
 
     public virtual void SetBattleProps(BattleProps props)
@@ -127,7 +114,7 @@ public abstract class EntityBase
         }
         if (playerController != null)
         {
-            PlayerCanControl();
+            playerController.SetDir(dir);
         }
     }
     public virtual void SetAction(int action, bool inputValues = true)
@@ -260,8 +247,7 @@ public abstract class EntityBase
     //有则取出一条skillID赋值给nextSkillID。进入Idle状态时候，如果nextSkillID不为零，进入攻击状态，释放下一个技能
     public void ExitCurtSkill()
     {
-        canControl = true;
-        PlayerCanControl();
+        PlayerCanControl(true);
 
         //连招数据更新
         if (curtSkillCfg.isCombo)

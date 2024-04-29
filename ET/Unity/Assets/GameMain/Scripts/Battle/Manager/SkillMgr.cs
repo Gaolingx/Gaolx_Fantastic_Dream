@@ -9,6 +9,8 @@ public class SkillMgr : MonoBehaviour
     private ResSvc resSvc;
     private TimerSvc timerSvc;
 
+    public bool isSetAtkRotation = false;
+
     public void Init()
     {
         resSvc = ResSvc.Instance;
@@ -212,7 +214,7 @@ public class SkillMgr : MonoBehaviour
         else
         {
             //将方向设置到实体类
-            if (Constants.IsSetAtkRotation)
+            if (isSetAtkRotation)
             {
                 entity.SetAtkRotation(entity.GetDirInput());
             }
@@ -227,7 +229,7 @@ public class SkillMgr : MonoBehaviour
         CalcSkillMove(entity, skillData);
 
         //我们希望当技能施放的时候，移动不生效，直到技能结束
-        entity.canControl = false;
+        entity.PlayerCanControl(false);
         entity.SetDir(Vector2.zero);
 
         timerSvc.AddTimeTask((int tid) =>

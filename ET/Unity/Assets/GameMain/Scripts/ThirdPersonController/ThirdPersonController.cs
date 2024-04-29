@@ -96,6 +96,10 @@ namespace StarterAssets
         [SerializeField]
         private int targetPlayerState = 0;
 
+        [Header("Move Mode")]
+        [SerializeField]
+        private bool MoveModeInput = true;
+
         [Header("Player FX")]
         public GameObject daggerskill1fx;
         public GameObject daggerskill2fx;
@@ -118,6 +122,7 @@ namespace StarterAssets
         private float _targetCameraDistance;
 
         // player
+        private Vector2 _moveVal;
         private float _speed;
         private float _animationBlend;
         private float _targetRotation = 0.0f;
@@ -168,6 +173,23 @@ namespace StarterAssets
 #else
                 return false;
 #endif
+            }
+        }
+
+        /// <summary>
+        /// 移动模式切换
+        /// </summary>
+        /// <param name="moveMode">默认使用StarterAssetsInputs</param>
+        public void SetMoveMode(bool moveMode = true)
+        {
+            MoveModeInput = moveMode;
+        }
+
+        public void SetDir(Vector2 move)
+        {
+            if (MoveModeInput == false)
+            {
+                _moveVal = move;
             }
         }
 
@@ -223,29 +245,6 @@ namespace StarterAssets
             }
         }
 
-        private void PlayerStateInController()
-        {
-            switch (targetPlayerState)
-            {
-                case Constants.State_Mar7th00_Blend_Idle: //Idle
-                    SetMove();
-                    Crouch();
-                    JumpAndGravity();
-                    SetAtkSkill();
-                    break;
-                case Constants.State_Mar7th00_Blend_Move: //Move
-                    SetMove();
-                    Crouch();
-                    JumpAndGravity();
-                    SetAtkSkill();
-                    break;
-                case Constants.State_Mar7th00_Blend_CantControl: //can't Control
-                    break;
-                default:
-                    break;
-            }
-        }
-
         #region MonoBehaviour
         private void ClassAwake()
         {
@@ -289,7 +288,10 @@ namespace StarterAssets
             _hasAnimator = TryGetComponent(out _animator);
 
             GroundedCheck();
-            PlayerStateInController();
+            SetMove();
+            Crouch();
+            JumpAndGravity();
+            SetAtkSkill();
         }
         private void ClassLateUpdate()
         {
@@ -387,8 +389,13 @@ namespace StarterAssets
 
         }
 
-        private void Move(bool isSkillMove = false)
+        private void Move(bool canMove = true, bool isSkillMove = false)
         {
+            if (MoveModeInput == true)
+            {
+                _moveVal = _input.move;
+            }
+            
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed;
             if (isSkillMove)
@@ -404,13 +411,13 @@ namespace StarterAssets
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is no input, set the target speed to 0
-            if (_input.move == Vector2.zero) targetSpeed = 0.0f;
+            if (_moveVal == Vector2.zero) targetSpeed = 0.0f;
 
             // a reference to the players current horizontal velocity
             float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
 
             float speedOffset = 0.1f;
-            float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
+            float inputMagnitude = _input.analogMovement ? _moveVal.magnitude : 1f;
 
             // accelerate or decelerate to target speed
             if (currentHorizontalSpeed < targetSpeed - speedOffset ||
@@ -433,11 +440,11 @@ namespace StarterAssets
             if (_animationBlend < 0.01f) _animationBlend = 0f;
 
             // normalise input direction
-            Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
+            Vector3 inputDirection = new Vector3(_moveVal.x, 0.0f, _moveVal.y).normalized;
 
             // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is a move input rotate player when the player is moving
-            if (_input.move != Vector2.zero)
+            if (_moveVal != Vector2.zero)
             {
                 _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
                                   _mainCamera.transform.eulerAngles.y;
