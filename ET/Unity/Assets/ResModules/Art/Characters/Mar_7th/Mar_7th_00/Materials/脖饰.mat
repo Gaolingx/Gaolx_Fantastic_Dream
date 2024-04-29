@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8740272256238241176
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 7
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -27,12 +14,15 @@ Material:
   m_ValidKeywords:
   - _AREA_LOWERBODY
   - _AUTO_Brightness_ON
-  - _CUSTOMBLOOMCOLORVARENUM_DISABLE
+  - _CUSTOMBLOOMCOLORVARENUM_TINT
   - _CUSTOMBLOOMVARENUM_DISABLE
   - _CUSTOMOUTLINEVARENUM_MULTIPLY
-  - _CUSTOMRIMLIGHTVARENUM_DISABLE
+  - _CUSTOMRIMLIGHTCOLORVARENUM_DISABLE
+  - _CUSTOMRIMLIGHTVARENUM_OVERLAY
+  - _CUSTOMRIMSHADOWCOLORVARENUM_DISABLE
   - _CUSTOMRIMSHADOWVARENUM_DISABLE
-  - _CUSTOMSPECULARVARENUM_DISABLE
+  - _CUSTOMSPECULARCOLORVARENUM_DISABLE
+  - _CUSTOMSPECULARVARENUM_OVERLAY
   - _CUSTOM_RAMP_MAPPING
   - _DayTime_MANUAL_ON
   - _ENABLE_OUTLINE
@@ -173,12 +163,12 @@ Material:
     m_Floats:
     - _Alpha: 1
     - _AlphaClip: 0
-    - _AlphaTestThreshold: 0
+    - _AlphaTestThreshold: 0.1
     - _AlphaToMask: 0
     - _AnisotropySpecularToggle: 0
     - _Area: 4
     - _AutoBrightnessOffset: 0
-    - _AutoBrightnessThresholdMax: 0.65
+    - _AutoBrightnessThresholdMax: 0.7
     - _AutoBrightnessThresholdMin: 0.4
     - _BASE_COLOR_WEIGHT: 1
     - _BUMP_MAP_STRENGTH: 0.3
@@ -195,18 +185,22 @@ Material:
     - _ColorSaturation: 1
     - _Cull: 2
     - _CullMode: 0
-    - _CustomBloomColorVarEnum: 0
+    - _CustomBloomColorVarEnum: 1
     - _CustomBloomVarEnum: 0
     - _CustomOutlineVarEnum: 1
     - _CustomRampMappingToggle: 1
-    - _CustomRimLightVarEnum: 0
+    - _CustomRimLightColorVarEnum: 0
+    - _CustomRimLightVarEnum: 2
+    - _CustomRimShadowColorVarEnum: 0
     - _CustomRimShadowVarEnum: 0
-    - _CustomSpecularVarEnum: 0
+    - _CustomSpecularColorVarEnum: 0
+    - _CustomSpecularVarEnum: 2
     - _Cutoff: 0.5
     - _DayTime: 12
     - _DayTimeManualON: 1
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
+    - _DitherAlpha: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _DstBlendModeAlpha: 0
@@ -215,7 +209,8 @@ Material:
     - _DstBlendModeColorOverlay: 0
     - _EMISSION_WEIGHT: 1
     - _EmissionIntensity: 1
-    - _EmissionMixBaseColor: 1
+    - _EmissionMixBaseColorFac: 1
+    - _EmissionThreshold: 0.1
     - _EnableOutlineToggle: 1
     - _EnableSpecular: 1
     - _EnvironmentReflections: 1
@@ -247,6 +242,7 @@ Material:
     - _ModelScale: 1
     - _OcclusionStrength: 1
     - _OutlineNormalChannel: 0
+    - _OutlineUseLutMapToggle: 0
     - _OutlineWidth: 0.0035
     - _OutlineWidthMax: 30
     - _OutlineWidthMin: 2
@@ -309,7 +305,7 @@ Material:
     - _RimThresholdMax: 0.9
     - _RimThresholdMin: 0.6
     - _RimWidth: 1
-    - _RimWidth0: 0.5
+    - _RimWidth0: 1
     - _RimWidth1: 1
     - _RimWidth2: 1
     - _RimWidth3: 1
@@ -403,7 +399,7 @@ Material:
     - _BASE_COLOR: {r: 0.8, g: 0.8, b: 0.8, a: 1}
     - _BackFaceTintColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColor: {r: 0.9063317, g: 0.9063317, b: 0.9063317, a: 1}
-    - _BloomColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BloomColor: {r: 0.99215686, g: 0.8352941, b: 1, a: 1}
     - _BloomColor0: {r: 1, g: 1, b: 1, a: 1}
     - _BloomColor1: {r: 1, g: 1, b: 1, a: 1}
     - _BloomColor2: {r: 1, g: 1, b: 1, a: 1}
@@ -417,6 +413,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EMISSION_COLOR: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionPrevPassColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionTintColor: {r: 1, g: 1, b: 1, a: 1}
     - _ExCheekColor: {r: 1, g: 1, b: 1, a: 1}
     - _ExEyeColor: {r: 1, g: 1, b: 1, a: 1}
@@ -474,3 +471,16 @@ Material:
     - _StockingsTransitionColor: {r: 0.36038098, g: 0.24298596, b: 0.35813096, a: 1}
     - _UpperBodyColorMapColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
+--- !u!114 &7646009617120622598
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skybox : MonoBehaviour
+public class SkyboxRotation : MonoBehaviour
 {
     public float Skyboxspeed;
     // Start is called before the first frame update

@@ -15,12 +15,18 @@ Material:
   - _CUSTOMBLOOMCOLORVARENUM_DISABLE
   - _CUSTOMBLOOMVARENUM_DISABLE
   - _CUSTOMOUTLINEVARENUM_DISABLE
+  - _CUSTOMRIMLIGHTCOLORVARENUM_DISABLE
   - _CUSTOMRIMLIGHTVARENUM_DISABLE
+  - _CUSTOMRIMSHADOWCOLORVARENUM_DISABLE
   - _CUSTOMRIMSHADOWVARENUM_DISABLE
+  - _CUSTOMSPECULARCOLORVARENUM_DISABLE
   - _CUSTOMSPECULARVARENUM_DISABLE
   - _CUSTOM_RAMP_MAPPING
+  - _ENABLE_OUTLINE
   - _FAKE_OUTLINE_ON
   - _OUTLINENORMALCHANNEL_NORMAL
+  - _RIM_LIGHTING_ON
+  - _SPECULAR_ON
   - _USE_RAMP_COLOR_ON
   m_InvalidKeywords:
   - _AREA_NONE
@@ -154,7 +160,7 @@ Material:
     m_Floats:
     - _Alpha: 0.5
     - _AlphaClip: 0
-    - _AlphaTestThreshold: 0
+    - _AlphaTestThreshold: 0.1
     - _AlphaToMask: 0
     - _AnisotropySpecularToggle: 0
     - _Area: 0
@@ -180,14 +186,18 @@ Material:
     - _CustomBloomVarEnum: 0
     - _CustomOutlineVarEnum: 0
     - _CustomRampMappingToggle: 1
+    - _CustomRimLightColorVarEnum: 0
     - _CustomRimLightVarEnum: 0
+    - _CustomRimShadowColorVarEnum: 0
     - _CustomRimShadowVarEnum: 0
+    - _CustomSpecularColorVarEnum: 0
     - _CustomSpecularVarEnum: 0
     - _Cutoff: 0.5
     - _DayTime: 12
     - _DayTimeManualON: 0
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
+    - _DitherAlpha: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _DstBlendModeAlpha: 0
@@ -196,9 +206,10 @@ Material:
     - _DstBlendModeColorOverlay: 0
     - _EMISSION_WEIGHT: 1
     - _EmissionIntensity: 1
-    - _EmissionMixBaseColor: 1
-    - _EnableOutlineToggle: 0
-    - _EnableSpecular: 0
+    - _EmissionMixBaseColorFac: 1
+    - _EmissionThreshold: 0.1
+    - _EnableOutlineToggle: 1
+    - _EnableSpecular: 1
     - _EnvironmentReflections: 1
     - _ExCheekIntensity: 0
     - _ExShadowIntensity: 0
@@ -228,6 +239,7 @@ Material:
     - _ModelScale: 1
     - _OcclusionStrength: 1
     - _OutlineNormalChannel: 0
+    - _OutlineUseLutMapToggle: 0
     - _OutlineWidth: 0.0035
     - _OutlineWidthMax: 30
     - _OutlineWidthMin: 2
@@ -290,7 +302,7 @@ Material:
     - _RimThresholdMax: 0.9
     - _RimThresholdMin: 0.6
     - _RimWidth: 1
-    - _RimWidth0: 0.5
+    - _RimWidth0: 1
     - _RimWidth1: 1
     - _RimWidth2: 1
     - _RimWidth3: 1
@@ -338,7 +350,7 @@ Material:
     - _SrcBlendAlpha: 1
     - _SrcBlendModeAlpha: 1
     - _SrcBlendModeAlphaOverlay: 1
-    - _SrcBlendModeColor: 5
+    - _SrcBlendModeColor: 7
     - _SrcBlendModeColorOverlay: 1
     - _StencilComp: 0
     - _StencilCompOverlay: 0
@@ -366,11 +378,11 @@ Material:
     - _UseLutMapToggle: 0
     - _UseNormalMap: 0
     - _UseRampColor: 1
-    - _UseRimLight: 0
+    - _UseRimLight: 1
     - _UseRimShadow: 0
     - _UseStockings: 0
     - _WorkflowMode: 1
-    - _ZWrite: 0
+    - _ZWrite: 1
     - _mmBloomIntensity0: 0
     - _mmBloomIntensity1: 0
     - _mmBloomIntensity2: 0
@@ -398,6 +410,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EMISSION_COLOR: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionPrevPassColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionTintColor: {r: 1, g: 1, b: 1, a: 1}
     - _ExCheekColor: {r: 1, g: 1, b: 1, a: 1}
     - _ExEyeColor: {r: 1, g: 1, b: 1, a: 1}
@@ -455,7 +468,7 @@ Material:
     - _StockingsTransitionColor: {r: 0.36038098, g: 0.24298596, b: 0.35813096, a: 1}
     - _UpperBodyColorMapColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &4267443318814040388
+--- !u!114 &843207192871358642
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
