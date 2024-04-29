@@ -47,6 +47,7 @@ public class EntityPlayer : EntityBase
             if (i == 0)
             {
                 dis = Vector3.Distance(self, target); //玩家自己与第一个怪物的距离
+                targetMonster = lst[0];
             }
             else
             {

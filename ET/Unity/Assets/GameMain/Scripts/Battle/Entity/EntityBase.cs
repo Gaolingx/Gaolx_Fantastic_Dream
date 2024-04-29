@@ -156,11 +156,18 @@ public abstract class EntityBase
             playerController.SetSkillMove(move, speed);
         }
     }
-    public virtual void SetAtkRotation(Vector2 dir)
+    public virtual void SetAtkRotation(Vector2 dir, bool isOffset = false) //¿¼ÂÇÉãÏñ»úÆ«ÒÆ
     {
         if (controller != null)
         {
-            controller.SetAtkRotationLocal(dir);
+            if (isOffset)
+            {
+                controller.SetAtkRotationCam(dir);
+            }
+            else
+            {
+                controller.SetAtkRotationLocal(dir);
+            }
         }
         if (playerController != null)
         {

@@ -200,11 +200,11 @@ public class SkillMgr : MonoBehaviour
         SkillCfg skillData = resSvc.GetSkillCfg(skillID);
 
         //设置技能方向
-        if(entity.GetDirInput() == Vector2.zero)
+        if (entity.GetDirInput() == Vector2.zero)
         {
             //搜索最近的怪物
             Vector2 dir = entity.CalcTargetDir();
-            if(dir != Vector2.zero)
+            if (dir != Vector2.zero)
             {
                 entity.SetAtkRotation(dir);
             }
@@ -212,7 +212,10 @@ public class SkillMgr : MonoBehaviour
         else
         {
             //将方向设置到实体类
-            //entity.SetAtkRotation(entity.GetDirInput());
+            if (Constants.IsSetAtkRotation)
+            {
+                entity.SetAtkRotation(entity.GetDirInput());
+            }
         }
 
         //设置技能动作
@@ -245,7 +248,8 @@ public class SkillMgr : MonoBehaviour
             if (sum > 0)
             {
                 //延迟执行SkillMove
-                timerSvc.AddTimeTask((int tid) => {
+                timerSvc.AddTimeTask((int tid) =>
+                {
                     entity.SetSkillMoveState(true, speed);
                 }, sum);
             }
@@ -256,7 +260,8 @@ public class SkillMgr : MonoBehaviour
 
             sum += skillMoveCfg.moveTime; //同理，累加技能移动时间
             //延迟关闭SkillMove
-            timerSvc.AddTimeTask((int tid) => {
+            timerSvc.AddTimeTask((int tid) =>
+            {
                 entity.SetSkillMoveState(false);
             }, sum);
         }
