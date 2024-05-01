@@ -5,37 +5,29 @@ using UnityEngine.UI;
 
 public class FpsWnd : WindowRoot
 {
-    public GameObject FpsWindow;
-    public GameObject FpsWindowScript;
-    public Button ShowDebugInfoBtn;
+    public Transform FpsWindowScript;
 
+    private bool _isActive = false;
     protected override void InitWnd()
     {
         base.InitWnd();
 
     }
-    public void ClickShowDebugInfoBtn()
+    public void ClickShowDebugInfoBtn(bool active = true)
     {
-
-        if(FpsWindowScript.activeSelf == true)
-        {
-            SetFpsWindowScriptActive(false);
-        }
-        else
-        {
-            SetFpsWindowScriptActive();
-        }
+        _isActive = active;
+        SetFpsWindowScriptActive();
     }
 
-    private void SetFpsWindowScriptActive(bool isFpsWndActive = true)
+    private void SetFpsWindowScriptActive()
     {
-        if (isFpsWndActive)
+        if (_isActive)
         {
-            FpsWindowScript.SetActive(true);
+            FpsWindowScript.gameObject.SetActive(true);
         }
         else
         {
-            FpsWindowScript.SetActive(false);
+            FpsWindowScript.gameObject.SetActive(false);
         }
     }
 }

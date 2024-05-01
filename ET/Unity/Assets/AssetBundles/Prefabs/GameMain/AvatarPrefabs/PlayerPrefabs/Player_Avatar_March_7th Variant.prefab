@@ -4380,10 +4380,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7066c5f152c157f40912f73251590fda,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5480172967225065025}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7066c5f152c157f40912f73251590fda,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 559578614480546715}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7066c5f152c157f40912f73251590fda,
         type: 3}
@@ -4614,13 +4610,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 1.8
+  m_Height: 1.775
   m_Radius: 0.28
   m_SlopeLimit: 45
   m_StepOffset: 0.25
   m_SkinWidth: 0.02
   m_MinMoveDistance: 0
-  m_Center: {x: 0, y: 0.93, z: 0}
+  m_Center: {x: 0, y: 0.88, z: 0}
 --- !u!82 &2511893724221908436
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4730,6 +4726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerInput: {fileID: 0}
+  StarterAssetsInputs: {fileID: 0}
   MoveSpeed: 2
   SprintSpeed: 5.335
   SkillMoveSpeed: 0
@@ -4756,6 +4753,7 @@ MonoBehaviour:
   CameraAngleOverride: 0
   LockCameraPosition: 0
   targetPlayerState: 0
+  MoveModeInput: 1
   daggerskill1fx: {fileID: 0}
   daggerskill2fx: {fileID: 0}
   daggerskill3fx: {fileID: 0}
@@ -4764,23 +4762,6 @@ MonoBehaviour:
   daggeratk3fx: {fileID: 0}
   daggeratk4fx: {fileID: 0}
   daggeratk5fx: {fileID: 0}
---- !u!114 &5480172967225065025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6878083648144533945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 909d917d73a63f940ac158d02e936645, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pushLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  canPush: 0
-  strength: 1.1
 --- !u!195 &559578614480546715
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4820,6 +4801,8 @@ MonoBehaviour:
   m_ExCheekIntensity: 0
   m_ExShyIntensity: 0
   m_ExShadowIntensity: 0
+  m_ColorSaturation: 1
+  m_AutoBrightnessOffset: 0
   m_IsCastingShadow: 1
   m_MMDHeadBone: {fileID: 3660013489298461722}
   m_MMDHeadBoneForward: 0

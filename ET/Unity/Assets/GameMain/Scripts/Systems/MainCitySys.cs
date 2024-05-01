@@ -21,7 +21,6 @@ public class MainCitySys : SystemRoot
     public ChatWnd chatWnd;
     public BuyWnd buyWnd;
     public TaskWnd taskWnd;
-    public FpsWnd fpsWnd;
     public GameObject playerInput;
 
     private GameObject mainCityPlayer;
