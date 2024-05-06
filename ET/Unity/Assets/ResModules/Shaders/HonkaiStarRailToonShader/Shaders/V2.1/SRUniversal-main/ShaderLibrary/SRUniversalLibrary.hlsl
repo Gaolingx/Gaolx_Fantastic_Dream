@@ -1,4 +1,5 @@
-// include
+// include -------------------------------------------------------------------------------------------------------- // 
+// ---------------------------------------------------------------------------------------------------------------- //
 #include "../ShaderLibrary/CharShadow.hlsl"
 #include "../ShaderLibrary/CharDepthOnly.hlsl"
 #include "../ShaderLibrary/CharDepthNormals.hlsl"
@@ -6,14 +7,16 @@
 #include "../ShaderLibrary/SRUniversalBloomHelper.hlsl"
 
 
-// const
+// const ---------------------------------------------------------------------------------------------------------- // 
+// ---------------------------------------------------------------------------------------------------------------- //
 const static float3 f3zero = float3(0.0, 0.0, 0.0);
 const static float3 f3one = float3(1.0, 1.0, 1.0);
 const static float4 f4zero = float4(0.0, 0.0, 0.0, 0.0);
 const static float4 f4one = float4(1.0, 1.0, 1.0, 1.0);
 
 
-// Gradient
+// Gradient ------------------------------------------------------------------------------------------------------- // 
+// ---------------------------------------------------------------------------------------------------------------- //
 struct Gradient
 {
     int colorsLength;
@@ -53,7 +56,8 @@ float3 SampleGradient(Gradient Gradient, float Time)
 }
 
 
-// utils
+// utils ---------------------------------------------------------------------------------------------------------- // 
+// ---------------------------------------------------------------------------------------------------------------- //
 float3 desaturation(float3 color)
 {
     float3 grayXfer = float3(0.3, 0.59, 0.11);
@@ -84,11 +88,6 @@ float3 LinearColorMix(float3 OriginalColor, float3 EnhancedColor, float mixFacto
     return finalColor;
 }
 
-float3 LerpRampColor(float3 coolRamp, float3 warmRamp, float DayTime)
-{
-    return lerp(warmRamp, coolRamp, abs(DayTime - 12.0) * rcp(12.0));
-}
-
 float GetLinearEyeDepthAnyProjection(float depth)
 {
     if (IsPerspectiveProjection())
@@ -115,7 +114,8 @@ void DoClipTestToTargetAlphaValue(float alpha, float alphaTestThreshold)
 }
 
 
-// DitherAlpha
+// DitherAlpha ---------------------------------------------------------------------------------------------------- // 
+// ---------------------------------------------------------------------------------------------------------------- //
 void DoDitherAlphaEffect(float4 svPosition, float ditherAlpha)
 {
     static const float4 thresholds[4] =
@@ -132,7 +132,8 @@ void DoDitherAlphaEffect(float4 svPosition, float ditherAlpha)
 }
 
 
-// CharacterMainLight
+// CharacterMainLight --------------------------------------------------------------------------------------------- // 
+// ---------------------------------------------------------------------------------------------------------------- //
 Light GetCharacterMainLightStruct(float4 shadowCoord, float3 positionWS)
 {
     Light light = GetMainLight();
@@ -173,7 +174,8 @@ float3 GetMainLightColor(float3 inputMainLightColor, float mainLightColorUsage)
 }
 
 
-// CharacterAdditionalLight
+// CharacterAdditionalLight --------------------------------------------------------------------------------------- // 
+// ---------------------------------------------------------------------------------------------------------------- //
 float3 GetAdditionalLightDiffuse(float3 baseColor, Light light)
 {
     float attenuation = light.shadowAttenuation * saturate(light.distanceAttenuation);
@@ -225,14 +227,16 @@ Light GetCharacterAdditionalLight(uint lightIndex, float3 positionWS)
 #define CHAR_LIGHT_LOOP_END } LIGHT_LOOP_END
 
 
-// GI
+// GI ------------------------------------------------------------------------------------------------------------- // 
+// ---------------------------------------------------------------------------------------------------------------- //
 float3 CalculateGI(float3 baseColor, float diffuseThreshold, float3 sh, float intensity, float mainColorLerp)
 {
     return intensity * lerp(f3one, baseColor, mainColorLerp) * lerp(desaturation(sh), sh, mainColorLerp) * diffuseThreshold;
 }
 
 
-// MainTex
+// MainTex -------------------------------------------------------------------------------------------------------- // 
+// ---------------------------------------------------------------------------------------------------------------- //
 float4 GetMainTexColor(float2 uv, TEXTURE2D_PARAM(FaceColorMap, sampler_FaceColorMap), float4 FaceColorMapColor,
 TEXTURE2D_PARAM(HairColorMap, sampler_HairColorMap), float4 HairColorMapColor,
 TEXTURE2D_PARAM(UpperBodyColorMap, sampler_UpperBodyColorMap), float4 UpperBodyColorMapColor,
@@ -258,7 +262,8 @@ TEXTURE2D_PARAM(LowerBodyColorMap, sampler_LowerBodyColorMap), float4 LowerBodyC
 }
 
 
-// RampColor
+// RampColor ------------------------------------------------------------------------------------------------------ // 
+// ---------------------------------------------------------------------------------------------------------------- //
 struct RampColor
 {
     float3 coolRampCol;
@@ -292,8 +297,17 @@ TEXTURE2D_PARAM(BodyWarmRamp, sampler_BodyWarmRamp), float3 BodyWarmRampColor, f
     return rampColor;
 }
 
+float3 LerpRampColor(float3 coolRamp, float3 warmRamp, float dayTime, float shadowBoost)
+{
+    float3 rampColor = 0;
+    rampColor = lerp(warmRamp, coolRamp, abs(dayTime - 12.0) * rcp(12.0));
+    rampColor = lerp(f3one, rampColor, shadowBoost);
+    return rampColor;
+}
 
-// LightMap
+
+// LightMap ------------------------------------------------------------------------------------------------------- // 
+// ---------------------------------------------------------------------------------------------------------------- //
 float4 GetLightMapTex(float2 uv, TEXTURE2D_PARAM(HairLightMap, sampler_HairLightMap), TEXTURE2D_PARAM(UpperBodyLightMap, sampler_UpperBodyLightMap), TEXTURE2D_PARAM(LowerBodyLightMap, sampler_LowerBodyLightMap))
 {
     float4 lightMap = 0;
@@ -308,7 +322,8 @@ float4 GetLightMapTex(float2 uv, TEXTURE2D_PARAM(HairLightMap, sampler_HairLight
 }
 
 
-// RampIndex
+// RampIndex ------------------------------------------------------------------------------------------------------ // 
+// ---------------------------------------------------------------------------------------------------------------- //
 half GetRampV(half matId)
 {
     return 0.0625 + 0.125 * lerp(lerp(lerp(lerp(lerp(lerp(lerp(
@@ -340,7 +355,18 @@ half GetMetalIndex()
     return _RampV4;
 }
 
-// LutMap
+float2 GetRampUV(float diffuseFac, float shadowRampOffset, float4 lightMap, bool singleMaterial)
+{
+    float material = singleMaterial ? 0 : lightMap.a;
+
+    float2 rampUV;
+    float rampU = diffuseFac * (1 - shadowRampOffset) + shadowRampOffset;
+    rampUV = float2(rampU, GetRampV(material));
+    return rampUV;
+}
+
+// LutMap --------------------------------------------------------------------------------------------------------- // 
+// ---------------------------------------------------------------------------------------------------------------- //
 half4 SampleLUTMap(int materialId, int renderType)
 {
     return _LUTMap.Load(int3(materialId, renderType, 0));
@@ -413,7 +439,73 @@ half3 GetLUTMapBloomColor(int materialId)
 }
 
 
-// RimLight
+// Shadow --------------------------------------------------------------------------------------------------------- // 
+// ---------------------------------------------------------------------------------------------------------------- //
+struct BodyShadowData
+{
+    float aoIntensity;
+    float shadowSoftness;
+    float shadowCenterOffset;
+    float mainLightShadowOffset;
+};
+
+float GetBodyMainLightShadow(BodyShadowData shadowData, Light light, float4 lightMap, float4 vertexColor, float NoL)
+{
+    float mainLightShadow = 1;
+    float remappedNoL = NoL * 0.5 + 0.5;
+    //lightmap的G通道直接光阴影的形状，值越小，越容易进入阴影，有些刺的效果就是这里出来的
+    float shadowThreshold = lightMap.g;
+    //应用AO
+    shadowThreshold *= lerp(1, vertexColor.r, shadowData.aoIntensity);
+    //加个过渡，这里 shadowSoftness=0.1
+    mainLightShadow = smoothstep(
+    1.0 - shadowThreshold - shadowData.shadowSoftness,
+    1.0 - shadowThreshold + shadowData.shadowSoftness,
+    remappedNoL + shadowData.shadowCenterOffset) + shadowData.mainLightShadowOffset;
+
+    mainLightShadow = lerp(0.20, mainLightShadow, saturate(light.shadowAttenuation + HALF_EPS));
+    return mainLightShadow;
+}
+
+struct FaceShadowData
+{
+    float3 headForward;
+    float3 headRight;
+    float faceShadowOffset;
+    float shadowTransitionSoftness;
+};
+
+float GetFaceMainLightShadow(FaceShadowData shadowData, Light light, TEXTURE2D_PARAM(FaceMap, sampler_FaceMap), float2 uv, float3 lightDirWS)
+{
+    float mainLightShadow = 1;
+    float3 headForward = normalize(shadowData.headForward).xyz;
+    float3 headRight = normalize(shadowData.headRight).xyz;
+    float3 headUp = normalize(cross(headForward, headRight));
+    float3 lightDir = normalize(lightDirWS - dot(lightDirWS, headUp) * headUp);
+    //光照在左脸的时候。左脸的uv采样左脸，右脸的uv采样右脸，而光照在右脸的时候，左脸的uv采样右脸，右脸的uv采样左脸，因为SDF贴图明暗变化在右脸
+    float isRight = step(0, dot(lightDir, headRight));
+    //相当于float sdfUVx=isRight?1-input.uv.x:input.uv.x;
+    //即打在右脸的时候，反转uv的u坐标
+    float sdfUVx = lerp(uv.x, 1 - uv.x, isRight);
+    float2 sdfUV = float2(sdfUVx, uv.y);
+    //使用uv采样面部贴图的a通道
+    float sdfValue = SAMPLE_TEXTURE2D(FaceMap, sampler_FaceMap, sdfUV).a;
+    sdfValue += shadowData.faceShadowOffset;
+    //dot(lightDir,headForward)的范围是[1,-1]映射到[0,1]
+    float sdfThreshold = 1 - (dot(lightDir, headForward) * 0.5 + 0.5);
+    //采样结果大于点乘结果，不在阴影，小于则处于阴影
+    float sdf = smoothstep(sdfThreshold - shadowData.shadowTransitionSoftness, sdfThreshold + shadowData.shadowTransitionSoftness, sdfValue);
+
+    float4 faceMap = SAMPLE_TEXTURE2D(FaceMap, sampler_FaceMap, uv);
+    //AO中常暗的区域，step提取大于0.5的部分，使用g通道的阴影形状（常亮/常暗），其他部分使用sdf贴图
+    mainLightShadow = lerp(faceMap.g, sdf, step(faceMap.r, 0.5));
+    mainLightShadow *= light.shadowAttenuation;
+    return mainLightShadow;
+}
+
+
+// RimLight ------------------------------------------------------------------------------------------------------- // 
+// ---------------------------------------------------------------------------------------------------------------- //
 struct RimLightAreaData
 {
     float3 color;
@@ -557,22 +649,20 @@ struct RimLightMaskData
     float3 color;
     float width;
     float edgeSoftness;
-    float thresholdMin;
-    float thresholdMax;
     float modelScale;
     float ditherAlpha;
-    float NoV;
 };
 
 float3 GetRimLightMask(
     RimLightMaskData rlmData,
-    float4 svPosition,
     float3 normalWS,
+    float3 viewDirWS,
+    float NoV,
+    float4 svPosition,
     float4 lightMap)
 {
+    float invModelScale = rcp(rlmData.modelScale);
     float rimWidth = rlmData.width / 2000.0; // rimWidth 表示的是屏幕上像素的偏移量，和 modelScale 无关
-    float rimThresholdMin = rlmData.thresholdMin * rlmData.modelScale * 10.0;
-    float rimThresholdMax = rlmData.thresholdMax * rlmData.modelScale * 10.0;
 
     rimWidth *= lightMap.r; // 有些地方不要边缘光
     rimWidth *= _ScaledScreenParams.y; // 在不同分辨率下看起来等宽
@@ -591,19 +681,20 @@ float3 GetRimLightMask(
     }
 
     float depth = GetLinearEyeDepthAnyProjection(svPosition);
-    rimWidth *= 10.0 * rsqrt(depth / rlmData.modelScale); // 近大远小
+    rimWidth *= 10.0 * rsqrt(depth * invModelScale); // 近大远小
 
-    float3 normalVS = TransformWorldToViewNormal(normalWS);
-    float2 indexOffset = float2(sign(normalVS.x), 0) * rimWidth; // 只横向偏移
-    uint2 index = clamp(svPosition.xy - 0.5 + indexOffset, 0, _ScaledScreenParams.xy - 1); // 避免出界
+    float indexOffsetX = -sign(cross(viewDirWS, normalWS).y) * rimWidth;
+    uint2 index = clamp(svPosition.xy - 0.5 + float2(indexOffsetX, 0), 0, _ScaledScreenParams.xy - 1); // 避免出界
     float offsetDepth = GetLinearEyeDepthAnyProjection(LoadSceneDepth(index));
 
-    float depthDelta = (offsetDepth - depth) * 50; // 只有 depth 小于 offsetDepth 的时候再画
-    float intensity = smoothstep(rimThresholdMin, rimThresholdMax, depthDelta);
+    // 只有 depth 小于 offsetDepth 的时候再画
+    float intensity = smoothstep(0.12, 0.18, (offsetDepth - depth) * invModelScale);
 
     // 用于柔化边缘光，edgeSoftness 越大，越柔和
-    float fresnel = pow(clamp(1 - rlmData.NoV, 0.01, 1), max(rlmData.edgeSoftness, 0.01));
+    float fresnel = pow(max(1 - NoV, 0.01), max(rlmData.edgeSoftness, 0.01));
 
+    // Dither Alpha 效果会扣掉角色的一部分像素，导致角色身上出现不该有的边缘光
+    // 所以这里在 ditherAlpha 较强时隐去边缘光
     float ditherAlphaFadeOut = smoothstep(0.9, 1, rlmData.ditherAlpha);
 
     return rlmData.color * saturate(intensity * fresnel * ditherAlphaFadeOut);
@@ -620,11 +711,12 @@ float3 GetRimLight(RimLightData rimData, float3 rimMask, float NoL, Light light,
 {
     float attenuation = saturate(NoL * light.shadowAttenuation * light.distanceAttenuation);
     float intensity = lerp(rimData.intensityBackFace, rimData.intensityFrontFace, isFrontFace);
-    return rimMask * (lerp(rimData.darkenValue, 1, attenuation) * intensity);
+    return rimMask * (lerp(rimData.darkenValue, 1, attenuation) * max(0, intensity));
 }
 
 
-// RimShadow
+// RimShadow ------------------------------------------------------------------------------------------------------ // 
+// ---------------------------------------------------------------------------------------------------------------- //
 struct RimShadowAreaData
 {
     float3 color;
@@ -753,7 +845,8 @@ float3 GetRimShadow(RimShadowData data, float3 viewDirWS, float3 normalWS)
 }
 
 
-// Specular
+// Specular ------------------------------------------------------------------------------------------------------- // 
+// ---------------------------------------------------------------------------------------------------------------- //
 struct SpecularAreaData
 {
     float3 color;
@@ -930,10 +1023,10 @@ float3 CalculateBaseSpecular(SpecularData surface, Light light, float3 viewDirWS
     return CalculateSpecular(surface, light, viewDirWS, normalWS, specColor, shininess, roughness, intensity, diffuseFac, metallic);
 }
 
-// Stockings
+// Stockings ------------------------------------------------------------------------------------------------------ // 
+// ---------------------------------------------------------------------------------------------------------------- //
 struct StockingsData
 {
-    float NoV;
     float stockingsMapBChannelUVScale;
     float stockingsTransitionPower;
     float stockingsTransitionHardness;
@@ -944,7 +1037,7 @@ struct StockingsData
     float4 stockingsLightColor;
 };
 
-float3 CalculateStockingsEffect(StockingsData stockingsData, float2 uv, TEXTURE2D_PARAM(UpperBodyStockings, sampler_UpperBodyStockings), TEXTURE2D_PARAM(LowerBodyStockings, sampler_LowerBodyStockings))
+float3 CalculateStockingsEffect(StockingsData stockingsData, float NoV, float2 uv, TEXTURE2D_PARAM(UpperBodyStockings, sampler_UpperBodyStockings), TEXTURE2D_PARAM(LowerBodyStockings, sampler_LowerBodyStockings))
 {
     float2 stockingsMapRG = 0;
     float stockingsMapB = 0;
@@ -956,7 +1049,7 @@ float3 CalculateStockingsEffect(StockingsData stockingsData, float2 uv, TEXTURE2
         stockingsMapB = SAMPLE_TEXTURE2D(LowerBodyStockings, sampler_LowerBodyStockings, uv * stockingsData.stockingsMapBChannelUVScale).b;
     #endif
     //用法线点乘视角向量模拟皮肤透过丝袜
-    float fac = stockingsData.NoV;
+    float fac = NoV;
     //做一次幂运算，调整亮区大小
     fac = pow(saturate(fac), stockingsData.stockingsTransitionPower);
     //调整亮暗过渡的硬度
@@ -977,7 +1070,8 @@ float3 CalculateStockingsEffect(StockingsData stockingsData, float2 uv, TEXTURE2
 }
 
 
-// Emission
+// Emission ------------------------------------------------------------------------------------------------------- // 
+// ---------------------------------------------------------------------------------------------------------------- //
 struct EmissionData
 {
     float3 color;
@@ -1000,7 +1094,8 @@ half3 CalculateBaseEmission(EmissionData emissionData, float4 albedo)
 }
 
 
-// Bloom
+// Bloom ---------------------------------------------------------------------------------------------------------- // 
+// ---------------------------------------------------------------------------------------------------------------- //
 struct BloomAreaData
 {
     float3 color;

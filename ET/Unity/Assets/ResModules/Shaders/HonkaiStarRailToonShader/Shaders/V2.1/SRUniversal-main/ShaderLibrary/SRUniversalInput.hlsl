@@ -94,6 +94,7 @@ float _DitherAlpha;
 
 
 // Setting
+float _SingleMaterial;
 float _RampV0;
 float _RampV1;
 float _RampV2;
@@ -128,7 +129,7 @@ float _IndirectLightUsage;
 
 float _AutoBrightnessThresholdMin;
 float _AutoBrightnessThresholdMax;
-float _AutoBrightnessOffset;
+float _BrightnessOffset;
 float _MainLightBrightnessFactor;
 float _LerpAOIntensity;
 float _MainLightColorUsage;
@@ -215,8 +216,6 @@ float _StockingsTextureUsage;
 float _ModelScale;
 float _RimIntensity;
 float _RimIntensityBackFace;
-float _RimThresholdMin;
-float _RimThresholdMax;
 float4 _RimColor;
 float _RimWidth;
 float _RimDark;
