@@ -14,6 +14,7 @@ Material:
   m_ValidKeywords:
   - _CUSTOMBLOOMCOLORVARENUM_DISABLE
   - _CUSTOMBLOOMVARENUM_DISABLE
+  - _CUSTOMHEADBONEMODEVARENUM_GAME
   - _CUSTOMOUTLINEVARENUM_DISABLE
   - _CUSTOMRIMLIGHTCOLORVARENUM_DISABLE
   - _CUSTOMRIMLIGHTVARENUM_DISABLE
@@ -23,13 +24,13 @@ Material:
   - _CUSTOMSPECULARVARENUM_DISABLE
   - _CUSTOM_RAMP_MAPPING
   - _ENABLE_OUTLINE
-  - _FAKE_OUTLINE_ON
   - _OUTLINENORMALCHANNEL_NORMAL
   - _RIM_LIGHTING_ON
   - _SPECULAR_ON
-  - _USE_RAMP_COLOR_ON
   m_InvalidKeywords:
   - _AREA_NONE
+  - _FAKE_OUTLINE_ON
+  - _USE_RAMP_COLOR_ON
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -176,6 +177,8 @@ Material:
     - _BloomIntensity: 0
     - _BodyCoolRampColorMixFactor: 0
     - _BodyWarmRampColorMixFactor: 0
+    - _BrightnessOffset: 0
+    - _BumpFactor: 1
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
@@ -184,6 +187,7 @@ Material:
     - _CullMode: 2
     - _CustomBloomColorVarEnum: 0
     - _CustomBloomVarEnum: 0
+    - _CustomHeadBoneModeVarEnum: 1
     - _CustomOutlineVarEnum: 0
     - _CustomRampMappingToggle: 1
     - _CustomRimLightColorVarEnum: 0
@@ -237,6 +241,7 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _ModelScale: 1
+    - _NoseLinePower: 1
     - _OcclusionStrength: 1
     - _OutlineNormalChannel: 0
     - _OutlineUseLutMapToggle: 0
@@ -314,6 +319,7 @@ Material:
     - _ShadowRampOffset: 0.75
     - _ShadowThresholdCenter: 0
     - _ShadowThresholdSoftness: 0.1
+    - _SingleMaterial: 0
     - _Smoothness: 0.4472136
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -424,6 +430,10 @@ Material:
     - _HeadForward: {r: 0, g: 0, b: 1, a: 1}
     - _HeadRight: {r: 1, g: 0, b: 0, a: 1}
     - _LowerBodyColorMapColor: {r: 1, g: 1, b: 1, a: 1}
+    - _MMDHeadBoneForward: {r: 0, g: 0, b: 0, a: 0}
+    - _MMDHeadBoneRight: {r: 0, g: 0, b: 0, a: 0}
+    - _MMDHeadBoneUp: {r: 0, g: 0, b: 0, a: 0}
+    - _NoseLineColor: {r: 1, g: 0.635, b: 0.635, a: 1}
     - _OutlineColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _OutlineColor0: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor1: {r: 0, g: 0, b: 0, a: 1}
@@ -433,6 +443,7 @@ Material:
     - _OutlineColor5: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor6: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor7: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineDefaultColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _REFLECTIONS_COLOR: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor0: {r: 1, g: 1, b: 1, a: 1}

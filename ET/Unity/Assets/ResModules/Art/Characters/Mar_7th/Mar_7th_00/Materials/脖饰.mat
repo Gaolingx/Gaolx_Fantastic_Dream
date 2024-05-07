@@ -16,6 +16,7 @@ Material:
   - _AUTO_Brightness_ON
   - _CUSTOMBLOOMCOLORVARENUM_TINT
   - _CUSTOMBLOOMVARENUM_DISABLE
+  - _CUSTOMHEADBONEMODEVARENUM_MMD
   - _CUSTOMOUTLINEVARENUM_MULTIPLY
   - _CUSTOMRIMLIGHTCOLORVARENUM_DISABLE
   - _CUSTOMRIMLIGHTVARENUM_OVERLAY
@@ -26,13 +27,13 @@ Material:
   - _CUSTOM_RAMP_MAPPING
   - _DayTime_MANUAL_ON
   - _ENABLE_OUTLINE
-  - _FAKE_OUTLINE_ON
   - _OUTLINENORMALCHANNEL_NORMAL
   - _RIM_LIGHTING_ON
   - _SPECULAR_ON
   - _USE_LUT_MAP
+  m_InvalidKeywords:
+  - _FAKE_OUTLINE_ON
   - _USE_RAMP_COLOR_ON
-  m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -168,8 +169,8 @@ Material:
     - _AnisotropySpecularToggle: 0
     - _Area: 4
     - _AutoBrightnessOffset: 0
-    - _AutoBrightnessThresholdMax: 0.7
-    - _AutoBrightnessThresholdMin: 0.4
+    - _AutoBrightnessThresholdMax: 0.6
+    - _AutoBrightnessThresholdMin: 0.25
     - _BASE_COLOR_WEIGHT: 1
     - _BUMP_MAP_STRENGTH: 0.3
     - _Blend: 0
@@ -179,6 +180,8 @@ Material:
     - _BloomIntensity: 0
     - _BodyCoolRampColorMixFactor: 0
     - _BodyWarmRampColorMixFactor: 0
+    - _BrightnessOffset: 0
+    - _BumpFactor: 1
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
@@ -187,6 +190,7 @@ Material:
     - _CullMode: 0
     - _CustomBloomColorVarEnum: 1
     - _CustomBloomVarEnum: 0
+    - _CustomHeadBoneModeVarEnum: 2
     - _CustomOutlineVarEnum: 1
     - _CustomRampMappingToggle: 1
     - _CustomRimLightColorVarEnum: 0
@@ -217,7 +221,7 @@ Material:
     - _ExCheekIntensity: 0
     - _ExShadowIntensity: 0
     - _ExShyIntensity: 0
-    - _FaceShadowOffset: -0.01
+    - _FaceShadowOffset: 0
     - _FaceShadowTransitionSoftness: 0.05
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -240,6 +244,7 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _ModelScale: 1
+    - _NoseLinePower: 1
     - _OcclusionStrength: 1
     - _OutlineNormalChannel: 0
     - _OutlineUseLutMapToggle: 0
@@ -317,6 +322,7 @@ Material:
     - _ShadowRampOffset: 0.75
     - _ShadowThresholdCenter: 0
     - _ShadowThresholdSoftness: 0.1
+    - _SingleMaterial: 0
     - _Smoothness: 0.4472136
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -427,6 +433,10 @@ Material:
     - _HeadForward: {r: 0, g: 0, b: 1, a: 1}
     - _HeadRight: {r: 1, g: 0, b: 0, a: 1}
     - _LowerBodyColorMapColor: {r: 1, g: 1, b: 1, a: 1}
+    - _MMDHeadBoneForward: {r: 0, g: 0, b: 0, a: 0}
+    - _MMDHeadBoneRight: {r: 0, g: 0, b: 0, a: 0}
+    - _MMDHeadBoneUp: {r: 0, g: 0, b: 0, a: 0}
+    - _NoseLineColor: {r: 1, g: 0.635, b: 0.635, a: 1}
     - _OutlineColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _OutlineColor0: {r: 0.98039216, g: 0.98039216, b: 0.98039216, a: 1}
     - _OutlineColor1: {r: 0.4509804, g: 0.4509804, b: 0.4509804, a: 1}
@@ -436,6 +446,7 @@ Material:
     - _OutlineColor5: {r: 0.4627451, g: 0.4627451, b: 0.4627451, a: 1}
     - _OutlineColor6: {r: 0.3019608, g: 0.3019608, b: 0.3019608, a: 1}
     - _OutlineColor7: {r: 0.28235295, g: 0.28235295, b: 0.28235295, a: 1}
+    - _OutlineDefaultColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _REFLECTIONS_COLOR: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor0: {r: 1, g: 1, b: 1, a: 1}
