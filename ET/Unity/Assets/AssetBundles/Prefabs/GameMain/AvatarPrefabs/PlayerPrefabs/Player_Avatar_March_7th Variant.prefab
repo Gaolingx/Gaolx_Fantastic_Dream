@@ -4807,7 +4807,7 @@ MonoBehaviour:
   m_MMDHeadBone: {fileID: 3660013489298461722}
   m_MMDHeadBoneForward: 0
   m_MMDHeadBoneUp: 4
-  m_MMDHeadBoneRight: 2
+  m_MMDHeadBoneRight: 3
 --- !u!4 &7395044663300645561 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3824343900046243409, guid: 7066c5f152c157f40912f73251590fda,
