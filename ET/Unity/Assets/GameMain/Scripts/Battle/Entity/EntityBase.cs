@@ -50,6 +50,7 @@ public abstract class EntityBase
 
     public SkillCfg curtSkillCfg; //当前正在施放技能的id
 
+    #region State Define
     //状态切换
     public void StateBorn()
     {
@@ -75,6 +76,15 @@ public abstract class EntityBase
     {
         stateMgr.ChangeStatus(this, AniState.Die, null);
     }
+    #endregion
+
+    #region AI Logic
+    //怪物ai逻辑
+    public virtual void TickAILogic()
+    {
+
+    }
+    #endregion
 
     public void SetCtrl(Controller ctrl)
     {

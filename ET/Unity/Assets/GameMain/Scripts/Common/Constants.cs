@@ -198,4 +198,7 @@ public class Constants
     public const int StateBornMonsterDurationTime = 500;
     public const int StateDieMonsterAnimTime = 5000;
 
+    //AI Logic
+    public const float MonsterCheckTime = 2.0f;
+
 }

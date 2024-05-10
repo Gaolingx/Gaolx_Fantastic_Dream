@@ -92,7 +92,7 @@ public class SkillMgr : MonoBehaviour
             if (dodgeNum <= target.Props.dodge)
             {
                 //UI显示闪避
-                PECommon.Log("闪避Rate:" + dodgeNum + "/" + target.Props.dodge);
+                //PECommon.Log("闪避Rate:" + dodgeNum + "/" + target.Props.dodge);
                 target.SetDodge();
                 return;
             }
@@ -105,7 +105,7 @@ public class SkillMgr : MonoBehaviour
             {
                 float criticalRate = 1 + (PETools.RDInt(1, 100, rd) / 100.0f); //暴击倍率
                 dmgSum = (int)criticalRate * dmgSum; //暴击伤害
-                PECommon.Log("暴击Rate:" + criticalNum + "/" + caster.Props.critical);
+                //PECommon.Log("暴击Rate:" + criticalNum + "/" + caster.Props.critical);
                 target.SetCritical(dmgSum);
             }
 

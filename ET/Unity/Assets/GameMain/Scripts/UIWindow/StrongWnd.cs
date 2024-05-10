@@ -70,7 +70,7 @@ public class StrongWnd : WindowRoot
     //根据点击位置，展示不同部位信息，需要点击时传入一个参数，根据参数显示相应数据信息
     private void ClickPosItem(int index)
     {
-        PECommon.Log("Click Item:" + index);
+        PECommon.Log("Click Window:StrongWnd.Click Item:" + index);
 
         //遍历数组，当点击其中一个部位，其背景变为箭头，其余的变成平板
         for (int i = 0;i < imgs.Length;i++)
