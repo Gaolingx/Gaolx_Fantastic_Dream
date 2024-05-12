@@ -37,6 +37,8 @@ public class MonsterCfg : BaseData<MonsterCfg>
 {
     public string mName; //怪物名字
     public string resPath; //资源路径
+    public int skillID;
+    public float atkDis;
     public BattleProps bps;
 }
 

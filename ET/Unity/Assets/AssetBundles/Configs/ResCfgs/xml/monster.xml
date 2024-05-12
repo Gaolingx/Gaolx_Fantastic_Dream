@@ -3,6 +3,8 @@
 	<item ID="1001">
 		<mName>铁甲战士</mName>
 		<resPath>Assets/AssetBundles/Prefabs/GameMain/PrefabNPC/MonsterSoldier_1.prefab</resPath>
+		<skillID>201</skillID>
+    	<atkDis>2</atkDis>
 		<hp>2000</hp>
 		<ad>100</ad>
 		<ap>80</ap>
@@ -15,6 +17,8 @@
 	<item ID="2001">
 		<mName>地狱魔卫</mName>
 		<resPath>Assets/AssetBundles/Prefabs/GameMain/PrefabNPC/MonsterBoss_1.prefab</resPath>
+		<skillID>301</skillID>
+    	<atkDis>4.5</atkDis>
 		<hp>8000</hp>
 		<ad>250</ad>
 		<ap>180</ap>

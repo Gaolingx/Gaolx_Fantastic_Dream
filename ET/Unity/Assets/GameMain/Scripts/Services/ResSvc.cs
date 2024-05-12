@@ -1004,6 +1004,12 @@ public class ResSvc : MonoBehaviour
                         case "hp":
                             mc.bps.hp = int.Parse(e.InnerText);
                             break;
+                        case "skillID":
+                            mc.skillID = int.Parse(e.InnerText);
+                            break;
+                        case "atkDis":
+                            mc.atkDis = float.Parse(e.InnerText);
+                            break;
                         case "ad":
                             mc.bps.ad = int.Parse(e.InnerText);
                             break;
