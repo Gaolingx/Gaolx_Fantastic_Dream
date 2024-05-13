@@ -27,6 +27,7 @@ Material:
   m_ValidKeywords:
   - _AREA_UPPERBODY
   - _AUTO_Brightness_ON
+  - _BACKFACEUV2_ON
   - _CUSTOMBLOOMCOLORVARENUM_TINT
   - _CUSTOMBLOOMVARENUM_DISABLE
   - _CUSTOMHEADBONEMODEVARENUM_MMD
@@ -182,8 +183,8 @@ Material:
     - _AnisotropySpecularToggle: 0
     - _Area: 3
     - _AutoBrightnessOffset: 0
-    - _AutoBrightnessThresholdMax: 0.6
-    - _AutoBrightnessThresholdMin: 0.25
+    - _AutoBrightnessThresholdMax: 1
+    - _AutoBrightnessThresholdMin: 0.5
     - _BASE_COLOR_WEIGHT: 1
     - _BUMP_MAP_STRENGTH: 0.3
     - _Blend: 0
@@ -235,7 +236,7 @@ Material:
     - _ExShadowIntensity: 0
     - _ExShyIntensity: 0
     - _FaceShadowOffset: 0
-    - _FaceShadowTransitionSoftness: 0.05
+    - _FaceShadowTransitionSoftness: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -393,6 +394,7 @@ Material:
     - _UseAdditionalLighting: 0
     - _UseAlphaClipping: 0
     - _UseAutoBrightness: 1
+    - _UseBackFaceUV2: 1
     - _UseDrawOverlay: 0
     - _UseEmission: 0
     - _UseFaceExpression: 0
@@ -416,7 +418,7 @@ Material:
     - _stockingsMapBChannelUVScale: 20
     m_Colors:
     - _BASE_COLOR: {r: 0.8, g: 0.8, b: 0.8, a: 1}
-    - _BackFaceTintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BackFaceTintColor: {r: 0.745283, g: 0.745283, b: 0.745283, a: 1}
     - _BaseColor: {r: 0.9063317, g: 0.9063317, b: 0.9063317, a: 1}
     - _BloomColor: {r: 0.99215686, g: 0.8352941, b: 1, a: 1}
     - _BloomColor0: {r: 1, g: 1, b: 1, a: 1}
@@ -449,6 +451,7 @@ Material:
     - _MMDHeadBoneForward: {r: 0, g: 0, b: 0, a: 0}
     - _MMDHeadBoneRight: {r: 0, g: 0, b: 0, a: 0}
     - _MMDHeadBoneUp: {r: 0, g: 0, b: 0, a: 0}
+    - _Maps_ST: {r: 1, g: 1, b: 0, a: 0}
     - _NoseLineColor: {r: 1, g: 0.635, b: 0.635, a: 1}
     - _OutlineColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _OutlineColor0: {r: 1, g: 1, b: 1, a: 1}

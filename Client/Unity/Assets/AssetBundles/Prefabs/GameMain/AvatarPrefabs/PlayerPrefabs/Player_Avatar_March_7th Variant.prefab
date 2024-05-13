@@ -4802,7 +4802,7 @@ MonoBehaviour:
   m_ExShyIntensity: 0
   m_ExShadowIntensity: 0
   m_ColorSaturation: 1
-  m_AutoBrightnessOffset: 0
+  m_AutoBrightnessOffset: -0.45
   m_IsCastingShadow: 1
   m_MMDHeadBone: {fileID: 3660013489298461722}
   m_MMDHeadBoneForward: 0
