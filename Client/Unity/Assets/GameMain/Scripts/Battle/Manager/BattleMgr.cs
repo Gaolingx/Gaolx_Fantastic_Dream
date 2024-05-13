@@ -136,6 +136,21 @@ public class BattleMgr : MonoBehaviour
         });
     }
 
+    //相关逻辑驱动
+    private void Update()
+    {
+        RunMonsterAILogic();
+    }
+
+    private void RunMonsterAILogic()
+    {
+        foreach(var item in monsterDic)
+        {
+            EntityMonster em = item.Value;
+            em.TickAILogic();
+        }
+    }
+
     //通过批次ID生成怪物
     public void LoadMonsterByWaveID(int wave)
     {

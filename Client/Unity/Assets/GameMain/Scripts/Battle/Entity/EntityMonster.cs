@@ -9,6 +9,8 @@ public class EntityMonster : EntityBase
 
     private float checkCountTime = 0f;
 
+    private float atkCountTime = 0f;
+
     //考虑等级影响，覆盖父类SetBattleProps默认方法
     public override void SetBattleProps(BattleProps props)
     {
@@ -53,12 +55,25 @@ public class EntityMonster : EntityBase
                 SetDir(dir);
                 StateMove();
             }
-            //2.2 在：则停止移动，进行攻击
-
-            //3. 判断攻击间隔
-            //3.1 达到攻击时间，转向并攻击
-            //3.2 未达到攻击时间，进入Idle状态，等待
-
+            else
+            {
+                //2.2 在：则停止移动，进行攻击
+                SetDir(Vector2.zero);
+                //3. 判断攻击间隔
+                atkCountTime += checkCountTime; //确保移动过程也在攻击间隔内
+                if (atkCountTime > Constants.MonsterAtkTime)
+                {
+                    //3.1 达到攻击时间，转向并攻击
+                    SetAtkRotation(dir);
+                    StateAttack(md.mCfg.skillID);
+                    atkCountTime = 0;
+                }
+                else
+                {
+                    //3.2 未达到攻击时间，进入Idle状态，等待
+                    StateIdle();
+                }
+            }
         }
     }
 

@@ -200,5 +200,6 @@ public class Constants
 
     //AI Logic
     public const float MonsterCheckTime = 2.0f;
+    public const float MonsterAtkTime = 2.0f;
 
 }
