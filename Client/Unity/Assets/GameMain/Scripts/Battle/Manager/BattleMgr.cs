@@ -179,6 +179,7 @@ public class BattleMgr : MonoBehaviour
                 MonsterController mc = m.GetComponent<MonsterController>();
                 mc.Init();
                 mc.MonsterMoveSpeed = md.mMoveSpeed;
+                mc.EnableDownSpeed = true;
                 em.SetCtrl(mc);
 
                 m.SetActive(false);
