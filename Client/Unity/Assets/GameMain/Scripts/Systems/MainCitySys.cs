@@ -446,7 +446,7 @@ public class MainCitySys : SystemRoot
     public void OpenSettingsWnd()
     {
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
-        GameRoot.Instance.GetEventSystemObject(Constants.EventSystemGOName).GetComponent<UIController>().isPause = true;
+        GameRoot.Instance.PauseGameUI(true);
         settingsWnd.SetWndState(true);
 
     }

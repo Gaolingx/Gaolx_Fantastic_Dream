@@ -10,7 +10,6 @@ public class SettingsWnd : WindowRoot
     public Slider BGAudioSlider, UIAudioSlider, CharacterAudioSlider;
     public Toggle VsyncSettingsToggle, FpsWndToggle, RuntimeInspectorToggle, RuntimeHierarchyToggle;
     public AudioSource WndBGAudioAudioSource, WndUIAudioAudioSource, WndCharacterAudioSource;
-    public UIController uiController;
     public Transform DebugItem;
     public Transform fpsWnd;
     public Transform RuntimeHierarchy, RuntimeInspector;
@@ -116,7 +115,7 @@ public class SettingsWnd : WindowRoot
     public void ClickCloseBtn()
     {
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
-        GameRoot.Instance.GetEventSystemObject(Constants.EventSystemGOName).GetComponent<UIController>().isPause = false;
+        GameRoot.Instance.PauseGameUI(false);
         SetWndState(false);
     }
 

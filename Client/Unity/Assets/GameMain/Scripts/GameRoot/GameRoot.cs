@@ -80,6 +80,11 @@ public class GameRoot : MonoBehaviour
         return eventSystem;
     }
 
+    public void PauseGameUI(bool state = true)
+    {
+        GetEventSystemObject(Constants.EventSystemGOName).GetComponent<UIController>().isPause = state;
+    }
+
     public static void AddTips(string tips)
     {
         Instance.dynamicWnd.AddTips(tips);
