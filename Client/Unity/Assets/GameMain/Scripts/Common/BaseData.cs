@@ -50,6 +50,7 @@ public class MonsterData : BaseData<MonsterData>
     public Vector3 mBornPos;
     public Vector3 mBornRote;
     public int mLevel;
+    public float mMoveSpeed;
 }
 
 public class MapCfg : BaseData<MapCfg>

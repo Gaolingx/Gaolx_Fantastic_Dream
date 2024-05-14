@@ -9,6 +9,8 @@
 using UnityEngine;
 
 public class MonsterController : Controller {
+    public float MonsterMoveSpeed;
+
     private void Update() {
         //AI逻辑表现
         if (isMove) {
@@ -25,8 +27,8 @@ public class MonsterController : Controller {
     }
 
     private void SetMove() {
-        ctrl.Move(transform.forward * Time.deltaTime * Constants.MonsterMoveSpeed);
+        ctrl.Move(transform.forward * Time.deltaTime * MonsterMoveSpeed);
         //给一个向下的速度，便于在没有apply root时怪物可以落地。Fix Res Error
-        ctrl.Move(Vector3.down * Time.deltaTime * Constants.MonsterMoveSpeed);
+        ctrl.Move(Vector3.down * Time.deltaTime * MonsterMoveSpeed);
     }
 }
