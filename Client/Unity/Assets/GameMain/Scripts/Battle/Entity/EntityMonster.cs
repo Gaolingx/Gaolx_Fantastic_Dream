@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class EntityMonster : EntityBase
 {
+    public EntityMonster()
+    {
+        entityType = EntityType.Monster;
+    }
+
     public MonsterData md;
 
     private float checkTime = Constants.MonsterCheckTime;

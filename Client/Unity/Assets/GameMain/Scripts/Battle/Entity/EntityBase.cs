@@ -24,6 +24,8 @@ public abstract class EntityBase
     private bool canControl = true;
     public bool CanControl { get { return canControl; } }
 
+    public EntityType entityType = EntityType.None;
+
     private BattleProps props;
     public BattleProps Props { get { return props; } protected set { props = value; } } //只能在继承他的子类中修改
 

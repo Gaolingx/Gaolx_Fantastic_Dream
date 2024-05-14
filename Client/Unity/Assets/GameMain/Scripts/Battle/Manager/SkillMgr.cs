@@ -201,22 +201,26 @@ public class SkillMgr : MonoBehaviour
     {
         SkillCfg skillData = resSvc.GetSkillCfg(skillID);
 
-        //设置技能方向
-        if (entity.GetDirInput() == Vector2.zero)
+        //仅玩家
+        if (entity.entityType == EntityType.Player)
         {
-            //搜索最近的怪物
-            Vector2 dir = entity.CalcTargetDir();
-            if (dir != Vector2.zero)
+            //设置技能方向
+            if (entity.GetDirInput() == Vector2.zero)
             {
-                entity.SetAtkRotation(dir);
+                //搜索最近的怪物
+                Vector2 dir = entity.CalcTargetDir();
+                if (dir != Vector2.zero)
+                {
+                    entity.SetAtkRotation(dir);
+                }
             }
-        }
-        else
-        {
-            //将方向设置到实体类
-            if (isSetAtkRotation)
+            else
             {
-                entity.SetAtkRotation(entity.GetDirInput());
+                //将方向设置到实体类
+                if (isSetAtkRotation)
+                {
+                    entity.SetAtkRotation(entity.GetDirInput());
+                }
             }
         }
 

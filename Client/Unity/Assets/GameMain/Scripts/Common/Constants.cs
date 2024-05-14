@@ -21,6 +21,14 @@ public enum DamageType
     AP = 2//魔法伤害
 }
 
+//实体类型
+public enum EntityType
+{
+    None,
+    Player,
+    Monster
+}
+
 public class Constants
 {
     #region ColorHex Code
