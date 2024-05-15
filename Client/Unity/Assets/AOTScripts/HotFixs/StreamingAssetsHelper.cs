@@ -2,6 +2,7 @@ using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 using YooAsset;
+using System;
 
 /// <summary>
 /// 资源文件查询服务类
@@ -13,6 +14,45 @@ public class GameQueryServices : IBuildinQueryServices
 		// 注意：fileName包含文件格式
 		return StreamingAssetsHelper.FileExists(packageName, fileName);
 	}
+}
+
+
+/// <summary>
+/// 远端资源地址查询服务类
+/// </summary>
+public class RemoteServices : IRemoteServices
+{
+    private readonly string _defaultHostServer;
+    private readonly string _fallbackHostServer;
+
+    public RemoteServices(string defaultHostServer, string fallbackHostServer)
+    {
+        _defaultHostServer = defaultHostServer;
+        _fallbackHostServer = fallbackHostServer;
+    }
+    string IRemoteServices.GetRemoteMainURL(string fileName)
+    {
+        return $"{_defaultHostServer}/{fileName}";
+    }
+    string IRemoteServices.GetRemoteFallbackURL(string fileName)
+    {
+        return $"{_fallbackHostServer}/{fileName}";
+    }
+}
+
+/// <summary>
+/// 默认的分发资源查询服务类
+/// </summary>
+public class DefaultDeliveryQueryServices : IDeliveryQueryServices
+{
+    public DeliveryFileInfo GetDeliveryFileInfo(string packageName, string fileName)
+    {
+        throw new NotImplementedException();
+    }
+    public bool QueryDeliveryFiles(string packageName, string fileName)
+    {
+        return false;
+    }
 }
 
 #if UNITY_EDITOR
