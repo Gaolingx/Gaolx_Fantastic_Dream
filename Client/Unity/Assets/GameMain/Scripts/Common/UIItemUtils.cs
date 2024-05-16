@@ -1,4 +1,5 @@
 ﻿//功能：UI工具类
+using System;
 using UnityEngine;
 
 public static class UIItemUtils
@@ -81,6 +82,42 @@ public static class UIItemUtils
         q.SetFromToRotation(lookAxis, dir);
         ctrlObj.eulerAngles = new Vector3(q.eulerAngles.x, 0, q.eulerAngles.z);
     }
+
+    /// <summary>
+    /// 计算两点间距离
+    /// </summary>
+    /// <param name="point1"></param>
+    /// <param name="point2"></param>
+    /// <returns></returns>
+    public static float CalculatePointDistance(Vector2 point1, Vector2 point2)
+    {
+        float distance = (float)Math.Sqrt(Math.Pow((point2.x - point1.x), 2) + Math.Pow((point2.y - point1.y), 2));
+        return distance;
+    }
+
+    /// <summary>
+    /// 计算点到直线距离
+    /// </summary>
+    /// <param name="p"></param>
+    /// <param name="p1"></param>
+    /// <param name="p2"></param>
+    /// <returns></returns>
+    public static float CalculateDistanceFromPoint2Line(Vector3 p, Vector3 p1, Vector3 p2)
+    {
+        // 求A2B的距离
+        float p2pDistance = Vector3.Distance(p2, p); // 或者使用 p2p.magnitude
+        // p1->p2的向量
+        Vector3 p2p1 = p2 - p1;
+        Vector3 p2p = p2 - p;
+        // 求p2p1·p2p
+        float dotResult = Vector3.Dot(p2p1, p2p);
+        // 求θ
+        float seitaRad = Mathf.Acos(dotResult / (p2p1.magnitude * p2pDistance));
+        // 求p点到p1p2的距离
+        float distance = p2pDistance * Mathf.Sin(seitaRad);
+        return distance;
+    }
+
 
     public static float UpdateMixBlend(float currentPrg, float targetPrg, float accelerHPSpeed, float accelerOffset = 0f)
     {
