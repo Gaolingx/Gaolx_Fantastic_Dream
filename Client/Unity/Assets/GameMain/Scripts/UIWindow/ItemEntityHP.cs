@@ -29,17 +29,27 @@ public class ItemEntityHP : MonoBehaviour
 
     private float scaleRate = 1.0f * Constants.ScreenStandardHeight / Screen.height;
 
+    Vector3 screenPos;
     private void Update()
     {
         //将场景中怪物的Transform映射成屏幕空间坐标
         if (rootTrans != null)
         {
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(rootTrans.position);
+            screenPos = Camera.main.WorldToScreenPoint(rootTrans.position);
             rect.anchoredPosition = screenPos * scaleRate;
         }
 
-        currentPrg = UITween.UpdateMixBlend(currentPrg, targetPrg, Constants.AccelerHPSpeed, SPvalOffset);
+        currentPrg = UIItemUtils.UpdateMixBlend(currentPrg, targetPrg, Constants.AccelerHPSpeed, SPvalOffset);
         imgHPGray.fillAmount = currentPrg;
+
+        if (UIItemUtils.IsMonsterOnScreen(screenPos))
+        {
+            imgHPGray.enabled = true;
+        }
+        else
+        {
+            imgHPGray.enabled = false;
+        }
     }
 
     public void InitItemInfo(Transform trans, int hp)
