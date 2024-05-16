@@ -42,14 +42,6 @@ public class ItemEntityHP : MonoBehaviour
         currentPrg = UIItemUtils.UpdateMixBlend(currentPrg, targetPrg, Constants.AccelerHPSpeed, SPvalOffset);
         imgHPGray.fillAmount = currentPrg;
 
-        if (UIItemUtils.IsMonsterOnScreen(screenPos))
-        {
-            imgHPGray.enabled = true;
-        }
-        else
-        {
-            imgHPGray.enabled = false;
-        }
     }
 
     public void InitItemInfo(Transform trans, int hp)

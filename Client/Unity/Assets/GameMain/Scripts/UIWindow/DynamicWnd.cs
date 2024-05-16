@@ -42,6 +42,27 @@ public class DynamicWnd : WindowRoot
                 SetTips(tips);
             }
         }
+
+        foreach (var item in itemDic.Values)
+        {
+            item.gameObject.SetActive(ShowItemEntityHPIfNeed(hpItemRoot));
+        }
+    }
+
+    public bool ShowItemEntityHPIfNeed(Transform rootTrans)
+    {
+        Camera mainCamera = Camera.main;
+        float scaleRate = 1.0f * Constants.ScreenStandardHeight / Screen.height;
+
+        Vector3 fixedPos = Vector3.zero;
+        //将场景中怪物的Transform映射成屏幕空间坐标
+        if (rootTrans != null)
+        {
+            Vector3 screenPos = mainCamera.WorldToScreenPoint(rootTrans.position);
+            fixedPos = screenPos * scaleRate;
+        }
+
+        return UIItemUtils.IsMonsterOnScreen(fixedPos);
     }
 
     //显示Tips的接口
