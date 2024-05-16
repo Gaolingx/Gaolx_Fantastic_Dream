@@ -30,19 +30,18 @@ public static class UIItemUtils
         Vector2 rb = new Vector2(Screen.width - edgeOffset, Screen.height - edgeOffset); //右上
 
         // 检查与每条边界的交点
-        if (GetPoint(out target, pos1, pos2, la, lb)) //左边界
+        if (GetPoint(ref target, pos1, pos2, la, lb)) //左边界
             enemyIndicator.transform.position = target;
-        else if (GetPoint(out target, pos1, pos2, ra, rb)) //右边界
+        else if (GetPoint(ref target, pos1, pos2, ra, rb)) //右边界
             enemyIndicator.transform.position = target;
-        else if (GetPoint(out target, pos1, pos2, lb, rb)) //上边界
+        else if (GetPoint(ref target, pos1, pos2, lb, rb)) //上边界
             enemyIndicator.transform.position = target;
-        else if (GetPoint(out target, pos1, pos2, la, ra)) //下边界
+        else if (GetPoint(ref target, pos1, pos2, la, ra)) //下边界
             enemyIndicator.transform.position = target;
     }
 
-    public static bool GetPoint(out Vector3 target, Vector2 pos1, Vector2 pos2, Vector2 pos3, Vector2 pos4)
+    public static bool GetPoint(ref Vector3 target, Vector2 pos1, Vector2 pos2, Vector2 pos3, Vector2 pos4)
     {
-        target = default;
         float a = pos2.y - pos1.y;
         float b = pos1.x - pos2.x;
         float c = pos2.x * pos1.y - pos1.x * pos2.y;
@@ -50,6 +49,7 @@ public static class UIItemUtils
         float e = pos3.x - pos4.x;
         float f = pos4.x * pos3.y - pos3.x * pos4.y;
         float denominator = a * e - d * b;
+
         if (Mathf.Abs(denominator) < Mathf.Epsilon) //平行
             return false;
 
