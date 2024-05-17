@@ -52,6 +52,13 @@ public class PlayerCtrlWnd : WindowRoot
 
     #endregion
 
+    #region HPDefine
+    public Text txtSelfHP;
+    public Image imgSelfHP;
+
+    private int HPSum;
+    #endregion
+
     private StarterAssetsInputs _playerInput;
 
     protected override void InitWnd()
@@ -61,6 +68,7 @@ public class PlayerCtrlWnd : WindowRoot
         InitSkCDTime();
 
         RefreshUI();
+        InitHPVal();
     }
 
     private void Update()
@@ -323,4 +331,19 @@ public class PlayerCtrlWnd : WindowRoot
         }
         #endregion
     }
+
+    #region HPVal
+    public void InitHPVal()
+    {
+        HPSum = GameRoot.Instance.PlayerData.hp;
+        SetText(txtSelfHP, HPSum + "/" + HPSum);
+        imgSelfHP.fillAmount = 1;
+    }
+
+    public void SetSelfHPBarVal(int val)
+    {
+        SetText(txtSelfHP, val + "/" + HPSum);
+        imgSelfHP.fillAmount = val * 1.0f / HPSum;
+    }
+    #endregion
 }

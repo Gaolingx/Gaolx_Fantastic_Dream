@@ -12,6 +12,8 @@ public class DynamicWnd : WindowRoot
     public Text txtTips;
     public Transform hpItemRoot;
 
+    public Animation selfDodgeAni;
+
     private bool isTipsShow = false;
     private Queue<string> tipsQue = new Queue<string>();
     private Dictionary<string, ItemEntityHP> itemDic = new Dictionary<string, ItemEntityHP>();
@@ -157,5 +159,11 @@ public class DynamicWnd : WindowRoot
         {
             item.SetHPVal(oldVal, newVal);
         }
+    }
+
+    public void SetSelfDodge()
+    {
+        selfDodgeAni.Stop();
+        selfDodgeAni.Play();
     }
 }

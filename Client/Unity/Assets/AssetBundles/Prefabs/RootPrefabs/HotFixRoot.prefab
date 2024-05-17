@@ -3116,27 +3116,32 @@ PrefabInstance:
     - target: {fileID: 6120058155439211662, guid: d65385e92d3e8954685097fe65dc075c,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6120058155624981774, guid: d65385e92d3e8954685097fe65dc075c,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6120058155691431869, guid: d65385e92d3e8954685097fe65dc075c,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6120058156260902589, guid: d65385e92d3e8954685097fe65dc075c,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6120058157258716995, guid: d65385e92d3e8954685097fe65dc075c,
         type: 3}
       propertyPath: m_Name
       value: SettingsPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6120058157258716995, guid: d65385e92d3e8954685097fe65dc075c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6120058157258717116, guid: d65385e92d3e8954685097fe65dc075c,
         type: 3}
@@ -3241,27 +3246,27 @@ PrefabInstance:
     - target: {fileID: 6120058157366517723, guid: d65385e92d3e8954685097fe65dc075c,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6120058157366517723, guid: d65385e92d3e8954685097fe65dc075c,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6120058157375572905, guid: d65385e92d3e8954685097fe65dc075c,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6120058157375572905, guid: d65385e92d3e8954685097fe65dc075c,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6120058157375572905, guid: d65385e92d3e8954685097fe65dc075c,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

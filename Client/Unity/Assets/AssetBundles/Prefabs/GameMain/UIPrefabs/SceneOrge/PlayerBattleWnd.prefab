@@ -577,6 +577,8 @@ MonoBehaviour:
   txtSk2CD: {fileID: 3042712436143469378}
   imgSk3CD: {fileID: 1386893078237251159}
   txtSk3CD: {fileID: 8795459375361050423}
+  txtSelfHP: {fileID: 2694977464579804614}
+  imgSelfHP: {fileID: 8110132733863047302}
 --- !u!1 &224252817337836731
 GameObject:
   m_ObjectHideFlags: 0
@@ -2623,10 +2625,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 7e7369882515d994db46188e6ef8de5e, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
