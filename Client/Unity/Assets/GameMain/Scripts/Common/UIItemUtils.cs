@@ -135,4 +135,21 @@ public static class UIItemUtils
         }
         return currentPrg;
     }
+
+    public static void UpdateMixBlendAnim(float currentBlend, float targetBlend, GameObject obj, string propName)
+    {
+        if (Mathf.Abs(currentBlend - targetBlend) < Constants.AccelerSpeed * Time.deltaTime)
+        {
+            currentBlend = targetBlend;
+        }
+        else if (currentBlend > targetBlend)
+        {
+            currentBlend -= Constants.AccelerSpeed * Time.deltaTime;
+        }
+        else
+        {
+            currentBlend += Constants.AccelerSpeed * Time.deltaTime;
+        }
+        obj.GetComponent<Animator>().SetFloat(propName, currentBlend);
+    }
 }

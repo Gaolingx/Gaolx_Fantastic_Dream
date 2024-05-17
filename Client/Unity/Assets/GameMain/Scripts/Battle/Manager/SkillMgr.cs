@@ -58,17 +58,35 @@ public class SkillMgr : MonoBehaviour
         SkillActionCfg skillActionCfg = resSvc.GetSkillActionCfg(skillCfg.skillActionLst[index]);
 
         int damage = skillCfg.skillDamageLst[index];
-        //获取场景里所有的怪物实体，遍历运算（计算满足条件的伤害）
-        List<EntityMonster> monsterLst = caster.battleMgr.GetEntityMonsters();
-        for (int i = 0; i < monsterLst.Count; i++)
+        if (caster.entityType == EntityType.Monster)
         {
-            EntityMonster target = monsterLst[i];
-            //判断怪物与玩家的距离，角度
-            if (InRange(caster.GetPos(), target.GetPos(), skillActionCfg.radius)
-                && InAngle(caster.GetTrans(), target.GetPos(), skillActionCfg.angle))
+            //怪物攻击玩家
+
+            EntityPlayer epTarget = GameRoot.Instance.GetCurrentPlayer();
+            //判断距离，判断角度
+            if (InRange(caster.GetPos(), epTarget.GetPos(), skillActionCfg.radius)
+                && InAngle(caster.GetTrans(), epTarget.GetPos(), skillActionCfg.angle))
             {
                 //满足所有条件，计算伤害
-                CalcDamage(caster, target, skillCfg, damage);
+                CalcDamage(caster, epTarget, skillCfg, damage);
+            }
+        }
+        else if (caster.entityType == EntityType.Player)
+        {
+            //玩家攻击怪物
+
+            //获取场景里所有的怪物实体，遍历运算（计算满足条件的伤害）
+            List<EntityMonster> monsterLst = caster.battleMgr.GetEntityMonsters();
+            for (int i = 0; i < monsterLst.Count; i++)
+            {
+                EntityMonster emTarget = monsterLst[i];
+                //判断距离，判断角度
+                if (InRange(caster.GetPos(), emTarget.GetPos(), skillActionCfg.radius)
+                    && InAngle(caster.GetTrans(), emTarget.GetPos(), skillActionCfg.angle))
+                {
+                    //满足所有条件，计算伤害
+                    CalcDamage(caster, emTarget, skillCfg, damage);
+                }
             }
         }
     }
