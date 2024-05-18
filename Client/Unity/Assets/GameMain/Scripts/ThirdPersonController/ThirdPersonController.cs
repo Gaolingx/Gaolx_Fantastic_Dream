@@ -176,6 +176,11 @@ namespace StarterAssets
             }
         }
 
+        public Animator GetAnimator()
+        {
+            return _animator;
+        }
+
         /// <summary>
         /// 移动模式切换
         /// </summary>

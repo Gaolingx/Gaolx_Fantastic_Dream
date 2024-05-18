@@ -253,6 +253,10 @@ public abstract class EntityBase
         {
             return controller.ani.runtimeAnimatorController.animationClips;
         }
+        if (playerController != null)
+        {
+            return playerController.GetAnimator().runtimeAnimatorController.animationClips;
+        }
         return null;
     }
 
