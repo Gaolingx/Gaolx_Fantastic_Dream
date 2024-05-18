@@ -178,6 +178,7 @@ public abstract class EntityBase
         }
     }
 
+    #region 战斗信息显示
     public virtual void SetDodge()
     {
         if (controller != null)
@@ -206,6 +207,7 @@ public abstract class EntityBase
             GameRoot.Instance.dynamicWnd.SetHPVal(Name, oldval, newval);
         }
     }
+    #endregion
 
     public virtual void SkillAttack(int skillID)
     {
