@@ -59,7 +59,7 @@ public class Constants
     //场景名称/ID
     public const int MainCityMapID = 10000;
     //public const string SceneMainCity = "SceneMainCity";
-    
+
 
     //背景音效名称
     public const string BGLogin = "bgLogin";
@@ -115,7 +115,7 @@ public class Constants
     public const string CharShowCamWithTag = "CharShowCam";
     public const float CharShowCamDistanceOffset = 3.8f;
     public const float CharShowCamHeightOffset = 1.2f;
-    
+
     //玩家信息页模型拖拽速度
     public const float OnDragCharRoateSpeed = 0.4f;
 
@@ -208,4 +208,7 @@ public class Constants
     public const float MonsterCheckTime = 2.0f;
     public const float MonsterAtkTime = 2.0f;
 
+    //Collide
+    public const int MonsterCollideLayer = 16;
+    public const int PlayerCollideLayer = 13;
 }

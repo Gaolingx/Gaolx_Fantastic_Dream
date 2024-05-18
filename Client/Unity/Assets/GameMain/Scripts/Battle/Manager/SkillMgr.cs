@@ -219,6 +219,17 @@ public class SkillMgr : MonoBehaviour
     {
         SkillCfg skillData = resSvc.GetSkillCfg(skillID);
 
+        //考虑碰撞
+        if (!skillData.isCollide)
+        {
+            //忽略刚体碰撞（玩家与怪物之间，不包括环境、需要指定layer）
+            Physics.IgnoreLayerCollision(Constants.PlayerCollideLayer, Constants.MonsterCollideLayer);
+            timerSvc.AddTimeTask((int tid) =>
+            {
+                Physics.IgnoreLayerCollision(Constants.PlayerCollideLayer, Constants.MonsterCollideLayer, false);
+            }, skillData.skillTime);
+        }
+
         //仅玩家
         if (entity.entityType == EntityType.Player)
         {

@@ -9,6 +9,7 @@ TagManager:
   - CharShowCam
   - MapRoot
   - PlayerFollowCam
+  - Joysticks
   layers:
   - Default
   - TransparentFX
@@ -26,7 +27,7 @@ TagManager:
   - Character
   - Map
   - Npc
-  - 
+  - Monster
   - 
   - 
   - 

@@ -118,6 +118,8 @@ public class SkillCfg : BaseData<SkillCfg>
     public int aniAction; //动画控制参数
     public string fx; //特效名称
     public bool isCombo; //是否连招
+    public bool isCollide; //忽略碰撞
+    public bool isBreak; //是否可被中断
     public DamageType dmgType; //伤害类型
     public List<int> skillMoveLst;
     public List<int> skillActionLst;

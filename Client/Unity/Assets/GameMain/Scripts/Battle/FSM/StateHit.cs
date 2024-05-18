@@ -41,6 +41,7 @@ public class StateHit : IState
                 clipName.Contains("Hit") ||
                 clipName.Contains("HIT"))
             {
+                //PECommon.Log("AniLength:" + clips[i].length);
                 return clips[i].length;
             }
         }

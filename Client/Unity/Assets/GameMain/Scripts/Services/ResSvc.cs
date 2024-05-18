@@ -780,6 +780,12 @@ public class ResSvc : MonoBehaviour
                         case "isCombo":
                             sc.isCombo = e.InnerText.Equals("1");
                             break;
+                        case "isCollide":
+                            sc.isCollide = e.InnerText.Equals("1");
+                            break;
+                        case "isBreak":
+                            sc.isBreak = e.InnerText.Equals("1");
+                            break;
                         case "dmgType":
                             if (e.InnerText.Equals("1"))
                             {

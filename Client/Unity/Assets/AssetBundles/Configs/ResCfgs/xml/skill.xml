@@ -7,6 +7,8 @@
 		<aniAction>1</aniAction>
 		<fx>dagger_skill1</fx>
 		<isCombo>0</isCombo>
+		<isCollide>0</isCollide>
+    	<isBreak>0</isBreak>
 		<dmgType>1</dmgType>
 		<skillMoveLst>1011</skillMoveLst>
 		<skillActionLst>1011|1011</skillActionLst>
@@ -19,6 +21,8 @@
 		<aniAction>2</aniAction>
 		<fx>dagger_skill2</fx>
 		<isCombo>0</isCombo>
+		<isCollide>0</isCollide>
+    	<isBreak>0</isBreak>
 		<dmgType>2</dmgType>
 		<skillMoveLst>1021|1022</skillMoveLst>
 		<skillActionLst>1021|1021|1021</skillActionLst>
@@ -31,6 +35,8 @@
 		<aniAction>3</aniAction>
 		<fx>dagger_skill3</fx>
 		<isCombo>0</isCombo>
+		<isCollide>0</isCollide>
+    	<isBreak>0</isBreak>
 		<dmgType>2</dmgType>
 		<skillMoveLst>1031|1032</skillMoveLst>
 		<skillActionLst>1031|1031|1031|1031</skillActionLst>
@@ -43,6 +49,8 @@
 		<aniAction>11</aniAction>
 		<fx>dagger_atk1</fx>
 		<isCombo>1</isCombo>
+		<isCollide>1</isCollide>
+    	<isBreak>1</isBreak>
 		<dmgType>1</dmgType>
 		<skillMoveLst>1111</skillMoveLst>
 		<skillActionLst>1111</skillActionLst>
@@ -55,6 +63,8 @@
 		<aniAction>12</aniAction>
 		<fx>dagger_atk2</fx>
 		<isCombo>1</isCombo>
+		<isCollide>1</isCollide>
+    	<isBreak>1</isBreak>
 		<dmgType>1</dmgType>
 		<skillMoveLst>1111</skillMoveLst>
 		<skillActionLst>1121</skillActionLst>
@@ -67,6 +77,8 @@
 		<aniAction>13</aniAction>
 		<fx>dagger_atk3</fx>
 		<isCombo>1</isCombo>
+		<isCollide>1</isCollide>
+    	<isBreak>1</isBreak>
 		<dmgType>1</dmgType>
 		<skillMoveLst>1111</skillMoveLst>
 		<skillActionLst>1131</skillActionLst>
@@ -79,6 +91,8 @@
 		<aniAction>14</aniAction>
 		<fx>dagger_atk4</fx>
 		<isCombo>1</isCombo>
+		<isCollide>1</isCollide>
+    	<isBreak>1</isBreak>
 		<dmgType>1</dmgType>
 		<skillMoveLst>1111</skillMoveLst>
 		<skillActionLst>1141</skillActionLst>
@@ -91,6 +105,8 @@
 		<aniAction>15</aniAction>
 		<fx>dagger_atk5</fx>
 		<isCombo>1</isCombo>
+		<isCollide>1</isCollide>
+    	<isBreak>1</isBreak>
 		<dmgType>1</dmgType>
 		<skillMoveLst>1111</skillMoveLst>
 		<skillActionLst>1151</skillActionLst>
@@ -102,6 +118,8 @@
 		<skillTime>800</skillTime>
 		<aniAction>11</aniAction>
 		<isCombo>0</isCombo>
+		<isCollide>1</isCollide>
+    	<isBreak>1</isBreak>
 		<dmgType>1</dmgType>
 		<skillActionLst>2111</skillActionLst>
 		<skillDamageLst>26</skillDamageLst>
@@ -112,6 +130,8 @@
 		<skillTime>800</skillTime>
 		<aniAction>11</aniAction>
 		<isCombo>0</isCombo>
+		<isCollide>1</isCollide>
+    	<isBreak>0</isBreak>
 		<dmgType>2</dmgType>
 		<skillActionLst>2211</skillActionLst>
 		<skillDamageLst>65</skillDamageLst>

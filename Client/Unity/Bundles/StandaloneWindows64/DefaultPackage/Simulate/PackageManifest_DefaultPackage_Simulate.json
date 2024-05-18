@@ -1769,6 +1769,14 @@
         },
         {
             "Address": "",
+            "AssetPath": "Assets/AssetBundles/UIs/ResImages/Skill_Miss.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 30,
+            "DependIDs": []
+        },
+        {
+            "Address": "",
             "AssetPath": "Assets/AssetBundles/UIs/ResImages/star1.png",
             "AssetGUID": "",
             "AssetTags": [],
