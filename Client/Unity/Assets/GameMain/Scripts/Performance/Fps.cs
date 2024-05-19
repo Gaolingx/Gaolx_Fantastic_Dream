@@ -3,7 +3,7 @@ using System.Text;
 using Unity.Profiling;
 using UnityEngine.UI;
 
-namespace DarkGod.Main
+namespace HotFix.Utils
 {
     public class Fps : MonoBehaviour
     {

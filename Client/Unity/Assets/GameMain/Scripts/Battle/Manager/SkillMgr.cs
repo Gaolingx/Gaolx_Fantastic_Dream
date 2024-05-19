@@ -1,6 +1,4 @@
-namespace DarkGod.Main
-{
-//功能：技能管理器
+﻿//功能：技能管理器
 
 
 using System.Collections.Generic;
@@ -303,5 +301,4 @@ public class SkillMgr : MonoBehaviour
             }, sum);
         }
     }
-}
 }

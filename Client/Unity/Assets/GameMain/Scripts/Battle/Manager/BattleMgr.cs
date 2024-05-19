@@ -1,6 +1,4 @@
-namespace DarkGod.Main
-{
-//功能：战场管理器
+﻿//功能：战场管理器
 
 
 using Cinemachine;
@@ -346,7 +344,5 @@ public class BattleMgr : MonoBehaviour
     {
         GameRoot.Instance.SetCurrentPlayer(player);
     }
-
-}
 
 }

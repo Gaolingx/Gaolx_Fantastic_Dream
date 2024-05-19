@@ -1,5 +1,3 @@
-namespace DarkGod.Main
-{
 /****************************************************
 	文件：MonsterController.cs
 	作者：Plane
@@ -42,6 +40,4 @@ public class MonsterController : Controller
             ctrl.Move(Vector3.down * Time.deltaTime * MonsterMoveSpeed);
         }
     }
-}
-
 }

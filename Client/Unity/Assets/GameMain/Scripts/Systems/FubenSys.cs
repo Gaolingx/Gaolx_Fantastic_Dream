@@ -1,6 +1,4 @@
-namespace DarkGod.Main
-{
-//锟斤拷锟杰ｏ拷锟斤拷锟斤拷业锟斤拷系统
+//功能：副本业务系统
 
 using PEProtocol;
 using System.Collections;
@@ -38,10 +36,8 @@ public class FubenSys : SystemRoot
         GameRoot.Instance.SetPlayerDataByFBStart(msg.rspFBFight);
         MainCitySys.Instance.maincityWnd.SetWndState(false);
         SetFubenWndState(false);
-        //锟斤拷锟截讹拷应锟斤拷战锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷始锟斤拷锟斤拷战锟斤拷锟斤拷锟斤拷
+        //加载对应的战斗场景，开始副本战斗任务
         BattleSys.Instance.StartBattle(msg.rspFBFight.fbid);
     }
-
-}
 
 }

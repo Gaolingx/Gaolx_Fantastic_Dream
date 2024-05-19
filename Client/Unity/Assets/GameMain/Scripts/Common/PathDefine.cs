@@ -1,6 +1,4 @@
-namespace DarkGod.Main
-{
-//ï¿½ï¿½ï¿½Ü£ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//¹¦ÄÜ£ºÂ·¾¶³£Á¿ÅäÖÃ
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -96,7 +94,5 @@ public class PathDefine
     public const string AssissnCityCharacterCameraPrefab = "Assets/AssetBundles/Prefabs/GameMain/Cameras/SceneMainCity/PlayerFollowCamera";
 
     #endregion
-
-}
 
 }

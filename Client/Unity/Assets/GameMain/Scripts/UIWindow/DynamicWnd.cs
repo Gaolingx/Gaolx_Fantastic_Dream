@@ -1,6 +1,4 @@
-namespace DarkGod.Main
-{
-//ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½Ì¬UIÔªï¿½Ø½ï¿½ï¿½ï¿½
+//¹¦ÄÜ£º¶¯Ì¬UIÔªËØ½çÃæ
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,7 +24,7 @@ public class DynamicWnd : WindowRoot
         SetActive(txtTips, false);
     }
 
-    #region Tipsï¿½ï¿½ï¿½
+    #region TipsÏà¹Ø
     public void AddTips(string tips)
     {
         lock (tipsQue)
@@ -59,7 +57,7 @@ public class DynamicWnd : WindowRoot
         float scaleRate = 1.0f * Constants.ScreenStandardHeight / Screen.height;
 
         Vector3 fixedPos = Vector3.zero;
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¹ï¿½ï¿½ï¿½ï¿½TransformÓ³ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½Õ¼ï¿½ï¿½ï¿½ï¿½ï¿½
+        //½«³¡¾°ÖÐ¹ÖÎïµÄTransformÓ³Éä³ÉÆÁÄ»¿Õ¼ä×ø±ê
         if (rootTrans != null)
         {
             Vector3 screenPos = mainCamera.WorldToScreenPoint(rootTrans.position);
@@ -69,7 +67,7 @@ public class DynamicWnd : WindowRoot
         return UIItemUtils.IsMonsterOnScreen(fixedPos);
     }
 
-    //ï¿½ï¿½Ê¾Tipsï¿½Ä½Ó¿ï¿½
+    //ÏÔÊ¾TipsµÄ½Ó¿Ú
     private void SetTips(string tips)
     {
         SetActive(txtTips);
@@ -77,7 +75,7 @@ public class DynamicWnd : WindowRoot
 
         AnimationClip clip = tipsAni.GetClip(Constants.TipsAniClipName);
         tipsAni.Play();
-        //ï¿½ï¿½Ê±ï¿½Ø±Õ¼ï¿½ï¿½ï¿½×´Ì¬
+        //ÑÓÊ±¹Ø±Õ¼¤»î×´Ì¬
 
         StartCoroutine(AniPlayDone(clip.length, () =>
         {
@@ -105,12 +103,12 @@ public class DynamicWnd : WindowRoot
         }
         else
         {
-            //ï¿½ï¿½ï¿½Ø¶ï¿½Ó¦itemï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ItemRootï¿½ï¿½
+            //¼ÓÔØ¶ÔÓ¦item£¬²¢·ÅÈëItemRootÏÂ
             GameObject go = resSvc.LoadPrefab(PathDefine.HPItemPrefab, true);
             go.transform.SetParent(hpItemRoot);
-            GameRoot.Instance.SetGameObjectTrans(go, new Vector3(-1000, 0, 0), Vector3.zero, Vector3.one, true); //Ä¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½
+            GameRoot.Instance.SetGameObjectTrans(go, new Vector3(-1000, 0, 0), Vector3.zero, Vector3.one, true); //Ä¬ÈÏÉèÖÃÔÚÆÁÄ»Íâ
             ItemEntityHP ieh = go.GetComponent<ItemEntityHP>();
-            ieh.InitItemInfo(trans, hp); //ï¿½ï¿½hpï¿½ï¿½ï¿½Ãµï¿½Itemï¿½ï¿½
+            ieh.InitItemInfo(trans, hp); //½«hpÉèÖÃµ½ItemÖÐ
             itemDic.Add(mName, ieh);
         }
     }
@@ -120,9 +118,9 @@ public class DynamicWnd : WindowRoot
         ItemEntityHP item = null;
         if (itemDic.TryGetValue(mName, out item))
         {
-            //ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            //Ïú»ÙÑªÌõÎïÌå
             Destroy(item.gameObject);
-            //ï¿½Æ³ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½
+            //ÒÆ³ý×ÖµäÊý¾Ý
             itemDic.Remove(mName);
         }
     }
@@ -168,6 +166,4 @@ public class DynamicWnd : WindowRoot
         selfDodgeAni.Stop();
         selfDodgeAni.Play();
     }
-}
-
 }

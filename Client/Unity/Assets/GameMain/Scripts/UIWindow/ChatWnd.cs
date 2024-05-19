@@ -1,5 +1,3 @@
-namespace DarkGod.Main
-{
 //功能：聊天界面
 
 using PEProtocol;
@@ -143,5 +141,4 @@ public class ChatWnd : WindowRoot {
         chatType = 0;
         SetWndState(false);
     }
-}
 }

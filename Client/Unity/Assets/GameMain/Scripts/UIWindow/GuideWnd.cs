@@ -1,5 +1,3 @@
-namespace DarkGod.Main
-{
 //功能：引导对话界面
 using PEProtocol;
 using UnityEngine;
@@ -99,5 +97,4 @@ public class GuideWnd : WindowRoot {
             SetTalk();
         }
     }
-}
 }

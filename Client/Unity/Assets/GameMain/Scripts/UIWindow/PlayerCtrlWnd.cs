@@ -1,6 +1,4 @@
-namespace DarkGod.Main
-{
-//ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½Ò¿ï¿½ï¿½Æ½ï¿½ï¿½ï¿½
+//¹¦ÄÜ£ºÍæ¼Ò¿ØÖÆ½çÃæ
 
 using PEProtocol;
 using StarterAssets;
@@ -129,22 +127,22 @@ public class PlayerCtrlWnd : WindowRoot
     {
         if (isSk1CD)
         {
-            //ï¿½ï¿½ï¿½Ö¿ï¿½ï¿½ï¿½
+            //ÕÚÕÖ¿ØÖÆ
             sk1FillCount += deltaTime;
             if (sk1FillCount >= sk1CDTime)
             {
-                //CDï¿½ï¿½ï¿½
+                //CDÍê³É
                 isSk1CD = false;
                 SetActive(imgSk1CD, false);
                 sk1FillCount = 0;
             }
             else
             {
-                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È´ï¿½ï¿½ï¿½È£ï¿½ï¿½ï¿½1ï¿½ï¿½0ï¿½ï¿½
+                //¸üÐÂÀäÈ´½ø¶È£¨´Ó1µ½0£©
                 imgSk1CD.fillAmount = 1 - sk1FillCount / sk1CDTime;
             }
 
-            //Ê±ï¿½ï¿½ï¿½ï¿½Ê¾
+            //Ê±¼äÏÔÊ¾
             sk1NumCount += deltaTime;
             if (sk1NumCount >= 1)
             {
@@ -217,13 +215,13 @@ public class PlayerCtrlWnd : WindowRoot
     }
 
     #region RegEvts
-    //×¢ï¿½á´¥ï¿½ï¿½ï¿½Â¼ï¿½
+    //×¢²á´¥ÃþÊÂ¼þ
     public void ListeningTouchEvts()
     {
         BattleSys.Instance.SetPlayerMoveDir(currentDir);
     }
 
-    //ï¿½Í·Å¼ï¿½ï¿½ï¿½
+    //ÊÍ·Å¼¼ÄÜ
     public void ListeningClickPlayerNormalAtk()
     {
         if (_playerInput.normalAtk)
@@ -298,23 +296,23 @@ public class PlayerCtrlWnd : WindowRoot
 
         #region Expprg
         int expPrgVal = (int)(pd.exp * 1.0f / PECommon.GetExpUpValByLv(pd.lv) * 100);
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Èµï¿½ï¿½ï¿½Ê¾
+        //¾­ÑéÌõ½ø¶ÈµÄÏÔÊ¾
         SetText(txtExpPrg, expPrgVal + "%");
 
         int expPrgindex = expPrgVal / 10;
 
         GridLayoutGroup expGrid = expPrgTrans.GetComponent<GridLayoutGroup>();
 
-        //Í¨ï¿½ï¿½ ï¿½ï¿½×¼ï¿½ï¿½Ä»ï¿½ß¶ï¿½/Êµï¿½ï¿½ï¿½è±¸ï¿½ï¿½Ä»ï¿½ß¶È£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°UIï¿½ï¿½ï¿½ï¿½Úµï¿½Ç°ï¿½ï¿½Ä»ï¿½ï¿½Òªï¿½ï¿½ï¿½ÅµÄ±ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½Canvas Scaler Ò²Òªï¿½ï¿½ï¿½Ú¸ß¶ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Å±ï¿½×¼ï¿½ï¿½
+        //Í¨¹ý ±ê×¼ÆÁÄ»¸ß¶È/Êµ¼ÊÉè±¸ÆÁÄ»¸ß¶È£¬¼ÆËã³öµ±Ç°UIÏà¶ÔÓÚµ±Ç°ÆÁÄ»ÐèÒªËõ·ÅµÄ±ÈÀý£¨×¢ÒâCanvas Scaler Ò²Òª»ùÓÚ¸ß¶È×÷ÎªËõ·Å±ê×¼£©
         float globalRate = 1.0f * Constants.ScreenStandardHeight / Screen.height;
-        //ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½Êµï¿½ï¿½ï¿½
+        //Ëã³öÆÁÄ»ÕæÊµ¿í¶È
         float screenWidth = Screen.width * globalRate;
-        //ï¿½ï¿½È¥Ð¡ï¿½Ä¼ï¿½Ï¶
+        //¼õÈ¥Ð¡µÄ¼äÏ¶
         float expCellWidth = (screenWidth - 180) / 10;
 
         expGrid.cellSize = new Vector2(expCellWidth, 7);
 
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½expItem
+        //±éÀúËùÓÐexpItem
         for (int i = 0; i < expPrgTrans.childCount; i++)
         {
             Image img = expPrgTrans.GetChild(i).GetComponent<Image>();
@@ -353,6 +351,4 @@ public class PlayerCtrlWnd : WindowRoot
     {
         return BattleSys.Instance.CanRlsSkill();
     }
-}
-
 }

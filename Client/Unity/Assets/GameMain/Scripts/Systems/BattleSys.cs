@@ -1,6 +1,4 @@
-namespace DarkGod.Main
-{
-//锟斤拷锟杰ｏ拷战锟斤拷业锟斤拷系统
+//功能：战斗业务系统
 
 using System.Collections;
 using System.Collections.Generic;
@@ -28,7 +26,7 @@ public class BattleSys : SystemRoot
             name = "BattleRoot"
         };
 
-        //锟斤拷为GameRoot锟斤拷锟斤拷锟斤拷锟斤拷
+        //成为GameRoot的子物体
         go.transform.SetParent(GameRoot.Instance.transform);
         battleMgr = go.AddComponent<BattleMgr>();
 
@@ -63,6 +61,4 @@ public class BattleSys : SystemRoot
     {
         return battleMgr.CanRlsSkill();
     }
-}
-
 }

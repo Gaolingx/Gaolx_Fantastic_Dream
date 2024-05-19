@@ -1,6 +1,4 @@
-namespace DarkGod.Main
-{
-//功能：攻击状态
+﻿//功能：攻击状态
 
 
 public class StateAttack : IState
@@ -28,5 +26,4 @@ public class StateAttack : IState
         entity.SkillAttack((int)args[0]);
         //PECommon.Log("StateAttack:Process State.");
     }
-}
 }

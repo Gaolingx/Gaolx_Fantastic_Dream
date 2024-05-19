@@ -1,6 +1,4 @@
-namespace DarkGod.Main
-{
-//锟斤拷锟杰ｏ拷业锟斤拷系统锟斤拷锟斤拷
+//功能：业务系统基类
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +18,4 @@ public class SystemRoot : MonoBehaviour
         netSvc = NetSvc.Instance;
         timerSvc = TimerSvc.Instance;
     }
-}
-
 }

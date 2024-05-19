@@ -1,5 +1,3 @@
-namespace DarkGod.Main
-{
 //功能：副本选择界面
 
 using PEProtocol;
@@ -70,5 +68,4 @@ public class FubenWnd : WindowRoot {
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
         SetWndState(false);
     }
-}
 }

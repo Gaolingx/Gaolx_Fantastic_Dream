@@ -1,5 +1,3 @@
-namespace DarkGod.Main
-{
 /****************************************************
     文件：PEListener.cs
 	作者：Plane
@@ -42,5 +40,4 @@ public class PEListener : MonoBehaviour, IPointerClickHandler, IPointerDownHandl
         }
     }
 
-}
 }

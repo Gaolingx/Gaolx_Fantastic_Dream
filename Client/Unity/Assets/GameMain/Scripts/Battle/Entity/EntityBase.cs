@@ -1,6 +1,4 @@
-namespace DarkGod.Main
-{
-//ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ß¼ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½
+//¹¦ÄÜ£ºÂß¼­ÊµÌå»ùÀà
 
 using StarterAssets;
 using System.Collections.Generic;
@@ -10,7 +8,7 @@ using UnityEngine.InputSystem.UI;
 
 public abstract class EntityBase
 {
-    //ï¿½ï¿½Òµï¿½Ç°×´Ì¬
+    //Íæ¼Òµ±Ç°×´Ì¬
     public AniState currentAniState = AniState.None;
 
     public BattleMgr battleMgr = null;
@@ -32,9 +30,9 @@ public abstract class EntityBase
     public EntityType entityType = EntityType.None;
 
     private BattleProps props;
-    public BattleProps Props { get { return props; } protected set { props = value; } } //Ö»ï¿½ï¿½ï¿½Ú¼Ì³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½
+    public BattleProps Props { get { return props; } protected set { props = value; } } //Ö»ÄÜÔÚ¼Ì³ÐËûµÄ×ÓÀàÖÐÐÞ¸Ä
 
-    private int hp; //Õ½ï¿½ï¿½ï¿½Ðµï¿½hp
+    private int hp; //Õ½¶·ÖÐµÄhp
     public int HP
     {
         get
@@ -45,20 +43,20 @@ public abstract class EntityBase
         set
         {
             PECommon.Log("hp change:" + hp + " to " + value);
-            //Í¨ÖªUIï¿½ï¿½
-            SetHPVal(hp, value); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø·ï¿½ï¿½ï¿½ï¿½ï¿½
+            //Í¨ÖªUI²ã
+            SetHPVal(hp, value); //ÎÞÐèÔÚÆäËûµØ·½µ÷ÓÃ
             hp = value;
         }
     }
 
-    //ï¿½Ã¶ï¿½ï¿½Ð´æ´¢ï¿½ï¿½ï¿½Ð¶ï¿½Ó¦ï¿½Ä¼ï¿½ï¿½ï¿½idï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½Ë´ï¿½ï¿½Õ¹ï¿½ï¿½ó£¬¼ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Î¼ï¿½ï¿½ï¿½idï¿½ï¿½
+    //ÓÃ¶ÓÁÐ´æ´¢Á¬ÕÐ¶ÔÓ¦µÄ¼¼ÄÜid£¬µ±ÊÍ·ÅÍê´Ë´ÎÆÕ¹¥ºó£¬¼ì²âÊÇ·ñ´æÔÚÏÂÒ»´Î¼¼ÄÜid¡£
     public Queue<int> comboQue = new Queue<int>();
     public int nextSkillID = 0;
 
-    public SkillCfg curtSkillCfg; //ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Ê©ï¿½Å¼ï¿½ï¿½Üµï¿½id
+    public SkillCfg curtSkillCfg; //µ±Ç°ÕýÔÚÊ©·Å¼¼ÄÜµÄid
 
     #region State Define
-    //×´Ì¬ï¿½Ð»ï¿½
+    //×´Ì¬ÇÐ»»
     public void StateBorn()
     {
         stateMgr.ChangeStatus(this, AniState.Born, null);
@@ -86,7 +84,7 @@ public abstract class EntityBase
     #endregion
 
     #region AI Logic
-    //ï¿½ï¿½ï¿½ï¿½aiï¿½ß¼ï¿½
+    //¹ÖÎïaiÂß¼­
     public virtual void TickAILogic()
     {
 
@@ -164,7 +162,7 @@ public abstract class EntityBase
             playerController.SetSkillMove(move, speed);
         }
     }
-    public virtual void SetAtkRotation(Vector2 dir, bool isOffset = false) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ«ï¿½ï¿½
+    public virtual void SetAtkRotation(Vector2 dir, bool isOffset = false) //¿¼ÂÇÉãÏñ»úÆ«ÒÆ
     {
         if (controller != null)
         {
@@ -183,7 +181,7 @@ public abstract class EntityBase
         }
     }
 
-    #region Õ½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Ê¾
+    #region Õ½¶·ÐÅÏ¢ÏÔÊ¾
     public virtual void SetDodge()
     {
         if (controller != null)
@@ -270,13 +268,13 @@ public abstract class EntityBase
         return Vector2.zero;
     }
 
-    //ï¿½ï¿½ï¿½ï¿½Ë¼Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¹ï¿½Ê±ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éºï¿½ï¿½Ë³ï¿½Attack×´Ì¬Ê±ï¿½ï¿½â£¬ï¿½Ð¶Ï´æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÝµÄ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½
-    //ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ò»ï¿½ï¿½skillIDï¿½ï¿½Öµï¿½ï¿½nextSkillIDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Idle×´Ì¬Ê±ï¿½ï¿½ï¿½ï¿½ï¿½nextSkillIDï¿½ï¿½Îªï¿½ã£¬ï¿½ï¿½ï¿½ë¹¥ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //Á¬ÕÐË¼Â·£º°´ÏÂÆÕ¹¥Ê±£¬Ð´Èë¶ÓÁÐ¡£µ±ÆÕÍ¨¹¥»÷Íê³Éºó£¬ÍË³öAttack×´Ì¬Ê±¼ì²â£¬ÅÐ¶Ï´æ´¢Á¬ÕÐÊý¾ÝµÄ¶ÓÁÐÖÐÊÇ·ñÓÐÊý¾Ý£¬
+    //ÓÐÔòÈ¡³öÒ»ÌõskillID¸³Öµ¸ønextSkillID¡£½øÈëIdle×´Ì¬Ê±ºò£¬Èç¹ûnextSkillID²»ÎªÁã£¬½øÈë¹¥»÷×´Ì¬£¬ÊÍ·ÅÏÂÒ»¸ö¼¼ÄÜ
     public void ExitCurtSkill()
     {
         PlayerCanControl(true);
 
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¸ï¿½ï¿½ï¿½
+        //Á¬ÕÐÊý¾Ý¸üÐÂ
         if (curtSkillCfg.isCombo)
         {
             if (comboQue.Count > 0)
@@ -290,5 +288,4 @@ public abstract class EntityBase
         }
         SetAction(Constants.ActionDefault);
     }
-}
 }

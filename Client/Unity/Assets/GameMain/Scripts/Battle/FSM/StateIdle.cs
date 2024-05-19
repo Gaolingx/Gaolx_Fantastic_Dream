@@ -1,6 +1,4 @@
-namespace DarkGod.Main
-{
-//功能：待机状态
+﻿//功能：待机状态
 
 using UnityEngine;
 
@@ -46,5 +44,4 @@ public class StateIdle : IState
             //PECommon.Log("StateIdle:Process State.");
         }
     }
-}
 }

@@ -1,5 +1,3 @@
-namespace DarkGod.Main
-{
 /****************************************************
 	文件：PETools.cs
 	作者：SIKI学院——Plane
@@ -17,6 +15,4 @@ public class PETools {
         int val = rd.Next(min, max + 1);
         return val;
     }
-}
-
 }

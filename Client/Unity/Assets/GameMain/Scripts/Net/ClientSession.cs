@@ -1,6 +1,4 @@
-namespace DarkGod.Main
-{
-//功能：客户端网络会话
+﻿//功能：客户端网络会话
 using PENet;
 using PEProtocol;
 
@@ -24,6 +22,4 @@ public class ClientSession : PESession<GameMsg>
         GameRoot.AddTips("服务器断开连接");
         PECommon.Log("DisConnect To Server");
     }
-}
-
 }

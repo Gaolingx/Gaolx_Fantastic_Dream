@@ -1,6 +1,4 @@
-namespace DarkGod.Main
-{
-//功能：死亡状态
+﻿//功能：死亡状态
 
 
 public class StateDie : IState
@@ -25,5 +23,3 @@ public class StateDie : IState
     }
 }
 
-
-}

@@ -1,6 +1,4 @@
-namespace DarkGod.Main
-{
-//ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½Â½×¢ï¿½ï¿½Òµï¿½ï¿½ÏµÍ³
+//¹¦ÄÜ£ºµÇÂ½×¢²áÒµÎñÏµÍ³
 using PEProtocol;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,14 +21,14 @@ public class LoginSys : SystemRoot
     }
 
     /// <summary>
-    /// ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½
+    /// ½øÈëµÇÂ¼³¡¾°
     /// </summary>
     public void EnterLogin()
     {
-        //ï¿½ì²½ï¿½Ä¼ï¿½ï¿½Øµï¿½Â¼ï¿½ï¿½ï¿½ï¿½
-        //ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ØµÄ½ï¿½ï¿½ï¿½
+        //Òì²½µÄ¼ÓÔØµÇÂ¼³¡¾°
+        //²¢ÏÔÊ¾¼ÓÔØµÄ½ø¶È
         resSvc.AsyncLoadScene(PathDefine.SceneLogin, () => {
-            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôºï¿½ï¿½Ù´ï¿½×¢ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½
+            //¼ÓÔØÍê³ÉÒÔºóÔÙ´ò¿ª×¢²áµÇÂ¼½çÃæ
             loginWnd.SetWndState();
             audioSvc.PlayBGMusic(Constants.BGLogin);
         });
@@ -38,20 +36,20 @@ public class LoginSys : SystemRoot
 
     public void RspLogin(GameMsg msg)
     {
-        GameRoot.AddTips("ï¿½ï¿½Â¼ï¿½É¹ï¿½");
+        GameRoot.AddTips("µÇÂ¼³É¹¦");
         GameRoot.Instance.SetPlayerData(msg.rspLogin);
 
         if (msg.rspLogin.playerData.name == "")
         {
-            //ï¿½ò¿ª½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            //´ò¿ª½ÇÉ«´´½¨½çÃæ
             createWnd.SetWndState();
         }
         else
         {
-            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            //½øÈëÖ÷³Ç
             MainCitySys.Instance.EnterMainCity();
         }
-        //ï¿½Ø±Õµï¿½Â¼ï¿½ï¿½ï¿½ï¿½
+        //¹Ø±ÕµÇÂ¼½çÃæ
         loginWnd.SetWndState(false);
     }
 
@@ -59,13 +57,11 @@ public class LoginSys : SystemRoot
     {
         GameRoot.Instance.SetPlayerName(msg.rspRename.name);
 
-        //ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-        //ï¿½ï¿½ï¿½ï¿½ï¿½ÇµÄ½ï¿½ï¿½ï¿½
+        //Ìø×ª³¡¾°½øÈëÖ÷³Ç
+        //´ò¿ªÖ÷³ÇµÄ½çÃæ
         MainCitySys.Instance.EnterMainCity();
 
-        //ï¿½Ø±Õ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //¹Ø±Õ´´½¨½çÃæ
         createWnd.SetWndState(false);
     }
-}
-
 }

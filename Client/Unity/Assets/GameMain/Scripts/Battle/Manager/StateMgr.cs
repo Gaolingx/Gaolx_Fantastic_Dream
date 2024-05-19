@@ -1,6 +1,4 @@
-namespace DarkGod.Main
-{
-//功能：状态管理器
+﻿//功能：状态管理器
 
 
 using System.Collections.Generic;
@@ -41,5 +39,4 @@ public class StateMgr : MonoBehaviour
             fsmDic[targetState].StateProcess(entity, args);
         }
     }
-}
 }
