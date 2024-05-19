@@ -333,9 +333,16 @@ public class BattleMgr : MonoBehaviour
     {
         return BattleSys.Instance.GetDirInput();
     }
+    public bool CanRlsSkill()
+    {
+        return entitySelfPlayer.CanRlsSkill;
+    }
+
+    #endregion
+
     public void SetEntityPlayer(EntityPlayer player)
     {
         GameRoot.Instance.SetCurrentPlayer(player);
     }
-    #endregion
+
 }

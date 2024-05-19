@@ -16,6 +16,11 @@ public class StateHit : IState
 
     public void StateProcess(EntityBase entity, params object[] args)
     {
+        if (entity.entityType == EntityType.Player)
+        {
+            entity.CanRlsSkill = false;
+        }
+
         //中断移动
         entity.SetDir(Vector2.zero);
         entity.SetAction(Constants.ActionHit);

@@ -25,6 +25,11 @@ public class StateIdle : IState
         }
         else
         {
+            if (entity.entityType == EntityType.Player)
+            {
+                entity.CanRlsSkill = true;
+            }
+
             if (entity.GetDirInput() != Vector2.zero)
             {
                 //玩家实体，且在UI中有操作

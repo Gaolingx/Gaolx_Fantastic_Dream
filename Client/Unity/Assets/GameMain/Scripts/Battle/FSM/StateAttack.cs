@@ -18,6 +18,11 @@ public class StateAttack : IState
 
     public void StateProcess(EntityBase entity, params object[] args)
     {
+        if (entity.entityType == EntityType.Player)
+        {
+            entity.CanRlsSkill = false;
+        }
+
         entity.SkillAttack((int)args[0]);
         //PECommon.Log("StateAttack:Process State.");
     }

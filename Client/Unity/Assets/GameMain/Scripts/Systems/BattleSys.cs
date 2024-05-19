@@ -56,4 +56,9 @@ public class BattleSys : SystemRoot
     {
         return playerCtrlWnd.GetCurrentDir();
     }
+
+    public bool CanRlsSkill()
+    {
+        return battleMgr.CanRlsSkill();
+    }
 }

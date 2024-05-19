@@ -24,6 +24,9 @@ public abstract class EntityBase
     private bool canControl = true;
     public bool CanControl { get { return canControl; } }
 
+    private bool canRlsSkill = true;
+    public bool CanRlsSkill { get { return canRlsSkill; } set { canRlsSkill = value; } }
+
     public EntityType entityType = EntityType.None;
 
     private BattleProps props;

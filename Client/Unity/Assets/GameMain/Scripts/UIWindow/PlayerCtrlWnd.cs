@@ -236,7 +236,7 @@ public class PlayerCtrlWnd : WindowRoot
     {
         if (_playerInput.skill01)
         {
-            if (isSk1CD == false)
+            if (isSk1CD == false && GetCanRlsSkill())
             {
                 BattleSys.Instance.ReqPlayerReleaseSkill(1);
                 isSk1CD = true;
@@ -254,7 +254,7 @@ public class PlayerCtrlWnd : WindowRoot
     {
         if (_playerInput.skill02)
         {
-            if (isSk2CD == false)
+            if (isSk2CD == false && GetCanRlsSkill())
             {
                 BattleSys.Instance.ReqPlayerReleaseSkill(2);
                 isSk2CD = true;
@@ -272,7 +272,7 @@ public class PlayerCtrlWnd : WindowRoot
     {
         if (_playerInput.skill03)
         {
-            if (isSk3CD == false)
+            if (isSk3CD == false && GetCanRlsSkill())
             {
                 BattleSys.Instance.ReqPlayerReleaseSkill(3);
                 isSk3CD = true;
@@ -346,4 +346,9 @@ public class PlayerCtrlWnd : WindowRoot
         imgSelfHP.fillAmount = val * 1.0f / HPSum;
     }
     #endregion
+
+    public bool GetCanRlsSkill()
+    {
+        return BattleSys.Instance.CanRlsSkill();
+    }
 }
