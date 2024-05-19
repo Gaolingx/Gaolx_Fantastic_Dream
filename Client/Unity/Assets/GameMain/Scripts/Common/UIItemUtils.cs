@@ -1,4 +1,6 @@
-﻿//功能：UI工具类
+namespace DarkGod.Main
+{
+//功能：UI工具类
 using System;
 using UnityEngine;
 
@@ -152,4 +154,5 @@ public static class UIItemUtils
         }
         obj.GetComponent<Animator>().SetFloat(propName, currentBlend);
     }
+}
 }

@@ -1,3 +1,5 @@
+namespace DarkGod.Main
+{
 /****************************************************
 	文件：Controller.cs
 	作者：Plane
@@ -74,4 +76,6 @@ public abstract class Controller : MonoBehaviour {
         Vector3 eulerAngles = new Vector3(0, angle, 0);
         transform.localEulerAngles = eulerAngles;
     }
+}
+
 }

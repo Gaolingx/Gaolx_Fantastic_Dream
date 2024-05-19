@@ -1,4 +1,6 @@
-﻿//功能：出生状态
+namespace DarkGod.Main
+{
+//功能：出生状态
 
 
 public class StateBorn : IState
@@ -24,3 +26,5 @@ public class StateBorn : IState
     }
 }
 
+
+}

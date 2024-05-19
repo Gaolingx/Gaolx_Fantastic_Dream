@@ -1,3 +1,5 @@
+namespace DarkGod.Main
+{
 //功能：任务奖励界面
 
 
@@ -136,4 +138,5 @@ public class TaskWnd : WindowRoot {
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
         SetWndState(false);
     }
+}
 }

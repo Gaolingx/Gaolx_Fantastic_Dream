@@ -1,3 +1,5 @@
+namespace DarkGod.Main
+{
 /****************************************************
     文件：LoopDragonAni.cs
 	作者：Plane
@@ -28,4 +30,5 @@ public class LoopDragonAni : MonoBehaviour {
             ani.Play();
         }
     }
+}
 }

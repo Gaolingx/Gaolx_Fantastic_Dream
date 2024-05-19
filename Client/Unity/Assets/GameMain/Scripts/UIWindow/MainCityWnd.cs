@@ -1,4 +1,6 @@
-//¹¦ÄÜ£ºÖ÷³ÇUI½çÃæ
+namespace DarkGod.Main
+{
+//ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½UIï¿½ï¿½ï¿½ï¿½
 using PEProtocol;
 using System.Collections;
 using System.Collections.Generic;
@@ -51,7 +53,7 @@ public class MainCityWnd : WindowRoot
         PlayerData pd = GameRoot.Instance.PlayerData;
 
         SetText(txtFight, PECommon.GetFightByProps(pd));
-        SetText(txtPower, "ÌåÁ¦:" + pd.power + "/" + PECommon.GetPowerLimit(pd.lv));
+        SetText(txtPower, "ï¿½ï¿½ï¿½ï¿½:" + pd.power + "/" + PECommon.GetPowerLimit(pd.lv));
         imgPowerPrg.fillAmount = pd.power * 1.0f / PECommon.GetPowerLimit(pd.lv);
         SetText(txtLevel, pd.lv);
         SetText(txtName, pd.name);
@@ -59,23 +61,23 @@ public class MainCityWnd : WindowRoot
 
         #region Expprg
         int expPrgVal = (int)(pd.exp * 1.0f / PECommon.GetExpUpValByLv(pd.lv) * 100);
-        //¾­ÑéÌõ½ø¶ÈµÄÏÔÊ¾
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Èµï¿½ï¿½ï¿½Ê¾
         SetText(txtExpPrg, expPrgVal + "%");
 
         int expPrgindex = expPrgVal / 10;
 
         GridLayoutGroup expGrid = expPrgTrans.GetComponent<GridLayoutGroup>();
 
-        //Í¨¹ý ±ê×¼ÆÁÄ»¸ß¶È/Êµ¼ÊÉè±¸ÆÁÄ»¸ß¶È£¬¼ÆËã³öµ±Ç°UIÏà¶ÔÓÚµ±Ç°ÆÁÄ»ÐèÒªËõ·ÅµÄ±ÈÀý£¨×¢ÒâCanvas Scaler Ò²Òª»ùÓÚ¸ß¶È×÷ÎªËõ·Å±ê×¼£©
+        //Í¨ï¿½ï¿½ ï¿½ï¿½×¼ï¿½ï¿½Ä»ï¿½ß¶ï¿½/Êµï¿½ï¿½ï¿½è±¸ï¿½ï¿½Ä»ï¿½ß¶È£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°UIï¿½ï¿½ï¿½ï¿½Úµï¿½Ç°ï¿½ï¿½Ä»ï¿½ï¿½Òªï¿½ï¿½ï¿½ÅµÄ±ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½Canvas Scaler Ò²Òªï¿½ï¿½ï¿½Ú¸ß¶ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Å±ï¿½×¼ï¿½ï¿½
         float globalRate = 1.0f * Constants.ScreenStandardWidth / Screen.width;
-        //Ëã³öÆÁÄ»ÕæÊµ¿í¶È
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½Êµï¿½ï¿½ï¿½
         float screenWidth = Screen.width * globalRate;
-        //¼õÈ¥Ð¡µÄ¼äÏ¶
+        //ï¿½ï¿½È¥Ð¡ï¿½Ä¼ï¿½Ï¶
         float expCellWidth = (screenWidth - 180) / 10;
 
         expGrid.cellSize = new Vector2(expCellWidth, 7);
 
-        //±éÀúËùÓÐexpItem
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½expItem
         for (int i = 0; i < expPrgTrans.childCount; i++)
         {
             Image img = expPrgTrans.GetChild(i).GetComponent<Image>();
@@ -94,7 +96,7 @@ public class MainCityWnd : WindowRoot
         }
         #endregion
 
-        //ÉèÖÃ×Ô¶¯ÈÎÎñÍ¼±ê
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½
         curtTaskData = resSvc.GetAutoGuideCfg(pd.guideid);
         if(curtTaskData != null)
         {
@@ -111,7 +113,7 @@ public class MainCityWnd : WindowRoot
     {
         string spPath = "";
         Image img = btnGuide.GetComponent<Image>();
-        //¸ù¾Ý²»Í¬µÄnpcID»ñÈ¡²»Í¬µÄÍ¼Æ¬(»ñÈ¡¶ÔÓ¦NPCµÄÍ¼Æ¬Â·¾¶)
+        //ï¿½ï¿½ï¿½Ý²ï¿½Í¬ï¿½ï¿½npcIDï¿½ï¿½È¡ï¿½ï¿½Í¬ï¿½ï¿½Í¼Æ¬(ï¿½ï¿½È¡ï¿½ï¿½Ó¦NPCï¿½ï¿½Í¼Æ¬Â·ï¿½ï¿½)
         switch(npcID)
         {
             case Constants.NPCWiseMan:
@@ -131,7 +133,7 @@ public class MainCityWnd : WindowRoot
                 break;
         }
 
-        //¼ÓÔØÂ·¾¶ÖÐµÄÍ¼Æ¬£¬²¢ÏÔÊ¾µ½ButtonÄÚ
+        //ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½Ðµï¿½Í¼Æ¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Buttonï¿½ï¿½
         SetSprite(img, spPath);
     }
     #endregion
@@ -168,12 +170,12 @@ public class MainCityWnd : WindowRoot
 
         if(curtTaskData != null)
         {
-            //ÈÎÎñ´æÔÚ£¬Ö´ÐÐÒýµ¼ÈÎÎñ
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             MainCitySys.Instance.RunTask(curtTaskData);
         }
         else
         {
-            GameRoot.AddTips("¸ü¶àÒýµ¼ÈÎÎñ£¬ÕýÔÚ¿ª·¢ÖÐ...");
+            GameRoot.AddTips("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½ï¿½...");
         }
     }
     public void ClickMenuBtn()
@@ -203,38 +205,38 @@ public class MainCityWnd : WindowRoot
         MainCitySys.Instance.OpenChatWnd();
     }
 
-    //×¢²á´¥ÃþÊÂ¼þ
+    //×¢ï¿½á´¥ï¿½ï¿½ï¿½Â¼ï¿½
     public void RegisterTouchEvts()
     {
-        //Ò¡¸Ë°´ÏÂ
+        //Ò¡ï¿½Ë°ï¿½ï¿½ï¿½
         OnClickDown(imgTouch.gameObject, (PointerEventData evt) =>
         {
-            //¼ÆËãÒ¡¸Ë°´ÏÂÈ¥ºó£¬ÍÏ×§µÄ·½Ïò
-            //·½·¨ÊÇ¼ÇÂ¼°´ÏÂÈ¥Ê±µã»÷µÄÎ»ÖÃ(ÆðÊ¼Î»ÖÃstartPos)£¬ÍÏ×§Ê±ÓÃÍÏ×§ºóÒ¡¸ËÐÂµÄµã¼õÈ¥µ±Ç°°´ÏÂÈ¥µÄµã£¬Ëã³ö·½ÏòÏòÁ¿
+            //ï¿½ï¿½ï¿½ï¿½Ò¡ï¿½Ë°ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½×§ï¿½Ä·ï¿½ï¿½ï¿½
+            //ï¿½ï¿½ï¿½ï¿½ï¿½Ç¼ï¿½Â¼ï¿½ï¿½ï¿½ï¿½È¥Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½(ï¿½ï¿½Ê¼Î»ï¿½ï¿½startPos)ï¿½ï¿½ï¿½ï¿½×§Ê±ï¿½ï¿½ï¿½ï¿½×§ï¿½ï¿½Ò¡ï¿½ï¿½ï¿½ÂµÄµï¿½ï¿½È¥ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½È¥ï¿½Äµã£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             startPos = evt.position;
-            //°´ÏÂÈ¥Ê±¼¤»î±»Òþ²ØµÄÒ¡¸Ëµã
+            //ï¿½ï¿½ï¿½ï¿½È¥Ê±ï¿½ï¿½ï¿½î±»ï¿½ï¿½ï¿½Øµï¿½Ò¡ï¿½Ëµï¿½
             SetActive(imgDirPoint);
-            //µ±Ò¡¸Ë°´ÏÂÊ±£¬ÆäÎ»ÖÃÒª¸üÐÂµ½µã»÷Î»ÖÃ
-            imgDirBg.transform.position = evt.position; //Ê¹ÓÃpositionµÄÔ­ÒòÊÇµã»÷ÊÂ¼þ´«ÈëµÄÊÇÈ«¾Ö×ø±ê
+            //ï¿½ï¿½Ò¡ï¿½Ë°ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½Òªï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+            imgDirBg.transform.position = evt.position; //Ê¹ï¿½ï¿½positionï¿½ï¿½Ô­ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         });
-        //Ò¡¸ËÌ§Æð
+        //Ò¡ï¿½ï¿½Ì§ï¿½ï¿½
         OnClickUp(imgTouch.gameObject, (PointerEventData evt) =>
         {
-            //µ±Ì§ÆðÊ±¸´Ô­±³¾°µ½³õÊ¼Î»ÖÃ£¨defaultPos£©
+            //ï¿½ï¿½Ì§ï¿½ï¿½Ê±ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼Î»ï¿½Ã£ï¿½defaultPosï¿½ï¿½
             imgDirBg.transform.position = defaultPos;
             SetActive(imgDirPoint, false);
-            //¸´Ô­Ò¡¸ËµãµÄÎ»ÖÃÖÁÕýÖÐÑë
-            imgDirPoint.transform.localPosition = Vector2.zero; //Ê¹ÓÃlocalPositionµÄÔ­ÒòÊÇimgDirPointµÄ×ø±êÊÇÏà¶ÔÓÚ¸¸ÎïÌå×ø±ê£¨±¾µØ×ø±ê£©
+            //ï¿½ï¿½Ô­Ò¡ï¿½Ëµï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            imgDirPoint.transform.localPosition = Vector2.zero; //Ê¹ï¿½ï¿½localPositionï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½imgDirPointï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê£¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê£©
             MainCitySys.Instance.SetMoveDir(Vector2.zero);
         });
-        //Ò¡¸ËÍÏ¶¯
+        //Ò¡ï¿½ï¿½ï¿½Ï¶ï¿½
         OnDrag(imgTouch.gameObject, (PointerEventData evt) =>
         {
-            //¼ÆËãÍÏ×§µÄ·½ÏòÏòÁ¿
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×§ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             Vector2 dragDir = evt.position - startPos;
             float dragLen = dragDir.magnitude;
 
-            //ÏÞÖÆÒ¡¸ËÒÆ¶¯¾àÀë
+            //ï¿½ï¿½ï¿½ï¿½Ò¡ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½
             if(dragLen > pointDis)
             {
                 Vector2 clampDragDir = Vector2.ClampMagnitude(dragDir, pointDis);
@@ -253,4 +255,6 @@ public class MainCityWnd : WindowRoot
     {
         MainCitySys.Instance.OpenSettingsWnd();
     }
+}
+
 }

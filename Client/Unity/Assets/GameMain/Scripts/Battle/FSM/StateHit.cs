@@ -1,4 +1,6 @@
-﻿//功能：受击状态
+namespace DarkGod.Main
+{
+//功能：受击状态
 
 using UnityEngine;
 
@@ -55,3 +57,5 @@ public class StateHit : IState
     }
 }
 
+
+}

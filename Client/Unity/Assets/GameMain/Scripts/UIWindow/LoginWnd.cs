@@ -1,4 +1,6 @@
-//¹¦ÄÜ£ºµÇÂ¼×¢²á½çÃæ
+namespace DarkGod.Main
+{
+//ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½Â¼×¢ï¿½ï¿½ï¿½ï¿½ï¿½
 using PEProtocol;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,7 +14,7 @@ public class LoginWnd : WindowRoot
     public InputField iptPass;
     public Button btnEnter;
     public Button btnNotice;
-    public Toggle btnRemember;  //¼Ç×¡ÃÜÂëÑ¡Ïî
+    public Toggle btnRemember;  //ï¿½ï¿½×¡ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½
 
     private int boolToInt(bool val)
     {
@@ -34,7 +36,7 @@ public class LoginWnd : WindowRoot
     {
         base.InitWnd();
 
-        //»ñÈ¡±¾µØ´æ´¢µÄÕËºÅÃÜÂë
+        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ø´æ´¢ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½
         if (PlayerPrefs.HasKey("Acct") && PlayerPrefs.HasKey("Pass") && btnRemember.isOn == true)
         {
             iptAcct.text = PlayerPrefs.GetString("Acct");
@@ -51,7 +53,7 @@ public class LoginWnd : WindowRoot
 
 
     /// <summary>
-    /// µã»÷½øÈëÓÎÏ·
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·
     /// </summary>
     public void ClickEnterBtn()
     {
@@ -61,12 +63,12 @@ public class LoginWnd : WindowRoot
         string _pass = iptPass.text;
         if (_acct != "" && _pass != "")
         {
-            //¸üÐÂ±¾µØ´æ´¢µÄÕËºÅÃÜÂë
+            //ï¿½ï¿½ï¿½Â±ï¿½ï¿½Ø´æ´¢ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½
             PlayerPrefs.SetString("Acct", _acct);
             PlayerPrefs.SetString("Pass", _pass);
             PlayerPrefs.SetInt("rememberPass", boolToInt(btnRemember.isOn));
 
-            //·¢ËÍÍøÂçÏûÏ¢£¬ÇëÇóµÇÂ¼
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼
             GameMsg msg = new GameMsg
             {
                 cmd = (int)CMD.ReqLogin,
@@ -76,12 +78,12 @@ public class LoginWnd : WindowRoot
                     pass = _pass
                 }
             };
-            //µ÷ÓÃÍøÂç·þÎñ£¬·¢ËÍ°üº¬ÕËºÅÃÜÂëµÄÍøÂçÏûÏ¢
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ñ£¬·ï¿½ï¿½Í°ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
             netSvc.SendMsg(msg);
         }
         else
         {
-            GameRoot.AddTips("ÕËºÅ»òÃÜÂëÎª¿Õ");
+            GameRoot.AddTips("ï¿½ËºÅ»ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½");
         }
     }
 
@@ -89,6 +91,8 @@ public class LoginWnd : WindowRoot
     {
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
 
-        GameRoot.AddTips("¹¦ÄÜÕýÔÚ¿ª·¢ÖÐ...");
+        GameRoot.AddTips("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½ï¿½...");
     }
+}
+
 }

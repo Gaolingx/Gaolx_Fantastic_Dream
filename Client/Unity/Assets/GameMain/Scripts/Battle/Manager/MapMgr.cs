@@ -1,4 +1,6 @@
-﻿//功能：地图管理器
+namespace DarkGod.Main
+{
+//功能：地图管理器
 
 
 using UnityEngine;
@@ -17,4 +19,5 @@ public class MapMgr : MonoBehaviour
 
         PECommon.Log("Init MapMgr Done.");
     }
+}
 }

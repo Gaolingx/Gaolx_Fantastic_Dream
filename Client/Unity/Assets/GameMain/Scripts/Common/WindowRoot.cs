@@ -1,4 +1,6 @@
-//¹¦ÄÜ£ºUI½çÃæ»ùÀà
+namespace DarkGod.Main
+{
+//ï¿½ï¿½ï¿½Ü£ï¿½UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,7 +20,7 @@ public class WindowRoot : MonoBehaviour
     {
         if(gameObject.activeSelf != isActive)
         {
-            //Èç¹û´«ÈëµÄ²ÎÊýÓëµ±Ç°×´Ì¬²»ÏàÍ¬ÔòÉèÖÃÎªÄ¿±ê×´Ì¬
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ëµ±Ç°×´Ì¬ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÄ¿ï¿½ï¿½×´Ì¬
             SetActive(gameObject, isActive);
         }
         if(isActive)
@@ -38,7 +40,7 @@ public class WindowRoot : MonoBehaviour
 
     protected virtual void InitWnd()
     {
-        //»ñÈ¡µ¥ÀýµÄÒýÓÃ
+        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         resSvc = ResSvc.Instance;
         audioSvc = AudioSvc.Instance;
         netSvc = NetSvc.Instance;
@@ -47,7 +49,7 @@ public class WindowRoot : MonoBehaviour
 
     protected virtual void ClearWnd()
     {
-        //ÖØÖÃÎª¿Õ
+        //ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½
         resSvc = null;
         audioSvc = null;
         netSvc = null;
@@ -196,4 +198,6 @@ public class WindowRoot : MonoBehaviour
         listener.onDrag = cb;
     }
     #endregion
+}
+
 }

@@ -1,4 +1,6 @@
-﻿//功能：怪物逻辑实体
+namespace DarkGod.Main
+{
+//功能：怪物逻辑实体
 
 
 using UnityEngine;
@@ -138,3 +140,5 @@ public class EntityMonster : EntityBase
     }
 }
 
+
+}

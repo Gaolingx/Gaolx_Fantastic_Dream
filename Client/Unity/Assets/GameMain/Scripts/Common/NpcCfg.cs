@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+namespace DarkGod.Main
+{
+using UnityEngine;
 
 public class NpcCfg : MonoBehaviour
 {
@@ -72,5 +74,7 @@ public class NpcCfg : MonoBehaviour
         return NPC_GO;
 
     }
+
+}
 
 }

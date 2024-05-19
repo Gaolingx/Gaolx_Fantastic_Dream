@@ -1,10 +1,14 @@
-//¹¦ÄÜ£ºÖ÷³ÇµØÍ¼Êý¾Ý
+namespace DarkGod.Main
+{
+//ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½Çµï¿½Í¼ï¿½ï¿½ï¿½ï¿½
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MainCityMap : MonoBehaviour
 {
-    //¶¨ÒåÒ»¸öÊý×é£¬´æ´¢npcµÄTransform
+    //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½é£¬ï¿½æ´¢npcï¿½ï¿½Transform
     public Transform[] NpcPosTrans;
+}
+
 }

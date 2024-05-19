@@ -1,4 +1,6 @@
-//¹¦ÄÜ£ºÇ¿»¯Éý¼¶½çÃæ
+namespace DarkGod.Main
+{
+//ï¿½ï¿½ï¿½Ü£ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,25 +11,25 @@ using UnityEngine.EventSystems;
 public class StrongWnd : WindowRoot
 {
     #region UI Define
-    public Image imgCurtPos; //µ±Ç°Ñ¡ÖÐÎ»ÖÃµÄÍ¼Æ¬
-    public Text txtStartLv; //µ±Ç°ÐÇ¼¶ÊýÁ¿
-    public Transform starTransGrp; //ÐÇÐÇ¸¸ÎïÌåµÄTransform
-    public Text propHP1; //ÑªÁ¿
-    public Text propHurt1; //ÉËº¦
-    public Text propDef1; //·ÀÓù
+    public Image imgCurtPos; //ï¿½ï¿½Ç°Ñ¡ï¿½ï¿½Î»ï¿½Ãµï¿½Í¼Æ¬
+    public Text txtStartLv; //ï¿½ï¿½Ç°ï¿½Ç¼ï¿½ï¿½ï¿½ï¿½ï¿½
+    public Transform starTransGrp; //ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Transform
+    public Text propHP1; //Ñªï¿½ï¿½
+    public Text propHurt1; //ï¿½Ëºï¿½
+    public Text propDef1; //ï¿½ï¿½ï¿½ï¿½
     public Text propHP2;
     public Text propHurt2;
     public Text propDef2;
-    public Image propArr1; //¼ýÍ·
+    public Image propArr1; //ï¿½ï¿½Í·
     public Image propArr2;
     public Image propArr3;
 
-    public Text txtNeedLv; //Éý¼¶ËùÐèµÄ×îµÍµÈ¼¶
-    public Text txtCostCoin; //ÏûºÄµÄ½ð±Ò
-    public Text txtCostCrystal; //ÏûºÄµÄË®¾§
+    public Text txtNeedLv; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÍµÈ¼ï¿½
+    public Text txtCostCoin; //ï¿½ï¿½ï¿½ÄµÄ½ï¿½ï¿½
+    public Text txtCostCrystal; //ï¿½ï¿½ï¿½Äµï¿½Ë®ï¿½ï¿½
 
     public Transform costTransRoot;
-    public Text txtCoin; //µ±Ç°ÓµÓÐµÄ½ð±Ò
+    public Text txtCoin; //ï¿½ï¿½Ç°Óµï¿½ÐµÄ½ï¿½ï¿½
     #endregion
 
     #region Data Area
@@ -44,7 +46,7 @@ public class StrongWnd : WindowRoot
         base.InitWnd();
         pd = GameRoot.Instance.PlayerData;
 
-        //×¢²áµã»÷ÊÂ¼þ
+        //×¢ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
         RegClickEvts();
 
         ClickPosItem(0);
@@ -52,12 +54,12 @@ public class StrongWnd : WindowRoot
 
     private void RegClickEvts()
     {
-        //»ñÈ¡Ã¿¸ö×ÓÎïÌåÖÐµÄimage×é¼þ
+        //ï¿½ï¿½È¡Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½imageï¿½ï¿½ï¿½
         for (int i = 0; i < posBtnTrans.childCount; i++)
         {
             Image img = posBtnTrans.GetChild(i).GetComponent<Image>();
 
-            //Ìí¼Óµã»÷ÊÂ¼þ
+            //ï¿½ï¿½Óµï¿½ï¿½ï¿½Â¼ï¿½
             OnClick(img.gameObject, (object args) =>
             {
                 ClickPosItem((int)args);
@@ -67,25 +69,25 @@ public class StrongWnd : WindowRoot
         }
     }
 
-    //¸ù¾Ýµã»÷Î»ÖÃ£¬Õ¹Ê¾²»Í¬²¿Î»ÐÅÏ¢£¬ÐèÒªµã»÷Ê±´«ÈëÒ»¸ö²ÎÊý£¬¸ù¾Ý²ÎÊýÏÔÊ¾ÏàÓ¦Êý¾ÝÐÅÏ¢
+    //ï¿½ï¿½ï¿½Ýµï¿½ï¿½Î»ï¿½Ã£ï¿½Õ¹Ê¾ï¿½ï¿½Í¬ï¿½ï¿½Î»ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý²ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
     private void ClickPosItem(int index)
     {
         PECommon.Log("Click Window:StrongWnd.Click Item:" + index);
 
-        //±éÀúÊý×é£¬µ±µã»÷ÆäÖÐÒ»¸ö²¿Î»£¬Æä±³¾°±äÎª¼ýÍ·£¬ÆäÓàµÄ±ä³ÉÆ½°å
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ä±³ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½Æ½ï¿½ï¿½
         for (int i = 0;i < imgs.Length;i++)
         {
             Transform trans = imgs[i].transform;
 
             currentIndex = index;
-            //ÅÐ¶Ïµ±Ç°µã»÷µÄÍ¼Æ¬ºÍ±éÀúµÄÍ¼Æ¬ÊÇ·ñÒ»ÖÂ
+            //ï¿½Ð¶Ïµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬ï¿½Í±ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬ï¿½Ç·ï¿½Ò»ï¿½ï¿½
             if(i == currentIndex)
             {
-                //Èç¹ûÏàµÈ£¬ÔòÓÃ¼ýÍ·ÏÔÊ¾
+                //ï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½Í·ï¿½ï¿½Ê¾
                 SetSprite(imgs[i], PathDefine.ItemArrorBG);
-                //ÉèÖÃÎ»ÖÃ
+                //ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
                 trans.localPosition = new Vector3(10, trans.localPosition.y, 0);
-                //ÉèÖÃ³ß´ç
+                //ï¿½ï¿½ï¿½Ã³ß´ï¿½
                 trans.GetComponent<RectTransform>().sizeDelta = new Vector2(250, 95);
             }
             else
@@ -101,7 +103,7 @@ public class StrongWnd : WindowRoot
 
     private void RefreshItem()
     {
-        //½ð±Ò
+        //ï¿½ï¿½ï¿½
         SetText(txtCoin, pd.coin);
         switch(currentIndex)
         {
@@ -126,37 +128,37 @@ public class StrongWnd : WindowRoot
             default:
                 break;
         }
-        //ÐÇ¼¶
-        SetText(txtStartLv, pd.strongArr[currentIndex] + "ÐÇ¼¶");
+        //ï¿½Ç¼ï¿½
+        SetText(txtStartLv, pd.strongArr[currentIndex] + "ï¿½Ç¼ï¿½");
 
         int curtStarLv = pd.strongArr[currentIndex];
         for (int i = 0; i < starTransGrp.childCount; i++)
         {
-            //±éÀú»ñÈ¡×ÓÎïÌåµÄImage×é¼þ
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Imageï¿½ï¿½ï¿½
             Image img = starTransGrp.GetChild(i).GetComponent<Image>();
             if (i < curtStarLv)
             {
-                //Èç¹ûµ±Ç°±éÀúµÄÐÇ¼¶Í¼Æ¬<µ±Ç°ÐÇ¼¶£¬ËµÃ÷Ã»´ïµ½¸ÃÐÂ¼¶£¬ÏÔÊ¾¿ÕµÄÐÇ¼¶Í¼Æ¬
+                //ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¼ï¿½Í¼Æ¬<ï¿½ï¿½Ç°ï¿½Ç¼ï¿½ï¿½ï¿½Ëµï¿½ï¿½Ã»ï¿½ïµ½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½Õµï¿½ï¿½Ç¼ï¿½Í¼Æ¬
                 SetSprite(img, PathDefine.SpStar2);
             }
             else
             {
-                //·ñÔòÏÔÊ¾ÊµµÄÐÇ¼¶Í¼Æ¬
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾Êµï¿½ï¿½ï¿½Ç¼ï¿½Í¼Æ¬
                 SetSprite(img, PathDefine.SpStar1);
             }
         }
 
         int nextStarLv = curtStarLv + 1;
-        //µ±Ç°ÐÇ¼¶ËùÓÐÊôÐÔ¼Ó³É
-        //resSvc.GetPropAddValPreLv(µ±Ç°²¿Î», µ±Ç°ÐÇ¼¶, ÀàÐÍ)
+        //ï¿½ï¿½Ç°ï¿½Ç¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼Ó³ï¿½
+        //resSvc.GetPropAddValPreLv(ï¿½ï¿½Ç°ï¿½ï¿½Î», ï¿½ï¿½Ç°ï¿½Ç¼ï¿½, ï¿½ï¿½ï¿½ï¿½)
         int sumAddHp = resSvc.GetPropAddValPreLv(currentIndex, nextStarLv, 1);
         int sumAddHurt = resSvc.GetPropAddValPreLv(currentIndex, nextStarLv, 2);
         int sumAddDef = resSvc.GetPropAddValPreLv(currentIndex, nextStarLv, 3);
-        SetText(propHP1, "ÉúÃü  +" + sumAddHp);
-        SetText(propHurt1, "ÉËº¦  +" + sumAddHurt);
-        SetText(propDef1, "·ÀÓù  +" + sumAddDef);
+        SetText(propHP1, "ï¿½ï¿½ï¿½ï¿½  +" + sumAddHp);
+        SetText(propHurt1, "ï¿½Ëºï¿½  +" + sumAddHurt);
+        SetText(propDef1, "ï¿½ï¿½ï¿½ï¿½  +" + sumAddDef);
 
-        //»ñÈ¡ÏÂÒ»ÐÇ¼¶ÐèÒªµÄÊôÐÔÊýÖµ
+        //ï¿½ï¿½È¡ï¿½ï¿½Ò»ï¿½Ç¼ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
         nextSd = resSvc.GetStrongCfg(currentIndex, nextStarLv);
         if (nextSd != null)
         {
@@ -169,18 +171,18 @@ public class StrongWnd : WindowRoot
             SetActive(propArr2);
             SetActive(propArr3);
 
-            SetText(propHP2, "Ç¿»¯ºó +" + nextSd.addhp);
+            SetText(propHP2, "Ç¿ï¿½ï¿½ï¿½ï¿½ +" + nextSd.addhp);
             SetText(propHurt2, "+" + nextSd.addhurt);
             SetText(propDef2, "+" + nextSd.adddef);
 
-            SetText(txtNeedLv, "ÐèÒªµÈ¼¶£º" + nextSd.minlv);
-            SetText(txtCostCoin, "ÐèÒªÏûºÄ£º      " + nextSd.coin);
+            SetText(txtNeedLv, "ï¿½ï¿½Òªï¿½È¼ï¿½ï¿½ï¿½" + nextSd.minlv);
+            SetText(txtCostCoin, "ï¿½ï¿½Òªï¿½ï¿½ï¿½Ä£ï¿½      " + nextSd.coin);
 
             SetText(txtCostCrystal, nextSd.crystal + "/" + pd.crystal);
         }
         else
         {
-            //µ±Ç°ÐÇ¼¶ÉýÂúºó£¬²»ÄÜ½øÐÐÇ¿»¯£¨¹Ø±Õ»¨Ïú²¿·Ö¡¢Òþ²ØÇ¿»¯Ëù»ñÈ¡µÄÊôÐÔ¼Ó³É£©
+            //ï¿½ï¿½Ç°ï¿½Ç¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó£¬²ï¿½ï¿½Ü½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½Ø±Õ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼Ó³É£ï¿½
             SetActive(propHP2, false);
             SetActive(propHurt2, false);
             SetActive(propDef2, false);
@@ -202,29 +204,29 @@ public class StrongWnd : WindowRoot
     {
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
 
-        //¿Í»§¶Ë±¾µØÊý¾ÝÐ£Ñé£¬¼õÐ¡·þÎñÆ÷ÑéÖ¤Ñ¹Á¦
-        //ÅÐ¶ÏÊÇ·ñÐÇ¼¶ÒÑÂú
+        //ï¿½Í»ï¿½ï¿½Ë±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½é£¬ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤Ñ¹ï¿½ï¿½
+        //ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½Ç¼ï¿½ï¿½ï¿½ï¿½ï¿½
         if (pd.strongArr[currentIndex] < 10)
         {
-            //ÅÐ¶Ï¼¶±ðÊÇ·ñ×ã¹»Ç¿»¯
+            //ï¿½Ð¶Ï¼ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ã¹»Ç¿ï¿½ï¿½
             if (pd.lv < nextSd.minlv)
             {
-                GameRoot.AddTips("½ÇÉ«µÈ¼¶²»¹»");
+                GameRoot.AddTips("ï¿½ï¿½É«ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½");
                 return;
             }
-            //¸÷ÖÖ×ÊÔ´...
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´...
             if (pd.coin < nextSd.coin)
             {
-                GameRoot.AddTips("½ð±ÒÊýÁ¿²»¹»");
+                GameRoot.AddTips("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
                 return;
             }
             if (pd.crystal < nextSd.crystal)
             {
-                GameRoot.AddTips("Ë®¾§²»¹»");
+                GameRoot.AddTips("Ë®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
                 return;
             }
 
-            //·¢ËÍÇëÇóÇ¿»¯Êý¾Ý
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             netSvc.SendMsg(new GameMsg
             {
                 cmd = (int)CMD.ReqStrong,
@@ -236,7 +238,7 @@ public class StrongWnd : WindowRoot
         }
         else
         {
-            GameRoot.AddTips("ÐÇ¼¶ÒÑ¾­ÉýÂú");
+            GameRoot.AddTips("ï¿½Ç¼ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½");
         }
     }
 
@@ -245,4 +247,6 @@ public class StrongWnd : WindowRoot
         audioSvc.PlayUIAudio(Constants.FBItemEnter);
         ClickPosItem(currentIndex);
     }
+}
+
 }

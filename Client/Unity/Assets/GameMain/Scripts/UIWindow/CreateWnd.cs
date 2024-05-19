@@ -1,4 +1,6 @@
-//¹¦ÄÜ£º½ÇÉ«´´½¨½çÃæ
+namespace DarkGod.Main
+{
+//ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 using PEProtocol;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,7 +17,7 @@ public class CreateWnd : WindowRoot
         base.InitWnd();
 
 
-        //ÏÔÊ¾Ò»¸öËæ»úÃû×Ö
+        //ï¿½ï¿½Ê¾Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         iptName.text = resSvc.GetRDNameCfg(false);
     }
 
@@ -33,7 +35,7 @@ public class CreateWnd : WindowRoot
 
         if (iptName.text != "")
         {
-            //·¢ËÍÃû×ÖÊý¾Ýµ½·þÎñÆ÷£¬µÇÂ¼Ö÷³Ç
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½
             GameMsg msg = new GameMsg
             {
                 cmd = (int)CMD.ReqRename,
@@ -46,7 +48,9 @@ public class CreateWnd : WindowRoot
         }
         else
         {
-            GameRoot.AddTips("µ±Ç°Ãû×Ö²»·ûºÏ¹æ·¶");
+            GameRoot.AddTips("ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½Ï¹æ·¶");
         }
     }
+}
+
 }

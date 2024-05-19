@@ -1,3 +1,5 @@
+namespace DarkGod.Main
+{
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,4 +32,6 @@ public class FpsWnd : WindowRoot
             FpsWindowScript.gameObject.SetActive(false);
         }
     }
+}
+
 }

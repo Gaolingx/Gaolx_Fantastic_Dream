@@ -1,4 +1,6 @@
-﻿//功能：移动状态
+namespace DarkGod.Main
+{
+//功能：移动状态
 
 public class StateMove : IState
 {
@@ -21,3 +23,5 @@ public class StateMove : IState
     }
 }
 
+
+}

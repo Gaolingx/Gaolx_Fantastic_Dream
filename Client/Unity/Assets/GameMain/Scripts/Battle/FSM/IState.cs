@@ -1,8 +1,10 @@
-//¹¦ÄÜ£º×´Ì¬½Ó¿Ú
+namespace DarkGod.Main
+{
+//ï¿½ï¿½ï¿½Ü£ï¿½×´Ì¬ï¿½Ó¿ï¿½
 
 public interface IState
 {
-    void StateEnter(EntityBase entity, params object[] args);//¿É±ä²ÎÊý
+    void StateEnter(EntityBase entity, params object[] args);//ï¿½É±ï¿½ï¿½ï¿½ï¿½
 
     void StateProcess(EntityBase entity, params object[] args);
 
@@ -18,4 +20,5 @@ public enum AniState
     Attack,
     Hit,
     Die
+}
 }

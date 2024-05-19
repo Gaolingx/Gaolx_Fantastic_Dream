@@ -1,4 +1,6 @@
-//¹¦ÄÜ£ºÍøÂç·þÎñ
+namespace DarkGod.Main
+{
+//ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 using System.Collections.Generic;
 using PENet;
 using PEProtocol;
@@ -52,7 +54,7 @@ public class NetSvc : MonoBehaviour
         }
         else
         {
-            GameRoot.AddTips("·þÎñÆ÷Î´Á¬½Ó");
+            GameRoot.AddTips("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½");
             InitSvc();
         }
     }
@@ -77,45 +79,45 @@ public class NetSvc : MonoBehaviour
         }
     }
 
-    //ÏûÏ¢·Ö·¢
+    //ï¿½ï¿½Ï¢ï¿½Ö·ï¿½
     private void ProcessMsg(GameMsg msg)
     {
         if (msg.err != (int)ErrorCode.None)
         {
-            //Óöµ½´íÎóµ¯³öÌáÊ¾£¬·µ»Ø£¬Í£Ö¹´¦ÀíºóÃæµÄÒµÎñÂß¼­
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½óµ¯³ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½Ø£ï¿½Í£Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ß¼ï¿½
             switch ((ErrorCode)msg.err)
             {
                 case ErrorCode.ServerDataError:
-                    PECommon.Log("·þÎñÆ÷Êý¾ÝÒì³£", PELogType.Error);
-                    GameRoot.AddTips("¿Í»§¶ËÊý¾ÝÒì³£");
+                    PECommon.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì³£", PELogType.Error);
+                    GameRoot.AddTips("ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì³£");
                     break;
                 case ErrorCode.UpdateDBError:
-                    PECommon.Log("Êý¾Ý¿â¸üÐÂÒì³£", PELogType.Error);
-                    GameRoot.AddTips("ÍøÂç²»ÎÈ¶¨");
+                    PECommon.Log("ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½ì³£", PELogType.Error);
+                    GameRoot.AddTips("ï¿½ï¿½ï¿½ç²»ï¿½È¶ï¿½");
                     break;
                 case ErrorCode.ClientDataError:
-                    PECommon.Log("¿Í»§¶ËÊý¾ÝÒì³£", PELogType.Error);
+                    PECommon.Log("ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì³£", PELogType.Error);
                     break;
                 case ErrorCode.AcctIsOnline:
-                    GameRoot.AddTips("µ±Ç°ÕËºÅÒÑ¾­ÉÏÏß");
+                    GameRoot.AddTips("ï¿½ï¿½Ç°ï¿½Ëºï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½");
                     break;
                 case ErrorCode.WrongPass:
-                    GameRoot.AddTips("ÃÜÂë´íÎó");
+                    GameRoot.AddTips("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
                     break;
                 case ErrorCode.LackLevel:
-                    GameRoot.AddTips("½ÇÉ«µÈ¼¶²»¹»");
+                    GameRoot.AddTips("ï¿½ï¿½É«ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½");
                     break;
                 case ErrorCode.LackCoin:
-                    GameRoot.AddTips("½ð±ÒÊýÁ¿²»¹»");
+                    GameRoot.AddTips("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
                     break;
                 case ErrorCode.LackCrystal:
-                    GameRoot.AddTips("Ë®¾§ÊýÁ¿²»¹»");
+                    GameRoot.AddTips("Ë®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
                     break;
                 case ErrorCode.LackDiamond:
-                    GameRoot.AddTips("×êÊ¯ÊýÁ¿²»¹»");
+                    GameRoot.AddTips("ï¿½ï¿½Ê¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
                     break;
                 case ErrorCode.LackPower:
-                    GameRoot.AddTips("ÌåÁ¦Öµ²»×ã");
+                    GameRoot.AddTips("ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½");
                     break;
             }
             return;
@@ -155,4 +157,5 @@ public class NetSvc : MonoBehaviour
                 break;
         }
     }
+}
 }

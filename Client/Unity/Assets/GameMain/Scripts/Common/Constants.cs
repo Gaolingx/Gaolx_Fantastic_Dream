@@ -1,9 +1,11 @@
-//¹¦ÄÜ£º¹«ÓÃµÄÀà£¬ÓÃÓÚ³£Á¿ÅäÖÃ
+namespace DarkGod.Main
+{
+//ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½à£¬ï¿½ï¿½ï¿½Ú³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//×¢Òâ£ºÒµÎñÏà¹ØµÄÊý¾Ý¡¢ÅäÖÃµÈÓÉÓÚÆµ·±·¢Éú±ä¶¯£¬ÎªÁË·½±ãµ÷Õû£¬¾¡Á¿²»ÒªÖ±½ÓÐ´ËÀÔÚ´úÂëÖÐ£¬¶øÊÇ×ö³ÉÒ»¸öÅäÖÃ£¬ÔÚÍ³Ò»µÄµØ·½½øÐÐÐÞ¸Ä
+//×¢ï¿½â£ºÒµï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½Ý¡ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä¶¯ï¿½ï¿½Îªï¿½Ë·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÖ±ï¿½ï¿½Ð´ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½Í³Ò»ï¿½ÄµØ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½
 public enum TextColorCode
 {
     White,
@@ -13,15 +15,15 @@ public enum TextColorCode
     Yellow
 }
 
-//ÉËº¦ÀàÐÍ
+//ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½
 public enum DamageType
 {
     None,
-    AD = 1,//ÎïÀíÉËº¦
-    AP = 2//Ä§·¨ÉËº¦
+    AD = 1,//ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½
+    AP = 2//Ä§ï¿½ï¿½ï¿½Ëºï¿½
 }
 
-//ÊµÌåÀàÐÍ
+//Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 public enum EntityType
 {
     None,
@@ -32,7 +34,7 @@ public enum EntityType
 public class Constants
 {
     #region ColorHex Code
-    //ÎÄ×ÖÑÕÉ«
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
     public const string ColorWhiteHex = "#FFFFFF";
     public const string ColorRedHex = "#FF0000FF";
     public const string ColorGreenHex = "#00FF00FF";
@@ -56,99 +58,99 @@ public class Constants
     public const int NPCTrader = 3;
 
 
-    //³¡¾°Ãû³Æ/ID
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/ID
     public const int MainCityMapID = 10000;
     //public const string SceneMainCity = "SceneMainCity";
 
 
-    //±³¾°ÒôÐ§Ãû³Æ
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½
     public const string BGLogin = "bgLogin";
     public const string BGMainCity = "bgMainCity";
     public const string BGHuangYe = "bgHuangYe";
 
-    //µÇÂ¼°´Å¥ÒôÐ§
+    //ï¿½ï¿½Â¼ï¿½ï¿½Å¥ï¿½ï¿½Ð§
     public const string UILoginBtn = "uiLoginBtn";
 
-    //³£¹æUIµã»÷ÒôÐ§
+    //ï¿½ï¿½ï¿½ï¿½UIï¿½ï¿½ï¿½ï¿½ï¿½Ð§
     public const string UIClickBtn = "uiClickBtn";
     public const string UIExtenBtn = "uiExtenBtn";
     public const string UIOpenPage = "uiOpenPage";
     public const string FBItemEnter = "fbitem";
 
-    //UI¶¯»­Â·¾¶ÅäÖÃ
+    //UIï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public const string openMCmenuAniClipName = "OpenMCMenu";
     public const string closeMCmenuAniClipName = "CloseMCMenu";
 
 
-    //ÆÁÄ»±ê×¼¿í¸ß
+    //ï¿½ï¿½Ä»ï¿½ï¿½×¼ï¿½ï¿½ï¿½
     public const int ScreenStandardWidth = 1920;
     public const int ScreenStandardHeight = 1080;
 
-    //Ò¡¸Ëµã±ê×¼¾àÀë
+    //Ò¡ï¿½Ëµï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½
     public const int ScreenOPDis = 90;
 
 
-    //»ìºÏ²ÎÊý
+    //ï¿½ï¿½Ï²ï¿½ï¿½ï¿½
     public const int BlendIdle = 0;
     public const int BlendWalk = 1;
 
-    //½ÇÉ«ÒÆ¶¯ËÙ¶È
+    //ï¿½ï¿½É«ï¿½Æ¶ï¿½ï¿½Ù¶ï¿½
     public const float PlayerMoveSpeed = 2.0f;
-    //½ÇÉ«±¼ÅÜËÙ¶È
+    //ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
     public const float PlayerSprintSpeed = 5.335f;
-    //¹ÖÎïÒÆ¶¯ËÙ¶È
+    //ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½Ù¶ï¿½
     public const int MonsterMoveSpeed = 4;
 
-    //ÔË¶¯Æ½»¬¼ÓËÙ¶È
+    //ï¿½Ë¶ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
     public const float AccelerSpeed = 5;
     public const float AccelerHPSpeed = 0.3f;
 
-    //PlayerFollowCamera±êÇ©
+    //PlayerFollowCameraï¿½ï¿½Ç©
     public const string PlayerFollowCameraWithTag = "PlayerFollowCam";
-    //CinemachineVirtualCamera¸úËæÄ¿±êµÄ±êÇ©
+    //CinemachineVirtualCameraï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½Ä±ï¿½Ç©
     public const string CinemachineVirtualCameraFollowGameObjectWithTag = "PlayerCamRoot";
-    //CinemachineVirtualCamera²Ã¼ôÆ½Ãæ
+    //CinemachineVirtualCameraï¿½Ã¼ï¿½Æ½ï¿½ï¿½
     public const float CinemachineVirtualCameraNearClipPlane = 0.2f;
     public const float CinemachineVirtualCameraFarClipPlane = 15000;
 
-    //½ÇÉ«Õ¹Ê¾Ïà»úÅäÖÃ
+    //ï¿½ï¿½É«Õ¹Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public const string CharShowCamWithTag = "CharShowCam";
     public const float CharShowCamDistanceOffset = 3.8f;
     public const float CharShowCamHeightOffset = 1.2f;
 
-    //Íæ¼ÒÐÅÏ¢Ò³Ä£ÐÍÍÏ×§ËÙ¶È
+    //ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢Ò³Ä£ï¿½ï¿½ï¿½ï¿½×§ï¿½Ù¶ï¿½
     public const float OnDragCharRoateSpeed = 0.4f;
 
-    //Íæ¼Ò±êÇ©
+    //ï¿½ï¿½Ò±ï¿½Ç©
     public const string CharPlayerWithTag = "Player";
 
-    //GamePadÅäÖÃ
+    //GamePadï¿½ï¿½ï¿½ï¿½
     public const string Path_PlayerInputs_Obj = "Canvas/PlayerInputs";
     public const string Path_Joysticks_MainCitySys = "Canvas/UI_Canvas_StarterAssetsInputs_Joysticks";
     public const string Path_Joysticks_BattleSys = "Canvas/UI_Canvas_StarterAssetsInputs_Joysticks";
 
-    //×Ô¶¯ÈÎÎñÍ¼±êÅäÖÃ
+    //ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public const int DefaultGuideBtnIconID = -1;
 
-    //MainCityMapÅäÖÃ
+    //MainCityMapï¿½ï¿½ï¿½ï¿½
     public const string MapRootGameObjectWithTag = "MapRoot";
 
-    //NavMeshÅäÖÃ
+    //NavMeshï¿½ï¿½ï¿½ï¿½
     public const float NavNpcDst = 1.5f;
     public const float PlayerMoveSpeedNav = 2;
 
-    //DialogueWndÅäÖÃ
-    public const string CurtTaskData_NpcID_0_Name = "ÖÇÕß";
-    public const string CurtTaskData_NpcID_1_Name = "½«¾ü";
-    public const string CurtTaskData_NpcID_2_Name = "¹¤½³";
-    public const string CurtTaskData_NpcID_3_Name = "ÉÌÈË";
+    //DialogueWndï¿½ï¿½ï¿½ï¿½
+    public const string CurtTaskData_NpcID_0_Name = "ï¿½ï¿½ï¿½ï¿½";
+    public const string CurtTaskData_NpcID_1_Name = "ï¿½ï¿½ï¿½ï¿½";
+    public const string CurtTaskData_NpcID_2_Name = "ï¿½ï¿½ï¿½ï¿½";
+    public const string CurtTaskData_NpcID_3_Name = "ï¿½ï¿½ï¿½ï¿½";
     public const string CurtTaskData_NpcID_Default_Name = "Ð¡Ü¿";
 
-    //SettingsÃæ°åÅäÖÃ
+    //Settingsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public const string BGAudioGameObjectName = "BGAudio";
     public const string UIAudioGameObjectName = "UIAudio";
 
-    //actIDÅäÖÃ
+    //actIDï¿½ï¿½ï¿½ï¿½
     public const int CurtTaskDataActID_0 = 0;
     public const int CurtTaskDataActID_1 = 1;
     public const int CurtTaskDataActID_2 = 2;
@@ -156,50 +158,50 @@ public class Constants
     public const int CurtTaskDataActID_4 = 4;
     public const int CurtTaskDataActID_5 = 5;
 
-    //ÁÄÌì½çÃæÅäÖÃ
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public const int TextMaxLength = 12;
     public const float SndMsgWaitForSeconds = 5.0f;
 
-    //¹ºÂòÏà¹ØÅäÖÃ
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public const int BuyTypePower = 0;
     public const int MakeTypeCoin = 1;
     public const int BuyCostDiamondOnce = 10;
 
-    //npcIDÅäÖÃ
+    //npcIDï¿½ï¿½ï¿½ï¿½
     public const int NpcTypeID_0 = 0;
     public const int NpcTypeID_1 = 1;
     public const int NpcTypeID_2 = 2;
     public const int NpcTypeID_3 = 3;
 
-    //Battle MgrÅäÖÃ
+    //Battle Mgrï¿½ï¿½ï¿½ï¿½
     public const string MapRootGOTag = "MapRoot";
 
-    //Mar_7th_00 ¶¯»­²ÎÊýÅäÖÃ
+    //Mar_7th_00 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public const int State_Mar7th00_Blend_Skill_01 = 2;
     public const int State_Mar7th00_Blend_CantControl = 10;
 
-    //Action´¥·¢²ÎÊý£¨¶ÔÓ¦animator£©
+    //Actionï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦animatorï¿½ï¿½
     public const int ActionDefault = -1;
     public const int ActionBorn = 0;
     public const int ActionDie = 100;
     public const int ActionHit = 101;
 
-    //¼¼ÄÜIDÅäÖÃ
+    //ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½ï¿½ï¿½
     public const int SkillID_Mar7th00_skill01 = 101;
     public const int SkillID_Mar7th00_skill02 = 102;
     public const int SkillID_Mar7th00_skill03 = 103;
     public const int SkillID_Mar7th00_normalAtk01 = 111;
 
-    //Á¬ÕÐÅäÖÃ
-    //1.ÆÕ¹¥Á¬ÕÐÓÐÐ§¼ä¸ô£¨µ¥Î»£ºms£©
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //1.ï¿½Õ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½msï¿½ï¿½
     public const int ComboSpace01 = 2500;
     public static int[] comboArr01 = { 111, 112, 113, 114, 115 };
 
-    //EventSystemÅäÖÃ
+    //EventSystemï¿½ï¿½ï¿½ï¿½
     public const string EventSystemGOName = "EventSystem";
 
-    //MonsterÅäÖÃ
-    public const int ActiveMonsterDelayTime = 500; //µ¥Î»£ºms
+    //Monsterï¿½ï¿½ï¿½ï¿½
+    public const int ActiveMonsterDelayTime = 500; //ï¿½ï¿½Î»ï¿½ï¿½ms
     public const int StateIdleMonsterDelayTime = 1000;
     public const int StateBornMonsterDurationTime = 500;
     public const int StateDieMonsterAnimTime = 5000;
@@ -211,4 +213,6 @@ public class Constants
     //Collide
     public const int MonsterCollideLayer = 16;
     public const int PlayerCollideLayer = 13;
+}
+
 }

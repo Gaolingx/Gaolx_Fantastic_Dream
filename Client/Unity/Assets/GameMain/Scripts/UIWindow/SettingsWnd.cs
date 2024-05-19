@@ -1,3 +1,5 @@
+namespace DarkGod.Main
+{
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -135,12 +137,12 @@ public class SettingsWnd : WindowRoot
         if (VsyncSettingsToggle.isOn == true)
         {
             QualitySettings.vSyncCount = 1;
-            Debug.Log("ÒÑ¿ªÆô´¹Ö±Í¬²½£¡");
+            Debug.Log("ï¿½Ñ¿ï¿½ï¿½ï¿½ï¿½Ö±Í¬ï¿½ï¿½ï¿½ï¿½");
         }
         else
         {
             QualitySettings.vSyncCount = 0;
-            Debug.Log("ÒÑ¹Ø±Õ´¹Ö±Í¬²½£¡");
+            Debug.Log("ï¿½Ñ¹Ø±Õ´ï¿½Ö±Í¬ï¿½ï¿½ï¿½ï¿½");
         }
     }
 
@@ -148,6 +150,8 @@ public class SettingsWnd : WindowRoot
     public void ClickResetCfgsBtn()
     {
         resSvc.ResetSkillCfgs();
-        GameRoot.AddTips("¼¼ÄÜÊý¾ÝÖØÖÃ³É¹¦£¡");
+        GameRoot.AddTips("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã³É¹ï¿½ï¿½ï¿½");
     }
+}
+
 }

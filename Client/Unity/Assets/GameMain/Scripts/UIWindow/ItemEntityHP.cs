@@ -1,4 +1,6 @@
-//¹¦ÄÜ£ºÑªÌõÎïÌå
+namespace DarkGod.Main
+{
+//ï¿½ï¿½ï¿½Ü£ï¿½Ñªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +11,7 @@ public class ItemEntityHP : MonoBehaviour
 {
     #region UI Define
     public Image imgHPGray;
-    public Image imgHPRed; //Êµ¼ÊÑªÁ¿
+    public Image imgHPRed; //Êµï¿½ï¿½Ñªï¿½ï¿½
 
     public Animation criticalAni;
     public Text txtCritical;
@@ -24,7 +26,7 @@ public class ItemEntityHP : MonoBehaviour
     #endregion
 
     private RectTransform rect;
-    private Transform rootTrans; //¹ÖÎïµÄTransform
+    private Transform rootTrans; //ï¿½ï¿½ï¿½ï¿½ï¿½Transform
     private int hpVal;
 
     private float scaleRate = 1.0f * Constants.ScreenStandardHeight / Screen.height;
@@ -32,7 +34,7 @@ public class ItemEntityHP : MonoBehaviour
     Vector3 screenPos;
     private void Update()
     {
-        //½«³¡¾°ÖÐ¹ÖÎïµÄTransformÓ³Éä³ÉÆÁÄ»¿Õ¼ä×ø±ê
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¹ï¿½ï¿½ï¿½ï¿½TransformÓ³ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½Õ¼ï¿½ï¿½ï¿½ï¿½ï¿½
         if (rootTrans != null)
         {
             screenPos = Camera.main.WorldToScreenPoint(rootTrans.position);
@@ -48,7 +50,7 @@ public class ItemEntityHP : MonoBehaviour
     {
         rect = transform.GetComponent<RectTransform>();
         rootTrans = trans;
-        hpVal = hp; //×ÜÑªÁ¿
+        hpVal = hp; //ï¿½ï¿½Ñªï¿½ï¿½
         imgHPGray.fillAmount = 1;
         imgHPRed.fillAmount = 1;
     }
@@ -56,14 +58,14 @@ public class ItemEntityHP : MonoBehaviour
     public void SetCritical(int critical)
     {
         criticalAni.Stop();
-        txtCritical.text = "±©»÷ " + critical;
+        txtCritical.text = "ï¿½ï¿½ï¿½ï¿½ " + critical;
         criticalAni.Play();
     }
 
     public void SetDodge()
     {
         dodgeAni.Stop();
-        txtDodge.text = "ÉÁ±Ü";
+        txtDodge.text = "ï¿½ï¿½ï¿½ï¿½";
         dodgeAni.Play();
     }
 
@@ -78,11 +80,13 @@ public class ItemEntityHP : MonoBehaviour
     private float targetPrg;
     public void SetHPVal(int oldVal, int newVal)
     {
-        //¼ÆËãÑªÁ¿±ä»¯
+        //ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½ï¿½ä»¯
         currentPrg = oldVal * 1.0f / hpVal;
         targetPrg = newVal * 1.0f / hpVal;
-        //ÉèÖÃÄ¿±êÑªÁ¿
+        //ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½Ñªï¿½ï¿½
         imgHPRed.fillAmount = targetPrg;
-        //²úÉú½¥±ä¶¯»­
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä¶¯ï¿½ï¿½
     }
+}
+
 }

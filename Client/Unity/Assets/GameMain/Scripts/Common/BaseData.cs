@@ -1,4 +1,6 @@
-//¹¦ÄÜ£ºÅäÖÃÊý¾ÝÀà
+namespace DarkGod.Main
+{
+//ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,18 +27,18 @@ public class StrongCfg : BaseData<StrongCfg>
 
 public class AutoGuideCfg : BaseData<AutoGuideCfg>
 {
-    public int npcID; //´¥·¢ÈÎÎñÄ¿±êNPCË÷ÒýºÅ
-    public string dilogArr; //¶Ô»°Êý¾Ý
-    public int actID; //Ä¿±êÈÎÎñID
-    public int coin; //½±ÀøµÄ½ð±Ò
-    public int exp; //¾­Ñé
+    public int npcID; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public string dilogArr; //ï¿½Ô»ï¿½ï¿½ï¿½ï¿½ï¿½
+    public int actID; //Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
+    public int coin; //ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½
+    public int exp; //ï¿½ï¿½ï¿½ï¿½
 
 }
 
 public class MonsterCfg : BaseData<MonsterCfg>
 {
-    public string mName; //¹ÖÎïÃû×Ö
-    public string resPath; //×ÊÔ´Â·¾¶
+    public string mName; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public string resPath; //ï¿½ï¿½Ô´Â·ï¿½ï¿½
     public int skillID;
     public float atkDis;
     public BattleProps bps;
@@ -44,8 +46,8 @@ public class MonsterCfg : BaseData<MonsterCfg>
 
 public class MonsterData : BaseData<MonsterData>
 {
-    public int mWave;//Åú´Î
-    public int mIndex;//ÐòºÅ
+    public int mWave;//ï¿½ï¿½ï¿½ï¿½
+    public int mIndex;//ï¿½ï¿½ï¿½
     public MonsterCfg mCfg;
     public Vector3 mBornPos;
     public Vector3 mBornRote;
@@ -55,17 +57,17 @@ public class MonsterData : BaseData<MonsterData>
 
 public class MapCfg : BaseData<MapCfg>
 {
-    public string mapName; //µØÍ¼Ãû³Æ
-    public string sceneName; //³¡¾°Ãû³Æ
-    public int power; //½øÈë¹Ø¿¨ÏûºÄµÄÌåÁ¦
-    public Vector3 mainCamPos; //Ïà»úÎ»ÖÃ
-    public Vector3 mainCamRote; //Ïà»úÐý×ª
-    public Vector3 playerBornPos; //Íæ¼Ò³öÉúÎ»ÖÃ
+    public string mapName; //ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½
+    public string sceneName; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public int power; //ï¿½ï¿½ï¿½ï¿½Ø¿ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½
+    public Vector3 mainCamPos; //ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+    public Vector3 mainCamRote; //ï¿½ï¿½ï¿½ï¿½ï¿½×ª
+    public Vector3 playerBornPos; //ï¿½ï¿½Ò³ï¿½ï¿½ï¿½Î»ï¿½ï¿½
     public Vector3 playerBornRote;
     public List<MonsterData> monsterLst;
 }
 
-//ÈÎÎñ½±ÀøÅäÖÃ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 public class TaskRewardCfg : BaseData<TaskRewardCfg>
 {
     public string taskName;
@@ -74,7 +76,7 @@ public class TaskRewardCfg : BaseData<TaskRewardCfg>
     public int coin;
 }
 
-//×ÓÈÎÎñ×´Ì¬£¨½ø¶È/ÊÇ·ñ±»ÁìÈ¡£©
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/ï¿½Ç·ï¿½ï¿½ï¿½È¡ï¿½ï¿½
 public class TaskRewardData : BaseData<TaskRewardData>
 {
     public int prgs;
@@ -106,21 +108,21 @@ public class SkillMoveCfg : BaseData<SkillMoveCfg>
 public class SkillActionCfg : BaseData<SkillActionCfg>
 {
     public int delayTime;
-    public float radius; //ÉËº¦¼ÆËã·¶Î§
-    public int angle; //ÉËº¦ÓÐÐ§½Ç¶È
+    public float radius; //ï¿½Ëºï¿½ï¿½ï¿½ï¿½ã·¶Î§
+    public int angle; //ï¿½Ëºï¿½ï¿½ï¿½Ð§ï¿½Ç¶ï¿½
 }
 
 public class SkillCfg : BaseData<SkillCfg>
 {
     public string skillName;
     public int cdTime;
-    public int skillTime; //¼¼ÄÜ³ÖÐøÊ±¼ä
-    public int aniAction; //¶¯»­¿ØÖÆ²ÎÊý
-    public string fx; //ÌØÐ§Ãû³Æ
-    public bool isCombo; //ÊÇ·ñÁ¬ÕÐ
-    public bool isCollide; //ºöÂÔÅö×²
-    public bool isBreak; //ÊÇ·ñ¿É±»ÖÐ¶Ï
-    public DamageType dmgType; //ÉËº¦ÀàÐÍ
+    public int skillTime; //ï¿½ï¿½ï¿½Ü³ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+    public int aniAction; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ²ï¿½ï¿½ï¿½
+    public string fx; //ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½
+    public bool isCombo; //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+    public bool isCollide; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²
+    public bool isBreak; //ï¿½Ç·ï¿½É±ï¿½ï¿½Ð¶ï¿½
+    public DamageType dmgType; //ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½
     public List<int> skillMoveLst;
     public List<int> skillActionLst;
     public List<int> skillDamageLst;
@@ -132,7 +134,7 @@ public class BaseData<T>
     public int ID;
 }
 
-//Õ½¶·ÊýÖµÊôÐÔ
+//Õ½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½
 public class BattleProps
 {
     public int hp;
@@ -145,3 +147,5 @@ public class BattleProps
     public int critical;
 }
 
+
+}

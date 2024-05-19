@@ -1,4 +1,6 @@
-//¹¦ÄÜ£ºÒôÆµ²¥·Å·þÎñ
+namespace DarkGod.Main
+{
+//ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -98,4 +100,6 @@ public class AudioSvc : MonoBehaviour
         int i = Random.Range(0, CharacterLanding.Length);
         CharacterAudioSource.PlayOneShot(CharacterFootSteps[i], CharacterAudioVolumeValue);
     }
+}
+
 }

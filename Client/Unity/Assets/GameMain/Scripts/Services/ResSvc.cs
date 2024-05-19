@@ -1,4 +1,6 @@
-//¹¦ÄÜ£º×ÊÔ´¼ÓÔØ·þÎñ
+namespace DarkGod.Main
+{
+//ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½Ø·ï¿½ï¿½ï¿½
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
@@ -39,7 +41,7 @@ public class ResSvc : MonoBehaviour
 
     public void ResetSkillCfgs()
     {
-        //Çå¿Õ×Öµä£¬±ÜÃâkey³åÍ»
+        //ï¿½ï¿½ï¿½ï¿½Öµä£¬ï¿½ï¿½ï¿½ï¿½keyï¿½ï¿½Í»
         skillDic.Clear();
         InitSkillCfg(PathDefine.SkillCfg);
         skillMoveDic.Clear();
@@ -50,10 +52,10 @@ public class ResSvc : MonoBehaviour
         PECommon.Log("Reset Skill Cfgs Done.");
     }
 
-    private Action prgCB = null;  //¸üÐÂµÄ»Øµ÷
+    private Action prgCB = null;  //ï¿½ï¿½ï¿½ÂµÄ»Øµï¿½
 
     private SceneOperationHandle sceneHandle;
-    //Òì²½µÄ¼ÓÔØ³¡¾°£¬ÐèÒªÏÔÊ¾½ø¶ÈÌõ
+    //ï¿½ì²½ï¿½Ä¼ï¿½ï¿½Ø³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public void AsyncLoadScene(string sceneName, Action loaded)
     {
         GameRoot.Instance.loadingWnd.SetWndState();
@@ -61,7 +63,7 @@ public class ResSvc : MonoBehaviour
         StartCoroutine(LoadSceneAsync(sceneName));
         prgCB = () =>
         {
-            float val = sceneHandle.Progress;  //µ±Ç°Òì²½²Ù×÷¼ÓÔØµÄ½ø¶È
+            float val = sceneHandle.Progress;  //ï¿½ï¿½Ç°ï¿½ì²½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ØµÄ½ï¿½ï¿½ï¿½
             GameRoot.Instance.loadingWnd.SetProgress(val);
 
             if (val == 1)
@@ -88,11 +90,11 @@ public class ResSvc : MonoBehaviour
     }
     private void Update()
     {
-        //ÐèÒªÔÚUpdate·½·¨ÖÐ²»Í£µØ·ÃÎÊval£¬È»ºó½«½ø¶È¸üÐÂ
-        //½«Action×÷Îª¸üÐÂµÄ»Øµ÷£¬ÔÚUpdateÖÐ²»Í£µØµ÷ÓÃAction£¬´ïµ½ÊµÊ±¸üÐÂ½ø¶ÈÌõµÄÄ¿µÄ
+        //ï¿½ï¿½Òªï¿½ï¿½Updateï¿½ï¿½ï¿½ï¿½ï¿½Ð²ï¿½Í£ï¿½Ø·ï¿½ï¿½ï¿½valï¿½ï¿½È»ï¿½ó½«½ï¿½ï¿½È¸ï¿½ï¿½ï¿½
+        //ï¿½ï¿½Actionï¿½ï¿½Îªï¿½ï¿½ï¿½ÂµÄ»Øµï¿½ï¿½ï¿½ï¿½ï¿½Updateï¿½Ð²ï¿½Í£ï¿½Øµï¿½ï¿½ï¿½Actionï¿½ï¿½ï¿½ïµ½ÊµÊ±ï¿½ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½
         if (prgCB != null)
         {
-            //Èç¹ûÅÐ¶Ï²»Îª¿ÕÔòµ÷ÓÃ¸Ã·½·¨
+            //ï¿½ï¿½ï¿½ï¿½Ð¶Ï²ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¸Ã·ï¿½ï¿½ï¿½
             prgCB();
         }
     }
@@ -100,7 +102,7 @@ public class ResSvc : MonoBehaviour
 
     public async UniTask<AudioClip> LoadAudioClipAsync(string path, bool iscache = false)
     {
-        //ÒôÀÖ¼ÓÔØ
+        //ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½
         AudioClip audioClip = null;
         AssetOperationHandle handle = _yooAssetResourcePackage.LoadAssetAsync<AudioClip>(path);
         await handle.Task;
@@ -109,14 +111,14 @@ public class ResSvc : MonoBehaviour
         return audioClip;
     }
 
-    //»ñÈ¡PrefabµÄÀà
+    //ï¿½ï¿½È¡Prefabï¿½ï¿½ï¿½ï¿½
     public GameObject LoadPrefab(string path, bool iscache = false)
     {
         AssetOperationHandle prefabHandle = null;
         prefabHandle = _yooAssetResourcePackage.LoadAssetSync<GameObject>(path);
 
         GameObject go = null;
-        //prefab¼ÓÔØÍê³ÉºóµÄÊµÀý»¯
+        //prefabï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éºï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½
         go = prefabHandle.InstantiateSync();
 
         PECommon.Log("Prefab load. name:" + go.name + ". path:" + path);
@@ -144,7 +146,7 @@ public class ResSvc : MonoBehaviour
     }
 
     #region InitCfgs
-    #region Ëæ»úÃû×Ö
+    #region ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private List<string> surnameLst = new List<string>();
     private List<string> manLst = new List<string>();
     private List<string> womanLst = new List<string>();
@@ -165,13 +167,13 @@ public class ResSvc : MonoBehaviour
             for (int i = 0; i < nodLst.Count; i++)
             {
                 XmlElement ele = nodLst[i] as XmlElement;
-                //ID×÷ÎªÅÐ¶ÏµÄ±ê×¼£¬»ñÈ¡µ±Ç°ÊôÐÔ£¬µ±ID²»´æÔÚ£¬ÔòÖ±½ÓÌø¹ý£¬¶ÁÈ¡ÏÂÒ»¸ö½ÚµãÁÐ±íµÄÊý¾Ý
+                //IDï¿½ï¿½Îªï¿½Ð¶ÏµÄ±ï¿½×¼ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Ô£ï¿½ï¿½ï¿½IDï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Úµï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 if (ele.GetAttributeNode("ID") == null)
                 {
                     continue;
                 }
                 int ID = Convert.ToInt32(ele.GetAttributeNode("ID").InnerText);
-                //ÄÃµ½½ÚµãÊý¾Ýºó£¬±éÀú½ÚµãÄÚµÄÃ¿Ò»¸öÊôÐÔ£¬²¢½«ËüÃÇ±£´æµ½¶ÔÓ¦µÄListÖÐ
+                //ï¿½Ãµï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½Ýºó£¬±ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½Úµï¿½Ã¿Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ô£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç±ï¿½ï¿½æµ½ï¿½ï¿½Ó¦ï¿½ï¿½Listï¿½ï¿½
                 foreach (XmlElement e in nodLst[i].ChildNodes)
                 {
                     switch (e.Name)
@@ -209,7 +211,7 @@ public class ResSvc : MonoBehaviour
     }
     #endregion
 
-    #region µØÍ¼
+    #region ï¿½ï¿½Í¼
     private Dictionary<int, MapCfg> mapCfgDataDic = new Dictionary<int, MapCfg>();
     private async void InitMapCfg(string path)
     {
@@ -327,7 +329,7 @@ public class ResSvc : MonoBehaviour
     }
     #endregion
 
-    #region ×Ô¶¯Òýµ¼ÅäÖÃ
+    #region ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private Dictionary<int, AutoGuideCfg> guideTaskDic = new Dictionary<int, AutoGuideCfg>();
     private async void InitGuideCfg(string path)
     {
@@ -393,7 +395,7 @@ public class ResSvc : MonoBehaviour
     }
     #endregion
 
-    #region Ç¿»¯Éý¼¶ÅäÖÃ
+    #region Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private Dictionary<int, Dictionary<int, StrongCfg>> strongDic = new Dictionary<int, Dictionary<int, StrongCfg>>();
     private async void InitStrongCfg(string path)
     {
@@ -456,32 +458,32 @@ public class ResSvc : MonoBehaviour
                 }
 
                 Dictionary<int, StrongCfg> dic = null;
-                //ÅÐ¶Ïµ±Ç°ÔÚ¸Ã²¿Î»µÄ×ÖµäÊÇ·ñ´æÔÚ
+                //ï¿½Ð¶Ïµï¿½Ç°ï¿½Ú¸Ã²ï¿½Î»ï¿½ï¿½ï¿½Öµï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
                 if (strongDic.TryGetValue(sd.pos, out dic))
                 {
-                    //Èç¹ûÓÐÔòÖ±½ÓÍù×ÖµäÔö¼ÓÊý¾ÝÏî
+                    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                     dic.Add(sd.startlv, sd);
                 }
                 else
                 {
-                    //Èç¹ûÃ»ÓÐ£¬ÔòÐèÒªÏÈ½«¸ÃÎ»ÖÃµÄ×Öµänew³öÀ´
+                    //ï¿½ï¿½ï¿½Ã»ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½È½ï¿½ï¿½ï¿½Î»ï¿½Ãµï¿½ï¿½Öµï¿½newï¿½ï¿½ï¿½ï¿½
                     dic = new Dictionary<int, StrongCfg>();
                     dic.Add(sd.startlv, sd);
 
-                    //Ìí¼Óµ½strongDicÖÐ
+                    //ï¿½ï¿½Óµï¿½strongDicï¿½ï¿½
                     strongDic.Add(sd.pos, dic);
                 }
             }
         }
     }
-    //»ñÈ¡¶ÔÓ¦Î»ÖÃ¶ÔÓ¦ÐÇ¼¶µÄÊôÐÔ
+    //ï¿½ï¿½È¡ï¿½ï¿½Ó¦Î»ï¿½Ã¶ï¿½Ó¦ï¿½Ç¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public StrongCfg GetStrongCfg(int pos, int starlv)
     {
         StrongCfg sd = null;
         Dictionary<int, StrongCfg> dic = null;
         if (strongDic.TryGetValue(pos, out dic))
         {
-            //ÅÐ¶Ï×ÖµäÖÐÊÇ·ñº¬ÓÐÏàÓ¦µÄÐÇ¼¶
+            //ï¿½Ð¶ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½Ç¼ï¿½
             if (dic.ContainsKey(starlv))
             {
                 sd = dic[starlv];
@@ -490,21 +492,21 @@ public class ResSvc : MonoBehaviour
         return sd;
     }
 
-    //»ñÈ¡Ä³¸öÐÇ¼¶°üÀ¨Ç°ÃæËùÓÐÐÇ¼¶ÔÚÄ³¸öÊôÐÔÀÛ¼ÓµÄºÍ 
+    //ï¿½ï¿½È¡Ä³ï¿½ï¿½ï¿½Ç¼ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¼ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û¼ÓµÄºï¿½ 
     public int GetPropAddValPreLv(int pos, int starlv, int type)
     {
-        //»ñÈ¡¶ÔÓ¦Î»ÖÃËùÓÐµÄÇ¿»¯Êý¾Ý
+        //ï¿½ï¿½È¡ï¿½ï¿½Ó¦Î»ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         Dictionary<int, StrongCfg> posDic = null;
         int val = 0;
         if (strongDic.TryGetValue(pos, out posDic))
         {
-            //¸ù¾ÝÐÇ¼¶ºÍÀàÐÍ»ñÈ¡¶ÔÓ¦ÊôÐÔ
+            //ï¿½ï¿½ï¿½ï¿½ï¿½Ç¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í»ï¿½È¡ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½
             for (int i = 0; i < starlv; i++)
             {
                 StrongCfg sd;
                 if (posDic.TryGetValue(i, out sd))
                 {
-                    //¸ù¾ÝÀàÐÍÀÛ¼ÓÊýÖµ
+                    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û¼ï¿½ï¿½ï¿½Öµ
                     switch (type)
                     {
                         case 1://hp
@@ -524,7 +526,7 @@ public class ResSvc : MonoBehaviour
     }
     #endregion
 
-    #region ×ÊÔ´½»Ò×ÅäÖÃ
+    #region ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private Dictionary<int, BuyCfg> buyCfgDic = new Dictionary<int, BuyCfg>();
     private async void InitBuyCfg(string path)
     {
@@ -581,7 +583,7 @@ public class ResSvc : MonoBehaviour
     }
     #endregion
 
-    #region ÈÎÎñ½±ÀøÅäÖÃ
+    #region ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private Dictionary<int, TaskRewardCfg> taskRewardDic = new Dictionary<int, TaskRewardCfg>();
     private async void InitTaskRewardCfg(string path)
     {
@@ -644,7 +646,7 @@ public class ResSvc : MonoBehaviour
     }
     #endregion
 
-    #region È«¾ÖNPCÅäÖÃ
+    #region È«ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½
     private Dictionary<int, NpcData> npcDic = new Dictionary<int, NpcData>();
     private async void InitNpcCfg(string path)
     {
@@ -725,7 +727,7 @@ public class ResSvc : MonoBehaviour
     }
     #endregion
 
-    #region ¼¼ÄÜÅäÖÃ
+    #region ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private Dictionary<int, SkillCfg> skillDic = new Dictionary<int, SkillCfg>();
     private async void InitSkillCfg(string path)
     {
@@ -847,7 +849,7 @@ public class ResSvc : MonoBehaviour
     }
     #endregion
 
-    #region ¼¼ÄÜÎ»ÒÆÅäÖÃ
+    #region ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private Dictionary<int, SkillMoveCfg> skillMoveDic = new Dictionary<int, SkillMoveCfg>();
     private async void InitSkillMoveCfg(string path)
     {
@@ -907,7 +909,7 @@ public class ResSvc : MonoBehaviour
     }
     #endregion
 
-    #region ¼¼ÄÜActionÅäÖÃ
+    #region ï¿½ï¿½ï¿½ï¿½Actionï¿½ï¿½ï¿½ï¿½
     private Dictionary<int, SkillActionCfg> skillActionDic = new Dictionary<int, SkillActionCfg>();
     private async void InitSkillActionCfg(string path)
     {
@@ -967,7 +969,7 @@ public class ResSvc : MonoBehaviour
     }
     #endregion
 
-    #region ¹ÖÎïÊôÐÔÅäÖÃ
+    #region ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private Dictionary<int, MonsterCfg> monsterCfgDataDic = new Dictionary<int, MonsterCfg>();
     private async void InitMonsterCfg(string path)
     {
@@ -1055,4 +1057,6 @@ public class ResSvc : MonoBehaviour
     }
     #endregion
     #endregion
+}
+
 }

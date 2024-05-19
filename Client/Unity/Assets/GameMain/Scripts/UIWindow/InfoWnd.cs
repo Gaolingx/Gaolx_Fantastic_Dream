@@ -1,3 +1,5 @@
+namespace DarkGod.Main
+{
 //功能：角色信息展示界面
 using PEProtocol;
 using UnityEngine;
@@ -107,4 +109,5 @@ public class InfoWnd : WindowRoot
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
         SetActive(transDetail ,false);
     }
+}
 }

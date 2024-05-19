@@ -1,4 +1,6 @@
-//¹¦ÄÜ£ºÓÎÏ·Æô¶¯Èë¿Ú£¬³õÊ¼»¯¸÷¸öÒµÎñÏµÍ³
+namespace DarkGod.Main
+{
+//ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ÏµÍ³
 using PEProtocol;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,7 +16,7 @@ public class GameRoot : MonoBehaviour
     private void Start()
     {
         Instance = this;
-        //ÎÒÃÇ²»Ï£ÍûGameRoot¼°Æä×ÓÎïÌåÔÚÇÐ»»³¡¾°Ê±±»Ïú»Ù
+        //ï¿½ï¿½ï¿½Ç²ï¿½Ï£ï¿½ï¿½GameRootï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         DontDestroyOnLoad(this);
         PECommon.Log("Game Start...");
 
@@ -32,11 +34,11 @@ public class GameRoot : MonoBehaviour
         }
     }
 
-    //³õÊ¼»¯¸÷¸öÏµÍ³ºÍ·þÎñÄ£¿é
+    //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½Í·ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
     private void Init()
     {
-        //×¢£ºÐèÒªÏÈ³õÊ¼»¯·þÎñÄ£¿é
-        //·þÎñÄ£¿é³õÊ¼»¯
+        //×¢ï¿½ï¿½ï¿½ï¿½Òªï¿½È³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
+        //ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
         NetSvc net = GetComponent<NetSvc>();
         net.InitSvc();
         ResSvc res = GetComponent<ResSvc>();
@@ -49,7 +51,7 @@ public class GameRoot : MonoBehaviour
         timer.InitSvc();
 
 
-        //ÒµÎñÏµÍ³³õÊ¼»¯
+        //Òµï¿½ï¿½ÏµÍ³ï¿½ï¿½Ê¼ï¿½ï¿½
         LoginSys loginSys = GetComponent<LoginSys>();
         loginSys.InitSys();
         MainCitySys maincitySys = GetComponent<MainCitySys>();
@@ -60,7 +62,7 @@ public class GameRoot : MonoBehaviour
         battleSys.InitSys();
 
         dynamicWnd.SetWndState();
-        //½øÈëµÇÂ¼³¡¾°²¢¼ÓÔØÏàÓ¦UI
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦UI
         loginSys.EnterLogin();
 
     }
@@ -180,5 +182,7 @@ public class GameRoot : MonoBehaviour
     {
         return entityPlayer;
     }
+
+}
 
 }

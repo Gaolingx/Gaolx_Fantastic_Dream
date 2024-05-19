@@ -1,3 +1,5 @@
+namespace DarkGod.Main
+{
 //功能：购买交易窗口
 
 
@@ -74,4 +76,5 @@ public class BuyWnd : WindowRoot {
         audioSvc.PlayUIAudio(Constants.UIClickBtn);
         SetWndState(false);
     }
+}
 }

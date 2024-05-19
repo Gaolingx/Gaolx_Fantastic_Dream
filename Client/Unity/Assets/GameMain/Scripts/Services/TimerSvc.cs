@@ -1,4 +1,6 @@
-//¹¦ÄÜ£º¼ÆÊ±·þÎñ
+namespace DarkGod.Main
+{
+//ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 
 using System;
 using System.Collections;
@@ -16,7 +18,7 @@ public class TimerSvc : SystemRoot
         Instance = this;
         pt = new PETimer();
 
-        //ÉèÖÃ¶¨Ê±Æ÷ÈÕÖ¾Êä³ö
+        //ï¿½ï¿½ï¿½Ã¶ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½
         pt.SetLog((string info) =>
         {
             PECommon.Log(info);
@@ -24,13 +26,13 @@ public class TimerSvc : SystemRoot
         PECommon.Log("Init TimerSvc...");
     }
 
-    //¶¨Ê±ÈÎÎñ¼ì²â
+    //ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public void Update()
     {
         pt.Update();
     }
 
-    //Ôö¼Ó¶¨Ê±ÈÎÎñ
+    //ï¿½ï¿½ï¿½Ó¶ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
     public int AddTimeTask(Action<int> callback, double delay, PETimeUnit timeUnit = PETimeUnit.Millisecond, int count = 1)
     {
         return pt.AddTimeTask(callback, delay, timeUnit, count);
@@ -45,5 +47,7 @@ public class TimerSvc : SystemRoot
     {
         pt.DeleteTimeTask(tid);
     }
+
+}
 
 }

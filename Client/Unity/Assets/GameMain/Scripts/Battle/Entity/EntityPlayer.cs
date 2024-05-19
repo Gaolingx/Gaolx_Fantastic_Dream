@@ -1,4 +1,6 @@
-﻿//功能：玩家逻辑实体
+namespace DarkGod.Main
+{
+//功能：玩家逻辑实体
 
 
 using System.Collections.Generic;
@@ -84,3 +86,5 @@ public class EntityPlayer : EntityBase
     }
 }
 
+
+}

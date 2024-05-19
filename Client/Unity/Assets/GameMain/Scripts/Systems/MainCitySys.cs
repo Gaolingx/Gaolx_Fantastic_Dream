@@ -1,4 +1,6 @@
-//¹¦ÄÜ£ºÖ÷³ÇÒµÎñÏµÍ³
+namespace DarkGod.Main
+{
+//ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ÏµÍ³
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,36 +43,36 @@ public class MainCitySys : SystemRoot
 
     public void EnterMainCity()
     {
-        //Í¨¹ýid»ñÈ¡Ö÷³ÇÅäÖÃºó£¬¼ÓÔØ³¡¾°
+        //Í¨ï¿½ï¿½idï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãºó£¬¼ï¿½ï¿½Ø³ï¿½ï¿½ï¿½
         MapCfg mapData = resSvc.GetMapCfg(Constants.MainCityMapID);
-        //¼ÓÔØÖ÷³Ç³¡¾°
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç³ï¿½ï¿½ï¿½
         resSvc.AsyncLoadScene(mapData.sceneName, () =>
         {
             PECommon.Log("Init MainCitySys...");
 
             transform.Find(Constants.Path_PlayerInputs_Obj).gameObject.SetActive(true);
-            // ¼ÓÔØÓÎÏ·Ö÷½Ç
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½
             LoadPlayer(mapData);
 
-            // ¼ÓÔØNPC
+            // ï¿½ï¿½ï¿½ï¿½NPC
             LoadNpcPrefab();
 
-            //´ò¿ªÖ÷³Ç³¡¾°UI
+            //ï¿½ï¿½ï¿½ï¿½ï¿½Ç³ï¿½ï¿½ï¿½UI
             maincityWnd.SetWndState();
 
-            // ³õÊ¼»¯Ò¡¸Ë²å¼þ
+            // ï¿½ï¿½Ê¼ï¿½ï¿½Ò¡ï¿½Ë²ï¿½ï¿½
             InitGamepad(playerInput.GetComponent<StarterAssetsInputs>());
 
-            //ÅäÖÃ½ÇÉ«ÉùÒôÔ´
+            //ï¿½ï¿½ï¿½Ã½ï¿½É«ï¿½ï¿½ï¿½ï¿½Ô´
             audioSvc.GetCharacterAudioSourceComponent(mainCityPlayer);
 
-            //²¥·ÅÖ÷³Ç±³¾°ÒôÀÖ
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             audioSvc.PlayBGMusic(Constants.BGMainCity);
 
-            //»ñÈ¡Ö÷³ÇNPCsµÄTransform
+            //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½NPCsï¿½ï¿½Transform
             GetMapNpcTransform();
 
-            //ÉèÖÃÈËÎïÕ¹Ê¾Ïà»ú
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¹Ê¾ï¿½ï¿½ï¿½
             if (charCamTrans != null)
             {
                 charCamTrans.gameObject.SetActive(false);
@@ -82,16 +84,16 @@ public class MainCitySys : SystemRoot
 
     private void LoadPlayerInstance(string playerPrefabPath, MapCfg mapData)
     {
-        //Íæ¼Ò³õÊ¼»¯
-        //»ñÈ¡PrefabÊµÀý»¯µÄ¶ÔÏó
+        //ï¿½ï¿½Ò³ï¿½Ê¼ï¿½ï¿½
+        //ï¿½ï¿½È¡PrefabÊµï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½
         GameObject player = resSvc.LoadPrefab(playerPrefabPath, true);
         if (player != null)
         {
-            //³õÊ¼»¯Íæ¼ÒÎ»ÖÃ
+            //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
             GameRoot.Instance.SetGameObjectTrans(player, mapData.playerBornPos, mapData.playerBornRote, new Vector3(0.8f, 0.8f, 0.8f));
 
-            //Ô­·½°¸
-            //Ïà»ú³õÊ¼»¯
+            //Ô­ï¿½ï¿½ï¿½ï¿½
+            //ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
             /*
             Camera.main.transform.position = mapData.mainCamPos;
             Camera.main.transform.localEulerAngles = mapData.mainCamRote;
@@ -100,7 +102,7 @@ public class MainCitySys : SystemRoot
             playerCtrl.Init();
             */
 
-            //»ñÈ¡playerµ¼º½×é¼þ
+            //ï¿½ï¿½È¡playerï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             nav = player.GetComponent<NavMeshAgent>();
 
             ThirdPersonController controller = player.GetComponent<ThirdPersonController>();
@@ -119,26 +121,26 @@ public class MainCitySys : SystemRoot
 
     private void LoadVirtualCameraInstance(string virtualCameraPrefabPath, MapCfg mapData)
     {
-        //Ïà»ú³õÊ¼»¯
-        //Ê×ÏÈÒª¼ÓÔØÐéÄâÏà»úµÄÔ¤ÖÆ¼þ
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
+        //ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½Æ¼ï¿½
         GameObject CM_player = resSvc.LoadPrefab(virtualCameraPrefabPath, true);
         if (CM_player != null)
         {
 
-            //ÉèÖÃÊµÀý»¯¶ÔÏóÊ±ºòµÄÎ»ÖÃ¡¢Ðý×ª
+            //ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Î»ï¿½Ã¡ï¿½ï¿½ï¿½×ª
             Vector3 CM_player_Pos = mapData.mainCamPos;
             Vector3 CM_player_Rote = mapData.mainCamRote;
             GameRoot.Instance.SetGameObjectTrans(CM_player, CM_player_Pos, CM_player_Rote, Vector3.one);
 
-            // »ñÈ¡ÐéÄâÏà»úÔ¤ÖÆ¼þÉÏµÄCinemachineVirtualCamera×é¼þ  
+            // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½Æ¼ï¿½ï¿½Ïµï¿½CinemachineVirtualCameraï¿½ï¿½ï¿½  
             CinemachineVirtualCamera cinemachineVirtualCamera = CM_player.GetComponent<CinemachineVirtualCamera>();
-            //ÖÁ´Ë£¬ÎÒÃÇÓ¦¸Ã»ñÈ¡µ½ÁËÔ¤ÖÆ¼þÉÏÃæµÄcinemachineVirtualCamera£¨µ«Ô¸ÄÜ»ñÈ¡µ½£©×é¼þ
+            //ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Ã»ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½cinemachineVirtualCameraï¿½ï¿½ï¿½ï¿½Ô¸ï¿½Ü»ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-            //ÖÁ´Ë£¬ÎÒÃÇÖÕÓÚ¿ÉÒÔ¶ÔÔ¤ÖÆ¼þÉÏÃæ»ñÈ¡µ½µÄcinemachineVirtualCamera×é¼þ½øÐÐ²Ù×÷ÁË...>_<
+            //ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½Ô¶ï¿½Ô¤ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½cinemachineVirtualCameraï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½...>_<
 
-            // ÉèÖÃCinemachineVirtualCameraµÄ¸úËæÄ¿±êÎª±êÇ©Îª"PlayerCamRoot"µÄÓÎÏ·¶ÔÏóµÄtransform
+            // ï¿½ï¿½ï¿½ï¿½CinemachineVirtualCameraï¿½Ä¸ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½Îªï¿½ï¿½Ç©Îª"PlayerCamRoot"ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½transform
             cinemachineVirtualCamera.Follow = GameObject.FindGameObjectWithTag(Constants.CinemachineVirtualCameraFollowGameObjectWithTag).transform;
-            //Í¨¹ý¶ÁÈ¡ÅäÖÃ±íÉèÖÃCinemachineVirtualCameraÏà²Ã¼ôÆ½Ãæ
+            //Í¨ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½CinemachineVirtualCameraï¿½ï¿½Ã¼ï¿½Æ½ï¿½ï¿½
             cinemachineVirtualCamera.m_Lens.FarClipPlane = Constants.CinemachineVirtualCameraFarClipPlane;
             cinemachineVirtualCamera.m_Lens.NearClipPlane = Constants.CinemachineVirtualCameraNearClipPlane;
         }
@@ -172,12 +174,12 @@ public class MainCitySys : SystemRoot
     }
 
 
-    //Ô­·½°¸
+    //Ô­ï¿½ï¿½ï¿½ï¿½
     public void SetMoveDir(Vector2 dir)
     {
         StopNavTask();
         /*
-        //ÉèÖÃ¶¯»­
+        //ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½
         if (dir == Vector2.zero)
         {
             playerCtrl.SetBlend(Constants.BlendIdle);
@@ -186,7 +188,7 @@ public class MainCitySys : SystemRoot
         {
             playerCtrl.SetBlend(Constants.BlendWalk);
         }
-        //ÉèÖÃ·½Ïò
+        //ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½
         playerCtrl.Dir = dir;
         */
     }
@@ -235,13 +237,13 @@ public class MainCitySys : SystemRoot
     public void RspBuy(GameMsg msg)
     {
         RspBuy rspBuydata = msg.rspBuy;
-        //¸üÐÂÍæ¼ÒÊý¾Ýµ½GameRootÖÐ
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½GameRootï¿½ï¿½
         GameRoot.Instance.SetPlayerDataByBuy(rspBuydata);
-        GameRoot.AddTips("¹ºÂò³É¹¦");
+        GameRoot.AddTips("ï¿½ï¿½ï¿½ï¿½É¹ï¿½");
 
-        //¸üÐÂÖ÷³Ç½çÃæ
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç½ï¿½ï¿½ï¿½
         maincityWnd.RefreshUI();
-        //¹Ø±Õ¹ºÂò´°¿Ú
+        //ï¿½Ø±Õ¹ï¿½ï¿½ò´°¿ï¿½
         buyWnd.SetWndState(false);
 
         if(msg.pshTaskPrgs !=  null)
@@ -289,16 +291,16 @@ public class MainCitySys : SystemRoot
 
     public void RspStrong(GameMsg msg)
     {
-        //¼ÆËãÉý¼¶Ç°µÄÕ½Á¦
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½Õ½ï¿½ï¿½
         int zhanliPre = PECommon.GetFightByProps(GameRoot.Instance.PlayerData);
-        //¸üÐÂÍæ¼ÒÊôÐÔÊý¾Ý
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         GameRoot.Instance.SetPlayerDataByStrong(msg.rspStrong);
-        //Éý¼¶ºóÕ½Á¦
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ½ï¿½ï¿½
         int zhanliNow = PECommon.GetFightByProps(GameRoot.Instance.PlayerData);
-        //Éý¼¶ºóµÄ·´À¡
-        GameRoot.AddTips(WindowRoot.GetTextWithHexColor("Õ½Á¦ÌáÉý " + (zhanliNow - zhanliPre), TextColorCode.Blue));
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
+        GameRoot.AddTips(WindowRoot.GetTextWithHexColor("Õ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ " + (zhanliNow - zhanliPre), TextColorCode.Blue));
 
-        //Ë¢ÐÂÇ¿»¯ºÍÖ÷³Ç½çÃæ
+        //Ë¢ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç½ï¿½ï¿½ï¿½
         strongWnd.UpdateUI();
         maincityWnd.RefreshUI();
     }
@@ -314,7 +316,7 @@ public class MainCitySys : SystemRoot
             charCamTrans = GameObject.FindGameObjectWithTag(Constants.CharShowCamWithTag).transform;
         }
 
-        //ÉèÖÃÈËÎïÕ¹Ê¾Ïà»úÏà¶ÔÎ»ÖÃ£¨Ö÷½Ç£©¡¢Ðý×ª
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¹Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ã£ï¿½ï¿½ï¿½ï¿½Ç£ï¿½ï¿½ï¿½ï¿½ï¿½×ª
         charCamTrans.localPosition = mainCityPlayer.transform.position + mainCityPlayer.transform.forward * Constants.CharShowCamDistanceOffset + new Vector3(0, Constants.CharShowCamHeightOffset, 0);
         charCamTrans.localEulerAngles = new Vector3(0, 180 + mainCityPlayer.transform.localEulerAngles.y, 0);
         charCamTrans.localScale = Vector3.one;
@@ -360,16 +362,16 @@ public class MainCitySys : SystemRoot
         }
 
         nav.enabled = true;
-        //½âÎöÈÎÎñÊý¾Ý
-        //ÅÐ¶ÏÊÇ·ñÐèÒªÑ°Â·£¨ÕÒµ½npc£©
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ÒªÑ°Â·ï¿½ï¿½ï¿½Òµï¿½npcï¿½ï¿½
         if (curtTaskData.npcID != -1)
         {
-            float dis = Vector3.Distance(mainCityPlayer.transform.position, npcPosTrans[agc.npcID].position); //´Ë´¦µÄnpcIDÓëÅäÖÃ±íguide¶¨ÒåµÄnpcIDÒ»Ò»¶ÔÓ¦
-            //ÅÐ¶Ïµ±Ç°ÓÎÏ·Ö÷½ÇÓëÄ¿±ênpcÖ®¼äµÄ¾àÀë
+            float dis = Vector3.Distance(mainCityPlayer.transform.position, npcPosTrans[agc.npcID].position); //ï¿½Ë´ï¿½ï¿½ï¿½npcIDï¿½ï¿½ï¿½ï¿½ï¿½Ã±ï¿½guideï¿½ï¿½ï¿½ï¿½ï¿½npcIDÒ»Ò»ï¿½ï¿½Ó¦
+            //ï¿½Ð¶Ïµï¿½Ç°ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½npcÖ®ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
             if (dis < Constants.NavNpcDst)
             {
-                Debug.Log("ÒÑµ½´ïÄ¿±ê¸½½ü£¬µ¼º½×Ô¶¯È¡Ïû");
-                //ÕÒµ½Ä¿±ênpc£¬Í£Ö¹µ¼º½
+                Debug.Log("ï¿½Ñµï¿½ï¿½ï¿½Ä¿ï¿½ê¸½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½È¡ï¿½ï¿½");
+                //ï¿½Òµï¿½Ä¿ï¿½ï¿½npcï¿½ï¿½Í£Ö¹ï¿½ï¿½ï¿½ï¿½
                 isNavGuide = false;
                 nav.isStopped = true;
                 starterAssetsInputs.move = new Vector2(0, 0);
@@ -379,12 +381,12 @@ public class MainCitySys : SystemRoot
             }
             else
             {
-                Debug.Log("NavMeshµ¼º½Æô¶¯£¬×Ô¶¯Ñ°Â·ÖÐ...");
-                //Î´ÕÒµ½Ä¿±ênpc£¬Æô¶¯µ¼º½
+                Debug.Log("NavMeshï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½Ñ°Â·ï¿½ï¿½...");
+                //Î´ï¿½Òµï¿½Ä¿ï¿½ï¿½npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 isNavGuide = true;
-                nav.enabled = true; //¼¤»îµ¼º½×é¼þ
-                nav.speed = Constants.PlayerMoveSpeedNav; //µ¼º½ËÙ¶È
-                nav.SetDestination(npcPosTrans[agc.npcID].position); //ÉèÖÃµ¼º½Ä¿±êµã
+                nav.enabled = true; //ï¿½ï¿½ï¿½îµ¼ï¿½ï¿½ï¿½ï¿½ï¿½
+                nav.speed = Constants.PlayerMoveSpeedNav; //ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
+                nav.SetDestination(npcPosTrans[agc.npcID].position); //ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
                 starterAssetsInputs.move = new Vector2(0, 1);
             }
         }
@@ -408,7 +410,7 @@ public class MainCitySys : SystemRoot
         float dis = Vector3.Distance(mainCityPlayer.transform.position, npcPosTrans[curtTaskData.npcID].position);
         if (dis < Constants.NavNpcDst)
         {
-            Debug.Log("ÒÑ¾­µ½´ïÄ¿µÄµØ£¬µ¼º½½áÊø£¡");
+            Debug.Log("ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ÄµØ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
             isNavGuide = false;
             nav.isStopped = true;
             starterAssetsInputs.move = new Vector2(0, 0);
@@ -422,7 +424,7 @@ public class MainCitySys : SystemRoot
     {
         if (isNavGuide)
         {
-            Debug.Log("ÒòÎªµ¼º½ÖÐÍ¾Ö´ÐÐÆäËû²Ù×÷£¬µ¼º½ÖÐ¶Ï£¡");
+            Debug.Log("ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¾Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï£ï¿½");
             isNavGuide = false;
 
             nav.isStopped = true;
@@ -455,32 +457,32 @@ public class MainCitySys : SystemRoot
     {
         RspGuide data = msg.rspGuide;
 
-        GameRoot.AddTips(WindowRoot.GetTextWithHexColor("ÈÎÎñ½±Àø ½ð±Ò+" + curtTaskData.coin + "  ¾­Ñé+" + curtTaskData.exp, TextColorCode.Blue));
+        GameRoot.AddTips(WindowRoot.GetTextWithHexColor("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½+" + curtTaskData.coin + "  ï¿½ï¿½ï¿½ï¿½+" + curtTaskData.exp, TextColorCode.Blue));
 
-        //¶ÁÈ¡ÈÎÎñactionID£¬½øÐÐÏàÓ¦²Ù×÷
+        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½actionIDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½
         switch (curtTaskData.actID)
         {
             case Constants.CurtTaskDataActID_0:
-                //ÓëÖÇÕß¶Ô»°
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ß¶Ô»ï¿½
                 break;
             case Constants.CurtTaskDataActID_1:
-                //½øÈë¸±±¾
+                //ï¿½ï¿½ï¿½ë¸±ï¿½ï¿½
                 EnterFuben();
                 break;
             case Constants.CurtTaskDataActID_2:
-                //½øÈëÇ¿»¯½çÃæ
+                //ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 OpenStrongWnd();
                 break;
             case Constants.CurtTaskDataActID_3:
-                //½øÈëÌåÁ¦¹ºÂò
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 OpenBuyWnd(Constants.BuyTypePower);
                 break;
             case Constants.CurtTaskDataActID_4:
-                //½øÈë½ð±ÒÖýÔì
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 OpenBuyWnd(Constants.MakeTypeCoin);
                 break;
             case Constants.CurtTaskDataActID_5:
-                //½øÈëÊÀ½çÁÄÌì
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 OpenChatWnd();
                 break;
         }
@@ -489,4 +491,6 @@ public class MainCitySys : SystemRoot
         maincityWnd.RefreshUI();
     }
     #endregion
+}
+
 }
