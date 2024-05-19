@@ -8,24 +8,33 @@
 
 using UnityEngine;
 
-public class LoopDragonAni : MonoBehaviour {
-    public float AniRepeatTime = 20.0f;
+namespace DarkGod.Main
+{
+    public class LoopDragonAni : MonoBehaviour
+    {
+        public float AniRepeatTime = 20.0f;
 
-    private Animation ani;
+        private Animation ani;
 
-    private void Awake() {
-        ani = transform.GetComponent<Animation>();
-    }
-
-    private void Start() {
-        if (ani != null) {
-            InvokeRepeating("PlayDragonAni", 0, AniRepeatTime);
+        private void Awake()
+        {
+            ani = transform.GetComponent<Animation>();
         }
-    }
 
-    private void PlayDragonAni() {
-        if (ani != null) {
-            ani.Play();
+        private void Start()
+        {
+            if (ani != null)
+            {
+                InvokeRepeating("PlayDragonAni", 0, AniRepeatTime);
+            }
+        }
+
+        private void PlayDragonAni()
+        {
+            if (ani != null)
+            {
+                ani.Play();
+            }
         }
     }
 }

@@ -1,25 +1,28 @@
 ﻿//功能：死亡状态
 
 
-public class StateDie : IState
+namespace DarkGod.Main
 {
-    public void StateEnter(EntityBase entity, params object[] args)
+    public class StateDie : IState
     {
-        entity.currentAniState = AniState.Die;
-    }
-
-    public void StateExit(EntityBase entity, params object[] args)
-    {
-        
-    }
-
-    public void StateProcess(EntityBase entity, params object[] args)
-    {
-        entity.SetAction(Constants.ActionDie);
-        TimerSvc.Instance.AddTimeTask((int tid) =>
+        public void StateEnter(EntityBase entity, params object[] args)
         {
-            entity.SetActive(false);
-        }, Constants.StateDieMonsterAnimTime);
+            entity.currentAniState = AniState.Die;
+        }
+
+        public void StateExit(EntityBase entity, params object[] args)
+        {
+
+        }
+
+        public void StateProcess(EntityBase entity, params object[] args)
+        {
+            entity.SetAction(Constants.ActionDie);
+            TimerSvc.Instance.AddTimeTask((int tid) =>
+            {
+                entity.SetActive(false);
+            }, Constants.StateDieMonsterAnimTime);
+        }
     }
 }
 

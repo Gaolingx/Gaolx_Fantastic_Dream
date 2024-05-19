@@ -8,36 +8,39 @@
 
 using UnityEngine;
 
-public class MonsterController : Controller
+namespace DarkGod.Main
 {
-    public float MonsterMoveSpeed;
-    public bool EnableDownSpeed = false;
-
-    private void Update()
+    public class MonsterController : Controller
     {
-        //AI逻辑表现
-        if (isMove)
-        {
-            SetDir();
+        public float MonsterMoveSpeed;
+        public bool EnableDownSpeed = false;
 
-            SetMove(EnableDownSpeed);
+        private void Update()
+        {
+            //AI逻辑表现
+            if (isMove)
+            {
+                SetDir();
+
+                SetMove(EnableDownSpeed);
+            }
         }
-    }
 
-    private void SetDir()
-    {
-        float angle = Vector2.SignedAngle(Dir, new Vector2(0, 1));
-        Vector3 eulerAngles = new Vector3(0, angle, 0);
-        transform.localEulerAngles = eulerAngles;
-    }
-
-    private void SetMove(bool downSpeedIfNeed)
-    {
-        ctrl.Move(transform.forward * Time.deltaTime * MonsterMoveSpeed);
-        //给一个向下的速度，便于在没有apply root时怪物可以落地。Fix Res Error
-        if (downSpeedIfNeed)
+        private void SetDir()
         {
-            ctrl.Move(Vector3.down * Time.deltaTime * MonsterMoveSpeed);
+            float angle = Vector2.SignedAngle(Dir, new Vector2(0, 1));
+            Vector3 eulerAngles = new Vector3(0, angle, 0);
+            transform.localEulerAngles = eulerAngles;
+        }
+
+        private void SetMove(bool downSpeedIfNeed)
+        {
+            ctrl.Move(transform.forward * Time.deltaTime * MonsterMoveSpeed);
+            //给一个向下的速度，便于在没有apply root时怪物可以落地。Fix Res Error
+            if (downSpeedIfNeed)
+            {
+                ctrl.Move(Vector3.down * Time.deltaTime * MonsterMoveSpeed);
+            }
         }
     }
 }

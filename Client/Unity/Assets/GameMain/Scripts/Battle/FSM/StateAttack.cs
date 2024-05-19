@@ -1,29 +1,32 @@
 ﻿//功能：攻击状态
 
 
-public class StateAttack : IState
+namespace DarkGod.Main
 {
-    public void StateEnter(EntityBase entity, params object[] args)
+    public class StateAttack : IState
     {
-        entity.currentAniState = AniState.Attack;
-        entity.curtSkillCfg = ResSvc.Instance.GetSkillCfg((int)args[0]);
-        //PECommon.Log("StateAttack:Enter State.");
-    }
-
-    public void StateExit(EntityBase entity, params object[] args)
-    {
-        entity.ExitCurtSkill();
-        //PECommon.Log("StateAttack:Exit State.");
-    }
-
-    public void StateProcess(EntityBase entity, params object[] args)
-    {
-        if (entity.entityType == EntityType.Player)
+        public void StateEnter(EntityBase entity, params object[] args)
         {
-            entity.CanRlsSkill = false;
+            entity.currentAniState = AniState.Attack;
+            entity.curtSkillCfg = ResSvc.Instance.GetSkillCfg((int)args[0]);
+            //PECommon.Log("StateAttack:Enter State.");
         }
 
-        entity.SkillAttack((int)args[0]);
-        //PECommon.Log("StateAttack:Process State.");
+        public void StateExit(EntityBase entity, params object[] args)
+        {
+            entity.ExitCurtSkill();
+            //PECommon.Log("StateAttack:Exit State.");
+        }
+
+        public void StateProcess(EntityBase entity, params object[] args)
+        {
+            if (entity.entityType == EntityType.Player)
+            {
+                entity.CanRlsSkill = false;
+            }
+
+            entity.SkillAttack((int)args[0]);
+            //PECommon.Log("StateAttack:Process State.");
+        }
     }
 }

@@ -5,45 +5,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimerSvc : SystemRoot
+namespace DarkGod.Main
 {
-    public static TimerSvc Instance = null;
-
-    private PETimer pt;
-
-    public void InitSvc()
+    public class TimerSvc : SystemRoot
     {
-        Instance = this;
-        pt = new PETimer();
+        public static TimerSvc Instance = null;
 
-        //设置定时器日志输出
-        pt.SetLog((string info) =>
+        private PETimer pt;
+
+        public void InitSvc()
         {
-            PECommon.Log(info);
-        });
-        PECommon.Log("Init TimerSvc...");
-    }
+            Instance = this;
+            pt = new PETimer();
 
-    //定时任务检测
-    public void Update()
-    {
-        pt.Update();
-    }
+            //设置定时器日志输出
+            pt.SetLog((string info) =>
+            {
+                PECommon.Log(info);
+            });
+            PECommon.Log("Init TimerSvc...");
+        }
 
-    //增加定时任务
-    public int AddTimeTask(Action<int> callback, double delay, PETimeUnit timeUnit = PETimeUnit.Millisecond, int count = 1)
-    {
-        return pt.AddTimeTask(callback, delay, timeUnit, count);
-    }
+        //定时任务检测
+        public void Update()
+        {
+            pt.Update();
+        }
 
-    public double GetNowTime()
-    {
-        return pt.GetMillisecondsTime();
-    }
+        //增加定时任务
+        public int AddTimeTask(Action<int> callback, double delay, PETimeUnit timeUnit = PETimeUnit.Millisecond, int count = 1)
+        {
+            return pt.AddTimeTask(callback, delay, timeUnit, count);
+        }
 
-    public void DelTask(int tid)
-    {
-        pt.DeleteTimeTask(tid);
-    }
+        public double GetNowTime()
+        {
+            return pt.GetMillisecondsTime();
+        }
 
+        public void DelTask(int tid)
+        {
+            pt.DeleteTimeTask(tid);
+        }
+
+    }
 }

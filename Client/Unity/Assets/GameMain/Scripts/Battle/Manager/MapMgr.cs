@@ -3,18 +3,21 @@
 
 using UnityEngine;
 
-public class MapMgr : MonoBehaviour
+namespace DarkGod.Main
 {
-    private int waveIndex = 1; //默认生成第一波怪物
-    private BattleMgr battleMgr;
-
-    public void Init(BattleMgr battle)
+    public class MapMgr : MonoBehaviour
     {
-        battleMgr = battle;
+        private int waveIndex = 1; //默认生成第一波怪物
+        private BattleMgr battleMgr;
 
-        //实例化第一批怪物
-        battleMgr.LoadMonsterByWaveID(waveIndex);
+        public void Init(BattleMgr battle)
+        {
+            battleMgr = battle;
 
-        PECommon.Log("Init MapMgr Done.");
+            //实例化第一批怪物
+            battleMgr.LoadMonsterByWaveID(waveIndex);
+
+            PECommon.Log("Init MapMgr Done.");
+        }
     }
 }

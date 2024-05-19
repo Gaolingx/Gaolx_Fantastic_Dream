@@ -3,8 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainCityMap : MonoBehaviour
+namespace DarkGod.Main
 {
-    //定义一个数组，存储npc的Transform
-    public Transform[] NpcPosTrans;
+    public class MainCityMap : MonoBehaviour
+    {
+        //定义一个数组，存储npc的Transform
+        public Transform[] NpcPosTrans;
+    }
 }

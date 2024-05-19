@@ -4,61 +4,64 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleSys : SystemRoot
+namespace DarkGod.Main
 {
-    public static BattleSys Instance = null;
-    public PlayerCtrlWnd playerCtrlWnd;
-    public BattleMgr battleMgr;
-    public Transform playerInputObj;
-
-    public override void InitSys()
+    public class BattleSys : SystemRoot
     {
-        base.InitSys();
+        public static BattleSys Instance = null;
+        public PlayerCtrlWnd playerCtrlWnd;
+        public BattleMgr battleMgr;
+        public Transform playerInputObj;
 
-        Instance = this;
-        PECommon.Log("Init BattleSys...");
-    }
-
-    public void StartBattle(int mapid)
-    {
-        GameObject go = new GameObject
+        public override void InitSys()
         {
-            name = "BattleRoot"
-        };
+            base.InitSys();
 
-        //成为GameRoot的子物体
-        go.transform.SetParent(GameRoot.Instance.transform);
-        battleMgr = go.AddComponent<BattleMgr>();
+            Instance = this;
+            PECommon.Log("Init BattleSys...");
+        }
 
-        playerInputObj.gameObject.SetActive(true);
-        battleMgr.playerInputObj = playerInputObj;
+        public void StartBattle(int mapid)
+        {
+            GameObject go = new GameObject
+            {
+                name = "BattleRoot"
+            };
 
-        battleMgr.Init(mapid);
-        SetPlayerCtrlWndState();
-    }
+            //成为GameRoot的子物体
+            go.transform.SetParent(GameRoot.Instance.transform);
+            battleMgr = go.AddComponent<BattleMgr>();
 
-    public void SetPlayerCtrlWndState(bool isActive = true)
-    {
-        playerCtrlWnd.SetWndState(isActive);
-    }
+            playerInputObj.gameObject.SetActive(true);
+            battleMgr.playerInputObj = playerInputObj;
 
-    public void SetPlayerMoveDir(Vector2 dir)
-    {
-        battleMgr.SetSelfPlayerMoveDir(dir);
-    }
+            battleMgr.Init(mapid);
+            SetPlayerCtrlWndState();
+        }
 
-    public void ReqPlayerReleaseSkill(int skillIndex)
-    {
-        battleMgr.ReqPlayerReleaseSkill(skillIndex);
-    }
+        public void SetPlayerCtrlWndState(bool isActive = true)
+        {
+            playerCtrlWnd.SetWndState(isActive);
+        }
 
-    public Vector2 GetDirInput()
-    {
-        return playerCtrlWnd.GetCurrentDir();
-    }
+        public void SetPlayerMoveDir(Vector2 dir)
+        {
+            battleMgr.SetSelfPlayerMoveDir(dir);
+        }
 
-    public bool CanRlsSkill()
-    {
-        return battleMgr.CanRlsSkill();
+        public void ReqPlayerReleaseSkill(int skillIndex)
+        {
+            battleMgr.ReqPlayerReleaseSkill(skillIndex);
+        }
+
+        public Vector2 GetDirInput()
+        {
+            return playerCtrlWnd.GetCurrentDir();
+        }
+
+        public bool CanRlsSkill()
+        {
+            return battleMgr.CanRlsSkill();
+        }
     }
 }

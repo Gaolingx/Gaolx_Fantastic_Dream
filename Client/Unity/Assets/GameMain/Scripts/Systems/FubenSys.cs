@@ -5,39 +5,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FubenSys : SystemRoot
+namespace DarkGod.Main
 {
-    public static FubenSys Instance = null;
-
-    public FubenWnd fubenWnd;
-
-    public override void InitSys()
+    public class FubenSys : SystemRoot
     {
-        base.InitSys();
+        public static FubenSys Instance = null;
 
-        Instance = this;
-        PECommon.Log("Init FubenSys...");
+        public FubenWnd fubenWnd;
+
+        public override void InitSys()
+        {
+            base.InitSys();
+
+            Instance = this;
+            PECommon.Log("Init FubenSys...");
+        }
+
+        public void EnterFuben()
+        {
+            SetFubenWndState();
+        }
+
+        #region Fuben Wnd
+        public void SetFubenWndState(bool isActive = true)
+        {
+            fubenWnd.SetWndState(isActive);
+        }
+        #endregion
+
+        public void RspFBFight(GameMsg msg)
+        {
+            GameRoot.Instance.SetPlayerDataByFBStart(msg.rspFBFight);
+            MainCitySys.Instance.maincityWnd.SetWndState(false);
+            SetFubenWndState(false);
+            //加载对应的战斗场景，开始副本战斗任务
+            BattleSys.Instance.StartBattle(msg.rspFBFight.fbid);
+        }
+
     }
-
-    public void EnterFuben()
-    {
-        SetFubenWndState();
-    }
-
-    #region Fuben Wnd
-    public void SetFubenWndState(bool isActive = true)
-    {
-        fubenWnd.SetWndState(isActive);
-    }
-    #endregion
-
-    public void RspFBFight(GameMsg msg)
-    {
-        GameRoot.Instance.SetPlayerDataByFBStart(msg.rspFBFight);
-        MainCitySys.Instance.maincityWnd.SetWndState(false);
-        SetFubenWndState(false);
-        //加载对应的战斗场景，开始副本战斗任务
-        BattleSys.Instance.StartBattle(msg.rspFBFight.fbid);
-    }
-
 }

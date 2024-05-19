@@ -3,31 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FpsWnd : WindowRoot
+namespace DarkGod.Main
 {
-    public Transform FpsWindowScript;
-
-    private bool _isActive = false;
-    protected override void InitWnd()
+    public class FpsWnd : WindowRoot
     {
-        base.InitWnd();
+        public Transform FpsWindowScript;
 
-    }
-    public void ClickShowDebugInfoBtn(bool active = true)
-    {
-        _isActive = active;
-        SetFpsWindowScriptActive();
-    }
-
-    private void SetFpsWindowScriptActive()
-    {
-        if (_isActive)
+        private bool _isActive = false;
+        protected override void InitWnd()
         {
-            FpsWindowScript.gameObject.SetActive(true);
+            base.InitWnd();
+
         }
-        else
+        public void ClickShowDebugInfoBtn(bool active = true)
         {
-            FpsWindowScript.gameObject.SetActive(false);
+            _isActive = active;
+            SetFpsWindowScriptActive();
+        }
+
+        private void SetFpsWindowScriptActive()
+        {
+            if (_isActive)
+            {
+                FpsWindowScript.gameObject.SetActive(true);
+            }
+            else
+            {
+                FpsWindowScript.gameObject.SetActive(false);
+            }
         }
     }
 }
