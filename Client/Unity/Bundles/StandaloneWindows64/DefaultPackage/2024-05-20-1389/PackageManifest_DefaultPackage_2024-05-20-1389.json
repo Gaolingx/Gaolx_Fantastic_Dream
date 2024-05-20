@@ -5,7 +5,7 @@
     "IncludeAssetGUID": false,
     "OutputNameStyle": 1,
     "PackageName": "DefaultPackage",
-    "PackageVersion": "2024-04-23-1425",
+    "PackageVersion": "2024-05-20-1389",
     "AssetList": [
         {
             "Address": "",
@@ -1769,6 +1769,14 @@
         },
         {
             "Address": "",
+            "AssetPath": "Assets/AssetBundles/UIs/ResImages/Skill_Miss.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 30,
+            "DependIDs": []
+        },
+        {
+            "Address": "",
             "AssetPath": "Assets/AssetBundles/UIs/ResImages/star1.png",
             "AssetGUID": "",
             "AssetTags": [],
@@ -2085,22 +2093,6 @@
             "AssetGUID": "",
             "AssetTags": [],
             "BundleID": 35,
-            "DependIDs": []
-        },
-        {
-            "Address": "",
-            "AssetPath": "Assets/AssetBundles/Shaders/ShaderVariants/MyShaderVariants.json",
-            "AssetGUID": "",
-            "AssetTags": [],
-            "BundleID": 36,
-            "DependIDs": []
-        },
-        {
-            "Address": "",
-            "AssetPath": "Assets/AssetBundles/Shaders/ShaderVariants/MyShaderVariants.shadervariants",
-            "AssetGUID": "",
-            "AssetTags": [],
-            "BundleID": 37,
             "DependIDs": []
         }
     ],
@@ -2492,28 +2484,6 @@
         },
         {
             "BundleName": "assets_assetbundles_uis_resimages_common_window.bundle",
-            "UnityCRC": 0,
-            "FileHash": "00000000000000000000000000000000",
-            "FileCRC": "00000000",
-            "FileSize": 0,
-            "IsRawFile": false,
-            "LoadMethod": 0,
-            "Tags": [],
-            "ReferenceIDs": []
-        },
-        {
-            "BundleName": "assets_assetbundles_shaders_shadervariants.bundle",
-            "UnityCRC": 0,
-            "FileHash": "00000000000000000000000000000000",
-            "FileCRC": "00000000",
-            "FileSize": 0,
-            "IsRawFile": false,
-            "LoadMethod": 0,
-            "Tags": [],
-            "ReferenceIDs": []
-        },
-        {
-            "BundleName": "unityshaders.bundle",
             "UnityCRC": 0,
             "FileHash": "00000000000000000000000000000000",
             "FileCRC": "00000000",
