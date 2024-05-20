@@ -266,7 +266,7 @@ Material:
     - _OutlineOffset: 0
     - _OutlineScale: 0.015
     - _OutlineUseLutMapToggle: 0
-    - _OutlineWidth: 0.1
+    - _OutlineWidth: 0.02
     - _OutlineWidthMax: 30
     - _OutlineWidthMin: 2
     - _OutlineZOffset: 0.0001

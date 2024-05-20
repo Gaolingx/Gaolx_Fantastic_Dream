@@ -23,7 +23,6 @@ Material:
   - _CUSTOMSPECULARCOLORVARENUM_DISABLE
   - _CUSTOMSPECULARVARENUM_DISABLE
   - _CUSTOM_RAMP_MAPPING
-  - _ENABLE_OUTLINE
   - _OUTLINENORMALCHANNEL_NORMAL
   - _RIM_LIGHTING_ON
   - _SPECULAR_ON
@@ -212,7 +211,7 @@ Material:
     - _EmissionIntensity: 1
     - _EmissionMixBaseColorFac: 1
     - _EmissionThreshold: 0.1
-    - _EnableOutlineToggle: 1
+    - _EnableOutlineToggle: 0
     - _EnableSpecular: 1
     - _EnvironmentReflections: 1
     - _ExCheekIntensity: 0
@@ -249,7 +248,7 @@ Material:
     - _OutlineOffset: 0
     - _OutlineScale: 0.015
     - _OutlineUseLutMapToggle: 0
-    - _OutlineWidth: 0.1
+    - _OutlineWidth: 0.01
     - _OutlineWidthMax: 30
     - _OutlineWidthMin: 2
     - _OutlineZOffset: 0.0001
