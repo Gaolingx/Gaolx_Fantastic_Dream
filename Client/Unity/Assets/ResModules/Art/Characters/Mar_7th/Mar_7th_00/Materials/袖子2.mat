@@ -260,9 +260,13 @@ Material:
     - _ModelScale: 1
     - _NoseLinePower: 1
     - _OcclusionStrength: 1
+    - _OutlineExtdMax: 18
+    - _OutlineExtdStart: 6.5
     - _OutlineNormalChannel: 0
+    - _OutlineOffset: 0
+    - _OutlineScale: 0.015
     - _OutlineUseLutMapToggle: 0
-    - _OutlineWidth: 0.0035
+    - _OutlineWidth: 0.1
     - _OutlineWidthMax: 30
     - _OutlineWidthMin: 2
     - _OutlineZOffset: 0.0001
@@ -404,6 +408,7 @@ Material:
     - _UseRampColor: 1
     - _UseRimLight: 1
     - _UseRimShadow: 0
+    - _UseSelfOutline: 0
     - _UseStockings: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
