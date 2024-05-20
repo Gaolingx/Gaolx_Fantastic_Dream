@@ -164,9 +164,12 @@ namespace DarkGod.Main
             else
             {
                 target.HP -= dmgSum;
-                target.StateHit();
-            }
+                if (target.entityState != EntityState.BatiState)
+                {
+                    target.StateHit();
+                }
 
+            }
         }
 
         /// <summary>
@@ -266,6 +269,12 @@ namespace DarkGod.Main
             //我们希望当技能施放的时候，移动不生效，直到技能结束
             entity.PlayerCanControl(false);
             entity.SetDir(Vector2.zero);
+
+            //霸体状态
+            if (!skillData.isBreak)
+            {
+                entity.entityState = EntityState.BatiState;
+            }
 
             timerSvc.AddTimeTask((int tid) =>
             {

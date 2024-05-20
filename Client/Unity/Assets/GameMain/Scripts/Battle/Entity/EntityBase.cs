@@ -31,6 +31,8 @@ namespace DarkGod.Main
 
         public EntityType entityType = EntityType.None;
 
+        public EntityState entityState = EntityState.None;
+
         private BattleProps props;
         public BattleProps Props { get { return props; } protected set { props = value; } } //只能在继承他的子类中修改
 
@@ -272,9 +274,17 @@ namespace DarkGod.Main
 
         //连招思路：按下普攻时，写入队列。当普通攻击完成后，退出Attack状态时检测，判断存储连招数据的队列中是否有数据，
         //有则取出一条skillID赋值给nextSkillID。进入Idle状态时候，如果nextSkillID不为零，进入攻击状态，释放下一个技能
+
+        //退出技能的统一处理
         public void ExitCurtSkill()
         {
             PlayerCanControl(true);
+
+            //退出霸体状态
+            if (!curtSkillCfg.isBreak)
+            {
+                entityState = EntityState.None;
+            }
 
             //连招数据更新
             if (curtSkillCfg.isCombo)

@@ -31,6 +31,13 @@ namespace DarkGod.Main
         Monster
     }
 
+    public enum EntityState
+    {
+        None,
+        BatiState, //霸体状态：不可控制（技能不会被中断且不会进入Hit状态），但可受到伤害
+        //etc..
+    }
+
     public class Constants
     {
         #region ColorHex Code
