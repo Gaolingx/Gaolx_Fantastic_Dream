@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: fb4d866891e91974c8162b7f0b1b91d6,
+  m_LightingDataAsset: {fileID: 112000000, guid: c233b9b54c6f0494c8273342d832cdba,
     type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: c179edbcc5594c940a0aabf2d5881408,
     type: 2}
@@ -561,6 +561,26 @@ PrefabInstance:
         type: 3}
       propertyPath: playerCamera
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 573298538525092699, guid: 7a90c701bbadf8243a0366b26010fa5f,
+        type: 3}
+      propertyPath: m_Lightmapping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 573298538525092699, guid: 7a90c701bbadf8243a0366b26010fa5f,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: -2.4997898e+24
+      objectReference: {fileID: 0}
+    - target: {fileID: 573298538525092699, guid: 7a90c701bbadf8243a0366b26010fa5f,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: -2.1549367e+28
+      objectReference: {fileID: 0}
+    - target: {fileID: 573298538525092699, guid: 7a90c701bbadf8243a0366b26010fa5f,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 899050007203169835, guid: 7a90c701bbadf8243a0366b26010fa5f,
         type: 3}
