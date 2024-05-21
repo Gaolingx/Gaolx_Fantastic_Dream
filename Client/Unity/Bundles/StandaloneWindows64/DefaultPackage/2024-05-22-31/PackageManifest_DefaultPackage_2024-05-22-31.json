@@ -5,7 +5,7 @@
     "IncludeAssetGUID": false,
     "OutputNameStyle": 1,
     "PackageName": "DefaultPackage",
-    "PackageVersion": "2024-05-22-1",
+    "PackageVersion": "2024-05-22-31",
     "AssetList": [
         {
             "Address": "",
@@ -554,14 +554,6 @@
         {
             "Address": "",
             "AssetPath": "Assets/AssetBundles/Scenes/SceneLogin.unity",
-            "AssetGUID": "",
-            "AssetTags": [],
-            "BundleID": 26,
-            "DependIDs": []
-        },
-        {
-            "Address": "",
-            "AssetPath": "Assets/AssetBundles/Scenes/SceneLoginSettings.lighting",
             "AssetGUID": "",
             "AssetTags": [],
             "BundleID": 26,
