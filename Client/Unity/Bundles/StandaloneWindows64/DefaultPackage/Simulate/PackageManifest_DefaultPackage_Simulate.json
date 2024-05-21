@@ -641,6 +641,94 @@
         },
         {
             "Address": "",
+            "AssetPath": "Assets/AssetBundles/Audios/ResAudio/Player_Footstep_01.wav",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 27,
+            "DependIDs": []
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/AssetBundles/Audios/ResAudio/Player_Footstep_02.wav",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 27,
+            "DependIDs": []
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/AssetBundles/Audios/ResAudio/Player_Footstep_03.wav",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 27,
+            "DependIDs": []
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/AssetBundles/Audios/ResAudio/Player_Footstep_04.wav",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 27,
+            "DependIDs": []
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/AssetBundles/Audios/ResAudio/Player_Footstep_05.wav",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 27,
+            "DependIDs": []
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/AssetBundles/Audios/ResAudio/Player_Footstep_06.wav",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 27,
+            "DependIDs": []
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/AssetBundles/Audios/ResAudio/Player_Footstep_07.wav",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 27,
+            "DependIDs": []
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/AssetBundles/Audios/ResAudio/Player_Footstep_08.wav",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 27,
+            "DependIDs": []
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/AssetBundles/Audios/ResAudio/Player_Footstep_09.wav",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 27,
+            "DependIDs": []
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/AssetBundles/Audios/ResAudio/Player_Footstep_10.wav",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 27,
+            "DependIDs": []
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/AssetBundles/Audios/ResAudio/Player_Land.wav",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 27,
+            "DependIDs": []
+        },
+        {
+            "Address": "",
             "AssetPath": "Assets/AssetBundles/Audios/ResAudio/uiClickBtn.mp3",
             "AssetGUID": "",
             "AssetTags": [],

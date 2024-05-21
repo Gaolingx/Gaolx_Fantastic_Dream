@@ -27,6 +27,12 @@ namespace DarkGod.Main
             entity.SetDir(Vector2.zero);
             entity.SetAction(Constants.ActionHit);
 
+            //受击音效
+            if(entity.entityType == EntityType.Player)
+            {
+                entity.PlayHitAudio();
+            }
+
             //恢复Idle状态
             TimerSvc.Instance.AddTimeTask((int tid) =>
             {

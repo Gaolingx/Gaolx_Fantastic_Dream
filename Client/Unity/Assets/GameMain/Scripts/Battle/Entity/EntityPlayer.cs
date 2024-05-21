@@ -84,6 +84,11 @@ namespace DarkGod.Main
                 GameRoot.Instance.dynamicWnd.SetSelfDodge();
             }
         }
+
+        public override void PlayHitAudio()
+        {
+            AudioSvc.Instance.PlayHit();
+        }
     }
 }
 

@@ -1,8 +1,6 @@
 //功能：音频播放服务
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace DarkGod.Main
@@ -15,9 +13,12 @@ namespace DarkGod.Main
         [Range(0, 1)] public float BGAudioVolumeValue, UIAudioVolumeValue, CharacterAudioVolumeValue;
         public GameObject BGAudioGameObject, UIAudioGameObject;
         public AudioSource BGAudioAudioSource, UIAudioAudioSource, CharacterAudioSource;
-        public AudioClip[] CharacterFootSteps;
-        public AudioClip[] CharacterJumpEfforts;
-        public AudioClip[] CharacterLanding;
+        public string[] FootStepsAudioPaths, JumpEffortsAudioPaths, LandingAudioPaths, HitAudioPaths;
+
+        private AudioClip[] CharacterFootSteps = new AudioClip[10];
+        private AudioClip[] CharacterJumpEfforts = new AudioClip[3];
+        private AudioClip[] CharacterLanding = new AudioClip[3];
+        private AudioClip[] CharacterHit = new AudioClip[3];
 
         private string bgAudioPath = PathDefine.bgAudioPath;
 
@@ -27,6 +28,7 @@ namespace DarkGod.Main
 
             GetAudioSourceComponent();
             GetAudioSourceValueInit();
+            InitAudioClipArray(FootStepsAudioPaths, JumpEffortsAudioPaths, LandingAudioPaths, HitAudioPaths);
             PECommon.Log("Init AudioSvc...");
         }
 
@@ -46,6 +48,37 @@ namespace DarkGod.Main
             CharacterAudioSource.volume = CharacterAudioVolumeValue;
         }
 
+        public void InitAudioClipArray(string[] name1, string[] name2, string[] name3, string[] name4)
+        {
+            for (int i = 0; i < name1.Length; i++)
+            {
+                string path = bgAudioPath + name1[i];
+                AudioClip audioClip = ResSvc.Instance.LoadAudioClipSync(path);
+                CharacterFootSteps[i] = audioClip;
+            }
+
+            for (int i = 0; i < name2.Length; i++)
+            {
+                string path = bgAudioPath + name2[i];
+                AudioClip audioClip = ResSvc.Instance.LoadAudioClipSync(path);
+                CharacterJumpEfforts[i] = audioClip;
+            }
+
+            for (int i = 0; i < name3.Length; i++)
+            {
+                string path = bgAudioPath + name3[i];
+                AudioClip audioClip = ResSvc.Instance.LoadAudioClipSync(path);
+                CharacterLanding[i] = audioClip;
+            }
+
+            for (int i = 0; i < name4.Length; i++)
+            {
+                string path = bgAudioPath + name4[i];
+                AudioClip audioClip = ResSvc.Instance.LoadAudioClipSync(path);
+                CharacterHit[i] = audioClip;
+            }
+        }
+
         private void GetAudioSourceValueInit()
         {
             if (BGAudioGameObject != null)
@@ -58,6 +91,7 @@ namespace DarkGod.Main
             }
         }
 
+        #region PlayAudio
         public async void PlayBGMusic(string name, bool isLoop = true, bool isCache = true)
         {
             if (!_isTurnOnAudio) { return; }
@@ -77,27 +111,36 @@ namespace DarkGod.Main
             if (!_isTurnOnAudio) { return; }
             string path = bgAudioPath + name;
             AudioClip audioClip = await ResSvc.Instance.LoadAudioClipAsync(path, isCache);
-            UIAudioAudioSource.clip = audioClip;
-            UIAudioAudioSource.volume = UIAudioVolumeValue;
-            UIAudioAudioSource.Play();
+            UIAudioAudioSource.PlayOneShot(audioClip, UIAudioVolumeValue);
         }
 
         public void PlayFootStep()
         {
+            if (!_isTurnOnAudio) { return; }
             int i = Random.Range(0, CharacterFootSteps.Length);
             CharacterAudioSource.PlayOneShot(CharacterFootSteps[i], CharacterAudioVolumeValue);
         }
 
         public void PlayJumpEffort()
         {
+            if (!_isTurnOnAudio) { return; }
             int i = Random.Range(0, CharacterJumpEfforts.Length);
-            CharacterAudioSource.PlayOneShot(CharacterFootSteps[i], CharacterAudioVolumeValue);
+            CharacterAudioSource.PlayOneShot(CharacterJumpEfforts[i], CharacterAudioVolumeValue);
         }
 
         public void PlayLanding()
         {
+            if (!_isTurnOnAudio) { return; }
             int i = Random.Range(0, CharacterLanding.Length);
-            CharacterAudioSource.PlayOneShot(CharacterFootSteps[i], CharacterAudioVolumeValue);
+            CharacterAudioSource.PlayOneShot(CharacterLanding[i], CharacterAudioVolumeValue);
         }
+
+        public void PlayHit()
+        {
+            if (!_isTurnOnAudio) { return; }
+            int i = Random.Range(0, CharacterHit.Length);
+            CharacterAudioSource.PlayOneShot(CharacterHit[i], CharacterAudioVolumeValue);
+        }
+        #endregion
     }
 }

@@ -267,6 +267,24 @@ namespace DarkGod.Main
             return null;
         }
 
+        public AudioSource GetAudioSource()
+        {
+            if (playerController != null)
+            {
+                return playerController.GetComponent<AudioSource>();
+            }
+            if (controller != null)
+            {
+                return controller.GetComponent<AudioSource>();
+            }
+            return null;
+        }
+
+        public virtual void PlayHitAudio()
+        {
+            
+        }
+
         public virtual Vector2 CalcTargetDir()
         {
             return Vector2.zero;

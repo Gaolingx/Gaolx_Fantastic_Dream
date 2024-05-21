@@ -110,6 +110,16 @@ namespace DarkGod.Main
             return audioClip;
         }
 
+        public AudioClip LoadAudioClipSync(string path, bool iscache = false)
+        {
+            //音乐加载
+            AudioClip audioClip = null;
+            AssetOperationHandle handle = _yooAssetResourcePackage.LoadAssetSync<AudioClip>(path);
+            audioClip = handle.AssetObject as AudioClip;
+
+            return audioClip;
+        }
+
         //获取Prefab的类
         public GameObject LoadPrefab(string path, bool iscache = false)
         {

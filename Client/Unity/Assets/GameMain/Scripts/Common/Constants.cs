@@ -84,6 +84,9 @@ namespace DarkGod.Main
         public const string UIOpenPage = "uiOpenPage";
         public const string FBItemEnter = "fbitem";
 
+        //角色相关音效
+        public const string Audio_Mar7th00_Hit = "assassin_Hit";
+
         //UI动画路径配置
         public const string openMCmenuAniClipName = "OpenMCMenu";
         public const string closeMCmenuAniClipName = "CloseMCMenu";
