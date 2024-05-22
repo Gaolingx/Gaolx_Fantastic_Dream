@@ -294,10 +294,12 @@ namespace DarkGod.Main
                 if (sum > 0)
                 {
                     //延迟执行SkillMove
-                    timerSvc.AddTimeTask((int tid) =>
+                    int moveid = timerSvc.AddTimeTask((int tid) =>
                     {
                         entity.SetSkillMoveState(true, speed);
+                        entity.RmvMoveCB(tid);
                     }, sum);
+                    entity.skMoveCBLst.Add(moveid);
                 }
                 else
                 {
@@ -306,10 +308,12 @@ namespace DarkGod.Main
 
                 sum += skillMoveCfg.moveTime; //同理，累加技能移动时间
                                               //延迟关闭SkillMove
-                timerSvc.AddTimeTask((int tid) =>
+                int stopid = timerSvc.AddTimeTask((int tid) =>
                 {
                     entity.SetSkillMoveState(false);
+                    entity.RmvMoveCB(tid);
                 }, sum);
+                entity.skMoveCBLst.Add(stopid);
             }
         }
     }

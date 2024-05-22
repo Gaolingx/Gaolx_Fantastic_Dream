@@ -59,6 +59,11 @@ namespace DarkGod.Main
 
         public SkillCfg curtSkillCfg; //当前正在施放技能的id
 
+        //技能位移的回调id
+        public List<int> skMoveCBLst = new List<int>();
+        //技能伤害计算回调id
+        public List<int> skActionCBLst = new List<int>();
+
         #region State Define
         //状态切换
         public void StateBorn()
@@ -317,6 +322,23 @@ namespace DarkGod.Main
                 }
             }
             SetAction(Constants.ActionDefault);
+        }
+
+        public void RmvMoveCB(int tid)
+        {
+            int index = -1;
+            for (int i = 0; i < skMoveCBLst.Count; i++)
+            {
+                if (skMoveCBLst[i] == tid)
+                {
+                    index = i;
+                    break;
+                }
+            }
+            if (index != -1)
+            {
+                skMoveCBLst.RemoveAt(index);
+            }
         }
     }
 }
