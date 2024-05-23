@@ -58,7 +58,7 @@ namespace DarkGod.Main
                     clipName.Contains("HIT"))
                 {
                     //PECommon.Log("AniLength:" + clips[i].length);
-                    return clips[i].length;
+                    return clips[i].length + Constants.HitAniLengthOffset;
                 }
             }
             //保护值

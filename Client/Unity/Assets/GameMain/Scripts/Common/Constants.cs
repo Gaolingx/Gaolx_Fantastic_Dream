@@ -223,5 +223,8 @@ namespace DarkGod.Main
         //Collide
         public const int MonsterCollideLayer = 16;
         public const int PlayerCollideLayer = 13;
+
+        //FSM
+        public const float HitAniLengthOffset = 0.0f; //这个值不建议在此修改
     }
 }
