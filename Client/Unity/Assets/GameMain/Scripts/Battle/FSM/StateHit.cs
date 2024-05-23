@@ -9,6 +9,9 @@ namespace DarkGod.Main
         public void StateEnter(EntityBase entity, params object[] args)
         {
             entity.currentAniState = AniState.Hit;
+
+            //根据tid删除定时回调，相应的伤害和移动将不生效
+            DelTimeTaskByTid(entity);
         }
 
         public void StateExit(EntityBase entity, params object[] args)
@@ -60,6 +63,21 @@ namespace DarkGod.Main
             }
             //保护值
             return 1;
+        }
+
+        private void DelTimeTaskByTid(EntityBase entity)
+        {
+            for (int i = 0; i < entity.skMoveCBLst.Count; i++)
+            {
+                int tid = entity.skMoveCBLst[i];
+                TimerSvc.Instance.DelTask(tid);
+            }
+
+            for (int i = 0; i < entity.skActionCBLst.Count; i++)
+            {
+                int tid = entity.skActionCBLst[i];
+                TimerSvc.Instance.DelTask(tid);
+            }
         }
     }
 }

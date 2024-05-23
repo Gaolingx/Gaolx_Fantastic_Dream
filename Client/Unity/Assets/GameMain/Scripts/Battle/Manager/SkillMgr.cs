@@ -22,6 +22,9 @@ namespace DarkGod.Main
 
         public void SkillAttack(EntityBase entity, int skillID)
         {
+            //清理技能回调列表
+            entity.ClearActionCBLst();
+
             //技能伤害运算
             AttackDamage(entity, skillID);
             //技能效果表现
@@ -42,10 +45,12 @@ namespace DarkGod.Main
                 if (sum > 0)
                 {
                     //延时伤害计算
-                    timerSvc.AddTimeTask((int tid) =>
+                    int actid = timerSvc.AddTimeTask((int tid) =>
                     {
                         SkillAction(entity, skillData, index);
+                        entity.RmvActionCB(tid);
                     }, sum);
+                    entity.skActionCBLst.Add(actid);
                 }
                 else
                 {

@@ -340,5 +340,28 @@ namespace DarkGod.Main
                 skMoveCBLst.RemoveAt(index);
             }
         }
+
+        public void RmvActionCB(int tid)
+        {
+            int index = -1;
+            for (int i = 0; i < skActionCBLst.Count; i++)
+            {
+                if (skActionCBLst[i] == tid)
+                {
+                    index = i;
+                    break;
+                }
+            }
+            if (index != -1)
+            {
+                skActionCBLst.RemoveAt(index);
+            }
+        }
+
+        public void ClearActionCBLst()
+        {
+            skMoveCBLst.Clear();
+            skActionCBLst.Clear();
+        }
     }
 }
