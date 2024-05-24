@@ -249,7 +249,7 @@ public class HotFixService : MonoBehaviour
             int totalDownloadCount = downloader.TotalDownloadCount;
             long totalDownloadBytes = downloader.TotalDownloadBytes;
 
-            //注册回调方法
+            // 注册下载回调
             RegisterDownloadCallback();
 
             _hotFixWindow.OpenHotFixPanel();
@@ -259,6 +259,7 @@ public class HotFixService : MonoBehaviour
     }
 
     #region RunHotFix
+    //这个步骤由用户手动执行
     public void RunHotFix()
     {
         StartCoroutine(RunDownloader(Downloader));
@@ -271,16 +272,9 @@ public class HotFixService : MonoBehaviour
         _hotFixWindow.SetTips("正在下载更新中");
         yield return downloader;
 
-        //检测下载结果
-        if (downloader.Status == EOperationStatus.Succeed)
-        {
-            Debug.Log("下载成功");
-            EnterSangoGameRoot();
-        }
-        else
-        {
-            Debug.Log("下载失败");
-        }
+        // 检测下载结果
+        if (downloader.Status != EOperationStatus.Succeed)
+            yield break;
     }
     #endregion
 
