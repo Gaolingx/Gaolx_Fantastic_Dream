@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using YooAsset;
-using static UnityEngine.Rendering.HDROutputUtils;
-using static UnityEngine.Rendering.ReloadAttribute;
 
 //Developer: SangonomiyaSakunovi,Gaolingx
 
@@ -61,6 +59,7 @@ public class HotFixService : MonoBehaviour
     public void InitService()
     {
         Instance = this;
+
         _hotFixConfig = GetComponent<HotFixConfig>();
         _hotFixWindow.SetTips("正在检查更新");
         PrepareAssets();
@@ -165,6 +164,7 @@ public class HotFixService : MonoBehaviour
                         yield break;
                     }
                 }
+            // WebGL运行模式
             case EPlayMode.WebPlayMode:
                 {
                     string defaultHostServer = _hotFixConfig.GetHostServerURL();
