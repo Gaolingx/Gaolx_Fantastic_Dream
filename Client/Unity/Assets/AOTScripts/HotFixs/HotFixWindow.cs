@@ -46,10 +46,10 @@ public class HotFixWindow : MonoBehaviour
         SetTips("在测试服中，取消会无法进入游戏的哦");
     }
 
-    public void SetHotFixInfoText(long totalDownloadBytes)
+    public void SetHotFixInfoText(int totalDownloadCount, long totalDownloadBytes)
     {
         long totalUploadMB = totalDownloadBytes / 1048576;
-        string text = "当前需要下载更新" + totalUploadMB + "MB左右，\n是否继续？\n（建议在Wifi环境下进行）";
+        string text = "当前需要下载更新" + totalUploadMB + "MB左右，文件数量" + totalDownloadCount + "，\n是否继续？\n（建议在Wifi环境下进行）";
         _hotfixInfo.text = text;
     }
 

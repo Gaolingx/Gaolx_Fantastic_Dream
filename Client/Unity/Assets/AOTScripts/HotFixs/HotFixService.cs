@@ -5,14 +5,24 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using YooAsset;
+using static UnityEngine.Rendering.HDROutputUtils;
+using static UnityEngine.Rendering.ReloadAttribute;
 
-//Developer: SangonomiyaSakunovi
+//Developer: SangonomiyaSakunovi,Gaolingx
 
 public class HotFixService : MonoBehaviour
 {
+    public static HotFixService Instance;
+
+    public Transform _hotFixRootParent;
+    public HotFixWindow _hotFixWindow;
+    public HotFixConfig _hotFixConfig;
+
+    [SerializeField] private string HotDllName = "Assets/AssetBundles/Scripts/Dlls/GameMain.dll";
+    [SerializeField] private string GameRootObject = "Assets/AssetBundles/Prefabs/RootPrefabs/HotFixRoot.prefab";
 
     //补充元数据dll的列表，Yooasset中不需要带后缀
-    public static List<string> AOTMetaAssemblyNames { get; } = new List<string>()
+    private static List<string> AOTMetaAssemblyNames { get; } = new List<string>()
     {
         "Assets/AssetBundles/Scripts/Dlls/mscorlib.dll",
         "Assets/AssetBundles/Scripts/Dlls/System.dll",
@@ -28,81 +38,54 @@ public class HotFixService : MonoBehaviour
         "Assets/AssetBundles/Scripts/Dlls/YooAsset.dll",
     };
 
-
-    [SerializeField] private string HotDllName = "Assets/AssetBundles/Scripts/Dlls/GameMain.dll";
-    [SerializeField] private string GameRootObject = "Assets/AssetBundles/Prefabs/RootPrefabs/HotFixRoot.prefab";
-
     //获取资源二进制
     private static Dictionary<string, byte[]> _dllAssetDataDict = new Dictionary<string, byte[]>();
 
-    public static HotFixService Instance;
+    /// <summary>
+	/// 运行模式
+	/// </summary>
+	public EPlayMode PlayMode { private set; get; }
 
-    public Transform _hotFixRootParent;
+    /// <summary>
+    /// 包裹的版本信息
+    /// </summary>
+    public string PackageVersion { set; get; }
 
-    private ResourceDownloaderOperation _downloaderOperation;
+    /// <summary>
+    /// 下载器
+    /// </summary>
+    public ResourceDownloaderOperation Downloader { set; get; }
+
     private ResourcePackage _yooAssetResourcePackage;
-
-    public HotFixWindow _hotFixWindow;
-    private HotFixConfig _hotFixConfig;
 
     public void InitService()
     {
         Instance = this;
         _hotFixConfig = GetComponent<HotFixConfig>();
         _hotFixWindow.SetTips("正在检查更新");
-        StartCoroutine(PrepareAssets());
+        PrepareAssets();
     }
 
-    public void RunHotFix()
+    private void PrepareAssets()
     {
-        StartCoroutine(RunDownloader(_downloaderOperation));
+        // 1.初始化资源系统
+        StartCoroutine(InitYooAsset());
+
+        // 2.获取资源版本
+        RequestPackageVersion();
+
+        // 3.更新补丁清单
+        RequestPackageManifest();
+
+        // 4.下载补丁包
+        PrepareDownloader();
+
     }
 
-    public void EnterSangoGameRoot()
-    {
-        LoadDll();
-        LoadMetadataForAOTAssemblies();
-
-#if !UNITY_EDITOR
-        System.Reflection.Assembly.Load(GetAssetData(HotDllName));
-#endif
-
-        StopAllCoroutines();
-        LoadGameRootObject();
-    }
-
-    private void LoadDll()
-    {
-        var dllNameList = new List<string>()
-        {
-            HotDllName,
-        }.Concat(AOTMetaAssemblyNames);
-        foreach (var dllName in dllNameList)
-        {
-            var obj = _yooAssetResourcePackage.LoadRawFileSync(dllName);
-            byte[] fileData = obj.GetRawFileData();
-            _dllAssetDataDict.Add(dllName, fileData);
-            Debug.Log($"dll:{dllName}  size:{fileData.Length}");
-        }
-    }
-
-    private void LoadGameRootObject()
-    {
-        var asset1 = _yooAssetResourcePackage.LoadAssetSync<GameObject>(GameRootObject);
-        GameObject hotFixRoot = asset1.InstantiateSync();
-        hotFixRoot.transform.SetParent(_hotFixRootParent);
-        hotFixRoot.transform.position = Vector3.zero;
-        hotFixRoot.transform.localScale = Vector3.one;
-        RectTransform rect = hotFixRoot.GetComponent<RectTransform>();
-        rect.offsetMax = new Vector2(0, 0);
-        _hotFixWindow.gameObject.SetActive(false);
-    }
-
-    private IEnumerator PrepareAssets()
+    private IEnumerator InitYooAsset()
     {
         yield return new WaitForSeconds(1f);
 
-        // 1.初始化资源系统
         YooAssets.Initialize();
         string packageName = "DefaultPackage";
         _yooAssetResourcePackage = YooAssets.TryGetPackage(packageName);
@@ -114,7 +97,9 @@ public class HotFixService : MonoBehaviour
             // 设置该资源包为默认的资源包，可以使用YooAssets相关加载接口加载该资源包内容。
             YooAssets.SetDefaultPackage(_yooAssetResourcePackage);
         }
-        EPlayMode PlayMode = _hotFixConfig.GetEPlayMode(); // 资源系统运行模式
+
+        InitializationOperation initOperation = null;
+        PlayMode = _hotFixConfig.GetEPlayMode(); // 资源系统运行模式
         switch (PlayMode)
         {
             // 编辑器下的模拟模式
@@ -123,7 +108,7 @@ public class HotFixService : MonoBehaviour
                     var initParameters = new EditorSimulateModeParameters();
                     var simulateManifestFilePath = EditorSimulateModeHelper.SimulateBuild(packageName);
                     initParameters.SimulateManifestFilePath = simulateManifestFilePath;
-                    var initOperation = _yooAssetResourcePackage.InitializeAsync(initParameters);
+                    initOperation = _yooAssetResourcePackage.InitializeAsync(initParameters);
                     yield return initOperation;
 
                     if (initOperation.Status == EOperationStatus.Succeed)
@@ -147,12 +132,13 @@ public class HotFixService : MonoBehaviour
                     initParameters.BuildinQueryServices = new GameQueryServices();
                     initParameters.DeliveryQueryServices = new DefaultDeliveryQueryServices();
                     initParameters.RemoteServices = new RemoteServices(defaultHostServer, fallbackHostServer);
-                    var initOperation = _yooAssetResourcePackage.InitializeAsync(initParameters);
+                    initOperation = _yooAssetResourcePackage.InitializeAsync(initParameters);
                     yield return initOperation;
 
                     if (initOperation.Status == EOperationStatus.Succeed)
                     {
                         Debug.Log("资源包初始化成功！");
+                        yield break;
                     }
                     else
                     {
@@ -160,12 +146,11 @@ public class HotFixService : MonoBehaviour
                         yield break;
                     }
                 }
-                break;
             // 单机运行模式
             case EPlayMode.OfflinePlayMode:
                 {
                     var initParameters = new OfflinePlayModeParameters();
-                    var initOperation = _yooAssetResourcePackage.InitializeAsync(initParameters);
+                    initOperation = _yooAssetResourcePackage.InitializeAsync(initParameters);
                     yield return initOperation;
 
                     if (initOperation.Status == EOperationStatus.Succeed)
@@ -180,65 +165,103 @@ public class HotFixService : MonoBehaviour
                         yield break;
                     }
                 }
-        }
+            case EPlayMode.WebPlayMode:
+                {
+                    string defaultHostServer = _hotFixConfig.GetHostServerURL();
+                    string fallbackHostServer = _hotFixConfig.GetHostServerURL();
+                    var createParameters = new WebPlayModeParameters();
+                    createParameters.BuildinQueryServices = new GameQueryServices();
+                    createParameters.RemoteServices = new RemoteServices(defaultHostServer, fallbackHostServer);
+                    initOperation = _yooAssetResourcePackage.InitializeAsync(createParameters);
+                    yield return initOperation;
 
-        //2.获取资源版本
+                    if (initOperation.Status == EOperationStatus.Succeed)
+                    {
+                        Debug.Log("资源包初始化成功！");
+                        yield break;
+                    }
+                    else
+                    {
+                        Debug.LogError($"资源包初始化失败：{initOperation.Error}");
+                        yield break;
+                    }
+                }
+            default:
+                Debug.LogWarning($"{initOperation.Error}");
+                yield break;
+
+        }
+    }
+
+    private IEnumerator RequestPackageVersion()
+    {
         var updatePackageVersionOperation = _yooAssetResourcePackage.UpdatePackageVersionAsync();
         yield return updatePackageVersionOperation;
 
-        if (updatePackageVersionOperation.Status != EOperationStatus.Succeed)
-        {
-            Debug.LogError(updatePackageVersionOperation.Error);
-            yield break;
-        }
-        string packageVersion = updatePackageVersionOperation.PackageVersion;
+        if (updatePackageVersionOperation.Status == EOperationStatus.Succeed)
+		{
+			HotFixService.Instance.PackageVersion = updatePackageVersionOperation.PackageVersion;
+			Debug.Log($"远端最新版本为: {updatePackageVersionOperation.PackageVersion}");
+			yield return updatePackageVersionOperation;
+		}
+		else
+		{
+			Debug.LogWarning(updatePackageVersionOperation.Error);
+		}
+    }
 
-        //3.更新补丁清单
+    private IEnumerator RequestPackageManifest()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+
         bool savePackageVersion = true;
-        var updatePackageManifestOperation = _yooAssetResourcePackage.UpdatePackageManifestAsync(packageVersion, savePackageVersion);
+        var updatePackageManifestOperation = _yooAssetResourcePackage.UpdatePackageManifestAsync(PackageVersion, savePackageVersion);
         yield return updatePackageManifestOperation;
 
         if (updatePackageManifestOperation.Status != EOperationStatus.Succeed)
         {
-            Debug.LogError(updatePackageManifestOperation.Error);
-            yield break;
+            Debug.LogWarning(updatePackageManifestOperation.Error);
         }
-
-        //4.下载补丁包
-        PrepareDownloader();
-        yield break;
     }
 
-    private void PrepareDownloader()
+    private IEnumerator PrepareDownloader()
     {
+        yield return new WaitForSecondsRealtime(0.5f);
+
         int downloadingMaxNum = 10;
         int failedTryAgain = 3;
         int timeout = 60;
         var downloader = _yooAssetResourcePackage.CreateResourceDownloader(downloadingMaxNum, failedTryAgain, timeout);
+        Downloader = downloader;
 
         if (downloader.TotalDownloadCount == 0)
         {
             EnterSangoGameRoot();
             Debug.Log("没有任何数据需要下载哦~");
-            return;
         }
+        else
+        {
+            //A total of 10 files were found that need to be downloaded
+            Debug.Log($"需要下载的文件总数:{downloader.TotalDownloadCount}:::总大小:{downloader.TotalDownloadBytes}");
 
-        //需要下载的文件总数和总大小
-        int totalDownloadCount = downloader.TotalDownloadCount;
-        long totalDownloadBytes = downloader.TotalDownloadBytes;
-        Debug.Log($"文件总数:{totalDownloadCount}:::总大小:{totalDownloadBytes}");
-        //注册回调方法
-        downloader.OnDownloadErrorCallback = OnDownloadErrorFunction;
-        downloader.OnDownloadProgressCallback = OnDownloadProgressUpdateFunction;
-        downloader.OnDownloadOverCallback = OnDownloadOverFunction;
-        downloader.OnStartDownloadFileCallback = OnStartDownloadFileFunction;
+            // 发现新更新文件后，挂起流程系统
+            // 注意：开发者需要在下载前检测磁盘空间不足
+            int totalDownloadCount = downloader.TotalDownloadCount;
+            long totalDownloadBytes = downloader.TotalDownloadBytes;
 
-        _downloaderOperation = downloader;
+            //注册回调方法
+            RegisterDownloadCallback();
 
-        _hotFixWindow.OpenHotFixPanel();
-        _hotFixWindow.SetHotFixInfoText(totalDownloadBytes);
+            _hotFixWindow.OpenHotFixPanel();
+            _hotFixWindow.SetHotFixInfoText(totalDownloadCount, totalDownloadBytes);
+            Debug.Log("现在已经准备好下载器了哦~");
+        }
+    }
 
-        Debug.Log("现在已经准备好下载器了哦~");
+    #region RunHotFix
+    public void RunHotFix()
+    {
+        StartCoroutine(RunDownloader(Downloader));
     }
 
     private IEnumerator RunDownloader(ResourceDownloaderOperation downloader)
@@ -258,6 +281,18 @@ public class HotFixService : MonoBehaviour
         {
             Debug.Log("下载失败");
         }
+    }
+    #endregion
+
+    #region DownloadCallBack
+    private void RegisterDownloadCallback()
+    {
+        var downloader = HotFixService.Instance.Downloader;
+
+        downloader.OnDownloadErrorCallback = OnDownloadErrorFunction;
+        downloader.OnDownloadProgressCallback = OnDownloadProgressUpdateFunction;
+        downloader.OnDownloadOverCallback = OnDownloadOverFunction;
+        downloader.OnStartDownloadFileCallback = OnStartDownloadFileFunction;
     }
 
     /// <summary>
@@ -306,6 +341,50 @@ public class HotFixService : MonoBehaviour
     {
         Debug.LogError(string.Format("下载出错：文件名：{0}, 错误信息：{1}", fileName, error));
     }
+    #endregion
+
+    #region EnterGameRoot
+    public void EnterSangoGameRoot()
+    {
+        LoadDll();
+        LoadMetadataForAOTAssemblies();
+
+#if !UNITY_EDITOR
+        System.Reflection.Assembly.Load(GetAssetData(HotDllName));
+#endif
+
+        StopAllCoroutines();
+        LoadGameRootObject();
+    }
+
+    private void LoadGameRootObject()
+    {
+        var asset1 = _yooAssetResourcePackage.LoadAssetSync<GameObject>(GameRootObject);
+        GameObject hotFixRoot = asset1.InstantiateSync();
+        hotFixRoot.transform.SetParent(_hotFixRootParent);
+        hotFixRoot.transform.position = Vector3.zero;
+        hotFixRoot.transform.localScale = Vector3.one;
+        RectTransform rect = hotFixRoot.GetComponent<RectTransform>();
+        rect.offsetMax = new Vector2(0, 0);
+        _hotFixWindow.gameObject.SetActive(false);
+    }
+    #endregion
+
+    #region LoadAssemblies
+    private void LoadDll()
+    {
+        var dllNameList = new List<string>()
+        {
+            HotDllName,
+        }.Concat(AOTMetaAssemblyNames);
+        foreach (var dllName in dllNameList)
+        {
+            var obj = _yooAssetResourcePackage.LoadRawFileSync(dllName);
+            byte[] fileData = obj.GetRawFileData();
+            _dllAssetDataDict.Add(dllName, fileData);
+            Debug.Log($"dll:{dllName}  size:{fileData.Length}");
+        }
+    }
 
     private static byte[] GetAssetData(string dllName)
     {
@@ -333,5 +412,6 @@ public class HotFixService : MonoBehaviour
             Debug.Log($"LoadMetadataForAOTAssembly:{aotDllName}. mode:{mode} return:{err}");
         }
     }
+    #endregion
 
 }
