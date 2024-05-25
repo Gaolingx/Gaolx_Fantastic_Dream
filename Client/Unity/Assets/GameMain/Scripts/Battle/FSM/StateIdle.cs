@@ -10,6 +10,7 @@ namespace DarkGod.Main
         {
             entity.currentAniState = AniState.Idle;
             entity.SetDir(Vector2.zero);
+            entity.skEndCB = -1;
             //PECommon.Log("StateIdle:Enter State.");
         }
 

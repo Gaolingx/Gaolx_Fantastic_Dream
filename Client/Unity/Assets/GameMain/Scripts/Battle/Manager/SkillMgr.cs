@@ -281,7 +281,7 @@ namespace DarkGod.Main
                 entity.entityState = EntityState.BatiState;
             }
 
-            timerSvc.AddTimeTask((int tid) =>
+            entity.skEndCB = timerSvc.AddTimeTask((int tid) =>
             {
                 entity.StateIdle();
                 //不要直接在这里设置action，要考虑技能被打断的情况，因此我们需要在FSM中设置

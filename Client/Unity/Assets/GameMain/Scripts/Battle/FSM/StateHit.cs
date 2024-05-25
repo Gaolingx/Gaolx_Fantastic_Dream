@@ -13,6 +13,9 @@ namespace DarkGod.Main
             //根据tid删除定时回调，相应的伤害和移动将不生效
             DelTimeTaskByTid(entity);
 
+            //攻击被中断，删除定时回调
+            ClearSkillEndCB(entity);
+
             //清空连招数据
             ClearComboData(entity);
         }
@@ -81,6 +84,16 @@ namespace DarkGod.Main
                 int tid = entity.skActionCBLst[i];
                 TimerSvc.Instance.DelTask(tid);
             }
+        }
+
+        private void ClearSkillEndCB(EntityBase entity)
+        {
+            if (entity.skEndCB != -1)
+            {
+                TimerSvc.Instance.DelTask(entity.skEndCB);
+                entity.skEndCB = -1;
+            }
+            entity.ClearActionCBLst();
         }
 
         private void ClearComboData(EntityBase entity)

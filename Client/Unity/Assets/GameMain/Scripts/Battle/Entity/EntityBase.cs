@@ -64,6 +64,9 @@ namespace DarkGod.Main
         //技能伤害计算回调id
         public List<int> skActionCBLst = new List<int>();
 
+        //技能结束回调
+        public int skEndCB = -1;
+
         #region State Define
         //状态切换
         public void StateBorn()
