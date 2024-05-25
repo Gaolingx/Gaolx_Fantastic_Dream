@@ -12,6 +12,9 @@ namespace DarkGod.Main
 
             //根据tid删除定时回调，相应的伤害和移动将不生效
             DelTimeTaskByTid(entity);
+
+            //清空连招数据
+            ClearComboData(entity);
         }
 
         public void StateExit(EntityBase entity, params object[] args)
@@ -31,7 +34,7 @@ namespace DarkGod.Main
             entity.SetAction(Constants.ActionHit);
 
             //受击音效
-            if(entity.entityType == EntityType.Player)
+            if (entity.entityType == EntityType.Player)
             {
                 entity.PlayHitAudio();
             }
@@ -77,6 +80,18 @@ namespace DarkGod.Main
             {
                 int tid = entity.skActionCBLst[i];
                 TimerSvc.Instance.DelTask(tid);
+            }
+        }
+
+        private void ClearComboData(EntityBase entity)
+        {
+            if (entity.nextSkillID != 0 || entity.comboQue.Count > 0)
+            {
+                entity.nextSkillID = 0;
+                entity.comboQue.Clear();
+
+                entity.battleMgr.lastAtkTime = 0;
+                entity.battleMgr.comboIndex = 0;
             }
         }
     }

@@ -243,14 +243,18 @@ namespace DarkGod.Main
                 return;
             }
 
-            if (dir == Vector2.zero)
+            //判断动画状态
+            if (entitySelfPlayer.currentAniState == AniState.Idle || entitySelfPlayer.currentAniState == AniState.Move)
             {
-                entitySelfPlayer.StateIdle();
-            }
-            else
-            {
-                entitySelfPlayer.StateMove();
-                entitySelfPlayer.SetDir(dir);
+                if (dir == Vector2.zero)
+                {
+                    entitySelfPlayer.StateIdle();
+                }
+                else
+                {
+                    entitySelfPlayer.StateMove();
+                    entitySelfPlayer.SetDir(dir);
+                }
             }
         }
         public void ReqPlayerReleaseSkill(int skillIndex)
