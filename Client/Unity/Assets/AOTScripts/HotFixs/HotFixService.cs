@@ -72,7 +72,7 @@ public class HotFixService : MonoBehaviour
     private IEnumerator DownLoadAssetsByYooAssets()
     {
         // 1.初始化资源系统
-        yield return InitYooAsset();
+        yield return InitPackage();
 
         // 2.获取资源版本
         yield return RequestPackageVersion();
@@ -85,8 +85,9 @@ public class HotFixService : MonoBehaviour
 
     }
 
-    private IEnumerator InitYooAsset()
+    private IEnumerator InitPackage()
     {
+        _hotFixWindow.SetTips("初始化资源包！");
         yield return new WaitForSeconds(1f);
 
         YooAssets.Initialize();
@@ -101,104 +102,54 @@ public class HotFixService : MonoBehaviour
             YooAssets.SetDefaultPackage(_yooAssetResourcePackage);
         }
 
-        InitializationOperation initOperation = null;
+        InitializationOperation initializationOperation = null;
         PlayMode = _hotFixConfig.GetEPlayMode(); // 资源系统运行模式
-        switch (PlayMode)
+
+        // 编辑器下的模拟模式
+        if (PlayMode == EPlayMode.EditorSimulateMode)
         {
-            // 编辑器下的模拟模式
-            case EPlayMode.EditorSimulateMode:
-                {
-                    var initParameters = new EditorSimulateModeParameters();
-                    var simulateManifestFilePath = EditorSimulateModeHelper.SimulateBuild(packageName);
-                    initParameters.SimulateManifestFilePath = simulateManifestFilePath;
-                    initOperation = _yooAssetResourcePackage.InitializeAsync(initParameters);
-                    yield return initOperation;
+            var createParameters = new EditorSimulateModeParameters();
+            createParameters.SimulateManifestFilePath = EditorSimulateModeHelper.SimulateBuild(packageName);
+            initializationOperation = _yooAssetResourcePackage.InitializeAsync(createParameters);
+        }
+        // 联机运行模式
+        else if (PlayMode == EPlayMode.HostPlayMode)
+        {
+            string defaultHostServer = _hotFixConfig.GetHostServerURL();
+            string fallbackHostServer = _hotFixConfig.GetHostServerURL();
+            var createParameters = new HostPlayModeParameters();
+            createParameters.BuildinQueryServices = new GameQueryServices();
+            createParameters.DeliveryQueryServices = new DefaultDeliveryQueryServices();
+            createParameters.RemoteServices = new RemoteServices(defaultHostServer, fallbackHostServer);
+            initializationOperation = _yooAssetResourcePackage.InitializeAsync(createParameters);
+        }
+        // 单机运行模式
+        else if (PlayMode == EPlayMode.OfflinePlayMode)
+        {
+            var createParameters = new OfflinePlayModeParameters();
+            initializationOperation = _yooAssetResourcePackage.InitializeAsync(createParameters);
+        }
+        // WebGL运行模式
+        else if (PlayMode == EPlayMode.WebPlayMode)
+        {
+            string defaultHostServer = _hotFixConfig.GetHostServerURL();
+            string fallbackHostServer = _hotFixConfig.GetHostServerURL();
+            var createParameters = new WebPlayModeParameters();
+            createParameters.BuildinQueryServices = new GameQueryServices();
+            createParameters.RemoteServices = new RemoteServices(defaultHostServer, fallbackHostServer);
+            initializationOperation = _yooAssetResourcePackage.InitializeAsync(createParameters);
+        }
 
-                    if (initOperation.Status == EOperationStatus.Succeed)
-                    {
-                        Debug.Log("资源包初始化成功！");
-                        EnterSangoGameRoot();
-                        yield break;
-                    }
-                    else
-                    {
-                        Debug.LogError($"资源包初始化失败：{initOperation.Error}");
-                        yield break;
-                    }
-                }
-            // 联机运行模式
-            case EPlayMode.HostPlayMode:
-                {
-                    string defaultHostServer = _hotFixConfig.GetHostServerURL();
-                    string fallbackHostServer = _hotFixConfig.GetHostServerURL();
-                    var initParameters = new HostPlayModeParameters();
-                    initParameters.BuildinQueryServices = new GameQueryServices();
-                    initParameters.DeliveryQueryServices = new DefaultDeliveryQueryServices();
-                    initParameters.RemoteServices = new RemoteServices(defaultHostServer, fallbackHostServer);
-                    initOperation = _yooAssetResourcePackage.InitializeAsync(initParameters);
-                    yield return initOperation;
-
-                    if (initOperation.Status == EOperationStatus.Succeed)
-                    {
-                        Debug.Log("资源包初始化成功！");
-                        yield break;
-                    }
-                    else
-                    {
-                        Debug.LogError($"资源包初始化失败：{initOperation.Error}");
-                        yield break;
-                    }
-                }
-            // 单机运行模式
-            case EPlayMode.OfflinePlayMode:
-                {
-                    var initParameters = new OfflinePlayModeParameters();
-                    initOperation = _yooAssetResourcePackage.InitializeAsync(initParameters);
-                    yield return initOperation;
-
-                    if (initOperation.Status == EOperationStatus.Succeed)
-                    {
-                        Debug.Log("资源包初始化成功！");
-                        EnterSangoGameRoot();
-                        yield break;
-                    }
-                    else
-                    {
-                        Debug.LogError($"资源包初始化失败：{initOperation.Error}");
-                        yield break;
-                    }
-                }
-            // WebGL运行模式
-            case EPlayMode.WebPlayMode:
-                {
-                    string defaultHostServer = _hotFixConfig.GetHostServerURL();
-                    string fallbackHostServer = _hotFixConfig.GetHostServerURL();
-                    var createParameters = new WebPlayModeParameters();
-                    createParameters.BuildinQueryServices = new GameQueryServices();
-                    createParameters.RemoteServices = new RemoteServices(defaultHostServer, fallbackHostServer);
-                    initOperation = _yooAssetResourcePackage.InitializeAsync(createParameters);
-                    yield return initOperation;
-
-                    if (initOperation.Status == EOperationStatus.Succeed)
-                    {
-                        Debug.Log("资源包初始化成功！");
-                        yield break;
-                    }
-                    else
-                    {
-                        Debug.LogError($"资源包初始化失败：{initOperation.Error}");
-                        yield break;
-                    }
-                }
-            default:
-                Debug.LogWarning($"{initOperation.Error}");
-                yield break;
-
+        yield return initializationOperation;
+        if (initializationOperation.Status != EOperationStatus.Succeed)
+        {
+            Debug.LogWarning($"{initializationOperation.Error}");
         }
     }
 
     private IEnumerator RequestPackageVersion()
     {
+        _hotFixWindow.SetTips("获取最新的资源版本 !");
         yield return new WaitForSecondsRealtime(0.5f);
 
         var updatePackageVersionOperation = _yooAssetResourcePackage.UpdatePackageVersionAsync();
@@ -218,6 +169,7 @@ public class HotFixService : MonoBehaviour
 
     private IEnumerator RequestPackageManifest()
     {
+        _hotFixWindow.SetTips("更新资源清单！");
         yield return new WaitForSecondsRealtime(0.5f);
 
         bool savePackageVersion = true;
@@ -232,6 +184,7 @@ public class HotFixService : MonoBehaviour
 
     private IEnumerator PrepareDownloader()
     {
+        _hotFixWindow.SetTips("创建补丁下载器！");
         yield return new WaitForSecondsRealtime(0.5f);
 
         int downloadingMaxNum = 10;
@@ -242,13 +195,13 @@ public class HotFixService : MonoBehaviour
 
         if (downloader.TotalDownloadCount == 0)
         {
+            Debug.Log("Not found any download files !");
             EnterSangoGameRoot();
-            Debug.Log("没有任何数据需要下载哦~");
         }
         else
         {
             //A total of 10 files were found that need to be downloaded
-            Debug.Log($"需要下载的文件总数:{downloader.TotalDownloadCount}:::总大小:{downloader.TotalDownloadBytes}");
+            Debug.Log($"Found total {downloader.TotalDownloadCount} files that need download ！");
 
             // 发现新更新文件后，挂起流程系统
             // 注意：开发者需要在下载前检测磁盘空间不足
@@ -260,7 +213,7 @@ public class HotFixService : MonoBehaviour
 
             _hotFixWindow.OpenHotFixPanel();
             _hotFixWindow.SetHotFixInfoText(totalDownloadCount, totalDownloadBytes);
-            Debug.Log("现在已经准备好下载器了哦~");
+
         }
     }
 
@@ -269,18 +222,30 @@ public class HotFixService : MonoBehaviour
     public void RunHotFix()
     {
         StartCoroutine(RunDownloader(Downloader));
+        ClearUnusedCacheFiles(_yooAssetResourcePackage);
+        EnterSangoGameRoot();
     }
 
     private IEnumerator RunDownloader(ResourceDownloaderOperation downloader)
     {
+        _hotFixWindow.SetTips("开始下载补丁文件！");
         //开启下载
         downloader.BeginDownload();
-        _hotFixWindow.SetTips("正在下载更新中");
         yield return downloader;
 
         // 检测下载结果
         if (downloader.Status != EOperationStatus.Succeed)
             yield break;
+    }
+
+    private void ClearUnusedCacheFiles(ResourcePackage package)
+    {
+        var operation = package.ClearUnusedCacheFilesAsync();
+        operation.Completed += Operation_Completed;
+    }
+    private void Operation_Completed(YooAsset.AsyncOperationBase obj)
+    {
+        
     }
     #endregion
 
@@ -346,6 +311,7 @@ public class HotFixService : MonoBehaviour
     #region EnterGameRoot
     public void EnterSangoGameRoot()
     {
+        _hotFixWindow.SetTips("开始游戏！");
         LoadDll();
         LoadMetadataForAOTAssemblies();
 
