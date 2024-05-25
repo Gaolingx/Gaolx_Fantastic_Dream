@@ -38,6 +38,10 @@ public class HotFixService : MonoBehaviour
 
     //获取资源二进制
     private static Dictionary<string, byte[]> _dllAssetDataDict = new Dictionary<string, byte[]>();
+    private static byte[] GetAssetData(string dllName)
+    {
+        return _dllAssetDataDict[dllName];
+    }
 
     /// <summary>
 	/// 运行模式
@@ -62,22 +66,22 @@ public class HotFixService : MonoBehaviour
 
         _hotFixConfig = GetComponent<HotFixConfig>();
         _hotFixWindow.SetTips("正在检查更新");
-        PrepareAssets();
+        StartCoroutine(DownLoadAssetsByYooAssets());
     }
 
-    private void PrepareAssets()
+    private IEnumerator DownLoadAssetsByYooAssets()
     {
         // 1.初始化资源系统
-        StartCoroutine(InitYooAsset());
+        yield return InitYooAsset();
 
         // 2.获取资源版本
-        RequestPackageVersion();
+        yield return RequestPackageVersion();
 
         // 3.更新补丁清单
-        RequestPackageManifest();
+        yield return RequestPackageManifest();
 
         // 4.下载补丁包
-        PrepareDownloader();
+        yield return PrepareDownloader();
 
     }
 
@@ -195,6 +199,8 @@ public class HotFixService : MonoBehaviour
 
     private IEnumerator RequestPackageVersion()
     {
+        yield return new WaitForSecondsRealtime(0.5f);
+
         var updatePackageVersionOperation = _yooAssetResourcePackage.UpdatePackageVersionAsync();
         yield return updatePackageVersionOperation;
 
@@ -378,11 +384,6 @@ public class HotFixService : MonoBehaviour
             _dllAssetDataDict.Add(dllName, fileData);
             Debug.Log($"dll:{dllName}  size:{fileData.Length}");
         }
-    }
-
-    private static byte[] GetAssetData(string dllName)
-    {
-        return _dllAssetDataDict[dllName];
     }
 
     /// <summary>
