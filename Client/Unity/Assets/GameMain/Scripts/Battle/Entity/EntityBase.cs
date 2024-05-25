@@ -309,23 +309,27 @@ namespace DarkGod.Main
         {
             PlayerCanControl(true);
 
-            //退出霸体状态
-            if (!curtSkillCfg.isBreak)
+            if (curtSkillCfg != null)
             {
-                entityState = EntityState.None;
-            }
-
-            //连招数据更新
-            if (curtSkillCfg.isCombo)
-            {
-                if (comboQue.Count > 0)
+                //退出霸体状态
+                if (!curtSkillCfg.isBreak)
                 {
-                    nextSkillID = comboQue.Dequeue();
+                    entityState = EntityState.None;
                 }
-                else
+                //连招数据更新
+                if (curtSkillCfg.isCombo)
                 {
-                    nextSkillID = 0;
+                    if (comboQue.Count > 0)
+                    {
+                        nextSkillID = comboQue.Dequeue();
+                    }
+                    else
+                    {
+                        nextSkillID = 0;
+                    }
                 }
+                //技能配置清理
+                curtSkillCfg = null;
             }
             SetAction(Constants.ActionDefault);
         }
