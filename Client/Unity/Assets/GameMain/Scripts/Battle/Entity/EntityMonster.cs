@@ -138,6 +138,26 @@ namespace DarkGod.Main
                 }
             }
         }
+
+        public override bool GetBreakState()
+        {
+            if(md.mCfg.isStop)
+            {
+                if(curtSkillCfg != null)
+                {
+                    return curtSkillCfg.isBreak;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                //全局不可被中断
+                return false;
+            }
+        }
     }
 }
 

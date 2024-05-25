@@ -285,6 +285,12 @@ namespace DarkGod.Main
             return null;
         }
 
+        //获取当前怪物是否可被中断状态
+        public virtual bool GetBreakState()
+        {
+            return true;
+        }
+
         public virtual void PlayHitAudio()
         {
             

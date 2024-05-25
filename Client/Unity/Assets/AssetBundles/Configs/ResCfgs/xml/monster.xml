@@ -2,6 +2,8 @@
 <root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<item ID="1001">
 		<mName>铁甲战士</mName>
+		<mType>1</mType>
+    	<isStop>1</isStop>
 		<resPath>Assets/AssetBundles/Prefabs/GameMain/PrefabNPC/MonsterSoldier_1.prefab</resPath>
 		<skillID>201</skillID>
     	<atkDis>2</atkDis>
@@ -16,6 +18,8 @@
 	</item>
 	<item ID="2001">
 		<mName>地狱魔卫</mName>
+		<mType>2</mType>
+    	<isStop>0</isStop>
 		<resPath>Assets/AssetBundles/Prefabs/GameMain/PrefabNPC/MonsterBoss_1.prefab</resPath>
 		<skillID>301</skillID>
     	<atkDis>4.5</atkDis>

@@ -808,7 +808,7 @@ namespace DarkGod.Main
                                 }
                                 else
                                 {
-                                    PECommon.Log("dmgType ERROR", PELogType.Error);
+                                    PECommon.Log("DamageType Not Found !", PELogType.Error);
                                 }
                                 break;
                             case "skillMoveLst":
@@ -1015,6 +1015,23 @@ namespace DarkGod.Main
                         {
                             case "mName":
                                 mc.mName = e.InnerText;
+                                break;
+                            case "mType":
+                                if(e.InnerText.Equals("1"))
+                                {
+                                    mc.mType = MonsterType.Normal;
+                                }
+                                else if(e.InnerText.Equals("2"))
+                                {
+                                    mc.mType= MonsterType.Boss;
+                                }
+                                else
+                                {
+                                    PECommon.Log("Monster Type Not Found !",PELogType.Error);
+                                }
+                                break;
+                            case "isStop":
+                                mc.isStop = e.InnerText.Equals("1"); //Лђеп int.Parse(e.InnerText) == 1;
                                 break;
                             case "resPath":
                                 mc.resPath = e.InnerText;

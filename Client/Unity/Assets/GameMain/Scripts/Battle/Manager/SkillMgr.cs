@@ -169,7 +169,7 @@ namespace DarkGod.Main
             else
             {
                 target.HP -= dmgSum;
-                if (target.entityState != EntityState.BatiState)
+                if (target.entityState == EntityState.None && target.GetBreakState()) //技能可被中断
                 {
                     target.StateHit();
                 }

@@ -37,6 +37,8 @@ namespace DarkGod.Main
     public class MonsterCfg : BaseData<MonsterCfg>
     {
         public string mName; //怪物名字
+        public MonsterType mType; //怪物类型 1:普通怪物 2:精英怪物（Boss）
+        public bool isStop; //怪物是否能被攻击中断当前的状态
         public string resPath; //资源路径
         public int skillID;
         public float atkDis;

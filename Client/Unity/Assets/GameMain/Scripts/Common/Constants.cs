@@ -38,6 +38,13 @@ namespace DarkGod.Main
         //etc..
     }
 
+    public enum MonsterType
+    {
+        None,
+        Normal = 1,
+        Boss = 2
+    }
+
     public class Constants
     {
         #region ColorHex Code
