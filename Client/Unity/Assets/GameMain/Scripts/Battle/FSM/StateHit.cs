@@ -9,6 +9,7 @@ namespace DarkGod.Main
         public void StateEnter(EntityBase entity, params object[] args)
         {
             entity.currentAniState = AniState.Hit;
+            entity.CancelSkillMove();
 
             //根据tid删除定时回调，相应的伤害和移动将不生效
             DelTimeTaskByTid(entity);

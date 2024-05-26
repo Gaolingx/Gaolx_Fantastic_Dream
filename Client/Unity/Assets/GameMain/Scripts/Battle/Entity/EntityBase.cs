@@ -296,7 +296,7 @@ namespace DarkGod.Main
 
         public virtual void PlayHitAudio()
         {
-            
+
         }
 
         public virtual Vector2 CalcTargetDir()
@@ -375,6 +375,11 @@ namespace DarkGod.Main
         {
             skMoveCBLst.Clear();
             skActionCBLst.Clear();
+        }
+
+        public virtual void CancelSkillMove()
+        {
+
         }
     }
 }
