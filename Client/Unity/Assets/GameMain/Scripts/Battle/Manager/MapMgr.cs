@@ -34,6 +34,9 @@ namespace DarkGod.Main
                 //生成对应批次怪物
                 battleMgr.LoadMonsterByWaveID(waveIndex);
                 battleMgr.ActiveCurrentBatchMonsters();
+
+                //激活触发器检测
+                battleMgr.triggerCheck = true;
             }
         }
 
@@ -46,7 +49,7 @@ namespace DarkGod.Main
             }
         }
 
-        public void SetNextTriggerOn()
+        public bool SetNextTriggerOn()
         {
             waveIndex += 1;
             for (int i = 0; i < triggerArr.Length; i++)
@@ -56,8 +59,11 @@ namespace DarkGod.Main
                 {
                     BoxCollider boxCollider = triggerArr[i].gameObject.GetComponent<BoxCollider>();
                     boxCollider.isTrigger = true;
+                    return true;
                 }
             }
+
+            return false;
         }
     }
 }

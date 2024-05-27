@@ -155,14 +155,21 @@ namespace DarkGod.Main
             }
         }
 
+        public bool triggerCheck = true;
         private void CheckMonsterCount()
         {
             //检测当前批次的怪物是否全部死亡
             if (mapMgr != null)
             {
-                if (monsterDic.Count == 0)
+                if (triggerCheck && monsterDic.Count == 0)
                 {
-                    mapMgr.SetNextTriggerOn();
+                    bool isExist = mapMgr.SetNextTriggerOn();
+                    triggerCheck = false;
+                    if (!isExist)
+                    {
+                        //关卡结束，战斗胜利
+
+                    }
                 }
             }
         }
