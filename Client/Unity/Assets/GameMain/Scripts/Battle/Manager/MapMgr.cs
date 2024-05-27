@@ -15,6 +15,8 @@ namespace DarkGod.Main
         {
             battleMgr = battle;
 
+            //重置碰撞环境
+            InitMapAllTrigger();
             //实例化第一批怪物
             battleMgr.LoadMonsterByWaveID(waveIndex);
 
@@ -32,6 +34,15 @@ namespace DarkGod.Main
                 //生成对应批次怪物
                 battleMgr.LoadMonsterByWaveID(waveIndex);
                 battleMgr.ActiveCurrentBatchMonsters();
+            }
+        }
+
+        public void InitMapAllTrigger()
+        {
+            for (int i = 0; i < triggerArr.Length; i++)
+            {
+                BoxCollider boxCollider = triggerArr[i].gameObject.GetComponent<BoxCollider>();
+                boxCollider.isTrigger = false;
             }
         }
 
