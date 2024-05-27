@@ -19,5 +19,19 @@ namespace DarkGod.Main
 
             PECommon.Log("Init MapMgr Done.");
         }
+
+        public void TriggerMonsterBorn(TriggerData trigger, int waveIndex)
+        {
+            if(battleMgr != null)
+            {
+                //修改碰撞环境(Trigger->Collider)
+                BoxCollider boxCollider = trigger.gameObject.GetComponent<BoxCollider>();
+                boxCollider.isTrigger = false;
+
+                //生成对应批次怪物
+                battleMgr.LoadMonsterByWaveID(waveIndex);
+                battleMgr.ActiveCurrentBatchMonsters();
+            }
+        }
     }
 }
