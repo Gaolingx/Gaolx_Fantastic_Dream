@@ -141,6 +141,8 @@ namespace DarkGod.Main
         //相关逻辑驱动
         private void Update()
         {
+            CheckMonsterCount();
+
             RunMonsterAILogic();
         }
 
@@ -150,6 +152,18 @@ namespace DarkGod.Main
             {
                 EntityMonster em = item.Value;
                 em.TickAILogic();
+            }
+        }
+
+        private void CheckMonsterCount()
+        {
+            //检测当前批次的怪物是否全部死亡
+            if (mapMgr != null)
+            {
+                if (monsterDic.Count == 0)
+                {
+                    mapMgr.SetNextTriggerOn();
+                }
             }
         }
 

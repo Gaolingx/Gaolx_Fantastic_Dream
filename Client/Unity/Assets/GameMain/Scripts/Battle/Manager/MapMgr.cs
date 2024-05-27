@@ -7,6 +7,7 @@ namespace DarkGod.Main
 {
     public class MapMgr : MonoBehaviour
     {
+        public TriggerData[] triggerArr;
         private int waveIndex = 1; //默认生成第一波怪物
         private BattleMgr battleMgr;
 
@@ -31,6 +32,20 @@ namespace DarkGod.Main
                 //生成对应批次怪物
                 battleMgr.LoadMonsterByWaveID(waveIndex);
                 battleMgr.ActiveCurrentBatchMonsters();
+            }
+        }
+
+        public void SetNextTriggerOn()
+        {
+            waveIndex += 1;
+            for (int i = 0; i < triggerArr.Length; i++)
+            {
+                //匹配对应TriggerData
+                if (triggerArr[i].triggerWave == waveIndex)
+                {
+                    BoxCollider boxCollider = triggerArr[i].gameObject.GetComponent<BoxCollider>();
+                    boxCollider.isTrigger = true;
+                }
             }
         }
     }
