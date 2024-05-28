@@ -10,6 +10,7 @@ namespace DarkGod.Main
     {
         private ResSvc resSvc;
         private TimerSvc timerSvc;
+        private AudioSvc audioSvc;
 
         public bool isSetAtkRotation = false;
 
@@ -17,6 +18,7 @@ namespace DarkGod.Main
         {
             resSvc = ResSvc.Instance;
             timerSvc = TimerSvc.Instance;
+            audioSvc = AudioSvc.Instance;
             PECommon.Log("Init SkillMgr Done.");
         }
 
@@ -266,7 +268,7 @@ namespace DarkGod.Main
             //设置技能动作
             entity.SetAction(skillData.aniAction);
             //设置特效
-            entity.SetCFX(skillData.fx, skillData.skillTime);
+            entity.SetCFX(skillData.fx, skillData.skillTime, audioSvc.CharacterFxAudioVolumeValue);
 
             //设置技能位移
             CalcSkillMove(entity, skillData);

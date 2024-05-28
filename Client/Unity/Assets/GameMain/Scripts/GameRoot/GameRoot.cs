@@ -182,5 +182,11 @@ namespace DarkGod.Main
             return entityPlayer;
         }
 
+        public void SetAudioListener(AudioListener playerAudioListener, bool statePlayer, bool stateGameRoot)
+        {
+            GameRoot.Instance.GetComponent<AudioListener>().enabled = stateGameRoot;
+            playerAudioListener.enabled = statePlayer;
+        }
+
     }
 }

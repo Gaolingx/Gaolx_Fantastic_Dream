@@ -671,13 +671,15 @@ namespace StarterAssets
             }
         }
 
-        public void SetFX(string name, float destroy)
+        public void SetFX(string name, float destroy, float volume)
         {
             GameObject go;
             if (fxDic.TryGetValue(name, out go))
             {
+                go.GetComponent<AudioSource>().volume = volume;
                 go.SetActive(true);
-                timerSvc.AddTimeTask((int tid) => {
+                timerSvc.AddTimeTask((int tid) =>
+                {
                     go.SetActive(false);
                 }, destroy);
             }

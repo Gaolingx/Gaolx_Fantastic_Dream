@@ -63,6 +63,8 @@ namespace DarkGod.Main
                 // 初始化摇杆插件
                 InitGamepad(playerInput.GetComponent<StarterAssetsInputs>());
 
+                GameRoot.Instance.SetAudioListener(mainCityPlayer.GetComponent<AudioListener>(), true, false);
+
                 //配置角色声音源
                 audioSvc.GetCharacterAudioSourceComponent(mainCityPlayer);
 
@@ -91,16 +93,6 @@ namespace DarkGod.Main
             {
                 //初始化玩家位置
                 GameRoot.Instance.SetGameObjectTrans(player, mapData.playerBornPos, mapData.playerBornRote, new Vector3(0.8f, 0.8f, 0.8f));
-
-                //原方案
-                //相机初始化
-                /*
-                Camera.main.transform.position = mapData.mainCamPos;
-                Camera.main.transform.localEulerAngles = mapData.mainCamRote;
-
-                playerCtrl = player.GetComponent<PlayerController>();
-                playerCtrl.Init();
-                */
 
                 //获取player导航组件
                 nav = player.GetComponent<NavMeshAgent>();

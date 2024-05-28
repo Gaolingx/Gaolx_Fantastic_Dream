@@ -10,7 +10,7 @@ namespace DarkGod.Main
         public static AudioSvc Instance = null;
 
         public bool _isTurnOnAudio = true;
-        [Range(0, 1)] public float BGAudioVolumeValue, UIAudioVolumeValue, CharacterAudioVolumeValue;
+        [Range(0, 1)] public float BGAudioVolumeValue, UIAudioVolumeValue, CharacterAudioVolumeValue, CharacterFxAudioVolumeValue;
         public GameObject BGAudioGameObject, UIAudioGameObject;
         public AudioSource BGAudioAudioSource, UIAudioAudioSource, CharacterAudioSource;
         public string[] FootStepsAudioPaths, JumpEffortsAudioPaths, LandingAudioPaths, HitAudioPaths;

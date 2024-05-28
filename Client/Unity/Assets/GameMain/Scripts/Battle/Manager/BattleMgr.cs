@@ -130,6 +130,8 @@ namespace DarkGod.Main
                 //延迟激活第一批次怪物
                 ActiveCurrentBatchMonsters();
 
+                GameRoot.Instance.SetAudioListener(battlePlayer.GetComponent<AudioListener>(), true, false);
+
                 //配置角色声音源
                 audioSvc.GetCharacterAudioSourceComponent(battlePlayer);
                 audioSvc.PlayBGMusic(Constants.BGHuangYe);
