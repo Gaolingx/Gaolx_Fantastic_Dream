@@ -12,6 +12,7 @@ namespace DarkGod.Main
 
         public LoadingWnd loadingWnd;
         public DynamicWnd dynamicWnd;
+
         private void Start()
         {
             Instance = this;
@@ -184,7 +185,11 @@ namespace DarkGod.Main
 
         public void SetAudioListener(AudioListener playerAudioListener, bool statePlayer, bool stateGameRoot)
         {
-            GameRoot.Instance.GetComponent<AudioListener>().enabled = stateGameRoot;
+            Transform gameRoot = transform.Find("/GameRoot");
+            if (gameRoot != null)
+            {
+                gameRoot.gameObject.GetComponent<AudioListener>().enabled = stateGameRoot;
+            }
             playerAudioListener.enabled = statePlayer;
         }
 
