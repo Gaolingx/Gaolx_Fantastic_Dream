@@ -11,7 +11,6 @@ namespace DarkGod.Main
 
         public bool _isTurnOnAudio = true;
         [Range(0, 1)] public float BGAudioVolumeValue, UIAudioVolumeValue, CharacterAudioVolumeValue, CharacterFxAudioVolumeValue;
-        public GameObject BGAudioGameObject, UIAudioGameObject;
         public AudioSource BGAudioAudioSource, UIAudioAudioSource, CharacterAudioSource;
         public string[] FootStepsAudioPaths, JumpEffortsAudioPaths, LandingAudioPaths, HitAudioPaths;
 
@@ -26,20 +25,13 @@ namespace DarkGod.Main
         {
             Instance = this;
 
-            GetAudioSourceComponent();
-            GetAudioSourceValueInit();
             InitAudioClipArray(FootStepsAudioPaths, JumpEffortsAudioPaths, LandingAudioPaths, HitAudioPaths);
             PECommon.Log("Init AudioSvc...");
         }
 
-
-        private void GetAudioSourceComponent()
+        private void Update()
         {
-            BGAudioGameObject = GameObject.Find(Constants.BGAudioGameObjectName);
-            BGAudioAudioSource = BGAudioGameObject.GetComponent<AudioSource>();
-            UIAudioGameObject = GameObject.Find(Constants.UIAudioGameObjectName);
-            UIAudioAudioSource = UIAudioGameObject.GetComponent<AudioSource>();
-
+            RefreshAudioSourceVolume();
         }
 
         public void GetCharacterAudioSourceComponent(GameObject playerGO)
@@ -79,15 +71,19 @@ namespace DarkGod.Main
             }
         }
 
-        private void GetAudioSourceValueInit()
+        private void RefreshAudioSourceVolume()
         {
-            if (BGAudioGameObject != null)
+            if (BGAudioAudioSource != null)
             {
-                BGAudioVolumeValue = BGAudioAudioSource.volume;
+                BGAudioAudioSource.volume = BGAudioVolumeValue;
             }
-            if (UIAudioGameObject != null)
+            if (UIAudioAudioSource != null)
             {
-                UIAudioVolumeValue = UIAudioAudioSource.volume;
+                UIAudioAudioSource.volume = UIAudioVolumeValue;
+            }
+            if (CharacterAudioSource != null)
+            {
+                CharacterAudioSource.volume = CharacterAudioVolumeValue;
             }
         }
 

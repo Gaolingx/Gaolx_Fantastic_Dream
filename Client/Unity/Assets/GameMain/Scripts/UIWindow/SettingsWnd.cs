@@ -25,9 +25,9 @@ namespace DarkGod.Main
 
         private void InitSliderValue()
         {
-            BGAudioSlider.value = audioSvc.BGAudioAudioSource.volume;
-            UIAudioSlider.value = audioSvc.UIAudioAudioSource.volume;
-            CharacterAudioSlider.value = audioSvc.CharacterAudioSource.volume;
+            BGAudioSlider.value = audioSvc.BGAudioVolumeValue;
+            UIAudioSlider.value = audioSvc.UIAudioVolumeValue;
+            CharacterAudioSlider.value = audioSvc.CharacterAudioVolumeValue;
             CharacterFxAudioSlider.value = audioSvc.CharacterFxAudioVolumeValue;
         }
 
