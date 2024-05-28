@@ -9,16 +9,8 @@ namespace DarkGod.Main
         public void StateEnter(EntityBase entity, params object[] args)
         {
             entity.currentAniState = AniState.Hit;
-            entity.CancelSkillMove();
 
-            //根据tid删除定时回调，相应的伤害和移动将不生效
-            DelTimeTaskByTid(entity);
-
-            //攻击被中断，删除定时回调
-            ClearSkillEndCB(entity);
-
-            //清空连招数据
-            ClearComboData(entity);
+            entity.RmvSkillCB();
         }
 
         public void StateExit(EntityBase entity, params object[] args)
@@ -72,42 +64,6 @@ namespace DarkGod.Main
             return 1;
         }
 
-        private void DelTimeTaskByTid(EntityBase entity)
-        {
-            for (int i = 0; i < entity.skMoveCBLst.Count; i++)
-            {
-                int tid = entity.skMoveCBLst[i];
-                TimerSvc.Instance.DelTask(tid);
-            }
-
-            for (int i = 0; i < entity.skActionCBLst.Count; i++)
-            {
-                int tid = entity.skActionCBLst[i];
-                TimerSvc.Instance.DelTask(tid);
-            }
-        }
-
-        private void ClearSkillEndCB(EntityBase entity)
-        {
-            if (entity.skEndCB != -1)
-            {
-                TimerSvc.Instance.DelTask(entity.skEndCB);
-                entity.skEndCB = -1;
-            }
-            entity.ClearActionCBLst();
-        }
-
-        private void ClearComboData(EntityBase entity)
-        {
-            if (entity.nextSkillID != 0 || entity.comboQue.Count > 0)
-            {
-                entity.nextSkillID = 0;
-                entity.comboQue.Clear();
-
-                entity.battleMgr.lastAtkTime = 0;
-                entity.battleMgr.comboIndex = 0;
-            }
-        }
     }
 }
 

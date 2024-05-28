@@ -377,9 +377,63 @@ namespace DarkGod.Main
             skActionCBLst.Clear();
         }
 
-        public virtual void CancelSkillMove()
+        #region RemoveSkillCB
+        private void CancelSkillMove(EntityBase entity)
         {
-
+            entity.SetDir(Vector2.zero);
+            entity.SetSkillMoveState(false);
         }
+
+        private void DelTimeTaskByTid(EntityBase entity)
+        {
+            for (int i = 0; i < entity.skMoveCBLst.Count; i++)
+            {
+                int tid = entity.skMoveCBLst[i];
+                TimerSvc.Instance.DelTask(tid);
+            }
+
+            for (int i = 0; i < entity.skActionCBLst.Count; i++)
+            {
+                int tid = entity.skActionCBLst[i];
+                TimerSvc.Instance.DelTask(tid);
+            }
+        }
+
+        private void ClearSkillEndCB(EntityBase entity)
+        {
+            if (entity.skEndCB != -1)
+            {
+                TimerSvc.Instance.DelTask(entity.skEndCB);
+                entity.skEndCB = -1;
+            }
+            entity.ClearActionCBLst();
+        }
+
+        private void ClearComboData(EntityBase entity)
+        {
+            if (entity.nextSkillID != 0 || entity.comboQue.Count > 0)
+            {
+                entity.nextSkillID = 0;
+                entity.comboQue.Clear();
+
+                entity.battleMgr.lastAtkTime = 0;
+                entity.battleMgr.comboIndex = 0;
+            }
+        }
+
+        public void RmvSkillCB()
+        {
+            CancelSkillMove(this);
+
+            //根据tid删除定时回调，相应的伤害和移动将不生效
+            DelTimeTaskByTid(this);
+
+            //攻击被中断，删除定时回调
+            ClearSkillEndCB(this);
+
+            //清空连招数据
+            ClearComboData(this);
+        }
+        #endregion
     }
 }

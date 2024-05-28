@@ -8,6 +8,8 @@ namespace DarkGod.Main
         public void StateEnter(EntityBase entity, params object[] args)
         {
             entity.currentAniState = AniState.Die;
+
+            entity.RmvSkillCB();
         }
 
         public void StateExit(EntityBase entity, params object[] args)

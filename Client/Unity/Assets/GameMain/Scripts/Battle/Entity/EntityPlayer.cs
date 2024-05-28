@@ -89,12 +89,6 @@ namespace DarkGod.Main
         {
             AudioSvc.Instance.PlayHit();
         }
-
-        public override void CancelSkillMove()
-        {
-            SetDir(Vector2.zero);
-            SetSkillMoveState(false);
-        }
     }
 }
 
