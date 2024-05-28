@@ -9,9 +9,8 @@ namespace DarkGod.Main
 {
     public class SettingsWnd : WindowRoot
     {
-        public Slider BGAudioSlider, UIAudioSlider, CharacterAudioSlider;
+        public Slider BGAudioSlider, UIAudioSlider, CharacterAudioSlider, CharacterFxAudioSlider;
         public Toggle VsyncSettingsToggle, FpsWndToggle, RuntimeInspectorToggle, RuntimeHierarchyToggle;
-        public AudioSource WndBGAudioAudioSource, WndUIAudioAudioSource, WndCharacterAudioSource;
         public Transform DebugItem;
         public Transform fpsWnd;
         public Transform RuntimeHierarchy, RuntimeInspector;
@@ -20,52 +19,49 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
-            GetAudioSourceComponent();
-            SliderAddListener();
             InitSliderValue();
+            SliderAddListener();
         }
 
         private void InitSliderValue()
         {
-            BGAudioSlider.value = WndBGAudioAudioSource.volume;
-            UIAudioSlider.value = WndUIAudioAudioSource.volume;
-            CharacterAudioSlider.value = WndCharacterAudioSource.volume;
+            BGAudioSlider.value = audioSvc.BGAudioAudioSource.volume;
+            UIAudioSlider.value = audioSvc.UIAudioAudioSource.volume;
+            CharacterAudioSlider.value = audioSvc.CharacterAudioSource.volume;
+            CharacterFxAudioSlider.value = audioSvc.CharacterFxAudioVolumeValue;
         }
+
         private void SliderAddListener()
         {
             BGAudioSlider.onValueChanged.AddListener(TouchBGAudioSlider);
             UIAudioSlider.onValueChanged.AddListener(TouchUIAudioSlider);
             CharacterAudioSlider.onValueChanged.AddListener(TouchCharacterAudioSlider);
-        }
-
-        public void GetAudioSourceComponent()
-        {
-            WndBGAudioAudioSource = audioSvc.BGAudioAudioSource;
-            WndUIAudioAudioSource = audioSvc.UIAudioAudioSource;
-            WndCharacterAudioSource = audioSvc.CharacterAudioSource;
-        }
-
-        public void ActiveDebugItemWnd(bool active = true)
-        {
-            DebugItem.gameObject.SetActive(active);
+            CharacterFxAudioSlider.onValueChanged.AddListener(TouchCharacterFxAudioSlider);
         }
 
         public void TouchBGAudioSlider(float volume)
         {
             audioSvc.BGAudioVolumeValue = volume;
-            WndBGAudioAudioSource.volume = volume;
         }
 
         public void TouchUIAudioSlider(float volume)
         {
             audioSvc.UIAudioVolumeValue = volume;
-            WndUIAudioAudioSource.volume = volume;
         }
 
         public void TouchCharacterAudioSlider(float volume)
         {
             audioSvc.CharacterAudioVolumeValue = volume;
-            WndCharacterAudioSource.volume = volume;
+        }
+
+        public void TouchCharacterFxAudioSlider(float volume)
+        {
+            audioSvc.CharacterFxAudioVolumeValue = volume;
+        }
+
+        public void ActiveDebugItemWnd(bool active = true)
+        {
+            DebugItem.gameObject.SetActive(active);
         }
 
         public void ClickFpsWndToggle()
