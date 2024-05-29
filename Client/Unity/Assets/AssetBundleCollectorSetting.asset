@@ -58,7 +58,7 @@ MonoBehaviour:
         CollectorType: 0
         AddressRuleName: AddressByFileName
         PackRuleName: PackDirectory
-        FilterRuleName: CollectAll
+        FilterRuleName: CollectScene
         AssetTags: 
         UserData: 
     - GroupName: ABAudio
