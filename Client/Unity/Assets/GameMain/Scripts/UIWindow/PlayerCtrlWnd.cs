@@ -69,6 +69,7 @@ namespace DarkGod.Main
 
             InitSkCDTime();
 
+            SetBossHPBarState(false);
             RefreshUI();
             InitHPVal();
         }
@@ -99,6 +100,7 @@ namespace DarkGod.Main
                 UpdateSk3CD(delta);
             }
 
+            UpdateBossHPBlend();
         }
 
         private void InitSkCDTime()
@@ -205,6 +207,16 @@ namespace DarkGod.Main
             }
         }
         #endregion
+
+        private void UpdateBossHPBlend()
+        {
+            //只在boss血条出现才更新
+            if (transBossHPBar.gameObject.activeSelf)
+            {
+                BlendBossHP();
+                imgYellow.fillAmount = currentPrg;
+            }
+        }
 
         private void SetCurrentDir()
         {
@@ -353,5 +365,38 @@ namespace DarkGod.Main
         {
             return BattleSys.Instance.CanRlsSkill();
         }
+
+        #region BossHPItem
+        public Transform transBossHPBar;
+        public Image imgRed;
+        public Image imgYellow; //血条渐变遮罩
+        private float currentPrg = 1f;
+        private float targetPrg = 1f;
+
+        public void SetBossHPBarVal(int oldVal, int newVal, int sumVal)
+        {
+            currentPrg = oldVal * 1.0f / sumVal;
+            targetPrg = newVal * 1.0f / sumVal;
+            imgRed.fillAmount = targetPrg;
+        }
+
+        private void BlendBossHP()
+        {
+            UIItemUtils.UpdateMixBlend(currentPrg, targetPrg, Constants.AccelerHPSpeed);
+        }
+
+        /// <summary>
+        /// 设置Boss血条状态
+        /// </summary>
+        /// <param name="state">状态</param>
+        /// <param name="prg">血条默认进度</param>
+        public void SetBossHPBarState(bool state, float prg = 1)
+        {
+            SetActive(transBossHPBar, state);
+            imgRed.fillAmount = prg;
+            imgYellow.fillAmount = prg;
+        }
+
+        #endregion
     }
 }

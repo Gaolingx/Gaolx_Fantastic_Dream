@@ -579,6 +579,9 @@ MonoBehaviour:
   txtSk3CD: {fileID: 8795459375361050423}
   txtSelfHP: {fileID: 2694977464579804614}
   imgSelfHP: {fileID: 8110132733863047302}
+  transBossHPBar: {fileID: 8505355444788225828}
+  imgRed: {fileID: 686738317977477251}
+  imgYellow: {fileID: 1634497243149500771}
 --- !u!1 &224252817337836731
 GameObject:
   m_ObjectHideFlags: 0

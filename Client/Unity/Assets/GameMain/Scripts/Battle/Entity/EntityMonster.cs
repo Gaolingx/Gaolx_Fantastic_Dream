@@ -141,9 +141,9 @@ namespace DarkGod.Main
 
         public override bool GetBreakState()
         {
-            if(md.mCfg.isStop)
+            if (md.mCfg.isStop)
             {
-                if(curtSkillCfg != null)
+                if (curtSkillCfg != null)
                 {
                     return curtSkillCfg.isBreak;
                 }
@@ -156,6 +156,18 @@ namespace DarkGod.Main
             {
                 //全局不可被中断
                 return false;
+            }
+        }
+
+        public override void SetHPVal(int oldval, int newval)
+        {
+            if (md.mCfg.mType == MonsterType.Boss)
+            {
+                BattleSys.Instance.playerCtrlWnd.SetBossHPBarVal(oldval, newval, Props.hp);
+            }
+            else
+            {
+                base.SetHPVal(oldval, newval);
             }
         }
     }

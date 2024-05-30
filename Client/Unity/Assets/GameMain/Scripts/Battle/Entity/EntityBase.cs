@@ -196,28 +196,28 @@ namespace DarkGod.Main
         #region 战斗信息显示
         public virtual void SetDodge()
         {
-            if (controller != null)
+            if (controller != null || playerController != null)
             {
                 GameRoot.Instance.dynamicWnd.SetDodge(Name);
             }
         }
         public virtual void SetCritical(int critical)
         {
-            if (controller != null)
+            if (controller != null || playerController != null)
             {
                 GameRoot.Instance.dynamicWnd.SetCritical(Name, critical);
             }
         }
         public virtual void SetHurt(int hurt)
         {
-            if (controller != null)
+            if (controller != null || playerController != null)
             {
                 GameRoot.Instance.dynamicWnd.SetHurt(Name, hurt);
             }
         }
         public virtual void SetHPVal(int oldval, int newval)
         {
-            if (controller != null)
+            if (controller != null || playerController != null)
             {
                 GameRoot.Instance.dynamicWnd.SetHPVal(Name, oldval, newval);
             }
