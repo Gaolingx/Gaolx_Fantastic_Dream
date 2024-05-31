@@ -135,6 +135,7 @@ namespace DarkGod.Main
                 //销毁血条物体
                 Destroy(item.gameObject);
                 //移除字典数据
+                monsterTransDic.Remove(mName);
                 itemDic.Remove(mName);
             }
         }
