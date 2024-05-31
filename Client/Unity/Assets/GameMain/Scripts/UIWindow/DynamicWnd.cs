@@ -17,6 +17,7 @@ namespace DarkGod.Main
 
         private bool isTipsShow = false;
         private Queue<string> tipsQue = new Queue<string>();
+        private Dictionary<string, Transform> monsterTransDic = new Dictionary<string, Transform>();
         private Dictionary<string, ItemEntityHP> itemDic = new Dictionary<string, ItemEntityHP>();
         protected override void InitWnd()
         {
@@ -45,19 +46,38 @@ namespace DarkGod.Main
                     SetTips(tips);
                 }
             }
-
-            foreach (var item in itemDic.Values)
+            foreach (var mName in monsterTransDic.Keys)
             {
-                item.gameObject.SetActive(ShowItemEntityHPIfNeed(item.transform));
+                foreach (var item in itemDic.Values)
+                {
+                    item.gameObject.SetActive(ShowItemEntityHPIfNeed(HasTrans(mName)));
+                }
+            }
+        }
+
+        private Transform HasTrans(string mName)
+        {
+            Transform transform = null;
+            if (monsterTransDic.TryGetValue(mName, out transform))
+            {
+                return transform;
+            }
+            else
+            {
+                return null;
             }
         }
 
         public bool ShowItemEntityHPIfNeed(Transform rootTrans)
         {
             Camera mainCamera = Camera.main;
-            Vector3 screenPos = mainCamera.WorldToScreenPoint(rootTrans.position);
+            Vector3 screenPos = Vector3.zero;
+            if (rootTrans != null)
+            {
+                screenPos = mainCamera.WorldToScreenPoint(rootTrans.position);
+            }
 
-            return !UIItemUtils.IsMonsterOnScreen(screenPos);
+            return UIItemUtils.IsMonsterOnScreen(screenPos);
         }
 
         //显示Tips的接口
@@ -102,6 +122,7 @@ namespace DarkGod.Main
                 GameRoot.Instance.SetGameObjectTrans(go, new Vector3(-1000, 0, 0), Vector3.zero, Vector3.one, true); //默认设置在屏幕外
                 ItemEntityHP ieh = go.GetComponent<ItemEntityHP>();
                 ieh.InitItemInfo(trans, hp); //将hp设置到Item中
+                monsterTransDic.Add(mName, trans);
                 itemDic.Add(mName, ieh);
             }
         }
