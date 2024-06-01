@@ -102,6 +102,14 @@ namespace DarkGod.Main
             }
         }
 
+        public void StopBGMusic()
+        {
+            if (BGAudioAudioSource != null)
+            {
+                BGAudioAudioSource.Stop();
+            }
+        }
+
         public async void PlayUIAudio(string name, bool isCache = true)
         {
             if (!_isTurnOnAudio) { return; }

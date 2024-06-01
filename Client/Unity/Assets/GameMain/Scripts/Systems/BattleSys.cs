@@ -39,6 +39,12 @@ namespace DarkGod.Main
             SetPlayerCtrlWndState();
         }
 
+        public void EndBattle(bool isWin, int restHP)
+        {
+            playerCtrlWnd.SetWndState(false);
+            GameRoot.Instance.dynamicWnd.RmvAllHpItemInfo();
+        }
+
         public void SetPlayerCtrlWndState(bool isActive = true)
         {
             playerCtrlWnd.SetWndState(isActive);

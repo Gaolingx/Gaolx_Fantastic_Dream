@@ -21,6 +21,8 @@ namespace DarkGod.Main
         private SkillMgr skillMgr;
         private MapMgr mapMgr;
 
+        private BattleSys battleSys;
+
         private EntityPlayer entitySelfPlayer;
         private ThirdPersonController controller;
         private StarterAssetsInputs starterAssetsInputs;
@@ -105,6 +107,9 @@ namespace DarkGod.Main
             audioSvc = AudioSvc.Instance;
             timerSvc = TimerSvc.Instance;
 
+            //初始化系统
+            battleSys = BattleSys.Instance;
+
             //初始化各管理器
             stateMgr = gameObject.AddComponent<StateMgr>();
             stateMgr.Init();
@@ -170,10 +175,18 @@ namespace DarkGod.Main
                     if (!isExist)
                     {
                         //关卡结束，战斗胜利
-
+                        EndBattle(true, entitySelfPlayer.HP);
                     }
                 }
             }
+        }
+
+        //战斗结算处理
+        public void EndBattle(bool isWin, int restHP)
+        {
+            //停止背景音乐
+            audioSvc.StopBGMusic();
+            battleSys.EndBattle(isWin, restHP);
         }
 
         //通过批次ID生成怪物
@@ -216,7 +229,7 @@ namespace DarkGod.Main
                     }
                     else if (md.mCfg.mType == MonsterType.Boss)
                     {
-                        BattleSys.Instance.playerCtrlWnd.SetBossHPBarState(true);
+                        battleSys.playerCtrlWnd.SetBossHPBarState(true);
                     }
                 }
             }
@@ -368,7 +381,7 @@ namespace DarkGod.Main
         }
         public Vector2 GetDirInput()
         {
-            return BattleSys.Instance.GetDirInput();
+            return battleSys.GetDirInput();
         }
         public bool CanRlsSkill()
         {

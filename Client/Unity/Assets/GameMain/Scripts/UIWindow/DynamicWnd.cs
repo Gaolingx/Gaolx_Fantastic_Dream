@@ -139,6 +139,15 @@ namespace DarkGod.Main
                 itemDic.Remove(mName);
             }
         }
+        public void RmvAllHpItemInfo()
+        {
+            foreach (var item in itemDic)
+            {
+                Destroy(item.Value.gameObject);
+            }
+            itemDic.Clear();
+            monsterTransDic.Clear();
+        }
 
         public void SetDodge(string key)
         {

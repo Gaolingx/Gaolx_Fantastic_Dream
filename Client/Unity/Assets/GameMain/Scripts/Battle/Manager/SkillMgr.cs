@@ -49,8 +49,11 @@ namespace DarkGod.Main
                     //延时伤害计算
                     int actid = timerSvc.AddTimeTask((int tid) =>
                     {
-                        SkillAction(entity, skillData, index);
-                        entity.RmvActionCB(tid);
+                        if (entity != null)
+                        {
+                            SkillAction(entity, skillData, index);
+                            entity.RmvActionCB(tid);
+                        }
                     }, sum);
                     entity.skActionCBLst.Add(actid);
                 }
@@ -72,6 +75,10 @@ namespace DarkGod.Main
                 //怪物攻击玩家
 
                 EntityPlayer epTarget = GameRoot.Instance.GetCurrentPlayer();
+                if (epTarget == null)
+                {
+                    return;
+                }
                 //判断距离，判断角度
                 if (InRange(caster.GetPos(), epTarget.GetPos(), skillActionCfg.radius)
                     && InAngle(caster.GetTrans(), epTarget.GetPos(), skillActionCfg.angle))
@@ -163,10 +170,7 @@ namespace DarkGod.Main
             //目标应用伤害
             if (target.HP < dmgSum)
             {
-                target.HP = 0;
-                //目标死亡
-                target.StateDie();
-                target.battleMgr.RmvMonster(target.Name);
+                
             }
             else
             {
@@ -177,6 +181,24 @@ namespace DarkGod.Main
                 }
 
             }
+        }
+
+        private void TargetDie(EntityBase target)
+        {
+            target.HP = 0;
+            //目标死亡
+            target.StateDie();
+            if (target.entityType == EntityType.Monster)
+            {
+                target.battleMgr.RmvMonster(target.Name);
+            }
+            else if (target.entityType == EntityType.Player)
+            {
+                //战斗失败
+                target.battleMgr.EndBattle(false, 0);
+                target.battleMgr.SetEntityPlayer(null);
+            }
+
         }
 
         /// <summary>
