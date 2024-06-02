@@ -996,10 +996,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fd0b74640f5e7f4598c3634a437bc0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HotDllName: Assets/AssetBundles/Scripts/Dlls/GameMain.dll
-  GameRootObject: Assets/AssetBundles/Prefabs/RootPrefabs/HotFixRoot.prefab
   _hotFixRootParent: {fileID: 8549510451735545887}
   _hotFixWindow: {fileID: 811389847}
+  _hotFixConfig: {fileID: 0}
+  HotDllName: Assets/AssetBundles/Scripts/Dlls/GameMain.dll
+  GameRootObject: Assets/AssetBundles/Prefabs/RootPrefabs/HotFixRoot.prefab
 --- !u!114 &963007397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1013,7 +1014,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ePlayMode: 0
-  hostServerIP: http://127.0.0.1
+  hostServerIP: http://100.84.96.104
   appVersion: v1.0
 --- !u!114 &963007398
 MonoBehaviour:

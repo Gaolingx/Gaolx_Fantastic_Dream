@@ -20,10 +20,13 @@ namespace DarkGod.Main
         public void StateProcess(EntityBase entity, params object[] args)
         {
             entity.SetAction(Constants.ActionDie);
-            TimerSvc.Instance.AddTimeTask((int tid) =>
+            if (entity.entityType == EntityType.Monster)
             {
-                entity.SetActive(false);
-            }, Constants.StateDieMonsterAnimTime);
+                TimerSvc.Instance.AddTimeTask((int tid) =>
+                {
+                    entity.SetActive(false);
+                }, Constants.StateDieMonsterAnimTime);
+            }
         }
     }
 }
