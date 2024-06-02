@@ -1,5 +1,6 @@
 //功能：战斗结算界面
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,13 @@ using UnityEngine.UI;
 
 namespace DarkGod.Main
 {
+    public enum FBEndType
+    {
+        None,
+        Pause, //副本暂停
+        Win, //副本战斗胜利
+        Lose
+    }
     public class BattleEndWnd : WindowRoot
     {
         #region UI Define
@@ -20,6 +28,7 @@ namespace DarkGod.Main
         public Animation ani;
         #endregion
 
+        private FBEndType endType = FBEndType.None;
 
         protected override void InitWnd()
         {
@@ -28,10 +37,35 @@ namespace DarkGod.Main
             RefreshUI();
         }
 
-        private void RefreshUI()
+        public void SetWndType(FBEndType endType)
         {
-
+            this.endType = endType;
         }
+
+        private bool FBEndTypePause()
+        {
+            SetActive(rewardTrans, false);
+            SetActive(btnExit.gameObject);
+            SetActive(btnClose.gameObject);
+
+            return true;
+        }
+        private bool FBEndTypeWin()
+        {
+            return true;
+        }
+        private bool FBEndTypeLose()
+        {
+            return true;
+        }
+
+        private bool RefreshUI() => endType switch
+        {
+            FBEndType.Pause => FBEndTypePause(),
+            FBEndType.Win => FBEndTypeWin(),
+            FBEndType.Lose => FBEndTypeLose(),
+            _ => throw new ArgumentOutOfRangeException(nameof(endType)),
+        };
 
     }
 }

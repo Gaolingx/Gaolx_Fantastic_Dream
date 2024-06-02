@@ -292,6 +292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCtrlWnd: {fileID: 3395126156215279337}
+  battleEndWnd: {fileID: 7059586677975907235}
   battleMgr: {fileID: 0}
   playerInputObj: {fileID: 6700168370878498178}
 --- !u!1 &1238387904315550107
@@ -3800,6 +3801,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03510dd88bbf53d4c9fb0d5077871d6e, type: 3}
+--- !u!114 &7059586677975907235 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114217409783716558, guid: 03510dd88bbf53d4c9fb0d5077871d6e,
+    type: 3}
+  m_PrefabInstance: {fileID: 6948342356223959405}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9b905700500db44192556f6a21aadfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7165753255278998543 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224236675847902562, guid: 03510dd88bbf53d4c9fb0d5077871d6e,

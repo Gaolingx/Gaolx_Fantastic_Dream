@@ -10,6 +10,7 @@ namespace DarkGod.Main
     {
         public static BattleSys Instance = null;
         public PlayerCtrlWnd playerCtrlWnd;
+        public BattleEndWnd battleEndWnd;
         public BattleMgr battleMgr;
         public Transform playerInputObj;
 
@@ -48,6 +49,12 @@ namespace DarkGod.Main
         public void SetPlayerCtrlWndState(bool isActive = true)
         {
             playerCtrlWnd.SetWndState(isActive);
+        }
+
+        public void SetBattleEndWndState(FBEndType endType, bool isActive = true)
+        {
+            battleEndWnd.SetWndType(endType);
+            battleEndWnd.SetWndState(isActive);
         }
 
         public void SetPlayerMoveDir(Vector2 dir)
