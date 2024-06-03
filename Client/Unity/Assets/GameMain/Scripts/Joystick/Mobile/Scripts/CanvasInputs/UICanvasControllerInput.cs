@@ -48,6 +48,11 @@ namespace StarterAssets
             starterAssetsInputs.NormalAtkInput(virtualNormalAtkState);
         }
 
+        public void VirtualGamePauseInput(bool virtualGamePauseState)
+        {
+            starterAssetsInputs.GamePauseInput(virtualGamePauseState);
+        }
+
     }
 
 }

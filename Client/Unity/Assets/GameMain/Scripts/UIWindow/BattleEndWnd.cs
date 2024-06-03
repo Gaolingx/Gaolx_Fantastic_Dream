@@ -42,6 +42,24 @@ namespace DarkGod.Main
             this.endType = endType;
         }
 
+        public void ClickCloseBtn()
+        {
+            audioSvc.PlayUIAudio(Constants.UIClickBtn);
+            SetWndState(false);
+        }
+
+        public void ClickExitBtn()
+        {
+            audioSvc.PlayUIAudio(Constants.UIClickBtn);
+            //进入主城，销毁当前战斗
+        }
+
+        public void ClickSureBtn()
+        {
+            audioSvc.PlayUIAudio(Constants.UIClickBtn);
+            //进入主城，销毁当前战斗，打开副本界面
+        }
+
         private bool FBEndTypePause()
         {
             SetActive(rewardTrans, false);

@@ -89,6 +89,7 @@ namespace DarkGod.Main
                 if (GameRoot.Instance.GetCurrentPlayer() != null)
                 {
                     ListeningTouchEvts();
+                    ListeningClickGamePause();
                     ListeningClickPlayerNormalAtk();
                     ListeningClickPlayerSkill01Atk();
                     ListeningClickPlayerSkill02Atk();
@@ -235,6 +236,17 @@ namespace DarkGod.Main
             BattleSys.Instance.SetPlayerMoveDir(currentDir);
         }
 
+        //暂停控制
+        public void ListeningClickGamePause()
+        {
+            if (_playerInput.isPause)
+            {
+                BattleSys.Instance.SetBattleEndWndState(FBEndType.Pause);
+            }
+
+            _playerInput.isPause = false;
+        }
+
         //释放技能
         public void ListeningClickPlayerNormalAtk()
         {
@@ -301,14 +313,9 @@ namespace DarkGod.Main
         }
         #endregion
 
-        public void RefreshUI()
+        #region Expprg
+        private void SetExpprg(PlayerData pd)
         {
-            PlayerData pd = GameRoot.Instance.PlayerData;
-
-            SetText(txtLevel, pd.lv);
-            SetText(txtName, pd.name);
-
-            #region Expprg
             int expPrgVal = (int)(pd.exp * 1.0f / PECommon.GetExpUpValByLv(pd.lv) * 100);
             //经验条进度的显示
             SetText(txtExpPrg, expPrgVal + "%");
@@ -343,7 +350,17 @@ namespace DarkGod.Main
                     img.fillAmount = 0;
                 }
             }
-            #endregion
+        }
+        #endregion
+
+        public void RefreshUI()
+        {
+            PlayerData pd = GameRoot.Instance.PlayerData;
+
+            SetText(txtLevel, pd.lv);
+            SetText(txtName, pd.name);
+
+            SetExpprg(pd);
         }
 
         #region HPVal
