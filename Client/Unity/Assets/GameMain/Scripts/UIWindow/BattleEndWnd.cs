@@ -51,7 +51,15 @@ namespace DarkGod.Main
 
         public void ClickExitBtn()
         {
-            audioSvc.PlayUIAudio(Constants.UIClickBtn);
+            if (audioSvc != null)
+            {
+                audioSvc.PlayUIAudio(Constants.UIClickBtn);
+            }
+            else
+            {
+                AudioSvc.Instance.PlayUIAudio(Constants.UIClickBtn);
+            }
+
             //进入主城，销毁当前战斗
             ExitCurrentBattle();
         }
@@ -62,7 +70,7 @@ namespace DarkGod.Main
             {
                 //TODO
             }
-            else if (GameRoot.Instance.GetGameState() == GameState.FBFight)
+            else if (GameRoot.Instance.GetGameState() == GameState.MainCity)
             {
                 GameRoot.AddTips("当前未处于副本战斗关卡");
             }

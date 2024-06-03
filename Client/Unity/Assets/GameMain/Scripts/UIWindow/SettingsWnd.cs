@@ -66,7 +66,7 @@ namespace DarkGod.Main
 
         private void PauseGameInWnd()
         {
-            if (BattleSys.Instance != null)
+            if (BattleSys.Instance.battleMgr != null)
             {
                 BattleSys.Instance.battleMgr.SetPauseGame(false);
             }
