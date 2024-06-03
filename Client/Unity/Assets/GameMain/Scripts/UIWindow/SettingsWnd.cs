@@ -66,11 +66,11 @@ namespace DarkGod.Main
 
         private void PauseGameInWnd()
         {
-            if (BattleSys.Instance.battleMgr != null)
+            if (GameRoot.Instance.GetGameState() == GameState.FBFight)
             {
                 BattleSys.Instance.battleMgr.SetPauseGame(false);
             }
-            else
+            else if (GameRoot.Instance.GetGameState() == GameState.MainCity)
             {
                 GameRoot.Instance.PauseGameUI(false);
             }
