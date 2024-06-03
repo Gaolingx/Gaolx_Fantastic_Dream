@@ -146,6 +146,30 @@ namespace DarkGod.Main
         }
 
         //相关逻辑驱动
+        private bool isPauseGame = false;
+        public void SetPauseGame(bool state = true)
+        {
+            isPauseGame = state;
+            PauseGameLogic(isPauseGame);
+        }
+        public bool GetPauseGame()
+        {
+            return isPauseGame;
+        }
+
+        private void PauseGameLogic(bool isPause)
+        {
+            // Pause UI
+            if (isPause)
+            {
+                GameRoot.Instance.PauseGameUI(true);
+            }
+            else
+            {
+                GameRoot.Instance.PauseGameUI(false);
+            }
+        }
+
         private void Update()
         {
             CheckMonsterCount();
@@ -162,7 +186,16 @@ namespace DarkGod.Main
             }
         }
 
-        public bool triggerCheck = true;
+        private bool triggerCheck = true;
+        public void SetTriggerCheck(bool state)
+        {
+            triggerCheck = state;
+        }
+        public bool GetTriggerCheck()
+        {
+            return triggerCheck;
+        }
+
         private void CheckMonsterCount()
         {
             //检测当前批次的怪物是否全部死亡

@@ -45,6 +45,7 @@ namespace DarkGod.Main
         public void ClickCloseBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
+            BattleSys.Instance.battleMgr.SetPauseGame(false);
             SetWndState(false);
         }
 
@@ -52,6 +53,19 @@ namespace DarkGod.Main
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
             //进入主城，销毁当前战斗
+            ExitCurrentBattle();
+        }
+
+        private void ExitCurrentBattle(bool enterFubenWndIfNeed = false)
+        {
+            if (GameRoot.Instance.GetGameState() == GameState.FBFight)
+            {
+                //TODO
+            }
+            else if (GameRoot.Instance.GetGameState() == GameState.FBFight)
+            {
+                GameRoot.AddTips("当前未处于副本战斗关卡");
+            }
         }
 
         public void ClickSureBtn()

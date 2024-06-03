@@ -80,6 +80,8 @@ namespace DarkGod.Main
                     charCamTrans.gameObject.SetActive(false);
                 }
 
+                //…Ë÷√”Œœ∑◊¥Ã¨
+                GameRoot.Instance.SetGameState(GameState.MainCity);
             });
 
         }

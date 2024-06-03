@@ -52,6 +52,12 @@ namespace DarkGod.Main
 
             if (currentAniState == AniState.Idle || currentAniState == AniState.Move)
             {
+                if (battleMgr.GetPauseGame())
+                {
+                    StateIdle();
+                    return;
+                }
+
                 float delta = Time.deltaTime;
                 checkCountTime += delta;
                 if (checkCountTime < checkTime)

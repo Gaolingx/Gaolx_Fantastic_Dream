@@ -241,10 +241,16 @@ namespace DarkGod.Main
         {
             if (_playerInput.isPause)
             {
+                BattleSys.Instance.battleMgr.SetPauseGame(true);
                 BattleSys.Instance.SetBattleEndWndState(FBEndType.Pause);
             }
 
             _playerInput.isPause = false;
+        }
+
+        public void ClickSettingsBtn()
+        {
+            BattleSys.Instance.battleMgr.SetPauseGame(true);
         }
 
         //ÊÍ·Å¼¼ÄÜ

@@ -36,7 +36,7 @@ namespace DarkGod.Main
                 battleMgr.ActiveCurrentBatchMonsters();
 
                 //激活触发器检测
-                battleMgr.triggerCheck = true;
+                battleMgr.SetTriggerCheck(true);
             }
         }
 

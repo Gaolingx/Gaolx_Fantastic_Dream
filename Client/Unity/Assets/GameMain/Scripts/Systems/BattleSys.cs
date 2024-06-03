@@ -38,6 +38,8 @@ namespace DarkGod.Main
 
             battleMgr.Init(mapid);
             SetPlayerCtrlWndState();
+
+            GameRoot.Instance.SetGameState(GameState.FBFight);
         }
 
         public void EndBattle(bool isWin, int restHP)

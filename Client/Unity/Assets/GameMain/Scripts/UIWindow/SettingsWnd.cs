@@ -64,6 +64,18 @@ namespace DarkGod.Main
             DebugItem.gameObject.SetActive(active);
         }
 
+        private void PauseGameInWnd()
+        {
+            if (BattleSys.Instance != null)
+            {
+                BattleSys.Instance.battleMgr.SetPauseGame(false);
+            }
+            else
+            {
+                GameRoot.Instance.PauseGameUI(false);
+            }
+        }
+
         public void ClickFpsWndToggle()
         {
             ActiveDebugItemWnd();
@@ -113,7 +125,7 @@ namespace DarkGod.Main
         public void ClickCloseBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            GameRoot.Instance.PauseGameUI(false);
+            PauseGameInWnd();
             SetWndState(false);
         }
 

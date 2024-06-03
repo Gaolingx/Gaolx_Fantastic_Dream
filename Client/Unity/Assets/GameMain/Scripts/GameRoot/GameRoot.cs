@@ -183,6 +183,16 @@ namespace DarkGod.Main
             return entityPlayer;
         }
 
+        private GameState gameState = GameState.None;
+        public void SetGameState(GameState state)
+        {
+            gameState = state;
+        }
+        public GameState GetGameState()
+        {
+            return gameState;
+        }
+
         public void SetAudioListener(AudioListener playerAudioListener, bool statePlayer, bool stateGameRoot)
         {
             Transform gameRoot = transform.Find("/GameRoot");

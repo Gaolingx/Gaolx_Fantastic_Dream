@@ -6,6 +6,13 @@ using UnityEngine;
 //注意：业务相关的数据、配置等由于频繁发生变动，为了方便调整，尽量不要直接写死在代码中，而是做成一个配置，在统一的地方进行修改
 namespace DarkGod.Main
 {
+    public enum GameState
+    {
+        None,
+        MainCity,
+        FBFight
+    }
+
     public enum TextColorCode
     {
         White,
