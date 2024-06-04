@@ -1,6 +1,6 @@
 {
-    "ShaderTotalCount": 36,
-    "VariantTotalCount": 90,
+    "ShaderTotalCount": 32,
+    "VariantTotalCount": 100,
     "ShaderVariantInfos": [
         {
             "AssetPath": "Resources/unity_builtin_extra",
@@ -36,7 +36,7 @@
                 {
                     "PassType": 8,
                     "Keywords": [
-                        ""
+                        "SHADOWS_DEPTH"
                     ]
                 }
             ]
@@ -49,7 +49,7 @@
                 {
                     "PassType": 8,
                     "Keywords": [
-                        "SHADOWS_DEPTH"
+                        ""
                     ]
                 }
             ]
@@ -106,19 +106,6 @@
             "ShaderVariantElements": [
                 {
                     "PassType": 0,
-                    "Keywords": [
-                        ""
-                    ]
-                }
-            ]
-        },
-        {
-            "AssetPath": "Resources/unity_builtin_extra",
-            "ShaderName": "Hidden/Nature/Terrain/Utilities",
-            "ShaderVariantCount": 1,
-            "ShaderVariantElements": [
-                {
-                    "PassType": 13,
                     "Keywords": [
                         ""
                     ]
@@ -230,19 +217,6 @@
             ]
         },
         {
-            "AssetPath": "Resources/unity_builtin_extra",
-            "ShaderName": "Mobile/Particles/Additive",
-            "ShaderVariantCount": 1,
-            "ShaderVariantElements": [
-                {
-                    "PassType": 0,
-                    "Keywords": [
-                        ""
-                    ]
-                }
-            ]
-        },
-        {
             "AssetPath": "Packages/com.unity.render-pipelines.universal/Shaders/Utils/FallbackError.shader",
             "ShaderName": "Hidden/Universal Render Pipeline/FallbackError",
             "ShaderVariantCount": 1,
@@ -290,41 +264,6 @@
                     "Keywords": [
                         "_ADDITIONAL_LIGHTS",
                         "_ADDITIONAL_LIGHT_SHADOWS",
-                        "_ALPHAPREMULTIPLY_ON",
-                        "_MAIN_LIGHT_SHADOWS_CASCADE",
-                        "_METALLICSPECGLOSSMAP",
-                        "_NORMALMAP",
-                        "_REFLECTION_PROBE_BLENDING",
-                        "_REFLECTION_PROBE_BOX_PROJECTION",
-                        "_SCREEN_SPACE_OCCLUSION",
-                        "_SHADOWS_SOFT",
-                        "_SPECULARHIGHLIGHTS_OFF",
-                        "_SPECULAR_SETUP",
-                        "_SURFACE_TYPE_TRANSPARENT"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_ADDITIONAL_LIGHTS",
-                        "_ADDITIONAL_LIGHT_SHADOWS",
-                        "_ALPHAPREMULTIPLY_ON",
-                        "_MAIN_LIGHT_SHADOWS_CASCADE",
-                        "_METALLICSPECGLOSSMAP",
-                        "_NORMALMAP",
-                        "_REFLECTION_PROBE_BLENDING",
-                        "_REFLECTION_PROBE_BOX_PROJECTION",
-                        "_SCREEN_SPACE_OCCLUSION",
-                        "_SHADOWS_SOFT",
-                        "_SPECULAR_SETUP",
-                        "_SURFACE_TYPE_TRANSPARENT"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_ADDITIONAL_LIGHTS",
-                        "_ADDITIONAL_LIGHT_SHADOWS",
                         "_MAIN_LIGHT_SHADOWS_SCREEN",
                         "_METALLICSPECGLOSSMAP",
                         "_NORMALMAP",
@@ -373,6 +312,21 @@
                         "_REFLECTION_PROBE_BOX_PROJECTION",
                         "_SCREEN_SPACE_OCCLUSION",
                         "_SHADOWS_SOFT"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_NORMALMAP"
                     ]
                 },
                 {
@@ -386,32 +340,20 @@
         {
             "AssetPath": "Packages/com.unity.render-pipelines.universal/Shaders/Particles/ParticlesUnlit.shader",
             "ShaderName": "Universal Render Pipeline/Particles/Unlit",
-            "ShaderVariantCount": 4,
+            "ShaderVariantCount": 3,
             "ShaderVariantElements": [
+                {
+                    "PassType": 0,
+                    "Keywords": [
+                        ""
+                    ]
+                },
                 {
                     "PassType": 0,
                     "Keywords": [
                         "_ALPHATEST_ON",
                         "_EMISSION",
                         "_SCREEN_SPACE_OCCLUSION"
-                    ]
-                },
-                {
-                    "PassType": 0,
-                    "Keywords": [
-                        "_EMISSION",
-                        "_FADING_ON",
-                        "_SCREEN_SPACE_OCCLUSION",
-                        "_SOFTPARTICLES_ON",
-                        "_SURFACE_TYPE_TRANSPARENT"
-                    ]
-                },
-                {
-                    "PassType": 0,
-                    "Keywords": [
-                        "_EMISSION",
-                        "_SCREEN_SPACE_OCCLUSION",
-                        "_SURFACE_TYPE_TRANSPARENT"
                     ]
                 },
                 {
@@ -425,7 +367,7 @@
         {
             "AssetPath": "Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLit.shader",
             "ShaderName": "Universal Render Pipeline/Terrain/Lit",
-            "ShaderVariantCount": 4,
+            "ShaderVariantCount": 5,
             "ShaderVariantElements": [
                 {
                     "PassType": 8,
@@ -463,13 +405,21 @@
                         "_SHADOWS_SOFT",
                         "_TERRAIN_INSTANCED_PERPIXEL_NORMAL"
                     ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_TERRAIN_INSTANCED_PERPIXEL_NORMAL"
+                    ]
                 }
             ]
         },
         {
             "AssetPath": "Assets/Suntail Village/Shaders/Suntail_Surface.shader",
             "ShaderName": "Raygeas/Suntail Surface",
-            "ShaderVariantCount": 5,
+            "ShaderVariantCount": 7,
             "ShaderVariantElements": [
                 {
                     "PassType": 8,
@@ -512,6 +462,22 @@
                         "_REFLECTION_PROBE_BOX_PROJECTION",
                         "_SCREEN_SPACE_OCCLUSION",
                         "_SHADOWS_SOFT",
+                        "_SMOOTHNESSSOURCE_METALLIC_ALPHA"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_SMOOTHNESSSOURCE_ALBEDO_ALPHA"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
                         "_SMOOTHNESSSOURCE_METALLIC_ALPHA"
                     ]
                 }
@@ -705,7 +671,7 @@
         {
             "AssetPath": "Assets/Suntail Village/Shaders/Suntail_Foliage.shader",
             "ShaderName": "Raygeas/Suntail Foliage",
-            "ShaderVariantCount": 6,
+            "ShaderVariantCount": 16,
             "ShaderVariantElements": [
                 {
                     "PassType": 8,
@@ -738,11 +704,131 @@
                     "PassType": 13,
                     "Keywords": [
                         "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_ANCHORTHEFOLIAGEBASE_ON",
+                        "_COLOR2ENABLE_ON",
+                        "_ENABLEWIND_ON",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_SCREEN_SPACE_OCCLUSION",
+                        "_SECONDCOLOROVERLAYTYPE_WORLD_POSITION",
+                        "_SHADOWS_SOFT"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_ANCHORTHEFOLIAGEBASE_ON",
+                        "_ENABLEWIND_ON",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_SCREEN_SPACE_OCCLUSION",
+                        "_SECONDCOLOROVERLAYTYPE_WORLD_POSITION",
+                        "_SHADOWS_SOFT"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_COLOR2ENABLE_ON",
+                        "_ENABLEWIND_ON",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_SCREEN_SPACE_OCCLUSION",
+                        "_SECONDCOLOROVERLAYTYPE_UV_BASED",
+                        "_SHADOWS_SOFT"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_COLOR2ENABLE_ON",
+                        "_ENABLEWIND_ON",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_SCREEN_SPACE_OCCLUSION",
+                        "_SECONDCOLOROVERLAYTYPE_WORLD_POSITION",
+                        "_SHADOWS_SOFT"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_ENABLEWIND_ON",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_SCREEN_SPACE_OCCLUSION",
+                        "_SECONDCOLOROVERLAYTYPE_WORLD_POSITION",
+                        "_SHADOWS_SOFT"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
                         "_ANCHORTHEFOLIAGEBASE_ON",
                         "_COLOR2ENABLE_ON",
                         "_ENABLEWIND_ON",
                         "_MAIN_LIGHT_SHADOWS_SCREEN",
                         "_SECONDCOLOROVERLAYTYPE_UV_BASED",
+                        "_SHADOWS_SOFT"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ANCHORTHEFOLIAGEBASE_ON",
+                        "_COLOR2ENABLE_ON",
+                        "_ENABLEWIND_ON",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_SECONDCOLOROVERLAYTYPE_WORLD_POSITION",
+                        "_SHADOWS_SOFT"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ANCHORTHEFOLIAGEBASE_ON",
+                        "_ENABLEWIND_ON",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_SECONDCOLOROVERLAYTYPE_WORLD_POSITION",
+                        "_SHADOWS_SOFT"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_COLOR2ENABLE_ON",
+                        "_ENABLEWIND_ON",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_SECONDCOLOROVERLAYTYPE_UV_BASED",
+                        "_SHADOWS_SOFT"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_COLOR2ENABLE_ON",
+                        "_ENABLEWIND_ON",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_SECONDCOLOROVERLAYTYPE_WORLD_POSITION",
+                        "_SHADOWS_SOFT"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ENABLEWIND_ON",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_SECONDCOLOROVERLAYTYPE_WORLD_POSITION",
                         "_SHADOWS_SOFT"
                     ]
                 },
@@ -764,7 +850,7 @@
         {
             "AssetPath": "Assets/StylizedEnvironement/Art/Shader/Surface.shader",
             "ShaderName": "Surface",
-            "ShaderVariantCount": 6,
+            "ShaderVariantCount": 9,
             "ShaderVariantElements": [
                 {
                     "PassType": 8,
@@ -830,32 +916,56 @@
                         "_SCREEN_SPACE_OCCLUSION",
                         "_SHADOWS_SOFT"
                     ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_BLENDINGOVERLAYTYPE_WORLD_NORMAL",
+                        "_BLENDING_ON",
+                        "_BLENDNORMALS_ON",
+                        "_COVERAGEOVERLAYTYPE_WORLD_NORMAL",
+                        "_COVERAGE_ON",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_BLENDINGOVERLAYTYPE_WORLD_NORMAL",
+                        "_BLENDNORMALS_ON",
+                        "_COVERAGEOVERLAYTYPE_WORLD_NORMAL",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_BLENDINGOVERLAYTYPE_WORLD_NORMAL",
+                        "_COVERAGEOVERLAYTYPE_WORLD_NORMAL",
+                        "_COVERAGE_ON",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN"
+                    ]
                 }
             ]
         },
         {
             "AssetPath": "Packages/com.unity.render-pipelines.universal/Shaders/Unlit.shader",
             "ShaderName": "Universal Render Pipeline/Unlit",
-            "ShaderVariantCount": 5,
+            "ShaderVariantCount": 4,
             "ShaderVariantElements": [
                 {
                     "PassType": 0,
                     "Keywords": [
-                        "_ALPHATEST_ON",
-                        "_SCREEN_SPACE_OCCLUSION"
+                        ""
                     ]
                 },
                 {
                     "PassType": 0,
                     "Keywords": [
                         "_SCREEN_SPACE_OCCLUSION"
-                    ]
-                },
-                {
-                    "PassType": 0,
-                    "Keywords": [
-                        "_SCREEN_SPACE_OCCLUSION",
-                        "_SURFACE_TYPE_TRANSPARENT"
                     ]
                 },
                 {
@@ -990,38 +1100,6 @@
                         "_OUTLINENORMALCHANNEL_NORMAL",
                         "_RIM_LIGHTING_ON",
                         "_SPECULAR_ON"
-                    ]
-                }
-            ]
-        },
-        {
-            "AssetPath": "Assets/Suntail Village/Shaders/Suntail_Water.shader",
-            "ShaderName": "Raygeas/Suntail Water",
-            "ShaderVariantCount": 1,
-            "ShaderVariantElements": [
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_ADDITIONAL_LIGHTS",
-                        "_ADDITIONAL_LIGHT_SHADOWS",
-                        "_MAIN_LIGHT_SHADOWS_CASCADE",
-                        "_REFLECTION_PROBE_BLENDING",
-                        "_REFLECTION_PROBE_BOX_PROJECTION",
-                        "_SCREEN_SPACE_OCCLUSION",
-                        "_SHADOWS_SOFT"
-                    ]
-                }
-            ]
-        },
-        {
-            "AssetPath": "Assets/ResModules/Art/Characters/DarkGod/Compond/MakeChar/Shader/MogoFakeLight.shader",
-            "ShaderName": "Mogo/FakeLight",
-            "ShaderVariantCount": 1,
-            "ShaderVariantElements": [
-                {
-                    "PassType": 0,
-                    "Keywords": [
-                        ""
                     ]
                 }
             ]
