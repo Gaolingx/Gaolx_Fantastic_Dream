@@ -82,6 +82,8 @@ namespace DarkGod.Main
 
                 //…Ë÷√”Œœ∑◊¥Ã¨
                 GameRoot.Instance.SetGameState(GameState.MainCity);
+
+                PauseGameLogic(false);
             });
 
         }
@@ -164,6 +166,19 @@ namespace DarkGod.Main
                 UICanvasControllerInput uICanvasControllerInput = GamePadTrans.GetComponent<UICanvasControllerInput>();
 
                 uICanvasControllerInput.starterAssetsInputs = StarterAssetsInputs;
+            }
+        }
+
+        private void PauseGameLogic(bool isPause)
+        {
+            // Pause UI
+            if (isPause)
+            {
+                GameRoot.Instance.PauseGameUI(true);
+            }
+            else
+            {
+                GameRoot.Instance.PauseGameUI(false);
             }
         }
 
@@ -442,7 +457,7 @@ namespace DarkGod.Main
         public void OpenSettingsWnd()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            GameRoot.Instance.PauseGameUI(true);
+            PauseGameLogic(true);
             settingsWnd.SetWndState(true);
 
         }

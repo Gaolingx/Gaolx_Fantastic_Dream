@@ -97,6 +97,11 @@ namespace DarkGod.Main
         }
         private bool FBEndTypeLose()
         {
+            SetActive(rewardTrans, false);
+            SetActive(btnExit.gameObject);
+            SetActive(btnClose.gameObject, false);
+            audioSvc.PlayUIAudio(Constants.FBLose);
+
             return true;
         }
 

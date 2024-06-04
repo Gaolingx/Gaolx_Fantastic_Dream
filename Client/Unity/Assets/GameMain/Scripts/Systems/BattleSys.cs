@@ -46,6 +46,15 @@ namespace DarkGod.Main
         {
             playerCtrlWnd.SetWndState(false);
             GameRoot.Instance.dynamicWnd.RmvAllHpItemInfo();
+
+            if (isWin)
+            {
+                //战斗胜利，发送结算战斗请求
+            }
+            else
+            {
+                SetBattleEndWndState(FBEndType.Lose);
+            }
         }
 
         public void EnterMainCity()

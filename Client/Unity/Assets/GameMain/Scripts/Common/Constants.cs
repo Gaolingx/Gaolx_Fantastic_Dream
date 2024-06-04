@@ -98,6 +98,9 @@ namespace DarkGod.Main
         public const string UIOpenPage = "uiOpenPage";
         public const string FBItemEnter = "fbitem";
 
+        public const string FBLose = "fblose";
+        public const string FBLogoEnter = "fbwin";
+
         //角色相关音效
         public const string Audio_Mar7th00_Hit = "assassin_Hit";
 

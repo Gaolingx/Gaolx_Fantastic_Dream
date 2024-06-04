@@ -116,6 +116,8 @@ namespace DarkGod.Main
             skillMgr = gameObject.AddComponent<SkillMgr>();
             skillMgr.Init();
 
+            SetPauseGame(false);
+
             //加载战场地图
             mapCfg = resSvc.GetMapCfg(mapid);
             resSvc.AsyncLoadScene(mapCfg.sceneName, () =>
@@ -217,6 +219,7 @@ namespace DarkGod.Main
         //战斗结算处理
         public void EndBattle(bool isWin, int restHP)
         {
+            SetPauseGame(true);
             //停止背景音乐
             audioSvc.StopBGMusic();
             battleSys.EndBattle(isWin, restHP);
