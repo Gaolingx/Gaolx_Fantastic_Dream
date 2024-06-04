@@ -242,7 +242,7 @@ namespace DarkGod.Main
         {
             if (_playerInput.isPause)
             {
-                BattleSys.Instance.battleMgr.SetPauseGame(true);
+                BattleSys.Instance.battleMgr.SetPauseGame(true, true);
                 BattleSys.Instance.SetBattleEndWndState(FBEndType.Pause);
             }
 
@@ -251,7 +251,7 @@ namespace DarkGod.Main
 
         public void ClickSettingsBtn()
         {
-            BattleSys.Instance.battleMgr.SetPauseGame(true);
+            BattleSys.Instance.battleMgr.SetPauseGame(true, true);
             settingsWnd.SetWndState(true);
         }
 
@@ -333,7 +333,7 @@ namespace DarkGod.Main
             GridLayoutGroup expGrid = expPrgTrans.GetComponent<GridLayoutGroup>();
 
             //通过 标准屏幕高度/实际设备屏幕高度，计算出当前UI相对于当前屏幕需要缩放的比例（注意Canvas Scaler 也要基于高度作为缩放标准）
-            float globalRate = 1.0f * Constants.ScreenStandardHeight / Screen.height;
+            float globalRate = 1.0f * Constants.ScreenStandardWidth / Screen.width;
             //算出屏幕真实宽度
             float screenWidth = Screen.width * globalRate;
             //减去小的间隙

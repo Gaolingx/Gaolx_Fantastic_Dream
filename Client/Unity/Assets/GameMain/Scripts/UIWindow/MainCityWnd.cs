@@ -58,8 +58,23 @@ namespace DarkGod.Main
             SetText(txtLevel, pd.lv);
             SetText(txtName, pd.name);
 
+            SetExpprg(pd);
 
-            #region Expprg
+            //设置自动任务图标
+            curtTaskData = resSvc.GetAutoGuideCfg(pd.guideid);
+            if (curtTaskData != null)
+            {
+                SetGuideBtnIcon(curtTaskData.npcID);
+            }
+            else
+            {
+                SetGuideBtnIcon(Constants.DefaultGuideBtnIconID);
+            }
+        }
+
+        #region Expprg
+        private void SetExpprg(PlayerData pd)
+        {
             int expPrgVal = (int)(pd.exp * 1.0f / PECommon.GetExpUpValByLv(pd.lv) * 100);
             //经验条进度的显示
             SetText(txtExpPrg, expPrgVal + "%");
@@ -94,20 +109,8 @@ namespace DarkGod.Main
                     img.fillAmount = 0;
                 }
             }
-            #endregion
-
-            //设置自动任务图标
-            curtTaskData = resSvc.GetAutoGuideCfg(pd.guideid);
-            if (curtTaskData != null)
-            {
-                SetGuideBtnIcon(curtTaskData.npcID);
-            }
-            else
-            {
-                SetGuideBtnIcon(Constants.DefaultGuideBtnIconID);
-            }
-
         }
+        #endregion
 
         private void SetGuideBtnIcon(int npcID)
         {

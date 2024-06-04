@@ -46,7 +46,7 @@ namespace DarkGod.Main
 
             set
             {
-                PECommon.Log("hp change:" + hp + " to " + value);
+                //PECommon.Log("hp change:" + hp + " to " + value);
                 //通知UI层
                 SetHPVal(hp, value); //无需在其他地方调用
                 hp = value;

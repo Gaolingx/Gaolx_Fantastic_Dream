@@ -178,7 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isTurnOnAudio: 1
   BGAudioVolumeValue: 0.25
-  UIAudioVolumeValue: 0.75
+  UIAudioVolumeValue: 0.5
   CharacterAudioVolumeValue: 0.5
   CharacterFxAudioVolumeValue: 0.5
   BGAudioAudioSource: {fileID: 8673037108130610541}

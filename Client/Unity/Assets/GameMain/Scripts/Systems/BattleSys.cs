@@ -83,7 +83,10 @@ namespace DarkGod.Main
 
         public void SetPlayerMoveDir(Vector2 dir)
         {
-            battleMgr.SetSelfPlayerMoveDir(dir);
+            if (battleMgr != null)
+            {
+                battleMgr.SetSelfPlayerMoveDir(dir);
+            }
         }
 
         public void ReqPlayerReleaseSkill(int skillIndex)

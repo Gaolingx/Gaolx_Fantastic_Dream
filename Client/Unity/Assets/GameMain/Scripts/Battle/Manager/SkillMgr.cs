@@ -168,9 +168,9 @@ namespace DarkGod.Main
             target.SetHurt(dmgSum);
 
             //目标应用伤害
-            if (target.HP < dmgSum)
+            if (target.HP <= dmgSum)
             {
-                
+                TargetDie(target);
             }
             else
             {

@@ -116,8 +116,6 @@ namespace DarkGod.Main
             skillMgr = gameObject.AddComponent<SkillMgr>();
             skillMgr.Init();
 
-            SetPauseGame(false);
-
             //加载战场地图
             mapCfg = resSvc.GetMapCfg(mapid);
             resSvc.AsyncLoadScene(mapCfg.sceneName, () =>
@@ -144,19 +142,21 @@ namespace DarkGod.Main
                 audioSvc.PlayBGMusic(Constants.BGHuangYe);
 
                 SetEntityPlayer(entitySelfPlayer);
+
+                SetPauseGame(false, false);
             });
         }
 
         //相关逻辑驱动
-        private bool isPauseGame = false;
-        public void SetPauseGame(bool state = true)
+        private bool isPauseGameAI = false;
+        public void SetPauseGame(bool stateUI, bool stateAI)
         {
-            isPauseGame = state;
-            PauseGameLogic(isPauseGame);
+            isPauseGameAI = stateAI;
+            PauseGameLogic(stateUI);
         }
         public bool GetPauseGame()
         {
-            return isPauseGame;
+            return isPauseGameAI;
         }
 
         private void PauseGameLogic(bool isPause)
@@ -219,7 +219,7 @@ namespace DarkGod.Main
         //战斗结算处理
         public void EndBattle(bool isWin, int restHP)
         {
-            SetPauseGame(true);
+            SetPauseGame(false, true);
             //停止背景音乐
             audioSvc.StopBGMusic();
             battleSys.EndBattle(isWin, restHP);

@@ -45,7 +45,7 @@ namespace DarkGod.Main
         public void ClickCloseBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            BattleSys.Instance.battleMgr.SetPauseGame(false);
+            BattleSys.Instance.battleMgr.SetPauseGame(false, false);
             SetWndState(false);
         }
 

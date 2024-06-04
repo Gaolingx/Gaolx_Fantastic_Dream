@@ -68,7 +68,7 @@ namespace DarkGod.Main
         {
             if (GameRoot.Instance.GetGameState() == GameState.FBFight)
             {
-                BattleSys.Instance.battleMgr.SetPauseGame(false);
+                BattleSys.Instance.battleMgr.SetPauseGame(false, false);
             }
             else if (GameRoot.Instance.GetGameState() == GameState.MainCity)
             {
