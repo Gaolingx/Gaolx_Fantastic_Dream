@@ -68,7 +68,8 @@ namespace DarkGod.Main
         {
             if (GameRoot.Instance.GetGameState() == GameState.FBFight)
             {
-                //TODO
+                BattleSys.Instance.EnterMainCity();
+                BattleSys.Instance.DestroyBattle();
             }
             else if (GameRoot.Instance.GetGameState() == GameState.MainCity)
             {

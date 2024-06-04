@@ -48,6 +48,19 @@ namespace DarkGod.Main
             GameRoot.Instance.dynamicWnd.RmvAllHpItemInfo();
         }
 
+        public void EnterMainCity()
+        {
+            MainCitySys.Instance.EnterMainCity();
+        }
+
+        public void DestroyBattle()
+        {
+            SetPlayerCtrlWndState(false);
+            SetBattleEndWndState(FBEndType.None, false);
+            GameRoot.Instance.dynamicWnd.RmvAllHpItemInfo();
+            Destroy(battleMgr.gameObject);
+        }
+
         public void SetPlayerCtrlWndState(bool isActive = true)
         {
             playerCtrlWnd.SetWndState(isActive);
