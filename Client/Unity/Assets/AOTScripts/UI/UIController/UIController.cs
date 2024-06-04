@@ -20,10 +20,7 @@ public class UIController : MonoBehaviour
     private InputAction _esc;
     private InputAction _alt;
 
-    public bool isMainCitySceneLoad = false;
     public bool isPause = false;
-    public string mainCitySceneName = "SceneMainCity";
-    public string FubenSceneName = "SceneOrge";
     public bool _isPressingEsc = false;
     public bool _isPressingAlt = false;
 
@@ -43,32 +40,15 @@ public class UIController : MonoBehaviour
 
     private void Update()
     {
-        isMainCitySceneLoad = IsSceneLoaded(mainCitySceneName) || IsSceneLoaded(FubenSceneName);
-
-        bool esc = Convert.ToBoolean(_esc.ReadValue<float>());
         bool alt = Convert.ToBoolean(_alt.ReadValue<float>());
 
-        if (isMainCitySceneLoad)
+        if (alt && !_isPressingAlt)
         {
-            if (esc && !_isPressingEsc)
-            {
-                isPause = !isPause;
-                _isPressingEsc = true;
-
-            }
-            else if (!esc)
-            {
-                _isPressingEsc = false;
-            }
-
-            if (alt && !_isPressingAlt)
-            {
-                _isPressingAlt = true;
-            }
-            else if (!alt)
-            {
-                _isPressingAlt = false;
-            }
+            _isPressingAlt = true;
+        }
+        else if (!alt)
+        {
+            _isPressingAlt = false;
         }
         else
         {
@@ -112,12 +92,6 @@ public class UIController : MonoBehaviour
 #else
             Application.Quit();
 #endif
-    }
-
-    bool IsSceneLoaded(string sceneName)
-    {
-        Scene scene = SceneManager.GetSceneByName(sceneName);
-        return scene.isLoaded;
     }
 
 }

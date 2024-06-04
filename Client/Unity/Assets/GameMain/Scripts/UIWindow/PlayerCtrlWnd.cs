@@ -18,6 +18,7 @@ namespace DarkGod.Main
         public Transform expPrgTrans;
         public StarterAssetsInputs playerInput;
         public Transform GamePadTrans;
+        public SettingsWnd settingsWnd;
 
         private Vector2 currentDir;
 
@@ -251,6 +252,7 @@ namespace DarkGod.Main
         public void ClickSettingsBtn()
         {
             BattleSys.Instance.battleMgr.SetPauseGame(true);
+            settingsWnd.SetWndState(true);
         }
 
         //ÊÍ·Å¼¼ÄÜ

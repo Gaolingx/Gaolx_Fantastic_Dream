@@ -571,6 +571,7 @@ MonoBehaviour:
   expPrgTrans: {fileID: 1378962314757351}
   playerInput: {fileID: 0}
   GamePadTrans: {fileID: 0}
+  settingsWnd: {fileID: 0}
   imgSk1CD: {fileID: 6660441056791843953}
   txtSk1CD: {fileID: 8429912741715362716}
   imgSk2CD: {fileID: 108545776909717355}
