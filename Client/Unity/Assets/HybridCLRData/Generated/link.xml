@@ -66,6 +66,7 @@
   </assembly>
   <assembly fullname="UnityEngine.AudioModule">
     <type fullname="UnityEngine.AudioClip" preserve="all" />
+    <type fullname="UnityEngine.AudioListener" preserve="all" />
     <type fullname="UnityEngine.AudioSource" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.CoreModule">
@@ -136,6 +137,7 @@
     <type fullname="UnityEngine.ParticleSystem" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.PhysicsModule">
+    <type fullname="UnityEngine.BoxCollider" preserve="all" />
     <type fullname="UnityEngine.CharacterController" preserve="all" />
     <type fullname="UnityEngine.Collider" preserve="all" />
     <type fullname="UnityEngine.CollisionFlags" preserve="all" />
@@ -183,6 +185,7 @@
     <type fullname="System.Action`1" preserve="all" />
     <type fullname="System.Action`2" preserve="all" />
     <type fullname="System.Activator" preserve="all" />
+    <type fullname="System.ArgumentOutOfRangeException" preserve="all" />
     <type fullname="System.Array" preserve="all" />
     <type fullname="System.AsyncCallback" preserve="all" />
     <type fullname="System.Attribute" preserve="all" />
@@ -192,6 +195,8 @@
     <type fullname="System.CodeDom.Compiler.GeneratedCodeAttribute" preserve="all" />
     <type fullname="System.Collections.Generic.Dictionary`2" preserve="all" />
     <type fullname="System.Collections.Generic.Dictionary`2/Enumerator" preserve="all" />
+    <type fullname="System.Collections.Generic.Dictionary`2/KeyCollection" preserve="all" />
+    <type fullname="System.Collections.Generic.Dictionary`2/KeyCollection/Enumerator" preserve="all" />
     <type fullname="System.Collections.Generic.Dictionary`2/ValueCollection" preserve="all" />
     <type fullname="System.Collections.Generic.Dictionary`2/ValueCollection/Enumerator" preserve="all" />
     <type fullname="System.Collections.Generic.IEnumerable`1" preserve="all" />

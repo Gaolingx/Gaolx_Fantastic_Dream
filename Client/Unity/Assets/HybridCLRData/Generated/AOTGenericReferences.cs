@@ -20,11 +20,11 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 
 	// {{ AOT generic types
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask.<>c<DarkGod.Main.ResSvc.<LoadAudioClipAsync>d__9,object>
-	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask.<>c<DarkGod.Main.ResSvc.<LoadCfgDataAsync>d__11,object>
-	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask.<>c<DarkGod.Main.ResSvc.<LoadSpriteAsync>d__12,object>
+	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask.<>c<DarkGod.Main.ResSvc.<LoadCfgDataAsync>d__12,object>
+	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask.<>c<DarkGod.Main.ResSvc.<LoadSpriteAsync>d__13,object>
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask<DarkGod.Main.ResSvc.<LoadAudioClipAsync>d__9,object>
-	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask<DarkGod.Main.ResSvc.<LoadCfgDataAsync>d__11,object>
-	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask<DarkGod.Main.ResSvc.<LoadSpriteAsync>d__12,object>
+	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask<DarkGod.Main.ResSvc.<LoadCfgDataAsync>d__12,object>
+	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask<DarkGod.Main.ResSvc.<LoadSpriteAsync>d__13,object>
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<object>
 	// Cysharp.Threading.Tasks.CompilerServices.IStateMachineRunnerPromise<object>
 	// Cysharp.Threading.Tasks.ITaskPoolNode<object>
@@ -85,6 +85,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// PENet.PESocket<object,object>
 	// System.Action<int>
 	// System.Action<object,int>
+	// System.Action<object,object>
 	// System.Action<object>
 	// System.Collections.Generic.ArraySortHelper<int>
 	// System.Collections.Generic.ArraySortHelper<object>
@@ -174,10 +175,136 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.ObjectModel.ReadOnlyCollection<object>
 	// System.Comparison<int>
 	// System.Comparison<object>
+	// System.Func<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>>
+	// System.Func<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>
+	// System.Func<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>
+	// System.Func<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>
+	// System.Func<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>
+	// System.Func<System.ValueTuple<byte,System.ValueTuple<byte,object>>>
+	// System.Func<System.ValueTuple<byte,object>>
 	// System.Func<int>
+	// System.Func<object,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>>
+	// System.Func<object,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>
+	// System.Func<object,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>
+	// System.Func<object,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>
+	// System.Func<object,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>
+	// System.Func<object,System.ValueTuple<byte,System.ValueTuple<byte,object>>>
+	// System.Func<object,System.ValueTuple<byte,object>>
+	// System.Func<object,object,object>
+	// System.Func<object,object>
+	// System.Func<object>
 	// System.Nullable<UnityEngine.InputSystem.InputAction.CallbackContext>
 	// System.Predicate<int>
 	// System.Predicate<object>
+	// System.Runtime.CompilerServices.AsyncTaskMethodBuilder<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>>>
+	// System.Runtime.CompilerServices.AsyncTaskMethodBuilder<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>>
+	// System.Runtime.CompilerServices.AsyncTaskMethodBuilder<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>
+	// System.Runtime.CompilerServices.AsyncTaskMethodBuilder<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>
+	// System.Runtime.CompilerServices.AsyncTaskMethodBuilder<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>
+	// System.Runtime.CompilerServices.AsyncTaskMethodBuilder<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>
+	// System.Runtime.CompilerServices.AsyncTaskMethodBuilder<System.ValueTuple<byte,System.ValueTuple<byte,object>>>
+	// System.Runtime.CompilerServices.AsyncTaskMethodBuilder<System.ValueTuple<byte,object>>
+	// System.Runtime.CompilerServices.AsyncTaskMethodBuilder<object>
+	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>
+	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>
+	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>
+	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>
+	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter<System.ValueTuple<byte,System.ValueTuple<byte,object>>>
+	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter<System.ValueTuple<byte,object>>
+	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter<object>
+	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>>
+	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>
+	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>
+	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>
+	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>
+	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable<System.ValueTuple<byte,System.ValueTuple<byte,object>>>
+	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable<System.ValueTuple<byte,object>>
+	// System.Runtime.CompilerServices.ConfiguredTaskAwaitable<object>
+	// System.Runtime.CompilerServices.TaskAwaiter<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>>
+	// System.Runtime.CompilerServices.TaskAwaiter<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>
+	// System.Runtime.CompilerServices.TaskAwaiter<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>
+	// System.Runtime.CompilerServices.TaskAwaiter<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>
+	// System.Runtime.CompilerServices.TaskAwaiter<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>
+	// System.Runtime.CompilerServices.TaskAwaiter<System.ValueTuple<byte,System.ValueTuple<byte,object>>>
+	// System.Runtime.CompilerServices.TaskAwaiter<System.ValueTuple<byte,object>>
+	// System.Runtime.CompilerServices.TaskAwaiter<object>
+	// System.Runtime.CompilerServices.ValueTaskAwaiter<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>>>
+	// System.Runtime.CompilerServices.ValueTaskAwaiter<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>>
+	// System.Runtime.CompilerServices.ValueTaskAwaiter<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>
+	// System.Runtime.CompilerServices.ValueTaskAwaiter<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>
+	// System.Runtime.CompilerServices.ValueTaskAwaiter<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>
+	// System.Runtime.CompilerServices.ValueTaskAwaiter<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>
+	// System.Runtime.CompilerServices.ValueTaskAwaiter<System.ValueTuple<byte,System.ValueTuple<byte,object>>>
+	// System.Runtime.CompilerServices.ValueTaskAwaiter<System.ValueTuple<byte,object>>
+	// System.Runtime.CompilerServices.ValueTaskAwaiter<object>
+	// System.Threading.Tasks.ContinuationTaskFromResultTask<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>>
+	// System.Threading.Tasks.ContinuationTaskFromResultTask<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>
+	// System.Threading.Tasks.ContinuationTaskFromResultTask<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>
+	// System.Threading.Tasks.ContinuationTaskFromResultTask<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>
+	// System.Threading.Tasks.ContinuationTaskFromResultTask<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>
+	// System.Threading.Tasks.ContinuationTaskFromResultTask<System.ValueTuple<byte,System.ValueTuple<byte,object>>>
+	// System.Threading.Tasks.ContinuationTaskFromResultTask<System.ValueTuple<byte,object>>
+	// System.Threading.Tasks.ContinuationTaskFromResultTask<object>
+	// System.Threading.Tasks.Sources.IValueTaskSource<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>>>
+	// System.Threading.Tasks.Sources.IValueTaskSource<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>>
+	// System.Threading.Tasks.Sources.IValueTaskSource<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>
+	// System.Threading.Tasks.Sources.IValueTaskSource<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>
+	// System.Threading.Tasks.Sources.IValueTaskSource<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>
+	// System.Threading.Tasks.Sources.IValueTaskSource<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>
+	// System.Threading.Tasks.Sources.IValueTaskSource<System.ValueTuple<byte,System.ValueTuple<byte,object>>>
+	// System.Threading.Tasks.Sources.IValueTaskSource<System.ValueTuple<byte,object>>
+	// System.Threading.Tasks.Sources.IValueTaskSource<object>
+	// System.Threading.Tasks.Task<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>>>
+	// System.Threading.Tasks.Task<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>>
+	// System.Threading.Tasks.Task<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>
+	// System.Threading.Tasks.Task<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>
+	// System.Threading.Tasks.Task<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>
+	// System.Threading.Tasks.Task<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>
+	// System.Threading.Tasks.Task<System.ValueTuple<byte,System.ValueTuple<byte,object>>>
+	// System.Threading.Tasks.Task<System.ValueTuple<byte,object>>
+	// System.Threading.Tasks.Task<object>
+	// System.Threading.Tasks.TaskFactory.<>c__DisplayClass35_0<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>
+	// System.Threading.Tasks.TaskFactory.<>c__DisplayClass35_0<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>
+	// System.Threading.Tasks.TaskFactory.<>c__DisplayClass35_0<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>
+	// System.Threading.Tasks.TaskFactory.<>c__DisplayClass35_0<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>
+	// System.Threading.Tasks.TaskFactory.<>c__DisplayClass35_0<System.ValueTuple<byte,System.ValueTuple<byte,object>>>
+	// System.Threading.Tasks.TaskFactory.<>c__DisplayClass35_0<System.ValueTuple<byte,object>>
+	// System.Threading.Tasks.TaskFactory.<>c__DisplayClass35_0<object>
+	// System.Threading.Tasks.TaskFactory<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>>
+	// System.Threading.Tasks.TaskFactory<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>
+	// System.Threading.Tasks.TaskFactory<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>
+	// System.Threading.Tasks.TaskFactory<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>
+	// System.Threading.Tasks.TaskFactory<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>
+	// System.Threading.Tasks.TaskFactory<System.ValueTuple<byte,System.ValueTuple<byte,object>>>
+	// System.Threading.Tasks.TaskFactory<System.ValueTuple<byte,object>>
+	// System.Threading.Tasks.TaskFactory<object>
+	// System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask.<>c<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>>
+	// System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask.<>c<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>
+	// System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask.<>c<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>
+	// System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask.<>c<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>
+	// System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask.<>c<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>
+	// System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask.<>c<System.ValueTuple<byte,System.ValueTuple<byte,object>>>
+	// System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask.<>c<System.ValueTuple<byte,object>>
+	// System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask.<>c<object>
+	// System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>>>
+	// System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>>
+	// System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>
+	// System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>
+	// System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>
+	// System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>
+	// System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask<System.ValueTuple<byte,System.ValueTuple<byte,object>>>
+	// System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask<System.ValueTuple<byte,object>>
+	// System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask<object>
+	// System.Threading.Tasks.ValueTask<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>>>>
+	// System.Threading.Tasks.ValueTask<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>>>
+	// System.Threading.Tasks.ValueTask<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>>
+	// System.Threading.Tasks.ValueTask<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>
+	// System.Threading.Tasks.ValueTask<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>
+	// System.Threading.Tasks.ValueTask<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>
+	// System.Threading.Tasks.ValueTask<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>
+	// System.Threading.Tasks.ValueTask<System.ValueTuple<byte,System.ValueTuple<byte,object>>>
+	// System.Threading.Tasks.ValueTask<System.ValueTuple<byte,object>>
+	// System.Threading.Tasks.ValueTask<object>
 	// System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>>>>
 	// System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>>>
 	// System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>>
@@ -210,40 +337,40 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	{
 		// object Cinemachine.CinemachineVirtualCamera.GetCinemachineComponent<object>()
 		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,DarkGod.Main.ResSvc.<LoadAudioClipAsync>d__9>(System.Runtime.CompilerServices.TaskAwaiter&,DarkGod.Main.ResSvc.<LoadAudioClipAsync>d__9&)
-		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,DarkGod.Main.ResSvc.<LoadCfgDataAsync>d__11>(System.Runtime.CompilerServices.TaskAwaiter&,DarkGod.Main.ResSvc.<LoadCfgDataAsync>d__11&)
-		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,DarkGod.Main.ResSvc.<LoadSpriteAsync>d__12>(System.Runtime.CompilerServices.TaskAwaiter&,DarkGod.Main.ResSvc.<LoadSpriteAsync>d__12&)
+		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,DarkGod.Main.ResSvc.<LoadCfgDataAsync>d__12>(System.Runtime.CompilerServices.TaskAwaiter&,DarkGod.Main.ResSvc.<LoadCfgDataAsync>d__12&)
+		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,DarkGod.Main.ResSvc.<LoadSpriteAsync>d__13>(System.Runtime.CompilerServices.TaskAwaiter&,DarkGod.Main.ResSvc.<LoadSpriteAsync>d__13&)
 		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<object>.Start<DarkGod.Main.ResSvc.<LoadAudioClipAsync>d__9>(DarkGod.Main.ResSvc.<LoadAudioClipAsync>d__9&)
-		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<object>.Start<DarkGod.Main.ResSvc.<LoadCfgDataAsync>d__11>(DarkGod.Main.ResSvc.<LoadCfgDataAsync>d__11&)
-		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<object>.Start<DarkGod.Main.ResSvc.<LoadSpriteAsync>d__12>(DarkGod.Main.ResSvc.<LoadSpriteAsync>d__12&)
+		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<object>.Start<DarkGod.Main.ResSvc.<LoadCfgDataAsync>d__12>(DarkGod.Main.ResSvc.<LoadCfgDataAsync>d__12&)
+		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<object>.Start<DarkGod.Main.ResSvc.<LoadSpriteAsync>d__13>(DarkGod.Main.ResSvc.<LoadSpriteAsync>d__13&)
 		// object[] System.Array.Empty<object>()
 		// object System.Reflection.CustomAttributeExtensions.GetCustomAttribute<object>(System.Reflection.MemberInfo)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.AudioSvc.<PlayBGMusic>d__18>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.AudioSvc.<PlayBGMusic>d__18&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.AudioSvc.<PlayUIAudio>d__19>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.AudioSvc.<PlayUIAudio>d__19&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.ResSvc.<InitBuyCfg>d__29>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.ResSvc.<InitBuyCfg>d__29&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.ResSvc.<InitGuideCfg>d__22>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.ResSvc.<InitGuideCfg>d__22&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.ResSvc.<InitMapCfg>d__19>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.ResSvc.<InitMapCfg>d__19&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.ResSvc.<InitMonsterCfg>d__47>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.ResSvc.<InitMonsterCfg>d__47&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.ResSvc.<InitNpcCfg>d__35>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.ResSvc.<InitNpcCfg>d__35&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.ResSvc.<InitRDNameCfg>d__16>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.ResSvc.<InitRDNameCfg>d__16&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.ResSvc.<InitSkillActionCfg>d__44>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.ResSvc.<InitSkillActionCfg>d__44&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.ResSvc.<InitSkillCfg>d__38>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.ResSvc.<InitSkillCfg>d__38&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.ResSvc.<InitSkillMoveCfg>d__41>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.ResSvc.<InitSkillMoveCfg>d__41&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.ResSvc.<InitStrongCfg>d__25>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.ResSvc.<InitStrongCfg>d__25&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.ResSvc.<InitTaskRewardCfg>d__32>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.ResSvc.<InitTaskRewardCfg>d__32&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.AudioSvc.<PlayBGMusic>d__23>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.AudioSvc.<PlayBGMusic>d__23&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.AudioSvc.<PlayUIAudio>d__25>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.AudioSvc.<PlayUIAudio>d__25&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.ResSvc.<InitBuyCfg>d__30>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.ResSvc.<InitBuyCfg>d__30&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.ResSvc.<InitGuideCfg>d__23>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.ResSvc.<InitGuideCfg>d__23&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.ResSvc.<InitMapCfg>d__20>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.ResSvc.<InitMapCfg>d__20&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.ResSvc.<InitMonsterCfg>d__48>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.ResSvc.<InitMonsterCfg>d__48&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.ResSvc.<InitNpcCfg>d__36>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.ResSvc.<InitNpcCfg>d__36&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.ResSvc.<InitRDNameCfg>d__17>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.ResSvc.<InitRDNameCfg>d__17&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.ResSvc.<InitSkillActionCfg>d__45>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.ResSvc.<InitSkillActionCfg>d__45&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.ResSvc.<InitSkillCfg>d__39>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.ResSvc.<InitSkillCfg>d__39&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.ResSvc.<InitSkillMoveCfg>d__42>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.ResSvc.<InitSkillMoveCfg>d__42&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.ResSvc.<InitStrongCfg>d__26>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.ResSvc.<InitStrongCfg>d__26&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.ResSvc.<InitTaskRewardCfg>d__33>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.ResSvc.<InitTaskRewardCfg>d__33&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.WindowRoot.<SetSprite>d__17>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.WindowRoot.<SetSprite>d__17&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.AudioSvc.<PlayBGMusic>d__18>(DarkGod.Main.AudioSvc.<PlayBGMusic>d__18&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.AudioSvc.<PlayUIAudio>d__19>(DarkGod.Main.AudioSvc.<PlayUIAudio>d__19&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.ResSvc.<InitBuyCfg>d__29>(DarkGod.Main.ResSvc.<InitBuyCfg>d__29&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.ResSvc.<InitGuideCfg>d__22>(DarkGod.Main.ResSvc.<InitGuideCfg>d__22&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.ResSvc.<InitMapCfg>d__19>(DarkGod.Main.ResSvc.<InitMapCfg>d__19&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.ResSvc.<InitMonsterCfg>d__47>(DarkGod.Main.ResSvc.<InitMonsterCfg>d__47&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.ResSvc.<InitNpcCfg>d__35>(DarkGod.Main.ResSvc.<InitNpcCfg>d__35&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.ResSvc.<InitRDNameCfg>d__16>(DarkGod.Main.ResSvc.<InitRDNameCfg>d__16&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.ResSvc.<InitSkillActionCfg>d__44>(DarkGod.Main.ResSvc.<InitSkillActionCfg>d__44&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.ResSvc.<InitSkillCfg>d__38>(DarkGod.Main.ResSvc.<InitSkillCfg>d__38&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.ResSvc.<InitSkillMoveCfg>d__41>(DarkGod.Main.ResSvc.<InitSkillMoveCfg>d__41&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.ResSvc.<InitStrongCfg>d__25>(DarkGod.Main.ResSvc.<InitStrongCfg>d__25&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.ResSvc.<InitTaskRewardCfg>d__32>(DarkGod.Main.ResSvc.<InitTaskRewardCfg>d__32&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.AudioSvc.<PlayBGMusic>d__23>(DarkGod.Main.AudioSvc.<PlayBGMusic>d__23&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.AudioSvc.<PlayUIAudio>d__25>(DarkGod.Main.AudioSvc.<PlayUIAudio>d__25&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.ResSvc.<InitBuyCfg>d__30>(DarkGod.Main.ResSvc.<InitBuyCfg>d__30&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.ResSvc.<InitGuideCfg>d__23>(DarkGod.Main.ResSvc.<InitGuideCfg>d__23&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.ResSvc.<InitMapCfg>d__20>(DarkGod.Main.ResSvc.<InitMapCfg>d__20&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.ResSvc.<InitMonsterCfg>d__48>(DarkGod.Main.ResSvc.<InitMonsterCfg>d__48&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.ResSvc.<InitNpcCfg>d__36>(DarkGod.Main.ResSvc.<InitNpcCfg>d__36&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.ResSvc.<InitRDNameCfg>d__17>(DarkGod.Main.ResSvc.<InitRDNameCfg>d__17&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.ResSvc.<InitSkillActionCfg>d__45>(DarkGod.Main.ResSvc.<InitSkillActionCfg>d__45&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.ResSvc.<InitSkillCfg>d__39>(DarkGod.Main.ResSvc.<InitSkillCfg>d__39&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.ResSvc.<InitSkillMoveCfg>d__42>(DarkGod.Main.ResSvc.<InitSkillMoveCfg>d__42&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.ResSvc.<InitStrongCfg>d__26>(DarkGod.Main.ResSvc.<InitStrongCfg>d__26&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.ResSvc.<InitTaskRewardCfg>d__33>(DarkGod.Main.ResSvc.<InitTaskRewardCfg>d__33&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.WindowRoot.<SetSprite>d__17>(DarkGod.Main.WindowRoot.<SetSprite>d__17&)
 		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<UnityEngine.Vector2>(UnityEngine.Vector2&)
 		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<float>(float&)

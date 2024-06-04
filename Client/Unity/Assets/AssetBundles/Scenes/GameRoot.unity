@@ -354,10 +354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0948dad2a2dcfd843a7fd87b4e6af960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMainCitySceneLoad: 0
   isPause: 0
-  mainCitySceneName: SceneMainCity
-  FubenSceneName: SceneOrge
   _isPressingEsc: 0
   _isPressingAlt: 0
 --- !u!1001 &565176477
@@ -588,12 +585,12 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!20 &734957266
 Camera:
   m_ObjectHideFlags: 0
