@@ -26,6 +26,7 @@ namespace DarkGod.Main
         public GameObject playerInput;
 
         private GameObject mainCityPlayer;
+        private Transform VirtualCameraFollowTransform;
         //private PlayerController playerCtrl;
         private Transform charCamTrans;
         private AutoGuideCfg curtTaskData;
@@ -107,7 +108,7 @@ namespace DarkGod.Main
                 GameRoot.Instance.SetAudioListener(player.GetComponent<AudioListener>(), true, false);
                 audioSvc.GetCharacterAudioSourceComponent(player);
 
-
+                VirtualCameraFollowTransform = player.transform.Find(Constants.CinemachineVirtualCameraFollowGameObjectWithTag);
                 mainCityPlayer = player;
             }
         }
@@ -131,7 +132,7 @@ namespace DarkGod.Main
                 //至此，我们终于可以对预制件上面获取到的cinemachineVirtualCamera组件进行操作了...>_<
 
                 // 设置CinemachineVirtualCamera的跟随目标为标签为"PlayerCamRoot"的游戏对象的transform
-                cinemachineVirtualCamera.Follow = GameObject.FindGameObjectWithTag(Constants.CinemachineVirtualCameraFollowGameObjectWithTag).transform;
+                cinemachineVirtualCamera.Follow = cinemachineVirtualCamera.Follow = VirtualCameraFollowTransform;
                 //通过读取配置表设置CinemachineVirtualCamera相裁剪平面
                 cinemachineVirtualCamera.m_Lens.FarClipPlane = Constants.CinemachineVirtualCameraFarClipPlane;
                 cinemachineVirtualCamera.m_Lens.NearClipPlane = Constants.CinemachineVirtualCameraNearClipPlane;

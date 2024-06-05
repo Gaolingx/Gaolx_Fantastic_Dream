@@ -135,6 +135,8 @@ namespace DarkGod.Main
             return go;
         }
 
+
+        private Dictionary<int, GameObject> _InstantiateGameObjectDic = new Dictionary<int, GameObject>();
         public async UniTask<GameObject> LoadGameObjectAsync(string path, Vector3 GameObjectPos, Vector3 GameObjectRota, Vector3 GameObjectScal, bool isLocalPos = false, bool instantiateInWorldSpace = true, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
         {
             var handle = _yooAssetResourcePackage.LoadAssetAsync<GameObject>(path);
@@ -148,11 +150,21 @@ namespace DarkGod.Main
             {
                 go.transform.SetParent(null);
             }
-
             GameRoot.Instance.SetGameObjectTrans(go, GameObjectPos, GameObjectRota, GameObjectScal, isLocalPos);
+
+            _InstantiateGameObjectDic.Add(go.GetInstanceID(), go);
 
             PECommon.Log("Prefab load Async. name:" + go.name + ". path:" + path);
             return go;
+        }
+
+        public void DestroyAllInstantiateGameObject()
+        {
+            foreach (var go in _InstantiateGameObjectDic.Values)
+            {
+                Destroy(go);
+            }
+            _InstantiateGameObjectDic.Clear();
         }
 
         public async UniTask<TextAsset> LoadCfgDataAsync(string path)

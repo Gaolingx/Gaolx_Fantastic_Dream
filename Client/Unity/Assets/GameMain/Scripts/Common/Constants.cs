@@ -135,7 +135,7 @@ namespace DarkGod.Main
         //PlayerFollowCamera标签
         public const string PlayerFollowCameraWithTag = "PlayerFollowCam";
         //CinemachineVirtualCamera跟随目标的标签
-        public const string CinemachineVirtualCameraFollowGameObjectWithTag = "PlayerCamRoot";
+        public const string CinemachineVirtualCameraFollowGameObjectWithTag = "PlayerCameraRoot";
         //CinemachineVirtualCamera裁剪平面
         public const float CinemachineVirtualCameraNearClipPlane = 0.2f;
         public const float CinemachineVirtualCameraFarClipPlane = 15000;

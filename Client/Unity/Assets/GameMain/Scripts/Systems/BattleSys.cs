@@ -90,6 +90,8 @@ namespace DarkGod.Main
             SetBattleEndWndState(FBEndType.None, false);
             GameRoot.Instance.dynamicWnd.RmvAllHpItemInfo();
             Destroy(battleMgr.gameObject);
+            resSvc.DestroyAllInstantiateGameObject();
+            GameRoot.Instance.SetAudioListener(null, false, true);
         }
 
         public void SetPlayerCtrlWndState(bool isActive = true)

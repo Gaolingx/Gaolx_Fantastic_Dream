@@ -200,7 +200,10 @@ namespace DarkGod.Main
             {
                 gameRoot.gameObject.GetComponent<AudioListener>().enabled = stateGameRoot;
             }
-            playerAudioListener.enabled = statePlayer;
+            if (playerAudioListener != null)
+            {
+                playerAudioListener.enabled = statePlayer;
+            }
         }
 
     }

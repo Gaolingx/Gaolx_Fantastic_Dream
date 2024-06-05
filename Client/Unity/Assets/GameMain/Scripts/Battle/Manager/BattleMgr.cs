@@ -28,6 +28,7 @@ namespace DarkGod.Main
         private ThirdPersonController controller;
         private StarterAssetsInputs starterAssetsInputs;
         private GameObject battlePlayer;
+        private Transform VirtualCameraFollowTransform;
         private MapCfg mapCfg;
         public Transform playerInputObj;
 
@@ -80,6 +81,7 @@ namespace DarkGod.Main
                 GameRoot.Instance.SetAudioListener(player.GetComponent<AudioListener>(), true, false);
                 audioSvc.GetCharacterAudioSourceComponent(player);
 
+                VirtualCameraFollowTransform = player.transform.Find(Constants.CinemachineVirtualCameraFollowGameObjectWithTag);
                 battlePlayer = player;
             }
         }
@@ -94,7 +96,7 @@ namespace DarkGod.Main
             {
                 CinemachineVirtualCamera cinemachineVirtualCamera = CM_player.GetComponent<CinemachineVirtualCamera>();
 
-                cinemachineVirtualCamera.Follow = GameObject.FindGameObjectWithTag(Constants.CinemachineVirtualCameraFollowGameObjectWithTag).transform;
+                cinemachineVirtualCamera.Follow = VirtualCameraFollowTransform;
 
                 cinemachineVirtualCamera.m_Lens.FarClipPlane = Constants.CinemachineVirtualCameraFarClipPlane;
                 cinemachineVirtualCamera.m_Lens.NearClipPlane = Constants.CinemachineVirtualCameraNearClipPlane;
@@ -128,6 +130,9 @@ namespace DarkGod.Main
                 mapMgr.Init(this);
 
                 GameRoot.Instance.SetGameObjectTrans(mapRoot, Vector3.zero, Vector3.zero, Vector3.one);
+
+                //移除所有实例化的对象
+                resSvc.DestroyAllInstantiateGameObject();
 
                 LoadPlayerInstance(PathDefine.AssissnBattlePlayerPrefab, mapCfg);
                 entitySelfPlayer.StateIdle();
