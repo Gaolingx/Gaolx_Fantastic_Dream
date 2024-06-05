@@ -107,7 +107,7 @@ namespace DarkGod.Main
         }
         #endregion
 
-        public void AddHpItemInfo(string mName, Transform trans, int hp)
+        public async void AddHpItemInfo(string mName, Transform trans, int hp)
         {
             ItemEntityHP item = null;
             if (itemDic.TryGetValue(mName, out item))
@@ -117,9 +117,8 @@ namespace DarkGod.Main
             else
             {
                 //加载对应item，并放入ItemRoot下
-                GameObject go = resSvc.LoadPrefab(PathDefine.HPItemPrefab, true);
+                GameObject go = await resSvc.LoadGameObjectAsync(PathDefine.HPItemPrefab, new Vector3(-1000, 0, 0), Vector3.zero, Vector3.one, true); //默认设置在屏幕外
                 go.transform.SetParent(hpItemRoot);
-                GameRoot.Instance.SetGameObjectTrans(go, new Vector3(-1000, 0, 0), Vector3.zero, Vector3.one, true); //默认设置在屏幕外
                 ItemEntityHP ieh = go.GetComponent<ItemEntityHP>();
                 ieh.InitItemInfo(trans, hp); //将hp设置到Item中
                 monsterTransDic.Add(mName, trans);

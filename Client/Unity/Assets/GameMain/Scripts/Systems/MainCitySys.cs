@@ -63,11 +63,6 @@ namespace DarkGod.Main
                 // 初始化摇杆插件
                 InitGamepad(playerInput.GetComponent<StarterAssetsInputs>());
 
-                GameRoot.Instance.SetAudioListener(mainCityPlayer.GetComponent<AudioListener>(), true, false);
-
-                //配置角色声音源
-                audioSvc.GetCharacterAudioSourceComponent(mainCityPlayer);
-
                 //播放主城背景音乐
                 audioSvc.PlayBGMusic(Constants.BGMainCity);
 
@@ -88,16 +83,14 @@ namespace DarkGod.Main
 
         }
 
-        private void LoadPlayerInstance(string playerPrefabPath, MapCfg mapData)
+        private async void LoadPlayerInstance(string playerPrefabPath, MapCfg mapData)
         {
             //玩家初始化
             //获取Prefab实例化的对象
-            GameObject player = resSvc.LoadPrefab(playerPrefabPath, true);
+            GameObject player = await resSvc.LoadGameObjectAsync(playerPrefabPath, mapData.playerBornPos, mapData.playerBornRote, new Vector3(0.8f, 0.8f, 0.8f));
+
             if (player != null)
             {
-                //初始化玩家位置
-                GameRoot.Instance.SetGameObjectTrans(player, mapData.playerBornPos, mapData.playerBornRote, new Vector3(0.8f, 0.8f, 0.8f));
-
                 //获取player导航组件
                 nav = player.GetComponent<NavMeshAgent>();
 
@@ -111,22 +104,25 @@ namespace DarkGod.Main
                 controller.MoveSpeed = Constants.PlayerMoveSpeed;
                 controller.SprintSpeed = Constants.PlayerSprintSpeed;
 
+                GameRoot.Instance.SetAudioListener(player.GetComponent<AudioListener>(), true, false);
+                audioSvc.GetCharacterAudioSourceComponent(player);
+
+
                 mainCityPlayer = player;
             }
         }
 
-        private void LoadVirtualCameraInstance(string virtualCameraPrefabPath, MapCfg mapData)
+        private async void LoadVirtualCameraInstance(string virtualCameraPrefabPath, MapCfg mapData)
         {
             //相机初始化
             //首先要加载虚拟相机的预制件
-            GameObject CM_player = resSvc.LoadPrefab(virtualCameraPrefabPath, true);
+            //设置实例化对象时候的位置、旋转
+            Vector3 CM_player_Pos = mapData.mainCamPos;
+            Vector3 CM_player_Rote = mapData.mainCamRote;
+            GameObject CM_player = await resSvc.LoadGameObjectAsync(virtualCameraPrefabPath, CM_player_Pos, CM_player_Rote, Vector3.one);
+
             if (CM_player != null)
             {
-
-                //设置实例化对象时候的位置、旋转
-                Vector3 CM_player_Pos = mapData.mainCamPos;
-                Vector3 CM_player_Rote = mapData.mainCamRote;
-                GameRoot.Instance.SetGameObjectTrans(CM_player, CM_player_Pos, CM_player_Rote, Vector3.one);
 
                 // 获取虚拟相机预制件上的CinemachineVirtualCamera组件  
                 CinemachineVirtualCamera cinemachineVirtualCamera = CM_player.GetComponent<CinemachineVirtualCamera>();

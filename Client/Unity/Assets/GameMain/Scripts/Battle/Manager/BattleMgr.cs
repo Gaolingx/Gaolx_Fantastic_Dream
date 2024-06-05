@@ -33,13 +33,12 @@ namespace DarkGod.Main
 
         private Dictionary<string, EntityMonster> monsterDic = new Dictionary<string, EntityMonster>();
 
-        private void LoadPlayerInstance(string playerPrefabPath, MapCfg mapData)
+        private async void LoadPlayerInstance(string playerPrefabPath, MapCfg mapData)
         {
-            GameObject player = resSvc.LoadPrefab(playerPrefabPath, true);
+            GameObject player = await resSvc.LoadGameObjectAsync(playerPrefabPath, mapData.playerBornPos, mapData.playerBornRote, new Vector3(0.8f, 0.8f, 0.8f));
+
             if (player != null)
             {
-                GameRoot.Instance.SetGameObjectTrans(player, mapData.playerBornPos, mapData.playerBornRote, new Vector3(0.8f, 0.8f, 0.8f));
-
                 PlayerData pd = GameRoot.Instance.PlayerData;
                 BattleProps props = new BattleProps
                 {
@@ -77,20 +76,22 @@ namespace DarkGod.Main
 
                 entitySelfPlayer.playerInput = starterAssetsInputs;
 
+                //配置角色声音源
+                GameRoot.Instance.SetAudioListener(player.GetComponent<AudioListener>(), true, false);
+                audioSvc.GetCharacterAudioSourceComponent(player);
+
                 battlePlayer = player;
             }
         }
 
-        private void LoadVirtualCameraInstance(string virtualCameraPrefabPath, MapCfg mapData)
+        private async void LoadVirtualCameraInstance(string virtualCameraPrefabPath, MapCfg mapData)
         {
-            GameObject CM_player = resSvc.LoadPrefab(virtualCameraPrefabPath, true);
+            Vector3 CM_player_Pos = mapData.mainCamPos;
+            Vector3 CM_player_Rote = mapData.mainCamRote;
+            GameObject CM_player = await resSvc.LoadGameObjectAsync(virtualCameraPrefabPath, CM_player_Pos, CM_player_Rote, Vector3.one);
+
             if (CM_player != null)
             {
-
-                Vector3 CM_player_Pos = mapData.mainCamPos;
-                Vector3 CM_player_Rote = mapData.mainCamRote;
-                GameRoot.Instance.SetGameObjectTrans(CM_player, CM_player_Pos, CM_player_Rote, Vector3.one);
-
                 CinemachineVirtualCamera cinemachineVirtualCamera = CM_player.GetComponent<CinemachineVirtualCamera>();
 
                 cinemachineVirtualCamera.Follow = GameObject.FindGameObjectWithTag(Constants.CinemachineVirtualCameraFollowGameObjectWithTag).transform;
@@ -136,10 +137,7 @@ namespace DarkGod.Main
                 //延迟激活第一批次怪物
                 ActiveCurrentBatchMonsters();
 
-                GameRoot.Instance.SetAudioListener(battlePlayer.GetComponent<AudioListener>(), true, false);
-
-                //配置角色声音源
-                audioSvc.GetCharacterAudioSourceComponent(battlePlayer);
+                //切换BGM
                 audioSvc.PlayBGMusic(Constants.BGHuangYe);
 
                 SetEntityPlayer(entitySelfPlayer);
@@ -232,7 +230,7 @@ namespace DarkGod.Main
         }
 
         //通过批次ID生成怪物
-        public void LoadMonsterByWaveID(int wave)
+        public async void LoadMonsterByWaveID(int wave)
         {
             for (int i = 0; i < mapCfg.monsterLst.Count; i++)
             {
@@ -240,8 +238,7 @@ namespace DarkGod.Main
                 //判断是否为对应批次的怪物，是则实例化
                 if (md.mWave == wave)
                 {
-                    GameObject m = resSvc.LoadPrefab(md.mCfg.resPath, true);
-                    GameRoot.Instance.SetGameObjectTrans(m, md.mBornPos, md.mBornRote, Vector3.one);
+                    GameObject m = await resSvc.LoadGameObjectAsync(md.mCfg.resPath, md.mBornPos, md.mBornRote, Vector3.one);
 
                     m.name = "m" + md.mWave + "_" + md.mIndex;
 

@@ -64,15 +64,11 @@ namespace DarkGod.Main
             }
         }
 
-        public GameObject LoadMapNpc(int NpcType)
+        public async void LoadMapNpc(int NpcType)
         {
             GetNpcCfgFromXml(NpcType);
             GetNpcTrans(NpcType);
-            GameObject NPC_GO = resSvc.LoadPrefab(ResPath, true);
-            GameRoot.Instance.SetGameObjectTrans(NPC_GO.gameObject, Transform_NpcID_Position, Transform_NpcID_Rotation, Transform_NpcID_Scale);
-
-            return NPC_GO;
-
+            await resSvc.LoadGameObjectAsync(ResPath, Transform_NpcID_Position, Transform_NpcID_Rotation, Transform_NpcID_Scale);
         }
 
     }

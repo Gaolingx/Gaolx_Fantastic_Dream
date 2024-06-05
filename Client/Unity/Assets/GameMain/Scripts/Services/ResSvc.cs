@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using System.Xml;
 using UnityEditor;
 using UnityEngine;
@@ -121,7 +122,7 @@ namespace DarkGod.Main
         }
 
         //获取Prefab的类
-        public GameObject LoadPrefab(string path, bool iscache = false)
+        public GameObject LoadGameObjectSync(string path, bool iscache = false)
         {
             AssetOperationHandle prefabHandle = null;
             prefabHandle = _yooAssetResourcePackage.LoadAssetSync<GameObject>(path);
@@ -130,7 +131,27 @@ namespace DarkGod.Main
             //prefab加载完成后的实例化
             go = prefabHandle.InstantiateSync();
 
-            PECommon.Log("Prefab load. name:" + go.name + ". path:" + path);
+            PECommon.Log("Prefab load Sync. name:" + go.name + ". path:" + path);
+            return go;
+        }
+
+        public async UniTask<GameObject> LoadGameObjectAsync(string path, Vector3 GameObjectPos, Vector3 GameObjectRota, Vector3 GameObjectScal, bool isLocalPos = false, bool instantiateInWorldSpace = true, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
+        {
+            var handle = _yooAssetResourcePackage.LoadAssetAsync<GameObject>(path);
+
+            await handle.ToUniTask(progress, timing);
+
+            var obj = handle.AssetObject as GameObject;
+            var go = Instantiate(obj, transform);
+
+            if (instantiateInWorldSpace)
+            {
+                go.transform.SetParent(null);
+            }
+
+            GameRoot.Instance.SetGameObjectTrans(go, GameObjectPos, GameObjectRota, GameObjectScal, isLocalPos);
+
+            PECommon.Log("Prefab load Async. name:" + go.name + ". path:" + path);
             return go;
         }
 

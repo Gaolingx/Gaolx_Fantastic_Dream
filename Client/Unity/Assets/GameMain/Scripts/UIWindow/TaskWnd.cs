@@ -23,7 +23,7 @@ namespace DarkGod.Main
             RefreshUI();
         }
 
-        public void RefreshUI()
+        public async void RefreshUI()
         {
             trdLst.Clear();
 
@@ -65,9 +65,8 @@ namespace DarkGod.Main
             //将排序完的trdLst分别实例化Prefab
             for (int i = 0; i < trdLst.Count; i++)
             {
-                GameObject go = resSvc.LoadPrefab(PathDefine.TaskItemPrefab);
+                GameObject go = await resSvc.LoadGameObjectAsync(PathDefine.TaskItemPrefab, Vector3.zero, Vector3.zero, Vector3.one);
                 go.transform.SetParent(scrollTrans);
-                GameRoot.Instance.SetGameObjectTrans(go, Vector3.zero, Vector3.zero, Vector3.one);
                 go.name = "taskItem_" + i;
 
                 TaskRewardData trd = trdLst[i];
