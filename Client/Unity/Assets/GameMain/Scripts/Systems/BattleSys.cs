@@ -1,5 +1,6 @@
 //功能：战斗业务系统
 
+using PEProtocol;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,9 @@ namespace DarkGod.Main
         public BattleMgr battleMgr;
         public Transform playerInputObj;
 
+        private int battleFbid;
+        private double startTime;
+
         public override void InitSys()
         {
             base.InitSys();
@@ -24,6 +28,7 @@ namespace DarkGod.Main
 
         public void StartBattle(int mapid)
         {
+            battleFbid = mapid;
             GameObject go = new GameObject
             {
                 name = "BattleRoot"
@@ -50,6 +55,17 @@ namespace DarkGod.Main
             if (isWin)
             {
                 //战斗胜利，发送结算战斗请求
+                GameMsg msg = new GameMsg
+                {
+                    cmd = (int)CMD.ReqFBFightEnd,
+                    reqFBFightEnd = new ReqFBFightEnd
+                    {
+                        win = isWin,
+                        fbid = battleFbid,
+                        resthp = restHP,
+
+                    }
+                };
             }
             else
             {
