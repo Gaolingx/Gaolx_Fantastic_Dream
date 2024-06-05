@@ -41,7 +41,10 @@ namespace DarkGod.Main
             playerInputObj.gameObject.SetActive(true);
             battleMgr.playerInputObj = playerInputObj;
 
-            battleMgr.Init(mapid);
+            battleMgr.Init(mapid, () =>
+            {
+                startTime = timerSvc.GetNowTime();
+            });
             SetPlayerCtrlWndState();
 
             GameRoot.Instance.SetGameState(GameState.FBFight);
@@ -54,6 +57,7 @@ namespace DarkGod.Main
 
             if (isWin)
             {
+                double endTime = timerSvc.GetNowTime();
                 //战斗胜利，发送结算战斗请求
                 GameMsg msg = new GameMsg
                 {
@@ -63,9 +67,11 @@ namespace DarkGod.Main
                         win = isWin,
                         fbid = battleFbid,
                         resthp = restHP,
-
+                        costtime = (int)((endTime - startTime) / 1000)
                     }
                 };
+
+                netSvc.SendMsg(msg);
             }
             else
             {

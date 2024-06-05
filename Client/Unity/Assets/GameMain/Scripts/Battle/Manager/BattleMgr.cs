@@ -4,6 +4,7 @@
 using Cinemachine;
 using PEProtocol;
 using StarterAssets;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -99,7 +100,7 @@ namespace DarkGod.Main
             }
         }
 
-        public void Init(int mapid)
+        public void Init(int mapid, Action cb = null)
         {
 
             //初始化服务模块
@@ -144,6 +145,11 @@ namespace DarkGod.Main
                 SetEntityPlayer(entitySelfPlayer);
 
                 SetPauseGame(false, false);
+
+                if (cb != null)
+                {
+                    cb();
+                }
             });
         }
 

@@ -9,9 +9,9 @@
 		<playerBornPos>137.5,10,124</playerBornPos>
 		<playerBornRote>0,-5.5,0</playerBornRote>
 		<monsterLst></monsterLst>
-		<exp></exp>
-		<coin></coin>
-		<crystal></crystal>
+		<exp>0</exp>
+		<coin>0</coin>
+		<crystal>0</crystal>
 	</item>
 	<item ID="10001">
 		<mapName>荒野遗迹</mapName>
@@ -33,9 +33,9 @@
 			|1001,313.65,1.29,470.91,88.04,3,2
 			|2001,330.13,0.79,480.48,145.21,1,2
 		</monsterLst>
-		<exp></exp>
-		<coin></coin>
-		<crystal></crystal>
+		<exp>1250</exp>
+		<coin>980</coin>
+		<crystal>48</crystal>
 	</item>
 	<item ID="10002">
 		<mapName>荒野遗迹</mapName>
@@ -57,9 +57,9 @@
 			|1001,313.65,1.29,470.91,88.04,3,2
 			|2001,330.13,0.79,480.48,145.21,1,2
 		</monsterLst>
-		<exp></exp>
-		<coin></coin>
-		<crystal></crystal>
+		<exp>1350</exp>
+		<coin>1080</coin>
+		<crystal>58</crystal>
 	</item>
 	<item ID="10003">
 		<mapName>荒野遗迹</mapName>
@@ -81,9 +81,9 @@
 			|1001,313.65,1.29,470.91,88.04,3,2
 			|2001,330.13,0.79,480.48,145.21,1,2
 		</monsterLst>
-		<exp></exp>
-		<coin></coin>
-		<crystal></crystal>
+		<exp>1450</exp>
+		<coin>1180</coin>
+		<crystal>68</crystal>
 	</item>
 	<item ID="10004">
 		<mapName>荒野遗迹</mapName>
@@ -105,9 +105,9 @@
 			|1001,313.65,1.29,470.91,88.04,3,2
 			|2001,330.13,0.79,480.48,145.21,1,2
 		</monsterLst>
-		<exp></exp>
-		<coin></coin>
-		<crystal></crystal>
+		<exp>1550</exp>
+		<coin>1280</coin>
+		<crystal>78</crystal>
 	</item>
 	<item ID="10005">
 		<mapName>荒野遗迹</mapName>
@@ -129,9 +129,9 @@
 			|1001,313.65,1.29,470.91,88.04,3,2
 			|2001,330.13,0.79,480.48,145.21,1,2
 		</monsterLst>
-		<exp></exp>
-		<coin></coin>
-		<crystal></crystal>
+		<exp>1650</exp>
+		<coin>1380</coin>
+		<crystal>88</crystal>
 	</item>
 	<item ID="10006">
 		<mapName>荒野遗迹</mapName>
@@ -153,8 +153,8 @@
 			|1001,313.65,1.29,470.91,88.04,3,2
 			|2001,330.13,0.79,480.48,145.21,1,2
 		</monsterLst>
-		<exp></exp>
-		<coin></coin>
-		<crystal></crystal>
+		<exp>1750</exp>
+		<coin>1480</coin>
+		<crystal>98</crystal>
 	</item>
 </root>
