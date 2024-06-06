@@ -167,6 +167,31 @@ namespace DarkGod.Main
             _InstantiateGameObjectDic.Clear();
         }
 
+        public GameObject GetGameObjectByInstanceID(int instanceID)
+        {
+            GameObject go = null;
+            if (!_InstantiateGameObjectDic.TryGetValue(instanceID, out go))
+            {
+                PECommon.Log("Not found gameobject by instanceID", PELogType.Warn);
+                return null;
+            }
+            return go;
+        }
+
+        public void DestroyGameObjectByInstanceID(int instanceID)
+        {
+            if (_InstantiateGameObjectDic.ContainsKey(instanceID))
+            {
+                GameObject go = _InstantiateGameObjectDic[instanceID];
+                if (go != null)
+                {
+                    Destroy(go);
+                }
+
+                _InstantiateGameObjectDic.Remove(instanceID);
+            }
+        }
+
         public async UniTask<TextAsset> LoadCfgDataAsync(string path)
         {
             TextAsset textAsset = null;

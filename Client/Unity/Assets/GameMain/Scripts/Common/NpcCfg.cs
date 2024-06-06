@@ -23,6 +23,13 @@ namespace DarkGod.Main
             PECommon.Log("Init NpcCfg...");
         }
 
+        private void InitAllNpcTransformData()
+        {
+            Transform_NpcID_Position = Vector3.zero;
+            Transform_NpcID_Rotation = Vector3.zero;
+            Transform_NpcID_Scale = Vector3.one;
+        }
+
         private void GetNpcCfgFromXml(int npcType)
         {
             npcData = ResSvc.Instance.GetNpcCfg(npcType);
@@ -32,6 +39,8 @@ namespace DarkGod.Main
         //NPC配置
         private void GetNpcTrans(int NpcType)
         {
+            InitAllNpcTransformData();
+
             switch (NpcType)
             {
                 case Constants.NpcTypeID_0:
