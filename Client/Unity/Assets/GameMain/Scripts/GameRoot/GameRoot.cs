@@ -173,6 +173,15 @@ namespace DarkGod.Main
             PlayerData.power = data.power;
         }
 
+        public void SetPlayerDataByFBEnd(RspFBFightEnd data)
+        {
+            PlayerData.coin = data.coin;
+            PlayerData.lv = data.lv;
+            PlayerData.exp = data.exp;
+            PlayerData.crystal = data.crystal;
+            PlayerData.fuben = data.fuben;
+        }
+
         private EntityPlayer entityPlayer = null;
         public void SetCurrentPlayer(EntityPlayer player)
         {

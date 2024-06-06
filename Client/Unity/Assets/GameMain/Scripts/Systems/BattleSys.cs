@@ -105,6 +105,15 @@ namespace DarkGod.Main
             battleEndWnd.SetWndState(isActive);
         }
 
+        public void RspFightEnd(GameMsg msg)
+        {
+            RspFBFightEnd data = msg.rspFBFightEnd;
+            GameRoot.Instance.SetPlayerDataByFBEnd(data);
+
+            battleEndWnd.SetBattleEndData(data.fbid, data.costtime, data.resthp);
+            SetBattleEndWndState(FBEndType.Win);
+        }
+
         public void SetPlayerMoveDir(Vector2 dir)
         {
             if (battleMgr != null)

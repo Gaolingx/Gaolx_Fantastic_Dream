@@ -30,6 +30,18 @@ namespace DarkGod.Main
 
         private FBEndType endType = FBEndType.None;
 
+        #region BattleData
+        private int fbid;
+        private int costtime;
+        private int resthp;
+        public void SetBattleEndData(int fbid, int costtime, int resthp)
+        {
+            this.fbid = fbid;
+            this.costtime = costtime;
+            this.resthp = resthp;
+        }
+        #endregion
+
         protected override void InitWnd()
         {
             base.InitWnd();
@@ -40,6 +52,19 @@ namespace DarkGod.Main
         public void SetWndType(FBEndType endType)
         {
             this.endType = endType;
+        }
+
+        private void ExitCurrentBattle(bool enterFubenWndIfNeed = false)
+        {
+            if (GameRoot.Instance.GetGameState() == GameState.FBFight)
+            {
+                BattleSys.Instance.EnterMainCity();
+                BattleSys.Instance.DestroyBattle();
+            }
+            else if (GameRoot.Instance.GetGameState() == GameState.MainCity)
+            {
+                GameRoot.AddTips("当前未处于副本战斗关卡");
+            }
         }
 
         public void ClickCloseBtn()
@@ -64,23 +89,13 @@ namespace DarkGod.Main
             ExitCurrentBattle();
         }
 
-        private void ExitCurrentBattle(bool enterFubenWndIfNeed = false)
-        {
-            if (GameRoot.Instance.GetGameState() == GameState.FBFight)
-            {
-                BattleSys.Instance.EnterMainCity();
-                BattleSys.Instance.DestroyBattle();
-            }
-            else if (GameRoot.Instance.GetGameState() == GameState.MainCity)
-            {
-                GameRoot.AddTips("当前未处于副本战斗关卡");
-            }
-        }
-
         public void ClickSureBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
             //进入主城，销毁当前战斗，打开副本界面
+            ExitCurrentBattle();
+            //打开副本界面
+            FubenSys.Instance.EnterFuben();
         }
 
         private bool FBEndTypePause()
