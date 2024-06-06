@@ -66,6 +66,11 @@ namespace DarkGod.Main
         public Vector3 playerBornPos; //玩家出生位置
         public Vector3 playerBornRote;
         public List<MonsterData> monsterLst;
+
+        //Reward Data
+        public int coin;
+        public int exp;
+        public int crystal;
     }
 
     //任务奖励配置

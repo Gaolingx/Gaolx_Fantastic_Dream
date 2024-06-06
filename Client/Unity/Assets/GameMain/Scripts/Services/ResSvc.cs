@@ -382,6 +382,15 @@ namespace DarkGod.Main
                                     }
                                 }
                                 break;
+                            case "coin":
+                                mapCfg.coin = int.Parse(e.InnerText);
+                                break;
+                            case "exp":
+                                mapCfg.exp = int.Parse(e.InnerText);
+                                break;
+                            case "crystal":
+                                mapCfg.crystal = int.Parse(e.InnerText);
+                                break;
                         }
                     }
                     mapCfgDataDic.Add(ID, mapCfg);

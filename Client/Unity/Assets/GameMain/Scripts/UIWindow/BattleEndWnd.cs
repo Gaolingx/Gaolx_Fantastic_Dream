@@ -108,6 +108,36 @@ namespace DarkGod.Main
         }
         private bool FBEndTypeWin()
         {
+            SetActive(rewardTrans, false);
+            SetActive(btnExit.gameObject, false);
+            SetActive(btnClose.gameObject, false);
+
+            MapCfg cfg = resSvc.GetMapCfg(fbid);
+            int min = costtime / 60;
+            int sec = costtime % 60;
+            int coin = cfg.coin;
+            int exp = cfg.exp;
+            int crystal = cfg.crystal;
+            SetText(txtTime, "通关时间：" + min + ":" + sec);
+            SetText(txtRestHP, "剩余血量：" + resthp);
+            SetText(txtReward, "关卡奖励：" + GetTextWithHexColor(coin + "金币 ", TextColorCode.Green) + GetTextWithHexColor(exp + "经验 ", TextColorCode.Yellow) + GetTextWithHexColor(crystal + "水晶", TextColorCode.Blue));
+
+            timerSvc.AddTimeTask((int tid) => {
+                SetActive(rewardTrans);
+                ani.Play();
+                timerSvc.AddTimeTask((int tid1) => {
+                    audioSvc.PlayUIAudio(Constants.FBItemEnter);
+                    timerSvc.AddTimeTask((int tid2) => {
+                        audioSvc.PlayUIAudio(Constants.FBItemEnter);
+                        timerSvc.AddTimeTask((int tid3) => {
+                            audioSvc.PlayUIAudio(Constants.FBItemEnter);
+                            timerSvc.AddTimeTask((int tid5) => {
+                                audioSvc.PlayUIAudio(Constants.FBLogoEnter);
+                            }, 300);
+                        }, 270);
+                    }, 270);
+                }, 325);
+            }, 1000);
             return true;
         }
         private bool FBEndTypeLose()
