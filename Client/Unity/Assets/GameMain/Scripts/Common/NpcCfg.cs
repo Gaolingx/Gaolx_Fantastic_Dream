@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Xml.Linq;
+using UnityEngine;
 
 namespace DarkGod.Main
 {
@@ -8,13 +9,14 @@ namespace DarkGod.Main
         public static ResSvc resSvc = null;
 
         #region Npc Data
-        private string ResPath;
-        private Vector3 Transform_NpcID_Position;
-        private Vector3 Transform_NpcID_Rotation;
-        private Vector3 Transform_NpcID_Scale;
+        private class NpcTransform
+        {
+            public Vector3 Transform_NpcID_Position;
+            public Vector3 Transform_NpcID_Rotation;
+            public Vector3 Transform_NpcID_Scale;
+        }
 
         #endregion
-        private NpcData npcData;
 
         public void InitCfg()
         {
@@ -23,61 +25,39 @@ namespace DarkGod.Main
             PECommon.Log("Init NpcCfg...");
         }
 
-        private void InitAllNpcTransformData()
+        private NpcData GetNpcCfgFromXml(int npcType)
         {
-            Transform_NpcID_Position = Vector3.zero;
-            Transform_NpcID_Rotation = Vector3.zero;
-            Transform_NpcID_Scale = Vector3.one;
+            NpcData npcData = ResSvc.Instance.GetNpcCfg(npcType);
+            return npcData;
         }
 
-        private void GetNpcCfgFromXml(int npcType)
+        private NpcTransform BuildNpcTransform(NpcData npcData)
         {
-            npcData = ResSvc.Instance.GetNpcCfg(npcType);
-        }
+            NpcTransform npcTransform = new NpcTransform();
 
+            npcTransform.Transform_NpcID_Position = new Vector3(npcData.NPC_Transform_Position_X, npcData.NPC_Transform_Position_Y, npcData.NPC_Transform_Position_Z);
+            npcTransform.Transform_NpcID_Rotation = new Vector3(npcData.NPC_Transform_Rotation_X, npcData.NPC_Transform_Rotation_Y, npcData.NPC_Transform_Rotation_Z);
+            npcTransform.Transform_NpcID_Scale = new Vector3(npcData.NPC_Transform_Scale_X, npcData.NPC_Transform_Scale_Y, npcData.NPC_Transform_Scale_Z);
+            return npcTransform;
+        }
 
         //NPC配置
-        private void GetNpcTrans(int NpcType)
+        private NpcTransform GetNpcTrans(NpcData npcData, int NpcType) => NpcType switch
         {
-            InitAllNpcTransformData();
 
-            switch (NpcType)
-            {
-                case Constants.NpcTypeID_0:
-                    ResPath = npcData.npcResPath;
-                    Transform_NpcID_Position = new Vector3(npcData.NPC_Transform_Position_X, npcData.NPC_Transform_Position_Y, npcData.NPC_Transform_Position_Z);
-                    Transform_NpcID_Rotation = new Vector3(npcData.NPC_Transform_Rotation_X, npcData.NPC_Transform_Rotation_Y, npcData.NPC_Transform_Rotation_Z);
-                    Transform_NpcID_Scale = new Vector3(npcData.NPC_Transform_Scale_X, npcData.NPC_Transform_Scale_Y, npcData.NPC_Transform_Scale_Z);
-                    break;
-                case Constants.NpcTypeID_1:
-                    ResPath = npcData.npcResPath;
-                    Transform_NpcID_Position = new Vector3(npcData.NPC_Transform_Position_X, npcData.NPC_Transform_Position_Y, npcData.NPC_Transform_Position_Z);
-                    Transform_NpcID_Rotation = new Vector3(npcData.NPC_Transform_Rotation_X, npcData.NPC_Transform_Rotation_Y, npcData.NPC_Transform_Rotation_Z);
-                    Transform_NpcID_Scale = new Vector3(npcData.NPC_Transform_Scale_X, npcData.NPC_Transform_Scale_Y, npcData.NPC_Transform_Scale_Z);
-                    break;
-                case Constants.NpcTypeID_2:
-                    ResPath = npcData.npcResPath;
-                    Transform_NpcID_Position = new Vector3(npcData.NPC_Transform_Position_X, npcData.NPC_Transform_Position_Y, npcData.NPC_Transform_Position_Z);
-                    Transform_NpcID_Rotation = new Vector3(npcData.NPC_Transform_Rotation_X, npcData.NPC_Transform_Rotation_Y, npcData.NPC_Transform_Rotation_Z);
-                    Transform_NpcID_Scale = new Vector3(npcData.NPC_Transform_Scale_X, npcData.NPC_Transform_Scale_Y, npcData.NPC_Transform_Scale_Z);
-                    break;
-                case Constants.NpcTypeID_3:
-                    ResPath = npcData.npcResPath;
-                    Transform_NpcID_Position = new Vector3(npcData.NPC_Transform_Position_X, npcData.NPC_Transform_Position_Y, npcData.NPC_Transform_Position_Z);
-                    Transform_NpcID_Rotation = new Vector3(npcData.NPC_Transform_Rotation_X, npcData.NPC_Transform_Rotation_Y, npcData.NPC_Transform_Rotation_Z);
-                    Transform_NpcID_Scale = new Vector3(npcData.NPC_Transform_Scale_X, npcData.NPC_Transform_Scale_Y, npcData.NPC_Transform_Scale_Z);
-                    break;
-                default:
-                    PECommon.Log("NPC Type dose not exist. NpcType:" + NpcType, PELogType.Error);
-                    break;
-            }
-        }
+            Constants.NpcTypeID_0 => BuildNpcTransform(npcData),
+            Constants.NpcTypeID_1 => BuildNpcTransform(npcData),
+            Constants.NpcTypeID_2 => BuildNpcTransform(npcData),
+            Constants.NpcTypeID_3 => BuildNpcTransform(npcData),
+            _ => null,
+
+        };
 
         public async void LoadMapNpc(int NpcType)
         {
-            GetNpcCfgFromXml(NpcType);
-            GetNpcTrans(NpcType);
-            await resSvc.LoadGameObjectAsync(ResPath, Transform_NpcID_Position, Transform_NpcID_Rotation, Transform_NpcID_Scale);
+            NpcData data = GetNpcCfgFromXml(NpcType);
+            NpcTransform npcTrans = GetNpcTrans(data, NpcType);
+            await resSvc.LoadGameObjectAsync(data.npcResPath, npcTrans.Transform_NpcID_Position, npcTrans.Transform_NpcID_Rotation, npcTrans.Transform_NpcID_Scale);
         }
 
     }

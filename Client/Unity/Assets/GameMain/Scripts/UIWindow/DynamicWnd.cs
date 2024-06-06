@@ -117,7 +117,7 @@ namespace DarkGod.Main
             else
             {
                 //加载对应item，并放入ItemRoot下
-                GameObject go = await resSvc.LoadGameObjectAsync(PathDefine.HPItemPrefab, new Vector3(-1000, 0, 0), Vector3.zero, Vector3.one, true); //默认设置在屏幕外
+                GameObject go = await resSvc.LoadGameObjectAsync(PathDefine.HPItemPrefab, new Vector3(-1000, 0, 0), Vector3.zero, Vector3.one, true, false); //默认设置在屏幕外
                 go.transform.SetParent(hpItemRoot);
                 ItemEntityHP ieh = go.GetComponent<ItemEntityHP>();
                 ieh.InitItemInfo(trans, hp); //将hp设置到Item中
