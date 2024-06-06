@@ -100,13 +100,14 @@ namespace DarkGod.Main
         }
 
 
-        public async UniTask<AudioClip> LoadAudioClipAsync(string path, bool iscache = false)
+        public async UniTask<AudioClip> LoadAudioClipAsync(string path, bool iscache = false, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
         {
             //“Ù¿÷º”‘ÿ
-            AudioClip audioClip = null;
-            AssetOperationHandle handle = _yooAssetResourcePackage.LoadAssetAsync<AudioClip>(path);
-            await handle.Task;
-            audioClip = handle.AssetObject as AudioClip;
+            var handle = _yooAssetResourcePackage.LoadAssetAsync<AudioClip>(path);
+
+            await handle.ToUniTask(progress, timing);
+
+            var audioClip = handle.AssetObject as AudioClip;
 
             return audioClip;
         }
@@ -192,24 +193,26 @@ namespace DarkGod.Main
             }
         }
 
-        public async UniTask<TextAsset> LoadCfgDataAsync(string path)
+        public async UniTask<TextAsset> LoadCfgDataAsync(string path, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
         {
-            TextAsset textAsset = null;
-            AssetOperationHandle handle = _yooAssetResourcePackage.LoadAssetAsync<TextAsset>(path);
-            await handle.Task;
-            textAsset = handle.AssetObject as TextAsset;
+            var handle = _yooAssetResourcePackage.LoadAssetAsync<TextAsset>(path);
+
+            await handle.ToUniTask(progress, timing);
+
+            var textAsset = handle.AssetObject as TextAsset;
 
             return textAsset;
         }
 
-        public async UniTask<Sprite> LoadSpriteAsync(string path, bool iscache = false)
+        public async UniTask<Sprite> LoadSpriteAsync(string path, bool iscache = false, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
         {
-            Sprite sp = null;
-            AssetOperationHandle handle = _yooAssetResourcePackage.LoadAssetAsync<Sprite>(path);
-            await handle.Task;
-            sp = handle.AssetObject as Sprite;
+            var handle = _yooAssetResourcePackage.LoadAssetAsync<Sprite>(path);
 
-            return sp;
+            await handle.ToUniTask(progress, timing);
+
+            var sprite = handle.AssetObject as Sprite;
+
+            return sprite;
         }
 
         #region InitCfgs
@@ -1075,17 +1078,17 @@ namespace DarkGod.Main
                                 mc.mName = e.InnerText;
                                 break;
                             case "mType":
-                                if(e.InnerText.Equals("1"))
+                                if (e.InnerText.Equals("1"))
                                 {
                                     mc.mType = MonsterType.Normal;
                                 }
-                                else if(e.InnerText.Equals("2"))
+                                else if (e.InnerText.Equals("2"))
                                 {
-                                    mc.mType= MonsterType.Boss;
+                                    mc.mType = MonsterType.Boss;
                                 }
                                 else
                                 {
-                                    PECommon.Log("Monster Type Not Found !",PELogType.Error);
+                                    PECommon.Log("Monster Type Not Found !", PELogType.Error);
                                 }
                                 break;
                             case "isStop":
