@@ -18,6 +18,7 @@
     <type fullname="PEProtocol.PshTaskPrgs" preserve="all" />
     <type fullname="PEProtocol.ReqBuy" preserve="all" />
     <type fullname="PEProtocol.ReqFBFight" preserve="all" />
+    <type fullname="PEProtocol.ReqFBFightEnd" preserve="all" />
     <type fullname="PEProtocol.ReqGuide" preserve="all" />
     <type fullname="PEProtocol.ReqLogin" preserve="all" />
     <type fullname="PEProtocol.ReqRename" preserve="all" />
@@ -25,6 +26,7 @@
     <type fullname="PEProtocol.ReqTakeTaskReward" preserve="all" />
     <type fullname="PEProtocol.RspBuy" preserve="all" />
     <type fullname="PEProtocol.RspFBFight" preserve="all" />
+    <type fullname="PEProtocol.RspFBFightEnd" preserve="all" />
     <type fullname="PEProtocol.RspGuide" preserve="all" />
     <type fullname="PEProtocol.RspLogin" preserve="all" />
     <type fullname="PEProtocol.RspRename" preserve="all" />
@@ -46,6 +48,10 @@
   </assembly>
   <assembly fullname="UniTask">
     <type fullname="Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder`1" preserve="all" />
+    <type fullname="Cysharp.Threading.Tasks.OperationHandleBaseExtensions" preserve="all" />
+    <type fullname="Cysharp.Threading.Tasks.PlayerLoopTiming" preserve="all" />
+    <type fullname="Cysharp.Threading.Tasks.UniTask" preserve="all" />
+    <type fullname="Cysharp.Threading.Tasks.UniTask/Awaiter" preserve="all" />
     <type fullname="Cysharp.Threading.Tasks.UniTask`1" preserve="all" />
     <type fullname="Cysharp.Threading.Tasks.UniTask`1/Awaiter" preserve="all" />
   </assembly>
@@ -217,6 +223,7 @@
     <type fullname="System.Exception" preserve="all" />
     <type fullname="System.IAsyncResult" preserve="all" />
     <type fullname="System.IDisposable" preserve="all" />
+    <type fullname="System.IProgress`1" preserve="all" />
     <type fullname="System.Int32" preserve="all" />
     <type fullname="System.Int64" preserve="all" />
     <type fullname="System.Math" preserve="all" />
@@ -237,7 +244,6 @@
     <type fullname="System.Runtime.CompilerServices.IteratorStateMachineAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.RuntimeHelpers" preserve="all" />
-    <type fullname="System.Runtime.CompilerServices.TaskAwaiter" preserve="all" />
     <type fullname="System.RuntimeFieldHandle" preserve="all" />
     <type fullname="System.RuntimeTypeHandle" preserve="all" />
     <type fullname="System.Security.Permissions.SecurityAction" preserve="all" />
@@ -248,7 +254,6 @@
     <type fullname="System.StringSplitOptions" preserve="all" />
     <type fullname="System.Text.StringBuilder" preserve="all" />
     <type fullname="System.Threading.Monitor" preserve="all" />
-    <type fullname="System.Threading.Tasks.Task" preserve="all" />
     <type fullname="System.Type" preserve="all" />
     <type fullname="System.ValueType" preserve="all" />
     <type fullname="System.Xml.XmlAttribute" preserve="all" />

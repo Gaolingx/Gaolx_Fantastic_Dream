@@ -2,6 +2,7 @@ using HybridCLR;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using YooAsset;
@@ -118,6 +119,7 @@ public class HotFixService : MonoBehaviour
             string defaultHostServer = _hotFixConfig.GetHostServerURL();
             string fallbackHostServer = _hotFixConfig.GetHostServerURL();
             var createParameters = new HostPlayModeParameters();
+            createParameters.DecryptionServices = new GameDecryptionServices();
             createParameters.BuildinQueryServices = new GameQueryServices();
             createParameters.DeliveryQueryServices = new DefaultDeliveryQueryServices();
             createParameters.RemoteServices = new RemoteServices(defaultHostServer, fallbackHostServer);
@@ -127,6 +129,7 @@ public class HotFixService : MonoBehaviour
         else if (PlayMode == EPlayMode.OfflinePlayMode)
         {
             var createParameters = new OfflinePlayModeParameters();
+            createParameters.DecryptionServices = new GameDecryptionServices();
             initializationOperation = _yooAssetResourcePackage.InitializeAsync(createParameters);
         }
         // WebGL运行模式
@@ -135,6 +138,7 @@ public class HotFixService : MonoBehaviour
             string defaultHostServer = _hotFixConfig.GetHostServerURL();
             string fallbackHostServer = _hotFixConfig.GetHostServerURL();
             var createParameters = new WebPlayModeParameters();
+            createParameters.DecryptionServices = new GameDecryptionServices();
             createParameters.BuildinQueryServices = new GameQueryServices();
             createParameters.RemoteServices = new RemoteServices(defaultHostServer, fallbackHostServer);
             initializationOperation = _yooAssetResourcePackage.InitializeAsync(createParameters);
@@ -143,16 +147,18 @@ public class HotFixService : MonoBehaviour
         yield return initializationOperation;
         if (initializationOperation.Status != EOperationStatus.Succeed)
         {
+            _hotFixWindow.SetTips("初始化资源包失败！");
             Debug.LogWarning($"{initializationOperation.Error}");
+            yield break;
         }
     }
 
     private IEnumerator RequestPackageVersion()
     {
-        _hotFixWindow.SetTips("获取最新的资源版本 !");
+        _hotFixWindow.SetTips("获取最新的资源版本！");
         yield return new WaitForSecondsRealtime(0.5f);
 
-        var updatePackageVersionOperation = _yooAssetResourcePackage.UpdatePackageVersionAsync();
+        var updatePackageVersionOperation = _yooAssetResourcePackage.UpdatePackageVersionAsync(_hotFixConfig.appendTimeTicks);
         yield return updatePackageVersionOperation;
 
         if (updatePackageVersionOperation.Status == EOperationStatus.Succeed)
@@ -163,8 +169,10 @@ public class HotFixService : MonoBehaviour
 		}
 		else
 		{
-			Debug.LogWarning(updatePackageVersionOperation.Error);
-		}
+            _hotFixWindow.SetTips("请检查本地网络，获取资源版本失败！");
+            Debug.LogWarning(updatePackageVersionOperation.Error);
+            yield break;
+        }
     }
 
     private IEnumerator RequestPackageManifest()
@@ -172,13 +180,15 @@ public class HotFixService : MonoBehaviour
         _hotFixWindow.SetTips("更新资源清单！");
         yield return new WaitForSecondsRealtime(0.5f);
 
-        bool savePackageVersion = true;
-        var updatePackageManifestOperation = _yooAssetResourcePackage.UpdatePackageManifestAsync(PackageVersion, savePackageVersion);
+        bool autoSaveVersion = true;
+        var updatePackageManifestOperation = _yooAssetResourcePackage.UpdatePackageManifestAsync(PackageVersion, autoSaveVersion);
         yield return updatePackageManifestOperation;
 
         if (updatePackageManifestOperation.Status != EOperationStatus.Succeed)
         {
+            _hotFixWindow.SetTips("请检查本地网络，资源清单更新失败！");
             Debug.LogWarning(updatePackageManifestOperation.Error);
+            yield break;
         }
     }
 
@@ -196,7 +206,7 @@ public class HotFixService : MonoBehaviour
         if (downloader.TotalDownloadCount == 0)
         {
             Debug.Log("Not found any download files !");
-            EnterSangoGameRoot();
+            ClearUnusedCacheFiles(_yooAssetResourcePackage);
         }
         else
         {
@@ -221,9 +231,13 @@ public class HotFixService : MonoBehaviour
     //这个步骤由用户手动执行
     public void RunHotFix()
     {
-        StartCoroutine(RunDownloader(Downloader));
+        StartCoroutine(DownloaderCoroutine());
+    }
+
+    private IEnumerator DownloaderCoroutine()
+    {
+        yield return RunDownloader(Downloader);
         ClearUnusedCacheFiles(_yooAssetResourcePackage);
-        EnterSangoGameRoot();
     }
 
     private IEnumerator RunDownloader(ResourceDownloaderOperation downloader)
@@ -240,12 +254,13 @@ public class HotFixService : MonoBehaviour
 
     private void ClearUnusedCacheFiles(ResourcePackage package)
     {
+        _hotFixWindow.SetTips("清理未使用的缓存文件！");
         var operation = package.ClearUnusedCacheFilesAsync();
         operation.Completed += Operation_Completed;
     }
     private void Operation_Completed(YooAsset.AsyncOperationBase obj)
     {
-        
+        EnterSangoGameRoot();
     }
     #endregion
 
@@ -374,5 +389,70 @@ public class HotFixService : MonoBehaviour
         }
     }
     #endregion
+
+    /// <summary>
+	/// 远端资源地址查询服务类
+	/// </summary>
+	private class RemoteServices : IRemoteServices
+    {
+        private readonly string _defaultHostServer;
+        private readonly string _fallbackHostServer;
+
+        public RemoteServices(string defaultHostServer, string fallbackHostServer)
+        {
+            _defaultHostServer = defaultHostServer;
+            _fallbackHostServer = fallbackHostServer;
+        }
+        string IRemoteServices.GetRemoteMainURL(string fileName)
+        {
+            return $"{_defaultHostServer}/{fileName}";
+        }
+        string IRemoteServices.GetRemoteFallbackURL(string fileName)
+        {
+            return $"{_fallbackHostServer}/{fileName}";
+        }
+    }
+
+    /// <summary>
+    /// 资源文件解密服务类
+    /// </summary>
+    private class GameDecryptionServices : IDecryptionServices
+    {
+        public ulong LoadFromFileOffset(DecryptFileInfo fileInfo)
+        {
+            return 32;
+        }
+
+        public byte[] LoadFromMemory(DecryptFileInfo fileInfo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Stream LoadFromStream(DecryptFileInfo fileInfo)
+        {
+            BundleStream bundleStream = new BundleStream(fileInfo.FilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+            return bundleStream;
+        }
+
+        public uint GetManagedReadBufferSize()
+        {
+            return 1024;
+        }
+    }
+
+    /// <summary>
+    /// 默认的分发资源查询服务类
+    /// </summary>
+    private class DefaultDeliveryQueryServices : IDeliveryQueryServices
+    {
+        public DeliveryFileInfo GetDeliveryFileInfo(string packageName, string fileName)
+        {
+            throw new NotImplementedException();
+        }
+        public bool QueryDeliveryFiles(string packageName, string fileName)
+        {
+            return false;
+        }
+    }
 
 }
