@@ -1013,6 +1013,7 @@ MonoBehaviour:
   _ePlayMode: 2
   hostServerIP: http://100.84.96.104
   appVersion: v1.0
+  appendTimeTicks: 1
 --- !u!114 &963007398
 MonoBehaviour:
   m_ObjectHideFlags: 0
