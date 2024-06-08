@@ -163,7 +163,7 @@ namespace DarkGod.Main
         public const string MapRootGameObjectWithTag = "MapRoot";
 
         //NavMesh≈‰÷√
-        public const float NavNpcDst = 1.5f;
+        public const float NavNpcDst = 0.5f;
         public const float PlayerMoveSpeedNav = 2;
 
         //DialogueWnd≈‰÷√

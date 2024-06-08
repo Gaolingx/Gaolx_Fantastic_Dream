@@ -382,6 +382,7 @@ namespace DarkGod.Main
                     nav.isStopped = true;
                     starterAssetsInputs.move = new Vector2(0, 0);
                     nav.enabled = false;
+                    GameRoot.Instance.EnableInputAction(true);
 
                     OpenGuideWnd();
                 }
@@ -393,6 +394,7 @@ namespace DarkGod.Main
                     nav.enabled = true; //激活导航组件
                     nav.speed = Constants.PlayerMoveSpeedNav; //导航速度
                     nav.SetDestination(npcPosTrans[agc.npcID].position); //设置导航目标点
+                    GameRoot.Instance.EnableInputAction(false); //禁用玩家输入
                     starterAssetsInputs.move = new Vector2(0, 1);
                 }
             }
@@ -421,6 +423,7 @@ namespace DarkGod.Main
                 nav.isStopped = true;
                 starterAssetsInputs.move = new Vector2(0, 0);
                 nav.enabled = false;
+                GameRoot.Instance.EnableInputAction(true);
 
                 OpenGuideWnd();
             }
@@ -434,8 +437,9 @@ namespace DarkGod.Main
                 isNavGuide = false;
 
                 nav.isStopped = true;
-                nav.enabled = false;
                 starterAssetsInputs.move = new Vector2(0, 0);
+                nav.enabled = false;
+                GameRoot.Instance.EnableInputAction(true);
             }
         }
 

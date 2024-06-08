@@ -23,6 +23,7 @@ public class UIController : MonoBehaviour
     public bool isPause = false;
     public bool _isPressingEsc = false;
     public bool _isPressingAlt = false;
+    public bool _isActiveInput = false;
 
 
     private void Start()
@@ -60,7 +61,7 @@ public class UIController : MonoBehaviour
         //Time.timeScale = _isPause ? 0.0f : 1.0f;
         AudioListener.pause = isPause;
 
-        if (isPause || _isPressingAlt)
+        if (isPause || _isPressingAlt || _isActiveInput)
         {
             _player.Disable();
 #if !UNITY_ANDROID
