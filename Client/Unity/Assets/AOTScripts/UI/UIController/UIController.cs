@@ -20,11 +20,30 @@ public class UIController : MonoBehaviour
     private InputAction _esc;
     private InputAction _alt;
 
-    public bool isPause = false;
-    public bool _isPressingEsc = false;
-    public bool _isPressingAlt = false;
-    public bool _isActiveInput = false;
+    private bool _isPause = false;
+    private bool _isPressingEsc = false;
+    private bool _isPressingAlt = false;
+    private bool _isActiveInput = true;
 
+    public bool GetInputState()
+    {
+        return _isActiveInput;
+    }
+
+    public void SetInputState(bool isActiveInput)
+    {
+        _isActiveInput = isActiveInput;
+    }
+
+    public bool GetPauseState()
+    {
+        return _isPause;
+    }
+
+    public void SetPauseState(bool isPause)
+    {
+        _isPause = isPause;
+    }
 
     private void Start()
     {
@@ -59,9 +78,9 @@ public class UIController : MonoBehaviour
 
 
         //Time.timeScale = _isPause ? 0.0f : 1.0f;
-        AudioListener.pause = isPause;
+        AudioListener.pause = _isPause;
 
-        if (isPause || _isPressingAlt || _isActiveInput)
+        if (_isPause || _isPressingAlt || !_isActiveInput)
         {
             _player.Disable();
 #if !UNITY_ANDROID

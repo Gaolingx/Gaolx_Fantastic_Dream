@@ -84,12 +84,12 @@ namespace DarkGod.Main
 
         public void EnableInputAction(bool state)
         {
-            GetEventSystemObject(Constants.EventSystemGOName).GetComponent<UIController>()._isActiveInput = !state;
+            GetEventSystemObject(Constants.EventSystemGOName).GetComponent<UIController>().SetInputState(state);
         }
 
         public void PauseGameUI(bool state = true)
         {
-            GetEventSystemObject(Constants.EventSystemGOName).GetComponent<UIController>().isPause = state;
+            GetEventSystemObject(Constants.EventSystemGOName).GetComponent<UIController>().SetPauseState(state);
         }
 
         public static void AddTips(string tips)
