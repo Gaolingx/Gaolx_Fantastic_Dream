@@ -29,6 +29,7 @@ public class HotFixService : MonoBehaviour
         "Assets/AssetBundles/Scripts/Dlls/System.Xml.dll",
         "Assets/AssetBundles/Scripts/Dlls/UnityEngine.CoreModule.dll",
         "Assets/AssetBundles/Scripts/Dlls/Unity.InputSystem.dll",
+        "Assets/AssetBundles/Scripts/Dlls/DOTween.dll",
         "Assets/AssetBundles/Scripts/Dlls/Cinemachine.dll",
         "Assets/AssetBundles/Scripts/Dlls/PESocket.dll",
         "Assets/AssetBundles/Scripts/Dlls/PEProtocol.dll",
