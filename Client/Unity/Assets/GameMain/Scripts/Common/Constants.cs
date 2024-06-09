@@ -225,7 +225,7 @@ namespace DarkGod.Main
         public static int[] comboArr01 = { 111, 112, 113, 114, 115 };
 
         //EventSystem≈‰÷√
-        public const string EventSystemGOName = "EventSystem";
+        public const string EventSystemGOName = "GameRoot/EventSystem";
 
         //Monster≈‰÷√
         public const int ActiveMonsterDelayTime = 500; //µ•Œª£∫ms

@@ -43,9 +43,6 @@
     <type fullname="PETimeUnit" preserve="all" />
     <type fullname="PETimer" preserve="all" />
   </assembly>
-  <assembly fullname="UIController.Runtime">
-    <type fullname="UIController" preserve="all" />
-  </assembly>
   <assembly fullname="UniTask">
     <type fullname="Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder`1" preserve="all" />
     <type fullname="Cysharp.Threading.Tasks.OperationHandleBaseExtensions" preserve="all" />
@@ -59,8 +56,12 @@
     <type fullname="Unity.AI.Navigation.NavMeshSurface" preserve="all" />
   </assembly>
   <assembly fullname="Unity.InputSystem">
+    <type fullname="UnityEngine.InputSystem.InputAction" preserve="all" />
+    <type fullname="UnityEngine.InputSystem.InputActionAsset" preserve="all" />
+    <type fullname="UnityEngine.InputSystem.InputActionMap" preserve="all" />
     <type fullname="UnityEngine.InputSystem.InputValue" preserve="all" />
     <type fullname="UnityEngine.InputSystem.PlayerInput" preserve="all" />
+    <type fullname="UnityEngine.InputSystem.UI.InputSystemUIInputModule" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.AIModule">
     <type fullname="UnityEngine.AI.NavMeshAgent" preserve="all" />
@@ -161,6 +162,7 @@
     <type fullname="UnityEngine.TextAnchor" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.UI">
+    <type fullname="UnityEngine.EventSystems.EventSystem" preserve="all" />
     <type fullname="UnityEngine.EventSystems.IDragHandler" preserve="all" />
     <type fullname="UnityEngine.EventSystems.IEventSystemHandler" preserve="all" />
     <type fullname="UnityEngine.EventSystems.IPointerClickHandler" preserve="all" />

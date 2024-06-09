@@ -67,29 +67,19 @@ namespace DarkGod.Main
 
         }
 
-        private Dictionary<string, GameObject> goDic = new Dictionary<string, GameObject>();
-        public GameObject GetEventSystemObject(string path, bool iscache = true)
-        {
-            GameObject eventSystem = null;
-            if (!goDic.TryGetValue(path, out eventSystem))
-            {
-                eventSystem = GameObject.Find(path);
-                if (iscache)
-                {
-                    goDic.Add(path, eventSystem);
-                }
-            }
-            return eventSystem;
-        }
-
         public void EnableInputAction(bool state)
         {
-            GetEventSystemObject(Constants.EventSystemGOName).GetComponent<UIController>().SetInputState(state);
+            GetComponent<UIController>()._isInputEnable = state;
         }
 
         public void PauseGameUI(bool state = true)
         {
-            GetEventSystemObject(Constants.EventSystemGOName).GetComponent<UIController>().SetPauseState(state);
+            GetComponent<UIController>()._isPause = state;
+        }
+
+        public UIController GetUIController()
+        {
+            return GetComponent<UIController>();
         }
 
         public static void AddTips(string tips)

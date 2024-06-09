@@ -161,24 +161,11 @@ namespace DarkGod.Main
         public void SetPauseGame(bool stateUI, bool stateAI)
         {
             isPauseGameAI = stateAI;
-            PauseGameLogic(stateUI);
+            GameRoot.Instance.PauseGameUI(stateUI);
         }
         public bool GetPauseGame()
         {
             return isPauseGameAI;
-        }
-
-        private void PauseGameLogic(bool isPause)
-        {
-            // Pause UI
-            if (isPause)
-            {
-                GameRoot.Instance.PauseGameUI(true);
-            }
-            else
-            {
-                GameRoot.Instance.PauseGameUI(false);
-            }
         }
 
         private void Update()

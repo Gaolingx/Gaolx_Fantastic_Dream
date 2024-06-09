@@ -1,3 +1,4 @@
+using DarkGod.Main;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
@@ -28,6 +29,20 @@ namespace StarterAssets
         public bool cursorLocked = true;
         public bool cursorInputForLook = true;
 
+        private void Update()
+        {
+            UIController uiController = GameRoot.Instance.GetUIController();
+            if (uiController._isInputEnable && !uiController._isPause && !uiController._isPressingAlt)
+            {
+                cursorInputForLook = true;
+            }
+            else
+            {
+                cursorInputForLook = false;
+                LookInput(Vector2.zero);
+            }
+        }
+
 #if ENABLE_INPUT_SYSTEM
         public void OnMove(InputValue value)
         {
@@ -36,7 +51,7 @@ namespace StarterAssets
 
         public void OnLook(InputValue value)
         {
-            if(cursorInputForLook)
+            if (cursorInputForLook)
             {
                 LookInput(value.Get<Vector2>());
             }
@@ -51,7 +66,7 @@ namespace StarterAssets
         {
             FlipJumpInput(value.isPressed);
         }
-        
+
         public void OnSprint(InputValue value)
         {
             SprintInput(value.isPressed);
@@ -97,7 +112,7 @@ namespace StarterAssets
         public void MoveInput(Vector2 newMoveDirection)
         {
             move = newMoveDirection;
-        } 
+        }
 
         public void LookInput(Vector2 newLookDirection)
         {
@@ -152,16 +167,6 @@ namespace StarterAssets
         {
             isPause = newGamePauseState;
         }
-
-        private void OnApplicationFocus(bool hasFocus)
-        {
-            SetCursorState(cursorLocked);
-        }
-
-        private void SetCursorState(bool newState)
-        {
-            Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
-        }
     }
-    
+
 }
