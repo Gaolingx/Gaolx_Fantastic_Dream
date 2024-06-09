@@ -1008,7 +1008,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ePlayMode: 2
-  hostServerIP: http://100.84.96.104
+  hostServerIP: http://gaolingxiang.dynv6.net:26660
   appVersion: v1.0
   appendTimeTicks: 1
 --- !u!114 &963007398

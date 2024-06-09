@@ -8,6 +8,7 @@ using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using PEProtocol;
 using UnityEngine.InputSystem.XR;
+using Unity.AI.Navigation;
 
 namespace DarkGod.Main
 {
@@ -32,6 +33,7 @@ namespace DarkGod.Main
         private AutoGuideCfg curtTaskData;
         private Transform[] npcPosTrans;
         private NavMeshAgent nav;
+        [HideInInspector] public NavMeshSurface navMeshSurface;
         private StarterAssetsInputs starterAssetsInputs;
 
         public override void InitSys()
@@ -40,6 +42,7 @@ namespace DarkGod.Main
 
             Instance = this;
             PECommon.Log("Init MainCitySys...");
+            navMeshSurface = null; //防裁剪，故意引用下
         }
 
         public void EnterMainCity()
@@ -410,6 +413,16 @@ namespace DarkGod.Main
             {
                 IsArriveNavPos();
                 //playerCtrl.SetCam();
+            }
+
+            if (starterAssetsInputs != null)
+            {
+                if (starterAssetsInputs.isPause)
+                {
+                    StopNavTask();
+                    OpenSettingsWnd();
+                }
+                starterAssetsInputs.isPause = false;
             }
         }
 
