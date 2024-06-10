@@ -27,7 +27,6 @@ namespace DarkGod.Main
         public TaskWnd taskWnd;
 
         private GameObject mainCityPlayer;
-        private Transform VirtualCameraFollowTransform;
         //private PlayerController playerCtrl;
         private Transform charCamTrans;
         private AutoGuideCfg curtTaskData;
@@ -93,6 +92,29 @@ namespace DarkGod.Main
 
         }
 
+        CinemachineVirtualCamera cinemachineVirtualCamera;
+        private async void LoadVirtualCameraInstance(string virtualCameraPrefabPath, MapCfg mapData)
+        {
+            //相机初始化
+            //首先要加载虚拟相机的预制件
+            //设置实例化对象时候的位置、旋转
+            Vector3 CM_player_Pos = mapData.mainCamPos;
+            Vector3 CM_player_Rote = mapData.mainCamRote;
+            GameObject CM_player = await resSvc.LoadGameObjectAsync(virtualCameraPrefabPath, CM_player_Pos, CM_player_Rote, Vector3.one);
+
+            if (CM_player != null)
+            {
+
+                // 获取虚拟相机预制件上的CinemachineVirtualCamera组件  
+                cinemachineVirtualCamera = CM_player.GetComponent<CinemachineVirtualCamera>();
+
+                //通过读取配置表设置CinemachineVirtualCamera相裁剪平面
+                cinemachineVirtualCamera.m_Lens.FarClipPlane = Constants.CinemachineVirtualCameraFarClipPlane;
+                cinemachineVirtualCamera.m_Lens.NearClipPlane = Constants.CinemachineVirtualCameraNearClipPlane;
+            }
+        }
+
+
         private async void LoadPlayerInstance(string playerPrefabPath, MapCfg mapData)
         {
             //玩家初始化
@@ -112,45 +134,20 @@ namespace DarkGod.Main
                 controller.SetMoveMode(true);
                 controller.MoveSpeed = Constants.PlayerMoveSpeed;
                 controller.SprintSpeed = Constants.PlayerSprintSpeed;
+                controller.playerFollowVirtualCamera = cinemachineVirtualCamera;
 
                 GameRoot.Instance.SetAudioListener(player.GetComponent<AudioListener>(), true, false);
                 audioSvc.GetCharacterAudioSourceComponent(player);
 
-                VirtualCameraFollowTransform = player.transform.Find(Constants.CinemachineVirtualCameraFollowGameObjectWithTag);
+                cinemachineVirtualCamera.Follow = player.transform.Find(Constants.CinemachineVirtualCameraFollowGameObjectWithTag);
                 mainCityPlayer = player;
-            }
-        }
-
-        private async void LoadVirtualCameraInstance(string virtualCameraPrefabPath, MapCfg mapData)
-        {
-            //相机初始化
-            //首先要加载虚拟相机的预制件
-            //设置实例化对象时候的位置、旋转
-            Vector3 CM_player_Pos = mapData.mainCamPos;
-            Vector3 CM_player_Rote = mapData.mainCamRote;
-            GameObject CM_player = await resSvc.LoadGameObjectAsync(virtualCameraPrefabPath, CM_player_Pos, CM_player_Rote, Vector3.one);
-
-            if (CM_player != null)
-            {
-
-                // 获取虚拟相机预制件上的CinemachineVirtualCamera组件  
-                CinemachineVirtualCamera cinemachineVirtualCamera = CM_player.GetComponent<CinemachineVirtualCamera>();
-                //至此，我们应该获取到了预制件上面的cinemachineVirtualCamera（但愿能获取到）组件
-
-                //至此，我们终于可以对预制件上面获取到的cinemachineVirtualCamera组件进行操作了...>_<
-
-                // 设置CinemachineVirtualCamera的跟随目标为标签为"PlayerCamRoot"的游戏对象的transform
-                cinemachineVirtualCamera.Follow = cinemachineVirtualCamera.Follow = VirtualCameraFollowTransform;
-                //通过读取配置表设置CinemachineVirtualCamera相裁剪平面
-                cinemachineVirtualCamera.m_Lens.FarClipPlane = Constants.CinemachineVirtualCameraFarClipPlane;
-                cinemachineVirtualCamera.m_Lens.NearClipPlane = Constants.CinemachineVirtualCameraNearClipPlane;
             }
         }
 
         private void LoadPlayer(MapCfg mapData)
         {
-            LoadPlayerInstance(PathDefine.AssissnCityPlayerPrefab, mapData);
             LoadVirtualCameraInstance(PathDefine.AssissnCityCharacterCameraPrefab, mapData);
+            LoadPlayerInstance(PathDefine.AssissnCityPlayerPrefab, mapData);
         }
 
         private void LoadNpcPrefab()

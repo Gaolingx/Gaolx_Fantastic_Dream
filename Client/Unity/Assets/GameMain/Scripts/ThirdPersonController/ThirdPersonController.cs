@@ -19,8 +19,9 @@ namespace StarterAssets
     public class ThirdPersonController : MonoBehaviour
     {
         public PlayerInput PlayerInput;
-
         public StarterAssetsInputs StarterAssetsInputs;
+
+        public CinemachineVirtualCamera playerFollowVirtualCamera;
 
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
@@ -258,12 +259,6 @@ namespace StarterAssets
         }
         private void ClassStart()
         {
-            _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
-
-            _hasAnimator = TryGetComponent(out _animator);
-            _controller = GetComponent<CharacterController>();
-            _personFollow = GameObject.FindGameObjectWithTag(Constants.PlayerFollowCameraWithTag).GetComponent<CinemachineVirtualCamera>()
-                .GetCinemachineComponent<Cinemachine3rdPersonFollow>();
             if (StarterAssetsInputs == null)
             {
                 _input = GameRoot.Instance.GetStarterAssetsInputs();
@@ -272,6 +267,13 @@ namespace StarterAssets
             {
                 _input = StarterAssetsInputs;
             }
+
+            _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
+
+            _hasAnimator = TryGetComponent(out _animator);
+            _controller = GetComponent<CharacterController>();
+            _personFollow = playerFollowVirtualCamera.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<Cinemachine3rdPersonFollow>();
+
 #if ENABLE_INPUT_SYSTEM 
             _playerInput = SetPlayerInput();
 #else

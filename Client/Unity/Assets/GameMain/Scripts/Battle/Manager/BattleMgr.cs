@@ -28,7 +28,6 @@ namespace DarkGod.Main
         private ThirdPersonController controller;
         private StarterAssetsInputs starterAssetsInputs;
         private GameObject battlePlayer;
-        private Transform VirtualCameraFollowTransform;
         private MapCfg mapCfg;
 
         private Dictionary<string, EntityMonster> monsterDic = new Dictionary<string, EntityMonster>();
@@ -36,6 +35,23 @@ namespace DarkGod.Main
         private void InitPlayerInput()
         {
             starterAssetsInputs = GameRoot.Instance.GetStarterAssetsInputs();
+        }
+
+
+        CinemachineVirtualCamera cinemachineVirtualCamera;
+        private async void LoadVirtualCameraInstance(string virtualCameraPrefabPath, MapCfg mapData)
+        {
+            Vector3 CM_player_Pos = mapData.mainCamPos;
+            Vector3 CM_player_Rote = mapData.mainCamRote;
+            GameObject CM_player = await resSvc.LoadGameObjectAsync(virtualCameraPrefabPath, CM_player_Pos, CM_player_Rote, Vector3.one);
+
+            if (CM_player != null)
+            {
+                cinemachineVirtualCamera = CM_player.GetComponent<CinemachineVirtualCamera>();
+
+                cinemachineVirtualCamera.m_Lens.FarClipPlane = Constants.CinemachineVirtualCameraFarClipPlane;
+                cinemachineVirtualCamera.m_Lens.NearClipPlane = Constants.CinemachineVirtualCameraNearClipPlane;
+            }
         }
 
         private async void LoadPlayerInstance(string playerPrefabPath, MapCfg mapData)
@@ -75,6 +91,7 @@ namespace DarkGod.Main
                 controller.MoveSpeed = Constants.PlayerMoveSpeed;
                 controller.SprintSpeed = Constants.PlayerSprintSpeed;
                 controller.SetMoveMode(false);
+                controller.playerFollowVirtualCamera = cinemachineVirtualCamera;
                 entitySelfPlayer.playerController = controller;
 
                 entitySelfPlayer.playerInput = starterAssetsInputs;
@@ -83,25 +100,8 @@ namespace DarkGod.Main
                 GameRoot.Instance.SetAudioListener(player.GetComponent<AudioListener>(), true, false);
                 audioSvc.GetCharacterAudioSourceComponent(player);
 
-                VirtualCameraFollowTransform = player.transform.Find(Constants.CinemachineVirtualCameraFollowGameObjectWithTag);
+                cinemachineVirtualCamera.Follow = player.transform.Find(Constants.CinemachineVirtualCameraFollowGameObjectWithTag);
                 battlePlayer = player;
-            }
-        }
-
-        private async void LoadVirtualCameraInstance(string virtualCameraPrefabPath, MapCfg mapData)
-        {
-            Vector3 CM_player_Pos = mapData.mainCamPos;
-            Vector3 CM_player_Rote = mapData.mainCamRote;
-            GameObject CM_player = await resSvc.LoadGameObjectAsync(virtualCameraPrefabPath, CM_player_Pos, CM_player_Rote, Vector3.one);
-
-            if (CM_player != null)
-            {
-                CinemachineVirtualCamera cinemachineVirtualCamera = CM_player.GetComponent<CinemachineVirtualCamera>();
-
-                cinemachineVirtualCamera.Follow = VirtualCameraFollowTransform;
-
-                cinemachineVirtualCamera.m_Lens.FarClipPlane = Constants.CinemachineVirtualCameraFarClipPlane;
-                cinemachineVirtualCamera.m_Lens.NearClipPlane = Constants.CinemachineVirtualCameraNearClipPlane;
             }
         }
 
@@ -137,10 +137,12 @@ namespace DarkGod.Main
                 //移除所有实例化的对象
                 resSvc.DestroyAllInstantiateGameObject();
 
+                //加载虚拟相机
+                LoadVirtualCameraInstance(PathDefine.AssissnCityCharacterCameraPrefab, mapCfg);
+
+                //加载玩家实体
                 LoadPlayerInstance(PathDefine.AssissnBattlePlayerPrefab, mapCfg);
                 entitySelfPlayer.StateIdle();
-
-                LoadVirtualCameraInstance(PathDefine.AssissnCityCharacterCameraPrefab, mapCfg);
 
                 //延迟激活第一批次怪物
                 ActiveCurrentBatchMonsters();
