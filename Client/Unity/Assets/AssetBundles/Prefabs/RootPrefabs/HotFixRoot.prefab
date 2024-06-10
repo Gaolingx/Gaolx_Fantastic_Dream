@@ -141,6 +141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadingWnd: {fileID: 1203599176845366138}
   dynamicWnd: {fileID: 6375643048898361130}
+  starterAssetsInputs: {fileID: 138462823115108169}
 --- !u!114 &6139881522633688397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,7 +154,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0948dad2a2dcfd843a7fd87b4e6af960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInput: {fileID: 1789310976533369051}
+  menu: {fileID: 0}
+  touchZone: {fileID: 0}
+  _isPause: 0
+  _isInputEnable: 1
+  _isPressingEsc: 0
+  _isPressingAlt: 0
 --- !u!114 &3859229750392605625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,7 +275,6 @@ MonoBehaviour:
   taskWnd: {fileID: 662377767552011033}
   playerInput: {fileID: 6750698154709388071}
   navMeshSurface: {fileID: 0}
-  inputSystemUIInputModule: {fileID: 0}
 --- !u!114 &8267285274660475252
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace StarterAssets
 {
+    [RequireComponent(typeof(PlayerInput))]
     public class StarterAssetsInputs : MonoBehaviour
     {
         [Header("Character Input Values")]

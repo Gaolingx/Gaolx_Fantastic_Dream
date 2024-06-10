@@ -1,5 +1,6 @@
 //功能：游戏启动入口，初始化各个业务系统
 using PEProtocol;
+using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,8 @@ namespace DarkGod.Main
 
         public LoadingWnd loadingWnd;
         public DynamicWnd dynamicWnd;
+
+        private StarterAssetsInputs starterAssetsInputs;
 
         private void Start()
         {
@@ -34,9 +37,18 @@ namespace DarkGod.Main
             }
         }
 
+        private void InitStarterAssetsInputs()
+        {
+            GameObject go = transform.Find(Constants.Path_PlayerInputs_Obj).gameObject;
+            go.SetActive(true);
+            starterAssetsInputs = go.GetComponent<StarterAssetsInputs>();
+        }
+
         //初始化各个系统和服务模块
         private void Init()
         {
+            InitStarterAssetsInputs();
+
             //注：需要先初始化服务模块
             //服务模块初始化
             NetSvc net = GetComponent<NetSvc>();
@@ -72,9 +84,18 @@ namespace DarkGod.Main
             GetComponent<UIController>()._isInputEnable = state;
         }
 
+        public StarterAssetsInputs GetStarterAssetsInputs()
+        {
+            return starterAssetsInputs;
+        }
+
         public void PauseGameUI(bool state = true)
         {
             GetComponent<UIController>()._isPause = state;
+            if (starterAssetsInputs != null)
+            {
+                starterAssetsInputs.isPause = state;
+            }
         }
 
         public UIController GetUIController()

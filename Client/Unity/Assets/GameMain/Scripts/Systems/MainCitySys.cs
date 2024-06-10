@@ -25,7 +25,6 @@ namespace DarkGod.Main
         public ChatWnd chatWnd;
         public BuyWnd buyWnd;
         public TaskWnd taskWnd;
-        public GameObject playerInput;
 
         private GameObject mainCityPlayer;
         private Transform VirtualCameraFollowTransform;
@@ -44,7 +43,13 @@ namespace DarkGod.Main
             base.InitSys();
 
             Instance = this;
+            InitPlayerInput();
             PECommon.Log("Init MainCitySys...");
+        }
+
+        private void InitPlayerInput()
+        {
+            starterAssetsInputs = GameRoot.Instance.GetStarterAssetsInputs();
         }
 
         public void EnterMainCity()
@@ -56,7 +61,6 @@ namespace DarkGod.Main
             {
                 PECommon.Log("Init MainCitySys...");
 
-                transform.Find(Constants.Path_PlayerInputs_Obj).gameObject.SetActive(true);
                 // 加载游戏主角
                 LoadPlayer(mapData);
 
@@ -67,7 +71,7 @@ namespace DarkGod.Main
                 maincityWnd.SetWndState();
 
                 // 初始化摇杆插件
-                InitGamepad(playerInput.GetComponent<StarterAssetsInputs>());
+                InitGamepad();
 
                 //播放主城背景音乐
                 audioSvc.PlayBGMusic(Constants.BGMainCity);
@@ -102,8 +106,7 @@ namespace DarkGod.Main
 
                 ThirdPersonController controller = player.GetComponent<ThirdPersonController>();
 
-                controller.PlayerInput = playerInput.GetComponent<PlayerInput>();
-                starterAssetsInputs = playerInput.GetComponent<StarterAssetsInputs>();
+                controller.PlayerInput = starterAssetsInputs.gameObject.GetComponent<PlayerInput>();
                 controller.StarterAssetsInputs = starterAssetsInputs;
 
                 controller.SetMoveMode(true);
@@ -159,7 +162,7 @@ namespace DarkGod.Main
 
         }
 
-        private void InitGamepad(StarterAssetsInputs StarterAssetsInputs)
+        private void InitGamepad()
         {
             Transform GamePadTrans = transform.Find(Constants.Path_Joysticks_MainCitySys);
             if (GamePadTrans != null)
@@ -167,7 +170,7 @@ namespace DarkGod.Main
                 GamePadTrans.gameObject.SetActive(true);
                 UICanvasControllerInput uICanvasControllerInput = GamePadTrans.GetComponent<UICanvasControllerInput>();
 
-                uICanvasControllerInput.starterAssetsInputs = StarterAssetsInputs;
+                uICanvasControllerInput.starterAssetsInputs = starterAssetsInputs;
             }
         }
 
@@ -411,12 +414,11 @@ namespace DarkGod.Main
 
             if (starterAssetsInputs != null)
             {
-                if (starterAssetsInputs.isPause)
+                if (starterAssetsInputs.isPause && GameRoot.Instance.GetGameState() == GameState.MainCity)
                 {
                     StopNavTask();
                     OpenSettingsWnd();
                 }
-                starterAssetsInputs.isPause = false;
             }
         }
 

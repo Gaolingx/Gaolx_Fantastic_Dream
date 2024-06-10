@@ -16,7 +16,7 @@ namespace DarkGod.Main
         public Text txtName;
         public Text txtExpPrg;
         public Transform expPrgTrans;
-        public StarterAssetsInputs playerInput;
+        private StarterAssetsInputs playerInput;
         public Transform GamePadTrans;
         public SettingsWnd settingsWnd;
 
@@ -62,8 +62,6 @@ namespace DarkGod.Main
         private int HPSum;
         #endregion
 
-        private StarterAssetsInputs _playerInput;
-
         protected override void InitWnd()
         {
             base.InitWnd();
@@ -77,24 +75,27 @@ namespace DarkGod.Main
 
         private void Update()
         {
-            SetStarterAssetsInputs(playerInput);
-
             float delta = Time.deltaTime;
 
-            if (_playerInput != null)
+            playerInput = GameRoot.Instance.GetStarterAssetsInputs();
+
+            if (playerInput != null)
             {
-                InitGamepad(_playerInput);
+                InitGamepad();
 
                 SetCurrentDir();
 
                 if (GameRoot.Instance.GetCurrentPlayer() != null)
                 {
-                    ListeningTouchEvts();
-                    ListeningClickGamePause();
-                    ListeningClickPlayerNormalAtk();
-                    ListeningClickPlayerSkill01Atk();
-                    ListeningClickPlayerSkill02Atk();
-                    ListeningClickPlayerSkill03Atk();
+                    if (!BattleSys.Instance.battleMgr.GetPauseGame())
+                    {
+                        ListeningTouchEvts();
+                        ListeningClickGamePause();
+                        ListeningClickPlayerNormalAtk();
+                        ListeningClickPlayerSkill01Atk();
+                        ListeningClickPlayerSkill02Atk();
+                        ListeningClickPlayerSkill03Atk();
+                    }
                 }
 
                 UpdateSk1CD(delta);
@@ -112,20 +113,15 @@ namespace DarkGod.Main
             sk3CDTime = resSvc.GetSkillCfg(Constants.SkillID_Mar7th00_skill03).cdTime / 1000.0f;
         }
 
-        private void InitGamepad(StarterAssetsInputs StarterAssetsInputs)
+        private void InitGamepad()
         {
             if (GamePadTrans != null)
             {
                 GamePadTrans.gameObject.SetActive(true);
                 UICanvasControllerInput uICanvasControllerInput = GamePadTrans.GetComponent<UICanvasControllerInput>();
 
-                uICanvasControllerInput.starterAssetsInputs = StarterAssetsInputs;
+                uICanvasControllerInput.starterAssetsInputs = playerInput;
             }
-        }
-
-        private void SetStarterAssetsInputs(StarterAssetsInputs inputs)
-        {
-            _playerInput = inputs;
         }
 
         #region Skill CD
@@ -222,7 +218,7 @@ namespace DarkGod.Main
 
         private void SetCurrentDir()
         {
-            currentDir = _playerInput.move;
+            currentDir = playerInput.move;
         }
 
         public Vector2 GetCurrentDir()
@@ -240,35 +236,38 @@ namespace DarkGod.Main
         //暂停控制
         public void ListeningClickGamePause()
         {
-            if (_playerInput.isPause)
+            if (playerInput.isPause)
             {
-                BattleSys.Instance.battleMgr.SetPauseGame(true, true);
-                BattleSys.Instance.SetBattleEndWndState(FBEndType.Pause);
+                if (!settingsWnd.isActiveAndEnabled)
+                {
+                    BattleSys.Instance.battleMgr.SetPauseGame(true, true);
+                    BattleSys.Instance.SetBattleEndWndState(FBEndType.Pause);
+                }
             }
 
-            _playerInput.isPause = false;
+            //_playerInput.isPause = false;
         }
 
         public void ClickSettingsBtn()
         {
-            BattleSys.Instance.battleMgr.SetPauseGame(true, true);
+            BattleSys.Instance.battleMgr.SetPauseGame(false, true);
             settingsWnd.SetWndState(true);
         }
 
         //释放技能
         public void ListeningClickPlayerNormalAtk()
         {
-            if (_playerInput.normalAtk)
+            if (playerInput.normalAtk)
             {
                 BattleSys.Instance.ReqPlayerReleaseSkill(0);
             }
 
-            _playerInput.normalAtk = false;
+            playerInput.normalAtk = false;
         }
 
         public void ListeningClickPlayerSkill01Atk()
         {
-            if (_playerInput.skill01)
+            if (playerInput.skill01)
             {
                 if (isSk1CD == false && GetCanRlsSkill())
                 {
@@ -281,12 +280,12 @@ namespace DarkGod.Main
                 }
             }
 
-            _playerInput.skill01 = false;
+            playerInput.skill01 = false;
         }
 
         public void ListeningClickPlayerSkill02Atk()
         {
-            if (_playerInput.skill02)
+            if (playerInput.skill02)
             {
                 if (isSk2CD == false && GetCanRlsSkill())
                 {
@@ -299,12 +298,12 @@ namespace DarkGod.Main
                 }
             }
 
-            _playerInput.skill02 = false;
+            playerInput.skill02 = false;
         }
 
         public void ListeningClickPlayerSkill03Atk()
         {
-            if (_playerInput.skill03)
+            if (playerInput.skill03)
             {
                 if (isSk3CD == false && GetCanRlsSkill())
                 {
@@ -317,7 +316,7 @@ namespace DarkGod.Main
                 }
             }
 
-            _playerInput.skill03 = false;
+            playerInput.skill03 = false;
         }
         #endregion
 

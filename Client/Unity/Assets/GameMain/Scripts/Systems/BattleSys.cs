@@ -13,7 +13,6 @@ namespace DarkGod.Main
         public PlayerCtrlWnd playerCtrlWnd;
         public BattleEndWnd battleEndWnd;
         public BattleMgr battleMgr;
-        public Transform playerInputObj;
 
         private int battleFbid;
         private double startTime;
@@ -37,9 +36,6 @@ namespace DarkGod.Main
             //成为GameRoot的子物体
             go.transform.SetParent(GameRoot.Instance.transform);
             battleMgr = go.AddComponent<BattleMgr>();
-
-            playerInputObj.gameObject.SetActive(true);
-            battleMgr.playerInputObj = playerInputObj;
 
             battleMgr.Init(mapid, () =>
             {

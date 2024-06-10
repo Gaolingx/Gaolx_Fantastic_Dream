@@ -30,9 +30,13 @@ namespace DarkGod.Main
         private GameObject battlePlayer;
         private Transform VirtualCameraFollowTransform;
         private MapCfg mapCfg;
-        public Transform playerInputObj;
 
         private Dictionary<string, EntityMonster> monsterDic = new Dictionary<string, EntityMonster>();
+
+        private void InitPlayerInput()
+        {
+            starterAssetsInputs = GameRoot.Instance.GetStarterAssetsInputs();
+        }
 
         private async void LoadPlayerInstance(string playerPrefabPath, MapCfg mapData)
         {
@@ -65,9 +69,7 @@ namespace DarkGod.Main
 
                 controller = player.GetComponent<ThirdPersonController>();
 
-                controller.PlayerInput = playerInputObj.gameObject.GetComponent<PlayerInput>();
-
-                starterAssetsInputs = playerInputObj.gameObject.GetComponent<StarterAssetsInputs>();
+                controller.PlayerInput = starterAssetsInputs.gameObject.GetComponent<PlayerInput>();
                 controller.StarterAssetsInputs = starterAssetsInputs;
 
                 controller.MoveSpeed = Constants.PlayerMoveSpeed;
@@ -105,6 +107,7 @@ namespace DarkGod.Main
 
         public void Init(int mapid, Action cb = null)
         {
+            InitPlayerInput();
 
             //初始化服务模块
             resSvc = ResSvc.Instance;

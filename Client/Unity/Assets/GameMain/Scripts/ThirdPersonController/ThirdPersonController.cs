@@ -234,10 +234,6 @@ namespace StarterAssets
         {
             return PlayerInput;
         }
-        private StarterAssetsInputs SetStarterAssetsInputs()
-        {
-            return StarterAssetsInputs;
-        }
 
         private void SetMove()
         {
@@ -268,7 +264,14 @@ namespace StarterAssets
             _controller = GetComponent<CharacterController>();
             _personFollow = GameObject.FindGameObjectWithTag(Constants.PlayerFollowCameraWithTag).GetComponent<CinemachineVirtualCamera>()
                 .GetCinemachineComponent<Cinemachine3rdPersonFollow>();
-            _input = SetStarterAssetsInputs();
+            if (StarterAssetsInputs == null)
+            {
+                _input = GameRoot.Instance.GetStarterAssetsInputs();
+            }
+            else
+            {
+                _input = StarterAssetsInputs;
+            }
 #if ENABLE_INPUT_SYSTEM 
             _playerInput = SetPlayerInput();
 #else
