@@ -288,6 +288,19 @@ namespace DarkGod.Main
             return null;
         }
 
+        public CharacterController GetCharacterController()
+        {
+            if (playerController != null)
+            {
+                return playerController.GetComponent<CharacterController>();
+            }
+            if (controller != null)
+            {
+                return controller.GetComponent<CharacterController>();
+            }
+            return null;
+        }
+
         //获取当前怪物是否可被中断状态
         public virtual bool GetBreakState()
         {

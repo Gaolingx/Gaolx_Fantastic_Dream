@@ -22,6 +22,7 @@ namespace DarkGod.Main
             entity.SetAction(Constants.ActionDie);
             if (entity.entityType == EntityType.Monster)
             {
+                entity.GetCharacterController().enabled = false;
                 TimerSvc.Instance.AddTimeTask((int tid) =>
                 {
                     entity.SetActive(false);
