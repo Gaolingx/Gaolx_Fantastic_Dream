@@ -120,6 +120,7 @@ namespace DarkGod.Main
             fpsWnd.gameObject.SetActive(false);
             RuntimeHierarchy.gameObject.SetActive(false);
             RuntimeInspector.gameObject.SetActive(false);
+            ActiveDebugItemWnd(false);
         }
 
         public void ClickCloseBtn()

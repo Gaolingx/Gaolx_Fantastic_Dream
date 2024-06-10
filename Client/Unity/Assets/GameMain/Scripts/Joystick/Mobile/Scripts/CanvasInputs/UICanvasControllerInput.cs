@@ -1,3 +1,4 @@
+using DarkGod.Main;
 using UnityEngine;
 
 namespace StarterAssets
@@ -8,9 +9,22 @@ namespace StarterAssets
         [Header("Output")]
         public StarterAssetsInputs starterAssetsInputs;
 
+        private bool cursorInputForLook = false;
+        private void Update()
+        {
+            UIController uiController = GameRoot.Instance.GetUIController();
+            if (uiController != null)
+            {
+                cursorInputForLook = uiController._isInputEnable;
+            }
+        }
+
         public void VirtualMoveInput(Vector2 virtualMoveDirection)
         {
-            starterAssetsInputs.MoveInput(virtualMoveDirection);
+            if (cursorInputForLook)
+            {
+                starterAssetsInputs.MoveInput(virtualMoveDirection);
+            }
         }
 
         public void VirtualLookInput(Vector2 virtualLookDirection)

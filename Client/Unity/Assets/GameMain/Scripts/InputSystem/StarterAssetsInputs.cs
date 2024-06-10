@@ -33,14 +33,17 @@ namespace StarterAssets
         private void Update()
         {
             UIController uiController = GameRoot.Instance.GetUIController();
-            if (uiController._isInputEnable && !uiController._isPause && !uiController._isPressingAlt)
+            if (uiController != null)
             {
-                cursorInputForLook = true;
-            }
-            else
-            {
-                cursorInputForLook = false;
-                LookInput(Vector2.zero);
+                if (uiController._isInputEnable && !uiController._isPause && !uiController._isPressingAlt)
+                {
+                    cursorInputForLook = true;
+                }
+                else
+                {
+                    cursorInputForLook = false;
+                    LookInput(Vector2.zero);
+                }
             }
         }
 

@@ -9,7 +9,6 @@ namespace DarkGod.Main
     {
         public static AudioSvc Instance = null;
 
-        public bool _isTurnOnAudio = true;
         [Range(0, 1)] public float BGAudioVolumeValue, UIAudioVolumeValue, CharacterAudioVolumeValue, CharacterFxAudioVolumeValue;
         public AudioSource BGAudioAudioSource, UIAudioAudioSource, CharacterAudioSource;
         public string[] FootStepsAudioPaths, JumpEffortsAudioPaths, LandingAudioPaths, HitAudioPaths;
@@ -21,17 +20,25 @@ namespace DarkGod.Main
 
         private string bgAudioPath = PathDefine.bgAudioPath;
 
+        private UIController uiController;
+        private bool _isTurnOnAudio;
+
         public void InitSvc()
         {
             Instance = this;
 
             InitAudioClipArray(FootStepsAudioPaths, JumpEffortsAudioPaths, LandingAudioPaths, HitAudioPaths);
+            uiController = GameRoot.Instance.GetUIController();
             PECommon.Log("Init AudioSvc...");
         }
 
         private void Update()
         {
             RefreshAudioSourceVolume();
+            if (uiController != null)
+            {
+                _isTurnOnAudio = !uiController._isPause;
+            }
         }
 
         public void GetCharacterAudioSourceComponent(GameObject playerGO)
