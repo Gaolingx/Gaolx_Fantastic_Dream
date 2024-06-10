@@ -20,7 +20,7 @@ Material:
   - _CUSTOMHEADBONEMODEVARENUM_MMD
   - _CUSTOMOUTLINEVARENUM_MULTIPLY
   - _CUSTOMRIMLIGHTCOLORVARENUM_DISABLE
-  - _CUSTOMRIMLIGHTVARENUM_OVERLAY
+  - _CUSTOMRIMLIGHTVARENUM_DISABLE
   - _CUSTOMRIMSHADOWCOLORVARENUM_DISABLE
   - _CUSTOMRIMSHADOWVARENUM_DISABLE
   - _CUSTOMSPECULARCOLORVARENUM_DISABLE
@@ -195,7 +195,7 @@ Material:
     - _CustomOutlineVarEnum: 1
     - _CustomRampMappingToggle: 1
     - _CustomRimLightColorVarEnum: 0
-    - _CustomRimLightVarEnum: 2
+    - _CustomRimLightVarEnum: 0
     - _CustomRimShadowColorVarEnum: 0
     - _CustomRimShadowVarEnum: 0
     - _CustomSpecularColorVarEnum: 0
@@ -290,7 +290,7 @@ Material:
     - _RimEdgeSoftness5: 0.05
     - _RimEdgeSoftness6: 0.05
     - _RimEdgeSoftness7: 0.05
-    - _RimIntensity: 0.5
+    - _RimIntensity: 0.2
     - _RimIntensityBackFace: 0
     - _RimShadowCt: 1
     - _RimShadowFeather: 0.01

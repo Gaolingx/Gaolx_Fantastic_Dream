@@ -642,6 +642,11 @@ PrefabInstance:
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6067706371471821440, guid: 7a90c701bbadf8243a0366b26010fa5f,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 9729
+      objectReference: {fileID: 0}
     - target: {fileID: 6600975343381301050, guid: 7a90c701bbadf8243a0366b26010fa5f,
         type: 3}
       propertyPath: playerCamera
