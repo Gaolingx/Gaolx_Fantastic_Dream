@@ -83,7 +83,10 @@ namespace StarterAssets
 
         public void OnZoom(InputValue value)
         {
-            ZoomInput(value.Get<float>());
+            if (cursorInputForLook)
+            {
+                ZoomInput(value.Get<float>());
+            }
         }
 
         public void OnAtkSkill01(InputValue value)
