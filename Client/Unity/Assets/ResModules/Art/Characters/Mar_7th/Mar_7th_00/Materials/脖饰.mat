@@ -290,7 +290,7 @@ Material:
     - _RimEdgeSoftness5: 0.05
     - _RimEdgeSoftness6: 0.05
     - _RimEdgeSoftness7: 0.05
-    - _RimIntensity: 0.2
+    - _RimIntensity: 0.5
     - _RimIntensityBackFace: 0
     - _RimShadowCt: 1
     - _RimShadowFeather: 0.01
@@ -314,7 +314,7 @@ Material:
     - _RimShadowWidth7: 1
     - _RimThresholdMax: 0.9
     - _RimThresholdMin: 0.6
-    - _RimWidth: 1
+    - _RimWidth: 0.5
     - _RimWidth0: 1
     - _RimWidth1: 1
     - _RimWidth2: 1

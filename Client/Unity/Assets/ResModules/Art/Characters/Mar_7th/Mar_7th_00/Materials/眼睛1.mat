@@ -24,8 +24,6 @@ Material:
   - _CUSTOMSPECULARVARENUM_DISABLE
   - _CUSTOM_RAMP_MAPPING
   - _OUTLINENORMALCHANNEL_NORMAL
-  - _RIM_LIGHTING_ON
-  - _SPECULAR_ON
   m_InvalidKeywords:
   - _AREA_NONE
   - _FAKE_OUTLINE_ON
@@ -212,7 +210,7 @@ Material:
     - _EmissionMixBaseColorFac: 1
     - _EmissionThreshold: 0.1
     - _EnableOutlineToggle: 0
-    - _EnableSpecular: 1
+    - _EnableSpecular: 0
     - _EnvironmentReflections: 1
     - _ExCheekIntensity: 0
     - _ExShadowIntensity: 0
@@ -388,7 +386,7 @@ Material:
     - _UseLutMapToggle: 0
     - _UseNormalMap: 0
     - _UseRampColor: 1
-    - _UseRimLight: 1
+    - _UseRimLight: 0
     - _UseRimShadow: 0
     - _UseSelfOutline: 0
     - _UseStockings: 0
