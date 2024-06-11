@@ -79,14 +79,14 @@ namespace DarkGod.Main
 
         }
 
-        public void EnableInputAction(bool state)
-        {
-            GetComponent<UIController>()._isInputEnable = state;
-        }
-
         public StarterAssetsInputs GetStarterAssetsInputs()
         {
             return starterAssetsInputs;
+        }
+
+        public void EnableInputAction(bool state)
+        {
+            GetComponent<UIController>()._isInputEnable = state;
         }
 
         public void PauseGameUI(bool state = true)
@@ -95,6 +95,30 @@ namespace DarkGod.Main
             if (starterAssetsInputs != null)
             {
                 starterAssetsInputs.isPause = state;
+            }
+        }
+
+        public void EnablePlayerMove(bool state)
+        {
+            if (starterAssetsInputs != null)
+            {
+                starterAssetsInputs.canMove = state;
+            }
+        }
+
+        private void Update()
+        {
+            UIController uiController = GameRoot.Instance.GetUIController();
+            if (uiController != null)
+            {
+                if (uiController._isInputEnable && !uiController._isPause && !uiController._isPressingAlt)
+                {
+                    starterAssetsInputs.canLook = true;
+                }
+                else
+                {
+                    starterAssetsInputs.canLook = false;
+                }
             }
         }
 

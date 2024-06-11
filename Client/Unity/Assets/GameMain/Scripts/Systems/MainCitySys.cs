@@ -79,7 +79,12 @@ namespace DarkGod.Main
                 GetMapNpcTransform();
 
                 //设置人物展示相机
-                if (charCamTrans != null)
+                if (charCamTrans == null)
+                {
+                    charCamTrans = GameObject.FindGameObjectWithTag(Constants.CharShowCamWithTag).transform;
+                    charCamTrans.gameObject.SetActive(false);
+                }
+                else
                 {
                     charCamTrans.gameObject.SetActive(false);
                 }
@@ -314,17 +319,17 @@ namespace DarkGod.Main
         {
             StopNavTask();
 
-            if (charCamTrans == null)
-            {
-                charCamTrans = GameObject.FindGameObjectWithTag(Constants.CharShowCamWithTag).transform;
-            }
-
             //设置人物展示相机相对位置（主角）、旋转
-            charCamTrans.localPosition = mainCityPlayer.transform.position + mainCityPlayer.transform.forward * Constants.CharShowCamDistanceOffset + new Vector3(0, Constants.CharShowCamHeightOffset, 0);
-            charCamTrans.localEulerAngles = new Vector3(0, 180 + mainCityPlayer.transform.localEulerAngles.y, 0);
-            charCamTrans.localScale = Vector3.one;
-            charCamTrans.gameObject.SetActive(true);
-            infoWnd.SetWndState();
+            if (charCamTrans != null)
+            {
+                charCamTrans.localPosition = mainCityPlayer.transform.position + mainCityPlayer.transform.forward * Constants.CharShowCamDistanceOffset + new Vector3(0, Constants.CharShowCamHeightOffset, 0);
+                charCamTrans.localEulerAngles = new Vector3(0, 180 + mainCityPlayer.transform.localEulerAngles.y, 0);
+                charCamTrans.localScale = Vector3.one;
+                charCamTrans.gameObject.SetActive(true);
+                infoWnd.SetWndState();
+                GameRoot.Instance.EnableInputAction(false);
+                GameRoot.Instance.EnablePlayerMove(false);
+            }
         }
 
         public void CloseInfoWnd()
@@ -333,6 +338,8 @@ namespace DarkGod.Main
             {
                 charCamTrans.gameObject.SetActive(false);
                 infoWnd.SetWndState(false);
+                GameRoot.Instance.EnableInputAction(true);
+                GameRoot.Instance.EnablePlayerMove(true);
             }
         }
 
@@ -380,6 +387,7 @@ namespace DarkGod.Main
                     starterAssetsInputs.move = new Vector2(0, 0);
                     nav.enabled = false;
                     GameRoot.Instance.EnableInputAction(true);
+                    GameRoot.Instance.EnablePlayerMove(true);
 
                     OpenGuideWnd();
                 }
@@ -392,6 +400,7 @@ namespace DarkGod.Main
                     nav.speed = Constants.PlayerMoveSpeedNav; //导航速度
                     nav.SetDestination(npcPosTrans[agc.npcID].position); //设置导航目标点
                     GameRoot.Instance.EnableInputAction(false); //禁用玩家输入
+                    GameRoot.Instance.EnablePlayerMove(false);
                     starterAssetsInputs.move = new Vector2(0, 1);
                 }
             }
@@ -430,6 +439,7 @@ namespace DarkGod.Main
                 starterAssetsInputs.move = new Vector2(0, 0);
                 nav.enabled = false;
                 GameRoot.Instance.EnableInputAction(true);
+                GameRoot.Instance.EnablePlayerMove(true);
 
                 OpenGuideWnd();
             }
@@ -446,6 +456,7 @@ namespace DarkGod.Main
                 starterAssetsInputs.move = new Vector2(0, 0);
                 nav.enabled = false;
                 GameRoot.Instance.EnableInputAction(true);
+                GameRoot.Instance.EnablePlayerMove(true);
             }
         }
 

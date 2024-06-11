@@ -142,8 +142,8 @@ namespace DarkGod.Main
 
         //角色展示相机配置
         public const string CharShowCamWithTag = "CharShowCam";
-        public const float CharShowCamDistanceOffset = 3.8f;
-        public const float CharShowCamHeightOffset = 1.2f;
+        public const float CharShowCamDistanceOffset = 2.8f;
+        public const float CharShowCamHeightOffset = 0.8f;
 
         //玩家信息页模型拖拽速度
         public const float OnDragCharRoateSpeed = 0.4f;

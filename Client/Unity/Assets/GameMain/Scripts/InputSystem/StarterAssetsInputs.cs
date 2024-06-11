@@ -22,6 +22,8 @@ namespace StarterAssets
         public bool skill03;
         public bool normalAtk;
         public bool isPause;
+        public bool canMove = true;
+        public bool canLook = true;
 
         [Header("Movement Settings")]
         public bool analogMovement;
@@ -30,34 +32,28 @@ namespace StarterAssets
         public bool cursorLocked = true;
         public bool cursorInputForLook = true;
 
-        private void Update()
-        {
-            UIController uiController = GameRoot.Instance.GetUIController();
-            if (uiController != null)
-            {
-                if (uiController._isInputEnable && !uiController._isPause && !uiController._isPressingAlt)
-                {
-                    cursorInputForLook = true;
-                }
-                else
-                {
-                    cursorInputForLook = false;
-                    LookInput(Vector2.zero);
-                }
-            }
-        }
-
 #if ENABLE_INPUT_SYSTEM
         public void OnMove(InputValue value)
         {
-            MoveInput(value.Get<Vector2>());
+            if (canMove)
+            {
+                MoveInput(value.Get<Vector2>());
+            }
+            else
+            {
+                MoveInput(Vector2.zero);
+            }
         }
 
         public void OnLook(InputValue value)
         {
-            if (cursorInputForLook)
+            if (canLook)
             {
                 LookInput(value.Get<Vector2>());
+            }
+            else
+            {
+                LookInput(Vector2.zero);
             }
         }
 
@@ -83,7 +79,7 @@ namespace StarterAssets
 
         public void OnZoom(InputValue value)
         {
-            if (cursorInputForLook)
+            if (canLook)
             {
                 ZoomInput(value.Get<float>());
             }

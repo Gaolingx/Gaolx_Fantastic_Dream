@@ -9,19 +9,15 @@ namespace StarterAssets
         [Header("Output")]
         public StarterAssetsInputs starterAssetsInputs;
 
-        private bool cursorInputForLook = false;
+        private bool EnableUICanvasInput = false;
         private void Update()
         {
-            UIController uiController = GameRoot.Instance.GetUIController();
-            if (uiController != null)
-            {
-                cursorInputForLook = uiController._isInputEnable;
-            }
+            EnableUICanvasInput = GameRoot.Instance.GetUIController()._isInputEnable;
         }
 
         public void VirtualMoveInput(Vector2 virtualMoveDirection)
         {
-            if (cursorInputForLook)
+            if (EnableUICanvasInput)
             {
                 starterAssetsInputs.MoveInput(virtualMoveDirection);
             }
@@ -34,37 +30,58 @@ namespace StarterAssets
 
         public void VirtualJumpInput(bool virtualJumpState)
         {
-            starterAssetsInputs.JumpInput(virtualJumpState);
+            if (EnableUICanvasInput)
+            {
+                starterAssetsInputs.JumpInput(virtualJumpState);
+            }
         }
 
         public void VirtualSprintInput(bool virtualSprintState)
         {
-            starterAssetsInputs.SprintInput(virtualSprintState);
+            if (EnableUICanvasInput)
+            {
+                starterAssetsInputs.SprintInput(virtualSprintState);
+            }
         }
 
         public void VirtualSkill01Input(bool virtualSkill01State)
         {
-            starterAssetsInputs.Skill01Input(virtualSkill01State);
+            if (EnableUICanvasInput)
+            {
+                starterAssetsInputs.Skill01Input(virtualSkill01State);
+            }
         }
 
         public void VirtualSkill02Input(bool virtualSkill02State)
         {
-            starterAssetsInputs.Skill02Input(virtualSkill02State);
+            if (EnableUICanvasInput)
+            {
+                starterAssetsInputs.Skill02Input(virtualSkill02State);
+            }
         }
 
         public void VirtualSkill03Input(bool virtualSkill03State)
         {
-            starterAssetsInputs.Skill03Input(virtualSkill03State);
+            if (EnableUICanvasInput)
+            {
+                starterAssetsInputs.Skill03Input(virtualSkill03State);
+            }
         }
 
         public void VirtualNormalAtkInput(bool virtualNormalAtkState)
         {
-            starterAssetsInputs.NormalAtkInput(virtualNormalAtkState);
+            if (EnableUICanvasInput)
+            {
+                starterAssetsInputs.NormalAtkInput(virtualNormalAtkState);
+            }
         }
 
         public void VirtualGamePauseInput(bool virtualGamePauseState)
         {
-            starterAssetsInputs.GamePauseInput(virtualGamePauseState);
+            if (EnableUICanvasInput)
+            {
+                starterAssetsInputs.GamePauseInput(virtualGamePauseState);
+            }
         }
 
     }
