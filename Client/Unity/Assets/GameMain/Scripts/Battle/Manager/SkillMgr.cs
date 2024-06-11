@@ -139,7 +139,7 @@ namespace DarkGod.Main
                 {
                     float criticalRate = 1 + (PETools.RDInt(1, 100, rd) / 100.0f); //暴击倍率
                     dmgSum = (int)criticalRate * dmgSum; //暴击伤害
-                                                         //PECommon.Log("暴击Rate:" + criticalNum + "/" + caster.Props.critical);
+                    //PECommon.Log("暴击Rate:" + criticalNum + "/" + caster.Props.critical);
                     target.SetCritical(dmgSum);
                 }
 
