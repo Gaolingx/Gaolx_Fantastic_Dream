@@ -146,13 +146,13 @@ namespace DarkGod.Main
 
         public GameObject GetGameObjectByInstanceID(int instanceID)
         {
-            GameObject go = null;
-            if (!_InstantiateGameObjectDic.TryGetValue(instanceID, out go))
+            GameObject go;
+            if (_InstantiateGameObjectDic.TryGetValue(instanceID, out go))
             {
-                PECommon.Log("Not found gameobject by instanceID", PELogType.Warn);
-                return null;
+                return go;
             }
-            return go;
+            PECommon.Log("Not found gameobject by instanceID", PELogType.Warn);
+            return null;
         }
 
         public void DestroyGameObjectByInstanceID(int instanceID)
