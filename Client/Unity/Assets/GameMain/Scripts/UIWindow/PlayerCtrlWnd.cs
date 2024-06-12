@@ -250,7 +250,7 @@ namespace DarkGod.Main
 
         public void ClickSettingsBtn()
         {
-            BattleSys.Instance.battleMgr.SetPauseGame(false, true);
+            BattleSys.Instance.battleMgr.SetPauseGame(true, true);
             settingsWnd.SetWndState(true);
         }
 
