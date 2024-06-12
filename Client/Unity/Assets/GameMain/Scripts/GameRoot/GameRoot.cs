@@ -86,12 +86,12 @@ namespace DarkGod.Main
 
         public void EnableInputAction(bool state)
         {
-            GetComponent<UIController>()._isInputEnable = state;
+            GetUIController()._isInputEnable = state;
         }
 
         public void PauseGameUI(bool state = true)
         {
-            GetComponent<UIController>()._isPause = state;
+            GetUIController()._isPause = state;
             if (starterAssetsInputs != null)
             {
                 starterAssetsInputs.isPause = state;
@@ -108,7 +108,7 @@ namespace DarkGod.Main
 
         private void Update()
         {
-            UIController uiController = GameRoot.Instance.GetUIController();
+            UIController uiController = GetUIController();
             if (uiController != null)
             {
                 if (uiController._isInputEnable && !uiController._isPause && !uiController._isPressingAlt)
@@ -125,6 +125,18 @@ namespace DarkGod.Main
         public UIController GetUIController()
         {
             return GetComponent<UIController>();
+        }
+
+        public void SetVsyncState(bool state)
+        {
+            if (state == true)
+            {
+                GetUIController().OnValueChangedVSync(1);
+            }
+            else
+            {
+                GetUIController().OnValueChangedVSync(0);
+            }
         }
 
         public static void AddTips(string tips)

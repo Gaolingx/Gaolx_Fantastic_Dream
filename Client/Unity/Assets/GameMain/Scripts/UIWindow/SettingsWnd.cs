@@ -143,16 +143,7 @@ namespace DarkGod.Main
         public void ClickVsyncBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            if (VsyncSettingsToggle.isOn == true)
-            {
-                QualitySettings.vSyncCount = 1;
-                Debug.Log("已开启垂直同步！");
-            }
-            else
-            {
-                QualitySettings.vSyncCount = 0;
-                Debug.Log("已关闭垂直同步！");
-            }
+            GameRoot.Instance.SetVsyncState(VsyncSettingsToggle.isOn);
         }
 
         //Reload Cfg Data
