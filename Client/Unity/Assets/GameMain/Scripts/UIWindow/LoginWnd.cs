@@ -14,6 +14,7 @@ namespace DarkGod.Main
         public Button btnEnter;
         public Button btnNotice;
         public Toggle btnRemember;  //记住密码选项
+        public Text txtVersion;
 
         private int boolToInt(bool val)
         {
@@ -35,6 +36,8 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
+            SetHotfixVersionWnd();
+
             //获取本地存储的账号密码
             if (PlayerPrefs.HasKey("Acct") && PlayerPrefs.HasKey("Pass") && btnRemember.isOn == true)
             {
@@ -50,6 +53,10 @@ namespace DarkGod.Main
             }
         }
 
+        private void SetHotfixVersionWnd()
+        {
+            txtVersion.text = GameRoot.Instance.GetHotfixVersion();
+        }
 
         /// <summary>
         /// 点击进入游戏

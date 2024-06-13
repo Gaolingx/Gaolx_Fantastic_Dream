@@ -7,7 +7,7 @@ namespace DarkGod.Main
 {
     public class Fps : MonoBehaviour
     {
-        private static string Version = Constants.HotfixBuildVersion;
+        private static string Version = null;
 
         [SerializeField] private Text txtInfo;
 
@@ -43,6 +43,8 @@ namespace DarkGod.Main
 
         private void Awake()
         {
+            Version = GameRoot.Instance.GetHotfixVersion();
+
             if (txtInfo == null)
             {
                 var fm = GameObject.Find("FpsMonitor");

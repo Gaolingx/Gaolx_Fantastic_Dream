@@ -64,7 +64,7 @@ namespace DarkGod.Main
         #endregion
 
         //Hotfix
-        public const string HotfixBuildVersion = "1.0.0";
+        public const string HotfixBuildVersion = "Release_CN_1.1.0";
 
         //Package
         public const string ResourcePackgeName = "DefaultPackage";

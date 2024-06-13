@@ -79,6 +79,11 @@ namespace DarkGod.Main
 
         }
 
+        public string GetHotfixVersion()
+        {
+            return Constants.HotfixBuildVersion;
+        }
+
         public StarterAssetsInputs GetStarterAssetsInputs()
         {
             return starterAssetsInputs;

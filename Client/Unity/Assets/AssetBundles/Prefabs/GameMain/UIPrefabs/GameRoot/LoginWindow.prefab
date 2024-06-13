@@ -561,6 +561,7 @@ MonoBehaviour:
   btnEnter: {fileID: 9103491367409545305}
   btnNotice: {fileID: 3947101746199527226}
   btnRemember: {fileID: 2647563586691162969}
+  txtVersion: {fileID: 1669834055415858440}
 --- !u!1 &1769772776839791751
 GameObject:
   m_ObjectHideFlags: 0

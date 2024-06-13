@@ -195,7 +195,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f0b93f0a08dea742b15d8ed960bb455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isTurnOnAudio: 1
   BGAudioVolumeValue: 0.25
   UIAudioVolumeValue: 0.5
   CharacterAudioVolumeValue: 0.5
@@ -1491,6 +1490,8 @@ MonoBehaviour:
   skill03: 0
   normalAtk: 0
   isPause: 0
+  canMove: 1
+  canLook: 1
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
