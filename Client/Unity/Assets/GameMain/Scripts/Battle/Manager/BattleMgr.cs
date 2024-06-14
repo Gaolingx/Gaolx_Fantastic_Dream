@@ -320,7 +320,12 @@ namespace DarkGod.Main
             //PECommon.Log(dir.ToString());
             if (entitySelfPlayer.CanControl == false)
             {
+                GameRoot.Instance.EnableInputAction(false);
                 return;
+            }
+            else
+            {
+                GameRoot.Instance.EnableInputAction(true);
             }
 
             //判断动画状态
@@ -337,6 +342,7 @@ namespace DarkGod.Main
                 }
             }
         }
+
         public void ReqPlayerReleaseSkill(int skillIndex)
         {
             switch (skillIndex)

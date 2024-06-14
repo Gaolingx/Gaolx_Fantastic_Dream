@@ -16,21 +16,9 @@ namespace DarkGod.Main
         public Toggle btnRemember;  //记住密码选项
         public Text txtVersion;
 
-        private int boolToInt(bool val)
-        {
-            if (val)
-                return 1;
-            else
-                return 0;
-        }
-
-        private bool intToBool(int val)
-        {
-            if (val != 0)
-                return true;
-            else
-                return false;
-        }
+        private string PrefsKeyLoginAccount = "Login_Account";
+        private string PrefsKeyLoginPassword = "Login_Password";
+        private string PrefsKeyLoginRemember = "Login_RememberPass";
 
         protected override void InitWnd()
         {
@@ -38,18 +26,21 @@ namespace DarkGod.Main
 
             SetHotfixVersionWnd();
 
-            //获取本地存储的账号密码
-            if (PlayerPrefs.HasKey("Acct") && PlayerPrefs.HasKey("Pass") && btnRemember.isOn == true)
+            if (PlayerPrefs.HasKey(PrefsKeyLoginRemember))
             {
-                iptAcct.text = PlayerPrefs.GetString("Acct");
-                iptPass.text = PlayerPrefs.GetString("Pass");
-                btnRemember.isOn = intToBool(PlayerPrefs.GetInt("rememberPass", 1));
+                btnRemember.isOn = UIItemUtils.IntToBool(PlayerPrefs.GetInt(PrefsKeyLoginRemember));
+            }
+
+            //获取本地存储的账号密码
+            if (PlayerPrefs.HasKey(PrefsKeyLoginAccount) && PlayerPrefs.HasKey(PrefsKeyLoginPassword) && btnRemember.isOn == true)
+            {
+                iptAcct.text = PlayerPrefs.GetString(PrefsKeyLoginAccount);
+                iptPass.text = PlayerPrefs.GetString(PrefsKeyLoginPassword);
             }
             else
             {
                 iptAcct.text = "";
                 iptPass.text = "";
-                btnRemember.isOn = intToBool(PlayerPrefs.GetInt("rememberPass", 0));
             }
         }
 
@@ -70,9 +61,9 @@ namespace DarkGod.Main
             if (_acct != "" && _pass != "")
             {
                 //更新本地存储的账号密码
-                PlayerPrefs.SetString("Acct", _acct);
-                PlayerPrefs.SetString("Pass", _pass);
-                PlayerPrefs.SetInt("rememberPass", boolToInt(btnRemember.isOn));
+                PlayerPrefs.SetString(PrefsKeyLoginAccount, _acct);
+                PlayerPrefs.SetString(PrefsKeyLoginPassword, _pass);
+                PlayerPrefs.SetInt(PrefsKeyLoginRemember, UIItemUtils.BoolToInt(btnRemember.isOn));
 
                 //发送网络消息，请求登录
                 GameMsg msg = new GameMsg

@@ -120,7 +120,7 @@ namespace DarkGod.Main
             return distance;
         }
 
-
+        // Tween相关
         public static float UpdateMixBlend(float currentPrg, float targetPrg, float accelerHPSpeed, float accelerOffset = 0f)
         {
             if (Mathf.Abs(currentPrg - targetPrg) < (accelerHPSpeed + accelerOffset) * Time.deltaTime)
@@ -153,6 +153,23 @@ namespace DarkGod.Main
                 currentBlend += Constants.AccelerSpeed * Time.deltaTime;
             }
             obj.GetComponent<Animator>().SetFloat(propName, currentBlend);
+        }
+
+        // 类型转换相关
+        public static int BoolToInt(bool val)
+        {
+            if (val)
+                return 1;
+            else
+                return 0;
+        }
+
+        public static bool IntToBool(int val)
+        {
+            if (val != 0)
+                return true;
+            else
+                return false;
         }
     }
 }
