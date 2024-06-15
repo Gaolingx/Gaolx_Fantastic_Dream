@@ -68,23 +68,13 @@ public class HotFixService : MonoBehaviour
 
         _hotFixConfig = GetComponent<HotFixConfig>();
         _hotFixWindow.SetTips("正在检查更新");
-        StartCoroutine(DownLoadAssetsByYooAssets());
+        DownLoadAssetsByYooAssets();
     }
 
-    private IEnumerator DownLoadAssetsByYooAssets()
+    private void DownLoadAssetsByYooAssets()
     {
-        // 1.初始化资源系统
-        yield return InitPackage();
-
-        // 2.获取资源版本
-        yield return RequestPackageVersion();
-
-        // 3.更新补丁清单
-        yield return RequestPackageManifest();
-
-        // 4.下载补丁包
-        yield return PrepareDownloader();
-
+        _hotFixWindow.SetLoadingProgress(0);
+        StartCoroutine(InitPackage());
     }
 
     private IEnumerator InitPackage()
@@ -145,13 +135,10 @@ public class HotFixService : MonoBehaviour
             initializationOperation = _yooAssetResourcePackage.InitializeAsync(createParameters);
         }
 
+        Debug.Log($"Init resource package version : {initializationOperation?.PackageVersion}");
         yield return initializationOperation;
-        if (initializationOperation.Status != EOperationStatus.Succeed)
-        {
-            _hotFixWindow.SetTips("初始化资源包失败！");
-            Debug.LogWarning($"{initializationOperation.Error}");
-            yield break;
-        }
+
+        StartCoroutine(RequestPackageVersion());
     }
 
     private IEnumerator RequestPackageVersion()
@@ -166,14 +153,13 @@ public class HotFixService : MonoBehaviour
 		{
 			HotFixService.Instance.PackageVersion = updatePackageVersionOperation.PackageVersion;
 			Debug.Log($"远端最新版本为: {updatePackageVersionOperation.PackageVersion}");
-			yield return updatePackageVersionOperation;
 		}
 		else
 		{
-            _hotFixWindow.SetTips("请检查本地网络，获取资源版本失败！");
             Debug.LogWarning(updatePackageVersionOperation.Error);
             yield break;
         }
+        StartCoroutine(RequestPackageManifest());
     }
 
     private IEnumerator RequestPackageManifest()
@@ -187,10 +173,10 @@ public class HotFixService : MonoBehaviour
 
         if (updatePackageManifestOperation.Status != EOperationStatus.Succeed)
         {
-            _hotFixWindow.SetTips("请检查本地网络，资源清单更新失败！");
             Debug.LogWarning(updatePackageManifestOperation.Error);
             yield break;
         }
+        StartCoroutine(PrepareDownloader());
     }
 
     private IEnumerator PrepareDownloader()
