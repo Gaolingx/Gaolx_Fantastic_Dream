@@ -20,11 +20,10 @@ public class HotFixWindow : MonoBehaviour
 
     public void OpenHotFixPanel()
     {
-        InitWindow();
         _hotfixPanel.SetActive(true);
     }
 
-    private void InitWindow()
+    public void InitWindow()
     {
         _loadingProgressFGWidth = _loadingProgressFG.GetComponent<RectTransform>().sizeDelta.x;
         _loadingProgressPointYPos = _loadingProgressPoint.GetComponent<RectTransform>().sizeDelta.y;

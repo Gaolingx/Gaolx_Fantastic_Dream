@@ -45,6 +45,9 @@ public class HotFixService : MonoBehaviour
         return _dllAssetDataDict[dllName];
     }
 
+    //资源包版本
+    private string packageName = "DefaultPackage";
+
     /// <summary>
 	/// 运行模式
 	/// </summary>
@@ -67,23 +70,24 @@ public class HotFixService : MonoBehaviour
         Instance = this;
 
         _hotFixConfig = GetComponent<HotFixConfig>();
+        _hotFixWindow.InitWindow();
         _hotFixWindow.SetTips("正在检查更新");
         DownLoadAssetsByYooAssets();
     }
 
     private void DownLoadAssetsByYooAssets()
     {
-        _hotFixWindow.SetLoadingProgress(0);
-        StartCoroutine(InitPackage());
+        _hotFixWindow.SetLoadingProgress(0f);
+        StartCoroutine(InitPackage(packageName));
     }
 
-    private IEnumerator InitPackage()
+    private IEnumerator InitPackage(string packageName)
     {
         _hotFixWindow.SetTips("初始化资源包！");
         yield return new WaitForSeconds(1f);
 
         YooAssets.Initialize();
-        string packageName = "DefaultPackage";
+
         _yooAssetResourcePackage = YooAssets.TryGetPackage(packageName);
 
         if (_yooAssetResourcePackage == null)
