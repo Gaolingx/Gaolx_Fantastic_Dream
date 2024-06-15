@@ -9,6 +9,7 @@ namespace DarkGod.Main
     public enum GameState
     {
         None,
+        Login,
         MainCity,
         FBFight
     }

@@ -100,7 +100,7 @@ public class UIController : MonoBehaviour
         }
 #endif
 
-        if (_isPause || _isPressingAlt)
+        if (_isPause || _isPressingAlt || GameRoot.Instance.GetGameState() == GameState.Login)
         {
             //_player.Disable();
 #if !UNITY_ANDROID

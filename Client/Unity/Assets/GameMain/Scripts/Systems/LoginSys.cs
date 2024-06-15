@@ -34,6 +34,7 @@ namespace DarkGod.Main
                 loginWnd.SetWndState();
                 audioSvc.PlayBGMusic(Constants.BGLogin);
             });
+            GameRoot.Instance.SetGameState(GameState.Login);
         }
 
         public void RspLogin(GameMsg msg)

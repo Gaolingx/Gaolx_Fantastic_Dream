@@ -103,6 +103,11 @@ namespace DarkGod.Main
             }
         }
 
+        public void ExitGame()
+        {
+            GetUIController().OnClickExit();
+        }
+
         public void EnablePlayerMove(bool state)
         {
             if (starterAssetsInputs != null)

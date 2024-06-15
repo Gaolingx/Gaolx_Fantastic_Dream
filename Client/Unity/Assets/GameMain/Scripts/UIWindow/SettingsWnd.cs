@@ -133,11 +133,7 @@ namespace DarkGod.Main
         public void ClickExitGame()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
-#if UNITY_EDITOR
-            EditorApplication.isPlaying = false;
-#else
-            Application.Quit();
-#endif
+            GameRoot.Instance.ExitGame();
         }
 
         public void ClickVsyncBtn()
