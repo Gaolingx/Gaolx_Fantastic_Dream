@@ -19,7 +19,7 @@ Material:
   - _CUSTOMBLOOMVARENUM_DISABLE
   - _CUSTOMHEADBONEMODEVARENUM_MMD
   - _CUSTOMOUTLINEVARENUM_MULTIPLY
-  - _CUSTOMRIMLIGHTCOLORVARENUM_DISABLE
+  - _CUSTOMRIMLIGHTCOLORVARENUM_OVERLAY
   - _CUSTOMRIMLIGHTVARENUM_OVERLAY
   - _CUSTOMRIMSHADOWCOLORVARENUM_DISABLE
   - _CUSTOMRIMSHADOWVARENUM_DISABLE
@@ -117,6 +117,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MaterialValuesPackLUT:
+        m_Texture: {fileID: 2800000, guid: aa5944d114f92ea4294df8c7817398af, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _NormalMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -194,7 +198,7 @@ Material:
     - _CustomHeadBoneModeVarEnum: 2
     - _CustomOutlineVarEnum: 1
     - _CustomRampMappingToggle: 1
-    - _CustomRimLightColorVarEnum: 0
+    - _CustomRimLightColorVarEnum: 2
     - _CustomRimLightVarEnum: 2
     - _CustomRimShadowColorVarEnum: 0
     - _CustomRimShadowVarEnum: 0
@@ -290,7 +294,7 @@ Material:
     - _RimEdgeSoftness5: 0.05
     - _RimEdgeSoftness6: 0.05
     - _RimEdgeSoftness7: 0.05
-    - _RimIntensity: 0.3
+    - _RimIntensity: 0.5
     - _RimIntensityBackFace: 0
     - _RimShadowCt: 1
     - _RimShadowFeather: 0.01
@@ -410,7 +414,7 @@ Material:
     - _stockingsMapBChannelUVScale: 20
     m_Colors:
     - _BASE_COLOR: {r: 0.8, g: 0.8, b: 0.8, a: 1}
-    - _BackFaceTintColor: {r: 0.745283, g: 0.745283, b: 0.745283, a: 1}
+    - _BackFaceTintColor: {r: 0.9056604, g: 0.9056604, b: 0.9056604, a: 1}
     - _BaseColor: {r: 0.9063317, g: 0.9063317, b: 0.9063317, a: 1}
     - _BloomColor: {r: 0.99215686, g: 0.8352941, b: 1, a: 1}
     - _BloomColor0: {r: 1, g: 1, b: 1, a: 1}
