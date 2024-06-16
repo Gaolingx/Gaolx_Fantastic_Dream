@@ -240,7 +240,7 @@ Material:
     - _OutlineOffset: 0
     - _OutlineScale: 0.015
     - _OutlineUseLutMapToggle: 0
-    - _OutlineWidth: 0.02
+    - _OutlineWidth: 0.015
     - _OutlineZOffset: 0.0001
     - _Parallax: 0.02
     - _QueueControl: 0
