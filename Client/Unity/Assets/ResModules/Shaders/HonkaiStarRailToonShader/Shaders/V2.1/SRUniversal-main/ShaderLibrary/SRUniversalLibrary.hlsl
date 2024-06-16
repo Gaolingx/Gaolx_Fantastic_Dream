@@ -437,75 +437,121 @@ float2 GetRampUV(float diffuseFac, float shadowRampOffset, float4 lightMap, bool
 
 // LutMap --------------------------------------------------------------------------------------------------------- // 
 // ---------------------------------------------------------------------------------------------------------------- //
-half4 SampleLUTMap(int materialId, int renderType)
+struct LutMapData
 {
-    return _LUTMap.Load(int3(materialId, renderType, 0));
+    float4 lut_speccol;
+    float4 lut_specval;
+    float4 lut_edgecol;
+    float4 lut_rimcol;
+    float4 lut_rimval;
+    float4 lut_rimscol;
+    float4 lut_rimsval;
+    float4 lut_bloomval;
+};
+
+LutMapData GetMaterialValuesPackLUT(float material_ID)
+{
+    LutMapData data;
+    // sample the various mluts
+    float4 lut_speccol = _MaterialValuesPackLUT.Load(float4(material_ID, 0, 0, 0)); // xyz : color
+    float4 lut_specval = _MaterialValuesPackLUT.Load(float4(material_ID, 1, 0, 0)); // x: shininess, y : roughness, z : intensity
+    float4 lut_edgecol = _MaterialValuesPackLUT.Load(float4(material_ID, 2, 0, 0)); // xyz : color
+    float4 lut_rimcol  = _MaterialValuesPackLUT.Load(float4(material_ID, 3, 0, 0)); // xyz : color
+    float4 lut_rimval  = _MaterialValuesPackLUT.Load(float4(material_ID, 4, 0, 0)); // x : rim type, y : softness , z : dark
+    float4 lut_rimscol = _MaterialValuesPackLUT.Load(float4(material_ID, 5, 0, 0)); // xyz : color
+    float4 lut_rimsval = _MaterialValuesPackLUT.Load(float4(material_ID, 6, 0, 0)); // x: rim shadow width, y: rim shadow feather z: bloom intensity
+    float4 lut_bloomval = _MaterialValuesPackLUT.Load(float4(material_ID, 7, 0, 0)); // xyz : color
+
+    data.lut_speccol = lut_speccol;
+    data.lut_specval = lut_specval;
+    data.lut_edgecol = lut_edgecol;
+    data.lut_rimcol = lut_rimcol;
+    data.lut_rimval = lut_rimval;
+    data.lut_rimscol = lut_rimscol;
+    data.lut_rimsval = lut_rimsval;
+    data.lut_bloomval = lut_bloomval;
+
+    return data;
 }
 
 // LutMap Specular
 half3 GetLUTMapSpecularColor(int materialId)
 {
-    return SampleLUTMap((int)(materialId), 0).rgb;
+    LutMapData data = GetMaterialValuesPackLUT(materialId);
+    return data.lut_speccol.xyz;
 }
 half GetLUTMapSpecularShininess(int materialId)
 {
-    return SampleLUTMap((int)(materialId), 1).r;
+    LutMapData data = GetMaterialValuesPackLUT(materialId);
+    return data.lut_specval.x;
 }
 half GetLUTMapSpecularRoughness(int materialId)
 {
-    return SampleLUTMap((int)(materialId), 1).g;
+    LutMapData data = GetMaterialValuesPackLUT(materialId);
+    return data.lut_specval.y;
 }
 half GetLUTMapSpecularIntensity(int materialId)
 {
-    return SampleLUTMap((int)(materialId), 1).b;
+    LutMapData data = GetMaterialValuesPackLUT(materialId);
+    return data.lut_specval.z;
 }
 
 // LutMap Outline
 half3 GetLUTMapOutlineColor(int materialId)
 {
-    return SampleLUTMap((int)(materialId), 2).rgb;
+    LutMapData data = GetMaterialValuesPackLUT(materialId);
+    return data.lut_edgecol.xyz;
 }
 
 // LutMap RimLight
 half3 GetLUTMapRimLightColor(int materialId)
 {
-    return SampleLUTMap((int)(materialId), 3).rgb;
+    LutMapData data = GetMaterialValuesPackLUT(materialId);
+    return data.lut_rimcol.xyz;
 }
 half GetLUTMapRimLightWidth(int materialId)
 {
-    return SampleLUTMap((int)(materialId), 4).r;
+    LutMapData data = GetMaterialValuesPackLUT(materialId);
+    return data.lut_rimval.x;
 }
 half GetLUTMapRimLightEdgeSoftness(int materialId)
 {
-    return SampleLUTMap((int)(materialId), 4).g;
+    LutMapData data = GetMaterialValuesPackLUT(materialId);
+    return data.lut_rimval.y;
 }
 half GetLUTMapRimLightDark(int materialId)
 {
-    return SampleLUTMap((int)(materialId), 4).b;
+    LutMapData data = GetMaterialValuesPackLUT(materialId);
+    return data.lut_rimval.z;
 }
 
 // LutMap RimShadow
 half3 GetLUTMapRimShadowColor(int materialId)
 {
-    return SampleLUTMap((int)(materialId), 5).rgb;
+    LutMapData data = GetMaterialValuesPackLUT(materialId);
+    return data.lut_rimscol.xyz;
 }
 half GetLUTMapRimShadowWidth(int materialId)
 {
-    return SampleLUTMap((int)(materialId), 6).r;
+    LutMapData data = GetMaterialValuesPackLUT(materialId);
+    return data.lut_rimsval.x;
 }
 half GetLUTMapRimShadowFeather(int materialId)
 {
-    return SampleLUTMap((int)(materialId), 6).g;
+    LutMapData data = GetMaterialValuesPackLUT(materialId);
+    return data.lut_rimsval.y;
 }
 
 // LutMap Bloom
 half GetLUTMapBloomIntensity(int materialId)
 {
-    return SampleLUTMap((int)(materialId), 6).b;
+    LutMapData data = GetMaterialValuesPackLUT(materialId);
+    return data.lut_rimsval.z;
 }
 half3 GetLUTMapBloomColor(int materialId)
 {
-    return SampleLUTMap((int)(materialId), 7).rgb;
+    LutMapData data = GetMaterialValuesPackLUT(materialId);
+    return data.lut_bloomval.xyz;
 }
 
 
@@ -1060,39 +1106,38 @@ SpecularAreaData GetSpecularAreaData(half materialId, half3 specularColor)
 struct SpecularData
 {
     float3 color;
-    float specularIntensity;
     float specularThreshold;
+    float shininess;
+    float roughness;
+    float intensity;
     float materialId;
-    float SpecularKsNonMetal;
-    float SpecularKsMetal;
 };
 
-float3 CalculateSpecular(SpecularData surface, Light light, float3 viewDirWS, float3 normalWS, 
-    float3 specColor, float shininess, float roughness, float intensity, float diffuseFac, float metallic = 0.0)
+float3 specular_base(Light light, float shadow_area, float ndoth, float lightmap_spec, float3 specular_color, float3 specular_values)
 {
-    //roughness = lerp(1.0, roughness * roughness, metallic);
-    //float smoothness = exp2(shininess * (1.0 - roughness) + 1.0) + 1.0;
-    float3 halfDirWS = normalize(light.direction + viewDirWS);
-    float HoV = saturate(dot(viewDirWS, halfDirWS));
-    float blinnPhong = pow(saturate(dot(halfDirWS, normalWS)), shininess);
-    float threshold = 1.0 - surface.specularThreshold;
-    float stepPhong = smoothstep(threshold - roughness, threshold + roughness, blinnPhong);
+    float3 specular = ndoth;
+    specular = pow(max(specular, 0.01f), specular_values.x);
+    specular_values.y = max(specular_values.y, 0.001f);
 
-    float3 f0 = lerp(surface.SpecularKsNonMetal, surface.color, metallic);
-    float3 fresnel = f0 + (1.0 - f0) * pow(1.0 - HoV, 5.0);
-
+    float specular_thresh = 1.0f - lightmap_spec;
+    float rough_thresh = specular_thresh - specular_values.y;
+    specular_thresh = (specular_values.y + specular_thresh) - rough_thresh;
+    specular = shadow_area * specular - rough_thresh; 
+    specular_thresh = saturate((1.0f / specular_thresh) * specular);
+    specular = (specular_thresh * - 2.0f + 3.0f) * pow(specular_thresh, 2.0f);
+    specular = specular_color * specular * (specular_values.z * 0.35f);
     float attenuation = light.shadowAttenuation * saturate(light.distanceAttenuation);
     float3 lightColor = light.color * attenuation;
-    float3 specular = lightColor * specColor * fresnel * stepPhong * lerp(diffuseFac, surface.SpecularKsMetal, metallic);
-    
-    return specular * intensity * surface.specularIntensity;
+    float3 FinalSpecular = specular * lightColor;
+    return FinalSpecular;
 }
 
-float3 CalculateBaseSpecular(SpecularData surface, Light light, float3 viewDirWS, float3 normalWS, 
-    float3 specColor, float shininess, float roughness, float intensity, float diffuseFac)
+float3 CalculateBaseSpecular(SpecularData surface, Light light, float3 viewDirWS, float3 normalWS, float diffuseFac)
 {
+    float3 half_vector = normalize(viewDirWS + light.direction);
+    float ndoth = dot(normalWS, half_vector);
     float metallic = step(abs(GetRampLineIndex(surface.materialId) - GetMetalIndex()), 0.001);
-    return CalculateSpecular(surface, light, viewDirWS, normalWS, specColor, shininess, roughness, intensity, diffuseFac, metallic);
+    return specular_base(light, metallic, ndoth, surface.specularThreshold, surface.color, float3(surface.shininess, surface.roughness, surface.intensity));
 }
 
 // Stockings ------------------------------------------------------------------------------------------------------ // 
