@@ -23,11 +23,12 @@ Material:
   - _CUSTOMSPECULARCOLORVARENUM_DISABLE
   - _CUSTOMSPECULARVARENUM_DISABLE
   - _CUSTOM_RAMP_MAPPING
+  - _ENABLE_OUTLINE
   - _OUTLINENORMALCHANNEL_NORMAL
+  - _RIM_LIGHTING_ON
+  - _SPECULAR_ON
   m_InvalidKeywords:
   - _AREA_NONE
-  - _FAKE_OUTLINE_ON
-  - _USE_RAMP_COLOR_ON
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -90,10 +91,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _LUTMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _LowerBodyColorMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -102,11 +99,11 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _LowerBodyStockings:
+    - _METALNESS_MAP:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _METALNESS_MAP:
+    - _MaterialValuesPackLUT:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -126,6 +123,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _StockRangeTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _TRANSPARENCY_MAP:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -135,10 +136,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _UpperBodyLightMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _UpperBodyStockings:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -162,7 +159,6 @@ Material:
     - _AlphaToMask: 0
     - _AnisotropySpecularToggle: 0
     - _Area: 0
-    - _AutoBrightnessOffset: 0
     - _AutoBrightnessThresholdMax: 1
     - _AutoBrightnessThresholdMin: 0.5
     - _BASE_COLOR_WEIGHT: 1
@@ -201,21 +197,21 @@ Material:
     - _DitherAlpha: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _DstBlendModeAlpha: 0
+    - _DstBlendModeAlpha: 10
     - _DstBlendModeAlphaOverlay: 0
     - _DstBlendModeColor: 10
     - _DstBlendModeColorOverlay: 0
     - _EMISSION_WEIGHT: 1
     - _EmissionIntensity: 1
     - _EmissionMixBaseColorFac: 1
-    - _EmissionThreshold: 0.1
-    - _EnableOutlineToggle: 0
-    - _EnableSpecular: 0
+    - _EmissionThreshold: 0.5
+    - _EnableOutlineToggle: 1
+    - _EnableSpecular: 1
     - _EnvironmentReflections: 1
     - _ExCheekIntensity: 0
     - _ExShadowIntensity: 0
     - _ExShyIntensity: 0
-    - _FaceShadowOffset: -0.01
+    - _FaceShadowOffset: 0
     - _FaceShadowTransitionSoftness: 0.05
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -224,17 +220,13 @@ Material:
     - _HairWarmRampColorMixFactor: 0
     - _IndirectLightFlattenNormal: 0
     - _IndirectLightIntensity: 1
-    - _IndirectLightMixBaseColor: 1
-    - _IndirectLightOcclusionUsage: 0.5
     - _IndirectLightUsage: 0.5
     - _IsFace: 0
-    - _IsFaceOutlineMode: 0
-    - _LerpAOIntensity: 1
+    - _LerpAOIntensity: 0
     - _METALNESS: 0
     - _MainLightBrightnessFactor: 1
     - _MainLightColorUsage: 1
     - _MainLightShadowOffset: 0
-    - _MetalSpecularMetallic: 0.52
     - _Metallic: 0
     - _Mode: 0
     - _ModelScale: 1
@@ -247,8 +239,6 @@ Material:
     - _OutlineScale: 0.015
     - _OutlineUseLutMapToggle: 0
     - _OutlineWidth: 0.01
-    - _OutlineWidthMax: 30
-    - _OutlineWidthMin: 2
     - _OutlineZOffset: 0.0001
     - _Parallax: 0.02
     - _QueueControl: 0
@@ -305,8 +295,6 @@ Material:
     - _RimShadowWidth5: 1
     - _RimShadowWidth6: 1
     - _RimShadowWidth7: 1
-    - _RimThresholdMax: 0.9
-    - _RimThresholdMin: 0.6
     - _RimWidth: 1
     - _RimWidth0: 1
     - _RimWidth1: 1
@@ -333,8 +321,6 @@ Material:
     - _SpecularIntensity5: 1
     - _SpecularIntensity6: 1
     - _SpecularIntensity7: 1
-    - _SpecularKsMetal: 1
-    - _SpecularKsNonMetal: 0.04
     - _SpecularRoughness: 0.02
     - _SpecularRoughness0: 0.02
     - _SpecularRoughness1: 0.02
@@ -357,21 +343,22 @@ Material:
     - _SrcBlendAlpha: 1
     - _SrcBlendModeAlpha: 1
     - _SrcBlendModeAlphaOverlay: 1
-    - _SrcBlendModeColor: 7
+    - _SrcBlendModeColor: 1
     - _SrcBlendModeColorOverlay: 1
-    - _StencilComp: 0
+    - _StencilComp: 8
     - _StencilCompOverlay: 0
     - _StencilFailOp: 0
-    - _StencilPassOp: 0
+    - _StencilPassOp: 2
     - _StencilReadMask: 255
-    - _StencilRef: 0
+    - _StencilRef: 32
     - _StencilRefOverlay: 0
-    - _StencilWriteMask: 255
+    - _StencilWriteMask: 32
     - _StencilZFailOp: 0
-    - _StockingsTextureUsage: 0.1
-    - _StockingsTransitionHardness: 0.4
-    - _StockingsTransitionPower: 1
-    - _StockingsTransitionThreshold: 0.58
+    - _StockDarkWidth: 0.5
+    - _StockRoughness: 1
+    - _StockSP: 0.25
+    - _Stockpower: 1
+    - _Stockpower1: 1
     - _Surface: 0
     - _TRANSPARENCY: 0
     - _UVSec: 0
@@ -381,17 +368,14 @@ Material:
     - _UseBackFaceUV2: 0
     - _UseDrawOverlay: 0
     - _UseEmission: 0
-    - _UseFaceExpression: 0
-    - _UseFakeOutline: 1
     - _UseLutMapToggle: 0
     - _UseNormalMap: 0
-    - _UseRampColor: 1
-    - _UseRimLight: 0
+    - _UseRimLight: 1
     - _UseRimShadow: 0
     - _UseSelfOutline: 0
     - _UseStockings: 0
     - _WorkflowMode: 1
-    - _ZWrite: 1
+    - _ZWrite: 0
     - _mmBloomIntensity0: 0
     - _mmBloomIntensity1: 0
     - _mmBloomIntensity2: 0
@@ -400,7 +384,8 @@ Material:
     - _mmBloomIntensity5: 0
     - _mmBloomIntensity6: 0
     - _mmBloomIntensity7: 0
-    - _stockingsMapBChannelUVScale: 20
+    - m_end_stockings: 0
+    - m_start_stockings: 0
     m_Colors:
     - _BASE_COLOR: {r: 0.8, g: 0.8, b: 0.8, a: 1}
     - _BackFaceTintColor: {r: 1, g: 1, b: 1, a: 1}
@@ -419,7 +404,6 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EMISSION_COLOR: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _EmissionPrevPassColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionTintColor: {r: 1, g: 1, b: 1, a: 1}
     - _ExCheekColor: {r: 1, g: 1, b: 1, a: 1}
     - _ExEyeColor: {r: 1, g: 1, b: 1, a: 1}
@@ -430,15 +414,13 @@ Material:
     - _HairColorMapColor: {r: 1, g: 1, b: 1, a: 1}
     - _HairCoolRampColor: {r: 1, g: 1, b: 1, a: 1}
     - _HairWarmRampColor: {r: 1, g: 1, b: 1, a: 1}
-    - _HeadForward: {r: 0, g: 0, b: 1, a: 1}
-    - _HeadRight: {r: 1, g: 0, b: 0, a: 1}
     - _LowerBodyColorMapColor: {r: 1, g: 1, b: 1, a: 1}
     - _MMDHeadBoneForward: {r: 0, g: 0, b: 0, a: 0}
     - _MMDHeadBoneRight: {r: 0, g: 0, b: 0, a: 0}
     - _MMDHeadBoneUp: {r: 0, g: 0, b: 0, a: 0}
     - _Maps_ST: {r: 1, g: 1, b: 0, a: 0}
     - _NoseLineColor: {r: 1, g: 0.635, b: 0.635, a: 1}
-    - _OutlineColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor0: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor1: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor2: {r: 0, g: 0, b: 0, a: 1}
@@ -478,12 +460,11 @@ Material:
     - _SpecularColor5: {r: 1, g: 1, b: 1, a: 1}
     - _SpecularColor6: {r: 1, g: 1, b: 1, a: 1}
     - _SpecularColor7: {r: 1, g: 1, b: 1, a: 1}
-    - _StockingsDarkColor: {r: 0, g: 0, b: 0, a: 1}
-    - _StockingsLightColor: {r: 1.8, g: 1.48299, b: 0.856821, a: 1}
-    - _StockingsTransitionColor: {r: 0.36038098, g: 0.24298596, b: 0.35813096, a: 1}
+    - _StockDarkcolor: {r: 1, g: 1, b: 1, a: 1}
+    - _Stockcolor: {r: 1, g: 1, b: 1, a: 1}
     - _UpperBodyColorMapColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &843207192871358642
+--- !u!114 &5909196698073877666
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
