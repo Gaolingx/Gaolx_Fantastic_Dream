@@ -74,7 +74,7 @@ namespace DarkGod.Main
             {
                 //怪物攻击玩家
 
-                EntityPlayer epTarget = GameRoot.Instance.GetCurrentPlayer();
+                EntityPlayer epTarget = caster.battleMgr.EntityPlayer;
                 if (epTarget == null)
                 {
                     return;
@@ -196,7 +196,6 @@ namespace DarkGod.Main
             {
                 //战斗失败
                 target.battleMgr.EndBattle(false, 0);
-                target.battleMgr.SetEntityPlayer(null);
             }
 
         }

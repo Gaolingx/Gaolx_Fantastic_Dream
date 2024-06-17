@@ -982,7 +982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5d980bdf1148e247b952e8b2654b0c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ePlayMode: 2
+  _ePlayMode: 0
   hostServerIP: http://gaolingxiang.dynv6.net:26660
   appVersion: v1.0
   appendTimeTicks: 1

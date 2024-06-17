@@ -50,7 +50,10 @@ namespace DarkGod.Main
             {
                 foreach (var item in itemDic.Values)
                 {
-                    item.gameObject.SetActive(ShowItemEntityHPIfNeed(HasTrans(mName)));
+                    if (item != null)
+                    {
+                        item.gameObject.SetActive(ShowItemEntityHPIfNeed(HasTrans(mName)));
+                    }
                 }
             }
         }
@@ -121,9 +124,9 @@ namespace DarkGod.Main
                 go.transform.SetParent(hpItemRoot);
                 ItemEntityHP ieh = go.GetComponent<ItemEntityHP>();
                 ieh.InitItemInfo(trans, hp); //将hp设置到Item中
-                monsterTransDic.Add(mName, trans);
                 itemDic.Add(mName, ieh);
             }
+            monsterTransDic.Add(mName, trans);
         }
 
         public void RmvHpItemInfo(string mName)
@@ -134,8 +137,8 @@ namespace DarkGod.Main
                 //销毁血条物体
                 Destroy(item.gameObject);
                 //移除字典数据
-                monsterTransDic.Remove(mName);
                 itemDic.Remove(mName);
+                monsterTransDic.Remove(mName);
             }
         }
         public void RmvAllHpItemInfo()

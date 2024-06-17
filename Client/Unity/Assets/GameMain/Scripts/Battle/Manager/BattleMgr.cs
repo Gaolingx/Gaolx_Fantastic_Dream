@@ -25,9 +25,9 @@ namespace DarkGod.Main
         private BattleSys battleSys;
 
         private EntityPlayer entitySelfPlayer;
+        public EntityPlayer EntityPlayer { get { return entitySelfPlayer; } set { SetEntityPlayer(value); entitySelfPlayer = value; } }
         private ThirdPersonController controller;
         private StarterAssetsInputs starterAssetsInputs;
-        private GameObject battlePlayer;
         private MapCfg mapCfg;
 
         private Dictionary<string, EntityMonster> monsterDic = new Dictionary<string, EntityMonster>();
@@ -101,7 +101,8 @@ namespace DarkGod.Main
                 audioSvc.GetCharacterAudioSourceComponent(player);
 
                 cinemachineVirtualCamera.Follow = player.transform.Find(Constants.CinemachineVirtualCameraFollowGameObjectWithTag);
-                battlePlayer = player;
+
+                EntityPlayer = entitySelfPlayer;
             }
         }
 
@@ -127,15 +128,15 @@ namespace DarkGod.Main
             mapCfg = resSvc.GetMapCfg(mapid);
             resSvc.AsyncLoadScene(mapCfg.sceneName, () =>
             {
+                //移除所有实例化的对象
+                resSvc.DestroyAllInstantiateGameObject();
+
                 //初始化地图数据
                 GameObject mapRoot = GameObject.FindGameObjectWithTag(Constants.MapRootGOTag);
                 mapMgr = mapRoot.GetComponent<MapMgr>();
                 mapMgr.Init(this);
 
                 GameRoot.Instance.SetGameObjectTrans(mapRoot, Vector3.zero, Vector3.zero, Vector3.one);
-
-                //移除所有实例化的对象
-                resSvc.DestroyAllInstantiateGameObject();
 
                 //加载虚拟相机
                 LoadVirtualCameraInstance(PathDefine.AssissnCityCharacterCameraPrefab, mapCfg);
@@ -149,8 +150,6 @@ namespace DarkGod.Main
 
                 //切换BGM
                 audioSvc.PlayBGMusic(Constants.BGHuangYe);
-
-                SetEntityPlayer(entitySelfPlayer);
 
                 SetPauseGame(false, false);
 
