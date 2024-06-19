@@ -985,7 +985,7 @@ MonoBehaviour:
   _ePlayMode: 2
   hostServerIP: http://gaolingxiang.dynv6.net:26660
   appVersion: v1.0
-  appendTimeTicks: 1
+  appendTimeTicks: 0
 --- !u!114 &963007398
 MonoBehaviour:
   m_ObjectHideFlags: 0
