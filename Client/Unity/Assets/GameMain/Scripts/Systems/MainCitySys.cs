@@ -25,6 +25,7 @@ namespace DarkGod.Main
         public ChatWnd chatWnd;
         public BuyWnd buyWnd;
         public TaskWnd taskWnd;
+        public Transform CharCamTrans { get { return charCamTrans; } set { charCamTrans = value; } }
 
         private GameObject mainCityPlayer;
         //private PlayerController playerCtrl;
@@ -79,15 +80,7 @@ namespace DarkGod.Main
                 GetMapNpcTransform();
 
                 //设置人物展示相机
-                if (charCamTrans == null)
-                {
-                    charCamTrans = GameObject.FindGameObjectWithTag(Constants.CharShowCamWithTag).transform;
-                    charCamTrans.gameObject.SetActive(false);
-                }
-                else
-                {
-                    charCamTrans.gameObject.SetActive(false);
-                }
+                InitCharCam();
 
                 //设置游戏状态
                 GameRoot.Instance.SetGameState(GameState.MainCity);
@@ -355,11 +348,24 @@ namespace DarkGod.Main
         }
         #endregion
 
-        public void GetMapNpcTransform()
+        private void GetMapNpcTransform()
         {
             GameObject map = GameObject.FindGameObjectWithTag(Constants.MapRootGameObjectWithTag);
             MainCityMap mainCityMap = map.GetComponent<MainCityMap>();
             npcPosTrans = mainCityMap.NpcPosTrans;
+        }
+
+        private void InitCharCam()
+        {
+            if (charCamTrans == null)
+            {
+                charCamTrans = GameObject.FindGameObjectWithTag(Constants.CharShowCamWithTag).transform;
+                charCamTrans.gameObject.SetActive(false);
+            }
+            else
+            {
+                charCamTrans.gameObject.SetActive(false);
+            }
         }
 
         #region Guide Wnd
