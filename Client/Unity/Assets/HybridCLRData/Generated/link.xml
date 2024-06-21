@@ -190,10 +190,10 @@
     <type fullname="UnityEngine.RectTransformUtility" preserve="all" />
   </assembly>
   <assembly fullname="YooAsset">
-    <type fullname="YooAsset.AssetOperationHandle" preserve="all" />
-    <type fullname="YooAsset.OperationHandleBase" preserve="all" />
+    <type fullname="YooAsset.AssetHandle" preserve="all" />
+    <type fullname="YooAsset.HandleBase" preserve="all" />
     <type fullname="YooAsset.ResourcePackage" preserve="all" />
-    <type fullname="YooAsset.SceneOperationHandle" preserve="all" />
+    <type fullname="YooAsset.SceneHandle" preserve="all" />
     <type fullname="YooAsset.YooAssets" preserve="all" />
   </assembly>
   <assembly fullname="netstandard">

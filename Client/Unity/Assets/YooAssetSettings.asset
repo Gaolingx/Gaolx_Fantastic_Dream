@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44454e58a49818040a1aef5799e71b30, type: 3}
-  m_Name: ShaderVariantCollectorSetting
+  m_Script: {fileID: 11500000, guid: 5bd1afdce9715f84eb4cbc901922afc2, type: 3}
+  m_Name: YooAssetSettings
   m_EditorClassIdentifier: 
-  SavePath: Assets/AssetBundles/Shaders/ShaderVariants/MyShaderVariants.shadervariants
-  CollectPackage: DefaultPackage
-  ProcessCapacity: 1000
+  ManifestFileName: PackageManifest
+  DefaultYooFolderName: yoo

@@ -423,7 +423,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// object UnityEngine.Object.Instantiate<object>(object,UnityEngine.Transform,bool)
 		// object[] UnityEngine.Resources.ConvertObjects<object>(UnityEngine.Object[])
 		// object[] UnityEngine.Resources.FindObjectsOfTypeAll<object>()
-		// YooAsset.AssetOperationHandle YooAsset.ResourcePackage.LoadAssetAsync<object>(string)
-		// YooAsset.AssetOperationHandle YooAsset.ResourcePackage.LoadAssetSync<object>(string)
+		// YooAsset.AssetHandle YooAsset.ResourcePackage.LoadAssetAsync<object>(string,uint)
+		// YooAsset.AssetHandle YooAsset.ResourcePackage.LoadAssetSync<object>(string)
 	}
 }
