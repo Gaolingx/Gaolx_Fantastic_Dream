@@ -13,14 +13,16 @@ MonoBehaviour:
   m_Name: AssetBundleCollectorSetting
   m_EditorClassIdentifier: YooAsset.Editor:YooAsset.Editor:AssetBundleCollectorSetting
   ShowPackageView: 1
-  EnableAddressable: 0
-  LocationToLower: 0
-  IncludeAssetGUID: 0
-  UniqueBundleName: 0
   ShowEditorAlias: 0
+  UniqueBundleName: 0
   Packages:
   - PackageName: DefaultPackage
     PackageDesc: 
+    EnableAddressable: 0
+    LocationToLower: 0
+    IncludeAssetGUID: 0
+    AutoCollectShaders: 1
+    IgnoreRuleName: NormalIgnoreRule
     Groups:
     - GroupName: ABPrefabs
       GroupDesc: 
@@ -44,7 +46,7 @@ MonoBehaviour:
         CollectorGUID: 6326b1c771c578b439c7003f1a40e0e2
         CollectorType: 0
         AddressRuleName: AddressByFileName
-        PackRuleName: PackRawFile
+        PackRuleName: PackDirectory
         FilterRuleName: CollectAll
         AssetTags: 
         UserData: 

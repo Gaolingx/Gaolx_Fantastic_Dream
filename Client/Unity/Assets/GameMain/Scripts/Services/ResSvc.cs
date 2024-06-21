@@ -92,7 +92,7 @@ namespace DarkGod.Main
         {
             //音乐加载
             AudioClip audioClip = null;
-            AssetOperationHandle handle = _yooAssetResourcePackage.LoadAssetSync<AudioClip>(path);
+            AssetHandle handle = _yooAssetResourcePackage.LoadAssetSync<AudioClip>(path);
             audioClip = handle.AssetObject as AudioClip;
 
             return audioClip;
@@ -101,7 +101,7 @@ namespace DarkGod.Main
         //获取Prefab的类
         public GameObject LoadGameObjectSync(string path, bool iscache = false)
         {
-            AssetOperationHandle prefabHandle = null;
+            AssetHandle prefabHandle = null;
             prefabHandle = _yooAssetResourcePackage.LoadAssetSync<GameObject>(path);
 
             GameObject go = null;
