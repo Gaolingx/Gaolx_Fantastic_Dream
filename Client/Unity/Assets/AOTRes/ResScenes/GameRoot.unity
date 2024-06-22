@@ -574,8 +574,8 @@ MonoBehaviour:
   AppVersion: v1.0
   PackageName: DefaultPackage
   AppendTimeTicks: 0
-  PlayMode: 0
-  BuildPipeline: 1
+  PlayMode: 2
+  BuildPipeline: 0
   GameRootObjectName: Assets/AssetBundles/Prefabs/RootPrefabs/HotFixRoot.prefab
   HotUpdateDllName: Assets/AssetBundles/Scripts/Dlls/GameMain.dll
   AOTMetaAssemblyNames:

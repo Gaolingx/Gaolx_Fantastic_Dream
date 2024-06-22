@@ -82,7 +82,8 @@ namespace LKZ.HybridCLREditor
                         GUILayout.Label(new GUIContent("生成MethodBridge"), centeredStyle);
                         if (GUILayout.Button("生成MethodBridge", GUILayout.MaxWidth(150)))
                         {
-                            MethodBridgeGeneratorCommand.CompileAndGenerateMethodBridge();
+                            //MethodBridgeGeneratorCommand.CompileAndGenerateMethodBridge();
+                            MethodBridgeGeneratorCommand.GenerateMethodBridgeAndReversePInvokeWrapper();
                         }
                         GUILayout.EndHorizontal();
 
@@ -100,7 +101,8 @@ namespace LKZ.HybridCLREditor
                         GUILayout.Label(new GUIContent("生成ReversePInvokeWrapper"), centeredStyle);
                         if (GUILayout.Button("生成ReversePInvokeWrapper", GUILayout.MaxWidth(150)))
                         {
-                            ReversePInvokeWrapperGeneratorCommand.CompileAndGenerateReversePInvokeWrapper();
+                            //ReversePInvokeWrapperGeneratorCommand.CompileAndGenerateReversePInvokeWrapper();
+                            MethodBridgeGeneratorCommand.GenerateMethodBridgeAndReversePInvokeWrapper();
                         }
                         GUILayout.EndHorizontal();
 

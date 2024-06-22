@@ -12,7 +12,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "170f13082e93d9f1224ad76422ec6735e616d68f"
+      "hash": "88e20505f87d57cbff5695be5f7baa35d626f619"
     },
     "com.sangoutils.patchyooassetsystem": {
       "version": "file:SangoUtils.Patchs_YooAsset",
