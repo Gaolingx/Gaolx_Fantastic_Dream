@@ -577,6 +577,7 @@ MonoBehaviour:
   PlayMode: 2
   BuildPipeline: 1
   GameRootObjectName: Assets/AssetBundles/Prefabs/RootPrefabs/HotFixRoot.prefab
+  GameRootParentTransformName: Canvas
   HotUpdateDllName: Assets/AssetBundles/Scripts/Dlls/GameMain.dll
   AOTMetaAssemblyNames:
   - Assets/AssetBundles/Scripts/Dlls/mscorlib.dll
