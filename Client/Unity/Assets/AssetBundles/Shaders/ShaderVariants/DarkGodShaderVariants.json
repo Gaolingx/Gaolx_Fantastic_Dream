@@ -63,7 +63,7 @@
         },
         {
             "AssetPath": "Assets/ResModules/Shaders/HonkaiStarRailToonShader/Shaders/V2.1/SRUniversal-main/Shaders/SRUniversal.shader",
-            "ShaderName": "Custom/SRUniversal",
+            "ShaderName": "HonkaiStarRailToon/Character",
             "ShaderVariantCount": 20,
             "ShaderVariantElements": [
                 {
@@ -230,7 +230,6 @@
                         "_MODEL_GAME",
                         "_OUTLINENORMALCHANNEL_NORMAL",
                         "_RIM_LIGHTING_ON",
-                        "_SHADOWS_SOFT",
                         "_SPECULAR_ON"
                     ]
                 },
@@ -254,33 +253,6 @@
                         "_DayTime_MANUAL_ON",
                         "_ENABLE_OUTLINE",
                         "_MAIN_LIGHT_SHADOWS_CASCADE",
-                        "_MODEL_GAME",
-                        "_OUTLINENORMALCHANNEL_NORMAL",
-                        "_RIM_LIGHTING_ON",
-                        "_SPECULAR_ON"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_ADDITIONAL_LIGHTS",
-                        "_AREA_HAIR",
-                        "_AUTO_Brightness_ON",
-                        "_CUSTOMBLOOMCOLORVARENUM_TINT",
-                        "_CUSTOMBLOOMVARENUM_DISABLE",
-                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
-                        "_CUSTOMOUTLINEVARENUM_TINT",
-                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
-                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
-                        "_CUSTOMSPECULARVARENUM_DISABLE",
-                        "_CUSTOM_RAMP_MAPPING",
-                        "_DayTime_MANUAL_ON",
-                        "_ENABLE_OUTLINE",
-                        "_MAIN_LIGHT_SHADOWS_CASCADE",
-                        "_MODEL_GAME",
                         "_OUTLINENORMALCHANNEL_NORMAL",
                         "_RIM_LIGHTING_ON",
                         "_SHADOWS_SOFT",
@@ -310,6 +282,32 @@
                         "_MODEL_GAME",
                         "_OUTLINENORMALCHANNEL_NORMAL",
                         "_RIM_LIGHTING_ON",
+                        "_SPECULAR_ON"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_AREA_HAIR",
+                        "_AUTO_Brightness_ON",
+                        "_CUSTOMBLOOMCOLORVARENUM_TINT",
+                        "_CUSTOMBLOOMVARENUM_DISABLE",
+                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
+                        "_CUSTOMOUTLINEVARENUM_TINT",
+                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
+                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
+                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
+                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
+                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
+                        "_CUSTOMSPECULARVARENUM_DISABLE",
+                        "_CUSTOM_RAMP_MAPPING",
+                        "_DayTime_MANUAL_ON",
+                        "_ENABLE_OUTLINE",
+                        "_MAIN_LIGHT_SHADOWS_CASCADE",
+                        "_OUTLINENORMALCHANNEL_NORMAL",
+                        "_RIM_LIGHTING_ON",
+                        "_SHADOWS_SOFT",
                         "_SPECULAR_ON"
                     ]
                 },
@@ -336,7 +334,6 @@
                         "_MODEL_GAME",
                         "_OUTLINENORMALCHANNEL_NORMAL",
                         "_RIM_LIGHTING_ON",
-                        "_SHADOWS_SOFT",
                         "_SPECULAR_ON",
                         "_USE_LUT_MAP",
                         "_USE_LUT_MAP_OUTLINE"
@@ -347,6 +344,34 @@
                     "Keywords": [
                         "_ADDITIONAL_LIGHTS",
                         "_AREA_LOWERBODY",
+                        "_AUTO_Brightness_ON",
+                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
+                        "_CUSTOMBLOOMVARENUM_DISABLE",
+                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
+                        "_CUSTOMOUTLINEVARENUM_DISABLE",
+                        "_CUSTOMRIMLIGHTCOLORVARENUM_OVERLAY",
+                        "_CUSTOMRIMLIGHTVARENUM_OVERLAY",
+                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
+                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
+                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
+                        "_CUSTOMSPECULARVARENUM_OVERLAY",
+                        "_CUSTOM_RAMP_MAPPING",
+                        "_DayTime_MANUAL_ON",
+                        "_ENABLE_OUTLINE",
+                        "_MAIN_LIGHT_SHADOWS_CASCADE",
+                        "_OUTLINENORMALCHANNEL_NORMAL",
+                        "_RIM_LIGHTING_ON",
+                        "_SHADOWS_SOFT",
+                        "_SPECULAR_ON",
+                        "_USE_LUT_MAP",
+                        "_USE_LUT_MAP_OUTLINE"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_AREA_UPPERBODY",
                         "_AUTO_Brightness_ON",
                         "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
                         "_CUSTOMBLOOMVARENUM_DISABLE",
@@ -390,38 +415,9 @@
                         "_DayTime_MANUAL_ON",
                         "_ENABLE_OUTLINE",
                         "_MAIN_LIGHT_SHADOWS_CASCADE",
-                        "_MODEL_GAME",
                         "_OUTLINENORMALCHANNEL_NORMAL",
                         "_RIM_LIGHTING_ON",
                         "_SHADOWS_SOFT",
-                        "_SPECULAR_ON",
-                        "_USE_LUT_MAP",
-                        "_USE_LUT_MAP_OUTLINE"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_ADDITIONAL_LIGHTS",
-                        "_AREA_UPPERBODY",
-                        "_AUTO_Brightness_ON",
-                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
-                        "_CUSTOMBLOOMVARENUM_DISABLE",
-                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
-                        "_CUSTOMOUTLINEVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTCOLORVARENUM_OVERLAY",
-                        "_CUSTOMRIMLIGHTVARENUM_OVERLAY",
-                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
-                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
-                        "_CUSTOMSPECULARVARENUM_OVERLAY",
-                        "_CUSTOM_RAMP_MAPPING",
-                        "_DayTime_MANUAL_ON",
-                        "_ENABLE_OUTLINE",
-                        "_MAIN_LIGHT_SHADOWS_CASCADE",
-                        "_MODEL_GAME",
-                        "_OUTLINENORMALCHANNEL_NORMAL",
-                        "_RIM_LIGHTING_ON",
                         "_SPECULAR_ON",
                         "_USE_LUT_MAP",
                         "_USE_LUT_MAP_OUTLINE"
@@ -447,7 +443,6 @@
                         "_MODEL_GAME",
                         "_OUTLINENORMALCHANNEL_NORMAL",
                         "_RIM_LIGHTING_ON",
-                        "_SHADOWS_SOFT",
                         "_SPECULAR_ON"
                     ]
                 },
@@ -468,9 +463,9 @@
                         "_CUSTOM_RAMP_MAPPING",
                         "_ENABLE_OUTLINE",
                         "_MAIN_LIGHT_SHADOWS_CASCADE",
-                        "_MODEL_GAME",
                         "_OUTLINENORMALCHANNEL_NORMAL",
                         "_RIM_LIGHTING_ON",
+                        "_SHADOWS_SOFT",
                         "_SPECULAR_ON"
                     ]
                 },
@@ -1409,7 +1404,7 @@
                 {
                     "PassType": 8,
                     "Keywords": [
-                        ""
+                        "SHADOWS_DEPTH"
                     ]
                 }
             ]

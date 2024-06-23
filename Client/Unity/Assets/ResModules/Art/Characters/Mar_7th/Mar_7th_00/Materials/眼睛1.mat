@@ -29,6 +29,7 @@ Material:
   - _SPECULAR_ON
   m_InvalidKeywords:
   - _AREA_NONE
+  - _ENABLEFOVWIDTH_ON
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -205,14 +206,17 @@ Material:
     - _EmissionIntensity: 1
     - _EmissionMixBaseColorFac: 1
     - _EmissionThreshold: 0.5
+    - _EnableFOVWidth: 1
     - _EnableOutlineToggle: 1
     - _EnableSpecular: 1
     - _EnvironmentReflections: 1
     - _ExCheekIntensity: 0
     - _ExShadowIntensity: 0
     - _ExShyIntensity: 0
+    - _FaceMaterial: 0
     - _FaceShadowOffset: 0
     - _FaceShadowTransitionSoftness: 0.05
+    - _FixLipOutline: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -234,11 +238,17 @@ Material:
     - _OcclusionStrength: 1
     - _OutlineExtdMax: 18
     - _OutlineExtdStart: 6.5
+    - _OutlineFixFront: 0.05
+    - _OutlineFixRange1: 0.1
+    - _OutlineFixRange2: 0.1
+    - _OutlineFixRange3: 0.1
+    - _OutlineFixRange4: 0.1
+    - _OutlineFixSide: 0.6
     - _OutlineNormalChannel: 0
     - _OutlineOffset: 0
-    - _OutlineScale: 0.015
+    - _OutlineScale: 0.187
     - _OutlineUseLutMapToggle: 0
-    - _OutlineWidth: 0.01
+    - _OutlineWidth: 0.1
     - _OutlineZOffset: 0.0001
     - _Parallax: 0.02
     - _QueueControl: 0
