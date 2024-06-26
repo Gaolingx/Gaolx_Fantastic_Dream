@@ -24,16 +24,18 @@ Material:
   - _CUSTOMRIMSHADOWVARENUM_DISABLE
   - _CUSTOMSPECULARCOLORVARENUM_DISABLE
   - _CUSTOMSPECULARVARENUM_OVERLAY
-  - _CUSTOM_RAMP_MAPPING
-  - _DayTime_MANUAL_ON
-  - _ENABLE_OUTLINE
+  - _CUSTOM_RAMP_MAPPING_ON
   - _OUTLINENORMALCHANNEL_NORMAL
+  - _OUTLINE_ON
   - _RIM_LIGHTING_ON
   - _SPECULAR_ON
   - _USE_LUT_MAP
   - _USE_LUT_MAP_OUTLINE
   m_InvalidKeywords:
+  - _CUSTOM_RAMP_MAPPING
+  - _DayTime_MANUAL_ON
   - _ENABLEFOVWIDTH_ON
+  - _ENABLE_OUTLINE
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -197,6 +199,7 @@ Material:
     - _Cutoff: 0.5
     - _DayTime: 12
     - _DayTimeManualON: 1
+    - _DayTime_MANUAL_ON: 0
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DitherAlpha: 1
