@@ -115,3 +115,27 @@ MonoBehaviour:
         FilterRuleName: CollectShaderVariants
         AssetTags: 
         UserData: 
+      - CollectPath: Assets/ResModules/Shaders/HonkaiStarRailToonShader/Shaders/V2.1/SRUniversal-main/Shaders
+        CollectorGUID: f3ea0920607280a42a5ee96bcf8331a4
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectShader
+        AssetTags: 
+        UserData: 
+      - CollectPath: Assets/ResModules/Shaders/HonkaiStarRailToonShader/Shaders/V2.1/SRUniversal-Include/StarRailNPRShader/Shaders
+        CollectorGUID: 3fb7ee35d84d8ad449ca8c8faf4ddbb5
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectShader
+        AssetTags: 
+        UserData: 
+      - CollectPath: Assets/ResModules/Shaders/GenshinCelShaderURP/Shaders/GenshinCelShaderURP/V5.0Beta
+        CollectorGUID: 5852f40032807bc4f8b3d1ce2f0428e5
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectShader
+        AssetTags: 
+        UserData: 
