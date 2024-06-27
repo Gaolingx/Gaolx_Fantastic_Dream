@@ -18,14 +18,18 @@ TEXTURE2D(_MainTex);
 SAMPLER(sampler_MainTex);
 TEXTURE2D(_ilmTex);
 SAMPLER(sampler_ilmTex);
-TEXTURE2D(_FaceMap);
-SAMPLER(sampler_FaceMap);
+TEXTURE2D(_FaceShadowMap);
+SAMPLER(sampler_FaceShadowMap);
+TEXTURE2D(_FaceMapTex);
+SAMPLER(sampler_FaceMapTex);
 TEXTURE2D(_NormalMap);
 SAMPLER(sampler_NormalMap);
 TEXTURE2D(_RampTex);
 SAMPLER(sampler_RampTex);
-TEXTURE2D(_MetalTex);
-SAMPLER(sampler_MetalTex);
+TEXTURE2D(_MTMap);
+SAMPLER(sampler_MTMap);
+TEXTURE2D(_MTSpecularRamp);
+SAMPLER(sampler_MTSpecularRamp);
 
 #if defined(_USESMOOTHNORMAL_NORMALTEXTURE)
 TEXTURE2D(_SmoothNormalTex);
@@ -76,35 +80,63 @@ half4 _CoolDarkShadowColor;
 float _BrightAreaShadowFac;
 float _FaceShadowTransitionSoftness;
 
-//Specular
+// metal properties : 
+float _MetalMaterial;
+float _MTUseSpecularRamp;
+float _MTMapTileScale;
 float _MTMapBrightness;
 float _MTShininess;
 float _MTSpecularScale;
+float _MTSpecularAttenInShadow;
+float _MTSharpLayerOffset;
+float4 _MTMapDarkColor;
+float4 _MTMapLightColor;
+float4 _MTShadowMultiColor;
+float4 _MTSpecularColor;
+float4 _MTSharpLayerColor;
+
+// specular properties :
+float _SpecularHighlights;
+float _UseToonSpecular;
 float _Shininess;
-float _NonMetalSpecArea;
+float _Shininess2;
+float _Shininess3;
+float _Shininess4;
+float _Shininess5;
 float _SpecMulti;
+float _SpecMulti2;
+float _SpecMulti3;
+float _SpecMulti4;
+float _SpecMulti5;
+float4 _SpecularColor;
 
 //RimLight
-float _ModelScale;
-float _RimIntensity;
-float _RimIntensityBackFace;
+float _RimLightThickness;
+float _RimLightIntensity;
+float _RimThreshold;
 float4 _RimColor;
-float _RimWidth;
-float _RimDark;
-float _RimEdgeSoftness;
+float4 _RimColor1;
+float4 _RimColor2;
+float4 _RimColor3;
+float4 _RimColor4;
+float4 _RimColor5;
 
 //Outline
-float _IsFace;
-float _OutlineZOffset;
-half4 _CustomOutlineCol;
-half4 _OutlineColor1;
-half4 _OutlineColor2;
-half4 _OutlineColor3;
-half4 _OutlineColor4;
-half4 _OutlineColor5;
+float _EnableOutlineToggle;
+float  _OutlineType;
+float _FallbackOutlines;
+float _UseFaceOutline;
 float _OutlineWidth;
-float _OutlineWidthMin;
-float _OutlineWidthMax;
+float _OutlineCorrectionWidth;
+float _Scale;
+float4 _OutlineColor1;
+float4 _OutlineColor2;
+float4 _OutlineColor3;
+float4 _OutlineColor4;
+float4 _OutlineColor5;
+float4 _OutlineWidthAdjustScales;
+float4 _OutlineWidthAdjustZs;
+float  _MaxOutlineZOffset;
 
 float _DebugValue01;
 CBUFFER_END
