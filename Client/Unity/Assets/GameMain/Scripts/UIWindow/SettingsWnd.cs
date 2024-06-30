@@ -20,13 +20,27 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
-            InitSliderValue();
-            SliderAddListener();
             InitQualityDropdownOptionData();
+            SliderAddListener();
+            InitSliderValue();
+        }
+
+        private bool GetVSyncCount()
+        {
+            if (QualitySettings.vSyncCount == 0)
+            {
+                return false;
+            }
+            else if (QualitySettings.vSyncCount == 1)
+            {
+                return true;
+            }
+            return false;
         }
 
         private void InitSliderValue()
         {
+            VsyncSettingsToggle.isOn = GetVSyncCount();
             BGAudioSlider.value = audioSvc.BGAudioVolumeValue;
             UIAudioSlider.value = audioSvc.UIAudioVolumeValue;
             CharacterAudioSlider.value = audioSvc.CharacterAudioVolumeValue;
@@ -153,7 +167,7 @@ namespace DarkGod.Main
         }
 
         //Quality Settings
-        public void InitQualityDropdownOptionData()
+        private void InitQualityDropdownOptionData()
         {
             string[] qualityArr = QualitySettings.names;
             List<string> qualityLst = new List<string>(qualityArr);
@@ -167,18 +181,21 @@ namespace DarkGod.Main
             }
 
             qualitySelectDropdown.options = qualitySelectDropdownOptionData;
+            qualitySelectDropdown.value = GetQualityLevel();
+        }
+
+        private int GetQualityLevel()
+        {
+            // 获取当前的质量等级索引  
+            int currentQualityLevel = QualitySettings.GetQualityLevel();
+            return currentQualityLevel;
         }
 
         private void SetQualityLevel(int desiredQualityLevelIndex)
         {
-            // 获取当前的质量等级索引  
-            int currentQualityLevel = QualitySettings.GetQualityLevel();
-            Debug.Log("当前质量等级: " + QualitySettings.names[currentQualityLevel]);
-            
             if (desiredQualityLevelIndex < QualitySettings.names.Length)
             {
                 QualitySettings.SetQualityLevel(desiredQualityLevelIndex);
-                Debug.Log("已将质量等级设置为: " + QualitySettings.names[desiredQualityLevelIndex]);
             }
             else
             {

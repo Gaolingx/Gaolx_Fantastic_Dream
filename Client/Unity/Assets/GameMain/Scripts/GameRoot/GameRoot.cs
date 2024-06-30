@@ -141,11 +141,11 @@ namespace DarkGod.Main
         {
             if (state == true)
             {
-                GetUIController().OnValueChangedVSync(1);
+                GetUIController().VSyncSettings = 1;
             }
             else
             {
-                GetUIController().OnValueChangedVSync(0);
+                GetUIController().VSyncSettings = 0;
             }
         }
 

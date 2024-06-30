@@ -12,8 +12,10 @@ using UnityEngine.SceneManagement;
 #if ENABLE_INPUT_SYSTEM
 public class UIController : MonoBehaviour
 {
-    public Canvas menu;
-    public Canvas touchZone;
+    [SerializeField]
+    private Canvas menu;
+    [SerializeField]
+    private Canvas touchZone;
 
     private EventSystem eventSystem;
     private InputActionAsset _inputActionAsset;
@@ -23,13 +25,23 @@ public class UIController : MonoBehaviour
     private InputAction _esc;
     private InputAction _alt;
 
-    public List<string> ShowCursorScene;
-    public string EventSystemGOName;
-
     public bool _isPause = false;
     public bool _isInputEnable = true;
     public bool _isPressingEsc = false;
     public bool _isPressingAlt = false;
+
+    [SerializeField]
+    private List<string> ShowCursorScene;
+    [SerializeField]
+    private string EventSystemGOName;
+    [SerializeField]
+    private int vSyncSettings;
+
+    public int VSyncSettings
+    {
+        get => vSyncSettings;
+        set => vSyncSettings = value;
+    }
 
     private void Start()
     {
@@ -62,6 +74,8 @@ public class UIController : MonoBehaviour
     bool alt = false;
     private void Update()
     {
+        OnValueChangedVSync(vSyncSettings);
+
         if (_esc != null)
         {
             esc = Convert.ToBoolean(_esc.ReadValue<float>());
@@ -137,7 +151,7 @@ public class UIController : MonoBehaviour
 #endif
     }
 
-    public void OnValueChangedVSync(Int32 value)
+    private void OnValueChangedVSync(Int32 value)
     {
         QualitySettings.vSyncCount = value;
     }
@@ -152,6 +166,111 @@ public class UIController : MonoBehaviour
 #endif
     }
 
+    //Common
+
+    [SerializeField]
+    private int m_FrameRate = 60;
+
+    [SerializeField]
+    private float m_GameSpeed = 1f;
+
+    [SerializeField]
+    private bool m_RunInBackground = true;
+
+    [SerializeField]
+    private bool m_NeverSleep = true;
+
+    private float m_GameSpeedBeforePause = 1f;
+
+    /// <summary>
+    /// 获取或设置游戏帧率。
+    /// </summary>
+    public int FrameRate
+    {
+        get => m_FrameRate;
+        set => Application.targetFrameRate = m_FrameRate = value;
+    }
+
+    /// <summary>
+    /// 获取或设置游戏速度。
+    /// </summary>
+    public float GameSpeed
+    {
+        get => m_GameSpeed;
+        set => Time.timeScale = m_GameSpeed = value >= 0f ? value : 0f;
+    }
+
+    /// <summary>
+    /// 获取游戏是否暂停。
+    /// </summary>
+    public bool IsGamePaused => m_GameSpeed <= 0f;
+
+    /// <summary>
+    /// 获取是否正常游戏速度。
+    /// </summary>
+    public bool IsNormalGameSpeed => Math.Abs(m_GameSpeed - 1f) < 0.01f;
+
+    /// <summary>
+    /// 获取或设置是否允许后台运行。
+    /// </summary>
+    public bool RunInBackground
+    {
+        get => m_RunInBackground;
+        set => Application.runInBackground = m_RunInBackground = value;
+    }
+
+    /// <summary>
+    /// 获取或设置是否禁止休眠。
+    /// </summary>
+    public bool NeverSleep
+    {
+        get => m_NeverSleep;
+        set
+        {
+            m_NeverSleep = value;
+            Screen.sleepTimeout = value ? SleepTimeout.NeverSleep : SleepTimeout.SystemSetting;
+        }
+    }
+
+    /// <summary>
+    /// 暂停游戏。
+    /// </summary>
+    public void PauseGame()
+    {
+        if (IsGamePaused)
+        {
+            return;
+        }
+
+        m_GameSpeedBeforePause = GameSpeed;
+        GameSpeed = 0f;
+    }
+
+    /// <summary>
+    /// 恢复游戏。
+    /// </summary>
+    public void ResumeGame()
+    {
+        if (!IsGamePaused)
+        {
+            return;
+        }
+
+        GameSpeed = m_GameSpeedBeforePause;
+    }
+
+    /// <summary>
+    /// 重置为正常游戏速度。
+    /// </summary>
+    public void ResetNormalGameSpeed()
+    {
+        if (IsNormalGameSpeed)
+        {
+            return;
+        }
+
+        GameSpeed = 1f;
+    }
 
 }
 #endif
