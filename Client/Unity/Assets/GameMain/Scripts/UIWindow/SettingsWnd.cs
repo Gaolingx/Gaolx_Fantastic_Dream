@@ -199,7 +199,7 @@ namespace DarkGod.Main
             }
             else
             {
-                Debug.LogWarning("请求的质量等级索引超出范围: " + QualitySettings.names[desiredQualityLevelIndex]);
+                PECommon.Log("请求的质量等级索引超出范围: " + QualitySettings.names[desiredQualityLevelIndex], PELogType.Error);
             }
         }
 
