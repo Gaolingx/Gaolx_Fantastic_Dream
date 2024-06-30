@@ -227,6 +227,7 @@ namespace DarkGod.Main
 
         //EventSystem≈‰÷√
         public const string EventSystemGOName = "GameRoot/EventSystem";
+        public const string UIControllerGOName = "GameRoot";
 
         //Monster≈‰÷√
         public const int ActiveMonsterDelayTime = 500; //µ•Œª£∫ms

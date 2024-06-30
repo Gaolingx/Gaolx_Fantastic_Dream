@@ -1,13 +1,13 @@
-using DarkGod.Main;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
+using UnityEngine.SceneManagement;
 
 #if ENABLE_INPUT_SYSTEM
 public class UIController : MonoBehaviour
@@ -23,6 +23,9 @@ public class UIController : MonoBehaviour
     private InputAction _esc;
     private InputAction _alt;
 
+    public List<string> ShowCursorScene;
+    public string EventSystemGOName;
+
     public bool _isPause = false;
     public bool _isInputEnable = true;
     public bool _isPressingEsc = false;
@@ -30,7 +33,7 @@ public class UIController : MonoBehaviour
 
     private void Start()
     {
-        eventSystem = GameObject.Find(Constants.EventSystemGOName).GetComponent<EventSystem>();
+        eventSystem = transform.Find(EventSystemGOName).GetComponent<EventSystem>();
         _inputActionAsset = eventSystem.GetComponent<InputSystemUIInputModule>().actionsAsset;
         _player = _inputActionAsset.FindActionMap("Player");
         _esc = _inputActionAsset.FindActionMap("UI").FindAction("Menu");
@@ -100,7 +103,7 @@ public class UIController : MonoBehaviour
         }
 #endif
 
-        if (_isPause || _isPressingAlt || GameRoot.Instance.GetGameState() == GameState.Login)
+        if (_isPause || _isPressingAlt || GetCursorLockModeState())
         {
             //_player.Disable();
 #if !UNITY_ANDROID
@@ -114,6 +117,17 @@ public class UIController : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
 #endif
         }
+    }
+
+    private bool GetCursorLockModeState()
+    {
+        return ShowCursorScene.Any(item => item == GetCurrentSceneName());
+    }
+
+    public string GetCurrentSceneName()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        return currentScene != null ? currentScene.name : null;
     }
 
     private void OnApplicationFocus(bool hasFocus)
