@@ -14,6 +14,7 @@ namespace DarkGod.Main
         public Transform DebugItem;
         public Transform fpsWnd;
         public Transform RuntimeHierarchy, RuntimeInspector;
+        public Dropdown qualitySelectDropdown;
 
         protected override void InitWnd()
         {
@@ -21,6 +22,7 @@ namespace DarkGod.Main
 
             InitSliderValue();
             SliderAddListener();
+            InitQualityDropdownOptionData();
         }
 
         private void InitSliderValue()
@@ -37,6 +39,7 @@ namespace DarkGod.Main
             UIAudioSlider.onValueChanged.AddListener(TouchUIAudioSlider);
             CharacterAudioSlider.onValueChanged.AddListener(TouchCharacterAudioSlider);
             CharacterFxAudioSlider.onValueChanged.AddListener(TouchCharacterFxAudioSlider);
+            qualitySelectDropdown.onValueChanged.AddListener(OnQualityDropdownValueChanged);
         }
 
         public void TouchBGAudioSlider(float volume)
@@ -147,6 +150,45 @@ namespace DarkGod.Main
         {
             resSvc.ResetSkillCfgs();
             GameRoot.AddTips("技能数据重置成功！");
+        }
+
+        //Quality Settings
+        public void InitQualityDropdownOptionData()
+        {
+            string[] qualityArr = QualitySettings.names;
+            List<string> qualityLst = new List<string>(qualityArr);
+
+            List<Dropdown.OptionData> qualitySelectDropdownOptionData = new List<Dropdown.OptionData>();
+            foreach (var item in qualityLst)
+            {
+                Dropdown.OptionData data = new Dropdown.OptionData();
+                data.text = item;
+                qualitySelectDropdownOptionData.Add(data);
+            }
+
+            qualitySelectDropdown.options = qualitySelectDropdownOptionData;
+        }
+
+        private void SetQualityLevel(int desiredQualityLevelIndex)
+        {
+            // 获取当前的质量等级索引  
+            int currentQualityLevel = QualitySettings.GetQualityLevel();
+            Debug.Log("当前质量等级: " + QualitySettings.names[currentQualityLevel]);
+            
+            if (desiredQualityLevelIndex < QualitySettings.names.Length)
+            {
+                QualitySettings.SetQualityLevel(desiredQualityLevelIndex);
+                Debug.Log("已将质量等级设置为: " + QualitySettings.names[desiredQualityLevelIndex]);
+            }
+            else
+            {
+                Debug.LogWarning("请求的质量等级索引超出范围: " + QualitySettings.names[desiredQualityLevelIndex]);
+            }
+        }
+
+        public void OnQualityDropdownValueChanged(int value)
+        {
+            SetQualityLevel(value);
         }
     }
 }

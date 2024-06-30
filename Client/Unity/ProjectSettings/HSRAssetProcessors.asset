@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AvatarModelProcessConfig:
-    Enable: 1
+    Enable: 0
     MatchMode: 0
     PathPattern: Avatar_*_00*.fbx | Art_*_00*.fbx
     IgnoreCase: 1
@@ -21,7 +21,7 @@ MonoBehaviour:
     SmoothNormalStoreMode: 0
     Foldout: 0
   RampTextureProcessConfig:
-    Enable: 1
+    Enable: 0
     MatchMode: 0
     PathPattern: Avatar_*_Ramp*
     IgnoreCase: 1
@@ -29,7 +29,7 @@ MonoBehaviour:
     SmoothNormalStoreMode: 0
     Foldout: 0
   LightMapProcessConfig:
-    Enable: 1
+    Enable: 0
     MatchMode: 0
     PathPattern: Avatar_*_LightMap*
     IgnoreCase: 1
@@ -37,7 +37,7 @@ MonoBehaviour:
     SmoothNormalStoreMode: 0
     Foldout: 0
   ColorTextureProcessConfig:
-    Enable: 1
+    Enable: 0
     MatchMode: 0
     PathPattern: Avatar_*_Color*
     IgnoreCase: 1
@@ -45,7 +45,7 @@ MonoBehaviour:
     SmoothNormalStoreMode: 0
     Foldout: 0
   StockingsRangeMapProcessConfig:
-    Enable: 1
+    Enable: 0
     MatchMode: 0
     PathPattern: Avatar_*_Stockings*
     IgnoreCase: 1
@@ -53,7 +53,7 @@ MonoBehaviour:
     SmoothNormalStoreMode: 0
     Foldout: 0
   FaceMapProcessConfig:
-    Enable: 1
+    Enable: 0
     MatchMode: 0
     PathPattern: M_*_*_FaceMap* | W_*_*_FaceMap*
     IgnoreCase: 1
@@ -61,7 +61,7 @@ MonoBehaviour:
     SmoothNormalStoreMode: 0
     Foldout: 0
   FaceExpressionMapProcessConfig:
-    Enable: 1
+    Enable: 0
     MatchMode: 0
     PathPattern: M_*_*_Face_ExpressionMap* | W_*_*_Face_ExpressionMap*
     IgnoreCase: 1
