@@ -34,11 +34,11 @@ namespace DarkGod.Main
 
         private void Update()
         {
-            RefreshAudioSourceVolume();
             if (uiController != null)
             {
                 _isTurnOnAudio = !uiController._isPause;
             }
+            RefreshAudioSourceVolume();
         }
 
         public void GetCharacterAudioSourceComponent(GameObject playerGO)
@@ -83,21 +83,32 @@ namespace DarkGod.Main
             if (BGAudioAudioSource != null)
             {
                 BGAudioAudioSource.volume = BGAudioVolumeValue;
+                if (!_isTurnOnAudio)
+                {
+                    BGAudioAudioSource.volume = 0f;
+                }
             }
             if (UIAudioAudioSource != null)
             {
                 UIAudioAudioSource.volume = UIAudioVolumeValue;
+                if (!_isTurnOnAudio)
+                {
+                    UIAudioAudioSource.volume = 0f;
+                }
             }
             if (CharacterAudioSource != null)
             {
                 CharacterAudioSource.volume = CharacterAudioVolumeValue;
+                if (!_isTurnOnAudio)
+                {
+                    CharacterAudioSource.volume = 0f;
+                }
             }
         }
 
         #region PlayAudio
         public async void PlayBGMusic(string name, bool isLoop = true, bool isCache = true)
         {
-            if (!_isTurnOnAudio) { return; }
             string path = bgAudioPath + name;
             AudioClip audioClip = await ResSvc.Instance.LoadAudioClipAsync(path, isCache);
             if (BGAudioAudioSource.clip == null || BGAudioAudioSource.clip.name != audioClip.name)
@@ -119,7 +130,6 @@ namespace DarkGod.Main
 
         public async void PlayUIAudio(string name, bool isCache = true)
         {
-            if (!_isTurnOnAudio) { return; }
             string path = bgAudioPath + name;
             AudioClip audioClip = await ResSvc.Instance.LoadAudioClipAsync(path, isCache);
             UIAudioAudioSource.PlayOneShot(audioClip, UIAudioVolumeValue);
@@ -127,28 +137,24 @@ namespace DarkGod.Main
 
         public void PlayFootStep()
         {
-            if (!_isTurnOnAudio) { return; }
             int i = Random.Range(0, CharacterFootSteps.Length);
             CharacterAudioSource.PlayOneShot(CharacterFootSteps[i], CharacterAudioVolumeValue);
         }
 
         public void PlayJumpEffort()
         {
-            if (!_isTurnOnAudio) { return; }
             int i = Random.Range(0, CharacterJumpEfforts.Length);
             CharacterAudioSource.PlayOneShot(CharacterJumpEfforts[i], CharacterAudioVolumeValue);
         }
 
         public void PlayLanding()
         {
-            if (!_isTurnOnAudio) { return; }
             int i = Random.Range(0, CharacterLanding.Length);
             CharacterAudioSource.PlayOneShot(CharacterLanding[i], CharacterAudioVolumeValue);
         }
 
         public void PlayHit()
         {
-            if (!_isTurnOnAudio) { return; }
             int i = Random.Range(0, CharacterHit.Length);
             CharacterAudioSource.PlayOneShot(CharacterHit[i], CharacterAudioVolumeValue);
         }
