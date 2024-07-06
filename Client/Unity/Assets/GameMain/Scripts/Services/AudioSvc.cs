@@ -34,11 +34,25 @@ namespace DarkGod.Main
 
         private void Update()
         {
-            if (uiController != null)
-            {
-                _isTurnOnAudio = !uiController._isPause;
-            }
             RefreshAudioSourceVolume();
+            CheckAllAudioObjectMuted();
+        }
+
+        private void CheckAllAudioObjectMuted()
+        {
+            if (uiController == null)
+            {
+                _isTurnOnAudio = true;
+                return;
+            }
+            _isTurnOnAudio = !uiController._isPause;
+
+            if (!_isTurnOnAudio)
+            {
+                BGAudioAudioSource.volume = 0f;
+                UIAudioAudioSource.volume = 0f;
+                CharacterAudioSource.volume = 0f;
+            }
         }
 
         public void GetCharacterAudioSourceComponent(GameObject playerGO)
@@ -83,26 +97,14 @@ namespace DarkGod.Main
             if (BGAudioAudioSource != null)
             {
                 BGAudioAudioSource.volume = BGAudioVolumeValue;
-                if (!_isTurnOnAudio)
-                {
-                    BGAudioAudioSource.volume = 0f;
-                }
             }
             if (UIAudioAudioSource != null)
             {
                 UIAudioAudioSource.volume = UIAudioVolumeValue;
-                if (!_isTurnOnAudio)
-                {
-                    UIAudioAudioSource.volume = 0f;
-                }
             }
             if (CharacterAudioSource != null)
             {
                 CharacterAudioSource.volume = CharacterAudioVolumeValue;
-                if (!_isTurnOnAudio)
-                {
-                    CharacterAudioSource.volume = 0f;
-                }
             }
         }
 
