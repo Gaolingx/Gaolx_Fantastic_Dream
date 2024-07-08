@@ -402,13 +402,13 @@ namespace DarkGod.Main
             for (int i = 0; i < entity.skMoveCBLst.Count; i++)
             {
                 int tid = entity.skMoveCBLst[i];
-                TimerSvc.Instance.DelTask(tid);
+                TimerSvc.MainInstance.DelTask(tid);
             }
 
             for (int i = 0; i < entity.skActionCBLst.Count; i++)
             {
                 int tid = entity.skActionCBLst[i];
-                TimerSvc.Instance.DelTask(tid);
+                TimerSvc.MainInstance.DelTask(tid);
             }
         }
 
@@ -416,7 +416,7 @@ namespace DarkGod.Main
         {
             if (entity.skEndCB != -1)
             {
-                TimerSvc.Instance.DelTask(entity.skEndCB);
+                TimerSvc.MainInstance.DelTask(entity.skEndCB);
                 entity.skEndCB = -1;
             }
             entity.ClearActionCBLst();

@@ -51,7 +51,7 @@ namespace DarkGod.Main
 
         public virtual void Init()
         {
-            timerSvc = TimerSvc.Instance;
+            timerSvc = TimerSvc.MainInstance;
         }
 
 

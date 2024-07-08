@@ -16,7 +16,7 @@ namespace DarkGod.Main
         protected override void OnReciveMsg(GameMsg msg)
         {
             PECommon.Log("RcvPack CMD:" + ((CMD)msg.cmd).ToString());
-            NetSvc.Instance.AddNetPkg(msg);
+            NetSvc.MainInstance.AddNetPkg(msg);
         }
 
         protected override void OnDisConnected()

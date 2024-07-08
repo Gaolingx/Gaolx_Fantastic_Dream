@@ -16,9 +16,9 @@ namespace DarkGod.Main
 
         public void Init()
         {
-            resSvc = ResSvc.Instance;
-            timerSvc = TimerSvc.Instance;
-            audioSvc = AudioSvc.Instance;
+            resSvc = ResSvc.MainInstance;
+            timerSvc = TimerSvc.MainInstance;
+            audioSvc = AudioSvc.MainInstance;
             PECommon.Log("Init SkillMgr Done.");
         }
 

@@ -14,10 +14,10 @@ namespace DarkGod.Main
 
         public virtual void InitSys()
         {
-            resSvc = ResSvc.Instance;
-            audioSvc = AudioSvc.Instance;
-            netSvc = NetSvc.Instance;
-            timerSvc = TimerSvc.Instance;
+            resSvc = ResSvc.MainInstance;
+            audioSvc = AudioSvc.MainInstance;
+            netSvc = NetSvc.MainInstance;
+            timerSvc = TimerSvc.MainInstance;
         }
     }
 }

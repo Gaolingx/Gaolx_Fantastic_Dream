@@ -40,10 +40,10 @@ namespace DarkGod.Main
         protected virtual void InitWnd()
         {
             //获取单例的引用
-            resSvc = ResSvc.Instance;
-            audioSvc = AudioSvc.Instance;
-            netSvc = NetSvc.Instance;
-            timerSvc = TimerSvc.Instance;
+            resSvc = ResSvc.MainInstance;
+            audioSvc = AudioSvc.MainInstance;
+            netSvc = NetSvc.MainInstance;
+            timerSvc = TimerSvc.MainInstance;
         }
 
         protected virtual void ClearWnd()

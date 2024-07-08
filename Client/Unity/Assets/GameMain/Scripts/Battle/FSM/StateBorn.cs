@@ -19,7 +19,7 @@ namespace DarkGod.Main
         {
             //播放出生动画
             entity.SetAction(Constants.ActionBorn);
-            TimerSvc.Instance.AddTimeTask((int tid) =>
+            TimerSvc.MainInstance.AddTimeTask((int tid) =>
             {
                 entity.SetAction(Constants.ActionDefault);
             }, Constants.StateBornMonsterDurationTime); //应小于动画时长

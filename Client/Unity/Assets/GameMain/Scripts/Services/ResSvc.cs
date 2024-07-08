@@ -3,24 +3,26 @@ using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using System.Xml;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using YooAsset;
+using HuHu;
 
 namespace DarkGod.Main
 {
-    public class ResSvc : MonoBehaviour
+    public class ResSvc : Singleton<ResSvc>
     {
-        public static ResSvc Instance = null;
-
         private ResourcePackage _yooAssetResourcePackage;
+
+        protected override void Awake()
+        {
+            base.Awake();
+        }
 
         public void InitSvc()
         {
-            Instance = this;
             _yooAssetResourcePackage = YooAssets.GetPackage(Constants.ResourcePackgeName);
 
             InitRDNameCfg(PathDefine.RDNameCfg);

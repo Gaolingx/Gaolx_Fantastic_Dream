@@ -111,9 +111,9 @@ namespace DarkGod.Main
             InitPlayerInput();
 
             //初始化服务模块
-            resSvc = ResSvc.Instance;
-            audioSvc = AudioSvc.Instance;
-            timerSvc = TimerSvc.Instance;
+            resSvc = ResSvc.MainInstance;
+            audioSvc = AudioSvc.MainInstance;
+            timerSvc = TimerSvc.MainInstance;
 
             //初始化系统
             battleSys = BattleSys.Instance;

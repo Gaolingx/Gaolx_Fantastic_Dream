@@ -21,13 +21,13 @@ namespace DarkGod.Main
         public void InitCfg()
         {
             Instance = this;
-            resSvc = ResSvc.Instance;
+            resSvc = ResSvc.MainInstance;
             PECommon.Log("Init NpcCfg...");
         }
 
         private NpcData GetNpcCfgFromXml(int npcType)
         {
-            NpcData npcData = ResSvc.Instance.GetNpcCfg(npcType);
+            NpcData npcData = ResSvc.MainInstance.GetNpcCfg(npcType);
             return npcData;
         }
 

@@ -23,7 +23,7 @@ namespace DarkGod.Main
             if (entity.entityType == EntityType.Monster)
             {
                 entity.GetCharacterController().enabled = false;
-                TimerSvc.Instance.AddTimeTask((int tid) =>
+                TimerSvc.MainInstance.AddTimeTask((int tid) =>
                 {
                     entity.SetActive(false);
                 }, Constants.StateDieMonsterAnimTime);

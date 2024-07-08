@@ -8,7 +8,7 @@ namespace DarkGod.Main
         public void StateEnter(EntityBase entity, params object[] args)
         {
             entity.currentAniState = AniState.Attack;
-            entity.curtSkillCfg = ResSvc.Instance.GetSkillCfg((int)args[0]);
+            entity.curtSkillCfg = ResSvc.MainInstance.GetSkillCfg((int)args[0]);
             //PECommon.Log("StateAttack:Enter State.");
         }
 

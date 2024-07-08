@@ -36,7 +36,7 @@ namespace DarkGod.Main
             }
 
             //恢复Idle状态
-            TimerSvc.Instance.AddTimeTask((int tid) =>
+            TimerSvc.MainInstance.AddTimeTask((int tid) =>
             {
                 entity.SetAction(Constants.ActionDefault);
                 entity.StateIdle();

@@ -30,7 +30,7 @@ namespace DarkGod.Main
 
         public void GetBuyCfg(int buyType)
         {
-            buyCfg = ResSvc.Instance.GetBuyCfg(buyType);
+            buyCfg = ResSvc.MainInstance.GetBuyCfg(buyType);
         }
 
         public void RefreshUI()

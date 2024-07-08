@@ -82,7 +82,7 @@ namespace DarkGod.Main
             }
             else
             {
-                AudioSvc.Instance.PlayUIAudio(Constants.UIClickBtn);
+                AudioSvc.MainInstance.PlayUIAudio(Constants.UIClickBtn);
             }
 
             //进入主城，销毁当前战斗

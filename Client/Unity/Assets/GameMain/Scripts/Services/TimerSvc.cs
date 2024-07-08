@@ -4,18 +4,21 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HuHu;
 
 namespace DarkGod.Main
 {
-    public class TimerSvc : SystemRoot
+    public class TimerSvc : Singleton<TimerSvc>
     {
-        public static TimerSvc Instance = null;
-
         private PETimer pt;
+
+        protected override void Awake()
+        {
+            base.Awake();
+        }
 
         public void InitSvc()
         {
-            Instance = this;
             pt = new PETimer();
 
             //设置定时器日志输出

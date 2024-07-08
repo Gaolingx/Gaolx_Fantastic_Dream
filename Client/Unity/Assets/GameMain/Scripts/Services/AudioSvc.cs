@@ -2,13 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HuHu;
 
 namespace DarkGod.Main
 {
-    public class AudioSvc : MonoBehaviour
+    public class AudioSvc : Singleton<AudioSvc>
     {
-        public static AudioSvc Instance = null;
-
         [Range(0, 1)] public float BGAudioVolumeValue, UIAudioVolumeValue, CharacterAudioVolumeValue, CharacterFxAudioVolumeValue;
         public AudioSource BGAudioAudioSource, UIAudioAudioSource, CharacterAudioSource;
         public string[] FootStepsAudioPaths, JumpEffortsAudioPaths, LandingAudioPaths, HitAudioPaths;
@@ -23,10 +22,13 @@ namespace DarkGod.Main
         private UIController uiController;
         private bool _isTurnOnAudio;
 
+        protected override void Awake()
+        {
+            base.Awake();
+        }
+
         public void InitSvc()
         {
-            Instance = this;
-
             InitAudioClipArray(FootStepsAudioPaths, JumpEffortsAudioPaths, LandingAudioPaths, HitAudioPaths);
             uiController = GameRoot.Instance.GetUIController();
             PECommon.Log("Init AudioSvc...");
@@ -66,28 +68,28 @@ namespace DarkGod.Main
             for (int i = 0; i < name1.Length; i++)
             {
                 string path = bgAudioPath + name1[i];
-                AudioClip audioClip = ResSvc.Instance.LoadAudioClipSync(path);
+                AudioClip audioClip = ResSvc.MainInstance.LoadAudioClipSync(path);
                 CharacterFootSteps[i] = audioClip;
             }
 
             for (int i = 0; i < name2.Length; i++)
             {
                 string path = bgAudioPath + name2[i];
-                AudioClip audioClip = ResSvc.Instance.LoadAudioClipSync(path);
+                AudioClip audioClip = ResSvc.MainInstance.LoadAudioClipSync(path);
                 CharacterJumpEfforts[i] = audioClip;
             }
 
             for (int i = 0; i < name3.Length; i++)
             {
                 string path = bgAudioPath + name3[i];
-                AudioClip audioClip = ResSvc.Instance.LoadAudioClipSync(path);
+                AudioClip audioClip = ResSvc.MainInstance.LoadAudioClipSync(path);
                 CharacterLanding[i] = audioClip;
             }
 
             for (int i = 0; i < name4.Length; i++)
             {
                 string path = bgAudioPath + name4[i];
-                AudioClip audioClip = ResSvc.Instance.LoadAudioClipSync(path);
+                AudioClip audioClip = ResSvc.MainInstance.LoadAudioClipSync(path);
                 CharacterHit[i] = audioClip;
             }
         }
@@ -112,7 +114,7 @@ namespace DarkGod.Main
         public async void PlayBGMusic(string name, bool isLoop = true, bool isCache = true)
         {
             string path = bgAudioPath + name;
-            AudioClip audioClip = await ResSvc.Instance.LoadAudioClipAsync(path, isCache);
+            AudioClip audioClip = await ResSvc.MainInstance.LoadAudioClipAsync(path, isCache);
             if (BGAudioAudioSource.clip == null || BGAudioAudioSource.clip.name != audioClip.name)
             {
                 BGAudioAudioSource.clip = audioClip;
@@ -133,7 +135,7 @@ namespace DarkGod.Main
         public async void PlayUIAudio(string name, bool isCache = true)
         {
             string path = bgAudioPath + name;
-            AudioClip audioClip = await ResSvc.Instance.LoadAudioClipAsync(path, isCache);
+            AudioClip audioClip = await ResSvc.MainInstance.LoadAudioClipAsync(path, isCache);
             UIAudioAudioSource.PlayOneShot(audioClip, UIAudioVolumeValue);
         }
 

@@ -289,7 +289,7 @@ namespace StarterAssets
             _fallTimeoutDelta = FallTimeout;
 
             // Init AudioSvc
-            _audioSvc = AudioSvc.Instance;
+            _audioSvc = AudioSvc.MainInstance;
 
             // Init FX
             InitFX();
@@ -639,7 +639,7 @@ namespace StarterAssets
         #region Player FX
         public void InitFX()
         {
-            timerSvc = TimerSvc.Instance;
+            timerSvc = TimerSvc.MainInstance;
 
             if (daggerskill1fx != null)
             {

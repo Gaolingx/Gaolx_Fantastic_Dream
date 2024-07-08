@@ -3,22 +3,23 @@ using System.Collections.Generic;
 using PENet;
 using PEProtocol;
 using UnityEngine;
+using HuHu;
 
 namespace DarkGod.Main
 {
-    public class NetSvc : MonoBehaviour
+    public class NetSvc : Singleton<NetSvc>
     {
-        public static NetSvc Instance = null;
-
         private static readonly string obj = "lock";
         PESocket<ClientSession, GameMsg> client = null;
         private Queue<GameMsg> msgQue = new Queue<GameMsg>();
 
+        protected override void Awake()
+        {
+            base.Awake();
+        }
 
         public void InitSvc()
         {
-            Instance = this;
-
             client = new PESocket<ClientSession, GameMsg>();
             client.SetLog(true, (string msg, int lv) =>
             {
