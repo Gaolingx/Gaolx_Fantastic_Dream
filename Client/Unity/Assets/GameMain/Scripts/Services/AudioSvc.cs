@@ -53,13 +53,16 @@ namespace DarkGod.Main
             {
                 BGAudioAudioSource.volume = 0f;
                 UIAudioAudioSource.volume = 0f;
-                CharacterAudioSource.volume = 0f;
+                if (CharacterAudioSource != null)
+                {
+                    CharacterAudioSource.volume = 0f;
+                }
             }
         }
 
-        public void GetCharacterAudioSourceComponent(GameObject playerGO)
+        public void SetCharacterAudioSource(AudioSource audioSource)
         {
-            CharacterAudioSource = playerGO.GetComponent<AudioSource>();
+            CharacterAudioSource = audioSource;
             CharacterAudioSource.volume = CharacterAudioVolumeValue;
         }
 

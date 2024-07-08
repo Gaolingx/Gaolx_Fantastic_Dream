@@ -88,8 +88,8 @@ namespace DarkGod.Main
             GameRoot.Instance.dynamicWnd.RmvAllHpItemInfo();
             battleMgr.SetEntityPlayer(null);
             Destroy(battleMgr.gameObject);
-            resSvc.DestroyAllInstantiateGameObject();
             GameRoot.Instance.SetAudioListener(null, false, true);
+            resSvc.DestroyAllInstantiateGameObject();
         }
 
         public void SetPlayerCtrlWndState(bool isActive = true)

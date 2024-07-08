@@ -28,6 +28,7 @@ namespace DarkGod.Main
                     entity.SetActive(false);
                 }, Constants.StateDieMonsterAnimTime);
             }
+            entity.RmvHealthData();
         }
     }
 }

@@ -36,22 +36,9 @@ namespace DarkGod.Main
         private BattleProps props;
         public BattleProps Props { get { return props; } protected set { props = value; } } //只能在继承他的子类中修改
 
-        private int hp; //战斗中的hp
-        public int HP
-        {
-            get
-            {
-                return hp;
-            }
+        public BindableProperty<int> currentHP = new BindableProperty<int>();
 
-            set
-            {
-                //PECommon.Log("hp change:" + hp + " to " + value);
-                //通知UI层
-                SetHPVal(hp, value); //无需在其他地方调用
-                hp = value;
-            }
-        }
+        private int hp; //战斗中的hp
 
         //用队列存储连招对应的技能id，当释放完此次普攻后，检测是否存在下一次技能id。
         public Queue<int> comboQue = new Queue<int>();
@@ -122,8 +109,25 @@ namespace DarkGod.Main
 
         public virtual void SetBattleProps(BattleProps props)
         {
-            HP = props.hp;
+            currentHP.Value = props.hp;
             Props = props;
+        }
+
+        public virtual void AddHealthData()
+        {
+            currentHP.OnValueChanged += OnUpdateHP;
+        }
+
+        public virtual void RmvHealthData()
+        {
+            currentHP.OnValueChanged -= OnUpdateHP;
+        }
+
+        private void OnUpdateHP(int value)
+        {
+            PECommon.Log("hp change:" + hp + " to " + value + ".EntityType:" + entityType);
+            SetHPVal(hp, value);
+            hp = value;
         }
 
         public virtual void SetAniBlend(int blend)

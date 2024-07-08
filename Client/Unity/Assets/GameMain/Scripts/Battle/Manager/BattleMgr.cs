@@ -82,6 +82,7 @@ namespace DarkGod.Main
                 };
                 entitySelfPlayer.Name = pd.name;
                 entitySelfPlayer.SetBattleProps(props);
+                entitySelfPlayer.AddHealthData();
 
                 controller = player.GetComponent<ThirdPersonController>();
 
@@ -98,7 +99,7 @@ namespace DarkGod.Main
 
                 //配置角色声音源
                 GameRoot.Instance.SetAudioListener(player.GetComponent<AudioListener>(), true, false);
-                audioSvc.GetCharacterAudioSourceComponent(player);
+                audioSvc.SetCharacterAudioSource(player.GetComponent<AudioSource>());
 
                 cinemachineVirtualCamera.Follow = player.transform.Find(Constants.CinemachineVirtualCameraFollowGameObjectWithTag);
 
@@ -210,7 +211,7 @@ namespace DarkGod.Main
                     if (!isExist)
                     {
                         //关卡结束，战斗胜利
-                        EndBattle(true, entitySelfPlayer.HP);
+                        EndBattle(true, entitySelfPlayer.currentHP.Value);
                     }
                 }
             }
@@ -248,6 +249,7 @@ namespace DarkGod.Main
                     em.md = md;
                     em.SetBattleProps(md.mCfg.bps);
                     em.Name = m.name;
+                    em.AddHealthData();
 
                     MonsterController mc = m.GetComponent<MonsterController>();
                     mc.Init();
@@ -260,7 +262,7 @@ namespace DarkGod.Main
                     //Boss血条特殊处理
                     if (md.mCfg.mType == MonsterType.Normal)
                     {
-                        GameRoot.Instance.dynamicWnd.AddHpItemInfo(m.name, mc.hpRoot, em.HP);
+                        GameRoot.Instance.dynamicWnd.AddHpItemInfo(m.name, mc.hpRoot, em.currentHP.Value);
                     }
                     else if (md.mCfg.mType == MonsterType.Boss)
                     {

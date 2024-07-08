@@ -168,13 +168,13 @@ namespace DarkGod.Main
             target.SetHurt(dmgSum);
 
             //目标应用伤害
-            if (target.HP <= dmgSum)
+            if (target.currentHP.Value <= dmgSum)
             {
                 TargetDie(target);
             }
             else
             {
-                target.HP -= dmgSum;
+                target.currentHP.Value -= dmgSum;
                 if (target.entityState == EntityState.None && target.GetBreakState()) //技能可被中断
                 {
                     target.StateHit();
@@ -185,7 +185,7 @@ namespace DarkGod.Main
 
         private void TargetDie(EntityBase target)
         {
-            target.HP = 0;
+            target.currentHP.Value = 0;
             //目标死亡
             target.StateDie();
             if (target.entityType == EntityType.Monster)
