@@ -158,7 +158,7 @@ namespace DarkGod.Main
             return audioClip;
         }
 
-        public GameObject LoadGameObjectSync(string packageName, string prefabPath, bool isCache)
+        public GameObject LoadPrefabSync(string packageName, string prefabPath, bool isCache)
         {
             GameObject prefab = null;
             _prefabHandleDict.TryGetValue(prefabPath, out AssetHandle handle);
@@ -167,7 +167,6 @@ namespace DarkGod.Main
                 var package = YooAssets.GetPackage(packageName);
                 handle = package.LoadAssetSync<GameObject>(prefabPath);
                 prefab = handle.AssetObject as GameObject;
-                prefab = handle.InstantiateSync();
                 if (isCache)
                 {
                     if (!_prefabHandleDict.ContainsKey(prefabPath))
@@ -189,9 +188,34 @@ namespace DarkGod.Main
             return prefab;
         }
 
+        public GameObject LoadGameObjectSync(string packageName, Transform parentTrans, string prefabPath, bool isCache)
+        {
+            GameObject prefab = LoadPrefabSync(packageName, prefabPath, isCache);
+            GameObject instantiatedPrefab = Instantiate(prefab, parentTrans);
+            return instantiatedPrefab;
+        }
 
         private Dictionary<int, GameObject> _InstantiateGameObjectDic = new Dictionary<int, GameObject>();
         public async UniTask<GameObject> LoadGameObjectAsync(string packageName, string prefabPath, Vector3 GameObjectPos, Vector3 GameObjectRota, Vector3 GameObjectScal, bool isCache = false, bool isLocalPos = true, bool isLocalEulerAngles = true, bool instantiateInWorldSpace = false, bool isRename = false, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
+        {
+            GameObject prefab = await LoadPrefabAsync(packageName, prefabPath, isCache);
+
+            GameObject instantiatedPrefab = Instantiate(prefab, transform);
+            if (instantiateInWorldSpace)
+            {
+                GameRoot.MainInstance.SetGameObjectTrans(instantiatedPrefab, GameObjectPos, GameObjectRota, GameObjectScal, isLocalPos, isLocalEulerAngles, true, null, isRename);
+            }
+            else
+            {
+                GameRoot.MainInstance.SetGameObjectTrans(instantiatedPrefab, GameObjectPos, GameObjectRota, GameObjectScal, isLocalPos, isLocalEulerAngles, false, null, isRename);
+            }
+            _InstantiateGameObjectDic.Add(instantiatedPrefab.GetInstanceID(), instantiatedPrefab);
+
+            PECommon.Log("Prefab load Async. name:" + instantiatedPrefab.name + ". path:" + prefabPath + ",isCache:" + isCache);
+            return instantiatedPrefab;
+        }
+
+        public async UniTask<GameObject> LoadPrefabAsync(string packageName, string prefabPath, bool isCache, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
         {
             GameObject prefab = null;
             _prefabHandleDict.TryGetValue(prefabPath, out AssetHandle handle);
@@ -201,17 +225,6 @@ namespace DarkGod.Main
                 handle = package.LoadAssetAsync<GameObject>(prefabPath);
                 await handle.ToUniTask(progress, timing);
                 prefab = handle.AssetObject as GameObject;
-
-                var go = Instantiate(prefab, transform);
-                if (instantiateInWorldSpace)
-                {
-                    GameRoot.MainInstance.SetGameObjectTrans(go, GameObjectPos, GameObjectRota, GameObjectScal, isLocalPos, isLocalEulerAngles, true, null, isRename);
-                }
-                else
-                {
-                    GameRoot.MainInstance.SetGameObjectTrans(go, GameObjectPos, GameObjectRota, GameObjectScal, isLocalPos, isLocalEulerAngles, false, null, isRename);
-                }
-                _InstantiateGameObjectDic.Add(go.GetInstanceID(), go);
 
                 if (isCache)
                 {
@@ -224,28 +237,12 @@ namespace DarkGod.Main
                 {
                     GCAssetHandleTODO(handle);
                 }
-
-                PECommon.Log("Prefab load Async. name:" + go.name + ". path:" + prefabPath + ",isCache:" + isCache);
-                return go;
             }
             else
             {
                 prefab = handle.AssetObject as GameObject;
-
-                var go = Instantiate(prefab, transform);
-                if (instantiateInWorldSpace)
-                {
-                    GameRoot.MainInstance.SetGameObjectTrans(go, GameObjectPos, GameObjectRota, GameObjectScal, isLocalPos, isLocalEulerAngles, true, null, isRename);
-                }
-                else
-                {
-                    GameRoot.MainInstance.SetGameObjectTrans(go, GameObjectPos, GameObjectRota, GameObjectScal, isLocalPos, isLocalEulerAngles, false, null, isRename);
-                }
-                _InstantiateGameObjectDic.Add(go.GetInstanceID(), go);
-
-                PECommon.Log("Prefab load Async. name:" + go.name + ". path:" + prefabPath + ",isCache:" + isCache);
-                return go;
             }
+            return prefab;
         }
 
         public void DestroyAllInstantiateGameObject()
