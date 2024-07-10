@@ -83,13 +83,13 @@ namespace DarkGod.Main
 
         private void PauseGameInWnd()
         {
-            if (GameRoot.Instance.GetGameState() == GameState.FBFight)
+            if (GameRoot.MainInstance.GetGameState() == GameState.FBFight)
             {
                 BattleSys.Instance.battleMgr.SetPauseGame(false, false);
             }
-            else if (GameRoot.Instance.GetGameState() == GameState.MainCity)
+            else if (GameRoot.MainInstance.GetGameState() == GameState.MainCity)
             {
-                GameRoot.Instance.PauseGameUI(false);
+                GameRoot.MainInstance.PauseGameUI(false);
             }
         }
 
@@ -150,13 +150,13 @@ namespace DarkGod.Main
         public void ClickExitGame()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            GameRoot.Instance.ExitGame();
+            GameRoot.MainInstance.ExitGame();
         }
 
         public void ClickVsyncBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            GameRoot.Instance.SetVsyncState(VsyncSettingsToggle.isOn);
+            GameRoot.MainInstance.SetVsyncState(VsyncSettingsToggle.isOn);
         }
 
         //Reload Cfg Data

@@ -261,7 +261,7 @@ namespace StarterAssets
         {
             if (StarterAssetsInputs == null)
             {
-                _input = GameRoot.Instance.GetStarterAssetsInputs();
+                _input = GameRoot.MainInstance.GetStarterAssetsInputs();
             }
             else
             {

@@ -34,13 +34,13 @@ namespace DarkGod.Main
                 loginWnd.SetWndState();
                 audioSvc.PlayBGMusic(Constants.BGLogin);
             });
-            GameRoot.Instance.SetGameState(GameState.Login);
+            GameRoot.MainInstance.SetGameState(GameState.Login);
         }
 
         public void RspLogin(GameMsg msg)
         {
             GameRoot.AddTips("登录成功");
-            GameRoot.Instance.SetPlayerData(msg.rspLogin);
+            GameRoot.MainInstance.SetPlayerData(msg.rspLogin);
 
             if (msg.rspLogin.playerData.name == "")
             {
@@ -58,7 +58,7 @@ namespace DarkGod.Main
 
         public void RspRename(GameMsg msg)
         {
-            GameRoot.Instance.SetPlayerName(msg.rspRename.name);
+            GameRoot.MainInstance.SetPlayerName(msg.rspRename.name);
 
             //跳转场景进入主城
             //打开主城的界面

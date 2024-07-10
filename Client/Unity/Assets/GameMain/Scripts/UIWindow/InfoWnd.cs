@@ -68,7 +68,7 @@ namespace DarkGod.Main
         private void RefreshUI()
         {
             //获取玩家数据
-            PlayerData pd = GameRoot.Instance.PlayerData;
+            PlayerData pd = GameRoot.MainInstance.PlayerData;
 
             SetText(txtInfo, pd.name + " LV." + pd.lv);
             SetText(txtExp, pd.exp + "/" + PECommon.GetExpUpValByLv(pd.lv));

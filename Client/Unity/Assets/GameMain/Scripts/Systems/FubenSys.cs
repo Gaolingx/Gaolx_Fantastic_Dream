@@ -35,7 +35,7 @@ namespace DarkGod.Main
 
         public void RspFBFight(GameMsg msg)
         {
-            GameRoot.Instance.SetPlayerDataByFBStart(msg.rspFBFight);
+            GameRoot.MainInstance.SetPlayerDataByFBStart(msg.rspFBFight);
             MainCitySys.Instance.maincityWnd.SetWndState(false);
             SetFubenWndState(false);
             //加载对应的战斗场景，开始副本战斗任务

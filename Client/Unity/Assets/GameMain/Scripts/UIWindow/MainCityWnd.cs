@@ -50,7 +50,7 @@ namespace DarkGod.Main
 
         public void RefreshUI()
         {
-            PlayerData pd = GameRoot.Instance.PlayerData;
+            PlayerData pd = GameRoot.MainInstance.PlayerData;
 
             SetText(txtFight, PECommon.GetFightByProps(pd));
             SetText(txtPower, "ÃÂ¡¶:" + pd.power + "/" + PECommon.GetPowerLimit(pd.lv));

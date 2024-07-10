@@ -34,7 +34,7 @@ namespace DarkGod.Main
 
         private void InitPlayerInput()
         {
-            starterAssetsInputs = GameRoot.Instance.GetStarterAssetsInputs();
+            starterAssetsInputs = GameRoot.MainInstance.GetStarterAssetsInputs();
         }
 
 
@@ -60,7 +60,7 @@ namespace DarkGod.Main
 
             if (player != null)
             {
-                PlayerData pd = GameRoot.Instance.PlayerData;
+                PlayerData pd = GameRoot.MainInstance.PlayerData;
                 BattleProps props = new BattleProps
                 {
                     hp = pd.hp,
@@ -98,7 +98,7 @@ namespace DarkGod.Main
                 entitySelfPlayer.playerInput = starterAssetsInputs;
 
                 //配置角色声音源
-                GameRoot.Instance.SetAudioListener(player.GetComponent<AudioListener>(), true, false);
+                GameRoot.MainInstance.SetAudioListener(player.GetComponent<AudioListener>(), true, false);
                 audioSvc.SetCharacterAudioSource(player.GetComponent<AudioSource>());
 
                 cinemachineVirtualCamera.Follow = player.transform.Find(Constants.CinemachineVirtualCameraFollowGameObjectWithTag);
@@ -137,7 +137,7 @@ namespace DarkGod.Main
                 mapMgr = mapRoot.GetComponent<MapMgr>();
                 mapMgr.Init(this);
 
-                GameRoot.Instance.SetGameObjectTrans(mapRoot, Vector3.zero, Vector3.zero, Vector3.one);
+                GameRoot.MainInstance.SetGameObjectTrans(mapRoot, Vector3.zero, Vector3.zero, Vector3.one);
 
                 //加载虚拟相机
                 LoadVirtualCameraInstance(PathDefine.AssissnCityCharacterCameraPrefab, mapCfg);
@@ -166,7 +166,7 @@ namespace DarkGod.Main
         public void SetPauseGame(bool stateUI, bool stateAI)
         {
             isPauseGameAI = stateAI;
-            GameRoot.Instance.PauseGameUI(stateUI);
+            GameRoot.MainInstance.PauseGameUI(stateUI);
         }
         public bool GetPauseGame()
         {
@@ -262,7 +262,7 @@ namespace DarkGod.Main
                     //Boss血条特殊处理
                     if (md.mCfg.mType == MonsterType.Normal)
                     {
-                        GameRoot.Instance.dynamicWnd.AddHpItemInfo(m.name, mc.hpRoot, em.currentHP.Value);
+                        GameRoot.MainInstance.dynamicWnd.AddHpItemInfo(m.name, mc.hpRoot, em.currentHP.Value);
                     }
                     else if (md.mCfg.mType == MonsterType.Boss)
                     {
@@ -310,7 +310,7 @@ namespace DarkGod.Main
                 //移除数据
                 monsterDic.Remove(key);
                 //移除血条
-                GameRoot.Instance.dynamicWnd.RmvHpItemInfo(key);
+                GameRoot.MainInstance.dynamicWnd.RmvHpItemInfo(key);
             }
         }
 
@@ -321,12 +321,12 @@ namespace DarkGod.Main
             //PECommon.Log(dir.ToString());
             if (entitySelfPlayer.CanControl == false)
             {
-                GameRoot.Instance.EnableInputAction(false);
+                GameRoot.MainInstance.EnableInputAction(false);
                 return;
             }
             else
             {
-                GameRoot.Instance.EnableInputAction(true);
+                GameRoot.MainInstance.EnableInputAction(true);
             }
 
             //判断动画状态
@@ -435,7 +435,7 @@ namespace DarkGod.Main
 
         public void SetEntityPlayer(EntityPlayer player)
         {
-            GameRoot.Instance.SetCurrentPlayer(player);
+            GameRoot.MainInstance.SetCurrentPlayer(player);
         }
 
     }

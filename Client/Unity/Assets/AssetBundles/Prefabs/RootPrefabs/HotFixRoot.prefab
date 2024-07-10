@@ -138,6 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b203e34aae1ffcd4e96d9a5739554b55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDontDestroyOnLoad: 0
   loadingWnd: {fileID: 1203599176845366138}
   dynamicWnd: {fileID: 6375643048898361130}
 --- !u!114 &3859229750392605625

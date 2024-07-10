@@ -57,11 +57,11 @@ namespace DarkGod.Main
         //异步的加载场景，需要显示进度条
         public async void AsyncLoadScene(string sceneName, Action loaded)
         {
-            GameRoot.Instance.loadingWnd.SetWndState();
+            GameRoot.MainInstance.loadingWnd.SetWndState();
             await LoadSceneAsyncHandle(sceneName);
 
             loaded?.Invoke();
-            GameRoot.Instance.loadingWnd.SetWndState(false);
+            GameRoot.MainInstance.loadingWnd.SetWndState(false);
         }
 
         public async UniTask LoadSceneAsyncHandle(string path, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
@@ -73,7 +73,7 @@ namespace DarkGod.Main
             while (handle is { IsValid: true, IsDone: false })
             {
                 await UniTask.Yield();
-                GameRoot.Instance.loadingWnd.SetProgress(handle.Progress);
+                GameRoot.MainInstance.loadingWnd.SetProgress(handle.Progress);
             }
             await handle.ToUniTask(progress, timing);
         }
@@ -116,7 +116,7 @@ namespace DarkGod.Main
 
 
         private Dictionary<int, GameObject> _InstantiateGameObjectDic = new Dictionary<int, GameObject>();
-        public async UniTask<GameObject> LoadGameObjectAsync(string path, Vector3 GameObjectPos, Vector3 GameObjectRota, Vector3 GameObjectScal, bool isLocalPos = false, bool instantiateInWorldSpace = true, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
+        public async UniTask<GameObject> LoadGameObjectAsync(string path, Vector3 GameObjectPos, Vector3 GameObjectRota, Vector3 GameObjectScal, bool isLocalPos = false, bool isLocalEulerAngles = true, bool instantiateInWorldSpace = true, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
         {
             var handle = _yooAssetResourcePackage.LoadAssetAsync<GameObject>(path);
 
@@ -129,7 +129,7 @@ namespace DarkGod.Main
             {
                 go.transform.SetParent(null);
             }
-            GameRoot.Instance.SetGameObjectTrans(go, GameObjectPos, GameObjectRota, GameObjectScal, isLocalPos);
+            GameRoot.MainInstance.SetGameObjectTrans(go, GameObjectPos, GameObjectRota, GameObjectScal, isLocalPos, isLocalEulerAngles);
 
             _InstantiateGameObjectDic.Add(go.GetInstanceID(), go);
 

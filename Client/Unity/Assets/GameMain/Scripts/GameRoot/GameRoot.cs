@@ -4,28 +4,37 @@ using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HuHu;
 
 namespace DarkGod.Main
 {
-    public class GameRoot : MonoBehaviour
+    public class GameRoot : Singleton<GameRoot>
     {
-        public static GameRoot Instance = null;
+        public bool isDontDestroyOnLoad = true;
 
         public LoadingWnd loadingWnd;
         public DynamicWnd dynamicWnd;
 
         private StarterAssetsInputs starterAssetsInputs;
 
+        protected override void Awake()
+        {
+            base.Awake();
+        }
+
         private void Start()
         {
-            Instance = this;
-            //我们不希望GameRoot及其子物体在切换场景时被销毁
-            DontDestroyOnLoad(this);
+            if (isDontDestroyOnLoad)
+            {
+                //我们不希望GameRoot及其子物体在切换场景时被销毁
+                DontDestroyOnLoad(this);
+            }
+
             PECommon.Log("Game Start...");
 
             CleanUIRoot();
 
-            Init();
+            InitGameRoot();
         }
 
         private void CleanUIRoot()
@@ -45,7 +54,7 @@ namespace DarkGod.Main
         }
 
         //初始化各个系统和服务模块
-        private void Init()
+        private void InitGameRoot()
         {
             InitStarterAssetsInputs();
 
@@ -151,7 +160,7 @@ namespace DarkGod.Main
 
         public static void AddTips(string tips)
         {
-            Instance.dynamicWnd.AddTips(tips);
+            GameRoot.MainInstance.dynamicWnd.AddTips(tips);
         }
 
         private PlayerData _playerData = null;
@@ -199,21 +208,29 @@ namespace DarkGod.Main
             PlayerData.power = data.power;
         }
 
-        public Transform SetGameObjectTrans(GameObject GO, Vector3 GameObjectPos, Vector3 GameObjectRota, Vector3 GameObjectScal, bool isLocalPos = false)
+        public Transform SetGameObjectTrans(GameObject obj, Vector3 GameObjectPos, Vector3 GameObjectRota, Vector3 GameObjectScal, bool isLocalPos = true, bool isLocalEulerAngles = true)
         {
             if (isLocalPos)
             {
-                GO.transform.localPosition = GameObjectPos;
+                obj.transform.localPosition = GameObjectPos;
             }
             else
             {
-                GO.transform.position = GameObjectPos;
+                obj.transform.position = GameObjectPos;
             }
 
-            GO.transform.localEulerAngles = GameObjectRota;
-            GO.transform.localScale = GameObjectScal;
+            if (isLocalEulerAngles)
+            {
+                obj.transform.localEulerAngles = GameObjectRota;
+            }
+            else
+            {
+                obj.transform.eulerAngles = GameObjectRota;
+            }
 
-            Transform GOTrans = GO.transform;
+            obj.transform.localScale = GameObjectScal;
+
+            Transform GOTrans = obj.transform;
             return GOTrans;
         }
 

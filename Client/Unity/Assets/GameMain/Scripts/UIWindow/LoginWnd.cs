@@ -46,7 +46,7 @@ namespace DarkGod.Main
 
         private void SetHotfixVersionWnd()
         {
-            txtVersion.text = GameRoot.Instance.GetHotfixVersion();
+            txtVersion.text = GameRoot.MainInstance.GetHotfixVersion();
         }
 
         /// <summary>

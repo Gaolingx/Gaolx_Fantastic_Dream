@@ -77,7 +77,7 @@ namespace DarkGod.Main
         {
             float delta = Time.deltaTime;
 
-            playerInput = GameRoot.Instance.GetStarterAssetsInputs();
+            playerInput = GameRoot.MainInstance.GetStarterAssetsInputs();
 
             if (playerInput != null)
             {
@@ -85,7 +85,7 @@ namespace DarkGod.Main
 
                 SetCurrentDir();
 
-                if (GameRoot.Instance.GetCurrentPlayer() != null)
+                if (GameRoot.MainInstance.GetCurrentPlayer() != null)
                 {
                     if (!BattleSys.Instance.battleMgr.GetPauseGame())
                     {
@@ -362,7 +362,7 @@ namespace DarkGod.Main
 
         public void RefreshUI()
         {
-            PlayerData pd = GameRoot.Instance.PlayerData;
+            PlayerData pd = GameRoot.MainInstance.PlayerData;
 
             SetText(txtLevel, pd.lv);
             SetText(txtName, pd.name);
@@ -373,7 +373,7 @@ namespace DarkGod.Main
         #region HPVal
         public void InitHPVal()
         {
-            HPSum = GameRoot.Instance.PlayerData.hp;
+            HPSum = GameRoot.MainInstance.PlayerData.hp;
             SetText(txtSelfHP, HPSum + "/" + HPSum);
             imgSelfHP.fillAmount = 1;
         }

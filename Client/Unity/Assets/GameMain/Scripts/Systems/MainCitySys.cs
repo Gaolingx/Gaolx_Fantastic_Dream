@@ -49,7 +49,7 @@ namespace DarkGod.Main
 
         private void InitPlayerInput()
         {
-            starterAssetsInputs = GameRoot.Instance.GetStarterAssetsInputs();
+            starterAssetsInputs = GameRoot.MainInstance.GetStarterAssetsInputs();
         }
 
         public void EnterMainCity()
@@ -83,7 +83,7 @@ namespace DarkGod.Main
                 InitCharCam();
 
                 //设置游戏状态
-                GameRoot.Instance.SetGameState(GameState.MainCity);
+                GameRoot.MainInstance.SetGameState(GameState.MainCity);
 
                 PauseGameLogic(false);
             });
@@ -134,7 +134,7 @@ namespace DarkGod.Main
                 controller.SprintSpeed = Constants.PlayerSprintSpeed;
                 controller.playerFollowVirtualCamera = cinemachineVirtualCamera;
 
-                GameRoot.Instance.SetAudioListener(player.GetComponent<AudioListener>(), true, false);
+                GameRoot.MainInstance.SetAudioListener(player.GetComponent<AudioListener>(), true, false);
                 audioSvc.SetCharacterAudioSource(player.GetComponent<AudioSource>());
 
                 cinemachineVirtualCamera.Follow = player.transform.Find(Constants.CinemachineVirtualCameraFollowGameObjectWithTag);
@@ -171,7 +171,7 @@ namespace DarkGod.Main
 
         private void PauseGameLogic(bool isPause)
         {
-            GameRoot.Instance.PauseGameUI(isPause);
+            GameRoot.MainInstance.PauseGameUI(isPause);
         }
 
 
@@ -211,7 +211,7 @@ namespace DarkGod.Main
         public void RspTakeTaskReward(GameMsg msg)
         {
             RspTakeTaskReward data = msg.rspTakeTaskReward;
-            GameRoot.Instance.SetPlayerDataByTask(data);
+            GameRoot.MainInstance.SetPlayerDataByTask(data);
 
             taskWnd.RefreshUI();
             maincityWnd.RefreshUI();
@@ -219,7 +219,7 @@ namespace DarkGod.Main
         public void PshTaskPrgs(GameMsg msg)
         {
             PshTaskPrgs data = msg.pshTaskPrgs;
-            GameRoot.Instance.SetPlayerDataByTaskPsh(data);
+            GameRoot.MainInstance.SetPlayerDataByTaskPsh(data);
 
             if (taskWnd.GetWndState())
             {
@@ -239,7 +239,7 @@ namespace DarkGod.Main
         {
             RspBuy rspBuydata = msg.rspBuy;
             //更新玩家数据到GameRoot中
-            GameRoot.Instance.SetPlayerDataByBuy(rspBuydata);
+            GameRoot.MainInstance.SetPlayerDataByBuy(rspBuydata);
             GameRoot.AddTips("购买成功");
 
             //更新主城界面
@@ -249,7 +249,7 @@ namespace DarkGod.Main
 
             if (msg.pshTaskPrgs != null)
             {
-                GameRoot.Instance.SetPlayerDataByTaskPsh(msg.pshTaskPrgs);
+                GameRoot.MainInstance.SetPlayerDataByTaskPsh(msg.pshTaskPrgs);
                 if (taskWnd.GetWndState())
                 {
                     taskWnd.RefreshUI();
@@ -262,7 +262,7 @@ namespace DarkGod.Main
         public void PshPower(GameMsg msg)
         {
             PshPower data = msg.pshPower;
-            GameRoot.Instance.SetPlayerDataByPower(data);
+            GameRoot.MainInstance.SetPlayerDataByPower(data);
             if (maincityWnd.GetWndState())
             {
                 maincityWnd.RefreshUI();
@@ -293,11 +293,11 @@ namespace DarkGod.Main
         public void RspStrong(GameMsg msg)
         {
             //计算升级前的战力
-            int zhanliPre = PECommon.GetFightByProps(GameRoot.Instance.PlayerData);
+            int zhanliPre = PECommon.GetFightByProps(GameRoot.MainInstance.PlayerData);
             //更新玩家属性数据
-            GameRoot.Instance.SetPlayerDataByStrong(msg.rspStrong);
+            GameRoot.MainInstance.SetPlayerDataByStrong(msg.rspStrong);
             //升级后战力
-            int zhanliNow = PECommon.GetFightByProps(GameRoot.Instance.PlayerData);
+            int zhanliNow = PECommon.GetFightByProps(GameRoot.MainInstance.PlayerData);
             //升级后的反馈
             GameRoot.AddTips(WindowRoot.GetTextWithHexColor("战力提升 " + (zhanliNow - zhanliPre), TextColorCode.Blue));
 
@@ -320,8 +320,8 @@ namespace DarkGod.Main
                 charCamTrans.localScale = Vector3.one;
                 charCamTrans.gameObject.SetActive(true);
                 infoWnd.SetWndState();
-                GameRoot.Instance.EnableInputAction(false);
-                GameRoot.Instance.EnablePlayerMove(false);
+                GameRoot.MainInstance.EnableInputAction(false);
+                GameRoot.MainInstance.EnablePlayerMove(false);
             }
         }
 
@@ -331,8 +331,8 @@ namespace DarkGod.Main
             {
                 charCamTrans.gameObject.SetActive(false);
                 infoWnd.SetWndState(false);
-                GameRoot.Instance.EnableInputAction(true);
-                GameRoot.Instance.EnablePlayerMove(true);
+                GameRoot.MainInstance.EnableInputAction(true);
+                GameRoot.MainInstance.EnablePlayerMove(true);
             }
         }
 
@@ -392,8 +392,8 @@ namespace DarkGod.Main
                     nav.isStopped = true;
                     starterAssetsInputs.move = new Vector2(0, 0);
                     nav.enabled = false;
-                    GameRoot.Instance.EnableInputAction(true);
-                    GameRoot.Instance.EnablePlayerMove(true);
+                    GameRoot.MainInstance.EnableInputAction(true);
+                    GameRoot.MainInstance.EnablePlayerMove(true);
 
                     OpenGuideWnd();
                 }
@@ -405,8 +405,8 @@ namespace DarkGod.Main
                     nav.enabled = true; //激活导航组件
                     nav.speed = Constants.PlayerMoveSpeedNav; //导航速度
                     nav.SetDestination(npcPosTrans[agc.npcID].position); //设置导航目标点
-                    GameRoot.Instance.EnableInputAction(false); //禁用玩家输入
-                    GameRoot.Instance.EnablePlayerMove(false);
+                    GameRoot.MainInstance.EnableInputAction(false); //禁用玩家输入
+                    GameRoot.MainInstance.EnablePlayerMove(false);
                     starterAssetsInputs.move = new Vector2(0, 1);
                 }
             }
@@ -426,7 +426,7 @@ namespace DarkGod.Main
 
             if (starterAssetsInputs != null)
             {
-                if (starterAssetsInputs.isPause && GameRoot.Instance.GetGameState() == GameState.MainCity)
+                if (starterAssetsInputs.isPause && GameRoot.MainInstance.GetGameState() == GameState.MainCity)
                 {
                     StopNavTask();
                     OpenSettingsWnd();
@@ -444,8 +444,8 @@ namespace DarkGod.Main
                 nav.isStopped = true;
                 starterAssetsInputs.move = new Vector2(0, 0);
                 nav.enabled = false;
-                GameRoot.Instance.EnableInputAction(true);
-                GameRoot.Instance.EnablePlayerMove(true);
+                GameRoot.MainInstance.EnableInputAction(true);
+                GameRoot.MainInstance.EnablePlayerMove(true);
 
                 OpenGuideWnd();
             }
@@ -461,8 +461,8 @@ namespace DarkGod.Main
                 nav.isStopped = true;
                 starterAssetsInputs.move = new Vector2(0, 0);
                 nav.enabled = false;
-                GameRoot.Instance.EnableInputAction(true);
-                GameRoot.Instance.EnablePlayerMove(true);
+                GameRoot.MainInstance.EnableInputAction(true);
+                GameRoot.MainInstance.EnablePlayerMove(true);
             }
         }
 
@@ -520,7 +520,7 @@ namespace DarkGod.Main
                     break;
             }
 
-            GameRoot.Instance.SetPlayerDataByGuide(data);
+            GameRoot.MainInstance.SetPlayerDataByGuide(data);
             maincityWnd.RefreshUI();
         }
         #endregion

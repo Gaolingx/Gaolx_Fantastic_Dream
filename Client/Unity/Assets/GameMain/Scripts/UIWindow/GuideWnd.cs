@@ -20,7 +20,7 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
-            pd = GameRoot.Instance.PlayerData; //获取玩家数据
+            pd = GameRoot.MainInstance.PlayerData; //获取玩家数据
             curtTaskData = MainCitySys.Instance.GetCurtTaskData(); //获取任务数据
             dialogArr = curtTaskData.dilogArr.Split('#'); //切割对话文本
             index = 1;

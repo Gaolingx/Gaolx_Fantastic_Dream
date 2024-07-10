@@ -30,7 +30,7 @@ namespace DarkGod.Main
         public void InitSvc()
         {
             InitAudioClipArray(FootStepsAudioPaths, JumpEffortsAudioPaths, LandingAudioPaths, HitAudioPaths);
-            uiController = GameRoot.Instance.GetUIController();
+            uiController = GameRoot.MainInstance.GetUIController();
             PECommon.Log("Init AudioSvc...");
         }
 

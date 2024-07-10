@@ -43,7 +43,7 @@ namespace DarkGod.Main
 
         private void Awake()
         {
-            Version = GameRoot.Instance.GetHotfixVersion();
+            Version = GameRoot.MainInstance.GetHotfixVersion();
 
             if (txtInfo == null)
             {

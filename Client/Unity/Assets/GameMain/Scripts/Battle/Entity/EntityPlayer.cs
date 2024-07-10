@@ -81,7 +81,7 @@ namespace DarkGod.Main
         {
             if (playerController != null)
             {
-                GameRoot.Instance.dynamicWnd.SetSelfDodge();
+                GameRoot.MainInstance.dynamicWnd.SetSelfDodge();
             }
         }
 

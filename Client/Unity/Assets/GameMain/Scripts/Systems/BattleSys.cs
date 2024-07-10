@@ -34,7 +34,7 @@ namespace DarkGod.Main
             };
 
             //成为GameRoot的子物体
-            go.transform.SetParent(GameRoot.Instance.transform);
+            go.transform.SetParent(GameRoot.MainInstance.transform);
             battleMgr = go.AddComponent<BattleMgr>();
 
             battleMgr.Init(mapid, () =>
@@ -43,13 +43,13 @@ namespace DarkGod.Main
             });
             SetPlayerCtrlWndState();
 
-            GameRoot.Instance.SetGameState(GameState.FBFight);
+            GameRoot.MainInstance.SetGameState(GameState.FBFight);
         }
 
         public void EndBattle(bool isWin, int restHP)
         {
             playerCtrlWnd.SetWndState(false);
-            GameRoot.Instance.dynamicWnd.RmvAllHpItemInfo();
+            GameRoot.MainInstance.dynamicWnd.RmvAllHpItemInfo();
             battleMgr.SetEntityPlayer(null);
 
             if (isWin)
@@ -85,10 +85,10 @@ namespace DarkGod.Main
         {
             SetPlayerCtrlWndState(false);
             SetBattleEndWndState(FBEndType.None, false);
-            GameRoot.Instance.dynamicWnd.RmvAllHpItemInfo();
+            GameRoot.MainInstance.dynamicWnd.RmvAllHpItemInfo();
             battleMgr.SetEntityPlayer(null);
             Destroy(battleMgr.gameObject);
-            GameRoot.Instance.SetAudioListener(null, false, true);
+            GameRoot.MainInstance.SetAudioListener(null, false, true);
             resSvc.DestroyAllInstantiateGameObject();
         }
 
@@ -106,7 +106,7 @@ namespace DarkGod.Main
         public void RspFightEnd(GameMsg msg)
         {
             RspFBFightEnd data = msg.rspFBFightEnd;
-            GameRoot.Instance.SetPlayerDataByFBEnd(data);
+            GameRoot.MainInstance.SetPlayerDataByFBEnd(data);
 
             battleEndWnd.SetBattleEndData(data.fbid, data.costtime, data.resthp);
             SetBattleEndWndState(FBEndType.Win);

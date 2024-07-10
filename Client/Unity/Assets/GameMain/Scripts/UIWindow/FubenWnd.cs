@@ -17,7 +17,7 @@ namespace DarkGod.Main
         protected override void InitWnd()
         {
             base.InitWnd();
-            pd = GameRoot.Instance.PlayerData;
+            pd = GameRoot.MainInstance.PlayerData;
 
             RefreshUI();
         }

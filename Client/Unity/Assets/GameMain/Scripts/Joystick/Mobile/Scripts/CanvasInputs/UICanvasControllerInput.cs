@@ -12,7 +12,7 @@ namespace StarterAssets
         private bool EnableUICanvasInput = false;
         private void Update()
         {
-            EnableUICanvasInput = GameRoot.Instance.GetUIController()._isInputEnable;
+            EnableUICanvasInput = GameRoot.MainInstance.GetUIController()._isInputEnable;
         }
 
         public void VirtualMoveInput(Vector2 virtualMoveDirection)

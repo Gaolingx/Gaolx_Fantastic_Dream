@@ -19,7 +19,7 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
-            pd = GameRoot.Instance.PlayerData;
+            pd = GameRoot.MainInstance.PlayerData;
             RefreshUI();
         }
 

@@ -56,12 +56,12 @@ namespace DarkGod.Main
 
         private void ExitCurrentBattle(bool enterFubenWndIfNeed = false)
         {
-            if (GameRoot.Instance.GetGameState() == GameState.FBFight)
+            if (GameRoot.MainInstance.GetGameState() == GameState.FBFight)
             {
                 BattleSys.Instance.EnterMainCity();
                 BattleSys.Instance.DestroyBattle();
             }
-            else if (GameRoot.Instance.GetGameState() == GameState.MainCity)
+            else if (GameRoot.MainInstance.GetGameState() == GameState.MainCity)
             {
                 GameRoot.AddTips("当前未处于副本战斗关卡");
             }
