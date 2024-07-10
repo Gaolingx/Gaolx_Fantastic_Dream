@@ -28,7 +28,7 @@ namespace DarkGod.Main
         {
             //异步的加载登录场景
             //并显示加载的进度
-            resSvc.AsyncLoadScene(PathDefine.SceneLogin, () =>
+            resSvc.AsyncLoadScene(Constants.ResourcePackgeName, PathDefine.SceneLogin, () =>
             {
                 //加载完成以后再打开注册登录界面
                 loginWnd.SetWndState();

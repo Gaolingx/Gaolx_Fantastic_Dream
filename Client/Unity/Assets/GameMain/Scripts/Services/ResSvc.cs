@@ -14,8 +14,6 @@ namespace DarkGod.Main
 {
     public class ResSvc : Singleton<ResSvc>
     {
-        private ResourcePackage _yooAssetResourcePackage;
-
         protected override void Awake()
         {
             base.Awake();
@@ -23,8 +21,6 @@ namespace DarkGod.Main
 
         public void InitSvc()
         {
-            _yooAssetResourcePackage = YooAssets.GetPackage(Constants.ResourcePackgeName);
-
             InitRDNameCfg(PathDefine.RDNameCfg);
             InitMonsterCfg(PathDefine.MonsterCfg);
             InitMapCfg(PathDefine.MapCfg);
@@ -54,21 +50,46 @@ namespace DarkGod.Main
             PECommon.Log("Reset Skill Cfgs Done.");
         }
 
+
+        #region Resource Load
+        private List<AssetHandle> _cacheAssetHandles = new();
+
+        private Dictionary<string, AssetHandle> _audioClipHandleDict = new();
+        private Dictionary<string, AssetHandle> _textAssetHandleDict = new();
+        private Dictionary<string, AssetHandle> _videoClipHandleDict = new();
+        private Dictionary<string, AssetHandle> _spriteHandleDict = new();
+        private Dictionary<string, AssetHandle> _prefabHandleDict = new();
+
+        private void GCAssetHandleTODO(AssetHandle assetHandle)
+        {
+            _cacheAssetHandles.Add(assetHandle);
+        }
+
+        public void ReleaseAssetHandles()
+        {
+            for (int i = 0; i < _cacheAssetHandles.Count; i++)
+            {
+                _cacheAssetHandles[i].Release();
+            }
+            _cacheAssetHandles.Clear();
+        }
+
         //异步的加载场景，需要显示进度条
-        public async void AsyncLoadScene(string sceneName, Action loaded)
+        public async void AsyncLoadScene(string packageName, string sceneName, Action loaded)
         {
             GameRoot.MainInstance.loadingWnd.SetWndState();
-            await LoadSceneAsyncHandle(sceneName);
+            await LoadSceneAsyncHandle(packageName, sceneName);
 
             loaded?.Invoke();
             GameRoot.MainInstance.loadingWnd.SetWndState(false);
         }
 
-        public async UniTask LoadSceneAsyncHandle(string path, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
+        public async UniTask LoadSceneAsyncHandle(string packageName, string path, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
         {
             var sceneMode = UnityEngine.SceneManagement.LoadSceneMode.Single;
             bool suspendLoad = false;
-            var handle = _yooAssetResourcePackage.LoadSceneAsync(path, sceneMode, suspendLoad);
+            var package = YooAssets.GetPackage(packageName);
+            var handle = package.LoadSceneAsync(path, sceneMode, suspendLoad);
 
             while (handle is { IsValid: true, IsDone: false })
             {
@@ -78,63 +99,153 @@ namespace DarkGod.Main
             await handle.ToUniTask(progress, timing);
         }
 
-        public async UniTask<AudioClip> LoadAudioClipAsync(string path, bool iscache = false, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
+        public async UniTask<AudioClip> LoadAudioClipAsync(string packageName, string audioClipPath, bool isCache = false, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
         {
-            //音乐加载
-            var handle = _yooAssetResourcePackage.LoadAssetAsync<AudioClip>(path);
-
-            await handle.ToUniTask(progress, timing);
-
-            var audioClip = handle.AssetObject as AudioClip;
-
-            return audioClip;
-        }
-
-        public AudioClip LoadAudioClipSync(string path, bool iscache = false)
-        {
-            //音乐加载
             AudioClip audioClip = null;
-            AssetHandle handle = _yooAssetResourcePackage.LoadAssetSync<AudioClip>(path);
-            audioClip = handle.AssetObject as AudioClip;
+            _audioClipHandleDict.TryGetValue(audioClipPath, out AssetHandle handle);
+            if (handle == null)
+            {
+                var package = YooAssets.GetPackage(packageName);
+                handle = package.LoadAssetAsync<AudioClip>(audioClipPath);
+                await handle.ToUniTask(progress, timing);
+                audioClip = handle.AssetObject as AudioClip;
+                if (isCache)
+                {
+                    if (!_audioClipHandleDict.ContainsKey(audioClipPath))
+                    {
+                        _audioClipHandleDict.Add(audioClipPath, handle);
+                    }
+                }
+                else
+                {
+                    GCAssetHandleTODO(handle);
+                }
+            }
+            else
+            {
+                audioClip = handle.AssetObject as AudioClip;
+            }
 
             return audioClip;
         }
 
-        //获取Prefab的类
-        public GameObject LoadGameObjectSync(string path, bool iscache = false)
+        public AudioClip LoadAudioClipSync(string packageName, string audioClipPath, bool isCache = false)
         {
-            AssetHandle prefabHandle = null;
-            prefabHandle = _yooAssetResourcePackage.LoadAssetSync<GameObject>(path);
+            AudioClip audioClip = null;
+            _audioClipHandleDict.TryGetValue(audioClipPath, out AssetHandle handle);
+            if (handle == null)
+            {
+                var package = YooAssets.GetPackage(packageName);
+                handle = package.LoadAssetSync<AudioClip>(audioClipPath);
+                audioClip = handle.AssetObject as AudioClip;
+                if (isCache)
+                {
+                    if (!_audioClipHandleDict.ContainsKey(audioClipPath))
+                    {
+                        _audioClipHandleDict.Add(audioClipPath, handle);
+                    }
+                }
+                else
+                {
+                    GCAssetHandleTODO(handle);
+                }
+            }
+            else
+            {
+                audioClip = handle.AssetObject as AudioClip;
+            }
 
-            GameObject go = null;
-            //prefab加载完成后的实例化
-            go = prefabHandle.InstantiateSync();
+            return audioClip;
+        }
 
-            PECommon.Log("Prefab load Sync. name:" + go.name + ". path:" + path);
-            return go;
+        public GameObject LoadGameObjectSync(string packageName, string prefabPath, bool isCache)
+        {
+            GameObject prefab = null;
+            _prefabHandleDict.TryGetValue(prefabPath, out AssetHandle handle);
+            if (handle == null)
+            {
+                var package = YooAssets.GetPackage(packageName);
+                handle = package.LoadAssetSync<GameObject>(prefabPath);
+                prefab = handle.AssetObject as GameObject;
+                prefab = handle.InstantiateSync();
+                if (isCache)
+                {
+                    if (!_prefabHandleDict.ContainsKey(prefabPath))
+                    {
+                        _prefabHandleDict.Add(prefabPath, handle);
+                    }
+                }
+                else
+                {
+                    GCAssetHandleTODO(handle);
+                }
+            }
+            else
+            {
+                prefab = handle.AssetObject as GameObject;
+            }
+
+            PECommon.Log("Prefab load Sync. name:" + prefab.name + ". path:" + prefabPath);
+            return prefab;
         }
 
 
         private Dictionary<int, GameObject> _InstantiateGameObjectDic = new Dictionary<int, GameObject>();
-        public async UniTask<GameObject> LoadGameObjectAsync(string path, Vector3 GameObjectPos, Vector3 GameObjectRota, Vector3 GameObjectScal, bool isLocalPos = false, bool isLocalEulerAngles = true, bool instantiateInWorldSpace = true, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
+        public async UniTask<GameObject> LoadGameObjectAsync(string packageName, string prefabPath, Vector3 GameObjectPos, Vector3 GameObjectRota, Vector3 GameObjectScal, bool isCache = false, bool isLocalPos = true, bool isLocalEulerAngles = true, bool instantiateInWorldSpace = false, bool isRename = false, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
         {
-            var handle = _yooAssetResourcePackage.LoadAssetAsync<GameObject>(path);
-
-            await handle.ToUniTask(progress, timing);
-
-            var obj = handle.AssetObject as GameObject;
-            var go = Instantiate(obj, transform);
-
-            if (instantiateInWorldSpace)
+            GameObject prefab = null;
+            _prefabHandleDict.TryGetValue(prefabPath, out AssetHandle handle);
+            if (handle == null)
             {
-                go.transform.SetParent(null);
+                var package = YooAssets.GetPackage(packageName);
+                handle = package.LoadAssetAsync<GameObject>(prefabPath);
+                await handle.ToUniTask(progress, timing);
+                prefab = handle.AssetObject as GameObject;
+
+                var go = Instantiate(prefab, transform);
+                if (instantiateInWorldSpace)
+                {
+                    GameRoot.MainInstance.SetGameObjectTrans(go, GameObjectPos, GameObjectRota, GameObjectScal, isLocalPos, isLocalEulerAngles, true, null, isRename);
+                }
+                else
+                {
+                    GameRoot.MainInstance.SetGameObjectTrans(go, GameObjectPos, GameObjectRota, GameObjectScal, isLocalPos, isLocalEulerAngles, false, null, isRename);
+                }
+                _InstantiateGameObjectDic.Add(go.GetInstanceID(), go);
+
+                if (isCache)
+                {
+                    if (!_prefabHandleDict.ContainsKey(prefabPath))
+                    {
+                        _prefabHandleDict.Add(prefabPath, handle);
+                    }
+                }
+                else
+                {
+                    GCAssetHandleTODO(handle);
+                }
+
+                PECommon.Log("Prefab load Async. name:" + go.name + ". path:" + prefabPath + ",isCache:" + isCache);
+                return go;
             }
-            GameRoot.MainInstance.SetGameObjectTrans(go, GameObjectPos, GameObjectRota, GameObjectScal, isLocalPos, isLocalEulerAngles);
+            else
+            {
+                prefab = handle.AssetObject as GameObject;
 
-            _InstantiateGameObjectDic.Add(go.GetInstanceID(), go);
+                var go = Instantiate(prefab, transform);
+                if (instantiateInWorldSpace)
+                {
+                    GameRoot.MainInstance.SetGameObjectTrans(go, GameObjectPos, GameObjectRota, GameObjectScal, isLocalPos, isLocalEulerAngles, true, null, isRename);
+                }
+                else
+                {
+                    GameRoot.MainInstance.SetGameObjectTrans(go, GameObjectPos, GameObjectRota, GameObjectScal, isLocalPos, isLocalEulerAngles, false, null, isRename);
+                }
+                _InstantiateGameObjectDic.Add(go.GetInstanceID(), go);
 
-            PECommon.Log("Prefab load Async. name:" + go.name + ". path:" + path);
-            return go;
+                PECommon.Log("Prefab load Async. name:" + go.name + ". path:" + prefabPath + ",isCache:" + isCache);
+                return go;
+            }
         }
 
         public void DestroyAllInstantiateGameObject()
@@ -171,27 +282,67 @@ namespace DarkGod.Main
             }
         }
 
-        public async UniTask<TextAsset> LoadCfgDataAsync(string path, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
+        public async UniTask<TextAsset> LoadCfgDataAsync(string packageName, string textAssetPath, bool isCache = false, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
         {
-            var handle = _yooAssetResourcePackage.LoadAssetAsync<TextAsset>(path);
-
-            await handle.ToUniTask(progress, timing);
-
-            var textAsset = handle.AssetObject as TextAsset;
+            TextAsset textAsset = null;
+            _textAssetHandleDict.TryGetValue(textAssetPath, out AssetHandle handle);
+            if (handle == null)
+            {
+                var package = YooAssets.GetPackage(packageName);
+                handle = package.LoadAssetAsync<TextAsset>(textAssetPath);
+                await handle.ToUniTask(progress, timing);
+                textAsset = handle.AssetObject as TextAsset;
+                if (isCache)
+                {
+                    if (!_textAssetHandleDict.ContainsKey(textAssetPath))
+                    {
+                        _textAssetHandleDict.Add(textAssetPath, handle);
+                    }
+                }
+                else
+                {
+                    GCAssetHandleTODO(handle);
+                }
+            }
+            else
+            {
+                textAsset = handle.AssetObject as TextAsset;
+            }
 
             return textAsset;
         }
 
-        public async UniTask<Sprite> LoadSpriteAsync(string path, bool iscache = false, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
+        public async UniTask<Sprite> LoadSpriteAsync(string packageName, string spritePath, bool isCache = false, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
         {
-            var handle = _yooAssetResourcePackage.LoadAssetAsync<Sprite>(path);
-
-            await handle.ToUniTask(progress, timing);
-
-            var sprite = handle.AssetObject as Sprite;
+            Sprite sprite = null;
+            _spriteHandleDict.TryGetValue(spritePath, out AssetHandle handle);
+            if (handle == null)
+            {
+                var package = YooAssets.GetPackage(packageName);
+                handle = package.LoadAssetAsync<Sprite>(spritePath);
+                await handle.ToUniTask(progress, timing);
+                sprite = handle.AssetObject as Sprite;
+                if (isCache)
+                {
+                    if (!_spriteHandleDict.ContainsKey(spritePath))
+                    {
+                        _spriteHandleDict.Add(spritePath, handle);
+                    }
+                }
+                else
+                {
+                    GCAssetHandleTODO(handle);
+                }
+            }
+            else
+            {
+                sprite = handle.AssetObject as Sprite;
+            }
 
             return sprite;
         }
+
+        #endregion
 
         #region InitCfgs
         #region 随机名字
@@ -200,7 +351,7 @@ namespace DarkGod.Main
         private List<string> womanLst = new List<string>();
         private async void InitRDNameCfg(string path)
         {
-            TextAsset xml = await LoadCfgDataAsync(path);
+            TextAsset xml = await LoadCfgDataAsync(Constants.ResourcePackgeName, path);
             if (!xml)
             {
                 PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -263,7 +414,7 @@ namespace DarkGod.Main
         private Dictionary<int, MapCfg> mapCfgDataDic = new Dictionary<int, MapCfg>();
         private async void InitMapCfg(string path)
         {
-            TextAsset xml = await LoadCfgDataAsync(path);
+            TextAsset xml = await LoadCfgDataAsync(Constants.ResourcePackgeName, path);
             if (!xml)
             {
                 PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -390,7 +541,7 @@ namespace DarkGod.Main
         private Dictionary<int, AutoGuideCfg> guideTaskDic = new Dictionary<int, AutoGuideCfg>();
         private async void InitGuideCfg(string path)
         {
-            TextAsset xml = await LoadCfgDataAsync(path);
+            TextAsset xml = await LoadCfgDataAsync(Constants.ResourcePackgeName, path);
             if (!xml)
             {
                 PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -456,7 +607,7 @@ namespace DarkGod.Main
         private Dictionary<int, Dictionary<int, StrongCfg>> strongDic = new Dictionary<int, Dictionary<int, StrongCfg>>();
         private async void InitStrongCfg(string path)
         {
-            TextAsset xml = await LoadCfgDataAsync(path);
+            TextAsset xml = await LoadCfgDataAsync(Constants.ResourcePackgeName, path);
             if (!xml)
             {
                 PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -587,7 +738,7 @@ namespace DarkGod.Main
         private Dictionary<int, BuyCfg> buyCfgDic = new Dictionary<int, BuyCfg>();
         private async void InitBuyCfg(string path)
         {
-            TextAsset xml = await LoadCfgDataAsync(path);
+            TextAsset xml = await LoadCfgDataAsync(Constants.ResourcePackgeName, path);
             if (!xml)
             {
                 PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -644,7 +795,7 @@ namespace DarkGod.Main
         private Dictionary<int, TaskRewardCfg> taskRewardDic = new Dictionary<int, TaskRewardCfg>();
         private async void InitTaskRewardCfg(string path)
         {
-            TextAsset xml = await LoadCfgDataAsync(path);
+            TextAsset xml = await LoadCfgDataAsync(Constants.ResourcePackgeName, path);
             if (!xml)
             {
                 PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -707,7 +858,7 @@ namespace DarkGod.Main
         private Dictionary<int, NpcData> npcDic = new Dictionary<int, NpcData>();
         private async void InitNpcCfg(string path)
         {
-            TextAsset xml = await LoadCfgDataAsync(path);
+            TextAsset xml = await LoadCfgDataAsync(Constants.ResourcePackgeName, path);
             if (!xml)
             {
                 PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -788,7 +939,7 @@ namespace DarkGod.Main
         private Dictionary<int, SkillCfg> skillDic = new Dictionary<int, SkillCfg>();
         private async void InitSkillCfg(string path)
         {
-            TextAsset xml = await LoadCfgDataAsync(path);
+            TextAsset xml = await LoadCfgDataAsync(Constants.ResourcePackgeName, path);
             if (!xml)
             {
                 PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -910,7 +1061,7 @@ namespace DarkGod.Main
         private Dictionary<int, SkillMoveCfg> skillMoveDic = new Dictionary<int, SkillMoveCfg>();
         private async void InitSkillMoveCfg(string path)
         {
-            TextAsset xml = await LoadCfgDataAsync(path);
+            TextAsset xml = await LoadCfgDataAsync(Constants.ResourcePackgeName, path);
             if (!xml)
             {
                 PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -970,7 +1121,7 @@ namespace DarkGod.Main
         private Dictionary<int, SkillActionCfg> skillActionDic = new Dictionary<int, SkillActionCfg>();
         private async void InitSkillActionCfg(string path)
         {
-            TextAsset xml = await LoadCfgDataAsync(path);
+            TextAsset xml = await LoadCfgDataAsync(Constants.ResourcePackgeName, path);
             if (!xml)
             {
                 PECommon.Log("xml file:" + path + " not exist", PELogType.Error);
@@ -1030,7 +1181,7 @@ namespace DarkGod.Main
         private Dictionary<int, MonsterCfg> monsterCfgDataDic = new Dictionary<int, MonsterCfg>();
         private async void InitMonsterCfg(string path)
         {
-            TextAsset xml = await LoadCfgDataAsync(path);
+            TextAsset xml = await LoadCfgDataAsync(Constants.ResourcePackgeName, path);
             if (!xml)
             {
                 PECommon.Log("xml file:" + path + " not exist", PELogType.Error);

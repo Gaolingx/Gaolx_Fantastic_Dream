@@ -208,8 +208,18 @@ namespace DarkGod.Main
             PlayerData.power = data.power;
         }
 
-        public Transform SetGameObjectTrans(GameObject obj, Vector3 GameObjectPos, Vector3 GameObjectRota, Vector3 GameObjectScal, bool isLocalPos = true, bool isLocalEulerAngles = true)
+        public Transform SetGameObjectTrans(GameObject obj, Vector3 GameObjectPos, Vector3 GameObjectRota, Vector3 GameObjectScal, bool isLocalPos = true, bool isLocalEulerAngles = true, bool isSetParent = false, Transform rootObjTrans = null, bool isReplaceName = false)
         {
+            if (isReplaceName)
+            {
+                obj.name = obj.name.Replace("(Clone)", "");
+            }
+
+            if (isSetParent)
+            {
+                obj.transform.SetParent(rootObjTrans);
+            }
+
             if (isLocalPos)
             {
                 obj.transform.localPosition = GameObjectPos;

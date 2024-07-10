@@ -57,7 +57,7 @@ namespace DarkGod.Main
         {
             NpcData data = GetNpcCfgFromXml(NpcType);
             NpcTransform npcTrans = GetNpcTrans(data, NpcType);
-            await resSvc.LoadGameObjectAsync(data.npcResPath, npcTrans.Transform_NpcID_Position, npcTrans.Transform_NpcID_Rotation, npcTrans.Transform_NpcID_Scale);
+            await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, data.npcResPath, npcTrans.Transform_NpcID_Position, npcTrans.Transform_NpcID_Rotation, npcTrans.Transform_NpcID_Scale, false, true, true, true);
         }
 
     }

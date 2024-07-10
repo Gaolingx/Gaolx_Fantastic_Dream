@@ -65,7 +65,7 @@ namespace DarkGod.Main
             //将排序完的trdLst分别实例化Prefab
             for (int i = 0; i < trdLst.Count; i++)
             {
-                GameObject go = await resSvc.LoadGameObjectAsync(PathDefine.TaskItemPrefab, Vector3.zero, Vector3.zero, Vector3.one, true, false);
+                GameObject go = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, PathDefine.TaskItemPrefab, Vector3.zero, Vector3.zero, Vector3.one, true);
                 go.transform.SetParent(scrollTrans);
                 go.name = "taskItem_" + i;
 

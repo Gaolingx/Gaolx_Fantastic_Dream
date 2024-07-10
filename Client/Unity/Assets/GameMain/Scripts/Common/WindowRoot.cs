@@ -97,7 +97,7 @@ namespace DarkGod.Main
 
         protected async void SetSprite(Image img, string path)
         {
-            Sprite sp = await resSvc.LoadSpriteAsync(path, true);
+            Sprite sp = await resSvc.LoadSpriteAsync(Constants.ResourcePackgeName, path, true);
             img.sprite = sp;
         }
 

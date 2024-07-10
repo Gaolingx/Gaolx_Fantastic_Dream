@@ -71,28 +71,28 @@ namespace DarkGod.Main
             for (int i = 0; i < name1.Length; i++)
             {
                 string path = bgAudioPath + name1[i];
-                AudioClip audioClip = ResSvc.MainInstance.LoadAudioClipSync(path);
+                AudioClip audioClip = ResSvc.MainInstance.LoadAudioClipSync(Constants.ResourcePackgeName, path);
                 CharacterFootSteps[i] = audioClip;
             }
 
             for (int i = 0; i < name2.Length; i++)
             {
                 string path = bgAudioPath + name2[i];
-                AudioClip audioClip = ResSvc.MainInstance.LoadAudioClipSync(path);
+                AudioClip audioClip = ResSvc.MainInstance.LoadAudioClipSync(Constants.ResourcePackgeName, path);
                 CharacterJumpEfforts[i] = audioClip;
             }
 
             for (int i = 0; i < name3.Length; i++)
             {
                 string path = bgAudioPath + name3[i];
-                AudioClip audioClip = ResSvc.MainInstance.LoadAudioClipSync(path);
+                AudioClip audioClip = ResSvc.MainInstance.LoadAudioClipSync(Constants.ResourcePackgeName, path);
                 CharacterLanding[i] = audioClip;
             }
 
             for (int i = 0; i < name4.Length; i++)
             {
                 string path = bgAudioPath + name4[i];
-                AudioClip audioClip = ResSvc.MainInstance.LoadAudioClipSync(path);
+                AudioClip audioClip = ResSvc.MainInstance.LoadAudioClipSync(Constants.ResourcePackgeName, path);
                 CharacterHit[i] = audioClip;
             }
         }
@@ -117,7 +117,7 @@ namespace DarkGod.Main
         public async void PlayBGMusic(string name, bool isLoop = true, bool isCache = true)
         {
             string path = bgAudioPath + name;
-            AudioClip audioClip = await ResSvc.MainInstance.LoadAudioClipAsync(path, isCache);
+            AudioClip audioClip = await ResSvc.MainInstance.LoadAudioClipAsync(Constants.ResourcePackgeName, path, isCache);
             if (BGAudioAudioSource.clip == null || BGAudioAudioSource.clip.name != audioClip.name)
             {
                 BGAudioAudioSource.clip = audioClip;
@@ -138,7 +138,7 @@ namespace DarkGod.Main
         public async void PlayUIAudio(string name, bool isCache = true)
         {
             string path = bgAudioPath + name;
-            AudioClip audioClip = await ResSvc.MainInstance.LoadAudioClipAsync(path, isCache);
+            AudioClip audioClip = await ResSvc.MainInstance.LoadAudioClipAsync(Constants.ResourcePackgeName, path, isCache);
             UIAudioAudioSource.PlayOneShot(audioClip, UIAudioVolumeValue);
         }
 
