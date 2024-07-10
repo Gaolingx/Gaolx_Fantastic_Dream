@@ -15,13 +15,15 @@
       "hash": "88e20505f87d57cbff5695be5f7baa35d626f619"
     },
     "com.sangoutils.patchyooassetsystem": {
-      "version": "file:SangoUtils.Patchs_YooAsset",
+      "version": "https://github.com/Gaolingx/SangoUtils.Hotfix_YooAsset.git",
       "depth": 0,
-      "source": "embedded",
+      "source": "git",
       "dependencies": {
         "com.unity.textmeshpro": "3.0.6",
-        "com.tuyoogame.yooasset": "2.1.2"
-      }
+        "com.tuyoogame.yooasset": "2.1.2",
+        "com.code-philosophy.hybridclr": "6.1.0"
+      },
+      "hash": "065a1eee2f581749eb646619843d4264f98dedbf"
     },
     "com.tuyoogame.yooasset": {
       "version": "2.1.2",
