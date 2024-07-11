@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static DarkGod.Main.PlayerPrefsSvc;
 
 namespace DarkGod.Main
 {
@@ -16,32 +17,15 @@ namespace DarkGod.Main
         public Toggle btnRemember;  //记住密码选项
         public Text txtVersion;
 
-        private string PrefsKeyLoginAccount = "Login_Account";
-        private string PrefsKeyLoginPassword = "Login_Password";
-        private string PrefsKeyLoginRemember = "Login_RememberPass";
-
         protected override void InitWnd()
         {
             base.InitWnd();
 
             SetHotfixVersionWnd();
 
-            if (PlayerPrefs.HasKey(PrefsKeyLoginRemember))
-            {
-                btnRemember.isOn = UIItemUtils.IntToBool(PlayerPrefs.GetInt(PrefsKeyLoginRemember));
-            }
-
-            //获取本地存储的账号密码
-            if (PlayerPrefs.HasKey(PrefsKeyLoginAccount) && PlayerPrefs.HasKey(PrefsKeyLoginPassword) && btnRemember.isOn == true)
-            {
-                iptAcct.text = PlayerPrefs.GetString(PrefsKeyLoginAccount);
-                iptPass.text = PlayerPrefs.GetString(PrefsKeyLoginPassword);
-            }
-            else
-            {
-                iptAcct.text = "";
-                iptPass.text = "";
-            }
+            btnRemember.isOn = PlayerPrefsSvc.MainInstance.GetLoginItem().isRemember;
+            iptAcct.text = PlayerPrefsSvc.MainInstance.GetLoginItem().account;
+            iptPass.text = PlayerPrefsSvc.MainInstance.GetLoginItem().password;
         }
 
         private void SetHotfixVersionWnd()
@@ -61,9 +45,13 @@ namespace DarkGod.Main
             if (_acct != "" && _pass != "")
             {
                 //更新本地存储的账号密码
-                PlayerPrefs.SetString(PrefsKeyLoginAccount, _acct);
-                PlayerPrefs.SetString(PrefsKeyLoginPassword, _pass);
-                PlayerPrefs.SetInt(PrefsKeyLoginRemember, UIItemUtils.BoolToInt(btnRemember.isOn));
+                LoginItem loginItem = new LoginItem
+                {
+                    account = _acct,
+                    password = _pass,
+                    isRemember = btnRemember.isOn
+                };
+                PlayerPrefsSvc.MainInstance.SetGetLoginItem(loginItem);
 
                 //发送网络消息，请求登录
                 GameMsg msg = new GameMsg
