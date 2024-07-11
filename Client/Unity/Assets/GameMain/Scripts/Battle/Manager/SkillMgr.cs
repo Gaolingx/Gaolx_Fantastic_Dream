@@ -74,7 +74,7 @@ namespace DarkGod.Main
             {
                 //怪物攻击玩家
 
-                EntityPlayer epTarget = caster.battleMgr.EntityPlayer;
+                EntityPlayer epTarget = caster.battleMgr.EntityPlayer.Value;
                 if (epTarget == null)
                 {
                     return;

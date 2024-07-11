@@ -15,6 +15,8 @@ namespace DarkGod.Main
         {
             battleMgr = battle;
 
+            GameRoot.MainInstance.SetGameObjectTrans(this.gameObject, Vector3.zero, Vector3.zero, Vector3.one);
+
             //重置碰撞环境
             InitMapAllTrigger();
             //实例化第一批怪物

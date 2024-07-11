@@ -50,7 +50,7 @@ namespace DarkGod.Main
         {
             playerCtrlWnd.SetWndState(false);
             GameRoot.MainInstance.dynamicWnd.RmvAllHpItemInfo();
-            battleMgr.SetEntityPlayer(null);
+            battleMgr.EntityPlayer.Value = null;
 
             if (isWin)
             {
@@ -86,7 +86,7 @@ namespace DarkGod.Main
             SetPlayerCtrlWndState(false);
             SetBattleEndWndState(FBEndType.None, false);
             GameRoot.MainInstance.dynamicWnd.RmvAllHpItemInfo();
-            battleMgr.SetEntityPlayer(null);
+            battleMgr.EntityPlayer.Value = null;
             Destroy(battleMgr.gameObject);
             GameRoot.MainInstance.SetAudioListener(null, false, true);
             resSvc.DestroyAllInstantiateGameObject();

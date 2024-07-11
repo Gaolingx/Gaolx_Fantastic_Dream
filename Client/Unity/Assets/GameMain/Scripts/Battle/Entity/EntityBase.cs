@@ -16,8 +16,8 @@ namespace DarkGod.Main
         public BattleMgr battleMgr = null;
         public StateMgr stateMgr = null;
         public SkillMgr skillMgr = null;
+
         public ThirdPersonController playerController = null;
-        public StarterAssetsInputs playerInput = null;
         protected Controller controller = null;
 
         private string name;

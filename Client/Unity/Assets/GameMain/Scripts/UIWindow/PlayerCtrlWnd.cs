@@ -16,9 +16,10 @@ namespace DarkGod.Main
         public Text txtName;
         public Text txtExpPrg;
         public Transform expPrgTrans;
-        private StarterAssetsInputs playerInput;
         public Transform GamePadTrans;
         public SettingsWnd settingsWnd;
+
+        private StarterAssetsInputs playerInput;
 
         private Vector2 currentDir;
 

@@ -104,7 +104,7 @@ namespace DarkGod.Main
 
         public override Vector2 CalcTargetDir()
         {
-            EntityPlayer entityPlayer = battleMgr.EntityPlayer;
+            EntityPlayer entityPlayer = battleMgr.EntityPlayer.Value;
             if (entityPlayer == null || entityPlayer.currentAniState == AniState.Die)
             {
                 runAI = false;
@@ -120,7 +120,7 @@ namespace DarkGod.Main
 
         private bool InAtkRange()
         {
-            EntityPlayer entityPlayer = battleMgr.EntityPlayer;
+            EntityPlayer entityPlayer = battleMgr.EntityPlayer.Value;
             if (entityPlayer == null || entityPlayer.currentAniState == AniState.Die)
             {
                 runAI = false;

@@ -25,20 +25,14 @@ namespace DarkGod.Main
         private BattleSys battleSys;
 
         private EntityPlayer entitySelfPlayer;
-        public EntityPlayer EntityPlayer { get { return entitySelfPlayer; } set { SetEntityPlayer(value); entitySelfPlayer = value; } }
-        private ThirdPersonController controller;
-        private StarterAssetsInputs starterAssetsInputs;
+
+        public BindableProperty<EntityPlayer> EntityPlayer = new BindableProperty<EntityPlayer>();
+
         private MapCfg mapCfg;
 
         private Dictionary<string, EntityMonster> monsterDic = new Dictionary<string, EntityMonster>();
 
-        private void InitPlayerInput()
-        {
-            starterAssetsInputs = GameRoot.MainInstance.GetStarterAssetsInputs();
-        }
-
-
-        CinemachineVirtualCamera cinemachineVirtualCamera;
+        private CinemachineVirtualCamera cinemachineVirtualCamera;
         private async void LoadVirtualCameraInstance(string virtualCameraPrefabPath, MapCfg mapData)
         {
             Vector3 CM_player_Pos = mapData.mainCamPos;
@@ -60,6 +54,23 @@ namespace DarkGod.Main
 
             if (player != null)
             {
+                ThirdPersonController controller = player.GetComponent<ThirdPersonController>();
+                StarterAssetsInputs starterAssetsInputs = GameRoot.MainInstance.GetStarterAssetsInputs();
+
+                controller.PlayerInput = starterAssetsInputs.gameObject.GetComponent<PlayerInput>();
+                controller.StarterAssetsInputs = starterAssetsInputs;
+
+                controller.MoveSpeed = Constants.PlayerMoveSpeed;
+                controller.SprintSpeed = Constants.PlayerSprintSpeed;
+                controller.SetMoveMode(false);
+                controller.playerFollowVirtualCamera = cinemachineVirtualCamera;
+
+                //配置角色声音源
+                GameRoot.MainInstance.SetAudioListener(player.GetComponent<AudioListener>(), true, false);
+                audioSvc.SetCharacterAudioSource(player.GetComponent<AudioSource>());
+
+                cinemachineVirtualCamera.Follow = player.transform.Find(Constants.CinemachineVirtualCameraFollowGameObjectWithTag);
+
                 PlayerData pd = GameRoot.MainInstance.PlayerData;
                 BattleProps props = new BattleProps
                 {
@@ -83,34 +94,15 @@ namespace DarkGod.Main
                 entitySelfPlayer.Name = pd.name;
                 entitySelfPlayer.SetBattleProps(props);
                 entitySelfPlayer.AddHealthData();
-
-                controller = player.GetComponent<ThirdPersonController>();
-
-                controller.PlayerInput = starterAssetsInputs.gameObject.GetComponent<PlayerInput>();
-                controller.StarterAssetsInputs = starterAssetsInputs;
-
-                controller.MoveSpeed = Constants.PlayerMoveSpeed;
-                controller.SprintSpeed = Constants.PlayerSprintSpeed;
-                controller.SetMoveMode(false);
-                controller.playerFollowVirtualCamera = cinemachineVirtualCamera;
                 entitySelfPlayer.playerController = controller;
 
-                entitySelfPlayer.playerInput = starterAssetsInputs;
-
-                //配置角色声音源
-                GameRoot.MainInstance.SetAudioListener(player.GetComponent<AudioListener>(), true, false);
-                audioSvc.SetCharacterAudioSource(player.GetComponent<AudioSource>());
-
-                cinemachineVirtualCamera.Follow = player.transform.Find(Constants.CinemachineVirtualCameraFollowGameObjectWithTag);
-
-                EntityPlayer = entitySelfPlayer;
+                entitySelfPlayer.StateIdle();
+                EntityPlayer.Value = entitySelfPlayer;
             }
         }
 
         public void Init(int mapid, Action cb = null)
         {
-            InitPlayerInput();
-
             //初始化服务模块
             resSvc = ResSvc.MainInstance;
             audioSvc = AudioSvc.MainInstance;
@@ -137,14 +129,13 @@ namespace DarkGod.Main
                 mapMgr = mapRoot.GetComponent<MapMgr>();
                 mapMgr.Init(this);
 
-                GameRoot.MainInstance.SetGameObjectTrans(mapRoot, Vector3.zero, Vector3.zero, Vector3.one);
+                AddEntityPlayerData();
 
                 //加载虚拟相机
                 LoadVirtualCameraInstance(PathDefine.AssissnCityCharacterCameraPrefab, mapCfg);
 
                 //加载玩家实体
                 LoadPlayerInstance(PathDefine.AssissnBattlePlayerPrefab, mapCfg);
-                entitySelfPlayer.StateIdle();
 
                 //延迟激活第一批次怪物
                 ActiveCurrentBatchMonsters();
@@ -159,6 +150,23 @@ namespace DarkGod.Main
                     cb();
                 }
             });
+        }
+
+        //相关回调处理
+        public virtual void AddEntityPlayerData()
+        {
+            EntityPlayer.OnValueChanged += OnUpdateEntityPlayer;
+        }
+
+        public virtual void RmvEntityPlayerData()
+        {
+            EntityPlayer.OnValueChanged -= OnUpdateEntityPlayer;
+        }
+
+        private void OnUpdateEntityPlayer(EntityPlayer value)
+        {
+            GameRoot.MainInstance.SetCurrentPlayer(value);
+            entitySelfPlayer = value;
         }
 
         //相关逻辑驱动
@@ -221,8 +229,10 @@ namespace DarkGod.Main
         public void EndBattle(bool isWin, int restHP)
         {
             SetPauseGame(false, true);
+            entitySelfPlayer.StateIdle();
             //停止背景音乐
             audioSvc.StopBGMusic();
+            RmvEntityPlayerData();
             battleSys.EndBattle(isWin, restHP);
         }
 
@@ -432,11 +442,6 @@ namespace DarkGod.Main
         }
 
         #endregion
-
-        public void SetEntityPlayer(EntityPlayer player)
-        {
-            GameRoot.MainInstance.SetCurrentPlayer(player);
-        }
 
     }
 }
