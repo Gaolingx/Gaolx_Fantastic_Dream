@@ -197,15 +197,9 @@ MonoBehaviour:
   - Player_Footstep_10
   JumpEffortsAudioPaths:
   - Player_Footstep_01
-  - Player_Footstep_01
-  - Player_Footstep_01
   LandingAudioPaths:
   - Player_Land
-  - Player_Land
-  - Player_Land
   HitAudioPaths:
-  - assassin_Hit
-  - assassin_Hit
   - assassin_Hit
 --- !u!114 &4961261660839420595
 MonoBehaviour:

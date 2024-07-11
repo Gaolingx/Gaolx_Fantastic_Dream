@@ -10,17 +10,17 @@ namespace DarkGod.Main
     {
         [Range(0, 1)] public float BGAudioVolumeValue, UIAudioVolumeValue, CharacterAudioVolumeValue, CharacterFxAudioVolumeValue;
         public AudioSource BGAudioAudioSource, UIAudioAudioSource, CharacterAudioSource;
-        public string[] FootStepsAudioPaths, JumpEffortsAudioPaths, LandingAudioPaths, HitAudioPaths;
+        public List<string> FootStepsAudioPaths, JumpEffortsAudioPaths, LandingAudioPaths, HitAudioPaths;
 
-        private AudioClip[] CharacterFootSteps = new AudioClip[10];
-        private AudioClip[] CharacterJumpEfforts = new AudioClip[3];
-        private AudioClip[] CharacterLanding = new AudioClip[3];
-        private AudioClip[] CharacterHit = new AudioClip[3];
+        private List<AudioClip> CharacterFootStepsLst = new List<AudioClip>();
+        private List<AudioClip> CharacterJumpEffortsLst = new List<AudioClip>();
+        private List<AudioClip> CharacterLandingLst = new List<AudioClip>();
+        private List<AudioClip> CharacterHitLst = new List<AudioClip>();
 
         private string bgAudioPath = PathDefine.bgAudioPath;
 
         private UIController uiController;
-        private bool _isTurnOnAudio;
+        private bool _isTurnOnAudio = true;
 
         protected override void Awake()
         {
@@ -29,7 +29,7 @@ namespace DarkGod.Main
 
         public void InitSvc()
         {
-            InitAudioClipArray(FootStepsAudioPaths, JumpEffortsAudioPaths, LandingAudioPaths, HitAudioPaths);
+            InitCharacterAudioClipLst(FootStepsAudioPaths, JumpEffortsAudioPaths, LandingAudioPaths, HitAudioPaths);
             uiController = GameRoot.MainInstance.GetUIController();
             PECommon.Log("Init AudioSvc...");
         }
@@ -37,63 +37,51 @@ namespace DarkGod.Main
         private void Update()
         {
             RefreshAudioSourceVolume();
-            CheckAllAudioObjectMuted();
-        }
-
-        private void CheckAllAudioObjectMuted()
-        {
-            if (uiController == null)
-            {
-                _isTurnOnAudio = true;
-                return;
-            }
-            _isTurnOnAudio = !uiController._isPause;
-
-            if (!_isTurnOnAudio)
-            {
-                BGAudioAudioSource.volume = 0f;
-                UIAudioAudioSource.volume = 0f;
-                if (CharacterAudioSource != null)
-                {
-                    CharacterAudioSource.volume = 0f;
-                }
-            }
         }
 
         public void SetCharacterAudioSource(AudioSource audioSource)
         {
             CharacterAudioSource = audioSource;
-            CharacterAudioSource.volume = CharacterAudioVolumeValue;
         }
 
-        public void InitAudioClipArray(string[] name1, string[] name2, string[] name3, string[] name4)
+        public void SetAllAudioObjectMuted(bool state)
         {
-            for (int i = 0; i < name1.Length; i++)
+            _isTurnOnAudio = !state;
+        }
+
+        public bool GetAllAudioObjectMuted()
+        {
+            return !_isTurnOnAudio;
+        }
+
+        public void InitCharacterAudioClipLst(List<string> name1, List<string> name2, List<string> name3, List<string> name4)
+        {
+            for (int i = 0; i < name1.Count; i++)
             {
                 string path = bgAudioPath + name1[i];
                 AudioClip audioClip = ResSvc.MainInstance.LoadAudioClipSync(Constants.ResourcePackgeName, path);
-                CharacterFootSteps[i] = audioClip;
+                CharacterFootStepsLst.Add(audioClip);
             }
 
-            for (int i = 0; i < name2.Length; i++)
+            for (int i = 0; i < name2.Count; i++)
             {
                 string path = bgAudioPath + name2[i];
                 AudioClip audioClip = ResSvc.MainInstance.LoadAudioClipSync(Constants.ResourcePackgeName, path);
-                CharacterJumpEfforts[i] = audioClip;
+                CharacterJumpEffortsLst.Add(audioClip);
             }
 
-            for (int i = 0; i < name3.Length; i++)
+            for (int i = 0; i < name3.Count; i++)
             {
                 string path = bgAudioPath + name3[i];
                 AudioClip audioClip = ResSvc.MainInstance.LoadAudioClipSync(Constants.ResourcePackgeName, path);
-                CharacterLanding[i] = audioClip;
+                CharacterLandingLst.Add(audioClip);
             }
 
-            for (int i = 0; i < name4.Length; i++)
+            for (int i = 0; i < name4.Count; i++)
             {
                 string path = bgAudioPath + name4[i];
                 AudioClip audioClip = ResSvc.MainInstance.LoadAudioClipSync(Constants.ResourcePackgeName, path);
-                CharacterHit[i] = audioClip;
+                CharacterHitLst.Add(audioClip);
             }
         }
 
@@ -110,6 +98,22 @@ namespace DarkGod.Main
             if (CharacterAudioSource != null)
             {
                 CharacterAudioSource.volume = CharacterAudioVolumeValue;
+            }
+
+            if (!_isTurnOnAudio)
+            {
+                if (BGAudioAudioSource != null)
+                {
+                    BGAudioAudioSource.volume = 0f;
+                }
+                if (UIAudioAudioSource != null)
+                {
+                    UIAudioAudioSource.volume = 0f;
+                }
+                if (CharacterAudioSource != null)
+                {
+                    CharacterAudioSource.volume = 0f;
+                }
             }
         }
 
@@ -144,26 +148,26 @@ namespace DarkGod.Main
 
         public void PlayFootStep()
         {
-            int i = Random.Range(0, CharacterFootSteps.Length);
-            CharacterAudioSource.PlayOneShot(CharacterFootSteps[i], CharacterAudioVolumeValue);
+            int i = Random.Range(0, CharacterFootStepsLst.Count);
+            CharacterAudioSource.PlayOneShot(CharacterFootStepsLst[i], CharacterAudioVolumeValue);
         }
 
         public void PlayJumpEffort()
         {
-            int i = Random.Range(0, CharacterJumpEfforts.Length);
-            CharacterAudioSource.PlayOneShot(CharacterJumpEfforts[i], CharacterAudioVolumeValue);
+            int i = Random.Range(0, CharacterJumpEffortsLst.Count);
+            CharacterAudioSource.PlayOneShot(CharacterJumpEffortsLst[i], CharacterAudioVolumeValue);
         }
 
         public void PlayLanding()
         {
-            int i = Random.Range(0, CharacterLanding.Length);
-            CharacterAudioSource.PlayOneShot(CharacterLanding[i], CharacterAudioVolumeValue);
+            int i = Random.Range(0, CharacterLandingLst.Count);
+            CharacterAudioSource.PlayOneShot(CharacterLandingLst[i], CharacterAudioVolumeValue);
         }
 
         public void PlayHit()
         {
-            int i = Random.Range(0, CharacterHit.Length);
-            CharacterAudioSource.PlayOneShot(CharacterHit[i], CharacterAudioVolumeValue);
+            int i = Random.Range(0, CharacterHitLst.Count);
+            CharacterAudioSource.PlayOneShot(CharacterHitLst[i], CharacterAudioVolumeValue);
         }
         #endregion
     }

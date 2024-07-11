@@ -480,10 +480,12 @@ namespace DarkGod.Main
         #region Guide Wnd
         public void OpenSettingsWnd()
         {
-            audioSvc.PlayUIAudio(Constants.UIClickBtn);
             PauseGameLogic(true);
-            settingsWnd.SetWndState(true);
-
+            if (settingsWnd.GetWndState() != true)
+            {
+                audioSvc.PlayUIAudio(Constants.UIClickBtn);
+                settingsWnd.SetWndState(true);
+            }
         }
 
         public void RspGuide(GameMsg msg)

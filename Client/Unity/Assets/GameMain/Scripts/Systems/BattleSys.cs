@@ -48,9 +48,8 @@ namespace DarkGod.Main
 
         public void EndBattle(bool isWin, int restHP)
         {
-            playerCtrlWnd.SetWndState(false);
+            SetPlayerCtrlWndState(false);
             GameRoot.MainInstance.dynamicWnd.RmvAllHpItemInfo();
-            battleMgr.EntityPlayer.Value = null;
 
             if (isWin)
             {
@@ -86,7 +85,7 @@ namespace DarkGod.Main
             SetPlayerCtrlWndState(false);
             SetBattleEndWndState(FBEndType.None, false);
             GameRoot.MainInstance.dynamicWnd.RmvAllHpItemInfo();
-            battleMgr.EntityPlayer.Value = null;
+            battleMgr.RmvEntityPlayerData();
             Destroy(battleMgr.gameObject);
             GameRoot.MainInstance.SetAudioListener(null, false, true);
             resSvc.DestroyAllInstantiateGameObject();

@@ -10,7 +10,7 @@ namespace DarkGod.Main
     public class SettingsWnd : WindowRoot
     {
         public Slider BGAudioSlider, UIAudioSlider, CharacterAudioSlider, CharacterFxAudioSlider;
-        public Toggle VsyncSettingsToggle, FpsWndToggle, RuntimeInspectorToggle, RuntimeHierarchyToggle;
+        public Toggle VsyncSettingsToggle, MutedToggle, FpsWndToggle, RuntimeInspectorToggle, RuntimeHierarchyToggle;
         public Transform DebugItem;
         public Transform fpsWnd;
         public Transform RuntimeHierarchy, RuntimeInspector;
@@ -23,6 +23,11 @@ namespace DarkGod.Main
             InitQualityDropdownOptionData();
             SliderAddListener();
             InitSliderValue();
+        }
+
+        private void ActiveDebugItemWnd(bool active = true)
+        {
+            DebugItem.gameObject.SetActive(active);
         }
 
         private bool GetVSyncCount()
@@ -38,15 +43,29 @@ namespace DarkGod.Main
             return false;
         }
 
+        private void PauseGameInWnd()
+        {
+            if (GameRoot.MainInstance.GetGameState() == GameState.FBFight)
+            {
+                BattleSys.Instance.battleMgr.SetPauseGame(false, false);
+            }
+            else if (GameRoot.MainInstance.GetGameState() == GameState.MainCity)
+            {
+                GameRoot.MainInstance.PauseGameUI(false);
+            }
+        }
+
         private void InitSliderValue()
         {
             VsyncSettingsToggle.isOn = GetVSyncCount();
+            MutedToggle.isOn = audioSvc.GetAllAudioObjectMuted();
             BGAudioSlider.value = audioSvc.BGAudioVolumeValue;
             UIAudioSlider.value = audioSvc.UIAudioVolumeValue;
             CharacterAudioSlider.value = audioSvc.CharacterAudioVolumeValue;
             CharacterFxAudioSlider.value = audioSvc.CharacterFxAudioVolumeValue;
         }
 
+        #region Slider相关
         private void SliderAddListener()
         {
             BGAudioSlider.onValueChanged.AddListener(TouchBGAudioSlider);
@@ -76,64 +95,48 @@ namespace DarkGod.Main
             audioSvc.CharacterFxAudioVolumeValue = volume;
         }
 
-        public void ActiveDebugItemWnd(bool active = true)
+        #endregion
+
+        #region Toggle相关
+        public void ClickVsyncToggle()
         {
-            DebugItem.gameObject.SetActive(active);
+            audioSvc.PlayUIAudio(Constants.UIClickBtn);
+            GameRoot.MainInstance.SetVsyncState(VsyncSettingsToggle.isOn);
         }
 
-        private void PauseGameInWnd()
+        public void ClickMutedToggle()
         {
-            if (GameRoot.MainInstance.GetGameState() == GameState.FBFight)
-            {
-                BattleSys.Instance.battleMgr.SetPauseGame(false, false);
-            }
-            else if (GameRoot.MainInstance.GetGameState() == GameState.MainCity)
-            {
-                GameRoot.MainInstance.PauseGameUI(false);
-            }
+            audioSvc.SetAllAudioObjectMuted(MutedToggle.isOn);
         }
 
         public void ClickFpsWndToggle()
         {
+            audioSvc.PlayUIAudio(Constants.UIClickBtn);
             ActiveDebugItemWnd();
-            if (FpsWndToggle.isOn == true)
-            {
-                fpsWnd.gameObject.SetActive(true);
-            }
-            else
-            {
-                fpsWnd.gameObject.SetActive(false);
-            }
+            fpsWnd.gameObject.SetActive(FpsWndToggle.isOn);
         }
 
         public void ClickRuntimeHierarchyToggle()
         {
+            audioSvc.PlayUIAudio(Constants.UIClickBtn);
             ActiveDebugItemWnd();
-            if (RuntimeHierarchyToggle.isOn == true)
-            {
-                RuntimeHierarchy.gameObject.SetActive(true);
-            }
-            else
-            {
-                RuntimeHierarchy.gameObject.SetActive(false);
-            }
+            RuntimeHierarchy.gameObject.SetActive(RuntimeHierarchyToggle.isOn);
         }
 
         public void ClickRuntimeInspectorToggle()
         {
+            audioSvc.PlayUIAudio(Constants.UIClickBtn);
             ActiveDebugItemWnd();
-            if (RuntimeInspectorToggle.isOn == true)
-            {
-                RuntimeInspector.gameObject.SetActive(true);
-            }
-            else
-            {
-                RuntimeInspector.gameObject.SetActive(false);
-            }
+            RuntimeInspector.gameObject.SetActive(RuntimeInspectorToggle.isOn);
         }
 
+        #endregion
+
+        #region Button相关
         public void ClickCloseDebugItemBtn()
         {
+            audioSvc.PlayUIAudio(Constants.UIClickBtn);
+
             fpsWnd.gameObject.SetActive(false);
             RuntimeHierarchy.gameObject.SetActive(false);
             RuntimeInspector.gameObject.SetActive(false);
@@ -153,20 +156,17 @@ namespace DarkGod.Main
             GameRoot.MainInstance.ExitGame();
         }
 
-        public void ClickVsyncBtn()
-        {
-            audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            GameRoot.MainInstance.SetVsyncState(VsyncSettingsToggle.isOn);
-        }
-
         //Reload Cfg Data
         public void ClickResetCfgsBtn()
         {
+            audioSvc.PlayUIAudio(Constants.UIClickBtn);
             resSvc.ResetSkillCfgs();
             GameRoot.AddTips("技能数据重置成功！");
         }
 
-        //Quality Settings
+        #endregion
+
+        #region QualityDropdown
         private void InitQualityDropdownOptionData()
         {
             string[] qualityArr = QualitySettings.names;
@@ -207,5 +207,8 @@ namespace DarkGod.Main
         {
             SetQualityLevel(value);
         }
+
+        #endregion
+
     }
 }

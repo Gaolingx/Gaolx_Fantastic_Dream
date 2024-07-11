@@ -278,7 +278,11 @@ namespace DarkGod.Main
         }
         public EntityPlayer GetCurrentPlayer()
         {
-            return entityPlayer;
+            if (gameState == GameState.FBFight)
+            {
+                return entityPlayer;
+            }
+            return null;
         }
 
         private GameState gameState = GameState.None;
