@@ -150,10 +150,10 @@ namespace DarkGod.Main
 
         private void LoadNpcPrefab()
         {
-            NpcCfg.Instance.LoadMapNpc(0);
-            NpcCfg.Instance.LoadMapNpc(1);
-            NpcCfg.Instance.LoadMapNpc(2);
-            NpcCfg.Instance.LoadMapNpc(3);
+            NpcSvc.MainInstance.LoadMapNpc(Constants.NpcTypeID_0);
+            NpcSvc.MainInstance.LoadMapNpc(Constants.NpcTypeID_1);
+            NpcSvc.MainInstance.LoadMapNpc(Constants.NpcTypeID_2);
+            NpcSvc.MainInstance.LoadMapNpc(Constants.NpcTypeID_3);
 
         }
 

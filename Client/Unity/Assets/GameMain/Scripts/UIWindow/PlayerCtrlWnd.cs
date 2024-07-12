@@ -78,6 +78,11 @@ namespace DarkGod.Main
         {
             float delta = Time.deltaTime;
 
+            if (BattleSys.Instance.GetCurrentPlayer() == null || GameRoot.MainInstance.GetGameState() != GameState.FBFight)
+            {
+                return;
+            }
+
             playerInput = GameRoot.MainInstance.GetStarterAssetsInputs();
 
             if (playerInput != null)
@@ -86,17 +91,14 @@ namespace DarkGod.Main
 
                 SetCurrentDir();
 
-                if (GameRoot.MainInstance.GetCurrentPlayer() != null)
+                if (!BattleSys.Instance.battleMgr.GetPauseGame())
                 {
-                    if (!BattleSys.Instance.battleMgr.GetPauseGame())
-                    {
-                        ListeningTouchEvts();
-                        ListeningClickGamePause();
-                        ListeningClickPlayerNormalAtk();
-                        ListeningClickPlayerSkill01Atk();
-                        ListeningClickPlayerSkill02Atk();
-                        ListeningClickPlayerSkill03Atk();
-                    }
+                    ListeningTouchEvts();
+                    ListeningClickGamePause();
+                    ListeningClickPlayerNormalAtk();
+                    ListeningClickPlayerSkill01Atk();
+                    ListeningClickPlayerSkill02Atk();
+                    ListeningClickPlayerSkill03Atk();
                 }
 
                 UpdateSk1CD(delta);

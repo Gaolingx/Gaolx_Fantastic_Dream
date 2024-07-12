@@ -66,8 +66,8 @@ namespace DarkGod.Main
             res.InitSvc();
             AudioSvc audio = GetComponent<AudioSvc>();
             audio.InitSvc();
-            NpcCfg npcCfg = GetComponent<NpcCfg>();
-            npcCfg.InitCfg();
+            NpcSvc npcSvc = GetComponent<NpcSvc>();
+            npcSvc.InitCfg();
             TimerSvc timer = GetComponent<TimerSvc>();
             timer.InitSvc();
 
@@ -269,20 +269,6 @@ namespace DarkGod.Main
             PlayerData.exp = data.exp;
             PlayerData.crystal = data.crystal;
             PlayerData.fuben = data.fuben;
-        }
-
-        private EntityPlayer entityPlayer = null;
-        public void SetCurrentPlayer(EntityPlayer player)
-        {
-            entityPlayer = player;
-        }
-        public EntityPlayer GetCurrentPlayer()
-        {
-            if (gameState == GameState.FBFight)
-            {
-                return entityPlayer;
-            }
-            return null;
         }
 
         private GameState gameState = GameState.None;

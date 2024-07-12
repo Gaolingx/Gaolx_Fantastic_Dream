@@ -111,6 +111,20 @@ namespace DarkGod.Main
             SetBattleEndWndState(FBEndType.Win);
         }
 
+        private EntityPlayer currentEntityPlayer = null;
+        public void SetCurrentPlayer(EntityPlayer player)
+        {
+            currentEntityPlayer = player;
+        }
+        public EntityPlayer GetCurrentPlayer()
+        {
+            if (GameRoot.MainInstance.GetGameState() == GameState.FBFight)
+            {
+                return currentEntityPlayer;
+            }
+            return null;
+        }
+
         public void SetPlayerMoveDir(Vector2 dir)
         {
             if (battleMgr.EntityPlayer != null)

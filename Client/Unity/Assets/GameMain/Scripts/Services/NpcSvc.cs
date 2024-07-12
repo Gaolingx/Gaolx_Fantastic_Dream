@@ -1,11 +1,11 @@
-﻿using System.Xml.Linq;
+﻿using HuHu;
+using System.Xml.Linq;
 using UnityEngine;
 
 namespace DarkGod.Main
 {
-    public class NpcCfg : MonoBehaviour
+    public class NpcSvc : Singleton<NpcSvc>
     {
-        public static NpcCfg Instance = null;
         public static ResSvc resSvc = null;
 
         #region Npc Data
@@ -18,17 +18,15 @@ namespace DarkGod.Main
 
         #endregion
 
-        public void InitCfg()
+        protected override void Awake()
         {
-            Instance = this;
-            resSvc = ResSvc.MainInstance;
-            PECommon.Log("Init NpcCfg...");
+            base.Awake();
         }
 
-        private NpcData GetNpcCfgFromXml(int npcType)
+        public void InitCfg()
         {
-            NpcData npcData = ResSvc.MainInstance.GetNpcCfg(npcType);
-            return npcData;
+            resSvc = ResSvc.MainInstance;
+            PECommon.Log("Init NpcCfg...");
         }
 
         private NpcTransform BuildNpcTransform(NpcData npcData)
@@ -41,22 +39,10 @@ namespace DarkGod.Main
             return npcTransform;
         }
 
-        //NPC配置
-        private NpcTransform GetNpcTrans(NpcData npcData, int NpcType) => NpcType switch
+        public async void LoadMapNpc(int npcType)
         {
-
-            Constants.NpcTypeID_0 => BuildNpcTransform(npcData),
-            Constants.NpcTypeID_1 => BuildNpcTransform(npcData),
-            Constants.NpcTypeID_2 => BuildNpcTransform(npcData),
-            Constants.NpcTypeID_3 => BuildNpcTransform(npcData),
-            _ => null,
-
-        };
-
-        public async void LoadMapNpc(int NpcType)
-        {
-            NpcData data = GetNpcCfgFromXml(NpcType);
-            NpcTransform npcTrans = GetNpcTrans(data, NpcType);
+            NpcData data = ResSvc.MainInstance.GetNpcCfg(npcType);
+            NpcTransform npcTrans = BuildNpcTransform(data);
             await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, data.npcResPath, npcTrans.Transform_NpcID_Position, npcTrans.Transform_NpcID_Rotation, npcTrans.Transform_NpcID_Scale, false, true, true, true);
         }
 

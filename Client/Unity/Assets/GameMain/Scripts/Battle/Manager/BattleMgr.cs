@@ -165,7 +165,7 @@ namespace DarkGod.Main
 
         private void OnUpdateEntityPlayer(EntityPlayer value)
         {
-            GameRoot.MainInstance.SetCurrentPlayer(value);
+            BattleSys.Instance.SetCurrentPlayer(value);
             entitySelfPlayer = value;
         }
 
