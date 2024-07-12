@@ -2299,7 +2299,7 @@ MonoBehaviour:
       - Value: 1
       - Value: 2
       - Value: 2
-      maxConnectionDistance: 0.04512134
+      maxConnectionDistance: 0.045121342
       userEdit: 0
   gizmoSerializeData:
     always: 0
@@ -2800,17 +2800,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 7066c5f152c157f40912f73251590fda,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -13.956057
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7066c5f152c157f40912f73251590fda,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.0477085
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7066c5f152c157f40912f73251590fda,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 12.097177
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7066c5f152c157f40912f73251590fda,
         type: 3}
@@ -4499,12 +4499,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6031082356580734184}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &3660013489298461722 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7023451113774579954, guid: 7066c5f152c157f40912f73251590fda,
-    type: 3}
-  m_PrefabInstance: {fileID: 6031082356580734184}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3689225897168775931 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6953687684002119187, guid: 7066c5f152c157f40912f73251590fda,
@@ -4798,18 +4792,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 6878083648144533945}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e470ccb9c93c7b142bf19503454bbd96, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b80cead6d838f246bfd27230e1cb31d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_DayTime: 12
+  m_ColorSaturation: 1
+  m_AutoBrightnessOffset: 0
   m_DitherAlpha: 1
   m_ExCheekIntensity: 0
   m_ExShyIntensity: 0
   m_ExShadowIntensity: 0
-  m_ColorSaturation: 1
-  m_AutoBrightnessOffset: -0.4
   m_IsCastingShadow: 1
-  m_MMDHeadBone: {fileID: 3660013489298461722}
+  m_MMDHeadBone: {fileID: 0}
   m_MMDHeadBoneForward: 0
   m_MMDHeadBoneUp: 4
   m_MMDHeadBoneRight: 3
