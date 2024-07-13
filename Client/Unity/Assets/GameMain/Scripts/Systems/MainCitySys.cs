@@ -8,7 +8,6 @@ using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using PEProtocol;
 using UnityEngine.InputSystem.XR;
-using Unity.AI.Navigation;
 using UnityEngine.InputSystem.UI;
 
 namespace DarkGod.Main
@@ -34,9 +33,6 @@ namespace DarkGod.Main
         private Transform[] npcPosTrans;
         private NavMeshAgent nav;
         private StarterAssetsInputs starterAssetsInputs;
-
-        //防裁剪，故意引用下
-        [HideInInspector] public NavMeshSurface navMeshSurface;
 
         public override void InitSys()
         {

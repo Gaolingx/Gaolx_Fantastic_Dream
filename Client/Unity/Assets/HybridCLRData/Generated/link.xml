@@ -43,6 +43,12 @@
     <type fullname="PETimeUnit" preserve="all" />
     <type fullname="PETimer" preserve="all" />
   </assembly>
+  <assembly fullname="SRUniversal-main">
+    <type fullname="SRUniversal.Main.SRCharacterRenderingController" preserve="all" />
+  </assembly>
+  <assembly fullname="UIController.Runtime">
+    <type fullname="UIController" preserve="all" />
+  </assembly>
   <assembly fullname="UniTask">
     <type fullname="Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder" preserve="all" />
     <type fullname="Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder`1" preserve="all" />
@@ -59,12 +65,8 @@
     <type fullname="Unity.AI.Navigation.NavMeshSurface" preserve="all" />
   </assembly>
   <assembly fullname="Unity.InputSystem">
-    <type fullname="UnityEngine.InputSystem.InputAction" preserve="all" />
-    <type fullname="UnityEngine.InputSystem.InputActionAsset" preserve="all" />
-    <type fullname="UnityEngine.InputSystem.InputActionMap" preserve="all" />
     <type fullname="UnityEngine.InputSystem.InputValue" preserve="all" />
     <type fullname="UnityEngine.InputSystem.PlayerInput" preserve="all" />
-    <type fullname="UnityEngine.InputSystem.UI.InputSystemUIInputModule" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.AIModule">
     <type fullname="UnityEngine.AI.NavMeshAgent" preserve="all" />
@@ -75,6 +77,7 @@
     <type fullname="UnityEngine.AnimationEvent" preserve="all" />
     <type fullname="UnityEngine.Animator" preserve="all" />
     <type fullname="UnityEngine.AnimatorClipInfo" preserve="all" />
+    <type fullname="UnityEngine.AnimatorStateInfo" preserve="all" />
     <type fullname="UnityEngine.RuntimeAnimatorController" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.AudioModule">
@@ -92,8 +95,6 @@
     <type fullname="UnityEngine.Color" preserve="all" />
     <type fullname="UnityEngine.Component" preserve="all" />
     <type fullname="UnityEngine.Coroutine" preserve="all" />
-    <type fullname="UnityEngine.Cursor" preserve="all" />
-    <type fullname="UnityEngine.CursorLockMode" preserve="all" />
     <type fullname="UnityEngine.Debug" preserve="all" />
     <type fullname="UnityEngine.Events.UnityAction" preserve="all" />
     <type fullname="UnityEngine.Events.UnityAction`1" preserve="all" />
@@ -165,7 +166,6 @@
     <type fullname="UnityEngine.TextAnchor" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.UI">
-    <type fullname="UnityEngine.EventSystems.EventSystem" preserve="all" />
     <type fullname="UnityEngine.EventSystems.IDragHandler" preserve="all" />
     <type fullname="UnityEngine.EventSystems.IEventSystemHandler" preserve="all" />
     <type fullname="UnityEngine.EventSystems.IPointerClickHandler" preserve="all" />
@@ -174,6 +174,9 @@
     <type fullname="UnityEngine.EventSystems.PointerEventData" preserve="all" />
     <type fullname="UnityEngine.UI.Button" preserve="all" />
     <type fullname="UnityEngine.UI.Button/ButtonClickedEvent" preserve="all" />
+    <type fullname="UnityEngine.UI.Dropdown" preserve="all" />
+    <type fullname="UnityEngine.UI.Dropdown/DropdownEvent" preserve="all" />
+    <type fullname="UnityEngine.UI.Dropdown/OptionData" preserve="all" />
     <type fullname="UnityEngine.UI.Graphic" preserve="all" />
     <type fullname="UnityEngine.UI.GridLayoutGroup" preserve="all" />
     <type fullname="UnityEngine.UI.Image" preserve="all" />
@@ -186,7 +189,6 @@
     <type fullname="UnityEngine.UI.Toggle" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.UIModule">
-    <type fullname="UnityEngine.Canvas" preserve="all" />
     <type fullname="UnityEngine.RectTransformUtility" preserve="all" />
   </assembly>
   <assembly fullname="YooAsset">
@@ -207,6 +209,7 @@
     <type fullname="System.Attribute" preserve="all" />
     <type fullname="System.AttributeTargets" preserve="all" />
     <type fullname="System.AttributeUsageAttribute" preserve="all" />
+    <type fullname="System.Boolean" preserve="all" />
     <type fullname="System.Byte" preserve="all" />
     <type fullname="System.CodeDom.Compiler.GeneratedCodeAttribute" preserve="all" />
     <type fullname="System.Collections.Generic.Dictionary`2" preserve="all" />
@@ -219,6 +222,7 @@
     <type fullname="System.Collections.Generic.IEnumerator`1" preserve="all" />
     <type fullname="System.Collections.Generic.KeyValuePair`2" preserve="all" />
     <type fullname="System.Collections.Generic.List`1" preserve="all" />
+    <type fullname="System.Collections.Generic.List`1/Enumerator" preserve="all" />
     <type fullname="System.Collections.Generic.Queue`1" preserve="all" />
     <type fullname="System.Collections.IEnumerator" preserve="all" />
     <type fullname="System.ComponentModel.EditorBrowsableAttribute" preserve="all" />
@@ -250,6 +254,7 @@
     <type fullname="System.Runtime.CompilerServices.AsyncVoidMethodBuilder" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.CompilationRelaxationsAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.CompilerGeneratedAttribute" preserve="all" />
+    <type fullname="System.Runtime.CompilerServices.ExtensionAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.IAsyncStateMachine" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.IteratorStateMachineAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" preserve="all" />
