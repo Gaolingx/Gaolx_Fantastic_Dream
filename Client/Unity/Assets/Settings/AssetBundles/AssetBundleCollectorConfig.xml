@@ -22,9 +22,9 @@
     </Group>
     <Group GroupActiveRule="EnableGroup" GroupName="ABShader" GroupDesc="" AssetTags="">
       <Collector CollectPath="Assets/AssetBundles/Shaders/ShaderVariants" CollectGUID="e39ccee64e232294f92e1e9e77777da7" CollectType="MainAssetCollector" AddressRule="AddressByFileName" PackRule="PackDirectory" FilterRule="CollectShaderVariants" UserData="" AssetTags="" />
-      <Collector CollectPath="Assets/ResModules/Shaders/HonkaiStarRailToonShader/Shaders/V2.1/SRUniversal-main/Shaders" CollectGUID="f3ea0920607280a42a5ee96bcf8331a4" CollectType="MainAssetCollector" AddressRule="AddressByFileName" PackRule="PackDirectory" FilterRule="CollectShader" UserData="" AssetTags="" />
-      <Collector CollectPath="Assets/ResModules/Shaders/HonkaiStarRailToonShader/Shaders/V2.1/SRUniversal-Include/StarRailNPRShader/Shaders" CollectGUID="3fb7ee35d84d8ad449ca8c8faf4ddbb5" CollectType="MainAssetCollector" AddressRule="AddressByFileName" PackRule="PackDirectory" FilterRule="CollectShader" UserData="" AssetTags="" />
       <Collector CollectPath="Assets/ResModules/Shaders/GenshinCelShaderURP/Shaders/GenshinCelShaderURP/V5.0Beta/GenshinLikeRendering" CollectGUID="cb8ed0ecd275e794f9461e5ff84cb3da" CollectType="MainAssetCollector" AddressRule="AddressByFileName" PackRule="PackDirectory" FilterRule="CollectShader" UserData="" AssetTags="" />
+      <Collector CollectPath="Packages/com.gaolingx.honkaistarrailtoonshader/Shaders/SRUniversal-main/Shaders" CollectGUID="f3ea0920607280a42a5ee96bcf8331a4" CollectType="MainAssetCollector" AddressRule="AddressByFileName" PackRule="PackDirectory" FilterRule="CollectShader" UserData="" AssetTags="" />
+      <Collector CollectPath="Packages/com.stalomeow.star-rail-npr-shader/Shaders" CollectGUID="3fb7ee35d84d8ad449ca8c8faf4ddbb5" CollectType="MainAssetCollector" AddressRule="AddressByFileName" PackRule="PackDirectory" FilterRule="CollectShader" UserData="" AssetTags="" />
     </Group>
   </Package>
 </root>

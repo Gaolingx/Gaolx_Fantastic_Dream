@@ -115,7 +115,15 @@ MonoBehaviour:
         FilterRuleName: CollectShaderVariants
         AssetTags: 
         UserData: 
-      - CollectPath: Assets/ResModules/Shaders/HonkaiStarRailToonShader/Shaders/V2.1/SRUniversal-main/Shaders
+      - CollectPath: Assets/ResModules/Shaders/GenshinCelShaderURP/Shaders/GenshinCelShaderURP/V5.0Beta/GenshinLikeRendering
+        CollectorGUID: cb8ed0ecd275e794f9461e5ff84cb3da
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectShader
+        AssetTags: 
+        UserData: 
+      - CollectPath: Packages/com.gaolingx.honkaistarrailtoonshader/Shaders/SRUniversal-main/Shaders
         CollectorGUID: f3ea0920607280a42a5ee96bcf8331a4
         CollectorType: 0
         AddressRuleName: AddressByFileName
@@ -123,16 +131,8 @@ MonoBehaviour:
         FilterRuleName: CollectShader
         AssetTags: 
         UserData: 
-      - CollectPath: Assets/ResModules/Shaders/HonkaiStarRailToonShader/Shaders/V2.1/SRUniversal-Include/StarRailNPRShader/Shaders
+      - CollectPath: Packages/com.stalomeow.star-rail-npr-shader/Shaders
         CollectorGUID: 3fb7ee35d84d8ad449ca8c8faf4ddbb5
-        CollectorType: 0
-        AddressRuleName: AddressByFileName
-        PackRuleName: PackDirectory
-        FilterRuleName: CollectShader
-        AssetTags: 
-        UserData: 
-      - CollectPath: Assets/ResModules/Shaders/GenshinCelShaderURP/Shaders/GenshinCelShaderURP/V5.0Beta/GenshinLikeRendering
-        CollectorGUID: cb8ed0ecd275e794f9461e5ff84cb3da
         CollectorType: 0
         AddressRuleName: AddressByFileName
         PackRuleName: PackDirectory
