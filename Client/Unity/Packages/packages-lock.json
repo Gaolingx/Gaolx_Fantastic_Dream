@@ -14,6 +14,14 @@
       "dependencies": {},
       "hash": "88e20505f87d57cbff5695be5f7baa35d626f619"
     },
+    "com.gaolingx.honkaistarrailtoonshader": {
+      "version": "file:HonkaiStarRailToonShader",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.stalomeow.star-rail-npr-shader": "2.9.0"
+      }
+    },
     "com.sangoutils.patchyooassetsystem": {
       "version": "https://github.com/Gaolingx/SangoUtils.Hotfix_YooAsset.git",
       "depth": 0,
@@ -24,6 +32,19 @@
         "com.code-philosophy.hybridclr": "6.1.0"
       },
       "hash": "065a1eee2f581749eb646619843d4264f98dedbf"
+    },
+    "com.stalomeow.star-rail-npr-shader": {
+      "version": "https://github.com/stalomeow/StarRailNPRShader.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.render-pipelines.core": "14.0.10",
+        "com.unity.render-pipelines.universal": "14.0.10",
+        "com.unity.burst": "1.8.12",
+        "com.unity.mathematics": "1.2.6",
+        "com.unity.nuget.newtonsoft-json": "3.2.1"
+      },
+      "hash": "63b00dd897076587d6e7fa20b5fcc2c1516f5765"
     },
     "com.tuyoogame.yooasset": {
       "version": "2.1.2",
