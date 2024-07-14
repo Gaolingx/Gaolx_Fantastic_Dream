@@ -135,8 +135,6 @@ namespace DarkGod.Main
         #region Buttonœ‡πÿ
         public void ClickCloseDebugItemBtn()
         {
-            audioSvc.PlayUIAudio(Constants.UIClickBtn);
-
             fpsWnd.gameObject.SetActive(false);
             RuntimeHierarchy.gameObject.SetActive(false);
             RuntimeInspector.gameObject.SetActive(false);
