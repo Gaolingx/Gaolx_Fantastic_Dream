@@ -106,15 +106,7 @@ namespace StarterAssets
         private bool MoveModeInput = true;
 
         [Header("Player FX")]
-        public GameObject daggerskill1fx;
-        public GameObject daggerskill2fx;
-        public GameObject daggerskill3fx;
-
-        public GameObject daggeratk1fx;
-        public GameObject daggeratk2fx;
-        public GameObject daggeratk3fx;
-        public GameObject daggeratk4fx;
-        public GameObject daggeratk5fx;
+        public List<GameObject> PlayerFxList = new List<GameObject>();
 
         // Player FX
         private Dictionary<string, GameObject> fxDic = new Dictionary<string, GameObject>();
@@ -243,7 +235,7 @@ namespace StarterAssets
         {
             if (isMoveByController)
             {
-                Move(_isSkillMove);
+                Move();
             }
         }
 
@@ -399,16 +391,16 @@ namespace StarterAssets
 
         }
 
-        private void Move(bool canMove = true, bool isSkillMove = false)
+        private void Move()
         {
             if (MoveModeInput == true)
             {
                 _moveVal = _input.move;
             }
-            
+
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed;
-            if (isSkillMove)
+            if (_isSkillMove)
             {
                 targetSpeed = SkillMoveSpeed;
             }
@@ -640,38 +632,9 @@ namespace StarterAssets
         {
             timerSvc = TimerSvc.MainInstance;
 
-            if (daggerskill1fx != null)
+            for (int i = 0; i < PlayerFxList.Count; i++)
             {
-                fxDic.Add(daggerskill1fx.name, daggerskill1fx);
-            }
-            if (daggeratk2fx != null)
-            {
-                fxDic.Add(daggerskill2fx.name, daggerskill2fx);
-            }
-            if (daggeratk3fx != null)
-            {
-                fxDic.Add(daggerskill3fx.name, daggerskill3fx);
-            }
-
-            if (daggeratk1fx != null)
-            {
-                fxDic.Add(daggeratk1fx.name, daggeratk1fx);
-            }
-            if (daggeratk2fx != null)
-            {
-                fxDic.Add(daggeratk2fx.name, daggeratk2fx);
-            }
-            if (daggeratk3fx != null)
-            {
-                fxDic.Add(daggeratk3fx.name, daggeratk3fx);
-            }
-            if (daggeratk4fx != null)
-            {
-                fxDic.Add(daggeratk4fx.name, daggeratk4fx);
-            }
-            if (daggeratk5fx != null)
-            {
-                fxDic.Add(daggeratk5fx.name, daggeratk5fx);
+                fxDic.Add(PlayerFxList[i].name, PlayerFxList[i]);
             }
         }
 
