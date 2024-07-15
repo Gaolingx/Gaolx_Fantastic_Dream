@@ -72,14 +72,14 @@ namespace DarkGod.Main
         #endregion
 
         #region TaskReward
-        public const string TaskItemPrefab = "Assets/AssetBundles/Prefabs/GameMain/UIPrefabs/GameRoot/ItemTask";
+        public const string TaskItemPrefab = "Assets/AssetBundles/Prefabs/GameMain/PrefabUI/GameRoot/ItemTask";
         #endregion
 
         #region Player
         public const string AssissnCityPlayerPrefab = "Assets/AssetBundles/Prefabs/GameMain/AvatarPrefabs/PlayerPrefabs/Player_Avatar_March_7th Variant";
         public const string AssissnBattlePlayerPrefab = "Assets/AssetBundles/Prefabs/GameMain/AvatarPrefabs/PlayerPrefabs/Player_Avatar_March_7th Variant";
 
-        public const string HPItemPrefab = "Assets/AssetBundles/Prefabs/GameMain/UIPrefabs/GameRoot/ItemEntityHp";
+        public const string HPItemPrefab = "Assets/AssetBundles/Prefabs/GameMain/PrefabUI/GameRoot/ItemEntityHp";
 
         #endregion
 

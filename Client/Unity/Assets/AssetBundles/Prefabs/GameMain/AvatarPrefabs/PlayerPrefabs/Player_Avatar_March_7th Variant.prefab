@@ -3935,11 +3935,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f733d7d3333c6164b823faaa87cf08cf,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4441934594359587740}
+      addedObject: {fileID: 8075067447599205545}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f733d7d3333c6164b823faaa87cf08cf,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3391443305054900865}
+      addedObject: {fileID: -6968971081903989903}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f733d7d3333c6164b823faaa87cf08cf,
         type: 3}
       insertIndex: -1
@@ -4110,13 +4110,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 1.775
+  m_Height: 1.78
   m_Radius: 0.28
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.02
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.88, z: 0}
+  m_Center: {x: 0, y: 0.885, z: 0}
 --- !u!114 &7952063790264688446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4167,14 +4167,14 @@ MonoBehaviour:
   daggeratk3fx: {fileID: 0}
   daggeratk4fx: {fileID: 0}
   daggeratk5fx: {fileID: 0}
---- !u!195 &4441934594359587740
+--- !u!195 &8075067447599205545
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2015357711966389491}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
@@ -4189,7 +4189,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!82 &3391443305054900865
+--- !u!82 &-6968971081903989903
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -24,6 +24,9 @@ namespace StarterAssets
         public CinemachineVirtualCamera playerFollowVirtualCamera;
 
         [Header("Player")]
+        [Tooltip("Move Control By ThirdPersonController")]
+        public bool isMoveByController = true;
+
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
 
@@ -238,13 +241,9 @@ namespace StarterAssets
 
         private void SetMove()
         {
-            if (_isSkillMove)
+            if (isMoveByController)
             {
-                Move(true);
-            }
-            else
-            {
-                Move();
+                Move(_isSkillMove);
             }
         }
 

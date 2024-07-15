@@ -205,6 +205,8 @@ namespace DarkGod.Main
         public const string MapRootGOTag = "MapRoot";
 
         //Mar_7th_00 ∂Øª≠≤Œ ˝≈‰÷√
+        public const string AniID_Mar7th00_Blend_Speed = "Speed";
+        public const string AniID_Mar7th00_Blend_MotionSpeed = "MotionSpeed";
         public const int State_Mar7th00_Blend_Skill_01 = 2;
         public const int State_Mar7th00_Blend_CantControl = 10;
 

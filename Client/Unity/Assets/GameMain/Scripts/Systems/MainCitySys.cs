@@ -60,6 +60,8 @@ namespace DarkGod.Main
                 // 加载游戏主角
                 LoadPlayer(mapData);
 
+                AssignAnimationIDs();
+
                 // 加载NPC
                 LoadNpcPrefab();
 
@@ -316,8 +318,7 @@ namespace DarkGod.Main
                 charCamTrans.localScale = Vector3.one;
                 charCamTrans.gameObject.SetActive(true);
                 infoWnd.SetWndState();
-                GameRoot.MainInstance.EnableInputAction(false);
-                GameRoot.MainInstance.EnablePlayerMove(false);
+                SetInputState(false, false);
             }
         }
 
@@ -327,8 +328,7 @@ namespace DarkGod.Main
             {
                 charCamTrans.gameObject.SetActive(false);
                 infoWnd.SetWndState(false);
-                GameRoot.MainInstance.EnableInputAction(true);
-                GameRoot.MainInstance.EnablePlayerMove(true);
+                SetInputState(true, true);
             }
         }
 
@@ -386,10 +386,9 @@ namespace DarkGod.Main
                     //找到目标npc，停止导航
                     isNavGuide = false;
                     nav.isStopped = true;
-                    starterAssetsInputs.move = new Vector2(0, 0);
+                    SetPlayerStopInNavTask(mainCityPlayer);
                     nav.enabled = false;
-                    GameRoot.MainInstance.EnableInputAction(true);
-                    GameRoot.MainInstance.EnablePlayerMove(true);
+                    SetInputState(true, true);
 
                     OpenGuideWnd();
                 }
@@ -401,9 +400,8 @@ namespace DarkGod.Main
                     nav.enabled = true; //激活导航组件
                     nav.speed = Constants.PlayerMoveSpeedNav; //导航速度
                     nav.SetDestination(npcPosTrans[agc.npcID].position); //设置导航目标点
-                    GameRoot.MainInstance.EnableInputAction(false); //禁用玩家输入
-                    GameRoot.MainInstance.EnablePlayerMove(false);
-                    starterAssetsInputs.move = new Vector2(0, 1);
+                    SetInputState(false, false);
+                    SetPlayerMoveInNavTask(mainCityPlayer);
                 }
             }
             else
@@ -438,10 +436,9 @@ namespace DarkGod.Main
                 Debug.Log("已经到达目的地，导航结束！");
                 isNavGuide = false;
                 nav.isStopped = true;
-                starterAssetsInputs.move = new Vector2(0, 0);
+                SetPlayerStopInNavTask(mainCityPlayer);
                 nav.enabled = false;
-                GameRoot.MainInstance.EnableInputAction(true);
-                GameRoot.MainInstance.EnablePlayerMove(true);
+                SetInputState(true, true);
 
                 OpenGuideWnd();
             }
@@ -455,10 +452,37 @@ namespace DarkGod.Main
                 isNavGuide = false;
 
                 nav.isStopped = true;
-                starterAssetsInputs.move = new Vector2(0, 0);
+                SetPlayerStopInNavTask(mainCityPlayer);
                 nav.enabled = false;
-                GameRoot.MainInstance.EnableInputAction(true);
-                GameRoot.MainInstance.EnablePlayerMove(true);
+                SetInputState(true, true);
+            }
+        }
+
+        private int _animIDSpeed;
+        private int _animIDMotionSpeed;
+        private void AssignAnimationIDs()
+        {
+            _animIDSpeed = Animator.StringToHash(Constants.AniID_Mar7th00_Blend_Speed);
+            _animIDMotionSpeed = Animator.StringToHash(Constants.AniID_Mar7th00_Blend_MotionSpeed);
+        }
+
+        private void SetPlayerMoveInNavTask(GameObject gameObject)
+        {
+            if (gameObject != null)
+            {
+                gameObject.GetComponent<ThirdPersonController>().isMoveByController = false;
+                gameObject.GetComponent<Animator>().SetFloat(_animIDSpeed, 2f);
+                gameObject.GetComponent<Animator>().SetFloat(_animIDMotionSpeed, 1f);
+            }
+        }
+
+        private void SetPlayerStopInNavTask(GameObject gameObject)
+        {
+            if (gameObject != null)
+            {
+                gameObject.GetComponent<ThirdPersonController>().isMoveByController = true;
+                gameObject.GetComponent<Animator>().SetFloat(_animIDSpeed, 0f);
+                gameObject.GetComponent<Animator>().SetFloat(_animIDMotionSpeed, 1f);
             }
         }
 
@@ -470,6 +494,14 @@ namespace DarkGod.Main
         public AutoGuideCfg GetCurtTaskData()
         {
             return curtTaskData;
+        }
+        #endregion
+
+        #region Input
+        public void SetInputState(bool stateInputAction, bool statePlayerMove)
+        {
+            GameRoot.MainInstance.EnableInputAction(stateInputAction);
+            GameRoot.MainInstance.EnablePlayerMove(statePlayerMove);
         }
         #endregion
 
