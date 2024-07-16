@@ -80,7 +80,7 @@ namespace DarkGod.Main
                 //设置人物展示相机
                 InitCharCam();
 
-                SetInputState(true, true);
+                SetInputState(true);
 
                 //设置游戏状态
                 GameRoot.MainInstance.SetGameState(GameState.MainCity);
@@ -169,7 +169,7 @@ namespace DarkGod.Main
             }
         }
 
-        private void PauseGameLogic(bool isPause)
+        public void PauseGameLogic(bool isPause)
         {
             GameRoot.MainInstance.PauseGameUI(isPause);
         }
@@ -320,7 +320,7 @@ namespace DarkGod.Main
                 charCamTrans.localScale = Vector3.one;
                 charCamTrans.gameObject.SetActive(true);
                 infoWnd.SetWndState();
-                SetInputState(false, false);
+                SetInputState(false);
             }
         }
 
@@ -330,7 +330,7 @@ namespace DarkGod.Main
             {
                 charCamTrans.gameObject.SetActive(false);
                 infoWnd.SetWndState(false);
-                SetInputState(true, true);
+                SetInputState(true);
             }
         }
 
@@ -390,7 +390,7 @@ namespace DarkGod.Main
                     nav.isStopped = true;
                     SetPlayerStopInNavTask(mainCityPlayer);
                     nav.enabled = false;
-                    SetInputState(true, true);
+                    SetInputState(true);
 
                     OpenGuideWnd();
                 }
@@ -402,7 +402,7 @@ namespace DarkGod.Main
                     nav.enabled = true; //激活导航组件
                     nav.speed = Constants.PlayerMoveSpeedNav; //导航速度
                     nav.SetDestination(npcPosTrans[agc.npcID].position); //设置导航目标点
-                    SetInputState(false, false);
+                    SetInputState(false);
                     SetPlayerMoveInNavTask(mainCityPlayer);
                 }
             }
@@ -440,7 +440,7 @@ namespace DarkGod.Main
                 nav.isStopped = true;
                 SetPlayerStopInNavTask(mainCityPlayer);
                 nav.enabled = false;
-                SetInputState(true, true);
+                SetInputState(true);
 
                 OpenGuideWnd();
             }
@@ -456,7 +456,7 @@ namespace DarkGod.Main
                 nav.isStopped = true;
                 SetPlayerStopInNavTask(mainCityPlayer);
                 nav.enabled = false;
-                SetInputState(true, true);
+                SetInputState(true);
             }
         }
 
@@ -500,10 +500,9 @@ namespace DarkGod.Main
         #endregion
 
         #region Input
-        public void SetInputState(bool stateInputAction, bool statePlayerMove)
+        public void SetInputState(bool stateInputAction)
         {
             GameRoot.MainInstance.EnableInputAction(stateInputAction);
-            GameRoot.MainInstance.EnablePlayerMove(statePlayerMove);
         }
         #endregion
 

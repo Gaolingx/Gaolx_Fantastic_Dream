@@ -168,7 +168,7 @@ namespace DarkGod.Main
         {
             if (playerController != null)
             {
-                playerController.SetFX(fxName, destroyTime, volume);
+                VFXManager.MainInstance.SetFX(playerController.transform, fxName, destroyTime, volume);
             }
         }
         public virtual void SetSkillMoveState(bool move, float speed = 0f)

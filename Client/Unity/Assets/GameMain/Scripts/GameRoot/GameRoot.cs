@@ -17,6 +17,8 @@ namespace DarkGod.Main
 
         private StarterAssetsInputs starterAssetsInputs;
 
+        BindableProperty<bool> pauseState = new BindableProperty<bool>();
+
         protected override void Awake()
         {
             base.Awake();
@@ -24,6 +26,8 @@ namespace DarkGod.Main
 
         private void Start()
         {
+            AddBindablePropertyData();
+
             if (isDontDestroyOnLoad)
             {
                 //我们不希望GameRoot及其子物体在切换场景时被销毁
@@ -35,6 +39,35 @@ namespace DarkGod.Main
             CleanUIRoot();
 
             InitGameRoot();
+        }
+
+        public void AddBindablePropertyData()
+        {
+            pauseState.OnValueChanged += OnUpdatePauseState;
+        }
+
+        public void RmvBindablePropertyData()
+        {
+            pauseState.OnValueChanged -= OnUpdatePauseState;
+        }
+
+        private void OnUpdatePauseState(bool state)
+        {
+            GetUIController()._isPause = state;
+
+            if (starterAssetsInputs != null)
+            {
+                starterAssetsInputs.isPause = state;
+            }
+
+            if (state == true)
+            {
+                VFXManager.MainInstance.PauseVFX();
+            }
+            else
+            {
+                VFXManager.MainInstance.ResetVXF();
+            }
         }
 
         private void CleanUIRoot()
@@ -71,6 +104,9 @@ namespace DarkGod.Main
             TimerSvc timer = GetComponent<TimerSvc>();
             timer.InitSvc();
 
+            VFXManager fXManager = GetComponent<VFXManager>();
+            fXManager.InitFX();
+
 
             //业务系统初始化
             LoginSys loginSys = GetComponent<LoginSys>();
@@ -105,24 +141,13 @@ namespace DarkGod.Main
 
         public void PauseGameUI(bool state = true)
         {
-            GetUIController()._isPause = state;
-            if (starterAssetsInputs != null)
-            {
-                starterAssetsInputs.isPause = state;
-            }
+            pauseState.Value = state;
         }
 
         public void ExitGame()
         {
+            RmvBindablePropertyData();
             GetUIController().OnClickExit();
-        }
-
-        public void EnablePlayerMove(bool state)
-        {
-            if (starterAssetsInputs != null)
-            {
-                starterAssetsInputs.canMove = state;
-            }
         }
 
         private void Update()

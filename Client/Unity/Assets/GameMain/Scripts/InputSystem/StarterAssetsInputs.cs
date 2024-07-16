@@ -35,6 +35,7 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM
         public void OnMove(InputValue value)
         {
+            canMove = GameRoot.MainInstance.GetUIController()._isInputEnable;
             if (canMove)
             {
                 MoveInput(value.Get<Vector2>());

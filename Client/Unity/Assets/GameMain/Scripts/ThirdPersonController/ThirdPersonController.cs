@@ -105,12 +105,6 @@ namespace StarterAssets
         [SerializeField]
         private bool MoveModeInput = true;
 
-        [Header("Player FX")]
-        public List<GameObject> PlayerFxList = new List<GameObject>();
-
-        // Player FX
-        private Dictionary<string, GameObject> fxDic = new Dictionary<string, GameObject>();
-        private TimerSvc timerSvc;
 
         // cinemachine
         private float _cinemachineTargetYaw;
@@ -282,8 +276,6 @@ namespace StarterAssets
             // Init AudioSvc
             _audioSvc = AudioSvc.MainInstance;
 
-            // Init FX
-            InitFX();
         }
         private void ClassUpdate()
         {
@@ -626,31 +618,5 @@ namespace StarterAssets
             }
         }
 
-
-        #region Player FX
-        public void InitFX()
-        {
-            timerSvc = TimerSvc.MainInstance;
-
-            for (int i = 0; i < PlayerFxList.Count; i++)
-            {
-                fxDic.Add(PlayerFxList[i].name, PlayerFxList[i]);
-            }
-        }
-
-        public void SetFX(string name, float destroy, float volume)
-        {
-            GameObject go;
-            if (fxDic.TryGetValue(name, out go))
-            {
-                go.GetComponent<AudioSource>().volume = volume;
-                go.SetActive(true);
-                timerSvc.AddTimeTask((int tid) =>
-                {
-                    go.SetActive(false);
-                }, destroy);
-            }
-        }
-        #endregion
     }
 }
