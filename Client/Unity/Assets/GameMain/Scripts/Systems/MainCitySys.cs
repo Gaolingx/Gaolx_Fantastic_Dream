@@ -80,6 +80,8 @@ namespace DarkGod.Main
                 //设置人物展示相机
                 InitCharCam();
 
+                SetInputState(true, true);
+
                 //设置游戏状态
                 GameRoot.MainInstance.SetGameState(GameState.MainCity);
 

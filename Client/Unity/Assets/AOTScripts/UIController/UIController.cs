@@ -31,7 +31,7 @@ public class UIController : MonoBehaviour
     public bool _isPressingAlt = false;
 
     [SerializeField]
-    private List<string> ShowCursorScene;
+    private List<string> ShowCursorScene = new List<string>();
 
     [SerializeField]
     private string EventSystemGOName;
@@ -56,8 +56,6 @@ public class UIController : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("UIController Init Done.");
-
         QualitySettings.vSyncCount = m_vSyncSettings;
         Application.targetFrameRate = m_FrameRate;
         Time.timeScale = m_GameSpeed;
@@ -67,6 +65,8 @@ public class UIController : MonoBehaviour
 
     private void Start()
     {
+        PECommon.Log("UIController Init Done.");
+
         eventSystem = transform.Find(EventSystemGOName).GetComponent<EventSystem>();
         _inputActionAsset = eventSystem.GetComponent<InputSystemUIInputModule>().actionsAsset;
         _player = _inputActionAsset.FindActionMap("Player");
@@ -135,7 +135,7 @@ public class UIController : MonoBehaviour
         }
 #endif
 
-        if (_isPause || _isPressingAlt || GetCursorLockModeState())
+        if (_isPause || _isPressingAlt || GetCursorLockModeState() == true)
         {
             //_player.Disable();
 #if !UNITY_ANDROID

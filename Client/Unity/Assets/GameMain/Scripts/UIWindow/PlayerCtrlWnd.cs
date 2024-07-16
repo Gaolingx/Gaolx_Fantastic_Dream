@@ -409,7 +409,7 @@ namespace DarkGod.Main
 
         private void BlendBossHP()
         {
-            UIItemUtils.UpdateMixBlend(currentPrg, targetPrg, Constants.AccelerHPSpeed);
+            currentPrg = UIItemUtils.UpdateMixBlend(currentPrg, targetPrg, Constants.AccelerHPSpeed);
         }
 
         /// <summary>
