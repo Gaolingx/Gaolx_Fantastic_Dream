@@ -13,6 +13,15 @@ MonoBehaviour:
   m_Name: StarRailRendererFeature
   m_EditorClassIdentifier: 
   m_Active: 1
+  m_SceneShadowDepthBits: 16
+  m_SceneShadowTileResolution: 512
+  m_EnableSelfShadow: 1
+  m_SelfShadowDepthBits: 16
+  m_SelfShadowTileResolution: 1024
+  m_EnableFrontHairShadow: 0
+  m_FrontHairShadowDownscale: 2
+  m_FrontHairShadowDepthBits: 16
+  m_EnableTransparentFrontHair: 0
 --- !u!114 &-1878332245247344467
 MonoBehaviour:
   m_ObjectHideFlags: 0

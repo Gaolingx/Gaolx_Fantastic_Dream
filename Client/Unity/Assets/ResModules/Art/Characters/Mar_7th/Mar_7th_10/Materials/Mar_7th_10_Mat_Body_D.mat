@@ -374,7 +374,7 @@ Material:
     - _StockDarkWidth: 0.5
     - _StockRoughness: 1
     - _StockSP: 0.25
-    - _Stockpower: 0.735
+    - _Stockpower: 1
     - _Stockpower1: 18
     - _Surface: 0
     - _UVSec: 0
