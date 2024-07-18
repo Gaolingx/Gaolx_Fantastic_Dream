@@ -1,0 +1,116 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1915349771855784684
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8394163237212524149}
+  - component: {fileID: 1844841045769906993}
+  m_Layer: 5
+  m_Name: SFX_PoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8394163237212524149
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915349771855784684}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1844841045769906993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915349771855784684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 068f18f24c43eb84a8af04a5efdcc636, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundPools:
+  - soundStyle: 1
+    soundName: Player_Footstep_01
+    soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_01.prefab
+    soundCount: 1
+    ApplyBigCenter: 1
+  - soundStyle: 2
+    soundName: Player_Footstep_02
+    soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_02.prefab
+    soundCount: 1
+    ApplyBigCenter: 1
+  - soundStyle: 3
+    soundName: Player_Footstep_03
+    soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_03.prefab
+    soundCount: 1
+    ApplyBigCenter: 1
+  - soundStyle: 4
+    soundName: Player_Footstep_04
+    soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_04.prefab
+    soundCount: 1
+    ApplyBigCenter: 1
+  - soundStyle: 5
+    soundName: Player_Footstep_05
+    soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_05.prefab
+    soundCount: 1
+    ApplyBigCenter: 1
+  - soundStyle: 6
+    soundName: Player_Footstep_06
+    soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_06.prefab
+    soundCount: 1
+    ApplyBigCenter: 1
+  - soundStyle: 7
+    soundName: Player_Footstep_07
+    soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_07.prefab
+    soundCount: 1
+    ApplyBigCenter: 1
+  - soundStyle: 8
+    soundName: Player_Footstep_08
+    soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_08.prefab
+    soundCount: 1
+    ApplyBigCenter: 1
+  - soundStyle: 9
+    soundName: Player_Footstep_09
+    soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_09.prefab
+    soundCount: 1
+    ApplyBigCenter: 1
+  - soundStyle: 10
+    soundName: Player_Footstep_10
+    soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_10.prefab
+    soundCount: 1
+    ApplyBigCenter: 1
+  - soundStyle: 11
+    soundName: Player_Land
+    soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Land.prefab
+    soundCount: 1
+    ApplyBigCenter: 1
+  - soundStyle: 12
+    soundName: Player_Land
+    soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Land.prefab
+    soundCount: 1
+    ApplyBigCenter: 1
+  - soundStyle: 13
+    soundName: assassin_Hit
+    soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/assassin_Hit.prefab
+    soundCount: 1
+    ApplyBigCenter: 1
