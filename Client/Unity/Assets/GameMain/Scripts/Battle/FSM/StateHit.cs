@@ -32,7 +32,7 @@ namespace DarkGod.Main
             //受击音效
             if (entity.entityType == EntityType.Player)
             {
-                entity.PlayHitAudio();
+                entity.PlayHitAudio(entity.GetTrans());
             }
 
             //恢复Idle状态

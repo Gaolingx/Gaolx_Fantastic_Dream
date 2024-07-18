@@ -591,7 +591,7 @@ namespace StarterAssets
             {
                 if (animationEvent.animatorClipInfo.weight > 0.5f)
                 {
-                    _audioSvc.PlayFootStep();
+                    _audioSvc.PlayFootStep(transform);
                 }
             }
         }
@@ -602,7 +602,7 @@ namespace StarterAssets
             {
                 if (animationEvent.animatorClipInfo.weight > 0.5f)
                 {
-                    _audioSvc.PlayJumpEffort();
+                    _audioSvc.PlayJumpEffort(transform);
                 }
             }
         }
@@ -613,7 +613,7 @@ namespace StarterAssets
             {
                 if (animationEvent.animatorClipInfo.weight > 0.5f)
                 {
-                    _audioSvc.PlayLanding();
+                    _audioSvc.PlayLanding(transform);
                 }
             }
         }

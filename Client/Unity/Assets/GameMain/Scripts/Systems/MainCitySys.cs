@@ -135,7 +135,6 @@ namespace DarkGod.Main
                 controller.playerFollowVirtualCamera = cinemachineVirtualCamera;
 
                 GameRoot.MainInstance.SetAudioListener(player.GetComponent<AudioListener>(), true, false);
-                audioSvc.SetCharacterAudioSource(player.GetComponent<AudioSource>());
 
                 cinemachineVirtualCamera.Follow = player.transform.Find(Constants.CinemachineVirtualCameraFollowGameObjectWithTag);
                 mainCityPlayer = player;

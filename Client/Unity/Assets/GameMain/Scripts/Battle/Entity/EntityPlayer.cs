@@ -85,9 +85,9 @@ namespace DarkGod.Main
             }
         }
 
-        public override void PlayHitAudio()
+        public override void PlayHitAudio(Transform transform)
         {
-            AudioSvc.MainInstance.PlayHit();
+            AudioSvc.MainInstance.PlayHit(transform);
         }
     }
 }

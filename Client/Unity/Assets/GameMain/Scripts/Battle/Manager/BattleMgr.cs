@@ -67,7 +67,6 @@ namespace DarkGod.Main
 
                 //配置角色声音源
                 GameRoot.MainInstance.SetAudioListener(player.GetComponent<AudioListener>(), true, false);
-                audioSvc.SetCharacterAudioSource(player.GetComponent<AudioSource>());
 
                 cinemachineVirtualCamera.Follow = player.transform.Find(Constants.CinemachineVirtualCameraFollowGameObjectWithTag);
 

@@ -196,9 +196,9 @@ namespace DarkGod.Main
         }
 
         private Dictionary<int, GameObject> _InstantiateGameObjectDic = new Dictionary<int, GameObject>();
-        public async UniTask<GameObject> LoadGameObjectAsync(string packageName, string prefabPath, Vector3 GameObjectPos, Vector3 GameObjectRota, Vector3 GameObjectScal, bool isCache = false, bool isLocalPos = true, bool isLocalEulerAngles = true, bool instantiateInWorldSpace = false, bool isRename = false, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
+        public async UniTask<GameObject> LoadGameObjectAsync(string packageName, string prefabPath, Vector3 GameObjectPos, Vector3 GameObjectRota, Vector3 GameObjectScal, bool isCache = false, bool isLocalPos = true, bool isLocalEulerAngles = true, bool instantiateInWorldSpace = false, bool isRename = false, bool isNeedDestroy = true, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
         {
-            GameObject prefab = await LoadPrefabAsync(packageName, prefabPath, isCache);
+            GameObject prefab = await LoadPrefabAsync(packageName, prefabPath, isCache, progress, timing);
 
             GameObject instantiatedPrefab = Instantiate(prefab, transform);
             if (instantiateInWorldSpace)
@@ -209,13 +209,16 @@ namespace DarkGod.Main
             {
                 GameRoot.MainInstance.SetGameObjectTrans(instantiatedPrefab, GameObjectPos, GameObjectRota, GameObjectScal, isLocalPos, isLocalEulerAngles, false, null, isRename);
             }
-            _InstantiateGameObjectDic.Add(instantiatedPrefab.GetInstanceID(), instantiatedPrefab);
+            if (isNeedDestroy)
+            {
+                _InstantiateGameObjectDic.Add(instantiatedPrefab.GetInstanceID(), instantiatedPrefab);
+            }
 
             PECommon.Log("Prefab load Async. name:" + instantiatedPrefab.name + ". path:" + prefabPath + ",isCache:" + isCache);
             return instantiatedPrefab;
         }
 
-        public async UniTask<GameObject> LoadPrefabAsync(string packageName, string prefabPath, bool isCache, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
+        public async UniTask<GameObject> LoadPrefabAsync(string packageName, string prefabPath, bool isCache, IProgress<float> progress, PlayerLoopTiming timing)
         {
             GameObject prefab = null;
             _prefabHandleDict.TryGetValue(prefabPath, out AssetHandle handle);

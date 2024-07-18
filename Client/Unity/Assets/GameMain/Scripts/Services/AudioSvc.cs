@@ -3,23 +3,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using HuHu;
+using static DarkGod.Main.SFX_PoolManager;
 
 namespace DarkGod.Main
 {
     public class AudioSvc : Singleton<AudioSvc>
     {
         [Range(0, 1)] public float BGAudioVolumeValue, UIAudioVolumeValue, CharacterAudioVolumeValue, CharacterFxAudioVolumeValue;
-        public AudioSource BGAudioAudioSource, UIAudioAudioSource, CharacterAudioSource;
-        public List<string> FootStepsAudioPaths, JumpEffortsAudioPaths, LandingAudioPaths, HitAudioPaths;
+        public AudioSource BGAudioAudioSource, UIAudioAudioSource;
 
-        private List<AudioClip> CharacterFootStepsLst = new List<AudioClip>();
-        private List<AudioClip> CharacterJumpEffortsLst = new List<AudioClip>();
-        private List<AudioClip> CharacterLandingLst = new List<AudioClip>();
-        private List<AudioClip> CharacterHitLst = new List<AudioClip>();
+        [System.Serializable]
+        public class CharSoundItem
+        {
+            public SoundStyle soundStyle;
+            public string soundName;
+        }
+
+        [SerializeField] private List<CharSoundItem> CharacterFootStepsLst = new List<CharSoundItem>();
+        [SerializeField] private List<CharSoundItem> CharacterJumpEffortsLst = new List<CharSoundItem>();
+        [SerializeField] private List<CharSoundItem> CharacterLandingLst = new List<CharSoundItem>();
+        [SerializeField] private List<CharSoundItem> CharacterHitLst = new List<CharSoundItem>();
 
         private string bgAudioPath = PathDefine.bgAudioPath;
 
         private UIController uiController;
+        private SFX_PoolManager sfxPoolManager;
+        private BindableProperty<float> _characterAudioVolumeValue = new BindableProperty<float>();
         private bool _isTurnOnAudio = true;
 
         protected override void Awake()
@@ -29,8 +38,12 @@ namespace DarkGod.Main
 
         public void InitSvc()
         {
-            InitCharacterAudioClipLst(FootStepsAudioPaths, JumpEffortsAudioPaths, LandingAudioPaths, HitAudioPaths);
+            AddBindablePropertyData();
             uiController = GameRoot.MainInstance.GetUIController();
+
+            sfxPoolManager = SFX_PoolManager.MainInstance;
+            sfxPoolManager.InitSoundPool();
+
             PECommon.Log("Init AudioSvc...");
         }
 
@@ -39,9 +52,19 @@ namespace DarkGod.Main
             RefreshAudioSourceVolume();
         }
 
-        public void SetCharacterAudioSource(AudioSource audioSource)
+        public void AddBindablePropertyData()
         {
-            CharacterAudioSource = audioSource;
+            _characterAudioVolumeValue.OnValueChanged += OnUpdateVolumeState;
+        }
+
+        public void RmvBindablePropertyData()
+        {
+            _characterAudioVolumeValue.OnValueChanged -= OnUpdateVolumeState;
+        }
+
+        private void OnUpdateVolumeState(float value)
+        {
+            sfxPoolManager.TrySetAllSoundVolume(value);
         }
 
         public void SetAllAudioObjectMuted(bool state)
@@ -54,39 +77,10 @@ namespace DarkGod.Main
             return !_isTurnOnAudio;
         }
 
-        public void InitCharacterAudioClipLst(List<string> name1, List<string> name2, List<string> name3, List<string> name4)
-        {
-            for (int i = 0; i < name1.Count; i++)
-            {
-                string path = bgAudioPath + name1[i];
-                AudioClip audioClip = ResSvc.MainInstance.LoadAudioClipSync(Constants.ResourcePackgeName, path);
-                CharacterFootStepsLst.Add(audioClip);
-            }
-
-            for (int i = 0; i < name2.Count; i++)
-            {
-                string path = bgAudioPath + name2[i];
-                AudioClip audioClip = ResSvc.MainInstance.LoadAudioClipSync(Constants.ResourcePackgeName, path);
-                CharacterJumpEffortsLst.Add(audioClip);
-            }
-
-            for (int i = 0; i < name3.Count; i++)
-            {
-                string path = bgAudioPath + name3[i];
-                AudioClip audioClip = ResSvc.MainInstance.LoadAudioClipSync(Constants.ResourcePackgeName, path);
-                CharacterLandingLst.Add(audioClip);
-            }
-
-            for (int i = 0; i < name4.Count; i++)
-            {
-                string path = bgAudioPath + name4[i];
-                AudioClip audioClip = ResSvc.MainInstance.LoadAudioClipSync(Constants.ResourcePackgeName, path);
-                CharacterHitLst.Add(audioClip);
-            }
-        }
-
         private void RefreshAudioSourceVolume()
         {
+            _characterAudioVolumeValue.Value = CharacterAudioVolumeValue;
+
             if (BGAudioAudioSource != null)
             {
                 BGAudioAudioSource.volume = BGAudioVolumeValue;
@@ -94,10 +88,6 @@ namespace DarkGod.Main
             if (UIAudioAudioSource != null)
             {
                 UIAudioAudioSource.volume = UIAudioVolumeValue;
-            }
-            if (CharacterAudioSource != null)
-            {
-                CharacterAudioSource.volume = CharacterAudioVolumeValue;
             }
 
             if (!_isTurnOnAudio)
@@ -110,10 +100,7 @@ namespace DarkGod.Main
                 {
                     UIAudioAudioSource.volume = 0f;
                 }
-                if (CharacterAudioSource != null)
-                {
-                    CharacterAudioSource.volume = 0f;
-                }
+                _characterAudioVolumeValue.Value = 0f;
             }
         }
 
@@ -146,28 +133,28 @@ namespace DarkGod.Main
             UIAudioAudioSource.PlayOneShot(audioClip, UIAudioVolumeValue);
         }
 
-        public void PlayFootStep()
+        public void PlayFootStep(Transform transform)
         {
             int i = Random.Range(0, CharacterFootStepsLst.Count);
-            CharacterAudioSource.PlayOneShot(CharacterFootStepsLst[i], CharacterAudioVolumeValue);
+            sfxPoolManager.TryGetSoundPool(CharacterFootStepsLst[i].soundStyle, CharacterFootStepsLst[i].soundName, transform.position, transform.rotation, _characterAudioVolumeValue.Value);
         }
 
-        public void PlayJumpEffort()
+        public void PlayJumpEffort(Transform transform)
         {
             int i = Random.Range(0, CharacterJumpEffortsLst.Count);
-            CharacterAudioSource.PlayOneShot(CharacterJumpEffortsLst[i], CharacterAudioVolumeValue);
+            sfxPoolManager.TryGetSoundPool(CharacterJumpEffortsLst[i].soundStyle, CharacterJumpEffortsLst[i].soundName, transform.position, transform.rotation, _characterAudioVolumeValue.Value);
         }
 
-        public void PlayLanding()
+        public void PlayLanding(Transform transform)
         {
             int i = Random.Range(0, CharacterLandingLst.Count);
-            CharacterAudioSource.PlayOneShot(CharacterLandingLst[i], CharacterAudioVolumeValue);
+            sfxPoolManager.TryGetSoundPool(CharacterLandingLst[i].soundStyle, CharacterLandingLst[i].soundName, transform.position, transform.rotation, _characterAudioVolumeValue.Value);
         }
 
-        public void PlayHit()
+        public void PlayHit(Transform transform)
         {
             int i = Random.Range(0, CharacterHitLst.Count);
-            CharacterAudioSource.PlayOneShot(CharacterHitLst[i], CharacterAudioVolumeValue);
+            sfxPoolManager.TryGetSoundPool(CharacterHitLst[i].soundStyle, CharacterHitLst[i].soundName, transform.position, transform.rotation, _characterAudioVolumeValue.Value);
         }
         #endregion
     }

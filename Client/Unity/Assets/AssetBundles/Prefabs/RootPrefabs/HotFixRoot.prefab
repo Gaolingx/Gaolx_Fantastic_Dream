@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3613098232053783086}
   - component: {fileID: 3859229750392605625}
   - component: {fileID: 3506841949591225091}
+  - component: {fileID: 7323054754918626895}
   - component: {fileID: 4961261660839420595}
   - component: {fileID: 3102460489223593134}
   - component: {fileID: 7346758293401920855}
@@ -106,24 +107,114 @@ MonoBehaviour:
   CharacterFxAudioVolumeValue: 0.5
   BGAudioAudioSource: {fileID: 8673037108130610541}
   UIAudioAudioSource: {fileID: 4076293606306624143}
-  CharacterAudioSource: {fileID: 0}
-  FootStepsAudioPaths:
-  - Player_Footstep_01
-  - Player_Footstep_02
-  - Player_Footstep_03
-  - Player_Footstep_04
-  - Player_Footstep_05
-  - Player_Footstep_06
-  - Player_Footstep_07
-  - Player_Footstep_08
-  - Player_Footstep_09
-  - Player_Footstep_10
-  JumpEffortsAudioPaths:
-  - Player_Footstep_01
-  LandingAudioPaths:
-  - Player_Land
-  HitAudioPaths:
-  - assassin_Hit
+  CharacterFootStepsLst:
+  - soundStyle: 1
+    soundName: Player_Footstep_01
+  - soundStyle: 2
+    soundName: Player_Footstep_02
+  - soundStyle: 3
+    soundName: Player_Footstep_03
+  - soundStyle: 4
+    soundName: Player_Footstep_04
+  - soundStyle: 5
+    soundName: Player_Footstep_05
+  - soundStyle: 6
+    soundName: Player_Footstep_06
+  - soundStyle: 7
+    soundName: Player_Footstep_07
+  - soundStyle: 8
+    soundName: Player_Footstep_08
+  - soundStyle: 9
+    soundName: Player_Footstep_09
+  - soundStyle: 10
+    soundName: Player_Footstep_10
+  CharacterJumpEffortsLst:
+  - soundStyle: 11
+    soundName: Player_Land
+  CharacterLandingLst:
+  - soundStyle: 12
+    soundName: Player_Land
+  CharacterHitLst:
+  - soundStyle: 13
+    soundName: assassin_Hit
+--- !u!114 &7323054754918626895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957888942964509855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 068f18f24c43eb84a8af04a5efdcc636, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundPools:
+  - soundStyle: 1
+    soundName: Player_Footstep_01
+    soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_01.prefab
+    soundCount: 1
+    ApplyBigCenter: 1
+  - soundStyle: 2
+    soundName: Player_Footstep_02
+    soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_02.prefab
+    soundCount: 1
+    ApplyBigCenter: 1
+  - soundStyle: 3
+    soundName: Player_Footstep_03
+    soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_03.prefab
+    soundCount: 1
+    ApplyBigCenter: 1
+  - soundStyle: 4
+    soundName: Player_Footstep_04
+    soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_04.prefab
+    soundCount: 1
+    ApplyBigCenter: 1
+  - soundStyle: 5
+    soundName: Player_Footstep_05
+    soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_05.prefab
+    soundCount: 1
+    ApplyBigCenter: 1
+  - soundStyle: 6
+    soundName: Player_Footstep_06
+    soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_06.prefab
+    soundCount: 1
+    ApplyBigCenter: 1
+  - soundStyle: 7
+    soundName: Player_Footstep_07
+    soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_07.prefab
+    soundCount: 1
+    ApplyBigCenter: 1
+  - soundStyle: 8
+    soundName: Player_Footstep_08
+    soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_08.prefab
+    soundCount: 1
+    ApplyBigCenter: 1
+  - soundStyle: 9
+    soundName: Player_Footstep_09
+    soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_09.prefab
+    soundCount: 1
+    ApplyBigCenter: 1
+  - soundStyle: 10
+    soundName: Player_Footstep_10
+    soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_10.prefab
+    soundCount: 1
+    ApplyBigCenter: 1
+  - soundStyle: 11
+    soundName: Player_Land
+    soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Land.prefab
+    soundCount: 1
+    ApplyBigCenter: 1
+  - soundStyle: 12
+    soundName: Player_Land
+    soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Land.prefab
+    soundCount: 1
+    ApplyBigCenter: 1
+  - soundStyle: 13
+    soundName: assassin_Hit
+    soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/assassin_Hit.prefab
+    soundCount: 1
+    ApplyBigCenter: 1
 --- !u!114 &4961261660839420595
 MonoBehaviour:
   m_ObjectHideFlags: 0

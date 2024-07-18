@@ -311,7 +311,7 @@ namespace DarkGod.Main
             return true;
         }
 
-        public virtual void PlayHitAudio()
+        public virtual void PlayHitAudio(Transform transform)
         {
 
         }

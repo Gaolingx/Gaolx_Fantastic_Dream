@@ -146,7 +146,8 @@ namespace DarkGod.Main
 
         public void ExitGame()
         {
-            RmvBindablePropertyData();
+            AudioSvc.MainInstance.RmvBindablePropertyData();
+            GameRoot.MainInstance.RmvBindablePropertyData();
             GetUIController().OnClickExit();
         }
 
