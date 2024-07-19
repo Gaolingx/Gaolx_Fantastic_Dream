@@ -57,6 +57,8 @@ namespace DarkGod.Main
             {
                 PECommon.Log("Init MainCitySys...");
 
+                resSvc.UnloadUnusedAssets(Constants.ResourcePackgeName);
+
                 // ╪стьсно╥жВ╫г
                 LoadPlayer(mapData);
 

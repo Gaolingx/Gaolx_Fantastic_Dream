@@ -120,6 +120,8 @@ namespace DarkGod.Main
             mapCfg = resSvc.GetMapCfg(mapid);
             resSvc.AsyncLoadScene(Constants.ResourcePackgeName, mapCfg.sceneName, () =>
             {
+                resSvc.UnloadUnusedAssets(Constants.ResourcePackgeName);
+
                 //初始化地图数据
                 GameObject mapRoot = GameObject.FindGameObjectWithTag(Constants.MapRootGOTag);
                 mapMgr = mapRoot.GetComponent<MapMgr>();
