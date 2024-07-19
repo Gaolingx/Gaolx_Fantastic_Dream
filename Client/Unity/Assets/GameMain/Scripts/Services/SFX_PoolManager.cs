@@ -36,7 +36,7 @@ namespace DarkGod.Main
                     for (int j = 0; j < soundPools[i].soundCount; j++)
                     {
                         //实例化
-                        var go = await ResSvc.MainInstance.LoadGameObjectAsync(Constants.ResourcePackgeName, soundPools[i].soundPath, Vector3.zero, Vector3.zero, Vector3.one, true, true, true, false, false, false);
+                        var go = await ResSvc.MainInstance.LoadGameObjectAsync(Constants.ResourcePackgeName, soundPools[i].soundPath, Vector3.zero, Vector3.zero, Vector3.one, true, true, true, this.transform, false, false);
                         //设置父级点
                         go.transform.parent = this.transform;
                         //掩藏
@@ -58,7 +58,7 @@ namespace DarkGod.Main
                     for (int j = 0; j < soundPools[i].soundCount; j++)
                     {
                         //实例化
-                        var go = await ResSvc.MainInstance.LoadGameObjectAsync(Constants.ResourcePackgeName, soundPools[i].soundPath, Vector3.zero, Vector3.zero, Vector3.one, true, true, true, false, false, false);
+                        var go = await ResSvc.MainInstance.LoadGameObjectAsync(Constants.ResourcePackgeName, soundPools[i].soundPath, Vector3.zero, Vector3.zero, Vector3.one, true, true, true, this.transform, false, false);
                         //设置父级点
                         go.transform.parent = this.transform;
                         //掩藏

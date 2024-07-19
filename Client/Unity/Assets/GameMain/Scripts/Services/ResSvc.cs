@@ -195,24 +195,21 @@ namespace DarkGod.Main
             return instantiatedPrefab;
         }
 
-        private Dictionary<int, GameObject> _InstantiateGameObjectDic = new Dictionary<int, GameObject>();
-        public async UniTask<GameObject> LoadGameObjectAsync(string packageName, string prefabPath, Vector3 GameObjectPos, Vector3 GameObjectRota, Vector3 GameObjectScal, bool isCache = false, bool isLocalPos = true, bool isLocalEulerAngles = true, bool instantiateInWorldSpace = false, bool isRename = false, bool isNeedDestroy = true, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
+        public async UniTask<GameObject> LoadGameObjectAsync(string packageName, string prefabPath, Vector3 GameObjectPos, Vector3 GameObjectRota, Vector3 GameObjectScal, bool isCache = false, bool isLocalPos = true, bool isLocalEulerAngles = true, Transform transform = null, bool isRename = false, bool isNeedDestroy = true, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
         {
             GameObject prefab = await LoadPrefabAsync(packageName, prefabPath, isCache, progress, timing);
-
-            GameObject instantiatedPrefab = Instantiate(prefab, transform);
-            if (instantiateInWorldSpace)
+            GameObject instantiatedPrefab = null;
+            if (isNeedDestroy)
             {
-                GameRoot.MainInstance.SetGameObjectTrans(instantiatedPrefab, GameObjectPos, GameObjectRota, GameObjectScal, isLocalPos, isLocalEulerAngles, true, null, isRename);
+                instantiatedPrefab = Instantiate(prefab);
             }
             else
             {
-                GameRoot.MainInstance.SetGameObjectTrans(instantiatedPrefab, GameObjectPos, GameObjectRota, GameObjectScal, isLocalPos, isLocalEulerAngles, false, null, isRename);
+                instantiatedPrefab = Instantiate(prefab, this.transform);
             }
-            if (isNeedDestroy)
-            {
-                _InstantiateGameObjectDic.Add(instantiatedPrefab.GetInstanceID(), instantiatedPrefab);
-            }
+
+            GameRoot.MainInstance.SetGameObjectTrans(instantiatedPrefab, GameObjectPos, GameObjectRota, GameObjectScal, isLocalPos, isLocalEulerAngles, true, transform, isRename);
+
 
             PECommon.Log("Prefab load Async. name:" + instantiatedPrefab.name + ". path:" + prefabPath + ",isCache:" + isCache);
             return instantiatedPrefab;
@@ -246,40 +243,6 @@ namespace DarkGod.Main
                 prefab = handle.AssetObject as GameObject;
             }
             return prefab;
-        }
-
-        public void DestroyAllInstantiateGameObject()
-        {
-            foreach (var go in _InstantiateGameObjectDic.Values)
-            {
-                Destroy(go);
-            }
-            _InstantiateGameObjectDic.Clear();
-        }
-
-        public GameObject GetGameObjectByInstanceID(int instanceID)
-        {
-            GameObject go;
-            if (_InstantiateGameObjectDic.TryGetValue(instanceID, out go))
-            {
-                return go;
-            }
-            PECommon.Log("Not found gameobject by instanceID", PELogType.Warn);
-            return null;
-        }
-
-        public void DestroyGameObjectByInstanceID(int instanceID)
-        {
-            if (_InstantiateGameObjectDic.ContainsKey(instanceID))
-            {
-                GameObject go = _InstantiateGameObjectDic[instanceID];
-                if (go != null)
-                {
-                    Destroy(go);
-                }
-
-                _InstantiateGameObjectDic.Remove(instanceID);
-            }
         }
 
         public async UniTask<TextAsset> LoadCfgDataAsync(string packageName, string textAssetPath, bool isCache = false, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)

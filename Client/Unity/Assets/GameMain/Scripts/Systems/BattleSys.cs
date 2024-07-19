@@ -87,8 +87,6 @@ namespace DarkGod.Main
             GameRoot.MainInstance.dynamicWnd.RmvAllHpItemInfo();
             battleMgr.RmvEntityPlayerData();
             Destroy(battleMgr.gameObject);
-            GameRoot.MainInstance.SetAudioListener(null, false, true);
-            resSvc.DestroyAllInstantiateGameObject();
         }
 
         public void SetPlayerCtrlWndState(bool isActive = true)
@@ -127,7 +125,7 @@ namespace DarkGod.Main
 
         public void SetPlayerMoveDir(Vector2 dir)
         {
-            if (battleMgr.EntityPlayer != null)
+            if (battleMgr.EntityPlayer.Value != null)
             {
                 battleMgr.SetSelfPlayerMoveDir(dir);
             }

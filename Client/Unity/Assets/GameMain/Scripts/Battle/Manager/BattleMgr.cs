@@ -37,7 +37,7 @@ namespace DarkGod.Main
         {
             Vector3 CM_player_Pos = mapData.mainCamPos;
             Vector3 CM_player_Rote = mapData.mainCamRote;
-            GameObject CM_player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, virtualCameraPrefabPath, CM_player_Pos, CM_player_Rote, Vector3.one, false, true, true, true);
+            GameObject CM_player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, virtualCameraPrefabPath, CM_player_Pos, CM_player_Rote, Vector3.one, false, true, true);
 
             if (CM_player != null)
             {
@@ -50,7 +50,7 @@ namespace DarkGod.Main
 
         private async void LoadPlayerInstance(string playerPrefabPath, MapCfg mapData)
         {
-            GameObject player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, playerPrefabPath, mapData.playerBornPos, mapData.playerBornRote, new Vector3(0.8f, 0.8f, 0.8f), false, true, true, true);
+            GameObject player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, playerPrefabPath, mapData.playerBornPos, mapData.playerBornRote, new Vector3(0.8f, 0.8f, 0.8f), false, true, true);
 
             if (player != null)
             {
@@ -120,9 +120,6 @@ namespace DarkGod.Main
             mapCfg = resSvc.GetMapCfg(mapid);
             resSvc.AsyncLoadScene(Constants.ResourcePackgeName, mapCfg.sceneName, () =>
             {
-                //移除所有实例化的对象
-                resSvc.DestroyAllInstantiateGameObject();
-
                 //初始化地图数据
                 GameObject mapRoot = GameObject.FindGameObjectWithTag(Constants.MapRootGOTag);
                 mapMgr = mapRoot.GetComponent<MapMgr>();
@@ -244,7 +241,7 @@ namespace DarkGod.Main
                 //判断是否为对应批次的怪物，是则实例化
                 if (md.mWave == wave)
                 {
-                    GameObject m = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, md.mCfg.resPath, md.mBornPos, md.mBornRote, Vector3.one, false, true, true, true);
+                    GameObject m = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, md.mCfg.resPath, md.mBornPos, md.mBornRote, Vector3.one, false, true, true);
 
                     m.name = "m" + md.mWave + "_" + md.mIndex;
 
