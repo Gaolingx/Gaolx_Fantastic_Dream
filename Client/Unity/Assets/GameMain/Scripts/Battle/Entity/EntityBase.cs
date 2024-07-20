@@ -20,20 +20,20 @@ namespace DarkGod.Main
         public ThirdPersonController playerController = null;
         protected Controller controller = null;
 
-        private string name;
-        public string Name { get { return name; } set { name = value; } }
+        protected string _EntityName;
+        public string EntityName { get { return _EntityName; } set { _EntityName = value; } }
 
-        private bool canControl = true;
-        public bool CanControl { get { return canControl; } }
+        protected bool _CanControl = true;
+        public bool CanControl { get { return _CanControl; } }
 
-        private bool canRlsSkill = true;
+        protected bool canRlsSkill = true;
         public bool CanRlsSkill { get { return canRlsSkill; } set { canRlsSkill = value; } }
 
         public EntityType entityType = EntityType.None;
 
         public EntityState entityState = EntityState.None;
 
-        private BattleProps props;
+        protected BattleProps props;
         public BattleProps Props { get { return props; } protected set { props = value; } } //只能在继承他的子类中修改
 
         public BindableProperty<int> currentHP = new BindableProperty<int>();
@@ -102,9 +102,9 @@ namespace DarkGod.Main
             }
         }
 
-        public void PlayerCanControl(bool cancontrol = true)
+        public void PlayerCanControl(bool state = true)
         {
-            canControl = cancontrol;
+            _CanControl = state;
         }
 
         public virtual void SetBattleProps(BattleProps props)
@@ -125,7 +125,7 @@ namespace DarkGod.Main
 
         private void OnUpdateHP(int value)
         {
-            PECommon.Log("hp change:" + hp + " to " + value + ".EntityType:" + entityType);
+            PECommon.Log("HP change:" + hp + " to " + value + ".EntityType:" + entityType + ".EntityName:" + _EntityName);
             SetHPVal(hp, value);
             hp = value;
         }
@@ -202,28 +202,28 @@ namespace DarkGod.Main
         {
             if (controller != null || playerController != null)
             {
-                GameRoot.MainInstance.dynamicWnd.SetDodge(Name);
+                GameRoot.MainInstance.dynamicWnd.SetDodge(_EntityName);
             }
         }
         public virtual void SetCritical(int critical)
         {
             if (controller != null || playerController != null)
             {
-                GameRoot.MainInstance.dynamicWnd.SetCritical(Name, critical);
+                GameRoot.MainInstance.dynamicWnd.SetCritical(_EntityName, critical);
             }
         }
         public virtual void SetHurt(int hurt)
         {
             if (controller != null || playerController != null)
             {
-                GameRoot.MainInstance.dynamicWnd.SetHurt(Name, hurt);
+                GameRoot.MainInstance.dynamicWnd.SetHurt(_EntityName, hurt);
             }
         }
         public virtual void SetHPVal(int oldval, int newval)
         {
             if (controller != null || playerController != null)
             {
-                GameRoot.MainInstance.dynamicWnd.SetHPVal(Name, oldval, newval);
+                GameRoot.MainInstance.dynamicWnd.SetHPVal(_EntityName, oldval, newval);
             }
         }
         #endregion

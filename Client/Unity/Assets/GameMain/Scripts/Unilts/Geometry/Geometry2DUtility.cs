@@ -1,9 +1,53 @@
 using UnityEngine;
-using System.Collections.Generic;
-using System;
+
 
 public static partial class Geometry2DUtility
 {
+    /// <summary>
+    /// 玩家打怪物——范围判定
+    /// </summary>
+    /// <param name="from">起始位置</param>
+    /// <param name="to">目标位置</param>
+    /// <param name="range">两者的范围</param>
+    /// <returns>是否在距离范围中</returns>
+    public static bool InRange(Vector3 from, Vector3 to, float range)
+    {
+        float dis = Vector3.Distance(from, to);
+        if (dis <= range)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// 玩家打怪物——角度判定
+    /// </summary>
+    /// <param name="trans">施法主体的Transform</param>
+    /// <param name="to">目标位置</param>
+    /// <param name="angle">角度的范围</param>
+    /// <returns>是否在角度范围中</returns>
+    public static bool InAngle(Transform trans, Vector3 to, float angle)
+    {
+        if (angle == 360)
+        {
+            return true;
+        }
+        else
+        {
+            Vector3 start = trans.forward; //玩家朝向向量
+            Vector3 dir = (to - trans.position).normalized; //目标朝向
+
+            float ang = Vector3.Angle(start, dir); //夹角，无符号
+
+            if (ang <= angle / 2)
+            {
+                return true;
+            }
+            return false;
+        }
+    }
+
     /// <summary>
     /// 计算两点间距离
     /// </summary>
@@ -12,7 +56,7 @@ public static partial class Geometry2DUtility
     /// <returns></returns>
     public static float CalculatePointDistance(Vector2 point1, Vector2 point2)
     {
-        float distance = (float)Math.Sqrt(Math.Pow((point2.x - point1.x), 2) + Math.Pow((point2.y - point1.y), 2));
+        float distance = (float)Mathf.Sqrt(Mathf.Pow((point2.x - point1.x), 2) + Mathf.Pow((point2.y - point1.y), 2));
         return distance;
     }
 

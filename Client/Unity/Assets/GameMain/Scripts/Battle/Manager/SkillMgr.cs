@@ -80,8 +80,8 @@ namespace DarkGod.Main
                     return;
                 }
                 //判断距离，判断角度
-                if (InRange(caster.GetPos(), epTarget.GetPos(), skillActionCfg.radius)
-                    && InAngle(caster.GetTrans(), epTarget.GetPos(), skillActionCfg.angle))
+                if (Geometry2DUtility.InRange(caster.GetPos(), epTarget.GetPos(), skillActionCfg.radius)
+                    && Geometry2DUtility.InAngle(caster.GetTrans(), epTarget.GetPos(), skillActionCfg.angle))
                 {
                     //满足所有条件，计算伤害
                     CalcDamage(caster, epTarget, skillCfg, damage);
@@ -97,8 +97,8 @@ namespace DarkGod.Main
                 {
                     EntityMonster emTarget = monsterLst[i];
                     //判断距离，判断角度
-                    if (InRange(caster.GetPos(), emTarget.GetPos(), skillActionCfg.radius)
-                        && InAngle(caster.GetTrans(), emTarget.GetPos(), skillActionCfg.angle))
+                    if (Geometry2DUtility.InRange(caster.GetPos(), emTarget.GetPos(), skillActionCfg.radius)
+                        && Geometry2DUtility.InAngle(caster.GetTrans(), emTarget.GetPos(), skillActionCfg.angle))
                     {
                         //满足所有条件，计算伤害
                         CalcDamage(caster, emTarget, skillCfg, damage);
@@ -190,7 +190,7 @@ namespace DarkGod.Main
             target.StateDie();
             if (target.entityType == EntityType.Monster)
             {
-                target.battleMgr.RmvMonster(target.Name);
+                target.battleMgr.RmvMonster(target.EntityName);
             }
             else if (target.entityType == EntityType.Player)
             {
@@ -198,51 +198,6 @@ namespace DarkGod.Main
                 target.battleMgr.EndBattle(false, 0);
             }
 
-        }
-
-        /// <summary>
-        /// 玩家打怪物——范围判定
-        /// </summary>
-        /// <param name="from">起始位置</param>
-        /// <param name="to">目标位置</param>
-        /// <param name="range">两者的范围</param>
-        /// <returns>是否在距离范围中</returns>
-        private bool InRange(Vector3 from, Vector3 to, float range)
-        {
-            float dis = Vector3.Distance(from, to);
-            if (dis <= range)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// 玩家打怪物——角度判定
-        /// </summary>
-        /// <param name="trans">施法主体的Transform</param>
-        /// <param name="to">目标位置</param>
-        /// <param name="angle">角度的范围</param>
-        /// <returns>是否在角度范围中</returns>
-        private bool InAngle(Transform trans, Vector3 to, float angle)
-        {
-            if (angle == 360)
-            {
-                return true;
-            }
-            else
-            {
-                Vector3 start = trans.forward; //玩家朝向向量
-                Vector3 dir = (to - trans.position).normalized; //目标朝向
-
-                float ang = Vector3.Angle(start, dir); //夹角，无符号
-
-                if (ang <= angle / 2)
-                {
-                    return true;
-                }
-                return false;
-            }
         }
 
         /// <summary>

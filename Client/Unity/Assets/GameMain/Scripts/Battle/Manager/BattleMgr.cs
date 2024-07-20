@@ -90,7 +90,7 @@ namespace DarkGod.Main
                     stateMgr = stateMgr, //将stateMgr注入逻辑实体类中
                     skillMgr = skillMgr
                 };
-                entitySelfPlayer.Name = pd.name;
+                entitySelfPlayer.EntityName = pd.name;
                 entitySelfPlayer.AddHealthData();
                 entitySelfPlayer.SetBattleProps(props);
 
@@ -261,7 +261,7 @@ namespace DarkGod.Main
                     em.md = md;
                     em.AddHealthData();
                     em.SetBattleProps(md.mCfg.bps);
-                    em.Name = m.name;
+                    em.EntityName = m.name;
 
                     MonsterController mc = m.GetComponent<MonsterController>();
                     mc.Init();
