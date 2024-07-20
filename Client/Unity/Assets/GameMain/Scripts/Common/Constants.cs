@@ -89,6 +89,7 @@ namespace DarkGod.Main
         public const string BGLogin = "bgLogin";
         public const string BGMainCity = "bgMainCity";
         public const string BGHuangYe = "bgHuangYe";
+        public const string BGBattle01 = "1c19a603d769341c0285eeb548f3f9a0_567248410615622045";
 
         //µÇÂ¼°´Å¥ÒôÐ§
         public const string UILoginBtn = "uiLoginBtn";
