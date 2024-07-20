@@ -105,16 +105,41 @@ namespace DarkGod.Main
         }
 
         #region PlayAudio
-        public async void PlayBGMusic(string name, bool isLoop = true, bool isCache = true)
+
+        private Coroutine currentAudioCoroutine;
+        public async void PlayBGMusics(List<string> names, bool isLoop = true, bool isCache = true)
         {
-            string path = bgAudioPath + name;
-            AudioClip audioClip = await ResSvc.MainInstance.LoadAudioClipAsync(Constants.ResourcePackgeName, path, isCache);
-            if (BGAudioAudioSource.clip == null || BGAudioAudioSource.clip.name != audioClip.name)
+            List<string> path = new List<string>();
+            List<AudioClip> audioClips = new List<AudioClip>();
+            for (int i = 0; i < names.Count; i++)
             {
-                BGAudioAudioSource.clip = audioClip;
-                BGAudioAudioSource.loop = isLoop;
-                BGAudioAudioSource.volume = BGAudioVolumeValue;
-                BGAudioAudioSource.Play();
+                path.Add(bgAudioPath + names[i]);
+            }
+            for (int i = 0; i < path.Count; i++)
+            {
+                audioClips.Add(await ResSvc.MainInstance.LoadAudioClipAsync(Constants.ResourcePackgeName, path[i], isCache));
+            }
+            currentAudioCoroutine = StartCoroutine(PlayAudioClips(audioClips, isLoop));
+        }
+
+        IEnumerator PlayAudioClips(List<AudioClip> audioClips, bool isLoop)
+        {
+            while (isLoop)
+            {
+                if (audioClips == null || audioClips.Count == 0)
+                    yield break; // 如果没有音频片段，则退出协程  
+
+                for (int i = 0; i < audioClips.Count; i++)
+                {
+                    if (audioClips[i] != null)
+                    {
+                        BGAudioAudioSource.clip = audioClips[i];
+                        BGAudioAudioSource.loop = false;
+                        BGAudioAudioSource.volume = BGAudioVolumeValue;
+                        BGAudioAudioSource.Play();
+                        yield return new WaitForSeconds(audioClips[i].length); // 等待当前音频播放完成  
+                    }
+                }
             }
         }
 
@@ -123,6 +148,11 @@ namespace DarkGod.Main
             if (BGAudioAudioSource != null)
             {
                 BGAudioAudioSource.Stop();
+                if (currentAudioCoroutine != null)
+                {
+                    StopCoroutine(currentAudioCoroutine);
+                    currentAudioCoroutine = null; // 可选：将引用设置为null，表示协程已停止  
+                }
             }
         }
 

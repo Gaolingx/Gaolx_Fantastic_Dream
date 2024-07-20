@@ -139,7 +139,11 @@ namespace DarkGod.Main
                 ActiveCurrentBatchMonsters();
 
                 //切换BGM
-                audioSvc.PlayBGMusic(Constants.BGBattle01);
+                List<string> auLst = new();
+                auLst.Add(Constants.BGHuangYe);
+                auLst.Add(Constants.BGBattle01);
+                audioSvc.StopBGMusic();
+                audioSvc.PlayBGMusics(auLst, true);
 
                 SetPauseGame(false, false);
 

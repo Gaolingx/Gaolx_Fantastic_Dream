@@ -74,7 +74,10 @@ namespace DarkGod.Main
                 InitGamepad();
 
                 //播放主城背景音乐
-                audioSvc.PlayBGMusic(Constants.BGMainCity);
+                List<string> auLst = new List<string>();
+                auLst.Add(Constants.BGMainCity);
+                audioSvc.StopBGMusic();
+                audioSvc.PlayBGMusics(auLst);
 
                 //获取主城NPCs的Transform
                 GetMapNpcTransform();
