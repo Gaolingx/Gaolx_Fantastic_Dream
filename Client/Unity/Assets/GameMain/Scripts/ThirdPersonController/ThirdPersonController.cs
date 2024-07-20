@@ -1,6 +1,5 @@
 ﻿using Cinemachine;
 using System.Collections.Generic;
-using System.Xml.Serialization;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
@@ -20,7 +19,6 @@ namespace StarterAssets
     {
         public PlayerInput PlayerInput;
         public StarterAssetsInputs StarterAssetsInputs;
-
         public CinemachineVirtualCamera playerFollowVirtualCamera;
 
         [Header("Player")]
@@ -181,12 +179,10 @@ namespace StarterAssets
             MoveModeInput = moveMode;
         }
 
+        private Vector2 _dir;
         public void SetDir(Vector2 move)
         {
-            if (MoveModeInput == false)
-            {
-                _moveVal = move;
-            }
+            _dir = move;
         }
 
         public void SetAniBlend(int blend)
@@ -203,14 +199,7 @@ namespace StarterAssets
         public void SetSkillMove(bool isSkillMove, float skillMoveSpeed = 0f)
         {
             SkillMoveSpeed = skillMoveSpeed;
-            if (isSkillMove)
-            {
-                _isSkillMove = true;
-            }
-            else
-            {
-                _isSkillMove = false;
-            }
+            _isSkillMove = isSkillMove;
         }
 
         public void SetAtkRotationLocal(Vector2 atkDir)
@@ -257,13 +246,15 @@ namespace StarterAssets
 
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
-            _personFollow = playerFollowVirtualCamera.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<Cinemachine3rdPersonFollow>();
+            _personFollow = playerFollowVirtualCamera.GetComponent<CinemachineVirtualCamera>()
+                .GetCinemachineComponent<Cinemachine3rdPersonFollow>();
 
 #if ENABLE_INPUT_SYSTEM 
             _playerInput = SetPlayerInput();
 #else
             Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
+
             _cameraDistance = _personFollow.CameraDistance;
             _targetCameraDistance = _cameraDistance;
 
@@ -383,14 +374,20 @@ namespace StarterAssets
 
         }
 
-        private void Move()
+        private void UpdateMoveInputState()
         {
             if (MoveModeInput == true)
             {
                 _moveVal = _input.move;
             }
+            else
+            {
+                _moveVal = _dir;
+            }
+        }
 
-            // set target speed based on move speed, sprint speed and if sprint is pressed
+        private float UpdateMoveSpeed()
+        {
             float targetSpeed;
             if (_isSkillMove)
             {
@@ -400,6 +397,15 @@ namespace StarterAssets
             {
                 targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
             }
+            return targetSpeed;
+        }
+
+        private void Move()
+        {
+            UpdateMoveInputState();
+
+            // set target speed based on move speed, sprint speed and if sprint is pressed
+            float targetSpeed = UpdateMoveSpeed();
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
@@ -462,7 +468,6 @@ namespace StarterAssets
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
                 _animator.SetBool(_animIDCrouch, _tryToCrouch);
-                _animator.SetInteger(_animIDSkillAction, -1);
             }
         }
 
