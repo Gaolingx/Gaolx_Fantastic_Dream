@@ -109,15 +109,11 @@ namespace DarkGod.Main
         private Coroutine currentAudioCoroutine;
         public async void PlayBGMusics(List<string> names, bool isLoop = true, bool isCache = true)
         {
-            List<string> path = new List<string>();
             List<AudioClip> audioClips = new List<AudioClip>();
+
             for (int i = 0; i < names.Count; i++)
             {
-                path.Add(bgAudioPath + names[i]);
-            }
-            for (int i = 0; i < path.Count; i++)
-            {
-                audioClips.Add(await ResSvc.MainInstance.LoadAudioClipAsync(Constants.ResourcePackgeName, path[i], isCache));
+                audioClips.Add(await ResSvc.MainInstance.LoadAudioClipAsync(Constants.ResourcePackgeName, bgAudioPath + names[i], isCache));
             }
             currentAudioCoroutine = StartCoroutine(PlayAudioClips(audioClips, isLoop));
         }

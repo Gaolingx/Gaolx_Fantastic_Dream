@@ -38,7 +38,7 @@ namespace DarkGod.Main
 
         public BindableProperty<int> currentHP = new BindableProperty<int>();
 
-        private int hp; //战斗中的hp
+        protected int hp; //战斗中的hp
 
         //用队列存储连招对应的技能id，当释放完此次普攻后，检测是否存在下一次技能id。
         public Queue<int> comboQue = new Queue<int>();

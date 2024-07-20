@@ -91,10 +91,10 @@ namespace DarkGod.Main
                     skillMgr = skillMgr
                 };
                 entitySelfPlayer.Name = pd.name;
-                entitySelfPlayer.SetBattleProps(props);
                 entitySelfPlayer.AddHealthData();
-                entitySelfPlayer.playerController = controller;
+                entitySelfPlayer.SetBattleProps(props);
 
+                entitySelfPlayer.playerController = controller;
                 entitySelfPlayer.StateIdle();
                 EntityPlayer.Value = entitySelfPlayer;
             }
@@ -259,9 +259,9 @@ namespace DarkGod.Main
                     };
                     //设置初始属性
                     em.md = md;
+                    em.AddHealthData();
                     em.SetBattleProps(md.mCfg.bps);
                     em.Name = m.name;
-                    em.AddHealthData();
 
                     MonsterController mc = m.GetComponent<MonsterController>();
                     mc.Init();
