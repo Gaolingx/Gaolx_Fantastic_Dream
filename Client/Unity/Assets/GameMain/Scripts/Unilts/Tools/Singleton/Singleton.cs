@@ -4,8 +4,8 @@ namespace HuHu
 {
     public abstract class Singleton<T> : MonoBehaviour where T : Singleton<T>
     {
+        private static readonly object syslock = new object(); // 线程锁
         private static T _instance;
-        private static object _lock = new object();
 
         public static T MainInstance
         {
@@ -13,14 +13,16 @@ namespace HuHu
             {
                 if (_instance == null)
                 {
-                    lock (_lock)
+                    lock (syslock) //锁一下，避免多线程出问题
                     {
-                        _instance = FindObjectOfType<T>() as T; 
-                    
+                        _instance = FindObjectOfType(typeof(T)) as T;
+
                         if (_instance == null)
                         {
-                            GameObject go = new GameObject(typeof(T).Name);
-                            _instance = go.AddComponent<T>();
+                            GameObject obj = new GameObject(typeof(T).Name);
+                            obj.hideFlags = HideFlags.DontSave;
+                            // obj.hideFlags = HideFlags.HideAndDontSave;
+                            _instance = (T)obj.AddComponent(typeof(T));
                         }
                     }
                 }
@@ -28,22 +30,20 @@ namespace HuHu
                 return _instance;
             }
         }
-        
 
-        protected  virtual void Awake()
+
+        protected virtual void Awake()
         {
+            DontDestroyOnLoad(this.gameObject);
             if (_instance == null)
             {
-                _instance = (T)this;
-                DontDestroyOnLoad(gameObject);
+                _instance = this as T;
             }
             else
             {
-                Destroy(gameObject);
+                GameObject.Destroy(this.gameObject);
             }
         }
-
-
     }
-    
+
 }
