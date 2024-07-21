@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace DarkGod.Main
 {
-    public class BattleSys : SystemRoot
+    public class BattleSys : SystemRoot<BattleSys>
     {
         public static BattleSys Instance = null;
         public PlayerCtrlWnd playerCtrlWnd;
@@ -21,7 +21,7 @@ namespace DarkGod.Main
         {
             base.InitSys();
 
-            Instance = this;
+            Instance = MainInstance;
             PECommon.Log("Init BattleSys...");
         }
 

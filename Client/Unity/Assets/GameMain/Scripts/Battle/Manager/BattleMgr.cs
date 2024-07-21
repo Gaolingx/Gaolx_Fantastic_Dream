@@ -59,11 +59,11 @@ namespace DarkGod.Main
 
                 controller.PlayerInput = starterAssetsInputs.gameObject.GetComponent<PlayerInput>();
                 controller.StarterAssetsInputs = starterAssetsInputs;
+                controller.playerFollowVirtualCamera = cinemachineVirtualCamera;
 
+                controller.SetMoveMode(false);
                 controller.MoveSpeed = Constants.PlayerMoveSpeed;
                 controller.SprintSpeed = Constants.PlayerSprintSpeed;
-                controller.SetMoveMode(false);
-                controller.playerFollowVirtualCamera = cinemachineVirtualCamera;
 
                 //配置角色声音源
                 GameRoot.MainInstance.SetAudioListener(player.GetComponent<AudioListener>(), true, false);

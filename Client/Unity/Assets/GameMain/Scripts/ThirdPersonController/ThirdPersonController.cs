@@ -233,14 +233,7 @@ namespace StarterAssets
         }
         private void ClassStart()
         {
-            if (StarterAssetsInputs == null)
-            {
-                _input = GameRoot.MainInstance.GetStarterAssetsInputs();
-            }
-            else
-            {
-                _input = StarterAssetsInputs;
-            }
+            _input = StarterAssetsInputs;
 
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
 

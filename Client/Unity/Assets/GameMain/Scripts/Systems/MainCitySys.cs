@@ -12,7 +12,7 @@ using UnityEngine.InputSystem.UI;
 
 namespace DarkGod.Main
 {
-    public class MainCitySys : SystemRoot
+    public class MainCitySys : SystemRoot<MainCitySys>
     {
         public static MainCitySys Instance = null;
 
@@ -38,7 +38,7 @@ namespace DarkGod.Main
         {
             base.InitSys();
 
-            Instance = this;
+            Instance = MainInstance;
             InitPlayerInput();
             PECommon.Log("Init MainCitySys...");
         }
@@ -133,11 +133,11 @@ namespace DarkGod.Main
 
                 controller.PlayerInput = starterAssetsInputs.gameObject.GetComponent<PlayerInput>();
                 controller.StarterAssetsInputs = starterAssetsInputs;
+                controller.playerFollowVirtualCamera = cinemachineVirtualCamera;
 
                 controller.SetMoveMode(true);
                 controller.MoveSpeed = Constants.PlayerMoveSpeed;
                 controller.SprintSpeed = Constants.PlayerSprintSpeed;
-                controller.playerFollowVirtualCamera = cinemachineVirtualCamera;
 
                 GameRoot.MainInstance.SetAudioListener(player.GetComponent<AudioListener>(), true, false);
 

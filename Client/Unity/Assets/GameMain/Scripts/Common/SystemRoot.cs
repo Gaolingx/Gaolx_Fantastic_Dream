@@ -1,11 +1,12 @@
 //功能：业务系统基类
+using HuHu;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace DarkGod.Main
 {
-    public class SystemRoot : MonoBehaviour
+    public class SystemRoot<T> : Singleton<T> where T : Singleton<T>
     {
         protected ResSvc resSvc;
         protected AudioSvc audioSvc;

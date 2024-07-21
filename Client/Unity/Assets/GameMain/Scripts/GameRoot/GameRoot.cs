@@ -93,29 +93,29 @@ namespace DarkGod.Main
 
             //注：需要先初始化服务模块
             //服务模块初始化
-            NetSvc net = GetComponent<NetSvc>();
-            net.InitSvc();
-            ResSvc res = GetComponent<ResSvc>();
-            res.InitSvc();
-            AudioSvc audio = GetComponent<AudioSvc>();
-            audio.InitSvc();
-            NpcSvc npcSvc = GetComponent<NpcSvc>();
+            NetSvc netSvc = NetSvc.MainInstance;
+            netSvc.InitSvc();
+            ResSvc resSvc = ResSvc.MainInstance;
+            resSvc.InitSvc();
+            AudioSvc audioSvc = AudioSvc.MainInstance;
+            audioSvc.InitSvc();
+            NpcSvc npcSvc = NpcSvc.MainInstance;
             npcSvc.InitCfg();
-            TimerSvc timer = GetComponent<TimerSvc>();
-            timer.InitSvc();
+            TimerSvc timerSvc = TimerSvc.MainInstance;
+            timerSvc.InitSvc();
 
-            VFXManager fXManager = GetComponent<VFXManager>();
-            fXManager.InitFX();
+            VFXManager vFXManager = VFXManager.MainInstance;
+            vFXManager.InitFX();
 
 
             //业务系统初始化
-            LoginSys loginSys = GetComponent<LoginSys>();
+            LoginSys loginSys = LoginSys.MainInstance;
             loginSys.InitSys();
-            MainCitySys maincitySys = GetComponent<MainCitySys>();
-            maincitySys.InitSys();
-            FubenSys fubenSys = GetComponent<FubenSys>();
+            MainCitySys mainCitySys = MainCitySys.MainInstance;
+            mainCitySys.InitSys();
+            FubenSys fubenSys = FubenSys.MainInstance;
             fubenSys.InitSys();
-            BattleSys battleSys = GetComponent<BattleSys>();
+            BattleSys battleSys = BattleSys.MainInstance;
             battleSys.InitSys();
 
             dynamicWnd.SetWndState();

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace DarkGod.Main
 {
-    public class LoginSys : SystemRoot
+    public class LoginSys : SystemRoot<LoginSys>
     {
         public static LoginSys Instance = null;
 
@@ -17,7 +17,7 @@ namespace DarkGod.Main
         {
             base.InitSys();
 
-            Instance = this;
+            Instance = MainInstance;
             PECommon.Log("Init LoginSys...");
         }
 

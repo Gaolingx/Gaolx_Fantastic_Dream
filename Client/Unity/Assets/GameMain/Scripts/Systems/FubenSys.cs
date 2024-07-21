@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace DarkGod.Main
 {
-    public class FubenSys : SystemRoot
+    public class FubenSys : SystemRoot<FubenSys>
     {
         public static FubenSys Instance = null;
 
@@ -17,7 +17,7 @@ namespace DarkGod.Main
         {
             base.InitSys();
 
-            Instance = this;
+            Instance = MainInstance;
             PECommon.Log("Init FubenSys...");
         }
 
