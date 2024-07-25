@@ -211,18 +211,18 @@ namespace DarkGod.Main
                 //判断级别是否足够强化
                 if (pd.lv < nextSd.minlv)
                 {
-                    GameRoot.AddTips("角色等级不够");
+                    MsgBox.MainInstance.ShowMessageBox("角色等级不够");
                     return;
                 }
                 //各种资源...
                 if (pd.coin < nextSd.coin)
                 {
-                    GameRoot.AddTips("金币数量不够");
+                    MsgBox.MainInstance.ShowMessageBox("金币数量不够");
                     return;
                 }
                 if (pd.crystal < nextSd.crystal)
                 {
-                    GameRoot.AddTips("水晶不够");
+                    MsgBox.MainInstance.ShowMessageBox("水晶不够");
                     return;
                 }
 
@@ -238,7 +238,7 @@ namespace DarkGod.Main
             }
             else
             {
-                GameRoot.AddTips("星级已经升满");
+                MsgBox.MainInstance.ShowMessageBox("星级已经升满");
             }
         }
 

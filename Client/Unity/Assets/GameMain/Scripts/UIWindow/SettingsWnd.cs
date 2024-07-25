@@ -159,7 +159,7 @@ namespace DarkGod.Main
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
             resSvc.ResetSkillCfgs();
-            GameRoot.AddTips("技能数据重置成功！");
+            MsgBox.MainInstance.ShowMessageBox("技能数据重置成功！");
         }
 
         #endregion

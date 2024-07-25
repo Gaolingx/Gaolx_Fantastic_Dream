@@ -47,7 +47,7 @@ namespace DarkGod.Main
             }
             else
             {
-                GameRoot.AddTips("当前名字不符合规范");
+                MsgBox.MainInstance.ShowMessageBox("当前名字不符合规范");
             }
         }
     }

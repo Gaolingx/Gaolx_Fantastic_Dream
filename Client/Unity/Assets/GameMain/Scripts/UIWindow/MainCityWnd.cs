@@ -178,7 +178,7 @@ namespace DarkGod.Main
             }
             else
             {
-                GameRoot.AddTips("更多引导任务，正在开发中...");
+                MsgBox.MainInstance.ShowMessageBox("更多引导任务，正在开发中...");
             }
         }
         public void ClickMenuBtn()

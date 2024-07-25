@@ -184,11 +184,6 @@ namespace DarkGod.Main
             }
         }
 
-        public static void AddTips(string tips)
-        {
-            GameRoot.MainInstance.dynamicWnd.AddTips(tips);
-        }
-
         private PlayerData _playerData = null;
         public PlayerData PlayerData { get { return _playerData; } }
         public void SetPlayerData(RspLogin data)

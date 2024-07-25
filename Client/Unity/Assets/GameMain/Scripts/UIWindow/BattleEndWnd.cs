@@ -63,7 +63,7 @@ namespace DarkGod.Main
             }
             else if (GameRoot.MainInstance.GetGameState() == GameState.MainCity)
             {
-                GameRoot.AddTips("当前未处于副本战斗关卡");
+                MsgBox.MainInstance.ShowMessageBox("当前未处于副本战斗关卡");
             }
         }
 

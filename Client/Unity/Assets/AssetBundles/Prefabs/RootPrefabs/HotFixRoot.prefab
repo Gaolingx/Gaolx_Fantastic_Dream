@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 818631900482909262}
   - component: {fileID: 2008573708432596149}
+  - component: {fileID: 74629058570999908}
   - component: {fileID: 3613098232053783086}
   - component: {fileID: 3859229750392605625}
   - component: {fileID: 3506841949591225091}
@@ -65,6 +66,18 @@ MonoBehaviour:
   isDontDestroyOnLoad: 0
   loadingWnd: {fileID: 1203599176845366138}
   dynamicWnd: {fileID: 6375643048898361130}
+--- !u!114 &74629058570999908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957888942964509855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b37b1524fcb5114b8e9559c9eea9962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3613098232053783086
 MonoBehaviour:
   m_ObjectHideFlags: 0

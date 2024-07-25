@@ -9,7 +9,7 @@ namespace DarkGod.Main
     {
         protected override void OnConnected()
         {
-            GameRoot.AddTips("连接服务器成功");
+            MsgBox.MainInstance.ShowMessageBox("连接服务器成功");
             PECommon.Log("Connect To Server Succ");
         }
 
@@ -21,7 +21,7 @@ namespace DarkGod.Main
 
         protected override void OnDisConnected()
         {
-            GameRoot.AddTips("服务器断开连接");
+            MsgBox.MainInstance.ShowMessageBox("服务器断开连接");
             PECommon.Log("DisConnect To Server");
         }
     }

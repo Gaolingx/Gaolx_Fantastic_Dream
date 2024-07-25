@@ -42,7 +42,7 @@ namespace DarkGod.Main
 
         public void RspLogin(GameMsg msg)
         {
-            GameRoot.AddTips("登录成功");
+            MsgBox.MainInstance.ShowMessageBox("登录成功");
             GameRoot.MainInstance.SetPlayerData(msg.rspLogin);
 
             if (msg.rspLogin.playerData.name == "")

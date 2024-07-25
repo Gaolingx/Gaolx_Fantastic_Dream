@@ -89,14 +89,14 @@ namespace DarkGod.Main
         {
             if (!canSend)
             {
-                GameRoot.AddTips("聊天消息每5秒钟才能发送一条");
+                MsgBox.MainInstance.ShowMessageBox("聊天消息每5秒钟才能发送一条");
                 return;
             }
             if (iptChat.text != null && iptChat.text != "" && iptChat.text != " ")
             {
                 if (iptChat.text.Length > Constants.TextMaxLength)
                 {
-                    GameRoot.AddTips("输入信息不能超过" + Constants.TextMaxLength + "个字");
+                    MsgBox.MainInstance.ShowMessageBox("输入信息不能超过" + Constants.TextMaxLength + "个字");
                 }
                 else
                 {
@@ -121,7 +121,7 @@ namespace DarkGod.Main
             }
             else
             {
-                GameRoot.AddTips("尚未输入聊天信息");
+                MsgBox.MainInstance.ShowMessageBox("尚未输入聊天信息");
             }
         }
 

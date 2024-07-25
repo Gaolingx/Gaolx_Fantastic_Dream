@@ -84,7 +84,7 @@ namespace DarkGod.Main
             GameRoot.MainInstance.loadingWnd.SetWndState(false);
         }
 
-        public async UniTask LoadSceneAsyncHandle(string packageName, string path, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
+        private async UniTask LoadSceneAsyncHandle(string packageName, string path, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
         {
             var sceneMode = UnityEngine.SceneManagement.LoadSceneMode.Single;
             bool suspendLoad = false;

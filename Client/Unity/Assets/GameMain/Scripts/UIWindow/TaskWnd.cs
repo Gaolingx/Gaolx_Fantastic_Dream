@@ -65,7 +65,7 @@ namespace DarkGod.Main
             //将排序完的trdLst分别实例化Prefab
             for (int i = 0; i < trdLst.Count; i++)
             {
-                GameObject go = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, PathDefine.TaskItemPrefab, Vector3.zero, Vector3.zero, Vector3.one, true);
+                GameObject go = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, PathDefine.TaskItemPrefab, Vector3.zero, Vector3.zero, Vector3.one, true, true, true, scrollTrans);
                 go.transform.SetParent(scrollTrans);
                 go.name = "taskItem_" + i;
 
@@ -133,7 +133,7 @@ namespace DarkGod.Main
             TaskRewardCfg trc = resSvc.GetTaskRewardCfg(trdLst[index].ID);
             int coin = trc.coin;
             int exp = trc.exp;
-            GameRoot.AddTips(GetTextWithHexColor("获得奖励：", TextColorCode.Blue) + GetTextWithHexColor(" 金币 +" + coin + " 经验 +" + exp, TextColorCode.Green));
+            MsgBox.MainInstance.ShowMessageBox(GetTextWithHexColor("获得奖励：", TextColorCode.Blue) + GetTextWithHexColor(" 金币 +" + coin + " 经验 +" + exp, TextColorCode.Green));
         }
 
         public void ClickCloseBtn()

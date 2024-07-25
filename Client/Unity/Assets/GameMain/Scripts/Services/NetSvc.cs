@@ -55,7 +55,7 @@ namespace DarkGod.Main
             }
             else
             {
-                GameRoot.AddTips("服务器未连接");
+                MsgBox.MainInstance.ShowMessageBox("服务器未连接");
                 InitSvc();
             }
         }
@@ -90,35 +90,35 @@ namespace DarkGod.Main
                 {
                     case ErrorCode.ServerDataError:
                         PECommon.Log("服务器数据异常", PELogType.Error);
-                        GameRoot.AddTips("客户端数据异常");
+                        MsgBox.MainInstance.ShowMessageBox("客户端数据异常");
                         break;
                     case ErrorCode.UpdateDBError:
                         PECommon.Log("数据库更新异常", PELogType.Error);
-                        GameRoot.AddTips("网络不稳定");
+                        MsgBox.MainInstance.ShowMessageBox("网络不稳定");
                         break;
                     case ErrorCode.ClientDataError:
                         PECommon.Log("客户端数据异常", PELogType.Error);
                         break;
                     case ErrorCode.AcctIsOnline:
-                        GameRoot.AddTips("当前账号已经上线");
+                        MsgBox.MainInstance.ShowMessageBox("当前账号已经上线");
                         break;
                     case ErrorCode.WrongPass:
-                        GameRoot.AddTips("密码错误");
+                        MsgBox.MainInstance.ShowMessageBox("密码错误");
                         break;
                     case ErrorCode.LackLevel:
-                        GameRoot.AddTips("角色等级不够");
+                        MsgBox.MainInstance.ShowMessageBox("角色等级不够");
                         break;
                     case ErrorCode.LackCoin:
-                        GameRoot.AddTips("金币数量不够");
+                        MsgBox.MainInstance.ShowMessageBox("金币数量不够");
                         break;
                     case ErrorCode.LackCrystal:
-                        GameRoot.AddTips("水晶数量不够");
+                        MsgBox.MainInstance.ShowMessageBox("水晶数量不够");
                         break;
                     case ErrorCode.LackDiamond:
-                        GameRoot.AddTips("钻石数量不够");
+                        MsgBox.MainInstance.ShowMessageBox("钻石数量不够");
                         break;
                     case ErrorCode.LackPower:
-                        GameRoot.AddTips("体力值不足");
+                        MsgBox.MainInstance.ShowMessageBox("体力值不足");
                         break;
                 }
                 return;

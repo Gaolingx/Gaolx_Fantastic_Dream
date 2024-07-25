@@ -68,7 +68,7 @@ namespace DarkGod.Main
             }
             else
             {
-                GameRoot.AddTips("账号或密码为空");
+                MsgBox.MainInstance.ShowMessageBox("账号或密码为空");
             }
         }
 
@@ -76,7 +76,7 @@ namespace DarkGod.Main
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
 
-            GameRoot.AddTips("功能正在开发中...");
+            MsgBox.MainInstance.ShowMessageBox("功能正在开发中...");
         }
     }
 }
