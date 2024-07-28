@@ -7,8 +7,6 @@ using StarterAssets;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using PEProtocol;
-using UnityEngine.InputSystem.XR;
-using UnityEngine.InputSystem.UI;
 
 namespace DarkGod.Main
 {

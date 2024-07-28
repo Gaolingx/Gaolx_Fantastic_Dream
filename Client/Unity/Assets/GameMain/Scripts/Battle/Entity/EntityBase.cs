@@ -3,8 +3,6 @@
 using StarterAssets;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
 
 namespace DarkGod.Main
 {
@@ -20,24 +18,17 @@ namespace DarkGod.Main
         public ThirdPersonController playerController = null;
         protected Controller controller = null;
 
-        protected string _EntityName;
-        public string EntityName { get { return _EntityName; } set { _EntityName = value; } }
+        public string EntityName { get; set; }
 
-        protected bool _CanControl = true;
-        public bool CanControl { get { return _CanControl; } }
-
-        protected bool canRlsSkill = true;
-        public bool CanRlsSkill { get { return canRlsSkill; } set { canRlsSkill = value; } }
+        public bool CanControl { get; set; }
+        public bool CanRlsSkill { get; set; }
 
         public EntityType entityType = EntityType.None;
-
         public EntityState entityState = EntityState.None;
 
-        protected BattleProps props;
-        public BattleProps Props { get { return props; } protected set { props = value; } } //只能在继承他的子类中修改
+        public BattleProps Props { get; protected set; } //只能在继承他的子类中修改
 
         public BindableProperty<int> currentHP = new BindableProperty<int>();
-
         protected int hp; //战斗中的hp
 
         //用队列存储连招对应的技能id，当释放完此次普攻后，检测是否存在下一次技能id。
@@ -104,7 +95,7 @@ namespace DarkGod.Main
 
         public void PlayerCanControl(bool state = true)
         {
-            _CanControl = state;
+            CanControl = state;
         }
 
         public virtual void SetBattleProps(BattleProps props)
@@ -125,7 +116,7 @@ namespace DarkGod.Main
 
         private void OnUpdateHP(int value)
         {
-            PECommon.Log("HP change:" + hp + " to " + value + ".EntityType:" + entityType + ".EntityName:" + _EntityName);
+            PECommon.Log("HP change:" + hp + " to " + value + ".EntityType:" + entityType + ".EntityName:" + EntityName);
             SetHPVal(hp, value);
             hp = value;
         }
@@ -202,28 +193,28 @@ namespace DarkGod.Main
         {
             if (controller != null || playerController != null)
             {
-                GameRoot.MainInstance.dynamicWnd.SetDodge(_EntityName);
+                GameRoot.MainInstance.dynamicWnd.SetDodge(EntityName);
             }
         }
         public virtual void SetCritical(int critical)
         {
             if (controller != null || playerController != null)
             {
-                GameRoot.MainInstance.dynamicWnd.SetCritical(_EntityName, critical);
+                GameRoot.MainInstance.dynamicWnd.SetCritical(EntityName, critical);
             }
         }
         public virtual void SetHurt(int hurt)
         {
             if (controller != null || playerController != null)
             {
-                GameRoot.MainInstance.dynamicWnd.SetHurt(_EntityName, hurt);
+                GameRoot.MainInstance.dynamicWnd.SetHurt(EntityName, hurt);
             }
         }
         public virtual void SetHPVal(int oldval, int newval)
         {
             if (controller != null || playerController != null)
             {
-                GameRoot.MainInstance.dynamicWnd.SetHPVal(_EntityName, oldval, newval);
+                GameRoot.MainInstance.dynamicWnd.SetHPVal(EntityName, oldval, newval);
             }
         }
         #endregion
