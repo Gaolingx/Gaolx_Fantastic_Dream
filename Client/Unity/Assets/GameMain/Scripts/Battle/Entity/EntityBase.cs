@@ -9,41 +9,41 @@ namespace DarkGod.Main
     public abstract class EntityBase
     {
         //玩家当前状态
-        public AniState currentAniState = AniState.None;
+        public AniState currentAniState { get; set; } = AniState.None;
 
-        public BattleMgr battleMgr = null;
-        public StateMgr stateMgr = null;
-        public SkillMgr skillMgr = null;
+        public BattleMgr battleMgr { get; set; } = null;
+        public StateMgr stateMgr { get; set; } = null;
+        public SkillMgr skillMgr { get; set; } = null;
 
-        public ThirdPersonController playerController = null;
-        protected Controller controller = null;
+        public ThirdPersonController playerController { get; set; } = null;
+        protected Controller controller { get; set; } = null;
 
-        public string EntityName { get; set; }
+        public string EntityName { get; set; } = null;
 
-        public bool CanControl { get; set; }
-        public bool CanRlsSkill { get; set; }
+        public bool CanControl { get; set; } = true;
+        public bool CanRlsSkill { get; set; } = true;
 
-        public EntityType entityType = EntityType.None;
-        public EntityState entityState = EntityState.None;
+        public EntityType entityType { get; set; } = EntityType.None;
+        public EntityState entityState { get; set; } = EntityState.None;
 
         public BattleProps Props { get; protected set; } //只能在继承他的子类中修改
 
-        public BindableProperty<int> currentHP = new BindableProperty<int>();
-        protected int hp; //战斗中的hp
+        public BindableProperty<int> currentHP { get; set; } = new BindableProperty<int>();
+        protected int oldHp; //战斗中的hp
 
         //用队列存储连招对应的技能id，当释放完此次普攻后，检测是否存在下一次技能id。
-        public Queue<int> comboQue = new Queue<int>();
-        public int nextSkillID = 0;
+        public Queue<int> comboQue { get; set; } = new Queue<int>();
+        public int nextSkillID { get; set; } = 0;
 
-        public SkillCfg curtSkillCfg; //当前正在施放技能的id
+        public SkillCfg curtSkillCfg { get; set; } //当前正在施放技能的id
 
         //技能位移的回调id
-        public List<int> skMoveCBLst = new List<int>();
+        public List<int> skMoveCBLst { get; set; } = new List<int>();
         //技能伤害计算回调id
-        public List<int> skActionCBLst = new List<int>();
+        public List<int> skActionCBLst { get; set; } = new List<int>();
 
         //技能结束回调
-        public int skEndCB = -1;
+        public int skEndCB { get; set; } = -1;
 
         #region State Define
         //状态切换
@@ -116,9 +116,9 @@ namespace DarkGod.Main
 
         private void OnUpdateHP(int value)
         {
-            PECommon.Log("HP change:" + hp + " to " + value + ".EntityType:" + entityType + ".EntityName:" + EntityName);
-            SetHPVal(hp, value);
-            hp = value;
+            PECommon.Log("HP change:" + oldHp + " to " + value + ".EntityType:" + entityType + ".EntityName:" + EntityName);
+            SetHPVal(oldHp, value);
+            oldHp = value;
         }
 
         public virtual void SetAniBlend(int blend)
