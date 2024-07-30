@@ -94,7 +94,7 @@ namespace DarkGod.Main
                 entitySelfPlayer.AddHealthData();
                 entitySelfPlayer.SetBattleProps(props);
 
-                entitySelfPlayer.playerController = controller;
+                entitySelfPlayer.SetCtrl(controller);
                 entitySelfPlayer.StateIdle();
                 EntityPlayer.Value = entitySelfPlayer;
             }
@@ -142,10 +142,7 @@ namespace DarkGod.Main
 
                 SetPauseGame(false, false);
 
-                if (cb != null)
-                {
-                    cb();
-                }
+                cb?.Invoke();
             });
         }
 

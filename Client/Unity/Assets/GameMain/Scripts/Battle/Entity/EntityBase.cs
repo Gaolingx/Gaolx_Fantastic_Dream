@@ -85,6 +85,11 @@ namespace DarkGod.Main
         {
             controller = ctrl;
         }
+        public void SetCtrl(ThirdPersonController ctrl)
+        {
+            playerController = ctrl;
+        }
+
         public void SetActive(bool active = true)
         {
             if (controller != null)
