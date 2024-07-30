@@ -2,10 +2,11 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using HuHu;
 
 namespace DarkGod.Main
 {
-    public class MapMgr : MonoBehaviour
+    public class MapMgr : Singleton<MapMgr>
     {
         public List<TriggerData> triggerLst = new List<TriggerData>();
         private int waveIndex = 1; //默认生成第一波怪物

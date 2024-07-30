@@ -72,10 +72,7 @@ namespace DarkGod.Main
                 InitGamepad();
 
                 //播放主城背景音乐
-                List<string> auLst = new List<string>();
-                auLst.Add(Constants.BGMainCity);
-                audioSvc.StopBGMusic();
-                audioSvc.PlayBGMusics(auLst);
+                PlayBGAudioLst();
 
                 //获取主城NPCs的Transform
                 GetMapNpcTransform();
@@ -93,7 +90,15 @@ namespace DarkGod.Main
 
         }
 
-        CinemachineVirtualCamera cinemachineVirtualCamera;
+        private void PlayBGAudioLst()
+        {
+            List<string> auLst = new List<string>();
+            auLst.Add(Constants.BGMainCity);
+            audioSvc.StopBGMusic();
+            audioSvc.PlayBGMusics(auLst);
+        }
+
+        private CinemachineVirtualCamera cinemachineVirtualCamera;
         private async void LoadVirtualCameraInstance(string virtualCameraPrefabPath, MapCfg mapData)
         {
             //相机初始化

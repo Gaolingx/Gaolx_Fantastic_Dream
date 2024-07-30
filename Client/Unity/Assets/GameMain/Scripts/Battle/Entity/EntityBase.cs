@@ -91,6 +91,10 @@ namespace DarkGod.Main
             {
                 controller.gameObject.SetActive(active);
             }
+            else if (playerController != null)
+            {
+                playerController.gameObject.SetActive(active);
+            }
         }
 
         public void PlayerCanControl(bool state = true)
@@ -127,7 +131,7 @@ namespace DarkGod.Main
             {
                 controller.SetBlend(blend);
             }
-            if (playerController != null)
+            else if (playerController != null)
             {
                 playerController.SetAniBlend(blend);
             }
@@ -138,20 +142,20 @@ namespace DarkGod.Main
             {
                 controller.Dir = dir;
             }
-            if (playerController != null)
+            else if (playerController != null)
             {
                 playerController.SetDir(dir);
             }
         }
         public virtual void SetAction(int action, bool inputValues = true)
         {
-            if (playerController != null)
-            {
-                playerController.SetAction(action, inputValues);
-            }
             if (controller != null)
             {
                 controller.SetAction(action);
+            }
+            else if (playerController != null)
+            {
+                playerController.SetAction(action, inputValues);
             }
         }
 
@@ -182,7 +186,7 @@ namespace DarkGod.Main
                     controller.SetAtkRotationLocal(dir);
                 }
             }
-            if (playerController != null)
+            else if (playerController != null)
             {
                 playerController.SetAtkRotationLocal(dir);
             }
@@ -235,7 +239,7 @@ namespace DarkGod.Main
             {
                 return controller.transform.position;
             }
-            if (playerController != null)
+            else if (playerController != null)
             {
                 return playerController.transform.position;
             }
@@ -249,7 +253,7 @@ namespace DarkGod.Main
             {
                 return controller.transform;
             }
-            if (playerController != null)
+            else if (playerController != null)
             {
                 return playerController.transform;
             }
@@ -263,7 +267,7 @@ namespace DarkGod.Main
             {
                 return controller.ani.runtimeAnimatorController.animationClips;
             }
-            if (playerController != null)
+            else if (playerController != null)
             {
                 return playerController.GetAnimator().runtimeAnimatorController.animationClips;
             }
@@ -272,26 +276,26 @@ namespace DarkGod.Main
 
         public AudioSource GetAudioSource()
         {
-            if (playerController != null)
-            {
-                return playerController.GetComponent<AudioSource>();
-            }
             if (controller != null)
             {
                 return controller.GetComponent<AudioSource>();
+            }
+            else if (playerController != null)
+            {
+                return playerController.GetComponent<AudioSource>();
             }
             return null;
         }
 
         public CharacterController GetCharacterController()
         {
-            if (playerController != null)
-            {
-                return playerController.GetComponent<CharacterController>();
-            }
             if (controller != null)
             {
                 return controller.GetComponent<CharacterController>();
+            }
+            else if (playerController != null)
+            {
+                return playerController.GetComponent<CharacterController>();
             }
             return null;
         }

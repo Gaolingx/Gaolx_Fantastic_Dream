@@ -123,8 +123,7 @@ namespace DarkGod.Main
                 resSvc.UnloadUnusedAssets(Constants.ResourcePackgeName);
 
                 //初始化地图数据
-                GameObject mapRoot = GameObject.FindGameObjectWithTag(Constants.MapRootGOTag);
-                mapMgr = mapRoot.GetComponent<MapMgr>();
+                mapMgr = MapMgr.MainInstance;
                 mapMgr.Init(this);
 
                 AddEntityPlayerData();
@@ -139,11 +138,7 @@ namespace DarkGod.Main
                 ActiveCurrentBatchMonsters();
 
                 //切换BGM
-                List<string> auLst = new();
-                auLst.Add(Constants.BGHuangYe);
-                auLst.Add(Constants.BGBattle01);
-                audioSvc.StopBGMusic();
-                audioSvc.PlayBGMusics(auLst, true);
+                PlayBGAudioLst();
 
                 SetPauseGame(false, false);
 
@@ -152,6 +147,15 @@ namespace DarkGod.Main
                     cb();
                 }
             });
+        }
+
+        private void PlayBGAudioLst()
+        {
+            List<string> auLst = new();
+            auLst.Add(Constants.BGHuangYe);
+            auLst.Add(Constants.BGBattle01);
+            audioSvc.StopBGMusic();
+            audioSvc.PlayBGMusics(auLst, true);
         }
 
         //相关回调处理
