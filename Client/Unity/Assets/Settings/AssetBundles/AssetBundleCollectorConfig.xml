@@ -25,6 +25,7 @@
       <Collector CollectPath="Assets/ResModules/Shaders/GenshinCelShaderURP/Shaders/GenshinCelShaderURP/V5.0Beta/GenshinLikeRendering" CollectGUID="cb8ed0ecd275e794f9461e5ff84cb3da" CollectType="MainAssetCollector" AddressRule="AddressByFileName" PackRule="PackDirectory" FilterRule="CollectShader" UserData="" AssetTags="" />
       <Collector CollectPath="Packages/com.gaolingx.honkaistarrailtoonshader/Shaders/SRUniversal-main/Shaders" CollectGUID="f3ea0920607280a42a5ee96bcf8331a4" CollectType="MainAssetCollector" AddressRule="AddressByFileName" PackRule="PackDirectory" FilterRule="CollectShader" UserData="" AssetTags="" />
       <Collector CollectPath="Packages/com.stalomeow.star-rail-npr-shader/Shaders" CollectGUID="3fb7ee35d84d8ad449ca8c8faf4ddbb5" CollectType="MainAssetCollector" AddressRule="AddressByFileName" PackRule="PackDirectory" FilterRule="CollectShader" UserData="" AssetTags="" />
+      <Collector CollectPath="Assets/ResModules/Shaders/BasePBR/Base_SimplePBR" CollectGUID="7fce843f55662e646a128491b5a660e0" CollectType="MainAssetCollector" AddressRule="AddressByFileName" PackRule="PackDirectory" FilterRule="CollectShader" UserData="" AssetTags="" />
     </Group>
   </Package>
 </root>
