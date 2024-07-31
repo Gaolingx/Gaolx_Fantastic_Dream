@@ -15,8 +15,8 @@ Shader "URP/Base/S_SimplePBR"
         [NoScaleOffset] _OcclusionMap("Occlusion Map", 2D) = "white" {}
         [HDR] _EmissionColor ("Emission Color", Color) = (0, 0, 0)
         [NoScaleOffset] _EmissionMap ("Emission Map", 2D) = "white" {}
-        // [ToggleUI] _AlphaTest("Use Alpha Cutoff", Int) = 0.0
-        // _Cutoff("Alpha Cutoff", Range(0.0, 1.0)) = 0.5
+        [Toggle(_ALPHATEST_ON)] _AlphaTest("Use Alpha Cutoff", Int) = 0.0
+        _Cutoff("Alpha Cutoff", Range(0.0, 1.0)) = 0.5
                 
         [Header(Other)] [Space(6)]
         [Enum(UnityEngine.Rendering.CullMode)] _CullMode ("Cull Mode", Float) = 2
@@ -75,7 +75,7 @@ Shader "URP/Base/S_SimplePBR"
             #pragma only_renderers gles gles3 glcore d3d11
             #pragma target 2.0
 
-            // #pragma shader_feature_local_fragment _ALPHATEST_ON
+            #pragma shader_feature_local_fragment _ALPHATEST_ON
 
             // Universal Render Pipeline keywords
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
@@ -171,6 +171,21 @@ Shader "URP/Base/S_SimplePBR"
                 return output;
             }
 
+            half Alpha(half albedoAlpha, half4 color, half cutoff)
+            {
+                #if !defined(_SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A) && !defined(_GLOSSINESS_FROM_BASE_ALPHA)
+                    half alpha = albedoAlpha * color.a;
+                #else
+                    half alpha = color.a;
+                #endif
+
+                #if defined(_ALPHATEST_ON)
+                    clip(alpha - cutoff);
+                #endif
+
+                return alpha;
+            }
+
             half4 GetShadowMask(Varyings input)
             {
                 //ShadowMask是用来处理静态投影和动态投影的结合
@@ -181,6 +196,7 @@ Shader "URP/Base/S_SimplePBR"
                 #else
                     half4 ShadowMask = half4(1, 1, 1, 1);
                 #endif
+
                 return ShadowMask;
             }
 
@@ -201,7 +217,7 @@ Shader "URP/Base/S_SimplePBR"
                 half occlusionMap = LerpWhiteTo(SAMPLE_TEXTURE2D(_OcclusionMap, sampler_OcclusionMap, input.uv).g, _OcclusionStrength);;
 
                 surfaceData.albedo = baseMap.rgb;
-                surfaceData.alpha = baseMap.a;
+                surfaceData.alpha = Alpha(baseMap.a, _BaseColor, _Cutoff);
                 surfaceData.emission = emissionMap;                
                 surfaceData.metallic = _Metallic * metallicGlossMap.rgb;
                 surfaceData.occlusion = occlusionMap;
@@ -264,7 +280,7 @@ Shader "URP/Base/S_SimplePBR"
 
             // -------------------------------------
             // Material Keywords
-            //#pragma shader_feature_local_fragment _ALPHATEST_ON
+            #pragma shader_feature_local_fragment _ALPHATEST_ON
 
             #pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW
 
@@ -295,7 +311,7 @@ Shader "URP/Base/S_SimplePBR"
 
             // -------------------------------------
             // Material Keywords
-            // #pragma shader_feature_local_fragment _ALPHATEST_ON
+            #pragma shader_feature_local_fragment _ALPHATEST_ON
 
             //--------------------------------------
             // GPU Instancing
