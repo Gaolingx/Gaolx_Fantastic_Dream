@@ -47,19 +47,22 @@ namespace DarkGod.Main
             AddVFXOnInit();
         }
 
-        public void SetFX(Transform parent, string name, float destroy, float volume)
+        public void SetFX(Transform parent, string name, float destroy)
         {
             GameObject go;
             if (fxObjDic.TryGetValue(name, out go))
             {
                 go.transform.SetParent(parent, false);
                 AudioSource audioSource = go.GetComponent<AudioSource>();
+                ParticleSystem particle = go.GetComponent<ParticleSystem>();
                 if (audioSource != null)
                 {
-                    audioSource.volume = volume;
                     audioSource.Play();
                 }
-                go.GetComponent<ParticleSystem>()?.Play();
+                if (particle != null)
+                {
+                    particle.Play();
+                }
                 go.SetActive(true);
                 timerSvc.AddTimeTask((int tid) =>
                 {
@@ -67,7 +70,10 @@ namespace DarkGod.Main
                     {
                         audioSource.Stop();
                     }
-                    go.GetComponent<ParticleSystem>()?.Stop();
+                    if (particle != null)
+                    {
+                        particle.Stop();
+                    }
                     go.SetActive(false);
                 }, destroy);
             }
@@ -101,7 +107,7 @@ namespace DarkGod.Main
                 main.simulationSpeed = speedMult;
             }
         }
-        public void ResetVXF()
+        public void ResetVFX()
         {
             foreach (var particleSystem in allParticleSystems)
             {

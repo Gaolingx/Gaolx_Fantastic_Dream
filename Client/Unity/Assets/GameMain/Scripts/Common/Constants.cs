@@ -62,7 +62,12 @@ namespace DarkGod.Main
         public const string ColorGreenHex = "#00FF00FF";
         public const string ColorBlueHex = "#00B4FFFF";
         public const string ColorYellowHex = "#FFFF00FF";
+
         #endregion
+
+        // GameRoot Config
+        public const string Path_GameRoot_Obj = "/GameRoot";
+        public const string Path_Canvas_Obj = "Canvas";
 
         //Hotfix
         public const string HotfixBuildVersion = "Release_CN_1.1.0";

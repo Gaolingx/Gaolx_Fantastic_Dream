@@ -21,6 +21,7 @@ namespace DarkGod.Main
         [SerializeField] private List<SoundItem> soundPools = new List<SoundItem>();
         private Dictionary<SoundStyle, Queue<GameObject>> soundCenter = new Dictionary<SoundStyle, Queue<GameObject>>();
         private Dictionary<string, Dictionary<SoundStyle, Queue<GameObject>>> bigSoundCenter = new Dictionary<string, Dictionary<SoundStyle, Queue<GameObject>>>();
+
         protected override void Awake()
         {
             base.Awake();
@@ -83,7 +84,7 @@ namespace DarkGod.Main
 
         }
 
-        public void TryGetSoundPool(SoundStyle soundStyle, string soundName, Vector3 position, Quaternion quaternion, float volume, bool isLoop = false)
+        public void TryGetSoundPool(SoundStyle soundStyle, string soundName, Vector3 position, Quaternion quaternion)
         {
             if (bigSoundCenter.ContainsKey(soundName))
             {
@@ -93,8 +94,6 @@ namespace DarkGod.Main
                     go.transform.position = position;
                     go.transform.rotation = quaternion;
                     go.gameObject.SetActive(true);
-                    go.GetComponent<AudioSource>().volume = volume;
-                    go.GetComponent<AudioSource>().loop = isLoop;
                     go.GetComponent<AudioSource>().Play();
                     Q.Enqueue(go);
                     // Debug.Log("播放音乐"+ soundName+"类型是"+soundStyle);
@@ -111,7 +110,7 @@ namespace DarkGod.Main
             }
 
         }
-        public void TryGetSoundPool(SoundStyle soundStye, Vector3 position, Quaternion quaternion, float volume, bool isLoop = false)
+        public void TryGetSoundPool(SoundStyle soundStye, Vector3 position, Quaternion quaternion)
         {
             if (soundCenter.TryGetValue(soundStye, out var sound))
             {
@@ -120,42 +119,12 @@ namespace DarkGod.Main
                 go.transform.position = position;
                 go.transform.rotation = quaternion;
                 go.gameObject.SetActive(true);
-                go.GetComponent<AudioSource>().volume = volume;
-                go.GetComponent<AudioSource>().loop = isLoop;
                 go.GetComponent<AudioSource>().Play();
                 soundCenter[soundStye].Enqueue(go);
             }
             else
             {
                 // Debug.Log(soundStye + "不存在");
-            }
-        }
-
-        public void TrySetAllSoundVolume(float volume)
-        {
-
-            foreach (var soundDic in bigSoundCenter.Values)
-            {
-                foreach (var soundStye in soundDic.Keys)
-                {
-                    foreach (var sound in soundDic.Values)
-                    {
-                        GameObject go = sound.Dequeue();
-                        go.GetComponent<AudioSource>().volume = volume;
-                        soundCenter[soundStye].Enqueue(go);
-                    }
-                }
-            }
-
-
-            foreach (var soundStye in soundCenter.Keys)
-            {
-                foreach (var sound in soundCenter.Values)
-                {
-                    GameObject go = sound.Dequeue();
-                    go.GetComponent<AudioSource>().volume = volume;
-                    soundCenter[soundStye].Enqueue(go);
-                }
             }
         }
 

@@ -66,7 +66,7 @@ namespace DarkGod.Main
                 controller.SprintSpeed = Constants.PlayerSprintSpeed;
 
                 //配置角色声音源
-                GameRoot.MainInstance.SetAudioListener(player.GetComponent<AudioListener>(), true, false);
+                audioSvc.SetAudioListener(player.GetComponent<AudioListener>(), true, false);
 
                 cinemachineVirtualCamera.Follow = player.transform.Find(Constants.CinemachineVirtualCameraFollowGameObjectWithTag);
 
@@ -152,7 +152,7 @@ namespace DarkGod.Main
             auLst.Add(Constants.BGHuangYe);
             auLst.Add(Constants.BGBattle01);
             audioSvc.StopBGMusic();
-            audioSvc.PlayBGMusics(auLst, true);
+            audioSvc.PlayBGMusics(auLst, 3f, true);
         }
 
         //相关回调处理

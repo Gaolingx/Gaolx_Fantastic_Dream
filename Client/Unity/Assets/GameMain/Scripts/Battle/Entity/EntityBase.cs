@@ -164,11 +164,11 @@ namespace DarkGod.Main
             }
         }
 
-        public virtual void SetCFX(string fxName, float destroyTime, float volume)
+        public virtual void SetCFX(string fxName, float destroyTime)
         {
             if (playerController != null)
             {
-                VFXManager.MainInstance.SetFX(playerController.transform, fxName, destroyTime, volume);
+                VFXManager.MainInstance.SetFX(playerController.transform, fxName, destroyTime);
             }
         }
         public virtual void SetSkillMoveState(bool move, float speed = 0f)

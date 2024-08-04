@@ -66,13 +66,13 @@ namespace DarkGod.Main
             }
             else
             {
-                VFXManager.MainInstance.ResetVXF();
+                VFXManager.MainInstance.ResetVFX();
             }
         }
 
         private void CleanUIRoot()
         {
-            Transform canvas = transform.Find("Canvas");
+            Transform canvas = transform.Find(Constants.Path_Canvas_Obj);
             for (int i = 0; i < canvas.childCount; i++)
             {
                 canvas.GetChild(i).gameObject.SetActive(false);
@@ -146,7 +146,6 @@ namespace DarkGod.Main
 
         public void ExitGame()
         {
-            AudioSvc.MainInstance.RmvBindablePropertyData();
             GameRoot.MainInstance.RmvBindablePropertyData();
             GetUIController().OnClickExit();
         }
@@ -300,19 +299,6 @@ namespace DarkGod.Main
         public GameState GetGameState()
         {
             return gameState;
-        }
-
-        public void SetAudioListener(AudioListener playerAudioListener, bool statePlayer, bool stateGameRoot)
-        {
-            Transform gameRoot = transform.Find("/GameRoot");
-            if (gameRoot != null)
-            {
-                gameRoot.gameObject.GetComponent<AudioListener>().enabled = stateGameRoot;
-            }
-            if (playerAudioListener != null)
-            {
-                playerAudioListener.enabled = statePlayer;
-            }
         }
 
     }

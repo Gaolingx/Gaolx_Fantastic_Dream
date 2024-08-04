@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using HuHu;
 using static DarkGod.Main.SFX_PoolManager;
+using UnityEngine.Audio;
 
 namespace DarkGod.Main
 {
@@ -11,6 +12,7 @@ namespace DarkGod.Main
     {
         [Range(0, 1)] public float BGAudioVolumeValue, UIAudioVolumeValue, CharacterAudioVolumeValue, CharacterFxAudioVolumeValue;
         public AudioSource BGAudioAudioSource, UIAudioAudioSource;
+        public AudioMixer _audioMixer;
 
         [System.Serializable]
         public class CharSoundItem
@@ -28,8 +30,6 @@ namespace DarkGod.Main
 
         private UIController uiController;
         private SFX_PoolManager sfxPoolManager;
-        private BindableProperty<float> _characterAudioVolumeValue = new BindableProperty<float>();
-        private bool _isTurnOnAudio = true;
 
         protected override void Awake()
         {
@@ -38,7 +38,6 @@ namespace DarkGod.Main
 
         public void InitSvc()
         {
-            AddBindablePropertyData();
             uiController = GameRoot.MainInstance.GetUIController();
 
             sfxPoolManager = SFX_PoolManager.MainInstance;
@@ -52,62 +51,36 @@ namespace DarkGod.Main
             RefreshAudioSourceVolume();
         }
 
-        public void AddBindablePropertyData()
+        public void SetMainAudioMuted(bool state)
         {
-            _characterAudioVolumeValue.OnValueChanged += OnUpdateVolumeState;
+            _audioMixer.SetFloat("MainAudioVolumeParam", UIItemUtils.SetAudioVolumeVal(UIItemUtils.BoolToInt(!state)));
         }
 
-        public void RmvBindablePropertyData()
+        public void SetAudioListener(AudioListener playerAudioListener, bool statePlayer, bool stateGameRoot = false)
         {
-            _characterAudioVolumeValue.OnValueChanged -= OnUpdateVolumeState;
-        }
-
-        private void OnUpdateVolumeState(float value)
-        {
-            sfxPoolManager.TrySetAllSoundVolume(value);
-        }
-
-        public void SetAllAudioObjectMuted(bool state)
-        {
-            _isTurnOnAudio = !state;
-        }
-
-        public bool GetAllAudioObjectMuted()
-        {
-            return !_isTurnOnAudio;
+            Transform gameRoot = transform.Find(Constants.Path_GameRoot_Obj);
+            if (gameRoot != null)
+            {
+                gameRoot.gameObject.GetComponent<AudioListener>().enabled = stateGameRoot;
+            }
+            if (playerAudioListener != null)
+            {
+                playerAudioListener.enabled = statePlayer;
+            }
         }
 
         private void RefreshAudioSourceVolume()
         {
-            _characterAudioVolumeValue.Value = CharacterAudioVolumeValue;
-
-            if (BGAudioAudioSource != null)
-            {
-                BGAudioAudioSource.volume = BGAudioVolumeValue;
-            }
-            if (UIAudioAudioSource != null)
-            {
-                UIAudioAudioSource.volume = UIAudioVolumeValue;
-            }
-
-            if (!_isTurnOnAudio)
-            {
-                if (BGAudioAudioSource != null)
-                {
-                    BGAudioAudioSource.volume = 0f;
-                }
-                if (UIAudioAudioSource != null)
-                {
-                    UIAudioAudioSource.volume = 0f;
-                }
-                _characterAudioVolumeValue.Value = 0f;
-            }
+            _audioMixer.SetFloat("BGAudioVolumeParam", UIItemUtils.SetAudioVolumeVal(BGAudioVolumeValue));
+            _audioMixer.SetFloat("UIAudioVolumeParam", UIItemUtils.SetAudioVolumeVal(UIAudioVolumeValue));
+            _audioMixer.SetFloat("CharAudioVolumeParam", UIItemUtils.SetAudioVolumeVal(CharacterAudioVolumeValue));
+            _audioMixer.SetFloat("CharVFXAudioVolumeParam", UIItemUtils.SetAudioVolumeVal(CharacterFxAudioVolumeValue));
         }
 
         #region PlayAudio
 
         private Coroutine currentAudioCoroutine;
-        public async void PlayBGMusics(List<string> names, bool isLoop = true, bool isCache = true)
+        public async void PlayBGMusics(List<string> names, float duration, bool isLoop = true, bool isCache = true)
         {
             List<AudioClip> audioClips = new List<AudioClip>();
 
@@ -115,10 +88,10 @@ namespace DarkGod.Main
             {
                 audioClips.Add(await ResSvc.MainInstance.LoadAudioClipAsync(Constants.ResourcePackgeName, bgAudioPath + names[i], isCache));
             }
-            currentAudioCoroutine = StartCoroutine(PlayAudioClips(audioClips, isLoop));
+            currentAudioCoroutine = StartCoroutine(PlayAudioClips(audioClips, duration, isLoop));
         }
 
-        IEnumerator PlayAudioClips(List<AudioClip> audioClips, bool isLoop)
+        IEnumerator PlayAudioClips(List<AudioClip> audioClips, float duration, bool isLoop)
         {
             while (isLoop)
             {
@@ -133,7 +106,8 @@ namespace DarkGod.Main
                         BGAudioAudioSource.loop = false;
                         BGAudioAudioSource.volume = BGAudioVolumeValue;
                         BGAudioAudioSource.Play();
-                        yield return new WaitForSeconds(audioClips[i].length); // 等待当前音频播放完成  
+                        float targetValue = Mathf.Clamp(duration, 0f, 10f);
+                        yield return new WaitForSeconds(audioClips[i].length + targetValue); // 等待当前音频播放完成  
                     }
                 }
             }
@@ -162,25 +136,25 @@ namespace DarkGod.Main
         public void PlayFootStep(Transform transform)
         {
             int i = Random.Range(0, CharacterFootStepsLst.Count);
-            sfxPoolManager.TryGetSoundPool(CharacterFootStepsLst[i].soundStyle, CharacterFootStepsLst[i].soundName, transform.position, transform.rotation, _characterAudioVolumeValue.Value);
+            sfxPoolManager.TryGetSoundPool(CharacterFootStepsLst[i].soundStyle, CharacterFootStepsLst[i].soundName, transform.position, transform.rotation);
         }
 
         public void PlayJumpEffort(Transform transform)
         {
             int i = Random.Range(0, CharacterJumpEffortsLst.Count);
-            sfxPoolManager.TryGetSoundPool(CharacterJumpEffortsLst[i].soundStyle, CharacterJumpEffortsLst[i].soundName, transform.position, transform.rotation, _characterAudioVolumeValue.Value);
+            sfxPoolManager.TryGetSoundPool(CharacterJumpEffortsLst[i].soundStyle, CharacterJumpEffortsLst[i].soundName, transform.position, transform.rotation);
         }
 
         public void PlayLanding(Transform transform)
         {
             int i = Random.Range(0, CharacterLandingLst.Count);
-            sfxPoolManager.TryGetSoundPool(CharacterLandingLst[i].soundStyle, CharacterLandingLst[i].soundName, transform.position, transform.rotation, _characterAudioVolumeValue.Value);
+            sfxPoolManager.TryGetSoundPool(CharacterLandingLst[i].soundStyle, CharacterLandingLst[i].soundName, transform.position, transform.rotation);
         }
 
         public void PlayHit(Transform transform)
         {
             int i = Random.Range(0, CharacterHitLst.Count);
-            sfxPoolManager.TryGetSoundPool(CharacterHitLst[i].soundStyle, CharacterHitLst[i].soundName, transform.position, transform.rotation, _characterAudioVolumeValue.Value);
+            sfxPoolManager.TryGetSoundPool(CharacterHitLst[i].soundStyle, CharacterHitLst[i].soundName, transform.position, transform.rotation);
         }
         #endregion
     }

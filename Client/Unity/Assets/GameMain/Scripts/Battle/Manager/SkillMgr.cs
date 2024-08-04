@@ -244,7 +244,7 @@ namespace DarkGod.Main
             //设置技能动作
             entity.SetAction(skillData.aniAction);
             //设置特效
-            entity.SetCFX(skillData.fx, skillData.skillTime, audioSvc.CharacterFxAudioVolumeValue);
+            entity.SetCFX(skillData.fx, skillData.skillTime);
 
             //设置技能位移
             CalcSkillMove(entity, skillData);

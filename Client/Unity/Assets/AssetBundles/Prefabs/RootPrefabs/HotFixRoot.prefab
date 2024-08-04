@@ -120,6 +120,7 @@ MonoBehaviour:
   CharacterFxAudioVolumeValue: 0.5
   BGAudioAudioSource: {fileID: 8673037108130610541}
   UIAudioAudioSource: {fileID: 4076293606306624143}
+  _audioMixer: {fileID: 24100000, guid: f6a684d1da2437a4c88de1635a80bab1, type: 2}
   CharacterFootStepsLst:
   - soundStyle: 1
     soundName: Player_Footstep_01
@@ -307,7 +308,8 @@ AudioSource:
   m_GameObject: {fileID: 1238387904315550107}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 3564590237514641430, guid: f6a684d1da2437a4c88de1635a80bab1,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.5
@@ -529,7 +531,8 @@ AudioSource:
   m_GameObject: {fileID: 8114701575216145672}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -4931913379114194500, guid: f6a684d1da2437a4c88de1635a80bab1,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.5

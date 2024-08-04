@@ -95,7 +95,7 @@ namespace DarkGod.Main
             List<string> auLst = new List<string>();
             auLst.Add(Constants.BGMainCity);
             audioSvc.StopBGMusic();
-            audioSvc.PlayBGMusics(auLst);
+            audioSvc.PlayBGMusics(auLst, 3f);
         }
 
         private CinemachineVirtualCamera cinemachineVirtualCamera;
@@ -142,7 +142,7 @@ namespace DarkGod.Main
                 controller.MoveSpeed = Constants.PlayerMoveSpeed;
                 controller.SprintSpeed = Constants.PlayerSprintSpeed;
 
-                GameRoot.MainInstance.SetAudioListener(player.GetComponent<AudioListener>(), true, false);
+                audioSvc.SetAudioListener(player.GetComponent<AudioListener>(), true, false);
 
                 cinemachineVirtualCamera.Follow = player.transform.Find(Constants.CinemachineVirtualCameraFollowGameObjectWithTag);
                 mainCityPlayer = player;

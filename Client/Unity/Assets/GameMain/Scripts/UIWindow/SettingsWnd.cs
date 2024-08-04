@@ -58,7 +58,7 @@ namespace DarkGod.Main
         private void InitSliderValue()
         {
             VsyncSettingsToggle.isOn = GetVSyncCount();
-            MutedToggle.isOn = audioSvc.GetAllAudioObjectMuted();
+            MutedToggle.isOn = false;
             BGAudioSlider.value = audioSvc.BGAudioVolumeValue;
             UIAudioSlider.value = audioSvc.UIAudioVolumeValue;
             CharacterAudioSlider.value = audioSvc.CharacterAudioVolumeValue;
@@ -106,7 +106,7 @@ namespace DarkGod.Main
 
         public void ClickMutedToggle()
         {
-            audioSvc.SetAllAudioObjectMuted(MutedToggle.isOn);
+            audioSvc.SetMainAudioMuted(MutedToggle.isOn);
         }
 
         public void ClickFpsWndToggle()

@@ -75,5 +75,11 @@ namespace DarkGod.Main
             else
                 return false;
         }
+
+        public static float SetAudioVolumeVal(float targetVolume)
+        {
+            float targetValue = Mathf.Clamp(targetVolume, 0.0001f, 1f);
+            return Mathf.Log10(targetValue) * 20;
+        }
     }
 }

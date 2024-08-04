@@ -35,7 +35,7 @@ namespace DarkGod.Main
                 List<string> auLst = new List<string>();
                 auLst.Add(Constants.BGLogin);
                 audioSvc.StopBGMusic();
-                audioSvc.PlayBGMusics(auLst);
+                audioSvc.PlayBGMusics(auLst, 3f);
             });
             GameRoot.MainInstance.SetGameState(GameState.Login);
         }
