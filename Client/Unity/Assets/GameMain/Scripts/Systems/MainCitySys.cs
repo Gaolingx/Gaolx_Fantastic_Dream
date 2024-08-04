@@ -28,7 +28,7 @@ namespace DarkGod.Main
         //private PlayerController playerCtrl;
         private Transform charCamTrans;
         private AutoGuideCfg curtTaskData;
-        private Transform[] npcPosTrans;
+        private List<Transform> npcPosTrans;
         private NavMeshAgent nav;
         private StarterAssetsInputs starterAssetsInputs;
 
@@ -54,8 +54,6 @@ namespace DarkGod.Main
             resSvc.AsyncLoadScene(Constants.ResourcePackgeName, mapData.sceneName, () =>
             {
                 PECommon.Log("Init MainCitySys...");
-
-                resSvc.UnloadUnusedAssets(Constants.ResourcePackgeName);
 
                 // ╪стьсно╥жВ╫г
                 LoadPlayer(mapData);
@@ -86,6 +84,8 @@ namespace DarkGod.Main
                 GameRoot.MainInstance.SetGameState(GameState.MainCity);
 
                 PauseGameLogic(false);
+
+                resSvc.UnloadUnusedAssets(Constants.ResourcePackgeName);
             });
 
         }

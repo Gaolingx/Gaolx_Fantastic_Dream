@@ -120,8 +120,6 @@ namespace DarkGod.Main
             mapCfg = resSvc.GetMapCfg(mapid);
             resSvc.AsyncLoadScene(Constants.ResourcePackgeName, mapCfg.sceneName, () =>
             {
-                resSvc.UnloadUnusedAssets(Constants.ResourcePackgeName);
-
                 //初始化地图数据
                 mapMgr = MapMgr.MainInstance;
                 mapMgr.Init(this);
@@ -143,6 +141,8 @@ namespace DarkGod.Main
                 SetPauseGame(false, false);
 
                 cb?.Invoke();
+
+                resSvc.UnloadUnusedAssets(Constants.ResourcePackgeName);
             });
         }
 

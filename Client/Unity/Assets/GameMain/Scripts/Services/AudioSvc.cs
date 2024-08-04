@@ -26,6 +26,8 @@ namespace DarkGod.Main
         [SerializeField] private List<CharSoundItem> CharacterLandingLst = new List<CharSoundItem>();
         [SerializeField] private List<CharSoundItem> CharacterHitLst = new List<CharSoundItem>();
 
+        [SerializeField] private float fadingDuration = 3f;
+
         private string bgAudioPath = PathDefine.bgAudioPath;
 
         private UIController uiController;
@@ -53,7 +55,7 @@ namespace DarkGod.Main
 
         public void SetMainAudioMuted(bool state)
         {
-            _audioMixer.SetFloat("MainAudioVolumeParam", UIItemUtils.SetAudioVolumeVal(UIItemUtils.BoolToInt(!state)));
+            StartCoroutine(StartAudioFade(_audioMixer, "MainAudioVolumeParam", fadingDuration, UIItemUtils.BoolToInt(!state)));
         }
 
         public void SetAudioListener(AudioListener playerAudioListener, bool statePlayer, bool stateGameRoot = false)
@@ -71,10 +73,28 @@ namespace DarkGod.Main
 
         private void RefreshAudioSourceVolume()
         {
-            _audioMixer.SetFloat("BGAudioVolumeParam", UIItemUtils.SetAudioVolumeVal(BGAudioVolumeValue));
-            _audioMixer.SetFloat("UIAudioVolumeParam", UIItemUtils.SetAudioVolumeVal(UIAudioVolumeValue));
-            _audioMixer.SetFloat("CharAudioVolumeParam", UIItemUtils.SetAudioVolumeVal(CharacterAudioVolumeValue));
-            _audioMixer.SetFloat("CharVFXAudioVolumeParam", UIItemUtils.SetAudioVolumeVal(CharacterFxAudioVolumeValue));
+            StartCoroutine(StartAudioFade(_audioMixer, "BGAudioVolumeParam", fadingDuration, BGAudioVolumeValue));
+            StartCoroutine(StartAudioFade(_audioMixer, "UIAudioVolumeParam", fadingDuration, UIAudioVolumeValue));
+            StartCoroutine(StartAudioFade(_audioMixer, "CharAudioVolumeParam", fadingDuration, CharacterAudioVolumeValue));
+            StartCoroutine(StartAudioFade(_audioMixer, "CharVFXAudioVolumeParam", fadingDuration, CharacterFxAudioVolumeValue));
+        }
+
+        public static IEnumerator StartAudioFade(AudioMixer audioMixer, string exposedParam, float duration, float targetVolume)
+        {
+            float currentTime = 0;
+            float currentVol;
+            audioMixer.GetFloat(exposedParam, out currentVol);
+            currentVol = Mathf.Pow(10, currentVol / 20);
+            float targetValue = Mathf.Clamp(targetVolume, 0.0001f, 1);
+
+            while (currentTime < duration)
+            {
+                currentTime += Time.deltaTime;
+                float newVol = Mathf.Lerp(currentVol, targetValue, currentTime / duration);
+                audioMixer.SetFloat(exposedParam, Mathf.Log10(newVol) * 20);
+                yield return null;
+            }
+            yield break;
         }
 
         #region PlayAudio
