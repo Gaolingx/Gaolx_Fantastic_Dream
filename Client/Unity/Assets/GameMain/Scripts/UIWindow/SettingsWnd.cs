@@ -167,8 +167,7 @@ namespace DarkGod.Main
         #region QualityDropdown
         private void InitQualityDropdownOptionData()
         {
-            string[] qualityArr = QualitySettings.names;
-            List<string> qualityLst = new List<string>(qualityArr);
+            List<string> qualityLst = new List<string>(QualitySettings.names);
 
             List<Dropdown.OptionData> qualitySelectDropdownOptionData = new List<Dropdown.OptionData>();
             foreach (var item in qualityLst)

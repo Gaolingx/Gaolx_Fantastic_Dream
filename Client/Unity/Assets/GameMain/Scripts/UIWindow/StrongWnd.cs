@@ -34,7 +34,7 @@ namespace DarkGod.Main
 
         #region Data Area
         public Transform posBtnTrans;
-        private Image[] imgs = new Image[6];
+        private List<Image> imgs = new List<Image>();
         private int currentIndex;
         private PlayerData pd;
         StrongCfg nextSd;
@@ -75,7 +75,7 @@ namespace DarkGod.Main
             PECommon.Log("Click Window:StrongWnd.Click Item:" + index);
 
             //遍历数组，当点击其中一个部位，其背景变为箭头，其余的变成平板
-            for (int i = 0; i < imgs.Length; i++)
+            for (int i = 0; i < imgs.Count; i++)
             {
                 Transform trans = imgs[i].transform;
 
