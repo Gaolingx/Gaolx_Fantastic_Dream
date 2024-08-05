@@ -65,6 +65,7 @@ namespace DarkGod.Main
                     ClickPosItem((int)args);
                     audioSvc.PlayUIAudio(Constants.UIClickBtn);
                 }, i);
+                imgs.Add(img);
                 imgs[i] = img;
             }
         }
