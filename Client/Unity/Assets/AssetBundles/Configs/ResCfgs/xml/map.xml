@@ -3,6 +3,8 @@
 	<item ID="10000">
 		<mapName>圣光主城</mapName>
 		<sceneName>Assets/AssetBundles/Scenes/SceneMainCity</sceneName>
+		<playerPath>Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PlayerPrefabs/Player_Avatar_March_7th Variant</playerPath>
+		<playerCamPath>Assets/AssetBundles/Prefabs/GameMain/PrefabCamera/SceneMainCity/PlayerFollowCamera</playerCamPath>
 		<power>0</power>
 		<mainCamPos>0,1.375,0</mainCamPos>
 		<mainCamRote>0,0,0</mainCamRote>
@@ -16,6 +18,8 @@
 	<item ID="10001">
 		<mapName>荒野遗迹</mapName>
 		<sceneName>Assets/AssetBundles/Scenes/SceneOrge</sceneName>
+		<playerPath>Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PlayerPrefabs/Player_Avatar_March_7th Variant</playerPath>
+		<playerCamPath>Assets/AssetBundles/Prefabs/GameMain/PrefabCamera/SceneMainCity/PlayerFollowCamera</playerCamPath>
 		<power>5</power>
 		<mainCamPos>216.39,6.84,448.95</mainCamPos>
 		<mainCamRote>0,101.531,0</mainCamRote>
@@ -40,6 +44,8 @@
 	<item ID="10002">
 		<mapName>荒野遗迹</mapName>
 		<sceneName>Assets/AssetBundles/Scenes/SceneOrge</sceneName>
+		<playerPath>Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PlayerPrefabs/Player_Avatar_March_7th Variant</playerPath>
+		<playerCamPath>Assets/AssetBundles/Prefabs/GameMain/PrefabCamera/SceneMainCity/PlayerFollowCamera</playerCamPath>
 		<power>5</power>
 		<mainCamPos>216.39,6.84,448.95</mainCamPos>
 		<mainCamRote>0,101.531,0</mainCamRote>
@@ -64,6 +70,8 @@
 	<item ID="10003">
 		<mapName>荒野遗迹</mapName>
 		<sceneName>Assets/AssetBundles/Scenes/SceneOrge</sceneName>
+		<playerPath>Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PlayerPrefabs/Player_Avatar_March_7th Variant</playerPath>
+		<playerCamPath>Assets/AssetBundles/Prefabs/GameMain/PrefabCamera/SceneMainCity/PlayerFollowCamera</playerCamPath>
 		<power>5</power>
 		<mainCamPos>216.39,6.84,448.95</mainCamPos>
 		<mainCamRote>0,101.531,0</mainCamRote>
@@ -88,6 +96,8 @@
 	<item ID="10004">
 		<mapName>荒野遗迹</mapName>
 		<sceneName>Assets/AssetBundles/Scenes/SceneOrge</sceneName>
+		<playerPath>Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PlayerPrefabs/Player_Avatar_March_7th Variant</playerPath>
+		<playerCamPath>Assets/AssetBundles/Prefabs/GameMain/PrefabCamera/SceneMainCity/PlayerFollowCamera</playerCamPath>
 		<power>5</power>
 		<mainCamPos>216.39,6.84,448.95</mainCamPos>
 		<mainCamRote>0,101.531,0</mainCamRote>
@@ -112,6 +122,8 @@
 	<item ID="10005">
 		<mapName>荒野遗迹</mapName>
 		<sceneName>Assets/AssetBundles/Scenes/SceneOrge</sceneName>
+		<playerPath>Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PlayerPrefabs/Player_Avatar_March_7th Variant</playerPath>
+		<playerCamPath>Assets/AssetBundles/Prefabs/GameMain/PrefabCamera/SceneMainCity/PlayerFollowCamera</playerCamPath>
 		<power>5</power>
 		<mainCamPos>216.39,6.84,448.95</mainCamPos>
 		<mainCamRote>0,101.531,0</mainCamRote>
@@ -136,6 +148,8 @@
 	<item ID="10006">
 		<mapName>荒野遗迹</mapName>
 		<sceneName>Assets/AssetBundles/Scenes/SceneOrge</sceneName>
+		<playerPath>Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PlayerPrefabs/Player_Avatar_March_7th Variant</playerPath>
+		<playerCamPath>Assets/AssetBundles/Prefabs/GameMain/PrefabCamera/SceneMainCity/PlayerFollowCamera</playerCamPath>
 		<power>5</power>
 		<mainCamPos>216.39,6.84,448.95</mainCamPos>
 		<mainCamRote>0,101.531,0</mainCamRote>

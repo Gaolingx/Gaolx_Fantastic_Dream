@@ -151,6 +151,7 @@ MonoBehaviour:
   CharacterHitLst:
   - soundStyle: 13
     soundName: assassin_Hit
+  fadingDuration: 1
 --- !u!114 &4961261660839420595
 MonoBehaviour:
   m_ObjectHideFlags: 0

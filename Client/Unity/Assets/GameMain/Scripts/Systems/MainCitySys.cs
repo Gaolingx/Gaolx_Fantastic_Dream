@@ -99,14 +99,14 @@ namespace DarkGod.Main
         }
 
         private CinemachineVirtualCamera cinemachineVirtualCamera;
-        private async void LoadVirtualCameraInstance(string virtualCameraPrefabPath, MapCfg mapData)
+        private async void LoadVirtualCameraInstance(MapCfg mapData)
         {
             //相机初始化
             //首先要加载虚拟相机的预制件
             //设置实例化对象时候的位置、旋转
             Vector3 CM_player_Pos = mapData.mainCamPos;
             Vector3 CM_player_Rote = mapData.mainCamRote;
-            GameObject CM_player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, virtualCameraPrefabPath, CM_player_Pos, CM_player_Rote, Vector3.one, false, true, true);
+            GameObject CM_player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, mapData.playerCamPath, CM_player_Pos, CM_player_Rote, Vector3.one, false, true, true);
 
             if (CM_player != null)
             {
@@ -121,11 +121,11 @@ namespace DarkGod.Main
         }
 
 
-        private async void LoadPlayerInstance(string playerPrefabPath, MapCfg mapData)
+        private async void LoadPlayerInstance(MapCfg mapData)
         {
             //玩家初始化
             //获取Prefab实例化的对象
-            GameObject player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, playerPrefabPath, mapData.playerBornPos, mapData.playerBornRote, new Vector3(0.8f, 0.8f, 0.8f), false, true, true);
+            GameObject player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, mapData.playerPath, mapData.playerBornPos, mapData.playerBornRote, new Vector3(0.8f, 0.8f, 0.8f), false, true, true);
 
             if (player != null)
             {
@@ -151,8 +151,8 @@ namespace DarkGod.Main
 
         private void LoadPlayer(MapCfg mapData)
         {
-            LoadVirtualCameraInstance(PathDefine.AssissnCityCharacterCameraPrefab, mapData);
-            LoadPlayerInstance(PathDefine.AssissnCityPlayerPrefab, mapData);
+            LoadVirtualCameraInstance(mapData);
+            LoadPlayerInstance(mapData);
         }
 
         private void LoadNpcPrefab()

@@ -33,11 +33,11 @@ namespace DarkGod.Main
         private Dictionary<string, EntityMonster> monsterDic = new Dictionary<string, EntityMonster>();
 
         private CinemachineVirtualCamera cinemachineVirtualCamera;
-        private async void LoadVirtualCameraInstance(string virtualCameraPrefabPath, MapCfg mapData)
+        private async void LoadVirtualCameraInstance(MapCfg mapData)
         {
             Vector3 CM_player_Pos = mapData.mainCamPos;
             Vector3 CM_player_Rote = mapData.mainCamRote;
-            GameObject CM_player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, virtualCameraPrefabPath, CM_player_Pos, CM_player_Rote, Vector3.one, false, true, true);
+            GameObject CM_player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, mapData.playerCamPath, CM_player_Pos, CM_player_Rote, Vector3.one, false, true, true);
 
             if (CM_player != null)
             {
@@ -48,9 +48,9 @@ namespace DarkGod.Main
             }
         }
 
-        private async void LoadPlayerInstance(string playerPrefabPath, MapCfg mapData)
+        private async void LoadPlayerInstance(MapCfg mapData)
         {
-            GameObject player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, playerPrefabPath, mapData.playerBornPos, mapData.playerBornRote, new Vector3(0.8f, 0.8f, 0.8f), false, true, true);
+            GameObject player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, mapData.playerPath, mapData.playerBornPos, mapData.playerBornRote, new Vector3(0.8f, 0.8f, 0.8f), false, true, true);
 
             if (player != null)
             {
@@ -127,10 +127,10 @@ namespace DarkGod.Main
                 AddEntityPlayerData();
 
                 //加载虚拟相机
-                LoadVirtualCameraInstance(PathDefine.AssissnCityCharacterCameraPrefab, mapCfg);
+                LoadVirtualCameraInstance(mapCfg);
 
                 //加载玩家实体
-                LoadPlayerInstance(PathDefine.AssissnBattlePlayerPrefab, mapCfg);
+                LoadPlayerInstance(mapCfg);
 
                 //延迟激活第一批次怪物
                 ActiveCurrentBatchMonsters();
@@ -260,9 +260,9 @@ namespace DarkGod.Main
                     };
                     //设置初始属性
                     em.md = md;
+                    em.EntityName = m.name;
                     em.AddHealthData();
                     em.SetBattleProps(md.mCfg.bps);
-                    em.EntityName = m.name;
 
                     MonsterController mc = m.GetComponent<MonsterController>();
                     mc.Init();

@@ -60,6 +60,8 @@ namespace DarkGod.Main
     {
         public string mapName; //地图名称
         public string sceneName; //场景名称
+        public string playerPath; //玩家预制件路径
+        public string playerCamPath; //玩家Camera预制件路径
         public int power; //进入关卡消耗的体力
         public Vector3 mainCamPos; //相机位置
         public Vector3 mainCamRote; //相机旋转

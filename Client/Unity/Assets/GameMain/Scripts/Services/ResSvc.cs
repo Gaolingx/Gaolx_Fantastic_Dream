@@ -441,6 +441,12 @@ namespace DarkGod.Main
                             case "sceneName":
                                 mapCfg.sceneName = e.InnerText;
                                 break;
+                            case "playerPath":
+                                mapCfg.playerPath = e.InnerText;
+                                break;
+                            case "playerCamPath":
+                                mapCfg.playerCamPath = e.InnerText;
+                                break;
                             case "power":
                                 mapCfg.power = int.Parse(e.InnerText);
                                 break;
