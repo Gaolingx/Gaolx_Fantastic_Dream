@@ -124,7 +124,6 @@ namespace DarkGod.Main
                     {
                         BGAudioAudioSource.clip = audioClips[i];
                         BGAudioAudioSource.loop = false;
-                        BGAudioAudioSource.volume = BGAudioVolumeValue;
                         BGAudioAudioSource.Play();
                         float targetValue = Mathf.Clamp(duration, 0f, 10f);
                         yield return new WaitForSeconds(audioClips[i].length + targetValue); // 等待当前音频播放完成  
