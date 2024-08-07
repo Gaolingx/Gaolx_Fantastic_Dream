@@ -330,6 +330,7 @@ Shader "URP/Base/S_SimplePBR"
             Tags{"LightMode" = "DepthNormalsOnly"}
 
             ZWrite On
+            Cull[_CullMode]
 
             HLSLPROGRAM
             #pragma exclude_renderers gles gles3 glcore
