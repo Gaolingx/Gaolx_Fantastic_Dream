@@ -111,7 +111,7 @@ MonoBehaviour:
         CollectorGUID: e39ccee64e232294f92e1e9e77777da7
         CollectorType: 0
         AddressRuleName: AddressByFileName
-        PackRuleName: PackDirectory
+        PackRuleName: PackShaderVariants
         FilterRuleName: CollectShaderVariants
         AssetTags: 
         UserData: 
@@ -119,7 +119,7 @@ MonoBehaviour:
         CollectorGUID: cb8ed0ecd275e794f9461e5ff84cb3da
         CollectorType: 0
         AddressRuleName: AddressByFileName
-        PackRuleName: PackDirectory
+        PackRuleName: PackShader
         FilterRuleName: CollectShader
         AssetTags: 
         UserData: 
@@ -127,7 +127,7 @@ MonoBehaviour:
         CollectorGUID: f3ea0920607280a42a5ee96bcf8331a4
         CollectorType: 0
         AddressRuleName: AddressByFileName
-        PackRuleName: PackDirectory
+        PackRuleName: PackShader
         FilterRuleName: CollectShader
         AssetTags: 
         UserData: 
@@ -135,7 +135,7 @@ MonoBehaviour:
         CollectorGUID: 3fb7ee35d84d8ad449ca8c8faf4ddbb5
         CollectorType: 0
         AddressRuleName: AddressByFileName
-        PackRuleName: PackDirectory
+        PackRuleName: PackShader
         FilterRuleName: CollectShader
         AssetTags: 
         UserData: 
@@ -143,7 +143,15 @@ MonoBehaviour:
         CollectorGUID: 7fce843f55662e646a128491b5a660e0
         CollectorType: 0
         AddressRuleName: AddressByFileName
-        PackRuleName: PackDirectory
-        FilterRuleName: CollectShader
+        PackRuleName: PackShader
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 
+      - CollectPath: Assets/ResModules/Shaders/Autodesk
+        CollectorGUID: a97c6fceae4837e4bb6425a8ee2f7426
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackShader
+        FilterRuleName: CollectAll
         AssetTags: 
         UserData: 

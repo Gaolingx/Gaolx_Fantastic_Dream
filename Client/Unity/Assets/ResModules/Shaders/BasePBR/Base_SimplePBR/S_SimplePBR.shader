@@ -219,9 +219,9 @@ Shader "URP/Base/S_SimplePBR"
                 surfaceData.albedo = baseMap.rgb;
                 surfaceData.alpha = Alpha(baseMap.a, _BaseColor, _Cutoff);
                 surfaceData.emission = emissionMap;                
-                surfaceData.metallic = _Metallic * metallicGlossMap.rgb;
+                surfaceData.metallic = _Metallic * metallicGlossMap.r;
                 surfaceData.occlusion = occlusionMap;
-                surfaceData.smoothness = _Smoothness * (1 - smoothnessMap.rgb);
+                surfaceData.smoothness = 1 - sqrt(_Smoothness * smoothnessMap.r);
                 surfaceData.specular = 0.0;
                 surfaceData.clearCoatMask = 0.0h;
                 surfaceData.clearCoatSmoothness = 0.0h;
