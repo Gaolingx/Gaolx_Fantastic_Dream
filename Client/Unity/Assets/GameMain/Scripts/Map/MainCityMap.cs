@@ -8,6 +8,6 @@ namespace DarkGod.Main
     public class MainCityMap : MonoBehaviour
     {
         //定义一个数组，存储npc的Transform
-        public List<Transform> NpcPosTrans;
+        public List<Transform> NpcPosTrans = new List<Transform>();
     }
 }

@@ -25,6 +25,7 @@ Material:
   - _CUSTOMSPECULARCOLORVARENUM_DISABLE
   - _CUSTOMSPECULARVARENUM_DISABLE
   - _CUSTOM_RAMP_MAPPING_ON
+  - _DRAW_OVERLAY_ON
   - _OUTLINENORMALCHANNEL_TANGENT
   - _OUTLINE_ON
   - _RIM_LIGHTING_ON
@@ -165,7 +166,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 1
+    - _AdditionalLightIntensity: 1
+    - _Alpha: 0.9
     - _AlphaClip: 0
     - _AlphaTestThreshold: 0.1
     - _AlphaToMask: 0
@@ -216,7 +218,7 @@ Material:
     - _DstBlendModeAlpha: 0
     - _DstBlendModeAlphaOverlay: 0
     - _DstBlendModeColor: 0
-    - _DstBlendModeColorOverlay: 0
+    - _DstBlendModeColorOverlay: 10
     - _EmissionIntensity: 1
     - _EmissionMixBaseColorFac: 1
     - _EmissionThreshold: 0.5
@@ -359,14 +361,14 @@ Material:
     - _SrcBlendModeAlpha: 1
     - _SrcBlendModeAlphaOverlay: 1
     - _SrcBlendModeColor: 1
-    - _SrcBlendModeColorOverlay: 1
-    - _StencilComp: 0
-    - _StencilCompOverlay: 0
+    - _SrcBlendModeColorOverlay: 5
+    - _StencilComp: 7
+    - _StencilCompOverlay: 3
     - _StencilFailOp: 0
-    - _StencilPassOp: 0
+    - _StencilPassOp: 2
     - _StencilReadMask: 255
-    - _StencilRef: 0
-    - _StencilRefOverlay: 0
+    - _StencilRef: 5
+    - _StencilRefOverlay: 7
     - _StencilWriteMask: 255
     - _StencilZFailOp: 0
     - _StockDarkWidth: 0.5
@@ -380,7 +382,7 @@ Material:
     - _UseAlphaClipping: 0
     - _UseAutoBrightness: 1
     - _UseBackFaceUV2: 0
-    - _UseDrawOverlay: 0
+    - _UseDrawOverlay: 1
     - _UseEmission: 0
     - _UseLutMapToggle: 0
     - _UseNormalMap: 0

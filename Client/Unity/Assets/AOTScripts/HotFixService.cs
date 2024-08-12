@@ -3,45 +3,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using YooAsset;
+using HotFix.Config;
 
-[RequireComponent(typeof(HotFixConfig))]
-public class HotFixService : MonoBehaviour
+namespace HotFix.Service
 {
-    public static HotFixService Instance { get; private set; }
-
-    public void InitService()
+    [RequireComponent(typeof(HotFixConfig))]
+    public class HotFixService : MonoBehaviour
     {
-        Instance = this;
-        InitPatchService();
-    }
+        public static HotFixService Instance { get; private set; }
 
-    private void InitPatchService()
-    {
-        if (GetComponent<SangoPatchRoot>() == null)
+        public void InitService()
         {
-            this.gameObject.AddComponent<SangoPatchRoot>();
+            Instance = this;
+            InitPatchService();
         }
-        PatchService.Instance.SetConfig(GetPatchConfig());
-        GetComponent<SangoPatchRoot>().OnInit();
-        PatchService.Instance.Initialize();
-    }
 
-    private PatchConfig GetPatchConfig()
-    {
-        PatchConfig patchConfig = new PatchConfig();
-        HotFixConfig hotFixConfig = GetComponent<HotFixConfig>();
-        patchConfig.HostServerIP = hotFixConfig.HostServerIP;
-        patchConfig.AppId = hotFixConfig.AppId;
-        patchConfig.AppVersion = hotFixConfig.AppVersion;
-        patchConfig.PackageName = hotFixConfig.PackageName;
-        patchConfig.appendTimeTicks = hotFixConfig.AppendTimeTicks;
-        patchConfig.PlayMode = hotFixConfig.PlayMode;
-        patchConfig.BuildPipeline = hotFixConfig.BuildPipeline;
-        patchConfig.GameRootObjectName = hotFixConfig.GameRootObjectName;
-        patchConfig.GameRootParentTransformName = hotFixConfig.GameRootParentTransformName;
-        patchConfig.HotUpdateDllName = hotFixConfig.HotUpdateDllName;
-        patchConfig.AOTMetaAssemblyNames = hotFixConfig.AOTMetaAssemblyNames;
-        return patchConfig;
+        private void InitPatchService()
+        {
+            if (GetComponent<SangoPatchRoot>() == null)
+            {
+                this.gameObject.AddComponent<SangoPatchRoot>();
+            }
+            PatchService.Instance.SetConfig(GetPatchConfig());
+            GetComponent<SangoPatchRoot>().OnInit();
+            PatchService.Instance.Initialize();
+        }
+
+        private PatchConfig GetPatchConfig()
+        {
+            PatchConfig patchConfig = new PatchConfig();
+            HotFixConfig hotFixConfig = GetComponent<HotFixConfig>();
+            patchConfig.HostServerIP = hotFixConfig.HostServerIP;
+            patchConfig.AppId = hotFixConfig.AppId;
+            patchConfig.AppVersion = hotFixConfig.AppVersion;
+            patchConfig.PackageName = hotFixConfig.PackageName;
+            patchConfig.appendTimeTicks = hotFixConfig.AppendTimeTicks;
+            patchConfig.PlayMode = hotFixConfig.PlayMode;
+            patchConfig.BuildPipeline = hotFixConfig.BuildPipeline;
+            patchConfig.GameRootObjectName = hotFixConfig.GameRootObjectName;
+            patchConfig.GameRootParentTransformName = hotFixConfig.GameRootParentTransformName;
+            patchConfig.HotUpdateDllName = hotFixConfig.HotUpdateDllName;
+            patchConfig.AOTMetaAssemblyNames = hotFixConfig.AOTMetaAssemblyNames;
+            return patchConfig;
+        }
     }
 }

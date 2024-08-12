@@ -164,6 +164,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AdditionalLightIntensity: 1
     - _Alpha: 1
     - _AlphaClip: 0
     - _AlphaTestThreshold: 0.1
@@ -252,7 +253,7 @@ Material:
     - _OutlineFixRange4: 0.1
     - _OutlineFixSide: 0.6
     - _OutlineNormalChannel: 1
-    - _OutlineScale: 0.187
+    - _OutlineScale: 0.1
     - _OutlineUseLutMapToggle: 0
     - _OutlineWidth: 0.1
     - _Parallax: 0.02
@@ -359,12 +360,12 @@ Material:
     - _SrcBlendModeAlphaOverlay: 1
     - _SrcBlendModeColor: 1
     - _SrcBlendModeColorOverlay: 1
-    - _StencilComp: 0
+    - _StencilComp: 7
     - _StencilCompOverlay: 0
     - _StencilFailOp: 0
-    - _StencilPassOp: 0
+    - _StencilPassOp: 2
     - _StencilReadMask: 255
-    - _StencilRef: 0
+    - _StencilRef: 13
     - _StencilRefOverlay: 0
     - _StencilWriteMask: 255
     - _StencilZFailOp: 0

@@ -161,6 +161,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AdditionalLightIntensity: 1
     - _Alpha: 0.5
     - _AlphaClip: 0
     - _AlphaTestThreshold: 0.1
@@ -209,7 +210,7 @@ Material:
     - _DitherAlpha: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _DstBlendModeAlpha: 10
+    - _DstBlendModeAlpha: 0
     - _DstBlendModeAlphaOverlay: 0
     - _DstBlendModeColor: 10
     - _DstBlendModeColorOverlay: 0
@@ -354,7 +355,7 @@ Material:
     - _SrcBlendAlpha: 1
     - _SrcBlendModeAlpha: 1
     - _SrcBlendModeAlphaOverlay: 1
-    - _SrcBlendModeColor: 1
+    - _SrcBlendModeColor: 5
     - _SrcBlendModeColorOverlay: 1
     - _StencilComp: 0
     - _StencilCompOverlay: 0
