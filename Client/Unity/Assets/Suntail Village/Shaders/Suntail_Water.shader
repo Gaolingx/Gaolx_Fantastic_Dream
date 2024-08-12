@@ -198,7 +198,7 @@ Shader "Raygeas/Suntail Water"
 			#pragma multi_compile_fog
 			#define ASE_FOG 1
 			#define _NORMALMAP 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 			#define REQUIRE_DEPTH_TEXTURE 1
 			#define REQUIRE_OPAQUE_TEXTURE 1
 
@@ -911,7 +911,7 @@ Shader "Raygeas/Suntail Water"
 			#define _NORMAL_DROPOFF_TS 1
 			#define ASE_FOG 1
 			#define _NORMALMAP 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 			#define REQUIRE_DEPTH_TEXTURE 1
 
 
@@ -1209,7 +1209,7 @@ Shader "Raygeas/Suntail Water"
 			#define _NORMAL_DROPOFF_TS 1
 			#define ASE_FOG 1
 			#define _NORMALMAP 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 			#define REQUIRE_DEPTH_TEXTURE 1
 			#define REQUIRE_OPAQUE_TEXTURE 1
 
@@ -1583,7 +1583,7 @@ Shader "Raygeas/Suntail Water"
 			#define _NORMAL_DROPOFF_TS 1
 			#define ASE_FOG 1
 			#define _NORMALMAP 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 			#define REQUIRE_DEPTH_TEXTURE 1
 
 
@@ -1944,7 +1944,7 @@ Shader "Raygeas/Suntail Water"
 			#pragma multi_compile_fog
 			#define ASE_FOG 1
 			#define _NORMALMAP 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 			#define REQUIRE_DEPTH_TEXTURE 1
 			#define REQUIRE_OPAQUE_TEXTURE 1
 
@@ -2517,7 +2517,7 @@ Shader "Raygeas/Suntail Water"
 			#define _NORMAL_DROPOFF_TS 1
 			#define ASE_FOG 1
 			#define _NORMALMAP 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 			#define REQUIRE_DEPTH_TEXTURE 1
 
 
@@ -2779,7 +2779,7 @@ Shader "Raygeas/Suntail Water"
 			#define _NORMAL_DROPOFF_TS 1
 			#define ASE_FOG 1
 			#define _NORMALMAP 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 			#define REQUIRE_DEPTH_TEXTURE 1
 
 
@@ -3224,4 +3224,4 @@ WireConnection;367;3;365;0
 WireConnection;367;4;16;0
 WireConnection;367;6;350;0
 ASEEND*/
-//CHKSM=D49375D8C0E76C6E729ED21D1D8F70BFD86B71BA
+//CHKSM=CA611F2781AE679048109E9D8FE4370D7322C9F2

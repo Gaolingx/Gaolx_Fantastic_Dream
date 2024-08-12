@@ -211,7 +211,7 @@ Shader "Surface"
 			#pragma multi_compile_fog
 			#define ASE_FOG 1
 			#define _NORMALMAP 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 
 
 			#pragma shader_feature_local _RECEIVE_SHADOWS_OFF
@@ -934,7 +934,7 @@ Shader "Surface"
 			#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
 			#define ASE_FOG 1
 			#define _NORMALMAP 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 
 
 			#pragma vertex vert
@@ -1256,7 +1256,7 @@ Shader "Surface"
 			#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
 			#define ASE_FOG 1
 			#define _NORMALMAP 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 
 
 			#pragma vertex vert
@@ -1546,7 +1546,7 @@ Shader "Surface"
 			#define _NORMAL_DROPOFF_TS 1
 			#define ASE_FOG 1
 			#define _NORMALMAP 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 
 
 			#pragma vertex vert
@@ -1908,7 +1908,7 @@ Shader "Surface"
 			#define _NORMAL_DROPOFF_TS 1
 			#define ASE_FOG 1
 			#define _NORMALMAP 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 
 
 			#pragma vertex vert
@@ -2235,7 +2235,7 @@ Shader "Surface"
 			#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
 			#define ASE_FOG 1
 			#define _NORMALMAP 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 
 
 			#pragma vertex vert
@@ -2258,7 +2258,17 @@ Shader "Surface"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/LODCrossFade.hlsl"
             #endif
 
-			
+			#define ASE_NEEDS_FRAG_WORLD_POSITION
+			#define ASE_NEEDS_FRAG_WORLD_NORMAL
+			#define ASE_NEEDS_FRAG_POSITION
+			#define ASE_NEEDS_FRAG_WORLD_TANGENT
+			#define ASE_NEEDS_VERT_NORMAL
+			#define ASE_NEEDS_VERT_TANGENT
+			#pragma shader_feature_local _COVERAGE_ON
+			#pragma shader_feature_local _BLENDNORMALS_ON
+			#pragma shader_feature_local _BLENDINGOVERLAYTYPE_WORLD_NORMAL _BLENDINGOVERLAYTYPE_VERTEX_POSITION
+			#pragma shader_feature_local _COVERAGEOVERLAYTYPE_WORLD_NORMAL _COVERAGEOVERLAYTYPE_VERTEX_POSITION
+
 
 			#if defined(ASE_EARLY_Z_DEPTH_OPTIMIZE) && (SHADER_TARGET >= 45)
 				#define ASE_SV_DEPTH SV_DepthLessEqual
@@ -2273,7 +2283,7 @@ Shader "Surface"
 				float4 positionOS : POSITION;
 				float3 normalOS : NORMAL;
 				float4 tangentOS : TANGENT;
-				
+				float4 ase_texcoord : TEXCOORD0;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -2289,7 +2299,9 @@ Shader "Surface"
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR) && defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
 					float4 shadowCoord : TEXCOORD4;
 				#endif
-				
+				float4 ase_texcoord5 : TEXCOORD5;
+				float4 ase_texcoord6 : TEXCOORD6;
+				float4 ase_texcoord7 : TEXCOORD7;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -2343,9 +2355,28 @@ Shader "Surface"
 				int _PassValue;
 			#endif
 
+			sampler2D _SurfaceNRM;
+			sampler2D _CoverageNRM;
+			sampler2D _BlendingNoise;
+			sampler2D _NoiseMaskCoverage;
+
+
+			float3 PerturbNormal107_g4( float3 surf_pos, float3 surf_norm, float height, float scale )
+			{
+				// "Bump Mapping Unparametrized Surfaces on the GPU" by Morten S. Mikkelsen
+				float3 vSigmaS = ddx( surf_pos );
+				float3 vSigmaT = ddy( surf_pos );
+				float3 vN = surf_norm;
+				float3 vR1 = cross( vSigmaT , vN );
+				float3 vR2 = cross( vN , vSigmaS );
+				float fDet = dot( vSigmaS , vR1 );
+				float dBs = ddx( height );
+				float dBt = ddy( height );
+				float3 vSurfGrad = scale * 0.05 * sign( fDet ) * ( dBs * vR1 + dBt * vR2 );
+				return normalize ( abs( fDet ) * vN - vSurfGrad );
+			}
 			
 
-			
 			VertexOutput VertexFunction( VertexInput v  )
 			{
 				VertexOutput o = (VertexOutput)0;
@@ -2353,7 +2384,18 @@ Shader "Surface"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
+				float3 ase_worldNormal = TransformObjectToWorldNormal(v.normalOS);
+				float3 ase_worldTangent = TransformObjectToWorldDir(v.tangentOS.xyz);
+				float ase_vertexTangentSign = v.tangentOS.w * ( unity_WorldTransformParams.w >= 0.0 ? 1.0 : -1.0 );
+				float3 ase_worldBitangent = cross( ase_worldNormal, ase_worldTangent ) * ase_vertexTangentSign;
+				o.ase_texcoord7.xyz = ase_worldBitangent;
 				
+				o.ase_texcoord5.xy = v.ase_texcoord.xy;
+				o.ase_texcoord6 = v.positionOS;
+				
+				//setting value to unused interpolator channels and avoid initialization warnings
+				o.ase_texcoord5.zw = 0;
+				o.ase_texcoord7.w = 0;
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.positionOS.xyz;
 				#else
@@ -2398,7 +2440,8 @@ Shader "Surface"
 				float4 vertex : INTERNALTESSPOS;
 				float3 normalOS : NORMAL;
 				float4 tangentOS : TANGENT;
-				
+				float4 ase_texcoord : TEXCOORD0;
+
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -2416,7 +2459,7 @@ Shader "Surface"
 				o.vertex = v.positionOS;
 				o.normalOS = v.normalOS;
 				o.tangentOS = v.tangentOS;
-				
+				o.ase_texcoord = v.ase_texcoord;
 				return o;
 			}
 
@@ -2456,7 +2499,7 @@ Shader "Surface"
 				o.positionOS = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
 				o.normalOS = patch[0].normalOS * bary.x + patch[1].normalOS * bary.y + patch[2].normalOS * bary.z;
 				o.tangentOS = patch[0].tangentOS * bary.x + patch[1].tangentOS * bary.y + patch[2].tangentOS * bary.z;
-				
+				o.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
@@ -2506,9 +2549,60 @@ Shader "Surface"
 					#endif
 				#endif
 
+				float2 uv_SurfaceNRM = IN.ase_texcoord5.xy * _SurfaceNRM_ST.xy + _SurfaceNRM_ST.zw;
+				float3 tex2DNode6 = UnpackNormalScale( tex2D( _SurfaceNRM, uv_SurfaceNRM ), 1.0f );
+				float2 uv_CoverageNRM = IN.ase_texcoord5.xy * _CoverageNRM_ST.xy + _CoverageNRM_ST.zw;
+				float3 tex2DNode72 = UnpackNormalScale( tex2D( _CoverageNRM, uv_CoverageNRM ), 1.0f );
+				float3 temp_output_97_0 = BlendNormal( tex2DNode6 , tex2DNode72 );
+				#ifdef _BLENDNORMALS_ON
+				float3 staticSwitch158 = temp_output_97_0;
+				#else
+				float3 staticSwitch158 = tex2DNode72;
+				#endif
+				#ifdef _BLENDNORMALS_ON
+				float3 staticSwitch160 = temp_output_97_0;
+				#else
+				float3 staticSwitch160 = tex2DNode72;
+				#endif
+				float3 surf_pos107_g4 = WorldPosition;
+				float3 surf_norm107_g4 = WorldNormal;
+				#if defined(_BLENDINGOVERLAYTYPE_WORLD_NORMAL)
+				float staticSwitch210 = WorldNormal.y;
+				#elif defined(_BLENDINGOVERLAYTYPE_VERTEX_POSITION)
+				float staticSwitch210 = IN.ase_texcoord6.xyz.y;
+				#else
+				float staticSwitch210 = WorldNormal.y;
+				#endif
+				float4 saferPower238 = abs( ( ( ( staticSwitch210 + _BlendingLevel ) * ( _BlendingFade * 2 ) ) + tex2D( _BlendingNoise, ( IN.ase_texcoord6.xyz * _TillingNoiseBlending ).xy ) ) );
+				float4 temp_cast_1 = (( _Noiselending * 15 )).xxxx;
+				float4 BlendingMask215 = saturate( pow( saferPower238 , temp_cast_1 ) );
+				#if defined(_COVERAGEOVERLAYTYPE_WORLD_NORMAL)
+				float staticSwitch164 = WorldNormal.y;
+				#elif defined(_COVERAGEOVERLAYTYPE_VERTEX_POSITION)
+				float staticSwitch164 = IN.ase_texcoord6.xyz.y;
+				#else
+				float staticSwitch164 = WorldNormal.y;
+				#endif
+				float saferPower169 = abs( ( ( staticSwitch164 + _CoverageLevel ) * ( _CoverageFade * 5 ) ) );
+				float4 saferPower244 = abs( ( pow( saferPower169 , ( _CoverageContrast * 15 ) ) + tex2D( _NoiseMaskCoverage, ( IN.ase_texcoord6.xyz * _TillingNoiseCoverage ).xy ) ) );
+				float4 temp_cast_3 = (( _NoiseCovrage * 15 )).xxxx;
+				float4 CoverageMask37 = saturate( pow( saferPower244 , temp_cast_3 ) );
+				float height107_g4 = ( ( BlendingMask215 + CoverageMask37 ) * ( _CoverageThicknessLevel * 10 ) ).r;
+				float scale107_g4 = 1.0;
+				float3 localPerturbNormal107_g4 = PerturbNormal107_g4( surf_pos107_g4 , surf_norm107_g4 , height107_g4 , scale107_g4 );
+				float3 ase_worldBitangent = IN.ase_texcoord7.xyz;
+				float3x3 ase_worldToTangent = float3x3(WorldTangent.xyz,ase_worldBitangent,WorldNormal);
+				float3 worldToTangentDir42_g4 = mul( ase_worldToTangent, localPerturbNormal107_g4);
+				float3 lerpResult73 = lerp( tex2DNode6 , ( staticSwitch158 + BlendNormal( staticSwitch160 , worldToTangentDir42_g4 ) ) , CoverageMask37.rgb);
+				#ifdef _COVERAGE_ON
+				float3 staticSwitch156 = lerpResult73;
+				#else
+				float3 staticSwitch156 = tex2DNode6;
+				#endif
+				float3 Normal75 = staticSwitch156;
 				
 
-				float3 Normal = float3(0, 0, 1);
+				float3 Normal = Normal75;
 				float Alpha = 1;
 				float AlphaClipThreshold = 0.5;
 				#ifdef ASE_DEPTH_WRITE_ON
@@ -2580,7 +2674,7 @@ Shader "Surface"
 			#pragma multi_compile_fog
 			#define ASE_FOG 1
 			#define _NORMALMAP 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 
 
 			#pragma shader_feature_local _RECEIVE_SHADOWS_OFF
@@ -2629,7 +2723,17 @@ Shader "Surface"
 				#define ENABLE_TERRAIN_PERPIXEL_NORMAL
 			#endif
 
-			
+			#define ASE_NEEDS_FRAG_WORLD_NORMAL
+			#define ASE_NEEDS_FRAG_POSITION
+			#define ASE_NEEDS_FRAG_WORLD_POSITION
+			#define ASE_NEEDS_FRAG_WORLD_TANGENT
+			#define ASE_NEEDS_FRAG_WORLD_BITANGENT
+			#pragma shader_feature_local _BLENDING_ON
+			#pragma shader_feature_local _COVERAGE_ON
+			#pragma shader_feature_local _COVERAGEOVERLAYTYPE_WORLD_NORMAL _COVERAGEOVERLAYTYPE_VERTEX_POSITION
+			#pragma shader_feature_local _BLENDINGOVERLAYTYPE_WORLD_NORMAL _BLENDINGOVERLAYTYPE_VERTEX_POSITION
+			#pragma shader_feature_local _BLENDNORMALS_ON
+
 
 			#if defined(ASE_EARLY_Z_DEPTH_OPTIMIZE) && (SHADER_TARGET >= 45)
 				#define ASE_SV_DEPTH SV_DepthLessEqual
@@ -2666,7 +2770,8 @@ Shader "Surface"
 				#if defined(DYNAMICLIGHTMAP_ON)
 				float2 dynamicLightmapUV : TEXCOORD7;
 				#endif
-				
+				float4 ase_texcoord8 : TEXCOORD8;
+				float4 ase_texcoord9 : TEXCOORD9;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -2720,11 +2825,32 @@ Shader "Surface"
 				int _PassValue;
 			#endif
 
-			
+			sampler2D _SurfaceDIFF;
+			sampler2D _CoverageDIFF;
+			sampler2D _NoiseMaskCoverage;
+			sampler2D _BlendingNoise;
+			sampler2D _SurfaceNRM;
+			sampler2D _CoverageNRM;
+
 
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/UnityGBuffer.hlsl"
 
+			float3 PerturbNormal107_g4( float3 surf_pos, float3 surf_norm, float height, float scale )
+			{
+				// "Bump Mapping Unparametrized Surfaces on the GPU" by Morten S. Mikkelsen
+				float3 vSigmaS = ddx( surf_pos );
+				float3 vSigmaT = ddy( surf_pos );
+				float3 vN = surf_norm;
+				float3 vR1 = cross( vSigmaT , vN );
+				float3 vR2 = cross( vN , vSigmaS );
+				float fDet = dot( vSigmaS , vR1 );
+				float dBs = ddx( height );
+				float dBt = ddy( height );
+				float3 vSurfGrad = scale * 0.05 * sign( fDet ) * ( dBs * vR1 + dBt * vR2 );
+				return normalize ( abs( fDet ) * vN - vSurfGrad );
+			}
 			
+
 			VertexOutput VertexFunction( VertexInput v  )
 			{
 				VertexOutput o = (VertexOutput)0;
@@ -2732,7 +2858,11 @@ Shader "Surface"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
+				o.ase_texcoord8.xy = v.texcoord.xy;
+				o.ase_texcoord9 = v.positionOS;
 				
+				//setting value to unused interpolator channels and avoid initialization warnings
+				o.ase_texcoord8.zw = 0;
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.positionOS.xyz;
 				#else
@@ -2921,14 +3051,90 @@ Shader "Surface"
 
 				WorldViewDirection = SafeNormalize( WorldViewDirection );
 
+				float2 uv_SurfaceDIFF = IN.ase_texcoord8.xy * _SurfaceDIFF_ST.xy + _SurfaceDIFF_ST.zw;
+				float4 temp_output_3_0 = ( _SurfaceColor * tex2D( _SurfaceDIFF, uv_SurfaceDIFF ) );
+				float2 uv_CoverageDIFF = IN.ase_texcoord8.xy * _CoverageDIFF_ST.xy + _CoverageDIFF_ST.zw;
+				float4 temp_output_46_0 = ( _CoverageColor * tex2D( _CoverageDIFF, uv_CoverageDIFF ) );
+				#if defined(_COVERAGEOVERLAYTYPE_WORLD_NORMAL)
+				float staticSwitch164 = WorldNormal.y;
+				#elif defined(_COVERAGEOVERLAYTYPE_VERTEX_POSITION)
+				float staticSwitch164 = IN.ase_texcoord9.xyz.y;
+				#else
+				float staticSwitch164 = WorldNormal.y;
+				#endif
+				float saferPower169 = abs( ( ( staticSwitch164 + _CoverageLevel ) * ( _CoverageFade * 5 ) ) );
+				float4 saferPower244 = abs( ( pow( saferPower169 , ( _CoverageContrast * 15 ) ) + tex2D( _NoiseMaskCoverage, ( IN.ase_texcoord9.xyz * _TillingNoiseCoverage ).xy ) ) );
+				float4 temp_cast_1 = (( _NoiseCovrage * 15 )).xxxx;
+				float4 CoverageMask37 = saturate( pow( saferPower244 , temp_cast_1 ) );
+				float4 lerpResult26 = lerp( temp_output_3_0 , temp_output_46_0 , CoverageMask37);
+				#ifdef _COVERAGE_ON
+				float4 staticSwitch136 = lerpResult26;
+				#else
+				float4 staticSwitch136 = temp_output_3_0;
+				#endif
+				#if defined(_BLENDINGOVERLAYTYPE_WORLD_NORMAL)
+				float staticSwitch210 = WorldNormal.y;
+				#elif defined(_BLENDINGOVERLAYTYPE_VERTEX_POSITION)
+				float staticSwitch210 = IN.ase_texcoord9.xyz.y;
+				#else
+				float staticSwitch210 = WorldNormal.y;
+				#endif
+				float4 saferPower238 = abs( ( ( ( staticSwitch210 + _BlendingLevel ) * ( _BlendingFade * 2 ) ) + tex2D( _BlendingNoise, ( IN.ase_texcoord9.xyz * _TillingNoiseBlending ).xy ) ) );
+				float4 temp_cast_3 = (( _Noiselending * 15 )).xxxx;
+				float4 BlendingMask215 = saturate( pow( saferPower238 , temp_cast_3 ) );
+				float4 lerpResult194 = lerp( staticSwitch136 , temp_output_46_0 , BlendingMask215);
+				#ifdef _BLENDING_ON
+				float4 staticSwitch196 = lerpResult194;
+				#else
+				float4 staticSwitch196 = staticSwitch136;
+				#endif
+				float4 Albedo19 = staticSwitch196;
+				
+				float2 uv_SurfaceNRM = IN.ase_texcoord8.xy * _SurfaceNRM_ST.xy + _SurfaceNRM_ST.zw;
+				float3 tex2DNode6 = UnpackNormalScale( tex2D( _SurfaceNRM, uv_SurfaceNRM ), 1.0f );
+				float2 uv_CoverageNRM = IN.ase_texcoord8.xy * _CoverageNRM_ST.xy + _CoverageNRM_ST.zw;
+				float3 tex2DNode72 = UnpackNormalScale( tex2D( _CoverageNRM, uv_CoverageNRM ), 1.0f );
+				float3 temp_output_97_0 = BlendNormal( tex2DNode6 , tex2DNode72 );
+				#ifdef _BLENDNORMALS_ON
+				float3 staticSwitch158 = temp_output_97_0;
+				#else
+				float3 staticSwitch158 = tex2DNode72;
+				#endif
+				#ifdef _BLENDNORMALS_ON
+				float3 staticSwitch160 = temp_output_97_0;
+				#else
+				float3 staticSwitch160 = tex2DNode72;
+				#endif
+				float3 surf_pos107_g4 = WorldPosition;
+				float3 surf_norm107_g4 = WorldNormal;
+				float height107_g4 = ( ( BlendingMask215 + CoverageMask37 ) * ( _CoverageThicknessLevel * 10 ) ).r;
+				float scale107_g4 = 1.0;
+				float3 localPerturbNormal107_g4 = PerturbNormal107_g4( surf_pos107_g4 , surf_norm107_g4 , height107_g4 , scale107_g4 );
+				float3x3 ase_worldToTangent = float3x3(WorldTangent,WorldBiTangent,WorldNormal);
+				float3 worldToTangentDir42_g4 = mul( ase_worldToTangent, localPerturbNormal107_g4);
+				float3 lerpResult73 = lerp( tex2DNode6 , ( staticSwitch158 + BlendNormal( staticSwitch160 , worldToTangentDir42_g4 ) ) , CoverageMask37.rgb);
+				#ifdef _COVERAGE_ON
+				float3 staticSwitch156 = lerpResult73;
+				#else
+				float3 staticSwitch156 = tex2DNode6;
+				#endif
+				float3 Normal75 = staticSwitch156;
+				
+				float lerpResult70 = lerp( _SurfaceSmoothness , _CoverageSmoothness , ( CoverageMask37 + BlendingMask215 ).r);
+				#ifdef _COVERAGE_ON
+				float staticSwitch157 = lerpResult70;
+				#else
+				float staticSwitch157 = _SurfaceSmoothness;
+				#endif
+				float Smoothness76 = staticSwitch157;
 				
 
-				float3 BaseColor = float3(0.5, 0.5, 0.5);
-				float3 Normal = float3(0, 0, 1);
+				float3 BaseColor = Albedo19.rgb;
+				float3 Normal = Normal75;
 				float3 Emission = 0;
 				float3 Specular = 0.5;
 				float Metallic = 0;
-				float Smoothness = 0.5;
+				float Smoothness = Smoothness76;
 				float Occlusion = 1;
 				float Alpha = 1;
 				float AlphaClipThreshold = 0.5;
@@ -3048,7 +3254,7 @@ Shader "Surface"
 			#define _NORMAL_DROPOFF_TS 1
 			#define ASE_FOG 1
 			#define _NORMALMAP 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 
 
 			#pragma vertex vert
@@ -3303,7 +3509,7 @@ Shader "Surface"
 			#define _NORMAL_DROPOFF_TS 1
 			#define ASE_FOG 1
 			#define _NORMALMAP 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 
 
 			#pragma vertex vert
@@ -3729,4 +3935,4 @@ WireConnection;175;0;20;0
 WireConnection;175;1;77;0
 WireConnection;175;4;78;0
 ASEEND*/
-//CHKSM=224D5B18ECA207DB44FC2A4C0F0641839202A41E
+//CHKSM=04AA617DABFBE5535D9968E4E047072970728F7C

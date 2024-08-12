@@ -197,7 +197,7 @@ Shader "Raygeas/Suntail Surface"
 			#pragma multi_compile _ DOTS_INSTANCING_ON
 			#define _EMISSION
 			#define _NORMALMAP 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 
 
 			#pragma shader_feature_local _RECEIVE_SHADOWS_OFF
@@ -830,7 +830,7 @@ Shader "Raygeas/Suntail Surface"
 			#pragma multi_compile _ DOTS_INSTANCING_ON
 			#define _EMISSION
 			#define _NORMALMAP 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 
 
 			#pragma vertex vert
@@ -1142,7 +1142,7 @@ Shader "Raygeas/Suntail Surface"
 			#pragma multi_compile _ DOTS_INSTANCING_ON
 			#define _EMISSION
 			#define _NORMALMAP 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 
 
 			#pragma vertex vert
@@ -1425,7 +1425,7 @@ Shader "Raygeas/Suntail Surface"
 			#define ASE_FOG 1
 			#define _EMISSION
 			#define _NORMALMAP 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 
 
 			#pragma vertex vert
@@ -1692,7 +1692,7 @@ Shader "Raygeas/Suntail Surface"
 			#pragma multi_compile _ DOTS_INSTANCING_ON
 			#define _EMISSION
 			#define _NORMALMAP 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 
 
 			#pragma vertex vert
@@ -2038,7 +2038,7 @@ Shader "Raygeas/Suntail Surface"
 			#pragma multi_compile _ DOTS_INSTANCING_ON
 			#define _EMISSION
 			#define _NORMALMAP 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 
 
 			#pragma shader_feature_local _RECEIVE_SHADOWS_OFF
@@ -2527,7 +2527,7 @@ Shader "Raygeas/Suntail Surface"
 			#define ASE_FOG 1
 			#define _EMISSION
 			#define _NORMALMAP 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 
 
 			#pragma vertex vert
@@ -2771,7 +2771,7 @@ Shader "Raygeas/Suntail Surface"
 			#define ASE_FOG 1
 			#define _EMISSION
 			#define _NORMALMAP 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 
 
 			#pragma vertex vert
@@ -3085,4 +3085,4 @@ WireConnection;270;2;261;0
 WireConnection;270;3;264;0
 WireConnection;270;4;265;0
 ASEEND*/
-//CHKSM=BC4C888CDEEFCB66D9922E38B32193094627CD4D
+//CHKSM=3DA1AA5386C9E8F052EFE7DCCC6ACC7548993962

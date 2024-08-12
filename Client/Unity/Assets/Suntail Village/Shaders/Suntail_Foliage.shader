@@ -193,7 +193,7 @@ Shader "Raygeas/Suntail Foliage"
 			#define ASE_FOG 1
 			#pragma multi_compile _ DOTS_INSTANCING_ON
 			#define _ALPHATEST_ON 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 
 
 			#pragma shader_feature_local _RECEIVE_SHADOWS_OFF
@@ -750,7 +750,7 @@ Shader "Raygeas/Suntail Foliage"
 			#define ASE_FOG 1
 			#pragma multi_compile _ DOTS_INSTANCING_ON
 			#define _ALPHATEST_ON 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 
 
 			#pragma vertex vert
@@ -1100,7 +1100,7 @@ Shader "Raygeas/Suntail Foliage"
 			#define ASE_FOG 1
 			#pragma multi_compile _ DOTS_INSTANCING_ON
 			#define _ALPHATEST_ON 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 
 
 			#pragma vertex vert
@@ -1416,7 +1416,7 @@ Shader "Raygeas/Suntail Foliage"
 
 			#define ASE_FOG 1
 			#define _ALPHATEST_ON 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 
 
 			#pragma vertex vert
@@ -1716,7 +1716,7 @@ Shader "Raygeas/Suntail Foliage"
 
 			#define ASE_FOG 1
 			#define _ALPHATEST_ON 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 
 
 			#pragma vertex vert
@@ -2025,7 +2025,7 @@ Shader "Raygeas/Suntail Foliage"
 			#define ASE_FOG 1
 			#pragma multi_compile _ DOTS_INSTANCING_ON
 			#define _ALPHATEST_ON 1
-			#define ASE_SRP_VERSION 140009
+			#define ASE_SRP_VERSION 140011
 
 
 			#pragma vertex vert
@@ -2622,4 +2622,4 @@ WireConnection;899;3;267;0
 WireConnection;899;4;156;0
 WireConnection;899;5;236;0
 ASEEND*/
-//CHKSM=3C750BAD1D0808067F2154F32AEED7EF785ABAD2
+//CHKSM=7359286714286C212108F06AA70911B708E333F4
