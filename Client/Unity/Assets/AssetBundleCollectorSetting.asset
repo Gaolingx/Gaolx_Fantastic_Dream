@@ -139,14 +139,6 @@ MonoBehaviour:
         FilterRuleName: CollectShader
         AssetTags: 
         UserData: 
-      - CollectPath: Assets/ResModules/Shaders/BasePBR/Base_SimplePBR
-        CollectorGUID: 7fce843f55662e646a128491b5a660e0
-        CollectorType: 0
-        AddressRuleName: AddressByFileName
-        PackRuleName: PackShader
-        FilterRuleName: CollectAll
-        AssetTags: 
-        UserData: 
       - CollectPath: Assets/ResModules/Shaders/Autodesk
         CollectorGUID: a97c6fceae4837e4bb6425a8ee2f7426
         CollectorType: 0
