@@ -381,7 +381,7 @@ Material:
     - _StencilFailOp: 0
     - _StencilPassOp: 2
     - _StencilReadMask: 255
-    - _StencilRef: 13
+    - _StencilRef: 17
     - _StencilRefOverlay: 0
     - _StencilWriteMask: 255
     - _StencilZFailOp: 0

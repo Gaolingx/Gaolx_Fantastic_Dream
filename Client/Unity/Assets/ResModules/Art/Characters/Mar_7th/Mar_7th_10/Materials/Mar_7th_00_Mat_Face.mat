@@ -262,7 +262,7 @@ Material:
     - _OcclusionStrength: 1
     - _OutlineFixFront: 0.05
     - _OutlineFixRange1: 0.1
-    - _OutlineFixRange2: 0.09
+    - _OutlineFixRange2: 0.1
     - _OutlineFixRange3: 0.1
     - _OutlineFixRange4: 0.1
     - _OutlineFixSide: 0.6
@@ -379,7 +379,7 @@ Material:
     - _StencilFailOp: 0
     - _StencilPassOp: 2
     - _StencilReadMask: 255
-    - _StencilRef: 7
+    - _StencilRef: 17
     - _StencilRefOverlay: 0
     - _StencilWriteMask: 255
     - _StencilZFailOp: 0

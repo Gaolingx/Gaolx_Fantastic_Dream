@@ -167,7 +167,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _AdditionalLightIntensity: 1
-    - _Alpha: 0.9
+    - _Alpha: 0.8
     - _AlphaClip: 0
     - _AlphaTestThreshold: 0.1
     - _AlphaToMask: 0
@@ -367,8 +367,8 @@ Material:
     - _StencilFailOp: 0
     - _StencilPassOp: 2
     - _StencilReadMask: 255
-    - _StencilRef: 5
-    - _StencilRefOverlay: 7
+    - _StencilRef: 15
+    - _StencilRefOverlay: 17
     - _StencilWriteMask: 255
     - _StencilZFailOp: 0
     - _StockDarkWidth: 0.5
