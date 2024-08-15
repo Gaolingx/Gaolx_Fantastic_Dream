@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-1502430264851106118
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -8,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Mar_7th_10_Mat_Hair
-  m_Shader: {fileID: 4800000, guid: 058e290f78df7d8418a839d4f60418fe, type: 3}
+  m_Shader: {fileID: 4800000, guid: 195e699b4d18fb843b7956758a4dd9e4, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -25,10 +38,10 @@ Material:
   - _CUSTOMSPECULARCOLORVARENUM_DISABLE
   - _CUSTOMSPECULARVARENUM_DISABLE
   - _CUSTOM_RAMP_MAPPING_ON
-  - _DRAW_OVERLAY_ON
   - _OUTLINENORMALCHANNEL_TANGENT
   - _OUTLINE_ON
   - _RIM_LIGHTING_ON
+  - _RIM_SHADOW_ON
   - _SPECULAR_ON
   m_InvalidKeywords:
   - _DAYTIME_MANUAL_ON_ON
@@ -37,7 +50,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2020
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
@@ -49,11 +62,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BodyCoolRamp:
-        m_Texture: {fileID: 2800000, guid: 4fb0145d2d0813f4ea7b861281ffc976, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BodyWarmRamp:
-        m_Texture: {fileID: 2800000, guid: 7e857007b3104614abfc647d1edcafc6, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -77,15 +90,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ExpressionMap:
-        m_Texture: {fileID: 2800000, guid: f7989cd1cbe59ec4f81cf47b958fca94, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FaceColorMap:
-        m_Texture: {fileID: 2800000, guid: ac649c1fa5b43714f92744313ee36beb, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FaceMap:
-        m_Texture: {fileID: 2800000, guid: fcf43e485bf07324c9d9ba3a2ebaa509, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HairColorMap:
@@ -145,11 +158,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _UpperBodyColorMap:
-        m_Texture: {fileID: 2800000, guid: 414eba2c8a4f70947ad7ced8221fa797, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _UpperBodyLightMap:
-        m_Texture: {fileID: 2800000, guid: 5200da141b1198e4ea0db993b2b274c8, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -167,7 +180,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _AdditionalLightIntensity: 1
-    - _Alpha: 0.8
+    - _Alpha: 1
     - _AlphaClip: 0
     - _AlphaTestThreshold: 0.1
     - _AlphaToMask: 0
@@ -177,8 +190,6 @@ Material:
     - _AutoBrightnessThresholdMin: 0.5
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
-    - _BlendOp: 0
-    - _BlendOpOverlay: 0
     - _BloomIntensity: 0
     - _BrightnessOffset: 0
     - _BumpFactor: 1
@@ -216,9 +227,7 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _DstBlendModeAlpha: 0
-    - _DstBlendModeAlphaOverlay: 0
     - _DstBlendModeColor: 0
-    - _DstBlendModeColorOverlay: 10
     - _EmissionIntensity: 1
     - _EmissionMixBaseColorFac: 1
     - _EmissionThreshold: 0.5
@@ -236,6 +245,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.4472136
     - _GlossyReflections: 1
+    - _HairBlendAlpha: 0.6
     - _IndirectLightFlattenNormal: 0
     - _IndirectLightIntensity: 0
     - _IndirectLightUsage: 0.5
@@ -329,7 +339,7 @@ Material:
     - _Smoothness: 0.4472136
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SpecularIntensity: 1
+    - _SpecularIntensity: 0.55
     - _SpecularIntensity0: 1
     - _SpecularIntensity1: 1
     - _SpecularIntensity2: 1
@@ -359,18 +369,7 @@ Material:
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _SrcBlendModeAlpha: 1
-    - _SrcBlendModeAlphaOverlay: 1
     - _SrcBlendModeColor: 1
-    - _SrcBlendModeColorOverlay: 5
-    - _StencilComp: 7
-    - _StencilCompOverlay: 3
-    - _StencilFailOp: 0
-    - _StencilPassOp: 2
-    - _StencilReadMask: 255
-    - _StencilRef: 15
-    - _StencilRefOverlay: 17
-    - _StencilWriteMask: 255
-    - _StencilZFailOp: 0
     - _StockDarkWidth: 0.5
     - _StockRoughness: 1
     - _StockSP: 0.25
@@ -382,12 +381,11 @@ Material:
     - _UseAlphaClipping: 0
     - _UseAutoBrightness: 1
     - _UseBackFaceUV2: 0
-    - _UseDrawOverlay: 1
     - _UseEmission: 0
     - _UseLutMapToggle: 0
     - _UseNormalMap: 0
     - _UseRimLight: 1
-    - _UseRimShadow: 0
+    - _UseRimShadow: 1
     - _UseStockings: 0
     - _WarmShadowMultColorFac0: 0
     - _WarmShadowMultColorFac1: 0
@@ -445,7 +443,7 @@ Material:
     - _MMDHeadBoneUp: {r: 0, g: 0, b: 0, a: 0}
     - _Maps_ST: {r: 1, g: 1, b: 0, a: 0}
     - _NoseLineColor: {r: 1, g: 0.635, b: 0.635, a: 1}
-    - _OutlineColor: {r: 0.764151, g: 0.764151, b: 0.764151, a: 1}
+    - _OutlineColor: {r: 0.8235294, g: 0.8235294, b: 0.8235294, a: 1}
     - _OutlineColor0: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor1: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor2: {r: 0, g: 0, b: 0, a: 1}
@@ -464,7 +462,7 @@ Material:
     - _RimColor5: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor6: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor7: {r: 1, g: 1, b: 1, a: 1}
-    - _RimShadowColor: {r: 1, g: 1, b: 1, a: 1}
+    - _RimShadowColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
     - _RimShadowColor0: {r: 1, g: 1, b: 1, a: 1}
     - _RimShadowColor1: {r: 1, g: 1, b: 1, a: 1}
     - _RimShadowColor2: {r: 1, g: 1, b: 1, a: 1}
@@ -496,16 +494,3 @@ Material:
     - _WarmShadowMultColor6: {r: 1, g: 1, b: 1, a: 1}
     - _WarmShadowMultColor7: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &18271606922058810
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 7

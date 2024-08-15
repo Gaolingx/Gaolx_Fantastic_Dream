@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-870828325956313758
+--- !u!114 &-8553109725567542739
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Mar_7th_00_Mat_Face
-  m_Shader: {fileID: 4800000, guid: 058e290f78df7d8418a839d4f60418fe, type: 3}
+  m_Shader: {fileID: 4800000, guid: 8f05d01dde61f1f49b90115187137ae7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -38,9 +38,9 @@ Material:
   - _CUSTOMSPECULARCOLORVARENUM_DISABLE
   - _CUSTOMSPECULARVARENUM_DISABLE
   - _CUSTOM_RAMP_MAPPING_ON
+  - _EMISSION_ON
   - _OUTLINENORMALCHANNEL_TANGENT
   - _OUTLINE_ON
-  - _RIM_LIGHTING_ON
   - _SPECULAR_ON
   m_InvalidKeywords:
   - _DAYTIME_MANUAL_ON_ON
@@ -49,7 +49,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2010
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
@@ -101,19 +101,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HairColorMap:
-        m_Texture: {fileID: 2800000, guid: dd0848b65289911498eba763214afc19, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HairCoolRamp:
-        m_Texture: {fileID: 2800000, guid: b23f7c2ef69e3b14e8010a692aa59c57, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HairLightMap:
-        m_Texture: {fileID: 2800000, guid: 3abc2130470a29a478f109705a9da2ef, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HairWarmRamp:
-        m_Texture: {fileID: 2800000, guid: 62a28fd4b57fa37458fd1e7cfe5ad32f, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _LowerBodyColorMap:
@@ -157,11 +157,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _UpperBodyColorMap:
-        m_Texture: {fileID: 2800000, guid: 414eba2c8a4f70947ad7ced8221fa797, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _UpperBodyLightMap:
-        m_Texture: {fileID: 2800000, guid: 5200da141b1198e4ea0db993b2b274c8, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -189,8 +189,6 @@ Material:
     - _AutoBrightnessThresholdMin: 0.5
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
-    - _BlendOp: 0
-    - _BlendOpOverlay: 0
     - _BloomIntensity: 0
     - _BrightnessOffset: 0
     - _BumpFactor: 1
@@ -228,9 +226,7 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _DstBlendModeAlpha: 0
-    - _DstBlendModeAlphaOverlay: 0
     - _DstBlendModeColor: 0
-    - _DstBlendModeColorOverlay: 0
     - _EmissionIntensity: 1
     - _EmissionMixBaseColorFac: 1
     - _EmissionThreshold: 0.5
@@ -248,6 +244,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.4472136
     - _GlossyReflections: 1
+    - _HairBlendAlpha: 0.6
     - _IndirectLightFlattenNormal: 0
     - _IndirectLightIntensity: 0
     - _IndirectLightUsage: 0.5
@@ -300,7 +297,7 @@ Material:
     - _RimEdgeSoftness5: 0.05
     - _RimEdgeSoftness6: 0.05
     - _RimEdgeSoftness7: 0.05
-    - _RimIntensity: 0.3
+    - _RimIntensity: 0.5
     - _RimIntensityBackFace: 0
     - _RimShadowCt: 1
     - _RimShadowFeather: 0.01
@@ -371,18 +368,7 @@ Material:
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _SrcBlendModeAlpha: 1
-    - _SrcBlendModeAlphaOverlay: 1
     - _SrcBlendModeColor: 1
-    - _SrcBlendModeColorOverlay: 1
-    - _StencilComp: 7
-    - _StencilCompOverlay: 0
-    - _StencilFailOp: 0
-    - _StencilPassOp: 2
-    - _StencilReadMask: 255
-    - _StencilRef: 17
-    - _StencilRefOverlay: 0
-    - _StencilWriteMask: 255
-    - _StencilZFailOp: 0
     - _StockDarkWidth: 0.5
     - _StockRoughness: 1
     - _StockSP: 0.25
@@ -394,11 +380,10 @@ Material:
     - _UseAlphaClipping: 0
     - _UseAutoBrightness: 1
     - _UseBackFaceUV2: 0
-    - _UseDrawOverlay: 0
-    - _UseEmission: 0
+    - _UseEmission: 1
     - _UseLutMapToggle: 0
     - _UseNormalMap: 0
-    - _UseRimLight: 1
+    - _UseRimLight: 0
     - _UseRimShadow: 0
     - _UseStockings: 0
     - _WarmShadowMultColorFac0: 0
@@ -457,7 +442,7 @@ Material:
     - _MMDHeadBoneUp: {r: 0, g: 0, b: 0, a: 0}
     - _Maps_ST: {r: 1, g: 1, b: 0, a: 0}
     - _NoseLineColor: {r: 1, g: 0.635, b: 0.635, a: 1}
-    - _OutlineColor: {r: 0.764151, g: 0.764151, b: 0.764151, a: 1}
+    - _OutlineColor: {r: 0.5471698, g: 0.5471698, b: 0.5471698, a: 1}
     - _OutlineColor0: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor1: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor2: {r: 0, g: 0, b: 0, a: 1}

@@ -1,6 +1,6 @@
 {
-    "ShaderTotalCount": 34,
-    "VariantTotalCount": 107,
+    "ShaderTotalCount": 36,
+    "VariantTotalCount": 88,
     "ShaderVariantInfos": [
         {
             "AssetPath": "Assets/ResModules/Art/Characters/DarkGod/Compond/MakeChar/Shader/MogoFakeLight.shader",
@@ -235,7 +235,7 @@
         {
             "AssetPath": "Assets/Suntail Village/Shaders/Suntail_Foliage.shader",
             "ShaderName": "Raygeas/Suntail Foliage",
-            "ShaderVariantCount": 16,
+            "ShaderVariantCount": 10,
             "ShaderVariantElements": [
                 {
                     "PassType": 8,
@@ -325,73 +325,6 @@
                         "_ENABLEWIND_ON",
                         "_MAIN_LIGHT_SHADOWS_SCREEN",
                         "_SCREEN_SPACE_OCCLUSION",
-                        "_SECONDCOLOROVERLAYTYPE_WORLD_POSITION",
-                        "_SHADOWS_SOFT"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_ADDITIONAL_LIGHTS",
-                        "_ANCHORTHEFOLIAGEBASE_ON",
-                        "_COLOR2ENABLE_ON",
-                        "_ENABLEWIND_ON",
-                        "_MAIN_LIGHT_SHADOWS_SCREEN",
-                        "_SECONDCOLOROVERLAYTYPE_UV_BASED",
-                        "_SHADOWS_SOFT"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_ADDITIONAL_LIGHTS",
-                        "_ANCHORTHEFOLIAGEBASE_ON",
-                        "_COLOR2ENABLE_ON",
-                        "_ENABLEWIND_ON",
-                        "_MAIN_LIGHT_SHADOWS_SCREEN",
-                        "_SECONDCOLOROVERLAYTYPE_WORLD_POSITION",
-                        "_SHADOWS_SOFT"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_ADDITIONAL_LIGHTS",
-                        "_ANCHORTHEFOLIAGEBASE_ON",
-                        "_ENABLEWIND_ON",
-                        "_MAIN_LIGHT_SHADOWS_SCREEN",
-                        "_SECONDCOLOROVERLAYTYPE_WORLD_POSITION",
-                        "_SHADOWS_SOFT"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_ADDITIONAL_LIGHTS",
-                        "_COLOR2ENABLE_ON",
-                        "_ENABLEWIND_ON",
-                        "_MAIN_LIGHT_SHADOWS_SCREEN",
-                        "_SECONDCOLOROVERLAYTYPE_UV_BASED",
-                        "_SHADOWS_SOFT"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_ADDITIONAL_LIGHTS",
-                        "_COLOR2ENABLE_ON",
-                        "_ENABLEWIND_ON",
-                        "_MAIN_LIGHT_SHADOWS_SCREEN",
-                        "_SECONDCOLOROVERLAYTYPE_WORLD_POSITION",
-                        "_SHADOWS_SOFT"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_ADDITIONAL_LIGHTS",
-                        "_ENABLEWIND_ON",
-                        "_MAIN_LIGHT_SHADOWS_SCREEN",
                         "_SECONDCOLOROVERLAYTYPE_WORLD_POSITION",
                         "_SHADOWS_SOFT"
                     ]
@@ -482,9 +415,122 @@
             ]
         },
         {
-            "AssetPath": "Packages/com.gaolingx.honkaistarrailtoonshader/Shaders/SRUniversal-main/Shaders/SRUniversal.shader",
-            "ShaderName": "HonkaiStarRailToon/Character",
-            "ShaderVariantCount": 20,
+            "AssetPath": "Packages/com.gaolingx.honkaistarrailtoonshader/Shaders/SRUniversal-main/Shaders/SRUniversalCharBody(Upper).shader",
+            "ShaderName": "HonkaiStarRailToon/Character/UpperBody",
+            "ShaderVariantCount": 4,
+            "ShaderVariantElements": [
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_AREA_UPPERBODY",
+                        "_AUTO_Brightness_ON",
+                        "_BACKFACEUV2_ON",
+                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
+                        "_CUSTOMBLOOMVARENUM_DISABLE",
+                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
+                        "_CUSTOMOUTLINEVARENUM_TINT",
+                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
+                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
+                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
+                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
+                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
+                        "_CUSTOMSPECULARVARENUM_DISABLE",
+                        "_CUSTOM_RAMP_MAPPING_ON",
+                        "_MAIN_LIGHT_SELF_SHADOWS",
+                        "_MAIN_LIGHT_SHADOWS_CASCADE",
+                        "_OUTLINENORMALCHANNEL_TANGENT",
+                        "_OUTLINE_ON",
+                        "_RIM_LIGHTING_ON",
+                        "_RIM_SHADOW_ON",
+                        "_SHADOWS_SOFT",
+                        "_SPECULAR_ON",
+                        "_STOCKINGS_ON"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_AREA_UPPERBODY",
+                        "_AUTO_Brightness_ON",
+                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
+                        "_CUSTOMBLOOMVARENUM_DISABLE",
+                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
+                        "_CUSTOMOUTLINEVARENUM_TINT",
+                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
+                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
+                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
+                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
+                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
+                        "_CUSTOMSPECULARVARENUM_DISABLE",
+                        "_CUSTOM_RAMP_MAPPING_ON",
+                        "_MAIN_LIGHT_SELF_SHADOWS",
+                        "_MAIN_LIGHT_SHADOWS_CASCADE",
+                        "_OUTLINENORMALCHANNEL_TANGENT",
+                        "_OUTLINE_ON",
+                        "_RIM_LIGHTING_ON",
+                        "_RIM_SHADOW_ON",
+                        "_SHADOWS_SOFT",
+                        "_SPECULAR_ON"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_AREA_UPPERBODY",
+                        "_AUTO_Brightness_ON",
+                        "_BACKFACEUV2_ON",
+                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
+                        "_CUSTOMBLOOMVARENUM_DISABLE",
+                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
+                        "_CUSTOMOUTLINEVARENUM_TINT",
+                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
+                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
+                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
+                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
+                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
+                        "_CUSTOMSPECULARVARENUM_DISABLE",
+                        "_CUSTOM_RAMP_MAPPING_ON",
+                        "_OUTLINENORMALCHANNEL_TANGENT",
+                        "_OUTLINE_ON",
+                        "_RIM_LIGHTING_ON",
+                        "_RIM_SHADOW_ON",
+                        "_SPECULAR_ON",
+                        "_STOCKINGS_ON"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_AREA_UPPERBODY",
+                        "_AUTO_Brightness_ON",
+                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
+                        "_CUSTOMBLOOMVARENUM_DISABLE",
+                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
+                        "_CUSTOMOUTLINEVARENUM_TINT",
+                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
+                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
+                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
+                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
+                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
+                        "_CUSTOMSPECULARVARENUM_DISABLE",
+                        "_CUSTOM_RAMP_MAPPING_ON",
+                        "_OUTLINENORMALCHANNEL_TANGENT",
+                        "_OUTLINE_ON",
+                        "_RIM_LIGHTING_ON",
+                        "_RIM_SHADOW_ON",
+                        "_SPECULAR_ON"
+                    ]
+                }
+            ]
+        },
+        {
+            "AssetPath": "Packages/com.gaolingx.honkaistarrailtoonshader/Shaders/SRUniversal-main/Shaders/SRUniversalCharFace.shader",
+            "ShaderName": "HonkaiStarRailToon/Character/Face",
+            "ShaderVariantCount": 2,
             "ShaderVariantElements": [
                 {
                     "PassType": 13,
@@ -504,376 +550,12 @@
                         "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
                         "_CUSTOMSPECULARVARENUM_DISABLE",
                         "_CUSTOM_RAMP_MAPPING_ON",
-                        "_MAIN_LIGHT_SHADOWS_CASCADE",
-                        "_MODEL_GAME",
-                        "_OUTLINENORMALCHANNEL_TANGENT",
-                        "_OUTLINE_ON",
-                        "_RIM_LIGHTING_ON",
-                        "_SHADOWS_SOFT",
-                        "_SPECULAR_ON"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_ADDITIONAL_LIGHTS",
-                        "_ADDITIONAL_LIGHT_SHADOWS",
-                        "_AREA_HAIR",
-                        "_AUTO_Brightness_ON",
-                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
-                        "_CUSTOMBLOOMVARENUM_DISABLE",
-                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
-                        "_CUSTOMOUTLINEVARENUM_TINT",
-                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
-                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
-                        "_CUSTOMSPECULARVARENUM_DISABLE",
-                        "_CUSTOM_RAMP_MAPPING_ON",
-                        "_MAIN_LIGHT_SHADOWS_CASCADE",
-                        "_MODEL_GAME",
-                        "_OUTLINENORMALCHANNEL_TANGENT",
-                        "_OUTLINE_ON",
-                        "_RIM_LIGHTING_ON",
-                        "_SHADOWS_SOFT",
-                        "_SPECULAR_ON"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_ADDITIONAL_LIGHTS",
-                        "_ADDITIONAL_LIGHT_SHADOWS",
-                        "_AREA_UPPERBODY",
-                        "_AUTO_Brightness_ON",
-                        "_BACKFACEUV2_ON",
-                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
-                        "_CUSTOMBLOOMVARENUM_DISABLE",
-                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
-                        "_CUSTOMOUTLINEVARENUM_TINT",
-                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
-                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
-                        "_CUSTOMSPECULARVARENUM_DISABLE",
-                        "_CUSTOM_RAMP_MAPPING_ON",
-                        "_MAIN_LIGHT_SHADOWS_CASCADE",
-                        "_MODEL_GAME",
-                        "_OUTLINENORMALCHANNEL_TANGENT",
-                        "_OUTLINE_ON",
-                        "_RIM_LIGHTING_ON",
-                        "_SHADOWS_SOFT",
-                        "_SPECULAR_ON",
-                        "_STOCKINGS_ON"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_ADDITIONAL_LIGHTS",
-                        "_ADDITIONAL_LIGHT_SHADOWS",
-                        "_AREA_UPPERBODY",
-                        "_AUTO_Brightness_ON",
-                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
-                        "_CUSTOMBLOOMVARENUM_DISABLE",
-                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
-                        "_CUSTOMOUTLINEVARENUM_TINT",
-                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
-                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
-                        "_CUSTOMSPECULARVARENUM_DISABLE",
-                        "_CUSTOM_RAMP_MAPPING_ON",
-                        "_MAIN_LIGHT_SHADOWS_CASCADE",
-                        "_MODEL_GAME",
-                        "_OUTLINENORMALCHANNEL_TANGENT",
-                        "_OUTLINE_ON",
-                        "_RIM_LIGHTING_ON",
-                        "_SHADOWS_SOFT",
-                        "_SPECULAR_ON"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_ADDITIONAL_LIGHTS",
-                        "_ADDITIONAL_LIGHT_SHADOWS",
-                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
-                        "_CUSTOMBLOOMVARENUM_DISABLE",
-                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
-                        "_CUSTOMOUTLINEVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
-                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
-                        "_CUSTOMSPECULARVARENUM_DISABLE",
-                        "_CUSTOM_RAMP_MAPPING_ON",
-                        "_MAIN_LIGHT_SHADOWS_CASCADE",
-                        "_MODEL_GAME",
-                        "_OUTLINENORMALCHANNEL_NORMAL",
-                        "_RIM_LIGHTING_ON",
-                        "_SHADOWS_SOFT",
-                        "_SPECULAR_ON"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_ADDITIONAL_LIGHTS",
-                        "_AREA_FACE",
-                        "_AUTO_Brightness_ON",
-                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
-                        "_CUSTOMBLOOMVARENUM_DISABLE",
-                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
-                        "_CUSTOMOUTLINEVARENUM_TINT",
-                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
-                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
-                        "_CUSTOMSPECULARVARENUM_DISABLE",
-                        "_CUSTOM_RAMP_MAPPING_ON",
+                        "_EMISSION_ON",
                         "_MAIN_LIGHT_SELF_SHADOWS",
                         "_MAIN_LIGHT_SHADOWS_CASCADE",
-                        "_MODEL_GAME",
                         "_OUTLINENORMALCHANNEL_TANGENT",
                         "_OUTLINE_ON",
-                        "_RIM_LIGHTING_ON",
                         "_SHADOWS_SOFT",
-                        "_SPECULAR_ON"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_ADDITIONAL_LIGHTS",
-                        "_AREA_FACE",
-                        "_AUTO_Brightness_ON",
-                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
-                        "_CUSTOMBLOOMVARENUM_DISABLE",
-                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
-                        "_CUSTOMOUTLINEVARENUM_TINT",
-                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
-                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
-                        "_CUSTOMSPECULARVARENUM_DISABLE",
-                        "_CUSTOM_RAMP_MAPPING_ON",
-                        "_MAIN_LIGHT_SHADOWS_CASCADE",
-                        "_MODEL_GAME",
-                        "_OUTLINENORMALCHANNEL_TANGENT",
-                        "_OUTLINE_ON",
-                        "_RIM_LIGHTING_ON",
-                        "_SPECULAR_ON"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_ADDITIONAL_LIGHTS",
-                        "_AREA_HAIR",
-                        "_AUTO_Brightness_ON",
-                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
-                        "_CUSTOMBLOOMVARENUM_DISABLE",
-                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
-                        "_CUSTOMOUTLINEVARENUM_TINT",
-                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
-                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
-                        "_CUSTOMSPECULARVARENUM_DISABLE",
-                        "_CUSTOM_RAMP_MAPPING_ON",
-                        "_MAIN_LIGHT_SELF_SHADOWS",
-                        "_MAIN_LIGHT_SHADOWS_CASCADE",
-                        "_MODEL_GAME",
-                        "_OUTLINENORMALCHANNEL_TANGENT",
-                        "_OUTLINE_ON",
-                        "_RIM_LIGHTING_ON",
-                        "_SHADOWS_SOFT",
-                        "_SPECULAR_ON"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_ADDITIONAL_LIGHTS",
-                        "_AREA_HAIR",
-                        "_AUTO_Brightness_ON",
-                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
-                        "_CUSTOMBLOOMVARENUM_DISABLE",
-                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
-                        "_CUSTOMOUTLINEVARENUM_TINT",
-                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
-                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
-                        "_CUSTOMSPECULARVARENUM_DISABLE",
-                        "_CUSTOM_RAMP_MAPPING_ON",
-                        "_MAIN_LIGHT_SHADOWS_CASCADE",
-                        "_MODEL_GAME",
-                        "_OUTLINENORMALCHANNEL_TANGENT",
-                        "_OUTLINE_ON",
-                        "_RIM_LIGHTING_ON",
-                        "_SPECULAR_ON"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_ADDITIONAL_LIGHTS",
-                        "_AREA_UPPERBODY",
-                        "_AUTO_Brightness_ON",
-                        "_BACKFACEUV2_ON",
-                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
-                        "_CUSTOMBLOOMVARENUM_DISABLE",
-                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
-                        "_CUSTOMOUTLINEVARENUM_TINT",
-                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
-                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
-                        "_CUSTOMSPECULARVARENUM_DISABLE",
-                        "_CUSTOM_RAMP_MAPPING_ON",
-                        "_MAIN_LIGHT_SELF_SHADOWS",
-                        "_MAIN_LIGHT_SHADOWS_CASCADE",
-                        "_MODEL_GAME",
-                        "_OUTLINENORMALCHANNEL_TANGENT",
-                        "_OUTLINE_ON",
-                        "_RIM_LIGHTING_ON",
-                        "_SHADOWS_SOFT",
-                        "_SPECULAR_ON",
-                        "_STOCKINGS_ON"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_ADDITIONAL_LIGHTS",
-                        "_AREA_UPPERBODY",
-                        "_AUTO_Brightness_ON",
-                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
-                        "_CUSTOMBLOOMVARENUM_DISABLE",
-                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
-                        "_CUSTOMOUTLINEVARENUM_TINT",
-                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
-                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
-                        "_CUSTOMSPECULARVARENUM_DISABLE",
-                        "_CUSTOM_RAMP_MAPPING_ON",
-                        "_MAIN_LIGHT_SELF_SHADOWS",
-                        "_MAIN_LIGHT_SHADOWS_CASCADE",
-                        "_MODEL_GAME",
-                        "_OUTLINENORMALCHANNEL_TANGENT",
-                        "_OUTLINE_ON",
-                        "_RIM_LIGHTING_ON",
-                        "_SHADOWS_SOFT",
-                        "_SPECULAR_ON"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_ADDITIONAL_LIGHTS",
-                        "_AREA_UPPERBODY",
-                        "_AUTO_Brightness_ON",
-                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
-                        "_CUSTOMBLOOMVARENUM_DISABLE",
-                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
-                        "_CUSTOMOUTLINEVARENUM_TINT",
-                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
-                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
-                        "_CUSTOMSPECULARVARENUM_DISABLE",
-                        "_CUSTOM_RAMP_MAPPING_ON",
-                        "_MAIN_LIGHT_SHADOWS_CASCADE",
-                        "_MODEL_GAME",
-                        "_OUTLINENORMALCHANNEL_TANGENT",
-                        "_OUTLINE_ON",
-                        "_RIM_LIGHTING_ON",
-                        "_SPECULAR_ON"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_ADDITIONAL_LIGHTS",
-                        "_AREA_UPPERBODY",
-                        "_AUTO_Brightness_ON",
-                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
-                        "_CUSTOMBLOOMVARENUM_DISABLE",
-                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
-                        "_CUSTOMOUTLINEVARENUM_TINT",
-                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
-                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
-                        "_CUSTOMSPECULARVARENUM_DISABLE",
-                        "_CUSTOM_RAMP_MAPPING_ON",
-                        "_MAIN_LIGHT_SHADOWS_CASCADE",
-                        "_MODEL_GAME",
-                        "_OUTLINENORMALCHANNEL_TANGENT",
-                        "_OUTLINE_ON",
-                        "_RIM_LIGHTING_ON",
-                        "_SPECULAR_ON",
-                        "_STOCKINGS_ON"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_ADDITIONAL_LIGHTS",
-                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
-                        "_CUSTOMBLOOMVARENUM_DISABLE",
-                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
-                        "_CUSTOMOUTLINEVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
-                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
-                        "_CUSTOMSPECULARVARENUM_DISABLE",
-                        "_CUSTOM_RAMP_MAPPING_ON",
-                        "_MAIN_LIGHT_SELF_SHADOWS",
-                        "_MAIN_LIGHT_SHADOWS_CASCADE",
-                        "_MODEL_GAME",
-                        "_OUTLINENORMALCHANNEL_NORMAL",
-                        "_RIM_LIGHTING_ON",
-                        "_SHADOWS_SOFT",
-                        "_SPECULAR_ON"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_ADDITIONAL_LIGHTS",
-                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
-                        "_CUSTOMBLOOMVARENUM_DISABLE",
-                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
-                        "_CUSTOMOUTLINEVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
-                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
-                        "_CUSTOMSPECULARVARENUM_DISABLE",
-                        "_CUSTOM_RAMP_MAPPING_ON",
-                        "_MAIN_LIGHT_SHADOWS_CASCADE",
-                        "_MODEL_GAME",
-                        "_OUTLINENORMALCHANNEL_NORMAL",
-                        "_RIM_LIGHTING_ON",
                         "_SPECULAR_ON"
                     ]
                 },
@@ -893,9 +575,43 @@
                         "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
                         "_CUSTOMSPECULARVARENUM_DISABLE",
                         "_CUSTOM_RAMP_MAPPING_ON",
+                        "_EMISSION_ON",
+                        "_OUTLINENORMALCHANNEL_TANGENT",
+                        "_OUTLINE_ON",
+                        "_SPECULAR_ON"
+                    ]
+                }
+            ]
+        },
+        {
+            "AssetPath": "Packages/com.gaolingx.honkaistarrailtoonshader/Shaders/SRUniversal-main/Shaders/SRUniversalCharHair.shader",
+            "ShaderName": "HonkaiStarRailToon/Character/Hair",
+            "ShaderVariantCount": 2,
+            "ShaderVariantElements": [
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_AREA_HAIR",
+                        "_AUTO_Brightness_ON",
+                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
+                        "_CUSTOMBLOOMVARENUM_DISABLE",
+                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
+                        "_CUSTOMOUTLINEVARENUM_TINT",
+                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
+                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
+                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
+                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
+                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
+                        "_CUSTOMSPECULARVARENUM_DISABLE",
+                        "_CUSTOM_RAMP_MAPPING_ON",
+                        "_MAIN_LIGHT_SHADOWS_CASCADE",
                         "_OUTLINENORMALCHANNEL_TANGENT",
                         "_OUTLINE_ON",
                         "_RIM_LIGHTING_ON",
+                        "_RIM_SHADOW_ON",
+                        "_SHADOWS_SOFT",
                         "_SPECULAR_ON"
                     ]
                 },
@@ -918,71 +634,7 @@
                         "_OUTLINENORMALCHANNEL_TANGENT",
                         "_OUTLINE_ON",
                         "_RIM_LIGHTING_ON",
-                        "_SPECULAR_ON"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_AREA_UPPERBODY",
-                        "_AUTO_Brightness_ON",
-                        "_BACKFACEUV2_ON",
-                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
-                        "_CUSTOMBLOOMVARENUM_DISABLE",
-                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
-                        "_CUSTOMOUTLINEVARENUM_TINT",
-                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
-                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
-                        "_CUSTOMSPECULARVARENUM_DISABLE",
-                        "_CUSTOM_RAMP_MAPPING_ON",
-                        "_OUTLINENORMALCHANNEL_TANGENT",
-                        "_OUTLINE_ON",
-                        "_RIM_LIGHTING_ON",
-                        "_SPECULAR_ON",
-                        "_STOCKINGS_ON"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_AREA_UPPERBODY",
-                        "_AUTO_Brightness_ON",
-                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
-                        "_CUSTOMBLOOMVARENUM_DISABLE",
-                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
-                        "_CUSTOMOUTLINEVARENUM_TINT",
-                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
-                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
-                        "_CUSTOMSPECULARVARENUM_DISABLE",
-                        "_CUSTOM_RAMP_MAPPING_ON",
-                        "_OUTLINENORMALCHANNEL_TANGENT",
-                        "_OUTLINE_ON",
-                        "_RIM_LIGHTING_ON",
-                        "_SPECULAR_ON"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
-                        "_CUSTOMBLOOMVARENUM_DISABLE",
-                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
-                        "_CUSTOMOUTLINEVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
-                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
-                        "_CUSTOMSPECULARVARENUM_DISABLE",
-                        "_CUSTOM_RAMP_MAPPING_ON",
-                        "_OUTLINENORMALCHANNEL_NORMAL",
-                        "_RIM_LIGHTING_ON",
+                        "_RIM_SHADOW_ON",
                         "_SPECULAR_ON"
                     ]
                 }
@@ -1024,7 +676,7 @@
         {
             "AssetPath": "Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader",
             "ShaderName": "Universal Render Pipeline/Lit",
-            "ShaderVariantCount": 9,
+            "ShaderVariantCount": 8,
             "ShaderVariantElements": [
                 {
                     "PassType": 8,
@@ -1126,12 +778,6 @@
                         "_REFLECTION_PROBE_BOX_PROJECTION",
                         "_SCREEN_SPACE_OCCLUSION",
                         "_SHADOWS_SOFT"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        "_NORMALMAP"
                     ]
                 }
             ]
@@ -1288,7 +934,7 @@
                         "_INTERLEAVED_GRADIENT",
                         "_ORTHOGRAPHIC",
                         "_SAMPLE_COUNT_HIGH",
-                        "_SOURCE_DEPTH_NORMALS"
+                        "_SOURCE_DEPTH_MEDIUM"
                     ]
                 },
                 {
@@ -1296,7 +942,7 @@
                     "Keywords": [
                         "_INTERLEAVED_GRADIENT",
                         "_SAMPLE_COUNT_HIGH",
-                        "_SOURCE_DEPTH_NORMALS"
+                        "_SOURCE_DEPTH_MEDIUM"
                     ]
                 }
             ]

@@ -21,7 +21,7 @@ MonoBehaviour:
   m_EnableFrontHairShadow: 0
   m_FrontHairShadowDownscale: 2
   m_FrontHairShadowDepthBits: 16
-  m_EnableTransparentFrontHair: 0
+  m_EnableTransparentFrontHair: 1
 --- !u!114 &-1878332245247344467
 MonoBehaviour:
   m_ObjectHideFlags: 0
