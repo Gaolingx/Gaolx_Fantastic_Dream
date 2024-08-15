@@ -441,7 +441,6 @@
                         "_MAIN_LIGHT_SELF_SHADOWS",
                         "_MAIN_LIGHT_SHADOWS_CASCADE",
                         "_OUTLINENORMALCHANNEL_TANGENT",
-                        "_OUTLINE_ON",
                         "_RIM_LIGHTING_ON",
                         "_RIM_SHADOW_ON",
                         "_SHADOWS_SOFT",
@@ -470,7 +469,6 @@
                         "_MAIN_LIGHT_SELF_SHADOWS",
                         "_MAIN_LIGHT_SHADOWS_CASCADE",
                         "_OUTLINENORMALCHANNEL_TANGENT",
-                        "_OUTLINE_ON",
                         "_RIM_LIGHTING_ON",
                         "_RIM_SHADOW_ON",
                         "_SHADOWS_SOFT",
@@ -495,7 +493,6 @@
                         "_CUSTOMSPECULARVARENUM_DISABLE",
                         "_CUSTOM_RAMP_MAPPING_ON",
                         "_OUTLINENORMALCHANNEL_TANGENT",
-                        "_OUTLINE_ON",
                         "_RIM_LIGHTING_ON",
                         "_RIM_SHADOW_ON",
                         "_SPECULAR_ON",
@@ -519,7 +516,6 @@
                         "_CUSTOMSPECULARVARENUM_DISABLE",
                         "_CUSTOM_RAMP_MAPPING_ON",
                         "_OUTLINENORMALCHANNEL_TANGENT",
-                        "_OUTLINE_ON",
                         "_RIM_LIGHTING_ON",
                         "_RIM_SHADOW_ON",
                         "_SPECULAR_ON"
@@ -554,7 +550,6 @@
                         "_MAIN_LIGHT_SELF_SHADOWS",
                         "_MAIN_LIGHT_SHADOWS_CASCADE",
                         "_OUTLINENORMALCHANNEL_TANGENT",
-                        "_OUTLINE_ON",
                         "_SHADOWS_SOFT",
                         "_SPECULAR_ON"
                     ]
@@ -577,7 +572,6 @@
                         "_CUSTOM_RAMP_MAPPING_ON",
                         "_EMISSION_ON",
                         "_OUTLINENORMALCHANNEL_TANGENT",
-                        "_OUTLINE_ON",
                         "_SPECULAR_ON"
                     ]
                 }
@@ -608,7 +602,6 @@
                         "_CUSTOM_RAMP_MAPPING_ON",
                         "_MAIN_LIGHT_SHADOWS_CASCADE",
                         "_OUTLINENORMALCHANNEL_TANGENT",
-                        "_OUTLINE_ON",
                         "_RIM_LIGHTING_ON",
                         "_RIM_SHADOW_ON",
                         "_SHADOWS_SOFT",
@@ -632,7 +625,6 @@
                         "_CUSTOMSPECULARVARENUM_DISABLE",
                         "_CUSTOM_RAMP_MAPPING_ON",
                         "_OUTLINENORMALCHANNEL_TANGENT",
-                        "_OUTLINE_ON",
                         "_RIM_LIGHTING_ON",
                         "_RIM_SHADOW_ON",
                         "_SPECULAR_ON"
@@ -1117,7 +1109,7 @@
                 {
                     "PassType": 8,
                     "Keywords": [
-                        ""
+                        "SHADOWS_DEPTH"
                     ]
                 }
             ]
