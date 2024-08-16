@@ -1,6 +1,6 @@
 {
-    "ShaderTotalCount": 36,
-    "VariantTotalCount": 88,
+    "ShaderTotalCount": 37,
+    "VariantTotalCount": 92,
     "ShaderVariantInfos": [
         {
             "AssetPath": "Assets/ResModules/Art/Characters/DarkGod/Compond/MakeChar/Shader/MogoFakeLight.shader",
@@ -415,16 +415,16 @@
             ]
         },
         {
-            "AssetPath": "Packages/com.gaolingx.honkaistarrailtoonshader/Shaders/SRUniversal-main/Shaders/SRUniversalCharBody(Upper).shader",
-            "ShaderName": "HonkaiStarRailToon/Character/UpperBody",
-            "ShaderVariantCount": 4,
+            "AssetPath": "Packages/com.gaolingx.honkaistarrailtoonshader/Shaders/SRUniversal-main/Shaders/SRUniversalCharBody.shader",
+            "ShaderName": "HonkaiStarRailToon/Character/Body",
+            "ShaderVariantCount": 6,
             "ShaderVariantElements": [
                 {
                     "PassType": 13,
                     "Keywords": [
                         "_ADDITIONAL_LIGHTS",
                         "_ADDITIONAL_LIGHT_SHADOWS",
-                        "_AREA_UPPERBODY",
+                        "_AREA_BODY",
                         "_AUTO_Brightness_ON",
                         "_BACKFACEUV2_ON",
                         "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
@@ -440,6 +440,7 @@
                         "_CUSTOM_RAMP_MAPPING_ON",
                         "_MAIN_LIGHT_SELF_SHADOWS",
                         "_MAIN_LIGHT_SHADOWS_CASCADE",
+                        "_MODEL_GAME",
                         "_OUTLINENORMALCHANNEL_TANGENT",
                         "_RIM_LIGHTING_ON",
                         "_RIM_SHADOW_ON",
@@ -453,7 +454,31 @@
                     "Keywords": [
                         "_ADDITIONAL_LIGHTS",
                         "_ADDITIONAL_LIGHT_SHADOWS",
-                        "_AREA_UPPERBODY",
+                        "_AREA_BODY",
+                        "_AUTO_Brightness_ON",
+                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
+                        "_CUSTOMBLOOMVARENUM_DISABLE",
+                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
+                        "_CUSTOMOUTLINEVARENUM_DISABLE",
+                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
+                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
+                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
+                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
+                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
+                        "_CUSTOMSPECULARVARENUM_DISABLE",
+                        "_CUSTOM_RAMP_MAPPING_ON",
+                        "_MAIN_LIGHT_SELF_SHADOWS",
+                        "_MAIN_LIGHT_SHADOWS_CASCADE",
+                        "_OUTLINENORMALCHANNEL_NORMAL",
+                        "_SHADOWS_SOFT"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_AREA_BODY",
                         "_AUTO_Brightness_ON",
                         "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
                         "_CUSTOMBLOOMVARENUM_DISABLE",
@@ -478,7 +503,7 @@
                 {
                     "PassType": 13,
                     "Keywords": [
-                        "_AREA_UPPERBODY",
+                        "_AREA_BODY",
                         "_AUTO_Brightness_ON",
                         "_BACKFACEUV2_ON",
                         "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
@@ -492,6 +517,7 @@
                         "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
                         "_CUSTOMSPECULARVARENUM_DISABLE",
                         "_CUSTOM_RAMP_MAPPING_ON",
+                        "_MODEL_GAME",
                         "_OUTLINENORMALCHANNEL_TANGENT",
                         "_RIM_LIGHTING_ON",
                         "_RIM_SHADOW_ON",
@@ -502,7 +528,26 @@
                 {
                     "PassType": 13,
                     "Keywords": [
-                        "_AREA_UPPERBODY",
+                        "_AREA_BODY",
+                        "_AUTO_Brightness_ON",
+                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
+                        "_CUSTOMBLOOMVARENUM_DISABLE",
+                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
+                        "_CUSTOMOUTLINEVARENUM_DISABLE",
+                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
+                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
+                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
+                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
+                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
+                        "_CUSTOMSPECULARVARENUM_DISABLE",
+                        "_CUSTOM_RAMP_MAPPING_ON",
+                        "_OUTLINENORMALCHANNEL_NORMAL"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_AREA_BODY",
                         "_AUTO_Brightness_ON",
                         "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
                         "_CUSTOMBLOOMVARENUM_DISABLE",
@@ -519,6 +564,56 @@
                         "_RIM_LIGHTING_ON",
                         "_RIM_SHADOW_ON",
                         "_SPECULAR_ON"
+                    ]
+                }
+            ]
+        },
+        {
+            "AssetPath": "Packages/com.gaolingx.honkaistarrailtoonshader/Shaders/SRUniversal-main/Shaders/SRUniversalCharBodyTransparent.shader",
+            "ShaderName": "HonkaiStarRailToon/Character/Body (Transparent)",
+            "ShaderVariantCount": 2,
+            "ShaderVariantElements": [
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_AREA_BODY",
+                        "_AUTO_Brightness_ON",
+                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
+                        "_CUSTOMBLOOMVARENUM_DISABLE",
+                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
+                        "_CUSTOMOUTLINEVARENUM_DISABLE",
+                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
+                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
+                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
+                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
+                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
+                        "_CUSTOMSPECULARVARENUM_DISABLE",
+                        "_CUSTOM_RAMP_MAPPING_ON",
+                        "_MAIN_LIGHT_SELF_SHADOWS",
+                        "_MAIN_LIGHT_SHADOWS_CASCADE",
+                        "_OUTLINENORMALCHANNEL_NORMAL",
+                        "_SHADOWS_SOFT"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_AREA_BODY",
+                        "_AUTO_Brightness_ON",
+                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
+                        "_CUSTOMBLOOMVARENUM_DISABLE",
+                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
+                        "_CUSTOMOUTLINEVARENUM_DISABLE",
+                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
+                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
+                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
+                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
+                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
+                        "_CUSTOMSPECULARVARENUM_DISABLE",
+                        "_CUSTOM_RAMP_MAPPING_ON",
+                        "_OUTLINENORMALCHANNEL_NORMAL"
                     ]
                 }
             ]
@@ -1109,7 +1204,7 @@
                 {
                     "PassType": 8,
                     "Keywords": [
-                        "SHADOWS_DEPTH"
+                        ""
                     ]
                 }
             ]

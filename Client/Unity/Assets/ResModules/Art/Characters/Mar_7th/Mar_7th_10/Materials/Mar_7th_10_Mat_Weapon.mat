@@ -25,7 +25,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _AREA_UPPERBODY
+  - _AREA_BODY
   - _AUTO_Brightness_ON
   - _CUSTOMBLOOMCOLORVARENUM_DISABLE
   - _CUSTOMBLOOMVARENUM_DISABLE
@@ -39,14 +39,16 @@ Material:
   - _CUSTOMSPECULARVARENUM_DISABLE
   - _CUSTOM_RAMP_MAPPING_ON
   - _OUTLINENORMALCHANNEL_TANGENT
-  - _OUTLINE_ON
   - _RIM_LIGHTING_ON
   - _RIM_SHADOW_ON
   - _SPECULAR_ON
   m_InvalidKeywords:
+  - _AREA_UPPERBODY
   - _DAYTIME_MANUAL_ON_ON
   - _ENABLEFOVWIDTH_ON
+  - _ENABLEOUTLINE_ON
   - _FACEMATERIAL_ON
+  - _OUTLINE_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -61,8 +63,16 @@ Material:
         m_Texture: {fileID: 2800000, guid: 186f0ed76b8913345808e0d1bbf3efd9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _BodyColorMap:
+        m_Texture: {fileID: 2800000, guid: 186f0ed76b8913345808e0d1bbf3efd9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BodyCoolRamp:
         m_Texture: {fileID: 2800000, guid: fc6ebd7880542b642b808c5954501ecc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BodyLightMap:
+        m_Texture: {fileID: 2800000, guid: e84e57b3cdc358b4dbf647ec54e96302, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BodyWarmRamp:
@@ -232,6 +242,7 @@ Material:
     - _EmissionMixBaseColorFac: 1
     - _EmissionThreshold: 0.5
     - _EnableFOVWidth: 1
+    - _EnableOutline: 1
     - _EnableOutlineToggle: 1
     - _EnableSpecular: 1
     - _EnvironmentReflections: 1
@@ -419,6 +430,7 @@ Material:
     - _BloomColor5: {r: 1, g: 1, b: 1, a: 1}
     - _BloomColor6: {r: 1, g: 1, b: 1, a: 1}
     - _BloomColor7: {r: 1, g: 1, b: 1, a: 1}
+    - _BodyColorMapColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _CoolShadowMultColor0: {r: 1, g: 1, b: 1, a: 1}
     - _CoolShadowMultColor1: {r: 1, g: 1, b: 1, a: 1}
