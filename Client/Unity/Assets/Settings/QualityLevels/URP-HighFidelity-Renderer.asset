@@ -115,7 +115,7 @@ MonoBehaviour:
   m_EnableSelfShadow: 1
   m_SelfShadowDepthBits: 16
   m_SelfShadowTileResolution: 1024
-  m_EnableFrontHairShadow: 0
+  m_EnableFrontHairShadow: 1
   m_FrontHairShadowDownscale: 2
   m_FrontHairShadowDepthBits: 16
   m_EnableTransparentFrontHair: 1

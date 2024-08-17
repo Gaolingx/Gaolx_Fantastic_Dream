@@ -21,10 +21,11 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Mat_FaceMask
-  m_Shader: {fileID: 4800000, guid: 0d4852c5073dd7745a95b24a8d43fd2b, type: 3}
+  m_Shader: {fileID: 4800000, guid: 3b432b6a5bec87e42b7f1791c4f39997, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
+  m_ValidKeywords: []
+  m_InvalidKeywords:
   - _AREA_BODY
   - _AUTO_Brightness_ON
   - _CUSTOMBLOOMCOLORVARENUM_DISABLE
@@ -38,10 +39,9 @@ Material:
   - _CUSTOMSPECULARCOLORVARENUM_DISABLE
   - _CUSTOMSPECULARVARENUM_DISABLE
   - _CUSTOM_RAMP_MAPPING_ON
-  - _OUTLINENORMALCHANNEL_NORMAL
-  m_InvalidKeywords:
   - _DAYTIME_MANUAL_ON_ON
   - _ENABLEFOVWIDTH_ON
+  - _OUTLINENORMALCHANNEL_NORMAL
   - _SINGLEMATERIAL_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -235,6 +235,7 @@ Material:
     - _Glossiness: 0.4472136
     - _GlossyReflections: 1
     - _HairBlendAlpha: 0.6
+    - _HairShadowDistance: 0.2
     - _IndirectLightFlattenNormal: 0
     - _IndirectLightIntensity: 1
     - _IndirectLightUsage: 0.5
@@ -242,6 +243,7 @@ Material:
     - _MainLightBrightnessFactor: 1
     - _MainLightColorUsage: 1
     - _MainLightShadowOffset: 0
+    - _MaxEyeHairDistance: 0.2
     - _Metallic: 0
     - _Mode: 0
     - _ModelScale: 1
