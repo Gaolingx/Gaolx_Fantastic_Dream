@@ -40,7 +40,7 @@ Material:
   - _CUSTOMSPECULARVARENUM_DISABLE
   - _CUSTOM_RAMP_MAPPING_ON
   - _MODEL_GAME
-  - _OUTLINENORMALCHANNEL_TANGENT
+  - _OUTLINENORMALCHANNEL_NORMAL
   - _RIM_LIGHTING_ON
   - _RIM_SHADOW_ON
   - _SPECULAR_ON
@@ -302,8 +302,8 @@ Material:
     - _OutlineFixRange4: 0.1
     - _OutlineFixSide: 0.6
     - _OutlineNormal: 0
-    - _OutlineNormalChannel: 1
-    - _OutlineScale: 0.1
+    - _OutlineNormalChannel: 0
+    - _OutlineScale: 0.3
     - _OutlineUseLutMapToggle: 0
     - _OutlineWidth: 0.1
     - _OutlineZOffset: 0
@@ -497,7 +497,7 @@ Material:
     - _MMDHeadBoneUp: {r: 0, g: 0, b: 0, a: 0}
     - _Maps_ST: {r: 1, g: 1, b: 0, a: 0}
     - _NoseLineColor: {r: 1, g: 0.635, b: 0.635, a: 1}
-    - _OutlineColor: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 1}
+    - _OutlineColor: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 1}
     - _OutlineColor0: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor1: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor2: {r: 0, g: 0, b: 0, a: 1}

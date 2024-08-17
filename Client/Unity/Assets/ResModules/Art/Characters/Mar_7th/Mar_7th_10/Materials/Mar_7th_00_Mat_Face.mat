@@ -39,13 +39,14 @@ Material:
   - _CUSTOMSPECULARVARENUM_DISABLE
   - _CUSTOM_RAMP_MAPPING_ON
   - _EMISSION_ON
-  - _OUTLINENORMALCHANNEL_TANGENT
-  - _OUTLINE_ON
+  - _OUTLINENORMALCHANNEL_NORMAL
   - _SPECULAR_ON
   m_InvalidKeywords:
   - _DAYTIME_MANUAL_ON_ON
   - _ENABLEFOVWIDTH_ON
+  - _ENABLEOUTLINE_ON
   - _FACEMATERIAL_ON
+  - _OUTLINE_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -60,8 +61,16 @@ Material:
         m_Texture: {fileID: 2800000, guid: ac649c1fa5b43714f92744313ee36beb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _BodyColorMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BodyCoolRamp:
         m_Texture: {fileID: 2800000, guid: 4fb0145d2d0813f4ea7b861281ffc976, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BodyLightMap:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BodyWarmRamp:
@@ -231,6 +240,7 @@ Material:
     - _EmissionMixBaseColorFac: 1
     - _EmissionThreshold: 0.5
     - _EnableFOVWidth: 1
+    - _EnableOutline: 1
     - _EnableOutlineToggle: 1
     - _EnableSpecular: 1
     - _EnvironmentReflections: 1
@@ -258,13 +268,13 @@ Material:
     - _NoseLinePower: 1
     - _OcclusionStrength: 1
     - _OutlineFixFront: 0.05
-    - _OutlineFixRange1: 0.1
+    - _OutlineFixRange1: 0.2
     - _OutlineFixRange2: 0.1
     - _OutlineFixRange3: 0.1
     - _OutlineFixRange4: 0.1
     - _OutlineFixSide: 0.6
-    - _OutlineNormalChannel: 1
-    - _OutlineScale: 0.1
+    - _OutlineNormalChannel: 0
+    - _OutlineScale: 0.3
     - _OutlineUseLutMapToggle: 0
     - _OutlineWidth: 0.1
     - _Parallax: 0.02
@@ -418,6 +428,7 @@ Material:
     - _BloomColor5: {r: 1, g: 1, b: 1, a: 1}
     - _BloomColor6: {r: 1, g: 1, b: 1, a: 1}
     - _BloomColor7: {r: 1, g: 1, b: 1, a: 1}
+    - _BodyColorMapColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _CoolShadowMultColor0: {r: 1, g: 1, b: 1, a: 1}
     - _CoolShadowMultColor1: {r: 1, g: 1, b: 1, a: 1}
