@@ -1,6 +1,6 @@
 {
     "ShaderTotalCount": 38,
-    "VariantTotalCount": 105,
+    "VariantTotalCount": 113,
     "ShaderVariantInfos": [
         {
             "AssetPath": "Assets/ResModules/Art/Characters/DarkGod/Compond/MakeChar/Shader/MogoFakeLight.shader",
@@ -44,7 +44,7 @@
         {
             "AssetPath": "Assets/StylizedEnvironement/Art/Shader/Surface.shader",
             "ShaderName": "Surface",
-            "ShaderVariantCount": 6,
+            "ShaderVariantCount": 8,
             "ShaderVariantElements": [
                 {
                     "PassType": 8,
@@ -56,12 +56,6 @@
                     "PassType": 8,
                     "Keywords": [
                         "INSTANCING_ON"
-                    ]
-                },
-                {
-                    "PassType": 13,
-                    "Keywords": [
-                        ""
                     ]
                 },
                 {
@@ -109,6 +103,31 @@
                         "_REFLECTION_PROBE_BOX_PROJECTION",
                         "_SCREEN_SPACE_OCCLUSION",
                         "_SHADOWS_SOFT"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_BLENDINGOVERLAYTYPE_WORLD_NORMAL",
+                        "_BLENDNORMALS_ON",
+                        "_COVERAGEOVERLAYTYPE_WORLD_NORMAL"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_BLENDINGOVERLAYTYPE_WORLD_NORMAL",
+                        "_BLENDNORMALS_ON",
+                        "_COVERAGEOVERLAYTYPE_WORLD_NORMAL",
+                        "_COVERAGE_ON"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_BLENDINGOVERLAYTYPE_WORLD_NORMAL",
+                        "_COVERAGEOVERLAYTYPE_WORLD_NORMAL",
+                        "_COVERAGE_ON"
                     ]
                 }
             ]
@@ -537,7 +556,7 @@
         {
             "AssetPath": "Packages/com.gaolingx.honkaistarrailtoonshader/Shaders/SRUniversal-main/Shaders/SRUniversalCharBody.shader",
             "ShaderName": "HonkaiStarRailToon/Character/Body",
-            "ShaderVariantCount": 4,
+            "ShaderVariantCount": 6,
             "ShaderVariantElements": [
                 {
                     "PassType": 13,
@@ -547,16 +566,16 @@
                         "_AREA_BODY",
                         "_AUTO_Brightness_ON",
                         "_BACKFACEUV2_ON",
-                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
-                        "_CUSTOMBLOOMVARENUM_DISABLE",
+                        "_CUSTOMBLOOMCOLORVARENUM_OVERLAY",
+                        "_CUSTOMBLOOMVARENUM_OVERLAY",
                         "_CUSTOMHEADBONEMODEVARENUM_GAME",
-                        "_CUSTOMOUTLINEVARENUM_TINT",
-                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
-                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
-                        "_CUSTOMSPECULARVARENUM_DISABLE",
+                        "_CUSTOMOUTLINEVARENUM_OVERLAY",
+                        "_CUSTOMRIMLIGHTCOLORVARENUM_OVERLAY",
+                        "_CUSTOMRIMLIGHTVARENUM_OVERLAY",
+                        "_CUSTOMRIMSHADOWCOLORVARENUM_OVERLAY",
+                        "_CUSTOMRIMSHADOWVARENUM_OVERLAY",
+                        "_CUSTOMSPECULARCOLORVARENUM_OVERLAY",
+                        "_CUSTOMSPECULARVARENUM_OVERLAY",
                         "_CUSTOM_RAMP_MAPPING_ON",
                         "_MAIN_LIGHT_SELF_SHADOWS",
                         "_MAIN_LIGHT_SHADOWS_CASCADE",
@@ -576,20 +595,21 @@
                         "_ADDITIONAL_LIGHT_SHADOWS",
                         "_AREA_BODY",
                         "_AUTO_Brightness_ON",
-                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
-                        "_CUSTOMBLOOMVARENUM_DISABLE",
+                        "_CUSTOMBLOOMCOLORVARENUM_OVERLAY",
+                        "_CUSTOMBLOOMVARENUM_OVERLAY",
                         "_CUSTOMHEADBONEMODEVARENUM_GAME",
-                        "_CUSTOMOUTLINEVARENUM_TINT",
-                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
-                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
-                        "_CUSTOMSPECULARVARENUM_DISABLE",
+                        "_CUSTOMOUTLINEVARENUM_OVERLAY",
+                        "_CUSTOMRIMLIGHTCOLORVARENUM_OVERLAY",
+                        "_CUSTOMRIMLIGHTVARENUM_OVERLAY",
+                        "_CUSTOMRIMSHADOWCOLORVARENUM_OVERLAY",
+                        "_CUSTOMRIMSHADOWVARENUM_OVERLAY",
+                        "_CUSTOMSPECULARCOLORVARENUM_OVERLAY",
+                        "_CUSTOMSPECULARVARENUM_OVERLAY",
                         "_CUSTOM_RAMP_MAPPING_ON",
                         "_MAIN_LIGHT_SELF_SHADOWS",
                         "_MAIN_LIGHT_SHADOWS_CASCADE",
-                        "_OUTLINENORMALCHANNEL_TANGENT",
+                        "_MODEL_GAME",
+                        "_OUTLINENORMALCHANNEL_NORMAL",
                         "_RIM_LIGHTING_ON",
                         "_RIM_SHADOW_ON",
                         "_SHADOWS_SOFT",
@@ -599,19 +619,70 @@
                 {
                     "PassType": 13,
                     "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_AREA_BODY",
+                        "_AUTO_Brightness_ON",
+                        "_CUSTOMBLOOMCOLORVARENUM_OVERLAY",
+                        "_CUSTOMBLOOMVARENUM_OVERLAY",
+                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
+                        "_CUSTOMOUTLINEVARENUM_OVERLAY",
+                        "_CUSTOMRIMLIGHTCOLORVARENUM_OVERLAY",
+                        "_CUSTOMRIMLIGHTVARENUM_OVERLAY",
+                        "_CUSTOMRIMSHADOWCOLORVARENUM_OVERLAY",
+                        "_CUSTOMRIMSHADOWVARENUM_OVERLAY",
+                        "_CUSTOMSPECULARCOLORVARENUM_OVERLAY",
+                        "_CUSTOMSPECULARVARENUM_OVERLAY",
+                        "_CUSTOM_RAMP_MAPPING_ON",
+                        "_MAIN_LIGHT_SHADOWS_CASCADE",
+                        "_MODEL_GAME",
+                        "_OUTLINENORMALCHANNEL_NORMAL",
+                        "_RIM_LIGHTING_ON",
+                        "_RIM_SHADOW_ON",
+                        "_SPECULAR_ON"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_AREA_BODY",
+                        "_AUTO_Brightness_ON",
+                        "_CUSTOMBLOOMCOLORVARENUM_OVERLAY",
+                        "_CUSTOMBLOOMVARENUM_OVERLAY",
+                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
+                        "_CUSTOMOUTLINEVARENUM_OVERLAY",
+                        "_CUSTOMRIMLIGHTCOLORVARENUM_OVERLAY",
+                        "_CUSTOMRIMLIGHTVARENUM_OVERLAY",
+                        "_CUSTOMRIMSHADOWCOLORVARENUM_OVERLAY",
+                        "_CUSTOMRIMSHADOWVARENUM_OVERLAY",
+                        "_CUSTOMSPECULARCOLORVARENUM_OVERLAY",
+                        "_CUSTOMSPECULARVARENUM_OVERLAY",
+                        "_CUSTOM_RAMP_MAPPING_ON",
+                        "_MAIN_LIGHT_SHADOWS_CASCADE",
+                        "_MODEL_GAME",
+                        "_OUTLINENORMALCHANNEL_NORMAL",
+                        "_RIM_LIGHTING_ON",
+                        "_RIM_SHADOW_ON",
+                        "_SPECULAR_ON",
+                        "_STOCKINGS_ON"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
                         "_AREA_BODY",
                         "_AUTO_Brightness_ON",
                         "_BACKFACEUV2_ON",
-                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
-                        "_CUSTOMBLOOMVARENUM_DISABLE",
+                        "_CUSTOMBLOOMCOLORVARENUM_OVERLAY",
+                        "_CUSTOMBLOOMVARENUM_OVERLAY",
                         "_CUSTOMHEADBONEMODEVARENUM_GAME",
-                        "_CUSTOMOUTLINEVARENUM_TINT",
-                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
-                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
-                        "_CUSTOMSPECULARVARENUM_DISABLE",
+                        "_CUSTOMOUTLINEVARENUM_OVERLAY",
+                        "_CUSTOMRIMLIGHTCOLORVARENUM_OVERLAY",
+                        "_CUSTOMRIMLIGHTVARENUM_OVERLAY",
+                        "_CUSTOMRIMSHADOWCOLORVARENUM_OVERLAY",
+                        "_CUSTOMRIMSHADOWVARENUM_OVERLAY",
+                        "_CUSTOMSPECULARCOLORVARENUM_OVERLAY",
+                        "_CUSTOMSPECULARVARENUM_OVERLAY",
                         "_CUSTOM_RAMP_MAPPING_ON",
                         "_MODEL_GAME",
                         "_OUTLINENORMALCHANNEL_NORMAL",
@@ -626,18 +697,19 @@
                     "Keywords": [
                         "_AREA_BODY",
                         "_AUTO_Brightness_ON",
-                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
-                        "_CUSTOMBLOOMVARENUM_DISABLE",
+                        "_CUSTOMBLOOMCOLORVARENUM_OVERLAY",
+                        "_CUSTOMBLOOMVARENUM_OVERLAY",
                         "_CUSTOMHEADBONEMODEVARENUM_GAME",
-                        "_CUSTOMOUTLINEVARENUM_TINT",
-                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
-                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
-                        "_CUSTOMSPECULARVARENUM_DISABLE",
+                        "_CUSTOMOUTLINEVARENUM_OVERLAY",
+                        "_CUSTOMRIMLIGHTCOLORVARENUM_OVERLAY",
+                        "_CUSTOMRIMLIGHTVARENUM_OVERLAY",
+                        "_CUSTOMRIMSHADOWCOLORVARENUM_OVERLAY",
+                        "_CUSTOMRIMSHADOWVARENUM_OVERLAY",
+                        "_CUSTOMSPECULARCOLORVARENUM_OVERLAY",
+                        "_CUSTOMSPECULARVARENUM_OVERLAY",
                         "_CUSTOM_RAMP_MAPPING_ON",
-                        "_OUTLINENORMALCHANNEL_TANGENT",
+                        "_MODEL_GAME",
+                        "_OUTLINENORMALCHANNEL_NORMAL",
                         "_RIM_LIGHTING_ON",
                         "_RIM_SHADOW_ON",
                         "_SPECULAR_ON"
@@ -648,7 +720,7 @@
         {
             "AssetPath": "Packages/com.gaolingx.honkaistarrailtoonshader/Shaders/SRUniversal-main/Shaders/SRUniversalCharBodyTransparent.shader",
             "ShaderName": "HonkaiStarRailToon/Character/Body (Transparent)",
-            "ShaderVariantCount": 2,
+            "ShaderVariantCount": 3,
             "ShaderVariantElements": [
                 {
                     "PassType": 13,
@@ -670,8 +742,31 @@
                         "_CUSTOM_RAMP_MAPPING_ON",
                         "_MAIN_LIGHT_SELF_SHADOWS",
                         "_MAIN_LIGHT_SHADOWS_CASCADE",
+                        "_MODEL_GAME",
                         "_OUTLINENORMALCHANNEL_NORMAL",
                         "_SHADOWS_SOFT"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_AREA_BODY",
+                        "_AUTO_Brightness_ON",
+                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
+                        "_CUSTOMBLOOMVARENUM_DISABLE",
+                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
+                        "_CUSTOMOUTLINEVARENUM_DISABLE",
+                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
+                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
+                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
+                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
+                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
+                        "_CUSTOMSPECULARVARENUM_DISABLE",
+                        "_CUSTOM_RAMP_MAPPING_ON",
+                        "_MAIN_LIGHT_SHADOWS_CASCADE",
+                        "_MODEL_GAME",
+                        "_OUTLINENORMALCHANNEL_NORMAL"
                     ]
                 },
                 {
@@ -698,7 +793,7 @@
         {
             "AssetPath": "Packages/com.gaolingx.honkaistarrailtoonshader/Shaders/SRUniversal-main/Shaders/SRUniversalCharFace.shader",
             "ShaderName": "HonkaiStarRailToon/Character/Face",
-            "ShaderVariantCount": 2,
+            "ShaderVariantCount": 3,
             "ShaderVariantElements": [
                 {
                     "PassType": 13,
@@ -707,10 +802,10 @@
                         "_ADDITIONAL_LIGHT_SHADOWS",
                         "_AREA_FACE",
                         "_AUTO_Brightness_ON",
-                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
-                        "_CUSTOMBLOOMVARENUM_DISABLE",
+                        "_CUSTOMBLOOMCOLORVARENUM_OVERLAY",
+                        "_CUSTOMBLOOMVARENUM_OVERLAY",
                         "_CUSTOMHEADBONEMODEVARENUM_GAME",
-                        "_CUSTOMOUTLINEVARENUM_TINT",
+                        "_CUSTOMOUTLINEVARENUM_OVERLAY",
                         "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
                         "_CUSTOMRIMLIGHTVARENUM_DISABLE",
                         "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
@@ -721,6 +816,7 @@
                         "_EMISSION_ON",
                         "_MAIN_LIGHT_FRONT_HAIR_SHADOWS",
                         "_MAIN_LIGHT_SHADOWS_CASCADE",
+                        "_MODEL_GAME",
                         "_OUTLINENORMALCHANNEL_NORMAL",
                         "_SHADOWS_SOFT",
                         "_SPECULAR_ON"
@@ -729,12 +825,13 @@
                 {
                     "PassType": 13,
                     "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
                         "_AREA_FACE",
                         "_AUTO_Brightness_ON",
-                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
-                        "_CUSTOMBLOOMVARENUM_DISABLE",
+                        "_CUSTOMBLOOMCOLORVARENUM_OVERLAY",
+                        "_CUSTOMBLOOMVARENUM_OVERLAY",
                         "_CUSTOMHEADBONEMODEVARENUM_GAME",
-                        "_CUSTOMOUTLINEVARENUM_TINT",
+                        "_CUSTOMOUTLINEVARENUM_OVERLAY",
                         "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
                         "_CUSTOMRIMLIGHTVARENUM_DISABLE",
                         "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
@@ -743,6 +840,30 @@
                         "_CUSTOMSPECULARVARENUM_DISABLE",
                         "_CUSTOM_RAMP_MAPPING_ON",
                         "_EMISSION_ON",
+                        "_MAIN_LIGHT_SHADOWS_CASCADE",
+                        "_MODEL_GAME",
+                        "_OUTLINENORMALCHANNEL_NORMAL",
+                        "_SPECULAR_ON"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_AREA_FACE",
+                        "_AUTO_Brightness_ON",
+                        "_CUSTOMBLOOMCOLORVARENUM_OVERLAY",
+                        "_CUSTOMBLOOMVARENUM_OVERLAY",
+                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
+                        "_CUSTOMOUTLINEVARENUM_OVERLAY",
+                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
+                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
+                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
+                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
+                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
+                        "_CUSTOMSPECULARVARENUM_DISABLE",
+                        "_CUSTOM_RAMP_MAPPING_ON",
+                        "_EMISSION_ON",
+                        "_MODEL_GAME",
                         "_OUTLINENORMALCHANNEL_NORMAL",
                         "_SPECULAR_ON"
                     ]
@@ -765,7 +886,7 @@
         {
             "AssetPath": "Packages/com.gaolingx.honkaistarrailtoonshader/Shaders/SRUniversal-main/Shaders/SRUniversalCharHair.shader",
             "ShaderName": "HonkaiStarRailToon/Character/Hair",
-            "ShaderVariantCount": 2,
+            "ShaderVariantCount": 3,
             "ShaderVariantElements": [
                 {
                     "PassType": 13,
@@ -774,18 +895,19 @@
                         "_ADDITIONAL_LIGHT_SHADOWS",
                         "_AREA_HAIR",
                         "_AUTO_Brightness_ON",
-                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
-                        "_CUSTOMBLOOMVARENUM_DISABLE",
+                        "_CUSTOMBLOOMCOLORVARENUM_OVERLAY",
+                        "_CUSTOMBLOOMVARENUM_OVERLAY",
                         "_CUSTOMHEADBONEMODEVARENUM_GAME",
-                        "_CUSTOMOUTLINEVARENUM_TINT",
-                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
-                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
-                        "_CUSTOMSPECULARVARENUM_DISABLE",
+                        "_CUSTOMOUTLINEVARENUM_OVERLAY",
+                        "_CUSTOMRIMLIGHTCOLORVARENUM_OVERLAY",
+                        "_CUSTOMRIMLIGHTVARENUM_OVERLAY",
+                        "_CUSTOMRIMSHADOWCOLORVARENUM_OVERLAY",
+                        "_CUSTOMRIMSHADOWVARENUM_OVERLAY",
+                        "_CUSTOMSPECULARCOLORVARENUM_OVERLAY",
+                        "_CUSTOMSPECULARVARENUM_OVERLAY",
                         "_CUSTOM_RAMP_MAPPING_ON",
                         "_MAIN_LIGHT_SHADOWS_CASCADE",
+                        "_MODEL_GAME",
                         "_OUTLINENORMALCHANNEL_NORMAL",
                         "_RIM_LIGHTING_ON",
                         "_RIM_SHADOW_ON",
@@ -796,19 +918,45 @@
                 {
                     "PassType": 13,
                     "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
                         "_AREA_HAIR",
                         "_AUTO_Brightness_ON",
-                        "_CUSTOMBLOOMCOLORVARENUM_DISABLE",
-                        "_CUSTOMBLOOMVARENUM_DISABLE",
+                        "_CUSTOMBLOOMCOLORVARENUM_OVERLAY",
+                        "_CUSTOMBLOOMVARENUM_OVERLAY",
                         "_CUSTOMHEADBONEMODEVARENUM_GAME",
-                        "_CUSTOMOUTLINEVARENUM_TINT",
-                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
-                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
-                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
-                        "_CUSTOMSPECULARVARENUM_DISABLE",
+                        "_CUSTOMOUTLINEVARENUM_OVERLAY",
+                        "_CUSTOMRIMLIGHTCOLORVARENUM_OVERLAY",
+                        "_CUSTOMRIMLIGHTVARENUM_OVERLAY",
+                        "_CUSTOMRIMSHADOWCOLORVARENUM_OVERLAY",
+                        "_CUSTOMRIMSHADOWVARENUM_OVERLAY",
+                        "_CUSTOMSPECULARCOLORVARENUM_OVERLAY",
+                        "_CUSTOMSPECULARVARENUM_OVERLAY",
                         "_CUSTOM_RAMP_MAPPING_ON",
+                        "_MAIN_LIGHT_SHADOWS_CASCADE",
+                        "_MODEL_GAME",
+                        "_OUTLINENORMALCHANNEL_NORMAL",
+                        "_RIM_LIGHTING_ON",
+                        "_RIM_SHADOW_ON",
+                        "_SPECULAR_ON"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_AREA_HAIR",
+                        "_AUTO_Brightness_ON",
+                        "_CUSTOMBLOOMCOLORVARENUM_OVERLAY",
+                        "_CUSTOMBLOOMVARENUM_OVERLAY",
+                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
+                        "_CUSTOMOUTLINEVARENUM_OVERLAY",
+                        "_CUSTOMRIMLIGHTCOLORVARENUM_OVERLAY",
+                        "_CUSTOMRIMLIGHTVARENUM_OVERLAY",
+                        "_CUSTOMRIMSHADOWCOLORVARENUM_OVERLAY",
+                        "_CUSTOMRIMSHADOWVARENUM_OVERLAY",
+                        "_CUSTOMSPECULARCOLORVARENUM_OVERLAY",
+                        "_CUSTOMSPECULARVARENUM_OVERLAY",
+                        "_CUSTOM_RAMP_MAPPING_ON",
+                        "_MODEL_GAME",
                         "_OUTLINENORMALCHANNEL_NORMAL",
                         "_RIM_LIGHTING_ON",
                         "_RIM_SHADOW_ON",
@@ -853,7 +1001,7 @@
         {
             "AssetPath": "Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader",
             "ShaderName": "Universal Render Pipeline/Lit",
-            "ShaderVariantCount": 11,
+            "ShaderVariantCount": 12,
             "ShaderVariantElements": [
                 {
                     "PassType": 8,
@@ -977,6 +1125,12 @@
                     "Keywords": [
                         "_ADDITIONAL_LIGHTS",
                         "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_NORMALMAP"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
                         "_NORMALMAP"
                     ]
                 }
@@ -1131,18 +1285,18 @@
                 {
                     "PassType": 0,
                     "Keywords": [
-                        "_INTERLEAVED_GRADIENT",
+                        "_BLUE_NOISE",
                         "_ORTHOGRAPHIC",
                         "_SAMPLE_COUNT_HIGH",
-                        "_SOURCE_DEPTH_MEDIUM"
+                        "_SOURCE_DEPTH_NORMALS"
                     ]
                 },
                 {
                     "PassType": 0,
                     "Keywords": [
-                        "_INTERLEAVED_GRADIENT",
+                        "_BLUE_NOISE",
                         "_SAMPLE_COUNT_HIGH",
-                        "_SOURCE_DEPTH_MEDIUM"
+                        "_SOURCE_DEPTH_NORMALS"
                     ]
                 }
             ]
