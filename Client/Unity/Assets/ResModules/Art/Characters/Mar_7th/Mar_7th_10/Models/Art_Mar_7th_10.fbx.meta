@@ -8,27 +8,27 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Mar_7th_00_Mat_Face
-    second: {fileID: 2100000, guid: e28fb7d0f10290e4e8efeb6ae62f17d2, type: 2}
+    second: {fileID: 2100000, guid: 28cb00c095a418048936f5d8a1f23c33, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Mar_7th_10_Mat_Body_D
-    second: {fileID: 2100000, guid: 4d461a40fb01849479e503252a4cf216, type: 2}
+    second: {fileID: 2100000, guid: e980d79dc8816184ebebb6bfa648af02, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Mar_7th_10_Mat_Body_S
-    second: {fileID: 2100000, guid: 552b71e5178449945a1a5423b805f138, type: 2}
+    second: {fileID: 2100000, guid: b943bbffe2d6e014288184fdeb39ecba, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Mar_7th_10_Mat_Hair
-    second: {fileID: 2100000, guid: 32ef0b6b018a12e45b418ae1ec400ffe, type: 2}
+    second: {fileID: 2100000, guid: e1e66e177befd154196dc066a0f08bc6, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Mar_7th_10_Mat_Weapon
-    second: {fileID: 2100000, guid: fbb2d860ba0e3e247a8aa988304197e1, type: 2}
+    second: {fileID: 2100000, guid: 05584ad236c21954dba94dd8d626b2b4, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

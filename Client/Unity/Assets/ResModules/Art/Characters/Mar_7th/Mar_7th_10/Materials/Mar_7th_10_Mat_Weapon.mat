@@ -32,7 +32,6 @@ Material:
   - _SPECULAR_ON
   m_InvalidKeywords:
   - _DAYTIME_MANUAL_ON_ON
-  - _ENABLEFOVWIDTH_ON
   - _ENABLEOUTLINE_ON
   - _OUTLINENORMAL_TANGENT
   m_LightmapFlags: 4
@@ -172,7 +171,6 @@ Material:
     - _EmissionIntensity: 0
     - _EmissionMixBaseColorFac: 1
     - _EmissionThreshold: 1
-    - _EnableFOVWidth: 1
     - _EnableOutline: 1
     - _EnableSpecular: 1
     - _ExCheekIntensity: 0
@@ -181,7 +179,6 @@ Material:
     - _FaceMaterial: 0
     - _FaceShadowOffset: 0
     - _FaceShadowTransitionSoftness: 0.05
-    - _FixLipOutline: 0
     - _HairBlendAlpha: 0.6
     - _HairShadowDistance: 0.2
     - _IndirectLightFlattenNormal: 0
@@ -196,17 +193,12 @@ Material:
     - _ModelScale: 1
     - _NoseLinePower: 1
     - _OutlineColor: 0
-    - _OutlineFixFront: 0.05
-    - _OutlineFixRange1: 0.1
-    - _OutlineFixRange2: 0.1
-    - _OutlineFixRange3: 0.1
-    - _OutlineFixRange4: 0.1
-    - _OutlineFixSide: 0.6
     - _OutlineNormal: 0
     - _OutlineNormalChannel: 0
-    - _OutlineScale: 0.02
     - _OutlineUseLutMapToggle: 0
-    - _OutlineWidth: 1
+    - _OutlineWidth: 0.0025
+    - _OutlineWidthMax: 30
+    - _OutlineWidthMin: 2
     - _OutlineZOffset: 0
     - _PerObjShadowCasterId: -1
     - _RampCoolWarmLerpFactor: 1

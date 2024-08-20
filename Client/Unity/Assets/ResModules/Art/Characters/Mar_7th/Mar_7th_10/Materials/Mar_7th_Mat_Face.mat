@@ -25,12 +25,11 @@ Material:
   - _CUSTOMSPECULARCOLORVARENUM_DISABLE
   - _CUSTOMSPECULARVARENUM_DISABLE
   - _CUSTOM_RAMP_MAPPING_ON
-  - _EMISSION_ON
   - _MODEL_GAME
   - _OUTLINENORMALCHANNEL_NORMAL
   - _SPECULAR_ON
   m_InvalidKeywords:
-  - _ENABLEFOVWIDTH_ON
+  - _DAYTIME_MANUAL_ON_ON
   - _ENABLEOUTLINE_ON
   - _FACEMATERIAL_ON
   - _OUTLINENORMAL_TANGENT
@@ -143,7 +142,7 @@ Material:
     - _CustomSpecularColorVarEnum: 0
     - _CustomSpecularVarEnum: 0
     - _DayTime: 12
-    - _DayTime_MANUAL_ON: 0
+    - _DayTime_MANUAL_ON: 1
     - _DitherAlpha: 1
     - _DstBlendAlpha: 0
     - _DstBlendModeAlpha: 0
@@ -151,7 +150,6 @@ Material:
     - _EmissionIntensity: 0.6
     - _EmissionMixBaseColorFac: 1
     - _EmissionThreshold: 0.77
-    - _EnableFOVWidth: 1
     - _EnableOutline: 1
     - _EnableSpecular: 1
     - _ExCheekIntensity: 0
@@ -162,7 +160,6 @@ Material:
     - _FaceMaterial: 1
     - _FaceShadowOffset: 0
     - _FaceShadowTransitionSoftness: 0.05
-    - _FixLipOutline: 0
     - _HairBlendAlpha: 0.6
     - _HairShadowDistance: 0.2
     - _IndirectLightFlattenNormal: 0
@@ -176,17 +173,12 @@ Material:
     - _Model: 0
     - _ModelScale: 1
     - _NoseLinePower: 3
-    - _OutlineFixFront: 0.05
-    - _OutlineFixRange1: 0.2
-    - _OutlineFixRange2: 0.1
-    - _OutlineFixRange3: 0.1
-    - _OutlineFixRange4: 0.1
-    - _OutlineFixSide: 0.6
     - _OutlineNormal: 0
     - _OutlineNormalChannel: 0
-    - _OutlineScale: 0.02
     - _OutlineUseLutMapToggle: 0
-    - _OutlineWidth: 1
+    - _OutlineWidth: 0.0025
+    - _OutlineWidthMax: 30
+    - _OutlineWidthMin: 2
     - _OutlineZOffset: 0
     - _PerObjShadowCasterId: -1
     - _RampV0: 0
@@ -292,7 +284,7 @@ Material:
     - _UseAlphaClipping: 0
     - _UseAutoBrightness: 1
     - _UseBackFaceUV2: 0
-    - _UseEmission: 1
+    - _UseEmission: 0
     - _UseLutMapToggle: 0
     - _UseNormalMap: 0
     - _UseRimLight: 0
