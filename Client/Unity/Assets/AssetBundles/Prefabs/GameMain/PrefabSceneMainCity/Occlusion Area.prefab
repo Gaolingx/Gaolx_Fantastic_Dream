@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3764886064382036335
+--- !u!1 &6591799604425029607
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7560212897369473268}
-  - component: {fileID: 5080172800901729201}
+  - component: {fileID: 7603689763482100702}
+  - component: {fileID: 5431043850633107544}
   m_Layer: 0
   m_Name: Occlusion Area
   m_TagString: Untagged
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7560212897369473268
+--- !u!4 &7603689763482100702
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3764886064382036335}
+  m_GameObject: {fileID: 6591799604425029607}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 137.35, y: 14.31, z: 137.2}
@@ -32,13 +32,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!192 &5080172800901729201
+--- !u!192 &5431043850633107544
 OcclusionArea:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3764886064382036335}
+  m_GameObject: {fileID: 6591799604425029607}
   serializedVersion: 2
   m_Size: {x: 87.315414, y: 16.36176, z: 128.42487}
   m_Center: {x: 3.271081, y: 2.3150544, z: 8.525572}

@@ -6,7 +6,7 @@ namespace Suntail
 {
     public class LightCulling : MonoBehaviour
     {
-        public string PlayerCameraWithTag = "MainCamera";
+        [SerializeField] private string PlayerCameraWithTag = "MainCamera";
         [SerializeField] private GameObject playerCamera;
         [SerializeField] private float shadowCullingDistance = 15f;
         [SerializeField] private float lightCullingDistance = 30f;
