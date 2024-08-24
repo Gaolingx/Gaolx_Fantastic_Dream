@@ -4,11 +4,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 using YooAsset;
 using HuHu;
+using System.Threading;
 
 namespace DarkGod.Main
 {
@@ -54,11 +55,7 @@ namespace DarkGod.Main
         #region Resource Load
         private List<AssetHandle> _cacheAssetHandles = new();
 
-        private Dictionary<string, AssetHandle> _audioClipHandleDict = new();
-        private Dictionary<string, AssetHandle> _textAssetHandleDict = new();
-        private Dictionary<string, AssetHandle> _videoClipHandleDict = new();
-        private Dictionary<string, AssetHandle> _spriteHandleDict = new();
-        private Dictionary<string, AssetHandle> _prefabHandleDict = new();
+        private Dictionary<string, AssetHandle> _assetHandleDict = new();
 
         private void GCAssetHandleTODO(AssetHandle assetHandle)
         {
@@ -99,105 +96,30 @@ namespace DarkGod.Main
             await handle.ToUniTask(progress, timing);
         }
 
-        public async UniTask<AudioClip> LoadAudioClipAsync(string packageName, string audioClipPath, bool isCache = false, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
+        public async UniTask<AudioClip> LoadAudioClipAsync(string packageName, string audioClipPath, bool isCache = false, CancellationToken cancellationToken = default, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
         {
             AudioClip audioClip = null;
-            _audioClipHandleDict.TryGetValue(audioClipPath, out AssetHandle handle);
-            if (handle == null)
-            {
-                var package = YooAssets.GetPackage(packageName);
-                handle = package.LoadAssetAsync<AudioClip>(audioClipPath);
-                await handle.ToUniTask(progress, timing);
-                audioClip = handle.AssetObject as AudioClip;
-                if (isCache)
-                {
-                    if (!_audioClipHandleDict.ContainsKey(audioClipPath))
-                    {
-                        _audioClipHandleDict.Add(audioClipPath, handle);
-                    }
-                }
-                else
-                {
-                    GCAssetHandleTODO(handle);
-                }
-            }
-            else
-            {
-                audioClip = handle.AssetObject as AudioClip;
-            }
-
+            audioClip = await LoadAssetAsync<AudioClip>(packageName, audioClipPath, isCache, cancellationToken, progress, timing);
             return audioClip;
         }
 
         public AudioClip LoadAudioClipSync(string packageName, string audioClipPath, bool isCache = false)
         {
             AudioClip audioClip = null;
-            _audioClipHandleDict.TryGetValue(audioClipPath, out AssetHandle handle);
-            if (handle == null)
-            {
-                var package = YooAssets.GetPackage(packageName);
-                handle = package.LoadAssetSync<AudioClip>(audioClipPath);
-                audioClip = handle.AssetObject as AudioClip;
-                if (isCache)
-                {
-                    if (!_audioClipHandleDict.ContainsKey(audioClipPath))
-                    {
-                        _audioClipHandleDict.Add(audioClipPath, handle);
-                    }
-                }
-                else
-                {
-                    GCAssetHandleTODO(handle);
-                }
-            }
-            else
-            {
-                audioClip = handle.AssetObject as AudioClip;
-            }
-
+            audioClip = LoadAssetSync<AudioClip>(packageName, audioClipPath, isCache);
             return audioClip;
-        }
-
-        public GameObject LoadPrefabSync(string packageName, string prefabPath, bool isCache)
-        {
-            GameObject prefab = null;
-            _prefabHandleDict.TryGetValue(prefabPath, out AssetHandle handle);
-            if (handle == null)
-            {
-                var package = YooAssets.GetPackage(packageName);
-                handle = package.LoadAssetSync<GameObject>(prefabPath);
-                prefab = handle.AssetObject as GameObject;
-                if (isCache)
-                {
-                    if (!_prefabHandleDict.ContainsKey(prefabPath))
-                    {
-                        _prefabHandleDict.Add(prefabPath, handle);
-                    }
-                }
-                else
-                {
-                    GCAssetHandleTODO(handle);
-                }
-            }
-            else
-            {
-                prefab = handle.AssetObject as GameObject;
-            }
-
-            PECommon.Log("Prefab load Sync. name:" + prefab.name + ". path:" + prefabPath);
-            return prefab;
         }
 
         public GameObject LoadGameObjectSync(string packageName, Transform parentTrans, string prefabPath, bool isCache)
         {
-            GameObject prefab = LoadPrefabSync(packageName, prefabPath, isCache);
+            GameObject prefab = LoadAssetSync<GameObject>(packageName, prefabPath, isCache);
             GameObject instantiatedPrefab = Instantiate(prefab, parentTrans);
             return instantiatedPrefab;
         }
 
-        public async UniTask<GameObject> LoadGameObjectAsync(string packageName, string prefabPath, Vector3 GameObjectPos, Vector3 GameObjectRota, Vector3 GameObjectScal, bool isCache = false, bool isLocalPos = true, bool isLocalEulerAngles = true, Transform transform = null, bool isRename = false, bool isNeedDestroy = true, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
+        public async UniTask<GameObject> LoadGameObjectAsync(string packageName, string prefabPath, Vector3 GameObjectPos, Vector3 GameObjectRota, Vector3 GameObjectScal, bool isCache = false, bool isLocalPos = true, bool isLocalEulerAngles = true, Transform transform = null, bool isRename = false, bool isNeedDestroy = true, CancellationToken cancellationToken = default, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
         {
-            GameObject prefab = await LoadPrefabAsync(packageName, prefabPath, isCache, progress, timing);
+            GameObject prefab = await LoadAssetAsync<GameObject>(packageName, prefabPath, isCache, cancellationToken, progress, timing);
             GameObject instantiatedPrefab = null;
             if (isNeedDestroy)
             {
@@ -215,81 +137,49 @@ namespace DarkGod.Main
             return instantiatedPrefab;
         }
 
-        public async UniTask<GameObject> LoadPrefabAsync(string packageName, string prefabPath, bool isCache, IProgress<float> progress, PlayerLoopTiming timing)
-        {
-            GameObject prefab = null;
-            _prefabHandleDict.TryGetValue(prefabPath, out AssetHandle handle);
-            if (handle == null)
-            {
-                var package = YooAssets.GetPackage(packageName);
-                handle = package.LoadAssetAsync<GameObject>(prefabPath);
-                await handle.ToUniTask(progress, timing);
-                prefab = handle.AssetObject as GameObject;
-
-                if (isCache)
-                {
-                    if (!_prefabHandleDict.ContainsKey(prefabPath))
-                    {
-                        _prefabHandleDict.Add(prefabPath, handle);
-                    }
-                }
-                else
-                {
-                    GCAssetHandleTODO(handle);
-                }
-            }
-            else
-            {
-                prefab = handle.AssetObject as GameObject;
-            }
-            return prefab;
-        }
-
-        public async UniTask<TextAsset> LoadCfgDataAsync(string packageName, string textAssetPath, bool isCache = false, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
+        public async UniTask<TextAsset> LoadCfgDataAsync(string packageName, string textAssetPath, bool isCache = false, CancellationToken cancellationToken = default, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
         {
             TextAsset textAsset = null;
-            _textAssetHandleDict.TryGetValue(textAssetPath, out AssetHandle handle);
-            if (handle == null)
-            {
-                var package = YooAssets.GetPackage(packageName);
-                handle = package.LoadAssetAsync<TextAsset>(textAssetPath);
-                await handle.ToUniTask(progress, timing);
-                textAsset = handle.AssetObject as TextAsset;
-                if (isCache)
-                {
-                    if (!_textAssetHandleDict.ContainsKey(textAssetPath))
-                    {
-                        _textAssetHandleDict.Add(textAssetPath, handle);
-                    }
-                }
-                else
-                {
-                    GCAssetHandleTODO(handle);
-                }
-            }
-            else
-            {
-                textAsset = handle.AssetObject as TextAsset;
-            }
-
+            textAsset = await LoadAssetAsync<TextAsset>(packageName, textAssetPath, isCache, cancellationToken, progress, timing);
             return textAsset;
         }
 
-        public async UniTask<Sprite> LoadSpriteAsync(string packageName, string spritePath, bool isCache = false, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
+        public async UniTask<Sprite> LoadSpriteAsync(string packageName, string spritePath, bool isCache = false, CancellationToken cancellationToken = default, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
         {
             Sprite sprite = null;
-            _spriteHandleDict.TryGetValue(spritePath, out AssetHandle handle);
-            if (handle == null)
+            sprite = await LoadAssetAsync<Sprite>(packageName, spritePath, isCache, cancellationToken, progress, timing);
+            return sprite;
+        }
+
+        public async UniTask<VideoClip> LoadVideoClipASync(string packageName, string videoClipPath, bool isCache = false, CancellationToken cancellationToken = default, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
+        {
+            VideoClip videoClip = null;
+            videoClip = await LoadAssetAsync<VideoClip>(packageName, videoClipPath, isCache, cancellationToken, progress, timing);
+            return videoClip;
+        }
+
+        public T LoadAssetSync<T>(string packageName, string assetPath, bool isCache = false) where T : UnityEngine.Object
+        {
+            AssetHandle handle;
+            if (_assetHandleDict.ContainsKey(assetPath))
+            {
+                handle = _assetHandleDict[assetPath];
+                if (!handle.IsValid)
+                {
+                    _assetHandleDict.Remove(assetPath);
+                    PECommon.Log($"Asset Load Failed:此Asset handle {assetPath} 已经释放!", PELogType.Warn);
+                    return null;
+                }
+            }
+            else
             {
                 var package = YooAssets.GetPackage(packageName);
-                handle = package.LoadAssetAsync<Sprite>(spritePath);
-                await handle.ToUniTask(progress, timing);
-                sprite = handle.AssetObject as Sprite;
+                handle = package.LoadAssetSync<T>(assetPath);
                 if (isCache)
                 {
-                    if (!_spriteHandleDict.ContainsKey(spritePath))
+                    if (!_assetHandleDict.ContainsKey(assetPath))
                     {
-                        _spriteHandleDict.Add(spritePath, handle);
+                        _assetHandleDict.Add(assetPath, handle);
                     }
                 }
                 else
@@ -297,12 +187,41 @@ namespace DarkGod.Main
                     GCAssetHandleTODO(handle);
                 }
             }
+            return handle.AssetObject as T;
+        }
+
+        public async UniTask<T> LoadAssetAsync<T>(string packageName, string assetPath, bool isCache = false, CancellationToken cancellationToken = default, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update) where T : UnityEngine.Object
+        {
+            AssetHandle handle;
+            if (_assetHandleDict.ContainsKey(assetPath))
+            {
+                handle = _assetHandleDict[assetPath];
+                await UniTask.WaitUntil(() => handle.IsDone || !handle.IsValid);
+                if (!handle.IsValid)
+                {
+                    _assetHandleDict.Remove(assetPath);
+                    PECommon.Log($"Asset Load Failed:此Asset handle {assetPath} 已经释放!", PELogType.Warn);
+                    return null;
+                }
+            }
             else
             {
-                sprite = handle.AssetObject as Sprite;
+                var package = YooAssets.GetPackage(packageName);
+                handle = package.LoadAssetAsync<T>(assetPath);
+                await handle.ToUniTask(progress, timing).AttachExternalCancellation(cancellationToken).SuppressCancellationThrow();
+                if (isCache)
+                {
+                    if (!_assetHandleDict.ContainsKey(assetPath))
+                    {
+                        _assetHandleDict.Add(assetPath, handle);
+                    }
+                }
+                else
+                {
+                    GCAssetHandleTODO(handle);
+                }
             }
-
-            return sprite;
+            return handle.AssetObject as T;
         }
 
         #endregion

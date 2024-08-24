@@ -1,5 +1,6 @@
 using UnityEngine;
 using HuHu;
+using XiHUtil;
 
 namespace DarkGod.Main
 {
@@ -27,19 +28,19 @@ namespace DarkGod.Main
         {
             LoginItem loginItem = new LoginItem();
 
-            if (PlayerPrefs.HasKey(PrefsKeyLoginRemember))
+            if (PlayerPrefsUtil.HasKey(PrefsKeyLoginRemember))
             {
-                loginItem.isRemember = UIItemUtils.IntToBool(PlayerPrefs.GetInt(PrefsKeyLoginRemember));
+                loginItem.isRemember = PlayerPrefsUtil.Get(PrefsKeyLoginRemember, false);
             }
             else
             {
                 loginItem.isRemember = false;
             }
 
-            if (PlayerPrefs.HasKey(PrefsKeyLoginAccount) && PlayerPrefs.HasKey(PrefsKeyLoginPassword) && loginItem.isRemember == true)
+            if (PlayerPrefsUtil.HasKey(PrefsKeyLoginAccount) && PlayerPrefsUtil.HasKey(PrefsKeyLoginPassword) && loginItem.isRemember == true)
             {
-                loginItem.account = PlayerPrefs.GetString(PrefsKeyLoginAccount);
-                loginItem.password = PlayerPrefs.GetString(PrefsKeyLoginPassword);
+                loginItem.account = PlayerPrefsUtil.Get(PrefsKeyLoginAccount, "");
+                loginItem.password = PlayerPrefsUtil.Get(PrefsKeyLoginPassword, "");
             }
             else
             {
@@ -52,9 +53,9 @@ namespace DarkGod.Main
 
         public void SetGetLoginItem(LoginItem loginItem)
         {
-            PlayerPrefs.SetString(PrefsKeyLoginAccount, loginItem.account);
-            PlayerPrefs.SetString(PrefsKeyLoginPassword, loginItem.password);
-            PlayerPrefs.SetInt(PrefsKeyLoginRemember, UIItemUtils.BoolToInt(loginItem.isRemember));
+            PlayerPrefsUtil.Set(PrefsKeyLoginAccount, loginItem.account);
+            PlayerPrefsUtil.Set(PrefsKeyLoginPassword, loginItem.password);
+            PlayerPrefsUtil.Set(PrefsKeyLoginRemember, loginItem.isRemember);
         }
 
         #endregion
