@@ -1,0 +1,62 @@
+[
+  {
+    "ID": 1011,
+    "delayTime": 100,
+    "radius": 2.5,
+    "angle": 360
+  },
+  {
+    "ID": 1021,
+    "delayTime": 350,
+    "radius": 2.5,
+    "angle": 360
+  },
+  {
+    "ID": 1031,
+    "delayTime": 300,
+    "radius": 4.5,
+    "angle": 360
+  },
+  {
+    "ID": 1111,
+    "delayTime": 30,
+    "radius": 2.5,
+    "angle": 270
+  },
+  {
+    "ID": 1121,
+    "delayTime": 30,
+    "radius": 5,
+    "angle": 60
+  },
+  {
+    "ID": 1131,
+    "delayTime": 25,
+    "radius": 2.5,
+    "angle": 360
+  },
+  {
+    "ID": 1141,
+    "delayTime": 0,
+    "radius": 5,
+    "angle": 360
+  },
+  {
+    "ID": 1151,
+    "delayTime": 0,
+    "radius": 5,
+    "angle": 120
+  },
+  {
+    "ID": 2111,
+    "delayTime": 600,
+    "radius": 2,
+    "angle": 60
+  },
+  {
+    "ID": 2211,
+    "delayTime": 1000,
+    "radius": 4.5,
+    "angle": 60
+  }
+]

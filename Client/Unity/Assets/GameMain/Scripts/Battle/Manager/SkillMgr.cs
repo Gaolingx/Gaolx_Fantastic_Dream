@@ -9,6 +9,7 @@ namespace DarkGod.Main
     public class SkillMgr : MonoBehaviour
     {
         private ResSvc resSvc;
+        private ConfigSvc configSvc;
         private TimerSvc timerSvc;
         private AudioSvc audioSvc;
 
@@ -17,6 +18,7 @@ namespace DarkGod.Main
         public void Init()
         {
             resSvc = ResSvc.MainInstance;
+            configSvc = ConfigSvc.MainInstance;
             timerSvc = TimerSvc.MainInstance;
             audioSvc = AudioSvc.MainInstance;
             PECommon.Log("Init SkillMgr Done.");
@@ -35,13 +37,13 @@ namespace DarkGod.Main
 
         public void AttackDamage(EntityBase entity, int skillID)
         {
-            SkillCfg skillData = resSvc.GetSkillCfg(skillID);
+            SkillCfg skillData = configSvc.GetSkillCfg(skillID);
             //获取ActionList
             List<int> actonLst = skillData.skillActionLst;
             int sum = 0;
             for (int i = 0; i < actonLst.Count; i++)
             {
-                SkillActionCfg skillActionCfg = resSvc.GetSkillActionCfg(actonLst[i]);
+                SkillActionCfg skillActionCfg = configSvc.GetSkillActionCfg(actonLst[i]);
                 sum += skillActionCfg.delayTime;
                 int index = i; //action索引号
                 if (sum > 0)
@@ -67,7 +69,7 @@ namespace DarkGod.Main
 
         public void SkillAction(EntityBase caster, SkillCfg skillCfg, int index)
         {
-            SkillActionCfg skillActionCfg = resSvc.GetSkillActionCfg(skillCfg.skillActionLst[index]);
+            SkillActionCfg skillActionCfg = configSvc.GetSkillActionCfg(skillCfg.skillActionLst[index]);
 
             int damage = skillCfg.skillDamageLst[index];
             if (caster.entityType == EntityType.Monster)
@@ -205,7 +207,7 @@ namespace DarkGod.Main
         /// </summary>
         public void AttackEffect(EntityBase entity, int skillID)
         {
-            SkillCfg skillData = resSvc.GetSkillCfg(skillID);
+            SkillCfg skillData = configSvc.GetSkillCfg(skillID);
 
             //考虑碰撞
             if (!skillData.isCollide)
@@ -271,7 +273,7 @@ namespace DarkGod.Main
             int sum = 0;
             for (int i = 0; i < skillMoveLst.Count; i++)
             {
-                SkillMoveCfg skillMoveCfg = resSvc.GetSkillMoveCfg(skillData.skillMoveLst[i]);
+                SkillMoveCfg skillMoveCfg = configSvc.GetSkillMoveCfg(skillData.skillMoveLst[i]);
                 float speed = skillMoveCfg.moveDis / (skillMoveCfg.moveTime / 1000f);
                 sum += skillMoveCfg.delayTime; //多段位移技能要累加延迟时间
                 if (sum > 0)

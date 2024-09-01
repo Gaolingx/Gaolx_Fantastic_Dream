@@ -11,6 +11,7 @@ namespace DarkGod.Main
     public class WindowRoot : MonoBehaviour
     {
         protected ResSvc resSvc = null;
+        protected ConfigSvc configSvc = null;
         protected AudioSvc audioSvc = null;
         protected NetSvc netSvc = null;
         protected TimerSvc timerSvc = null;
@@ -41,6 +42,7 @@ namespace DarkGod.Main
         {
             //获取单例的引用
             resSvc = ResSvc.MainInstance;
+            configSvc = ConfigSvc.MainInstance;
             audioSvc = AudioSvc.MainInstance;
             netSvc = NetSvc.MainInstance;
             timerSvc = TimerSvc.MainInstance;
@@ -50,6 +52,7 @@ namespace DarkGod.Main
         {
             //重置为空
             resSvc = null;
+            configSvc = null;
             audioSvc = null;
             netSvc = null;
             timerSvc = null;

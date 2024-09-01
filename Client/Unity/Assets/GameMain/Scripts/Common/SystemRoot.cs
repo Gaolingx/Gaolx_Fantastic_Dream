@@ -9,6 +9,7 @@ namespace DarkGod.Main
     public class SystemRoot<T> : Singleton<T> where T : Singleton<T>
     {
         protected ResSvc resSvc;
+        protected ConfigSvc configSvc;
         protected AudioSvc audioSvc;
         protected NetSvc netSvc;
         protected TimerSvc timerSvc;
@@ -16,6 +17,7 @@ namespace DarkGod.Main
         public virtual void InitSys()
         {
             resSvc = ResSvc.MainInstance;
+            configSvc = ConfigSvc.MainInstance;
             audioSvc = AudioSvc.MainInstance;
             netSvc = NetSvc.MainInstance;
             timerSvc = TimerSvc.MainInstance;

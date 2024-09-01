@@ -15,6 +15,7 @@ namespace DarkGod.Main
     public class BattleMgr : MonoBehaviour
     {
         private ResSvc resSvc;
+        private ConfigSvc configSvc;
         private AudioSvc audioSvc;
         private TimerSvc timerSvc;
 
@@ -104,6 +105,7 @@ namespace DarkGod.Main
         {
             //初始化服务模块
             resSvc = ResSvc.MainInstance;
+            configSvc = ConfigSvc.MainInstance;
             audioSvc = AudioSvc.MainInstance;
             timerSvc = TimerSvc.MainInstance;
 
@@ -117,7 +119,7 @@ namespace DarkGod.Main
             skillMgr.Init();
 
             //加载战场地图
-            mapCfg = resSvc.GetMapCfg(mapid);
+            mapCfg = configSvc.GetMapCfg(mapid);
             resSvc.AsyncLoadScene(Constants.ResourcePackgeName, mapCfg.sceneName, () =>
             {
                 //初始化地图数据

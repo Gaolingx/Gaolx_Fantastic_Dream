@@ -12,18 +12,7 @@ namespace DarkGod.Main
         #endregion
 
         #region Configs
-        public const string RDNameCfg = "Assets/AssetBundles/Configs/ResCfgs/xml/rdname";
-        public const string MapCfg = "Assets/AssetBundles/Configs/ResCfgs/xml/map";
-        public const string MonsterCfg = "Assets/AssetBundles/Configs/ResCfgs/xml/monster";
-        public const string GuideCfg = "Assets/AssetBundles/Configs/ResCfgs/xml/guide";
-        public const string StrongCfg = "Assets/AssetBundles/Configs/ResCfgs/xml/strong";
-        public const string BuyCfg = "Assets/AssetBundles/Configs/ResCfgs/xml/buyCfg";
-        public const string TaskRewardCfg = "Assets/AssetBundles/Configs/ResCfgs/xml/taskreward";
-        public const string NpcCfg = "Assets/AssetBundles/Configs/ResCfgs/xml/npcCfg";
-
-        public const string SkillCfg = "Assets/AssetBundles/Configs/ResCfgs/xml/skill";
-        public const string SkillMoveCfg = "Assets/AssetBundles/Configs/ResCfgs/xml/skillmove";
-        public const string SkillActionCfg = "Assets/AssetBundles/Configs/ResCfgs/xml/skillaction";
+        public const string ConfigDataPath = "Assets/AssetBundles/Configs/ResCfgs/Luban/Gen/Data";
 
         #endregion
 

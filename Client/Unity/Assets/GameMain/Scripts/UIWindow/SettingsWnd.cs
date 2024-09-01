@@ -158,7 +158,7 @@ namespace DarkGod.Main
         public void ClickResetCfgsBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            resSvc.ResetSkillCfgs();
+            configSvc.ResetSkillCfgs();
             MsgBox.MainInstance.ShowMessageBox("技能数据重置成功！");
         }
 

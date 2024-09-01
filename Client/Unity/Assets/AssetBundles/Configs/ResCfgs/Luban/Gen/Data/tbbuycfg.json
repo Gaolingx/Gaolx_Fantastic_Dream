@@ -1,0 +1,14 @@
+[
+  {
+    "ID": 0,
+    "buyTypeName": "体力",
+    "buyCostDiamondOnce": 10,
+    "amountEachPurchase": 100
+  },
+  {
+    "ID": 1,
+    "buyTypeName": "金币",
+    "buyCostDiamondOnce": 5,
+    "amountEachPurchase": 1000
+  }
+]

@@ -1,0 +1,581 @@
+using HuHu;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace DarkGod.Main
+{
+    public class ConfigSvc : Singleton<ConfigSvc>
+    {
+        public void InitSvc()
+        {
+            InitRDNameCfg();
+            InitMonsterCfg();
+            InitMapCfg();
+            InitGuideCfg();
+            InitStrongCfg();
+            InitBuyCfg();
+            InitTaskRewardCfg();
+            InitNpcCfg();
+
+            InitSkillCfg();
+            InitSkillMoveCfg();
+            InitSkillActionCfg();
+
+            PECommon.Log("Init ConfigSvc...");
+        }
+
+        public void ResetSkillCfgs()
+        {
+            //清空字典，避免key冲突
+            skillDic.Clear();
+            InitSkillCfg();
+            skillMoveDic.Clear();
+            InitSkillMoveCfg();
+            skillActionDic.Clear();
+            InitSkillActionCfg();
+
+            PECommon.Log("Reset Skill Cfgs Done.");
+        }
+
+        #region InitCfgs
+        #region 随机名字
+        private List<string> surnameLst = new List<string>();
+        private List<string> manLst = new List<string>();
+        private List<string> womanLst = new List<string>();
+
+        private void InitRDNameCfg()
+        {
+            var tables = new cfg.Tables(LubanHelper.LoadByteBufJson);
+            var rdNameTable = tables.Tbrdname;
+
+            foreach (var table in rdNameTable.DataMap.Values)
+            {
+                surnameLst.Add(table.Surname);
+                manLst.Add(table.Man);
+                womanLst.Add(table.Woman);
+            }
+        }
+
+        public string GetRDNameCfg(bool man = true)
+        {
+            System.Random rd = new System.Random();
+            string rdName = surnameLst[PETools.RDInt(0, surnameLst.Count - 1, rd)];
+            if (man)
+            {
+                rdName += manLst[PETools.RDInt(0, manLst.Count - 1)];
+            }
+            else
+            {
+                rdName += womanLst[PETools.RDInt(0, womanLst.Count - 1)];
+            }
+
+            return rdName;
+        }
+        #endregion
+
+        #region 地图
+        private Dictionary<int, MapCfg> mapCfgDataDic = new Dictionary<int, MapCfg>();
+
+        private void InitMapCfg()
+        {
+            var tables = new cfg.Tables(LubanHelper.LoadByteBufJson);
+            var mapCfgTable = tables.Tbmap;
+            MapCfg mapCfg = new MapCfg()
+            {
+                monsterLst = new List<MonsterData>()
+            };
+
+            foreach (var table in mapCfgTable.DataMap.Values)
+            {
+                mapCfg.ID = table.ID;
+                mapCfg.mapName = table.MapName;
+                mapCfg.sceneName = table.SceneName;
+                mapCfg.playerPath = table.PlayerPath;
+                mapCfg.playerCamPath = table.PlayerCamPath;
+                mapCfg.power = table.Power;
+                mapCfg.mainCamPos = new Vector3(float.Parse(table.MainCamPos.Split(',')[0]), float.Parse(table.MainCamPos.Split(',')[1]), float.Parse(table.MainCamPos.Split(',')[2]));
+                mapCfg.mainCamRote = new Vector3(float.Parse(table.MainCamRote.Split(',')[0]), float.Parse(table.MainCamRote.Split(',')[1]), float.Parse(table.MainCamRote.Split(',')[2]));
+                mapCfg.playerBornPos = new Vector3(float.Parse(table.PlayerBornPos.Split(',')[0]), float.Parse(table.PlayerBornPos.Split(',')[1]), float.Parse(table.PlayerBornPos.Split(',')[2]));
+                mapCfg.playerBornRote = new Vector3(float.Parse(table.PlayerBornRote.Split(',')[0]), float.Parse(table.PlayerBornRote.Split(',')[1]), float.Parse(table.PlayerBornRote.Split(',')[2]));
+                mapCfg.coin = table.Coin;
+                mapCfg.exp = table.Exp;
+                mapCfg.crystal = table.Crystal;
+                {
+                    string[] mLstArr = table.MonsterLst.Split('#');
+                    for (int waveIndex = 0; waveIndex < mLstArr.Length; waveIndex++)
+                    {
+                        if (waveIndex == 0)
+                        {
+                            continue;
+                        }
+                        string[] tempArr = mLstArr[waveIndex].Split('|');
+                        for (int j = 0; j < tempArr.Length; j++)
+                        {
+                            if (j == 0)
+                            {
+                                continue;
+                            }
+                            string[] arr = tempArr[j].Split(',');
+                            MonsterData md = new MonsterData
+                            {
+                                ID = int.Parse(arr[0]),
+                                mWave = waveIndex,
+                                mIndex = j,
+                                mCfg = GetMonsterCfg(int.Parse(arr[0])),
+                                mBornPos = new Vector3(float.Parse(arr[1]), float.Parse(arr[2]), float.Parse(arr[3])),
+                                mBornRote = new Vector3(0, float.Parse(arr[4]), 0),
+                                mLevel = int.Parse(arr[5]),
+                                mMoveSpeed = float.Parse(arr[6])
+                            };
+                            mapCfg.monsterLst.Add(md);
+                        }
+                    }
+                }
+
+                mapCfgDataDic.Add(table.ID, mapCfg);
+            }
+        }
+
+        public MapCfg GetMapCfg(int id)
+        {
+            MapCfg data;
+            if (mapCfgDataDic.TryGetValue(id, out data))
+            {
+                return data;
+            }
+            return null;
+        }
+        #endregion
+
+        #region 自动引导配置
+        private Dictionary<int, AutoGuideCfg> guideTaskDic = new Dictionary<int, AutoGuideCfg>();
+
+        private void InitGuideCfg()
+        {
+            var tables = new cfg.Tables(LubanHelper.LoadByteBufJson);
+            var guideCfgTable = tables.Tbguide;
+            AutoGuideCfg autoGuideCfg = new AutoGuideCfg();
+
+            foreach (var table in guideCfgTable.DataMap.Values)
+            {
+                autoGuideCfg.ID = table.ID;
+                autoGuideCfg.npcID = table.NpcID;
+                autoGuideCfg.dilogArr = table.DilogArr;
+                autoGuideCfg.actID = table.ActID;
+                autoGuideCfg.coin = table.Coin;
+                autoGuideCfg.exp = table.Exp;
+
+                guideTaskDic.Add(table.ID, autoGuideCfg);
+            }
+        }
+
+        public AutoGuideCfg GetAutoGuideCfg(int id)
+        {
+            AutoGuideCfg agc = null;
+            if (guideTaskDic.TryGetValue(id, out agc))
+            {
+                return agc;
+            }
+            return null;
+        }
+        #endregion
+
+        #region 强化升级配置
+        private Dictionary<int, Dictionary<int, StrongCfg>> strongDic = new Dictionary<int, Dictionary<int, StrongCfg>>();
+
+        private void InitStrongCfg()
+        {
+            var tables = new cfg.Tables(LubanHelper.LoadByteBufJson);
+            var strongCfgTable = tables.Tbstrong;
+            StrongCfg sd = new StrongCfg();
+
+            foreach (var table in strongCfgTable.DataMap.Values)
+            {
+                sd.ID = table.ID;
+                sd.pos = table.Pos;
+                sd.startlv = table.Starlv;
+                sd.addhp = table.Addhp;
+                sd.addhurt = table.Addhurt;
+                sd.adddef = table.Adddef;
+                sd.minlv = table.Minlv;
+                sd.coin = table.Coin;
+                sd.crystal = table.Crystal;
+
+                Dictionary<int, StrongCfg> dic = null;
+                //判断当前在该部位的字典是否存在
+                if (strongDic.TryGetValue(sd.pos, out dic))
+                {
+                    //如果有则直接往字典增加数据项
+                    dic.Add(sd.startlv, sd);
+                }
+                else
+                {
+                    //如果没有，则需要先将该位置的字典new出来
+                    dic = new Dictionary<int, StrongCfg>();
+                    dic.Add(sd.startlv, sd);
+
+                    //添加到strongDic中
+                    strongDic.Add(sd.pos, dic);
+                }
+            }
+        }
+
+        //获取对应位置对应星级的属性
+        public StrongCfg GetStrongCfg(int pos, int starlv)
+        {
+            StrongCfg sd = null;
+            Dictionary<int, StrongCfg> dic = null;
+            if (strongDic.TryGetValue(pos, out dic))
+            {
+                //判断字典中是否含有相应的星级
+                if (dic.ContainsKey(starlv))
+                {
+                    sd = dic[starlv];
+                }
+            }
+            return sd;
+        }
+
+        //获取某个星级包括前面所有星级在某个属性累加的和 
+        public int GetPropAddValPreLv(int pos, int starlv, int type)
+        {
+            //获取对应位置所有的强化数据
+            Dictionary<int, StrongCfg> posDic = null;
+            int val = 0;
+            if (strongDic.TryGetValue(pos, out posDic))
+            {
+                //根据星级和类型获取对应属性
+                for (int i = 0; i < starlv; i++)
+                {
+                    StrongCfg sd;
+                    if (posDic.TryGetValue(i, out sd))
+                    {
+                        //根据类型累加数值
+                        switch (type)
+                        {
+                            case 1://hp
+                                val += sd.addhp;
+                                break;
+                            case 2://hurt
+                                val += sd.addhurt;
+                                break;
+                            case 3://def
+                                val += sd.adddef;
+                                break;
+                        }
+                    }
+                }
+            }
+            return val;
+        }
+        #endregion
+
+        #region 资源交易配置
+        private Dictionary<int, BuyCfg> buyCfgDic = new Dictionary<int, BuyCfg>();
+
+        private void InitBuyCfg()
+        {
+            var tables = new cfg.Tables(LubanHelper.LoadByteBufJson);
+            var buyCfgTable = tables.TbbuyCfg;
+            BuyCfg buyCfg = new BuyCfg();
+
+            foreach (var table in buyCfgTable.DataMap.Values)
+            {
+                buyCfg.ID = table.ID;
+                buyCfg.buyCostDiamondOnce = table.BuyCostDiamondOnce;
+                buyCfg.amountEachPurchase = table.AmountEachPurchase;
+
+                buyCfgDic.Add(table.ID, buyCfg);
+            }
+        }
+
+        public BuyCfg GetBuyCfg(int id)
+        {
+            BuyCfg bc = null;
+            if (buyCfgDic.TryGetValue(id, out bc))
+            {
+                return bc;
+            }
+            return null;
+        }
+        #endregion
+
+        #region 任务奖励配置
+        private Dictionary<int, TaskRewardCfg> taskRewardDic = new Dictionary<int, TaskRewardCfg>();
+
+        private void InitTaskRewardCfg()
+        {
+            var tables = new cfg.Tables(LubanHelper.LoadByteBufJson);
+            var taskRewardCfgTable = tables.Tbtaskreward;
+            TaskRewardCfg trc = new TaskRewardCfg();
+
+            foreach (var table in taskRewardCfgTable.DataMap.Values)
+            {
+                trc.ID = table.ID;
+                trc.taskName = table.TaskName;
+                trc.count = table.Count;
+                trc.exp = table.Exp;
+                trc.coin = table.Coin;
+
+                taskRewardDic.Add(table.ID, trc);
+            }
+        }
+
+        public TaskRewardCfg GetTaskRewardCfg(int id)
+        {
+            TaskRewardCfg trc = null;
+            if (taskRewardDic.TryGetValue(id, out trc))
+            {
+                return trc;
+            }
+            return null;
+        }
+        #endregion
+
+        #region 全局NPC配置
+        private Dictionary<int, NpcData> npcDic = new Dictionary<int, NpcData>();
+
+        private void InitNpcCfg()
+        {
+            var tables = new cfg.Tables(LubanHelper.LoadByteBufJson);
+            var npcCfgTable = tables.TbnpcCfg;
+            NpcData nd = new NpcData();
+
+            foreach (var table in npcCfgTable.DataMap.Values)
+            {
+                nd.ID = table.ID;
+                nd.npcName = table.NPCName;
+                nd.npcResPath = table.NPCResPath;
+                nd.NPC_Transform_Position_X = table.NPCTransformPositionX;
+                nd.NPC_Transform_Position_Y = table.NPCTransformPositionY;
+                nd.NPC_Transform_Position_Z = table.NPCTransformPositionZ;
+                nd.NPC_Transform_Rotation_X = table.NPCTransformRotationX;
+                nd.NPC_Transform_Rotation_Y = table.NPCTransformRotationY;
+                nd.NPC_Transform_Rotation_Z = table.NPCTransformRotationZ;
+                nd.NPC_Transform_Scale_X = table.NPCTransformScaleX;
+                nd.NPC_Transform_Scale_Y = table.NPCTransformScaleY;
+                nd.NPC_Transform_Scale_Z = table.NPCTransformScaleZ;
+
+                npcDic.Add(table.ID, nd);
+            }
+        }
+
+        public NpcData GetNpcCfg(int id)
+        {
+            NpcData nd = null;
+            if (npcDic.TryGetValue(id, out nd))
+            {
+                return nd;
+            }
+            return null;
+        }
+        #endregion
+
+        #region 技能配置
+        private Dictionary<int, SkillCfg> skillDic = new Dictionary<int, SkillCfg>();
+
+        private void InitSkillCfg()
+        {
+            var tables = new cfg.Tables(LubanHelper.LoadByteBufJson);
+            var skCommonCfgTable = tables.Tbskill;
+            SkillCfg sc = new SkillCfg()
+            {
+                skillMoveLst = new List<int>(),
+                skillActionLst = new List<int>(),
+                skillDamageLst = new List<int>()
+            };
+
+            foreach (var table in skCommonCfgTable.DataMap.Values)
+            {
+                sc.ID = table.ID;
+                sc.skillName = table.SkillName;
+                sc.cdTime = table.CdTime;
+                sc.skillTime = table.SkillTime;
+                sc.aniAction = table.AniAction;
+                sc.fx = table.Fx;
+                sc.isCombo = table.IsCombo.Equals("1");
+                sc.isCollide = table.IsCollide.Equals("1");
+                sc.isBreak = table.IsBreak.Equals("1");
+                {
+                    if (table.DmgType.Equals("1"))
+                    {
+                        sc.dmgType = DamageType.AD;
+                    }
+                    else if (table.DmgType.Equals("2"))
+                    {
+                        sc.dmgType = DamageType.AP;
+                    }
+                    else
+                    {
+                        PECommon.Log("DamageType Not Found !", PELogType.Error);
+                    }
+                }
+                {
+                    string[] skMoveArr = table.SkillMoveLst.Split('|');
+                    for (int j = 0; j < skMoveArr.Length; j++)
+                    {
+                        if (skMoveArr[j] != "")
+                        {
+                            sc.skillMoveLst.Add(int.Parse(skMoveArr[j]));
+                        }
+                    }
+                }
+                {
+                    string[] skActionArr = table.SkillActionLst.Split('|');
+                    for (int j = 0; j < skActionArr.Length; j++)
+                    {
+                        if (skActionArr[j] != "")
+                        {
+                            sc.skillActionLst.Add(int.Parse(skActionArr[j]));
+                        }
+                    }
+                }
+                {
+                    string[] skDamageArr = table.SkillDamageLst.Split('|');
+                    for (int j = 0; j < skDamageArr.Length; j++)
+                    {
+                        if (skDamageArr[j] != "")
+                        {
+                            sc.skillDamageLst.Add(int.Parse(skDamageArr[j]));
+                        }
+                    }
+                }
+                skillDic.Add(table.ID, sc);
+            }
+        }
+
+        public SkillCfg GetSkillCfg(int id)
+        {
+            SkillCfg sc = null;
+            if (skillDic.TryGetValue(id, out sc))
+            {
+                return sc;
+            }
+            return null;
+        }
+        #endregion
+
+        #region 技能位移配置
+        private Dictionary<int, SkillMoveCfg> skillMoveDic = new Dictionary<int, SkillMoveCfg>();
+
+        private void InitSkillMoveCfg()
+        {
+            var tables = new cfg.Tables(LubanHelper.LoadByteBufJson);
+            var skMoveTable = tables.Tbskillmove;
+            SkillMoveCfg smc = new SkillMoveCfg();
+
+            foreach (var table in skMoveTable.DataMap.Values)
+            {
+                smc.ID = table.ID;
+                smc.delayTime = table.DelayTime;
+                smc.moveTime = table.MoveTime;
+                smc.moveDis = table.MoveDis;
+
+                skillMoveDic.Add(table.ID, smc);
+            }
+        }
+
+        public SkillMoveCfg GetSkillMoveCfg(int id)
+        {
+            SkillMoveCfg smc = null;
+            if (skillMoveDic.TryGetValue(id, out smc))
+            {
+                return smc;
+            }
+            return null;
+        }
+        #endregion
+
+        #region 技能Action配置
+        private Dictionary<int, SkillActionCfg> skillActionDic = new Dictionary<int, SkillActionCfg>();
+
+        private void InitSkillActionCfg()
+        {
+            var tables = new cfg.Tables(LubanHelper.LoadByteBufJson);
+            var skActionTable = tables.Tbskillaction;
+            SkillActionCfg sac = new SkillActionCfg();
+
+            foreach (var table in skActionTable.DataMap.Values)
+            {
+                sac.ID = table.ID;
+                sac.delayTime = table.DelayTime;
+                sac.radius = table.Radius;
+                sac.angle = table.Angle;
+
+                skillActionDic.Add(table.ID, sac);
+            }
+        }
+
+        public SkillActionCfg GetSkillActionCfg(int id)
+        {
+            SkillActionCfg sac = null;
+            if (skillActionDic.TryGetValue(id, out sac))
+            {
+                return sac;
+            }
+            return null;
+        }
+        #endregion
+
+        #region 怪物属性配置
+        private Dictionary<int, MonsterCfg> monsterCfgDataDic = new Dictionary<int, MonsterCfg>();
+
+        private void InitMonsterCfg()
+        {
+            var tables = new cfg.Tables(LubanHelper.LoadByteBufJson);
+            var monsterTable = tables.Tbmonster;
+            MonsterCfg mc = new MonsterCfg
+            {
+                bps = new BattleProps()
+            };
+
+            foreach (var table in monsterTable.DataMap.Values)
+            {
+                mc.ID = table.ID;
+                mc.mName = table.MName;
+                {
+                    if (table.MType.Equals("1"))
+                    {
+                        mc.mType = MonsterType.Normal;
+                    }
+                    else if (table.MType.Equals("2"))
+                    {
+                        mc.mType = MonsterType.Boss;
+                    }
+                    else
+                    {
+                        PECommon.Log("Monster Type Not Found !", PELogType.Error);
+                    }
+                }
+                mc.resPath = table.ResPath;
+                mc.isStop = table.IsStop.Equals("1");
+                mc.skillID = table.SkillID;
+                mc.atkDis = table.AtkDis;
+                mc.bps.hp = table.Hp;
+                mc.bps.ad = table.Ad;
+                mc.bps.ap = table.Ap;
+                mc.bps.addef = table.Addef;
+                mc.bps.apdef = table.Apdef;
+                mc.bps.dodge = table.Dodge;
+                mc.bps.pierce = table.Pierce;
+                mc.bps.critical = table.Critical;
+
+                monsterCfgDataDic.Add(table.ID, mc);
+            }
+        }
+
+        public MonsterCfg GetMonsterCfg(int id)
+        {
+            MonsterCfg data;
+            if (monsterCfgDataDic.TryGetValue(id, out data))
+            {
+                return data;
+            }
+            return null;
+        }
+        #endregion
+
+        #endregion
+    }
+}

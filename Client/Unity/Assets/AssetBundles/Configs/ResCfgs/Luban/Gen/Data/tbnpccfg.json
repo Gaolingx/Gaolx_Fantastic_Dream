@@ -1,0 +1,58 @@
+[
+  {
+    "ID": 0,
+    "NPC_Name": "Default",
+    "NPC_ResPath": "Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PrefabNPC/NPC_0.prefab",
+    "NPC_Transform_Position_X": 135,
+    "NPC_Transform_Position_Y": 9.998169,
+    "NPC_Transform_Position_Z": 140,
+    "NPC_Transform_Rotation_X": 0,
+    "NPC_Transform_Rotation_Y": 135,
+    "NPC_Transform_Rotation_Z": 0,
+    "NPC_Transform_Scale_X": 1,
+    "NPC_Transform_Scale_Y": 1,
+    "NPC_Transform_Scale_Z": 1
+  },
+  {
+    "ID": 1,
+    "NPC_Name": "Default",
+    "NPC_ResPath": "Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PrefabNPC/NPC_1.prefab",
+    "NPC_Transform_Position_X": 136.5,
+    "NPC_Transform_Position_Y": 9.998173,
+    "NPC_Transform_Position_Z": 175,
+    "NPC_Transform_Rotation_X": 0,
+    "NPC_Transform_Rotation_Y": 160.237,
+    "NPC_Transform_Rotation_Z": 0,
+    "NPC_Transform_Scale_X": 1,
+    "NPC_Transform_Scale_Y": 1,
+    "NPC_Transform_Scale_Z": 1
+  },
+  {
+    "ID": 2,
+    "NPC_Name": "Default",
+    "NPC_ResPath": "Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PrefabNPC/NPC_2.prefab",
+    "NPC_Transform_Position_X": 154.52,
+    "NPC_Transform_Position_Y": 9.998165,
+    "NPC_Transform_Position_Z": 160.85,
+    "NPC_Transform_Rotation_X": 0,
+    "NPC_Transform_Rotation_Y": -140.911,
+    "NPC_Transform_Rotation_Z": 0,
+    "NPC_Transform_Scale_X": 1,
+    "NPC_Transform_Scale_Y": 1,
+    "NPC_Transform_Scale_Z": 1
+  },
+  {
+    "ID": 3,
+    "NPC_Name": "Default",
+    "NPC_ResPath": "Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PrefabNPC/NPC_3.prefab",
+    "NPC_Transform_Position_X": 148.24,
+    "NPC_Transform_Position_Y": 9.998169,
+    "NPC_Transform_Position_Z": 177.6,
+    "NPC_Transform_Rotation_X": 0,
+    "NPC_Transform_Rotation_Y": -150,
+    "NPC_Transform_Rotation_Z": 0,
+    "NPC_Transform_Scale_X": 1,
+    "NPC_Transform_Scale_Y": 1,
+    "NPC_Transform_Scale_Z": 1
+  }
+]

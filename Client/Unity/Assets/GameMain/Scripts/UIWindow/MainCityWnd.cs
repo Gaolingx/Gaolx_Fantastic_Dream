@@ -61,7 +61,7 @@ namespace DarkGod.Main
             SetExpprg(pd);
 
             //设置自动任务图标
-            curtTaskData = resSvc.GetAutoGuideCfg(pd.guideid);
+            curtTaskData = configSvc.GetAutoGuideCfg(pd.guideid);
             if (curtTaskData != null)
             {
                 SetGuideBtnIcon(curtTaskData.npcID);

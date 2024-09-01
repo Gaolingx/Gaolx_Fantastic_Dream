@@ -1,0 +1,36 @@
+[
+  {
+    "ID": 1001,
+    "mName": "铁甲战士",
+    "mType": "1",
+    "isStop": "1",
+    "resPath": "Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PrefabNPC/MonsterSoldier_1.prefab",
+    "skillID": 201,
+    "atkDis": 2,
+    "hp": 2000,
+    "ad": 100,
+    "ap": 80,
+    "addef": 5,
+    "apdef": 10,
+    "dodge": 5,
+    "pierce": 5,
+    "critical": 2
+  },
+  {
+    "ID": 2001,
+    "mName": "地狱魔卫",
+    "mType": "2",
+    "isStop": "0",
+    "resPath": "Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PrefabNPC/MonsterBoss_1.prefab",
+    "skillID": 301,
+    "atkDis": 4.5,
+    "hp": 8000,
+    "ad": 250,
+    "ap": 180,
+    "addef": 55,
+    "apdef": 60,
+    "dodge": 20,
+    "pierce": 10,
+    "critical": 5
+  }
+]

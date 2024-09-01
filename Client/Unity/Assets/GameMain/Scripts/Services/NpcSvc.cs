@@ -41,7 +41,7 @@ namespace DarkGod.Main
 
         public async void LoadMapNpc(int npcType)
         {
-            NpcData data = ResSvc.MainInstance.GetNpcCfg(npcType);
+            NpcData data = ConfigSvc.MainInstance.GetNpcCfg(npcType);
             NpcTransform npcTrans = BuildNpcTransform(data);
             await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, data.npcResPath, npcTrans.Transform_NpcID_Position, npcTrans.Transform_NpcID_Rotation, npcTrans.Transform_NpcID_Scale, false, true, true);
         }

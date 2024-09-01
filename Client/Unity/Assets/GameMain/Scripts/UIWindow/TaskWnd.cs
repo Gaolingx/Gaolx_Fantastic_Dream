@@ -70,7 +70,7 @@ namespace DarkGod.Main
                 go.name = "taskItem_" + i;
 
                 TaskRewardData trd = trdLst[i];
-                TaskRewardCfg trf = resSvc.GetTaskRewardCfg(trd.ID);
+                TaskRewardCfg trf = configSvc.GetTaskRewardCfg(trd.ID);
 
                 //通过父物体的transform查找
                 SetText(GetTrans(go.transform, "txtName"), trf.taskName);
@@ -130,7 +130,7 @@ namespace DarkGod.Main
 
             netSvc.SendMsg(msg);
 
-            TaskRewardCfg trc = resSvc.GetTaskRewardCfg(trdLst[index].ID);
+            TaskRewardCfg trc = configSvc.GetTaskRewardCfg(trdLst[index].ID);
             int coin = trc.coin;
             int exp = trc.exp;
             MsgBox.MainInstance.ShowMessageBox(GetTextWithHexColor("获得奖励：", TextColorCode.Blue) + GetTextWithHexColor(" 金币 +" + coin + " 经验 +" + exp, TextColorCode.Green));

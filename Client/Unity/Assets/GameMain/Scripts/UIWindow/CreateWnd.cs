@@ -17,14 +17,14 @@ namespace DarkGod.Main
 
 
             //显示一个随机名字
-            iptName.text = resSvc.GetRDNameCfg(false);
+            iptName.text = configSvc.GetRDNameCfg(false);
         }
 
         public void ClickRandBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
 
-            string rdName = resSvc.GetRDNameCfg(false);
+            string rdName = configSvc.GetRDNameCfg(false);
             iptName.text = rdName;
         }
 

@@ -112,7 +112,7 @@ namespace DarkGod.Main
             SetActive(btnExit.gameObject, false);
             SetActive(btnClose.gameObject, false);
 
-            MapCfg cfg = resSvc.GetMapCfg(fbid);
+            MapCfg cfg = configSvc.GetMapCfg(fbid);
             int min = costtime / 60;
             int sec = costtime % 60;
             int coin = cfg.coin;

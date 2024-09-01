@@ -49,7 +49,7 @@ namespace DarkGod.Main
         public void EnterMainCity()
         {
             //通过id获取主城配置后，加载场景
-            MapCfg mapData = resSvc.GetMapCfg(Constants.MainCityMapID);
+            MapCfg mapData = configSvc.GetMapCfg(Constants.MainCityMapID);
             //加载主城场景
             resSvc.AsyncLoadScene(Constants.ResourcePackgeName, mapData.sceneName, () =>
             {

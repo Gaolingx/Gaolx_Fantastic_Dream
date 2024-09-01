@@ -49,7 +49,7 @@ namespace DarkGod.Main
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
 
             //检查体力是否足够
-            int powerInMission = resSvc.GetMapCfg(clickFbid).power;
+            int powerInMission = configSvc.GetMapCfg(clickFbid).power;
             if (powerInMission > pd.power)
             {
                 MsgBox.MainInstance.ShowMessageBox("体力值不足");
