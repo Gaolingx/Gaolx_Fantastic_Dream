@@ -12,6 +12,8 @@ using UnityEngine.SceneManagement;
 #if ENABLE_INPUT_SYSTEM
 public class UIController : MonoBehaviour
 {
+    public static UIController Instance { get; set; }
+
     [SerializeField]
     private Canvas menu;
     [SerializeField]
@@ -56,6 +58,8 @@ public class UIController : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
+
         QualitySettings.vSyncCount = m_vSyncSettings;
         Application.targetFrameRate = m_FrameRate;
         Time.timeScale = m_GameSpeed;

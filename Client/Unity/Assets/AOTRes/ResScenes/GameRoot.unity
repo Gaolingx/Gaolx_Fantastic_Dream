@@ -506,6 +506,7 @@ GameObject:
   m_Component:
   - component: {fileID: 734957267}
   - component: {fileID: 734957266}
+  - component: {fileID: 734957268}
   - component: {fileID: 734957264}
   m_Layer: 0
   m_Name: Main Camera
@@ -624,6 +625,14 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &734957268
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 734957263}
+  m_Enabled: 1
 --- !u!1 &963007392
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,7 +647,6 @@ GameObject:
   - component: {fileID: 963007396}
   - component: {fileID: 963007397}
   - component: {fileID: 963007400}
-  - component: {fileID: 963007395}
   m_Layer: 0
   m_Name: GameRoot
   m_TagString: Untagged
@@ -663,14 +671,6 @@ Transform:
   - {fileID: 8549510451735545887}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &963007395
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963007392}
-  m_Enabled: 1
 --- !u!114 &963007396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -700,7 +700,7 @@ MonoBehaviour:
   AppVersion: v1.0
   PackageName: DefaultPackage
   AppendTimeTicks: 0
-  PlayMode: 0
+  PlayMode: 2
   BuildPipeline: 1
   GameRootObjectName: Assets/AssetBundles/Prefabs/RootPrefabs/HotFixRoot.prefab
   GameRootParentTransformName: Canvas
@@ -709,7 +709,6 @@ MonoBehaviour:
   - Assets/AssetBundles/Scripts/Dlls/mscorlib.dll
   - Assets/AssetBundles/Scripts/Dlls/System.dll
   - Assets/AssetBundles/Scripts/Dlls/System.Core.dll
-  - Assets/AssetBundles/Scripts/Dlls/System.Xml.dll
   - Assets/AssetBundles/Scripts/Dlls/UnityEngine.CoreModule.dll
   - Assets/AssetBundles/Scripts/Dlls/Unity.InputSystem.dll
   - Assets/AssetBundles/Scripts/Dlls/DOTween.dll

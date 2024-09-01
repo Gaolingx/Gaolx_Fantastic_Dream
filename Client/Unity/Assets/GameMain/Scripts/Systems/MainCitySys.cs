@@ -142,7 +142,6 @@ namespace DarkGod.Main
                 controller.MoveSpeed = Constants.PlayerMoveSpeed;
                 controller.SprintSpeed = Constants.PlayerSprintSpeed;
 
-                audioSvc.SetAudioListener(player.GetComponent<AudioListener>(), true, false);
 
                 cinemachineVirtualCamera.Follow = player.transform.Find(Constants.CinemachineVirtualCameraFollowGameObjectWithTag);
                 mainCityPlayer = player;

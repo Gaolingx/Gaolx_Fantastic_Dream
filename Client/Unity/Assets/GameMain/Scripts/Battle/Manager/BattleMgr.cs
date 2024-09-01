@@ -66,8 +66,6 @@ namespace DarkGod.Main
                 controller.MoveSpeed = Constants.PlayerMoveSpeed;
                 controller.SprintSpeed = Constants.PlayerSprintSpeed;
 
-                //配置角色声音源
-                audioSvc.SetAudioListener(player.GetComponent<AudioListener>(), true, false);
 
                 cinemachineVirtualCamera.Follow = player.transform.Find(Constants.CinemachineVirtualCameraFollowGameObjectWithTag);
 

@@ -1,3 +1,5 @@
+//功能：配置加载服务
+
 using HuHu;
 using System.Collections;
 using System.Collections.Generic;
@@ -81,14 +83,15 @@ namespace DarkGod.Main
         {
             var tables = new cfg.Tables(LubanHelper.LoadByteBufJson);
             var mapCfgTable = tables.Tbmap;
-            MapCfg mapCfg = new MapCfg()
-            {
-                monsterLst = new List<MonsterData>()
-            };
 
             foreach (var table in mapCfgTable.DataMap.Values)
             {
-                mapCfg.ID = table.ID;
+                MapCfg mapCfg = new MapCfg()
+                {
+                    ID = table.ID,
+                    monsterLst = new List<MonsterData>()
+                };
+
                 mapCfg.mapName = table.MapName;
                 mapCfg.sceneName = table.SceneName;
                 mapCfg.playerPath = table.PlayerPath;
@@ -155,11 +158,14 @@ namespace DarkGod.Main
         {
             var tables = new cfg.Tables(LubanHelper.LoadByteBufJson);
             var guideCfgTable = tables.Tbguide;
-            AutoGuideCfg autoGuideCfg = new AutoGuideCfg();
 
             foreach (var table in guideCfgTable.DataMap.Values)
             {
-                autoGuideCfg.ID = table.ID;
+                AutoGuideCfg autoGuideCfg = new AutoGuideCfg
+                {
+                    ID = table.ID
+                };
+
                 autoGuideCfg.npcID = table.NpcID;
                 autoGuideCfg.dilogArr = table.DilogArr;
                 autoGuideCfg.actID = table.ActID;
@@ -188,11 +194,14 @@ namespace DarkGod.Main
         {
             var tables = new cfg.Tables(LubanHelper.LoadByteBufJson);
             var strongCfgTable = tables.Tbstrong;
-            StrongCfg sd = new StrongCfg();
 
             foreach (var table in strongCfgTable.DataMap.Values)
             {
-                sd.ID = table.ID;
+                StrongCfg sd = new StrongCfg
+                {
+                    ID = table.ID
+                };
+
                 sd.pos = table.Pos;
                 sd.startlv = table.Starlv;
                 sd.addhp = table.Addhp;
@@ -278,11 +287,14 @@ namespace DarkGod.Main
         {
             var tables = new cfg.Tables(LubanHelper.LoadByteBufJson);
             var buyCfgTable = tables.TbbuyCfg;
-            BuyCfg buyCfg = new BuyCfg();
 
             foreach (var table in buyCfgTable.DataMap.Values)
             {
-                buyCfg.ID = table.ID;
+                BuyCfg buyCfg = new BuyCfg
+                {
+                    ID = table.ID
+                };
+
                 buyCfg.buyCostDiamondOnce = table.BuyCostDiamondOnce;
                 buyCfg.amountEachPurchase = table.AmountEachPurchase;
 
@@ -308,11 +320,14 @@ namespace DarkGod.Main
         {
             var tables = new cfg.Tables(LubanHelper.LoadByteBufJson);
             var taskRewardCfgTable = tables.Tbtaskreward;
-            TaskRewardCfg trc = new TaskRewardCfg();
 
             foreach (var table in taskRewardCfgTable.DataMap.Values)
             {
-                trc.ID = table.ID;
+                TaskRewardCfg trc = new TaskRewardCfg
+                {
+                    ID = table.ID
+                };
+
                 trc.taskName = table.TaskName;
                 trc.count = table.Count;
                 trc.exp = table.Exp;
@@ -340,11 +355,14 @@ namespace DarkGod.Main
         {
             var tables = new cfg.Tables(LubanHelper.LoadByteBufJson);
             var npcCfgTable = tables.TbnpcCfg;
-            NpcData nd = new NpcData();
 
             foreach (var table in npcCfgTable.DataMap.Values)
             {
-                nd.ID = table.ID;
+                NpcData nd = new NpcData
+                {
+                    ID = table.ID
+                };
+
                 nd.npcName = table.NPCName;
                 nd.npcResPath = table.NPCResPath;
                 nd.NPC_Transform_Position_X = table.NPCTransformPositionX;
@@ -379,16 +397,17 @@ namespace DarkGod.Main
         {
             var tables = new cfg.Tables(LubanHelper.LoadByteBufJson);
             var skCommonCfgTable = tables.Tbskill;
-            SkillCfg sc = new SkillCfg()
-            {
-                skillMoveLst = new List<int>(),
-                skillActionLst = new List<int>(),
-                skillDamageLst = new List<int>()
-            };
 
             foreach (var table in skCommonCfgTable.DataMap.Values)
             {
-                sc.ID = table.ID;
+                SkillCfg sc = new SkillCfg()
+                {
+                    ID = table.ID,
+                    skillMoveLst = new List<int>(),
+                    skillActionLst = new List<int>(),
+                    skillDamageLst = new List<int>()
+                };
+
                 sc.skillName = table.SkillName;
                 sc.cdTime = table.CdTime;
                 sc.skillTime = table.SkillTime;
@@ -463,11 +482,14 @@ namespace DarkGod.Main
         {
             var tables = new cfg.Tables(LubanHelper.LoadByteBufJson);
             var skMoveTable = tables.Tbskillmove;
-            SkillMoveCfg smc = new SkillMoveCfg();
 
             foreach (var table in skMoveTable.DataMap.Values)
             {
-                smc.ID = table.ID;
+                SkillMoveCfg smc = new SkillMoveCfg
+                {
+                    ID = table.ID
+                };
+
                 smc.delayTime = table.DelayTime;
                 smc.moveTime = table.MoveTime;
                 smc.moveDis = table.MoveDis;
@@ -494,11 +516,14 @@ namespace DarkGod.Main
         {
             var tables = new cfg.Tables(LubanHelper.LoadByteBufJson);
             var skActionTable = tables.Tbskillaction;
-            SkillActionCfg sac = new SkillActionCfg();
 
             foreach (var table in skActionTable.DataMap.Values)
             {
-                sac.ID = table.ID;
+                SkillActionCfg sac = new SkillActionCfg
+                {
+                    ID = table.ID
+                };
+
                 sac.delayTime = table.DelayTime;
                 sac.radius = table.Radius;
                 sac.angle = table.Angle;
@@ -525,14 +550,15 @@ namespace DarkGod.Main
         {
             var tables = new cfg.Tables(LubanHelper.LoadByteBufJson);
             var monsterTable = tables.Tbmonster;
-            MonsterCfg mc = new MonsterCfg
-            {
-                bps = new BattleProps()
-            };
 
             foreach (var table in monsterTable.DataMap.Values)
             {
-                mc.ID = table.ID;
+                MonsterCfg mc = new MonsterCfg
+                {
+                    ID = table.ID,
+                    bps = new BattleProps()
+                };
+
                 mc.mName = table.MName;
                 {
                     if (table.MType.Equals("1"))

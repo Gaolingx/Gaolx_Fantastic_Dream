@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<item ID="">
+		<skillName></skillName>
+		<skillTime></skillTime>
+		<aniAction></aniAction>
+		<fx></fx>
+		<skillMove></skillMove>
+	</item>
+	<item ID="">
+		<skillName></skillName>
+		<skillTime></skillTime>
+		<aniAction></aniAction>
+		<skillMove></skillMove>
+		<fx></fx>			
+	</item>
+</root>

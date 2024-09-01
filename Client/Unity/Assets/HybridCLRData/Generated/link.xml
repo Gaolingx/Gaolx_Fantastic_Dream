@@ -6,6 +6,13 @@
     <type fullname="Cinemachine.CinemachineVirtualCameraBase" preserve="all" />
     <type fullname="Cinemachine.LensSettings" preserve="all" />
   </assembly>
+  <assembly fullname="Luban.Runtime">
+    <type fullname="Luban.BeanBase" preserve="all" />
+    <type fullname="Luban.ByteBuf" preserve="all" />
+    <type fullname="Luban.SerializationException" preserve="all" />
+    <type fullname="SimpleJSON.JSON" preserve="all" />
+    <type fullname="SimpleJSON.JSONNode" preserve="all" />
+  </assembly>
   <assembly fullname="PEProtocol">
     <type fullname="PECommon" preserve="all" />
     <type fullname="PELogType" preserve="all" />
@@ -84,7 +91,6 @@
   <assembly fullname="UnityEngine.AudioModule">
     <type fullname="UnityEngine.Audio.AudioMixer" preserve="all" />
     <type fullname="UnityEngine.AudioClip" preserve="all" />
-    <type fullname="UnityEngine.AudioListener" preserve="all" />
     <type fullname="UnityEngine.AudioSource" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.CoreModule">
@@ -230,7 +236,6 @@
     <type fullname="System.Collections.IEnumerator" preserve="all" />
     <type fullname="System.ComponentModel.EditorBrowsableAttribute" preserve="all" />
     <type fullname="System.ComponentModel.EditorBrowsableState" preserve="all" />
-    <type fullname="System.Convert" preserve="all" />
     <type fullname="System.Delegate" preserve="all" />
     <type fullname="System.Diagnostics.DebuggableAttribute" preserve="all" />
     <type fullname="System.Diagnostics.DebuggableAttribute/DebuggingModes" preserve="all" />
@@ -239,6 +244,7 @@
     <type fullname="System.Environment" preserve="all" />
     <type fullname="System.Exception" preserve="all" />
     <type fullname="System.Func`1" preserve="all" />
+    <type fullname="System.Func`2" preserve="all" />
     <type fullname="System.IAsyncResult" preserve="all" />
     <type fullname="System.IDisposable" preserve="all" />
     <type fullname="System.IProgress`1" preserve="all" />
@@ -251,6 +257,7 @@
     <type fullname="System.Random" preserve="all" />
     <type fullname="System.Reflection.BindingFlags" preserve="all" />
     <type fullname="System.Reflection.CustomAttributeExtensions" preserve="all" />
+    <type fullname="System.Reflection.DefaultMemberAttribute" preserve="all" />
     <type fullname="System.Reflection.FieldInfo" preserve="all" />
     <type fullname="System.Reflection.MemberInfo" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.AsyncStateMachineAttribute" preserve="all" />
@@ -277,10 +284,5 @@
     <type fullname="System.Type" preserve="all" />
     <type fullname="System.ValueTuple`2" preserve="all" />
     <type fullname="System.ValueType" preserve="all" />
-    <type fullname="System.Xml.XmlAttribute" preserve="all" />
-    <type fullname="System.Xml.XmlDocument" preserve="all" />
-    <type fullname="System.Xml.XmlElement" preserve="all" />
-    <type fullname="System.Xml.XmlNode" preserve="all" />
-    <type fullname="System.Xml.XmlNodeList" preserve="all" />
   </assembly>
 </linker>

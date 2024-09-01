@@ -168,7 +168,9 @@ namespace DarkGod.Main
 
         public UIController GetUIController()
         {
-            return GameObject.Find(Constants.UIControllerGOName).GetComponent<UIController>();
+            //return GameObject.Find(Constants.UIControllerRootName).GetComponent<UIController>();
+            var go = UIController.Instance;
+            return go.GetComponent<UIController>();
         }
 
         public void SetVsyncState(bool state)

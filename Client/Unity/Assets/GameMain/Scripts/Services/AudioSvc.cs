@@ -58,19 +58,6 @@ namespace DarkGod.Main
             StartCoroutine(StartAudioFade(_audioMixer, "MainAudioVolumeParam", fadingDuration, UIItemUtils.BoolToInt(!state)));
         }
 
-        public void SetAudioListener(AudioListener playerAudioListener, bool statePlayer, bool stateGameRoot = false)
-        {
-            Transform gameRoot = transform.Find(Constants.Path_GameRoot_Obj);
-            if (gameRoot != null)
-            {
-                gameRoot.gameObject.GetComponent<AudioListener>().enabled = stateGameRoot;
-            }
-            if (playerAudioListener != null)
-            {
-                playerAudioListener.enabled = statePlayer;
-            }
-        }
-
         private void RefreshAudioSourceVolume()
         {
             StartCoroutine(StartAudioFade(_audioMixer, "BGAudioVolumeParam", fadingDuration, BGAudioVolumeValue));
