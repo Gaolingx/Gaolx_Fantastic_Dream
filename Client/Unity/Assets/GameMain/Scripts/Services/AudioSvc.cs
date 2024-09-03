@@ -5,6 +5,8 @@ using UnityEngine;
 using HuHu;
 using static DarkGod.Main.SFX_PoolManager;
 using UnityEngine.Audio;
+using Cysharp.Threading.Tasks;
+using System.Threading;
 
 namespace DarkGod.Main
 {
@@ -86,16 +88,29 @@ namespace DarkGod.Main
 
         #region PlayAudio
 
-        private Coroutine currentAudioCoroutine;
+        private CancellationTokenSource playBGMTokenSource;
+
         public async void PlayBGMusics(List<string> names, float duration, bool isLoop = true, bool isCache = true)
         {
             List<AudioClip> audioClips = new List<AudioClip>();
+            CancellationTokenSource cts = new CancellationTokenSource();
+            playBGMTokenSource = cts;
 
             for (int i = 0; i < names.Count; i++)
             {
                 audioClips.Add(await ResSvc.MainInstance.LoadAudioClipAsync(Constants.ResourcePackgeName, bgAudioPath + names[i], isCache));
             }
-            currentAudioCoroutine = StartCoroutine(PlayAudioClips(audioClips, duration, isLoop));
+
+            //处理取消异步抛出的异常
+            try
+            {
+                await PlayAudioClips(audioClips, duration, isLoop).ToUniTask(PlayerLoopTiming.Update, cts.Token);
+            }
+            catch (System.OperationCanceledException ex)
+            {
+                PECommon.Log($"Operation cancelled:{ex?.ToString()}", PELogType.Warn);
+            }
+
         }
 
         IEnumerator PlayAudioClips(List<AudioClip> audioClips, float duration, bool isLoop)
@@ -124,12 +139,9 @@ namespace DarkGod.Main
             if (BGAudioAudioSource != null)
             {
                 BGAudioAudioSource.Stop();
-                if (currentAudioCoroutine != null)
-                {
-                    StopCoroutine(currentAudioCoroutine);
-                    currentAudioCoroutine = null; // 可选：将引用设置为null，表示协程已停止  
-                }
             }
+
+            playBGMTokenSource?.Cancel();
         }
 
         public async void PlayUIAudio(string name, bool isCache = true)
@@ -142,25 +154,25 @@ namespace DarkGod.Main
         public void PlayFootStep(Transform transform)
         {
             int i = Random.Range(0, CharacterFootStepsLst.Count);
-            sfxPoolManager.TryGetSoundPool(CharacterFootStepsLst[i].soundStyle, CharacterFootStepsLst[i].soundName, transform.position, transform.rotation);
+            sfxPoolManager.TryPlaySoundFromPool(CharacterFootStepsLst[i].soundStyle, CharacterFootStepsLst[i].soundName, transform.position, transform.rotation);
         }
 
         public void PlayJumpEffort(Transform transform)
         {
             int i = Random.Range(0, CharacterJumpEffortsLst.Count);
-            sfxPoolManager.TryGetSoundPool(CharacterJumpEffortsLst[i].soundStyle, CharacterJumpEffortsLst[i].soundName, transform.position, transform.rotation);
+            sfxPoolManager.TryPlaySoundFromPool(CharacterJumpEffortsLst[i].soundStyle, CharacterJumpEffortsLst[i].soundName, transform.position, transform.rotation);
         }
 
         public void PlayLanding(Transform transform)
         {
             int i = Random.Range(0, CharacterLandingLst.Count);
-            sfxPoolManager.TryGetSoundPool(CharacterLandingLst[i].soundStyle, CharacterLandingLst[i].soundName, transform.position, transform.rotation);
+            sfxPoolManager.TryPlaySoundFromPool(CharacterLandingLst[i].soundStyle, CharacterLandingLst[i].soundName, transform.position, transform.rotation);
         }
 
         public void PlayHit(Transform transform)
         {
             int i = Random.Range(0, CharacterHitLst.Count);
-            sfxPoolManager.TryGetSoundPool(CharacterHitLst[i].soundStyle, CharacterHitLst[i].soundName, transform.position, transform.rotation);
+            sfxPoolManager.TryPlaySoundFromPool(CharacterHitLst[i].soundStyle, CharacterHitLst[i].soundName, transform.position, transform.rotation);
         }
         #endregion
     }

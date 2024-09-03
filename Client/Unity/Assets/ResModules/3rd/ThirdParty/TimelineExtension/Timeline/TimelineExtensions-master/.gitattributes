@@ -1,3 +1,0 @@
-* -text
-
-*.cs        text eol=lf diff=csharp

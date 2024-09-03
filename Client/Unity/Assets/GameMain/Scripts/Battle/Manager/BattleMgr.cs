@@ -4,7 +4,6 @@
 using Cinemachine;
 using PEProtocol;
 using StarterAssets;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -99,7 +98,7 @@ namespace DarkGod.Main
             }
         }
 
-        public void Init(int mapid, Action cb = null)
+        public void Init(int mapid, System.Action cb = null)
         {
             //初始化服务模块
             resSvc = ResSvc.MainInstance;

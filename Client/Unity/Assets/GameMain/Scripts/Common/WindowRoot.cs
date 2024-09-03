@@ -1,5 +1,5 @@
 //功能：UI界面基类
-using System;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -175,26 +175,26 @@ namespace DarkGod.Main
         #endregion
 
         #region Click Evts
-        protected void OnClick(GameObject go, Action<object> cb, object args)
+        protected void OnClick(GameObject go, System.Action<object> cb, object args)
         {
             PEListener listener = GetOrAddComponect<PEListener>(go);
             listener.onClick = cb;
             listener.args = args;
         }
 
-        protected void OnClickDown(GameObject go, Action<PointerEventData> cb)
+        protected void OnClickDown(GameObject go, System.Action<PointerEventData> cb)
         {
             PEListener listener = GetOrAddComponect<PEListener>(go);
             listener.onClickDown = cb;
         }
 
-        protected void OnClickUp(GameObject go, Action<PointerEventData> cb)
+        protected void OnClickUp(GameObject go, System.Action<PointerEventData> cb)
         {
             PEListener listener = GetOrAddComponect<PEListener>(go);
             listener.onClickUp = cb;
         }
 
-        protected void OnDrag(GameObject go, Action<PointerEventData> cb)
+        protected void OnDrag(GameObject go, System.Action<PointerEventData> cb)
         {
             PEListener listener = GetOrAddComponect<PEListener>(go);
             listener.onDrag = cb;

@@ -1,6 +1,5 @@
 //功能：计时服务
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,7 +35,7 @@ namespace DarkGod.Main
         }
 
         //增加定时任务
-        public int AddTimeTask(Action<int> callback, double delay, PETimeUnit timeUnit = PETimeUnit.Millisecond, int count = 1)
+        public int AddTimeTask(System.Action<int> callback, double delay, PETimeUnit timeUnit = PETimeUnit.Millisecond, int count = 1)
         {
             return pt.AddTimeTask(callback, delay, timeUnit, count);
         }

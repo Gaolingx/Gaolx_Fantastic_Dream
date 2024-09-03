@@ -59,6 +59,7 @@
   <assembly fullname="UniTask">
     <type fullname="Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder" preserve="all" />
     <type fullname="Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder`1" preserve="all" />
+    <type fullname="Cysharp.Threading.Tasks.EnumeratorAsyncExtensions" preserve="all" />
     <type fullname="Cysharp.Threading.Tasks.OperationHandleBaseExtensions" preserve="all" />
     <type fullname="Cysharp.Threading.Tasks.PlayerLoopTiming" preserve="all" />
     <type fullname="Cysharp.Threading.Tasks.UniTask" preserve="all" />
@@ -253,6 +254,7 @@
     <type fullname="System.MulticastDelegate" preserve="all" />
     <type fullname="System.NotSupportedException" preserve="all" />
     <type fullname="System.Object" preserve="all" />
+    <type fullname="System.OperationCanceledException" preserve="all" />
     <type fullname="System.ParamArrayAttribute" preserve="all" />
     <type fullname="System.Random" preserve="all" />
     <type fullname="System.Reflection.BindingFlags" preserve="all" />
@@ -280,6 +282,7 @@
     <type fullname="System.StringSplitOptions" preserve="all" />
     <type fullname="System.Text.StringBuilder" preserve="all" />
     <type fullname="System.Threading.CancellationToken" preserve="all" />
+    <type fullname="System.Threading.CancellationTokenSource" preserve="all" />
     <type fullname="System.Threading.Monitor" preserve="all" />
     <type fullname="System.Type" preserve="all" />
     <type fullname="System.ValueTuple`2" preserve="all" />

@@ -1,4 +1,4 @@
-
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
 using HuHu;
@@ -84,7 +84,7 @@ namespace DarkGod.Main
 
         }
 
-        public void TryGetSoundPool(SoundStyle soundStyle, string soundName, Vector3 position, Quaternion quaternion)
+        public void TryPlaySoundFromPool(SoundStyle soundStyle, string soundName, Vector3 position, Quaternion quaternion)
         {
             if (bigSoundCenter.ContainsKey(soundName))
             {
@@ -94,7 +94,13 @@ namespace DarkGod.Main
                     go.transform.position = position;
                     go.transform.rotation = quaternion;
                     go.gameObject.SetActive(true);
-                    go.GetComponent<AudioSource>().Play();
+
+                    AudioSource audioSource = go.GetComponent<AudioSource>();
+                    if (audioSource != null && audioSource.clip != null)
+                    {
+                        audioSource.Play();
+                    }
+
                     Q.Enqueue(go);
                     // Debug.Log("播放音乐"+ soundName+"类型是"+soundStyle);
 
@@ -110,7 +116,8 @@ namespace DarkGod.Main
             }
 
         }
-        public void TryGetSoundPool(SoundStyle soundStye, Vector3 position, Quaternion quaternion)
+
+        public void TryPlaySoundFromPool(SoundStyle soundStye, Vector3 position, Quaternion quaternion)
         {
             if (soundCenter.TryGetValue(soundStye, out var sound))
             {
@@ -119,7 +126,13 @@ namespace DarkGod.Main
                 go.transform.position = position;
                 go.transform.rotation = quaternion;
                 go.gameObject.SetActive(true);
-                go.GetComponent<AudioSource>().Play();
+
+                AudioSource audioSource = go.GetComponent<AudioSource>();
+                if (audioSource != null && audioSource.clip != null)
+                {
+                    audioSource.Play();
+                }
+
                 soundCenter[soundStye].Enqueue(go);
             }
             else

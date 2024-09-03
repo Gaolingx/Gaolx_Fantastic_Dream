@@ -1,6 +1,5 @@
 //功能：战斗结算界面
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -122,16 +121,21 @@ namespace DarkGod.Main
             SetText(txtRestHP, "剩余血量：" + resthp);
             SetText(txtReward, "关卡奖励：" + GetTextWithHexColor(coin + "金币 ", TextColorCode.Green) + GetTextWithHexColor(exp + "经验 ", TextColorCode.Yellow) + GetTextWithHexColor(crystal + "水晶", TextColorCode.Blue));
 
-            timerSvc.AddTimeTask((int tid) => {
+            timerSvc.AddTimeTask((int tid) =>
+            {
                 SetActive(rewardTrans);
                 ani.Play();
-                timerSvc.AddTimeTask((int tid1) => {
+                timerSvc.AddTimeTask((int tid1) =>
+                {
                     audioSvc.PlayUIAudio(Constants.FBItemEnter);
-                    timerSvc.AddTimeTask((int tid2) => {
+                    timerSvc.AddTimeTask((int tid2) =>
+                    {
                         audioSvc.PlayUIAudio(Constants.FBItemEnter);
-                        timerSvc.AddTimeTask((int tid3) => {
+                        timerSvc.AddTimeTask((int tid3) =>
+                        {
                             audioSvc.PlayUIAudio(Constants.FBItemEnter);
-                            timerSvc.AddTimeTask((int tid5) => {
+                            timerSvc.AddTimeTask((int tid5) =>
+                            {
                                 audioSvc.PlayUIAudio(Constants.FBLogoEnter);
                             }, 300);
                         }, 270);
@@ -155,7 +159,7 @@ namespace DarkGod.Main
             FBEndType.Pause => FBEndTypePause(),
             FBEndType.Win => FBEndTypeWin(),
             FBEndType.Lose => FBEndTypeLose(),
-            _ => throw new ArgumentOutOfRangeException(nameof(endType)),
+            _ => throw new System.ArgumentOutOfRangeException(nameof(endType)),
         };
 
     }

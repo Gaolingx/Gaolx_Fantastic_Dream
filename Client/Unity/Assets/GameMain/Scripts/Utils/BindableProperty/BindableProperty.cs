@@ -1,13 +1,10 @@
-
-
-using System;
-
+//¹¦ÄÜ£ºProperty Helper
 
 public class BindableProperty<T>
 {
     private T mValue = default(T);
 
-    public Action<T> OnValueChanged;
+    public System.Action<T> OnValueChanged;
 
     public T Value
     {
@@ -19,7 +16,7 @@ public class BindableProperty<T>
                 mValue = value;
                 OnValueChanged?.Invoke(mValue);
             }
-            
+
         }
 
     }

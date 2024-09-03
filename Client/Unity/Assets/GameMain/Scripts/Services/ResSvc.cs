@@ -1,7 +1,6 @@
 //功能：资源加载服务
 
 using Cysharp.Threading.Tasks;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,7 +46,7 @@ namespace DarkGod.Main
         }
 
         //异步的加载场景，需要显示进度条
-        public async void AsyncLoadScene(string packageName, string sceneName, Action loaded)
+        public async void AsyncLoadScene(string packageName, string sceneName, System.Action loaded)
         {
             GameRoot.MainInstance.loadingWnd.SetWndState();
             await LoadSceneAsyncHandle(packageName, sceneName);
@@ -56,7 +55,7 @@ namespace DarkGod.Main
             GameRoot.MainInstance.loadingWnd.SetWndState(false);
         }
 
-        private async UniTask LoadSceneAsyncHandle(string packageName, string path, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
+        private async UniTask LoadSceneAsyncHandle(string packageName, string path, System.IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
         {
             var sceneMode = UnityEngine.SceneManagement.LoadSceneMode.Single;
             bool suspendLoad = false;
@@ -71,7 +70,7 @@ namespace DarkGod.Main
             await handle.ToUniTask(progress, timing);
         }
 
-        public async UniTask<AudioClip> LoadAudioClipAsync(string packageName, string audioClipPath, bool isCache = false, CancellationToken cancellationToken = default, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
+        public async UniTask<AudioClip> LoadAudioClipAsync(string packageName, string audioClipPath, bool isCache = false, CancellationToken cancellationToken = default, System.IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
         {
             AudioClip audioClip = null;
             audioClip = await LoadAssetAsync<AudioClip>(packageName, audioClipPath, isCache, cancellationToken, progress, timing);
@@ -92,7 +91,7 @@ namespace DarkGod.Main
             return instantiatedPrefab;
         }
 
-        public async UniTask<GameObject> LoadGameObjectAsync(string packageName, string prefabPath, Vector3 GameObjectPos, Vector3 GameObjectRota, Vector3 GameObjectScal, bool isCache = false, bool isLocalPos = true, bool isLocalEulerAngles = true, Transform transform = null, bool isRename = false, bool isNeedDestroy = true, CancellationToken cancellationToken = default, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
+        public async UniTask<GameObject> LoadGameObjectAsync(string packageName, string prefabPath, Vector3 GameObjectPos, Vector3 GameObjectRota, Vector3 GameObjectScal, bool isCache = false, bool isLocalPos = true, bool isLocalEulerAngles = true, Transform transform = null, bool isRename = false, bool isNeedDestroy = true, CancellationToken cancellationToken = default, System.IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
         {
             GameObject prefab = await LoadAssetAsync<GameObject>(packageName, prefabPath, isCache, cancellationToken, progress, timing);
             GameObject instantiatedPrefab = null;
@@ -112,21 +111,21 @@ namespace DarkGod.Main
             return instantiatedPrefab;
         }
 
-        public async UniTask<TextAsset> LoadCfgDataAsync(string packageName, string textAssetPath, bool isCache = false, CancellationToken cancellationToken = default, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
+        public async UniTask<TextAsset> LoadCfgDataAsync(string packageName, string textAssetPath, bool isCache = false, CancellationToken cancellationToken = default, System.IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
         {
             TextAsset textAsset = null;
             textAsset = await LoadAssetAsync<TextAsset>(packageName, textAssetPath, isCache, cancellationToken, progress, timing);
             return textAsset;
         }
 
-        public async UniTask<Sprite> LoadSpriteAsync(string packageName, string spritePath, bool isCache = false, CancellationToken cancellationToken = default, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
+        public async UniTask<Sprite> LoadSpriteAsync(string packageName, string spritePath, bool isCache = false, CancellationToken cancellationToken = default, System.IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
         {
             Sprite sprite = null;
             sprite = await LoadAssetAsync<Sprite>(packageName, spritePath, isCache, cancellationToken, progress, timing);
             return sprite;
         }
 
-        public async UniTask<VideoClip> LoadVideoClipASync(string packageName, string videoClipPath, bool isCache = false, CancellationToken cancellationToken = default, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
+        public async UniTask<VideoClip> LoadVideoClipASync(string packageName, string videoClipPath, bool isCache = false, CancellationToken cancellationToken = default, System.IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
         {
             VideoClip videoClip = null;
             videoClip = await LoadAssetAsync<VideoClip>(packageName, videoClipPath, isCache, cancellationToken, progress, timing);
@@ -165,7 +164,7 @@ namespace DarkGod.Main
             return handle.AssetObject as T;
         }
 
-        public async UniTask<T> LoadAssetAsync<T>(string packageName, string assetPath, bool isCache = false, CancellationToken cancellationToken = default, IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update) where T : UnityEngine.Object
+        public async UniTask<T> LoadAssetAsync<T>(string packageName, string assetPath, bool isCache = false, CancellationToken cancellationToken = default, System.IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update) where T : UnityEngine.Object
         {
             AssetHandle handle;
             if (_assetHandleDict.ContainsKey(assetPath))

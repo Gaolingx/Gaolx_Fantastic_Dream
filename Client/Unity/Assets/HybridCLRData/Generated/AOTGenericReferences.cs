@@ -558,6 +558,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// object System.Activator.CreateInstance<object>()
 		// object[] System.Array.Empty<object>()
 		// object System.Reflection.CustomAttributeExtensions.GetCustomAttribute<object>(System.Reflection.MemberInfo)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter,DarkGod.Main.AudioSvc.<PlayBGMusics>d__23>(Cysharp.Threading.Tasks.UniTask.Awaiter&,DarkGod.Main.AudioSvc.<PlayBGMusics>d__23&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter,DarkGod.Main.ResSvc.<AsyncLoadScene>d__6>(Cysharp.Threading.Tasks.UniTask.Awaiter&,DarkGod.Main.ResSvc.<AsyncLoadScene>d__6&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.AudioSvc.<PlayBGMusics>d__23>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.AudioSvc.<PlayBGMusics>d__23&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.AudioSvc.<PlayUIAudio>d__26>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.AudioSvc.<PlayUIAudio>d__26&)
