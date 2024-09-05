@@ -53,6 +53,12 @@ namespace DarkGod.Main
         Boss = 2
     }
 
+    public enum CtsType
+    {
+        Nome,
+        PlayBGM
+    }
+
     public class Constants
     {
         #region ColorHex Code

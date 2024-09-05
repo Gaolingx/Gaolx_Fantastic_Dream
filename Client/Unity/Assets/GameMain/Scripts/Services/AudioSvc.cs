@@ -35,6 +35,8 @@ namespace DarkGod.Main
         private UIController uiController;
         private SFX_PoolManager sfxPoolManager;
 
+        private CancellationTokenSourceMgr ctsMgr;
+
         protected override void Awake()
         {
             base.Awake();
@@ -46,6 +48,8 @@ namespace DarkGod.Main
 
             sfxPoolManager = SFX_PoolManager.MainInstance;
             sfxPoolManager.InitSoundPool();
+
+            ctsMgr = CancellationTokenSourceMgr.MainInstance;
 
             PECommon.Log("Init AudioSvc...");
         }
@@ -88,13 +92,10 @@ namespace DarkGod.Main
 
         #region PlayAudio
 
-        private CancellationTokenSource playBGMTokenSource;
-
-        public async void PlayBGMusics(List<string> names, float duration, bool isLoop = true, bool isCache = true)
+        public async void PlayBGMusics(List<string> names, float duration, bool isLoop = true, bool isCache = true, CtsType ctsType = CtsType.PlayBGM)
         {
             List<AudioClip> audioClips = new List<AudioClip>();
-            CancellationTokenSource cts = new CancellationTokenSource();
-            playBGMTokenSource = cts;
+            ctsMgr.SetCtsValue(ctsType, new CancellationTokenSource());
 
             for (int i = 0; i < names.Count; i++)
             {
@@ -104,7 +105,7 @@ namespace DarkGod.Main
             //处理取消异步抛出的异常
             try
             {
-                await PlayAudioClips(audioClips, duration, isLoop).ToUniTask(PlayerLoopTiming.Update, cts.Token);
+                await PlayAudioClips(audioClips, duration, isLoop).ToUniTask(PlayerLoopTiming.Update, ctsMgr.GetCtsValue(ctsType).Token);
             }
             catch (System.OperationCanceledException ex)
             {
@@ -134,14 +135,14 @@ namespace DarkGod.Main
             }
         }
 
-        public void StopBGMusic()
+        public void StopBGMusic(CtsType ctsType = CtsType.PlayBGM)
         {
             if (BGAudioAudioSource != null)
             {
                 BGAudioAudioSource.Stop();
             }
 
-            playBGMTokenSource?.Cancel();
+            ctsMgr.GetCtsValue(ctsType)?.Cancel();
         }
 
         public async void PlayUIAudio(string name, bool isCache = true)

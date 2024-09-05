@@ -3,39 +3,35 @@ using UnityEngine;
 using HuHu;
 using System.Collections.Generic;
 
-public class GameBlackboard : Singleton<GameBlackboard>
+public class GameBlackboard<K> : Singleton<K> where K : Singleton<K>
 {
+    protected override void Awake()
+    {
+        base.Awake();
+
+        GameDataDic.Clear();
+    }
+
     //<T>表示声明一个泛型，但是字段和属性、委托字段都是无法声明泛型T的，只能在类名上面声明，而方法是可以在方法名后面声明<T>,供参数和返回类型使用
     //目前在使用共享角色的数据
-    private Dictionary<string, object> GameData = new Dictionary<string, object>();
+    private Dictionary<string, object> GameDataDic = new Dictionary<string, object>();
 
-    public BindableProperty<Transform> enemy = new BindableProperty<Transform>();
-
-    public void SetEnemy(Transform Enemy)
+    protected virtual void SetGameData<T>(string DataName, T value) where T : class
     {
-        this.enemy.Value = Enemy;
-    }
-    public Transform GetEnemy()
-    {
-
-        return this.enemy.Value;
-    }
-
-    public void SetGameData<T>(string DataName, T value) where T : class
-    {
-        if (GameData.ContainsKey(DataName))
+        if (GameDataDic.ContainsKey(DataName))
         {
-            GameData[DataName] = value;
+            GameDataDic[DataName] = value;
         }
         else
         {
-            GameData.Add(DataName, value);
+            GameDataDic.Add(DataName, value);
         }
 
     }
-    public T GetGameData<T>(string DataName) where T : class
+
+    protected virtual T GetGameData<T>(string DataName) where T : class
     {
-        if (GameData.TryGetValue(DataName, out var e))
+        if (GameDataDic.TryGetValue(DataName, out var e))
         {
             return e as T;
         }
