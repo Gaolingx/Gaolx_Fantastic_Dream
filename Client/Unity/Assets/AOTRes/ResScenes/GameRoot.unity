@@ -765,7 +765,6 @@ MonoBehaviour:
   - SceneLogin
   - SceneLoading
   EventSystemGOName: EventSystem
-  m_vSyncSettings: 1
   m_FrameRate: 60
   m_GameSpeed: 1
   m_RunInBackground: 1

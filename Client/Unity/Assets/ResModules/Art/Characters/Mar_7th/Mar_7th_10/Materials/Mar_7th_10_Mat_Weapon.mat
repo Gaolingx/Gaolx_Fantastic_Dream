@@ -196,7 +196,7 @@ Material:
     - _OutlineNormal: 0
     - _OutlineNormalChannel: 0
     - _OutlineUseLutMapToggle: 0
-    - _OutlineWidth: 0.0025
+    - _OutlineWidth: 0.002
     - _OutlineWidthMax: 30
     - _OutlineWidthMin: 2
     - _OutlineZOffset: 0

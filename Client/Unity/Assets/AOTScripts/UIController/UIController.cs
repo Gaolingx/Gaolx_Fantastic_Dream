@@ -39,9 +39,6 @@ public class UIController : MonoBehaviour
     private string EventSystemGOName;
 
     [SerializeField]
-    private int m_vSyncSettings = 1;
-
-    [SerializeField]
     private int m_FrameRate = 60;
 
     [SerializeField]
@@ -60,7 +57,6 @@ public class UIController : MonoBehaviour
     {
         Instance = this;
 
-        QualitySettings.vSyncCount = m_vSyncSettings;
         Application.targetFrameRate = m_FrameRate;
         Time.timeScale = m_GameSpeed;
         Application.runInBackground = m_RunInBackground;
@@ -167,15 +163,6 @@ public class UIController : MonoBehaviour
     }
 
     // Common Settings
-
-    /// <summary>
-    /// 获取或设置垂直同步。
-    /// </summary>
-    public int VSyncSettings
-    {
-        get => m_vSyncSettings;
-        set => QualitySettings.vSyncCount = m_vSyncSettings = value;
-    }
 
     /// <summary>
     /// 获取或设置游戏帧率。

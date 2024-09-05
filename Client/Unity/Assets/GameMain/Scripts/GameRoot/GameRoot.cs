@@ -177,11 +177,11 @@ namespace DarkGod.Main
         {
             if (state == true)
             {
-                GetUIController().VSyncSettings = 1;
+                GetUIController().FrameRate = 60;
             }
             else
             {
-                GetUIController().VSyncSettings = 0;
+                GetUIController().FrameRate = -1;
             }
         }
 
