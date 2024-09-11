@@ -198,19 +198,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114365216504253808}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114985754309171160}
-        m_TargetAssemblyTypeName: FubenWnd, GameMain
-        m_MethodName: ClickTaskBtn
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 10004
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1038804148184030
 GameObject:
   m_ObjectHideFlags: 0
@@ -707,19 +695,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114008614463651782}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114985754309171160}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: ClickCloseBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1347946935852294
 GameObject:
   m_ObjectHideFlags: 0
@@ -843,19 +819,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114397383960903194}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114985754309171160}
-        m_TargetAssemblyTypeName: FubenWnd, GameMain
-        m_MethodName: ClickTaskBtn
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 10006
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1363292288934746
 GameObject:
   m_ObjectHideFlags: 0
@@ -1050,19 +1014,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114634346027948474}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114985754309171160}
-        m_TargetAssemblyTypeName: FubenWnd, GameMain
-        m_MethodName: ClickTaskBtn
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 10001
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1408135213590820
 GameObject:
   m_ObjectHideFlags: 0
@@ -2205,19 +2157,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114742827331262792}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114985754309171160}
-        m_TargetAssemblyTypeName: FubenWnd, GameMain
-        m_MethodName: ClickTaskBtn
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 10002
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1704033292437126
 GameObject:
   m_ObjectHideFlags: 0
@@ -2278,6 +2218,7 @@ MonoBehaviour:
   - {fileID: 114061075929714806}
   - {fileID: 114501502416901130}
   - {fileID: 114212588995862996}
+  btnClose: {fileID: 114999341189613858}
   pointerTrans: {fileID: 224310666460433692}
 --- !u!1 &1711173930311542
 GameObject:
@@ -3127,19 +3068,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114824837885929384}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114985754309171160}
-        m_TargetAssemblyTypeName: FubenWnd, GameMain
-        m_MethodName: ClickTaskBtn
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 10005
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1828641991174856
 GameObject:
   m_ObjectHideFlags: 0
@@ -3459,19 +3388,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114234322003121304}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114985754309171160}
-        m_TargetAssemblyTypeName: FubenWnd, GameMain
-        m_MethodName: ClickTaskBtn
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 10003
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1923283387367634
 GameObject:
   m_ObjectHideFlags: 0

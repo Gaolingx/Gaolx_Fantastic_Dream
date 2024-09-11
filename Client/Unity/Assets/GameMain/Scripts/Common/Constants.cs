@@ -14,6 +14,14 @@ namespace DarkGod.Main
         FBFight
     }
 
+    public enum ChatType
+    {
+        None,
+        ChatWorld,
+        ChatGuild,
+        ChatFriend
+    }
+
     public enum TextColorCode
     {
         White,

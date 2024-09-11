@@ -45,25 +45,16 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
+            btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
+            btnExit.onClick.AddListener(delegate { ClickExitBtn(); });
+            btnSure.onClick.AddListener(delegate { ClickSureBtn(); });
+
             RefreshUI();
         }
 
         public void SetWndType(FBEndType endType)
         {
             this.endType = endType;
-        }
-
-        private void ExitCurrentBattle(bool enterFubenWndIfNeed = false)
-        {
-            if (GameRoot.MainInstance.GetGameState() == GameState.FBFight)
-            {
-                BattleSys.Instance.EnterMainCity();
-                BattleSys.Instance.DestroyBattle();
-            }
-            else if (GameRoot.MainInstance.GetGameState() == GameState.MainCity)
-            {
-                MsgBox.MainInstance.ShowMessageBox("当前未处于副本战斗关卡");
-            }
         }
 
         public void ClickCloseBtn()
@@ -161,6 +152,13 @@ namespace DarkGod.Main
             FBEndType.Lose => FBEndTypeLose(),
             _ => throw new System.ArgumentOutOfRangeException(nameof(endType)),
         };
+
+        private void OnDisable()
+        {
+            btnClose.onClick.RemoveAllListeners();
+            btnExit.onClick.RemoveAllListeners();
+            btnSure.onClick.RemoveAllListeners();
+        }
 
     }
 }

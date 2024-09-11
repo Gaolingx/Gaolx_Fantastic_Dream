@@ -15,11 +15,18 @@ namespace DarkGod.Main
         public Text txtLevel;
         public Text txtName;
         public Text txtExpPrg;
+
+        public Button btnSettings;
+        public Button btnNormal;
+        public Button btnSkill1;
+        public Button btnSkill2;
+        public Button btnSkill3;
+
         public Transform expPrgTrans;
-        public Transform GamePadTrans;
         public SettingsWnd settingsWnd;
 
         private StarterAssetsInputs playerInput;
+        private UICanvasControllerInput uICanvasController;
 
         private Vector2 currentDir;
 
@@ -63,15 +70,30 @@ namespace DarkGod.Main
         private int HPSum;
         #endregion
 
+        private void Awake()
+        {
+            playerInput = GameRoot.MainInstance.GetStarterAssetsInputs();
+        }
+
         protected override void InitWnd()
         {
             base.InitWnd();
+
+            uICanvasController = UICanvasControllerInput.MainInstance;
+
+            btnSettings.onClick.AddListener(delegate { ClickSettingsBtn(); });
+            btnNormal.onClick.AddListener(delegate { uICanvasController.VirtualNormalAtkInput(true); });
+            btnSkill1.onClick.AddListener(delegate { uICanvasController.VirtualSkill01Input(true); });
+            btnSkill2.onClick.AddListener(delegate { uICanvasController.VirtualSkill02Input(true); });
+            btnSkill3.onClick.AddListener(delegate { uICanvasController.VirtualSkill03Input(true); });
 
             InitSkCDTime();
 
             SetBossHPBarState(false);
             RefreshUI();
             InitHPVal();
+
+            uICanvasController.starterAssetsInputs = playerInput;
         }
 
         private void Update()
@@ -83,12 +105,8 @@ namespace DarkGod.Main
                 return;
             }
 
-            playerInput = GameRoot.MainInstance.GetStarterAssetsInputs();
-
             if (playerInput != null)
             {
-                InitGamepad();
-
                 SetCurrentDir();
 
                 if (!BattleSys.Instance.battleMgr.GetPauseGame())
@@ -114,17 +132,6 @@ namespace DarkGod.Main
             sk1CDTime = configSvc.GetSkillCfg(Constants.SkillID_Mar7th00_skill01).cdTime / 1000.0f;
             sk2CDTime = configSvc.GetSkillCfg(Constants.SkillID_Mar7th00_skill02).cdTime / 1000.0f;
             sk3CDTime = configSvc.GetSkillCfg(Constants.SkillID_Mar7th00_skill03).cdTime / 1000.0f;
-        }
-
-        private void InitGamepad()
-        {
-            if (GamePadTrans != null)
-            {
-                GamePadTrans.gameObject.SetActive(true);
-                UICanvasControllerInput uICanvasControllerInput = GamePadTrans.GetComponent<UICanvasControllerInput>();
-
-                uICanvasControllerInput.starterAssetsInputs = playerInput;
-            }
         }
 
         #region Skill CD
@@ -425,5 +432,15 @@ namespace DarkGod.Main
         }
 
         #endregion
+
+        private void OnDisable()
+        {
+            btnSettings.onClick.RemoveAllListeners();
+            btnNormal.onClick.RemoveAllListeners();
+            btnSkill1.onClick.RemoveAllListeners();
+            btnSkill2.onClick.RemoveAllListeners();
+            btnSkill3.onClick.RemoveAllListeners();
+        }
+
     }
 }

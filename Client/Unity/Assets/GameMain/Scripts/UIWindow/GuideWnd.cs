@@ -11,6 +11,8 @@ namespace DarkGod.Main
         public Text txtTalk; //显示的对话内容
         public Image imgIcon; //人物形象（立绘）
 
+        public Button btnNext;
+
         private PlayerData pd;
         private AutoGuideCfg curtTaskData; //任务数据
         private string[] dialogArr; //对话文本
@@ -19,6 +21,8 @@ namespace DarkGod.Main
         protected override void InitWnd()
         {
             base.InitWnd();
+
+            btnNext.onClick.AddListener(delegate { ClickNextBtn(); });
 
             pd = GameRoot.MainInstance.PlayerData; //获取玩家数据
             curtTaskData = MainCitySys.Instance.GetCurtTaskData(); //获取任务数据
@@ -99,6 +103,11 @@ namespace DarkGod.Main
             {
                 SetTalk();
             }
+        }
+
+        private void OnDisable()
+        {
+            btnNext.onClick.RemoveAllListeners();
         }
     }
 }

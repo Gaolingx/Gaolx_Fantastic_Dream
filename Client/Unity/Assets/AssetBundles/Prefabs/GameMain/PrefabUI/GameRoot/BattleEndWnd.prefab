@@ -466,19 +466,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114522867080565470}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114217409783716558}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: ClickExitBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1275921450419662
 GameObject:
   m_ObjectHideFlags: 0
@@ -749,19 +737,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114658218410560556}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114217409783716558}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: ClickSureBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1418115842931686
 GameObject:
   m_ObjectHideFlags: 0
@@ -1341,19 +1317,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114003373730905842}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114217409783716558}
-        m_TargetAssemblyTypeName: DarkGod.Main.BattleEndWnd, GameMain
-        m_MethodName: ClickCloseBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1853214657206890
 GameObject:
   m_ObjectHideFlags: 0

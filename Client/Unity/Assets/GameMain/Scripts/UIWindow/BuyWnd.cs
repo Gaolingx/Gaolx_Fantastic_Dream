@@ -11,6 +11,7 @@ namespace DarkGod.Main
     {
         public Text txtInfo;
         public Button btnSure;
+        public Button btnClose;
 
         private int buyType;//0：体力 1：金币，与buyCfg的ID对应
         private BuyCfg buyCfg;
@@ -24,7 +25,11 @@ namespace DarkGod.Main
         protected override void InitWnd()
         {
             base.InitWnd();
+
+            btnSure.onClick.AddListener(delegate { ClickSureBtn(); });
+            btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
             btnSure.interactable = true;
+
             RefreshUI();
         }
 
@@ -77,6 +82,12 @@ namespace DarkGod.Main
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
             SetWndState(false);
+        }
+
+        private void OnDisable()
+        {
+            btnSure.onClick.RemoveAllListeners();
+            btnClose.onClick.RemoveAllListeners();
         }
     }
 }

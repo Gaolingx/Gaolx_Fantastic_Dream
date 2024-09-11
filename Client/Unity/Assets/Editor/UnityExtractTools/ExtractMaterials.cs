@@ -4,7 +4,7 @@ using UnityEditor;
 
 public class ExtractMaterials : EditorWindow
 {
-    [MenuItem("Assets/一键生成材质球", false, 1)]
+    [MenuItem("Assets/Extract/一键生成材质球", false, 1)]
     static void CreateMaterialsFromFBX()
     {
         UnityEngine.Object[] gameObjects = Selection.objects;

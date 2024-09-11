@@ -5,14 +5,15 @@ using UnityEditor;
 
 public class GenerateLightProbes : MonoBehaviour
 {
-    [MenuItem("Tools/Generate Light Probe Groups - Low Resolution")]
+    [MenuItem("Tools/Light Probe Groups/Generate Light Probe Groups - Low Resolution")]
     static void generateLow()
     {
 
         GameObject lightProbes;
         List<Vector3> probeLocations = new List<Vector3>();
 
-        if(GameObject.Find("Light Probe Group") != null){
+        if (GameObject.Find("Light Probe Group") != null)
+        {
             DestroyImmediate(GameObject.Find("Light Probe Group"));
         }
 
@@ -20,31 +21,30 @@ public class GenerateLightProbes : MonoBehaviour
         lightProbes.AddComponent<LightProbeGroup>();
         lightProbes.GetComponent<LightProbeGroup>().probePositions = probeLocations.ToArray();
 
-        GameObject[] objectsInScene = UnityEngine.Object.FindObjectsOfType<GameObject>() ;
-        foreach(GameObject obj in objectsInScene)
+        GameObject[] objectsInScene = UnityEngine.Object.FindObjectsOfType<GameObject>();
+        foreach (GameObject obj in objectsInScene)
+        {
+            if (obj.isStatic)
             {
-                if(obj.isStatic){
-
-                    if(obj.GetComponent<Renderer>() != null){
-                        probeLocations.Add( obj.GetComponent<Renderer>().bounds.max);
-                    }
-
-
-                
+                if (obj.GetComponent<Renderer>() != null)
+                {
+                    probeLocations.Add(obj.GetComponent<Renderer>().bounds.max);
+                }
             }
         }
 
         lightProbes.GetComponent<LightProbeGroup>().probePositions = probeLocations.ToArray();
     }
 
-    [MenuItem("Tools/Generate Light Probe Groups - Medium Resolution")]
+    [MenuItem("Tools/Light Probe Groups/Generate Light Probe Groups - Medium Resolution")]
     static void generateMedium()
     {
 
         GameObject lightProbes;
         List<Vector3> probeLocations = new List<Vector3>();
 
-        if(GameObject.Find("Light Probe Group") != null){
+        if (GameObject.Find("Light Probe Group") != null)
+        {
             DestroyImmediate(GameObject.Find("Light Probe Group"));
         }
 
@@ -52,32 +52,31 @@ public class GenerateLightProbes : MonoBehaviour
         lightProbes.AddComponent<LightProbeGroup>();
         lightProbes.GetComponent<LightProbeGroup>().probePositions = probeLocations.ToArray();
 
-        GameObject[] objectsInScene = UnityEngine.Object.FindObjectsOfType<GameObject>() ;
-        foreach(GameObject obj in objectsInScene)
+        GameObject[] objectsInScene = UnityEngine.Object.FindObjectsOfType<GameObject>();
+        foreach (GameObject obj in objectsInScene)
+        {
+            if (obj.isStatic)
             {
-                if(obj.isStatic){
-
-                    if(obj.GetComponent<Renderer>() != null){
-                        probeLocations.Add( obj.GetComponent<Renderer>().bounds.max);
-                        probeLocations.Add( obj.GetComponent<Renderer>().bounds.min);
-                    }
-
-
-                
+                if (obj.GetComponent<Renderer>() != null)
+                {
+                    probeLocations.Add(obj.GetComponent<Renderer>().bounds.max);
+                    probeLocations.Add(obj.GetComponent<Renderer>().bounds.min);
+                }
             }
         }
 
         lightProbes.GetComponent<LightProbeGroup>().probePositions = probeLocations.ToArray();
     }
 
-    [MenuItem("Tools/Generate Light Probe Groups - High Resolution")]
+    [MenuItem("Tools/Light Probe Groups/Generate Light Probe Groups - High Resolution")]
     static void generateHigh()
     {
 
         GameObject lightProbes;
         List<Vector3> probeLocations = new List<Vector3>();
 
-        if(GameObject.Find("Light Probe Group") != null){
+        if (GameObject.Find("Light Probe Group") != null)
+        {
             DestroyImmediate(GameObject.Find("Light Probe Group"));
         }
 
@@ -85,38 +84,37 @@ public class GenerateLightProbes : MonoBehaviour
         lightProbes.AddComponent<LightProbeGroup>();
         lightProbes.GetComponent<LightProbeGroup>().probePositions = probeLocations.ToArray();
 
-        GameObject[] objectsInScene = UnityEngine.Object.FindObjectsOfType<GameObject>() ;
-        foreach(GameObject obj in objectsInScene)
+        GameObject[] objectsInScene = UnityEngine.Object.FindObjectsOfType<GameObject>();
+        foreach (GameObject obj in objectsInScene)
+        {
+            if (obj.isStatic)
             {
-                if(obj.isStatic){
-
-                    if(obj.GetComponent<Renderer>() != null){
-                        probeLocations.Add( obj.GetComponent<Renderer>().bounds.max);
-                        probeLocations.Add( obj.GetComponent<Renderer>().bounds.min);
-                    }
-
-                
+                if (obj.GetComponent<Renderer>() != null)
+                {
+                    probeLocations.Add(obj.GetComponent<Renderer>().bounds.max);
+                    probeLocations.Add(obj.GetComponent<Renderer>().bounds.min);
+                }
             }
         }
 
-        int boundProbes = probeLocations.Count *2;
-        for(int i = 0; i < boundProbes; i++)
+        int boundProbes = probeLocations.Count * 2;
+        for (int i = 0; i < boundProbes; i++)
         {
-            probeLocations.Add(Vector3.Lerp(probeLocations[Random.Range(0,boundProbes/2)], probeLocations[Random.Range(0,boundProbes/2)], 0.5f));
-            
+            probeLocations.Add(Vector3.Lerp(probeLocations[Random.Range(0, boundProbes / 2)], probeLocations[Random.Range(0, boundProbes / 2)], 0.5f));
         }
 
         lightProbes.GetComponent<LightProbeGroup>().probePositions = probeLocations.ToArray();
     }
 
-    [MenuItem("Tools/Generate Light Probe Groups - Very High Resolution")]
+    [MenuItem("Tools/Light Probe Groups/Generate Light Probe Groups - Very High Resolution")]
     static void generateVeryHigh()
     {
 
         GameObject lightProbes;
         List<Vector3> probeLocations = new List<Vector3>();
 
-        if(GameObject.Find("Light Probe Group") != null){
+        if (GameObject.Find("Light Probe Group") != null)
+        {
             DestroyImmediate(GameObject.Find("Light Probe Group"));
         }
 
@@ -124,29 +122,25 @@ public class GenerateLightProbes : MonoBehaviour
         lightProbes.AddComponent<LightProbeGroup>();
         lightProbes.GetComponent<LightProbeGroup>().probePositions = probeLocations.ToArray();
 
-        GameObject[] objectsInScene = UnityEngine.Object.FindObjectsOfType<GameObject>() ;
-        foreach(GameObject obj in objectsInScene)
+        GameObject[] objectsInScene = UnityEngine.Object.FindObjectsOfType<GameObject>();
+        foreach (GameObject obj in objectsInScene)
+        {
+            if (obj.isStatic)
             {
-                if(obj.isStatic){
-
-                    if(obj.GetComponent<Renderer>() != null){
-                        probeLocations.Add( obj.GetComponent<Renderer>().bounds.max);
-                        probeLocations.Add( obj.GetComponent<Renderer>().bounds.min);
-                    }
-
-                
+                if (obj.GetComponent<Renderer>() != null)
+                {
+                    probeLocations.Add(obj.GetComponent<Renderer>().bounds.max);
+                    probeLocations.Add(obj.GetComponent<Renderer>().bounds.min);
+                }
             }
         }
 
-        int boundProbes = probeLocations.Count *4;
-        for(int i = 0; i < boundProbes; i++)
+        int boundProbes = probeLocations.Count * 4;
+        for (int i = 0; i < boundProbes; i++)
         {
-            probeLocations.Add(Vector3.Lerp(probeLocations[Random.Range(0,boundProbes/4)], probeLocations[Random.Range(0,boundProbes/4)], 0.5f));
-            
+            probeLocations.Add(Vector3.Lerp(probeLocations[Random.Range(0, boundProbes / 4)], probeLocations[Random.Range(0, boundProbes / 4)], 0.5f));
         }
 
         lightProbes.GetComponent<LightProbeGroup>().probePositions = probeLocations.ToArray();
     }
-
-
 }

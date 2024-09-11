@@ -5,7 +5,7 @@ using UnityEditor;
 
 public class ExtractAnim : MonoBehaviour
 {
-    [MenuItem("Assets/一键生成动画片段", false, 1)]
+    [MenuItem("Assets/Extract/一键生成动画片段", false, 1)]
     static void CreateAnimFromFBX()
     {
         UnityEngine.Object[] gameObjects = Selection.objects;

@@ -275,19 +275,7 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5675113177725089161}
-        m_TargetAssemblyTypeName: DarkGod.Main.SettingsWnd, GameMain
-        m_MethodName: ClickFpsWndToggle
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_IsOn: 0
 --- !u!1 &1504428347713501030
 GameObject:
@@ -907,19 +895,7 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5675113177725089161}
-        m_TargetAssemblyTypeName: DarkGod.Main.SettingsWnd, GameMain
-        m_MethodName: ClickRuntimeInspectorToggle
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_IsOn: 0
 --- !u!1 &2345124137099206147
 GameObject:
@@ -1314,19 +1290,7 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5675113177725089161}
-        m_TargetAssemblyTypeName: DarkGod.Main.SettingsWnd, GameMain
-        m_MethodName: ClickVsyncToggle
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_IsOn: 0
 --- !u!1 &3266475785569307522
 GameObject:
@@ -1674,7 +1638,7 @@ GameObject:
   - component: {fileID: 5755831632525112315}
   - component: {fileID: 7402273057185910262}
   m_Layer: 5
-  m_Name: ResetCfgsBtn
+  m_Name: ResetCfgsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1781,19 +1745,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5755831632525112315}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5675113177725089161}
-        m_TargetAssemblyTypeName: SettingsWnd, GameMain
-        m_MethodName: ClickResetCfgsBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &3830741282815117382
 GameObject:
   m_ObjectHideFlags: 0
@@ -3374,7 +3326,7 @@ GameObject:
   - component: {fileID: 6120058156070457370}
   - component: {fileID: 6120058156070457368}
   m_Layer: 5
-  m_Name: CloseSettings
+  m_Name: CloseSettingsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3481,19 +3433,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6120058156070457370}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5675113177725089161}
-        m_TargetAssemblyTypeName: SettingsWnd, GameMain
-        m_MethodName: ClickCloseBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &6120058156107552464
 GameObject:
   m_ObjectHideFlags: 0
@@ -3995,7 +3935,7 @@ GameObject:
   - component: {fileID: 6120058156442399625}
   - component: {fileID: 6120058156442399631}
   m_Layer: 5
-  m_Name: ExitGame
+  m_Name: ExitGameButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4102,19 +4042,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6120058156442399625}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5675113177725089161}
-        m_TargetAssemblyTypeName: SettingsWnd, GameMain
-        m_MethodName: ClickExitGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &6120058156464691365
 GameObject:
   m_ObjectHideFlags: 0
@@ -4389,19 +4317,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6120058156856597562}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DarkGod.Main.BattleEndWnd, GameMain
-        m_MethodName: ClickExitBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &6120058156926153084
 GameObject:
   m_ObjectHideFlags: 0
@@ -4768,11 +4684,16 @@ MonoBehaviour:
   FpsWndToggle: {fileID: 8798081280075842717}
   RuntimeInspectorToggle: {fileID: 6330633343833793806}
   RuntimeHierarchyToggle: {fileID: 5689692364104491130}
+  btnResetCfgs: {fileID: 7402273057185910262}
+  btnExitGame: {fileID: 6120058156442399631}
+  btnMainMenu: {fileID: 6120058156856597560}
+  btnCloseSettings: {fileID: 6120058156070457368}
+  btnCloseDebugItem: {fileID: 0}
+  qualitySelectDropdown: {fileID: 3892771302091618463}
   DebugItem: {fileID: 0}
   fpsWnd: {fileID: 0}
   RuntimeHierarchy: {fileID: 0}
   RuntimeInspector: {fileID: 0}
-  qualitySelectDropdown: {fileID: 3892771302091618463}
 --- !u!1 &6120058157266450827
 GameObject:
   m_ObjectHideFlags: 0
@@ -5498,19 +5419,7 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5675113177725089161}
-        m_TargetAssemblyTypeName: DarkGod.Main.SettingsWnd, GameMain
-        m_MethodName: ClickRuntimeHierarchyToggle
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_IsOn: 0
 --- !u!1 &8560347015572206948
 GameObject:
@@ -5777,17 +5686,5 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5675113177725089161}
-        m_TargetAssemblyTypeName: DarkGod.Main.SettingsWnd, GameMain
-        m_MethodName: ClickMutedToggle
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_IsOn: 0

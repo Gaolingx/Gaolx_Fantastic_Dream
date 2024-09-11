@@ -21,6 +21,9 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
+            btnEnter.onClick.AddListener(delegate { ClickEnterBtn(); });
+            btnNotice.onClick.AddListener(delegate { ClicKNoticeBtn(); });
+
             SetHotfixVersionWnd();
 
             btnRemember.isOn = playerPrefsSvc.GetLoginItem().isRemember;
@@ -77,6 +80,12 @@ namespace DarkGod.Main
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
 
             MsgBox.MainInstance.ShowMessageBox("功能正在开发中...");
+        }
+
+        private void OnDisable()
+        {
+            btnEnter.onClick.RemoveAllListeners();
+            btnNotice.onClick.RemoveAllListeners();
         }
     }
 }

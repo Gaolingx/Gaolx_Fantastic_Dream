@@ -202,5 +202,26 @@ namespace DarkGod.Main
             listener.onDrag = cb;
         }
         #endregion
+
+        //Reload Cfg Data
+        protected void ClickResetCfgsBtn()
+        {
+            audioSvc.PlayUIAudio(Constants.UIClickBtn);
+            configSvc.ResetSkillCfgs();
+            MsgBox.MainInstance.ShowMessageBox("技能数据重置成功！");
+        }
+
+        protected void ExitCurrentBattle(bool enterFubenWndIfNeed = false)
+        {
+            if (GameRoot.MainInstance.GetGameState() == GameState.FBFight)
+            {
+                BattleSys.Instance.EnterMainCity();
+                BattleSys.Instance.DestroyBattle();
+            }
+            else if (GameRoot.MainInstance.GetGameState() == GameState.MainCity)
+            {
+                MsgBox.MainInstance.ShowMessageBox("当前未处于副本战斗关卡");
+            }
+        }
     }
 }

@@ -24,6 +24,9 @@ namespace DarkGod.Main
         public Image propArr2;
         public Image propArr3;
 
+        public Button btnStrong;
+        public Button btnClose;
+
         public Text txtNeedLv; //升级所需的最低等级
         public Text txtCostCoin; //消耗的金币
         public Text txtCostCrystal; //消耗的水晶
@@ -44,10 +47,13 @@ namespace DarkGod.Main
         protected override void InitWnd()
         {
             base.InitWnd();
+
             pd = GameRoot.MainInstance.PlayerData;
 
             //注册点击事件
             RegClickEvts();
+            btnStrong.onClick.AddListener(delegate { ClickStrongBtn(); });
+            btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
 
             ClickPosItem(0);
         }
@@ -247,6 +253,12 @@ namespace DarkGod.Main
         {
             audioSvc.PlayUIAudio(Constants.FBItemEnter);
             ClickPosItem(currentIndex);
+        }
+
+        private void OnDisable()
+        {
+            btnStrong.onClick.RemoveAllListeners();
+            btnClose.onClick.RemoveAllListeners();
         }
     }
 }

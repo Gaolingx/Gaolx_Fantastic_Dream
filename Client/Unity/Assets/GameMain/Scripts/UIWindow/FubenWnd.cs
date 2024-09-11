@@ -1,6 +1,7 @@
 //功能：副本选择界面
 
 using PEProtocol;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +9,8 @@ namespace DarkGod.Main
 {
     public class FubenWnd : WindowRoot
     {
-        public Button[] fbBtnArr;
+        public List<Button> fbBtnArr;
+        public Button btnClose;
 
         public Transform pointerTrans;
 
@@ -17,7 +19,10 @@ namespace DarkGod.Main
         protected override void InitWnd()
         {
             base.InitWnd();
+
             pd = GameRoot.MainInstance.PlayerData;
+
+            btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
 
             RefreshUI();
         }
@@ -26,8 +31,9 @@ namespace DarkGod.Main
         {
             int fbid = pd.fuben;
             //根据当前副本进度控制图标显示（只显示当前待完成副本的图标）
-            for (int i = 0; i < fbBtnArr.Length; i++)
+            for (int i = 0; i < fbBtnArr.Count; i++)
             {
+                fbBtnArr[i].onClick.AddListener(delegate { ClickTaskBtn(10001 + i); });
                 if (i < fbid % 10000)
                 {
                     SetActive(fbBtnArr[i].gameObject);
@@ -72,6 +78,15 @@ namespace DarkGod.Main
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
             SetWndState(false);
+        }
+
+        private void OnDisable()
+        {
+            btnClose.onClick.RemoveAllListeners();
+            for (int i = 0; i < fbBtnArr.Count; i++)
+            {
+                fbBtnArr[i].onClick.RemoveAllListeners();
+            }
         }
     }
 }

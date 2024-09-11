@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
@@ -11,17 +10,23 @@ namespace DarkGod.Main
     {
         public Slider BGAudioSlider, UIAudioSlider, CharacterAudioSlider, CharacterFxAudioSlider;
         public Toggle VsyncSettingsToggle, MutedToggle, FpsWndToggle, RuntimeInspectorToggle, RuntimeHierarchyToggle;
+        public Button btnResetCfgs;
+        public Button btnExitGame;
+        public Button btnMainMenu;
+        public Button btnCloseSettings;
+        public Button btnCloseDebugItem;
+        public Dropdown qualitySelectDropdown;
+
         public Transform DebugItem;
         public Transform fpsWnd;
         public Transform RuntimeHierarchy, RuntimeInspector;
-        public Dropdown qualitySelectDropdown;
 
         protected override void InitWnd()
         {
             base.InitWnd();
 
             InitQualityDropdownOptionData();
-            SliderAddListener();
+            UIAddListener();
             InitSliderValue();
         }
 
@@ -58,7 +63,6 @@ namespace DarkGod.Main
         private void InitSliderValue()
         {
             VsyncSettingsToggle.isOn = GetVSyncCount();
-            MutedToggle.isOn = false;
             BGAudioSlider.value = audioSvc.BGAudioVolumeValue;
             UIAudioSlider.value = audioSvc.UIAudioVolumeValue;
             CharacterAudioSlider.value = audioSvc.CharacterAudioVolumeValue;
@@ -66,12 +70,25 @@ namespace DarkGod.Main
         }
 
         #region Slider相关
-        private void SliderAddListener()
+        private void UIAddListener()
         {
+            btnResetCfgs.onClick.AddListener(delegate { ClickResetCfgsBtn(); });
+            btnExitGame.onClick.AddListener(delegate { ClickExitGame(); });
+            btnMainMenu.onClick.AddListener(delegate { ExitCurrentBattle(); });
+            btnCloseSettings.onClick.AddListener(delegate { ClickCloseBtn(); });
+            btnCloseDebugItem.onClick.AddListener(delegate { ClickCloseDebugItemBtn(); });
+
             BGAudioSlider.onValueChanged.AddListener(TouchBGAudioSlider);
             UIAudioSlider.onValueChanged.AddListener(TouchUIAudioSlider);
             CharacterAudioSlider.onValueChanged.AddListener(TouchCharacterAudioSlider);
             CharacterFxAudioSlider.onValueChanged.AddListener(TouchCharacterFxAudioSlider);
+
+            MutedToggle.onValueChanged.AddListener(ClickMutedToggle);
+            VsyncSettingsToggle.onValueChanged.AddListener(ClickVsyncToggle);
+            FpsWndToggle.onValueChanged.AddListener(ClickFpsWndToggle);
+            RuntimeHierarchyToggle.onValueChanged.AddListener(ClickRuntimeHierarchyToggle);
+            RuntimeInspectorToggle.onValueChanged.AddListener(ClickRuntimeInspectorToggle);
+
             qualitySelectDropdown.onValueChanged.AddListener(OnQualityDropdownValueChanged);
         }
 
@@ -98,36 +115,36 @@ namespace DarkGod.Main
         #endregion
 
         #region Toggle相关
-        public void ClickVsyncToggle()
+        public void ClickVsyncToggle(bool val)
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            GameRoot.MainInstance.SetVsyncState(VsyncSettingsToggle.isOn);
+            GameRoot.MainInstance.SetVsyncState(val);
         }
 
-        public void ClickMutedToggle()
+        public void ClickMutedToggle(bool val)
         {
-            audioSvc.SetMainAudioMuted(MutedToggle.isOn);
+            audioSvc.SetMainAudioMuted(val);
         }
 
-        public void ClickFpsWndToggle()
-        {
-            audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            ActiveDebugItemWnd();
-            fpsWnd.gameObject.SetActive(FpsWndToggle.isOn);
-        }
-
-        public void ClickRuntimeHierarchyToggle()
+        public void ClickFpsWndToggle(bool val)
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
             ActiveDebugItemWnd();
-            RuntimeHierarchy.gameObject.SetActive(RuntimeHierarchyToggle.isOn);
+            fpsWnd.gameObject.SetActive(val);
         }
 
-        public void ClickRuntimeInspectorToggle()
+        public void ClickRuntimeHierarchyToggle(bool val)
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
             ActiveDebugItemWnd();
-            RuntimeInspector.gameObject.SetActive(RuntimeInspectorToggle.isOn);
+            RuntimeHierarchy.gameObject.SetActive(val);
+        }
+
+        public void ClickRuntimeInspectorToggle(bool val)
+        {
+            audioSvc.PlayUIAudio(Constants.UIClickBtn);
+            ActiveDebugItemWnd();
+            RuntimeInspector.gameObject.SetActive(val);
         }
 
         #endregion
@@ -152,14 +169,6 @@ namespace DarkGod.Main
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
             GameRoot.MainInstance.ExitGame();
-        }
-
-        //Reload Cfg Data
-        public void ClickResetCfgsBtn()
-        {
-            audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            configSvc.ResetSkillCfgs();
-            MsgBox.MainInstance.ShowMessageBox("技能数据重置成功！");
         }
 
         #endregion
@@ -203,6 +212,28 @@ namespace DarkGod.Main
         public void OnQualityDropdownValueChanged(int value)
         {
             SetQualityLevel(value);
+        }
+
+        private void OnDisable()
+        {
+            btnResetCfgs.onClick.RemoveAllListeners();
+            btnExitGame.onClick.RemoveAllListeners();
+            btnMainMenu.onClick.RemoveAllListeners();
+            btnCloseSettings.onClick.RemoveAllListeners();
+            btnCloseDebugItem.onClick.RemoveAllListeners();
+
+            BGAudioSlider.onValueChanged.RemoveAllListeners();
+            UIAudioSlider.onValueChanged.RemoveAllListeners();
+            CharacterAudioSlider.onValueChanged.RemoveAllListeners();
+            CharacterFxAudioSlider.onValueChanged.RemoveAllListeners();
+
+            MutedToggle.onValueChanged.RemoveAllListeners();
+            VsyncSettingsToggle.onValueChanged.RemoveAllListeners();
+            FpsWndToggle.onValueChanged.RemoveAllListeners();
+            RuntimeHierarchyToggle.onValueChanged.RemoveAllListeners();
+            RuntimeInspectorToggle.onValueChanged.RemoveAllListeners();
+
+            qualitySelectDropdown.onValueChanged.RemoveAllListeners();
         }
 
         #endregion

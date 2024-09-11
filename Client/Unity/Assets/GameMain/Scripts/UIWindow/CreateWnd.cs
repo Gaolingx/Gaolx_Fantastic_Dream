@@ -10,11 +10,15 @@ namespace DarkGod.Main
     public class CreateWnd : WindowRoot
     {
         public InputField iptName;
+        public Button btnRand;
+        public Button btnEnter;
 
         protected override void InitWnd()
         {
             base.InitWnd();
 
+            btnRand.onClick.AddListener(delegate { ClickRandBtn(); });
+            btnEnter.onClick.AddListener(delegate { ClickEnterBtn(); });
 
             //显示一个随机名字
             iptName.text = configSvc.GetRDNameCfg(false);

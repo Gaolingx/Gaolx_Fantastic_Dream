@@ -16,14 +16,26 @@ namespace DarkGod.Main
         public Image imgGuild;
         public Image imgFriend;
 
-        private int chatType; //0：世界，1：公会，2：好友
+        public Button btnWord;
+        public Button btnGuild;
+        public Button btnFriend;
+        public Button btnSend;
+        public Button btnClose;
+
+        private ChatType chatType; //0：世界，1：公会，2：好友
         private List<string> chatLst = new List<string>();
 
         protected override void InitWnd()
         {
             base.InitWnd();
 
-            chatType = 0;
+            btnWord.onClick.AddListener(delegate { ClickWorldBtn(); });
+            btnGuild.onClick.AddListener(delegate { ClickGuildBtn(); });
+            btnFriend.onClick.AddListener(delegate { ClickFriendBtn(); });
+            btnSend.onClick.AddListener(delegate { ClickSendBtn(); });
+            btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
+
+            chatType = ChatType.ChatWorld;
 
             RefreshUI();
         }
@@ -49,7 +61,7 @@ namespace DarkGod.Main
         {
             switch (chatType)
             {
-                case 0:
+                case ChatType.ChatWorld:
                     //世界
                     string chatMsg = "";
                     //实现换行
@@ -64,14 +76,14 @@ namespace DarkGod.Main
                     SetSprite(imgGuild, PathDefine.ChatWndBtn2);
                     SetSprite(imgFriend, PathDefine.ChatWndBtn2);
                     break;
-                case 1:
+                case ChatType.ChatGuild:
                     //TODO 公会
                     SetText(txtChat, "尚未加入公会");
                     SetSprite(imgWorld, PathDefine.ChatWndBtn2);
                     SetSprite(imgGuild, PathDefine.ChatWndBtn1);
                     SetSprite(imgFriend, PathDefine.ChatWndBtn2);
                     break;
-                case 2:
+                case ChatType.ChatFriend:
                     //TODO 好友
                     SetText(txtChat, "暂无好友信息");
                     SetSprite(imgWorld, PathDefine.ChatWndBtn2);
@@ -127,19 +139,19 @@ namespace DarkGod.Main
         public void ClickWorldBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            chatType = 0;
+            chatType = ChatType.ChatWorld;
             RefreshUI();
         }
         public void ClickGuildBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            chatType = 1;
+            chatType = ChatType.ChatGuild;
             RefreshUI();
         }
         public void ClickFriendBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            chatType = 2;
+            chatType = ChatType.ChatFriend;
             RefreshUI();
         }
         public void ClickCloseBtn()
@@ -147,6 +159,15 @@ namespace DarkGod.Main
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
             chatType = 0;
             SetWndState(false);
+        }
+
+        private void OnDisable()
+        {
+            btnWord.onClick.RemoveAllListeners();
+            btnGuild.onClick.RemoveAllListeners();
+            btnFriend.onClick.RemoveAllListeners();
+            btnSend.onClick.RemoveAllListeners();
+            btnClose.onClick.RemoveAllListeners();
         }
     }
 }

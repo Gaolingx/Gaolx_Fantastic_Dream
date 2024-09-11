@@ -44,7 +44,7 @@ namespace DarkGod.Main
                         go.SetActive(false);
                         if (!bigSoundCenter.ContainsKey(soundPools[i].soundName))
                         {
-                            PECommon.Log(soundPools[i].soundName + "加入对象池");
+                            // PECommon.Log(soundPools[i].soundName + "加入对象池");
                             bigSoundCenter.Add(soundPools[i].soundName, new Dictionary<SoundStyle, Queue<GameObject>>());
                         }
                         if (!bigSoundCenter[soundPools[i].soundName].ContainsKey(soundPools[i].soundStyle))

@@ -27,7 +27,15 @@ namespace DarkGod.Main
 
         public Transform expPrgTrans;
 
+        public Button btnBuyPower;
         public Button btnGuide;
+        public Button btnHead;
+        public Button btnTask;
+        public Button btnArena;
+        public Button btnMKCoin;
+        public Button btnStrong;
+        public Button btnSettings;
+        public Button btnChat;
         #endregion
 
         private bool menuState = true;
@@ -40,6 +48,18 @@ namespace DarkGod.Main
         protected override void InitWnd()
         {
             base.InitWnd();
+
+            btnMenu.onClick.AddListener(delegate { ClickMenuBtn(); });
+            btnBuyPower.onClick.AddListener(delegate { ClickBuyPowerBtn(); });
+            btnGuide.onClick.AddListener(delegate { ClickGuideBtn(); });
+            btnHead.onClick.AddListener(delegate { ClickHeadBtn(); });
+            btnTask.onClick.AddListener(delegate { ClickTaskBtn(); });
+            btnArena.onClick.AddListener(delegate { ClickFubenBtn(); });
+            btnMKCoin.onClick.AddListener(delegate { ClickMKCoinBtn(); });
+            btnStrong.onClick.AddListener(delegate { ClickStrongBtn(); });
+            btnSettings.onClick.AddListener(delegate { ClickSettingsBtn(); });
+            btnChat.onClick.AddListener(delegate { ClickChatBtn(); });
+
             pointDis = Screen.height * 1.0f / Constants.ScreenStandardHeight * Constants.ScreenOPDis;
             defaultPos = imgDirBg.transform.position;
             SetActive(imgDirPoint, false);
@@ -257,6 +277,20 @@ namespace DarkGod.Main
         public void ClickSettingsBtn()
         {
             MainCitySys.Instance.OpenSettingsWnd();
+        }
+
+        private void OnDisable()
+        {
+            btnMenu.onClick.RemoveAllListeners();
+            btnBuyPower.onClick.RemoveAllListeners();
+            btnGuide.onClick.RemoveAllListeners();
+            btnHead.onClick.RemoveAllListeners();
+            btnTask.onClick.RemoveAllListeners();
+            btnArena.onClick.RemoveAllListeners();
+            btnMKCoin.onClick.RemoveAllListeners();
+            btnStrong.onClick.RemoveAllListeners();
+            btnSettings.onClick.RemoveAllListeners();
+            btnChat.onClick.RemoveAllListeners();
         }
     }
 }

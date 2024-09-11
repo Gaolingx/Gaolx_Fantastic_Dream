@@ -292,19 +292,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114662082183127270}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114952679272849028}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: ClickFriendBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1085600654731252
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,19 +492,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114770435375679268}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114952679272849028}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: ClickGuildBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1214217498464390
 GameObject:
   m_ObjectHideFlags: 0
@@ -877,19 +853,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114441277300532250}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114952679272849028}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: ClickWorldBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1465334472611630
 GameObject:
   m_ObjectHideFlags: 0
@@ -1010,19 +974,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114183122368288072}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114952679272849028}
-        m_TargetAssemblyTypeName: ChatWnd, GameMain
-        m_MethodName: ClickSendBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1488824285654308
 GameObject:
   m_ObjectHideFlags: 0
@@ -1237,19 +1189,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114218794625035042}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114952679272849028}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: ClickCloseBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1617610576783662
 GameObject:
   m_ObjectHideFlags: 0
@@ -1501,6 +1441,11 @@ MonoBehaviour:
   imgWorld: {fileID: 114441277300532250}
   imgGuild: {fileID: 114770435375679268}
   imgFriend: {fileID: 114662082183127270}
+  btnWord: {fileID: 114980212531924926}
+  btnGuild: {fileID: 114907490185094562}
+  btnFriend: {fileID: 114535813899345416}
+  btnSend: {fileID: 114527335600266604}
+  btnClose: {fileID: 114706693087922640}
 --- !u!1 &1959731683823580
 GameObject:
   m_ObjectHideFlags: 0

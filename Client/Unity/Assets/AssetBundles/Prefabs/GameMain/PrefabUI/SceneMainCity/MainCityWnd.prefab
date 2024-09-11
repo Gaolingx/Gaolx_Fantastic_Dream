@@ -850,19 +850,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114860408572210020}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1122169537177148142}
-        m_TargetAssemblyTypeName: MainCityWnd, GameMain
-        m_MethodName: ClickBuyPowerBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1137935172830634
 GameObject:
   m_ObjectHideFlags: 0
@@ -1078,19 +1066,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114517819866571002}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1122169537177148142}
-        m_TargetAssemblyTypeName: MainCityWnd, GameMain
-        m_MethodName: ClickHeadBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1150067067785442
 GameObject:
   m_ObjectHideFlags: 0
@@ -1211,19 +1187,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114048352389460114}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1122169537177148142}
-        m_TargetAssemblyTypeName: MainCityWnd, GameMain
-        m_MethodName: ClickGuideBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1163610606446082
 GameObject:
   m_ObjectHideFlags: 0
@@ -1514,19 +1478,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114333561356593638}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1122169537177148142}
-        m_TargetAssemblyTypeName: MainCityWnd, GameMain
-        m_MethodName: ClickTaskBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1188042014499410
 GameObject:
   m_ObjectHideFlags: 0
@@ -2754,19 +2706,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114155413086895562}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1122169537177148142}
-        m_TargetAssemblyTypeName: MainCityWnd, GameMain
-        m_MethodName: ClickStrongBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1536787469994952
 GameObject:
   m_ObjectHideFlags: 0
@@ -2833,7 +2773,15 @@ MonoBehaviour:
   txtName: {fileID: 114343733885019016}
   txtExpPrg: {fileID: 114571189095875522}
   expPrgTrans: {fileID: 224362296523627554}
+  btnBuyPower: {fileID: 114128405354955676}
   btnGuide: {fileID: 114212859752877030}
+  btnHead: {fileID: 114527074968874568}
+  btnTask: {fileID: 114640075786457396}
+  btnArena: {fileID: 114693274595638522}
+  btnMKCoin: {fileID: 114594812057222856}
+  btnStrong: {fileID: 114112386818356076}
+  btnSettings: {fileID: 5019015621681973697}
+  btnChat: {fileID: 8551417883162054044}
 --- !u!1 &1543780934597842
 GameObject:
   m_ObjectHideFlags: 0
@@ -3029,19 +2977,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114753335842495804}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1122169537177148142}
-        m_TargetAssemblyTypeName: MainCityWnd, GameMain
-        m_MethodName: ClickFubenBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1575019260279094
 GameObject:
   m_ObjectHideFlags: 0
@@ -3699,19 +3635,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114499445915784124}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1122169537177148142}
-        m_TargetAssemblyTypeName: MainCityWnd, GameMain
-        m_MethodName: ClickMKCoinBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1694651147976062
 GameObject:
   m_ObjectHideFlags: 0
@@ -4076,19 +4000,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114780772634934814}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1122169537177148142}
-        m_TargetAssemblyTypeName: MainCityWnd, GameMain
-        m_MethodName: ClickMenuBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1834590391049184
 GameObject:
   m_ObjectHideFlags: 0
@@ -4929,19 +4841,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1428759266398777036}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1122169537177148142}
-        m_TargetAssemblyTypeName: MainCityWnd, GameMain
-        m_MethodName: ClickChatBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &7367641475957428525
 GameObject:
   m_ObjectHideFlags: 0
@@ -5232,16 +5132,4 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7108396343004343390}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1122169537177148142}
-        m_TargetAssemblyTypeName: MainCityWnd, GameMain
-        m_MethodName: ClickSettingsBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []

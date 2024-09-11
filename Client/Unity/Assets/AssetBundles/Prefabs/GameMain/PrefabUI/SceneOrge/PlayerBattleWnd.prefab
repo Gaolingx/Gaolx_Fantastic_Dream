@@ -123,19 +123,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 181400672711555414}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: StarterAssets.UICanvasControllerInput, GameMain
-        m_MethodName: VirtualSkill01Input
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &223502577527230815
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,9 +556,12 @@ MonoBehaviour:
   txtLevel: {fileID: 170388019348430828}
   txtName: {fileID: 184583247976741709}
   txtExpPrg: {fileID: 184356879662308103}
+  btnSettings: {fileID: 8568355230608369753}
+  btnNormal: {fileID: 2606435446959400356}
+  btnSkill1: {fileID: 2268411135972945128}
+  btnSkill2: {fileID: 4117491394288692680}
+  btnSkill3: {fileID: 3089189238334018391}
   expPrgTrans: {fileID: 1378962314757351}
-  playerInput: {fileID: 0}
-  GamePadTrans: {fileID: 0}
   settingsWnd: {fileID: 0}
   imgSk1CD: {fileID: 6660441056791843953}
   txtSk1CD: {fileID: 8429912741715362716}
@@ -1811,19 +1802,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8794066126608977565}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: StarterAssets.UICanvasControllerInput, GameMain
-        m_MethodName: VirtualNormalAtkInput
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &575023959711363751
 GameObject:
   m_ObjectHideFlags: 0
@@ -1944,19 +1923,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4047889460790131120}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5186525922862661629}
-        m_TargetAssemblyTypeName: DarkGod.Main.PlayerCtrlWnd, GameMain
-        m_MethodName: ClickSettingsBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &799199735410030356
 GameObject:
   m_ObjectHideFlags: 0
@@ -2475,19 +2442,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3990999634960448621}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: StarterAssets.UICanvasControllerInput, GameMain
-        m_MethodName: VirtualSkill03Input
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1878396597975291003
 GameObject:
   m_ObjectHideFlags: 0
@@ -4316,19 +4271,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5192522243510852365}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: StarterAssets.UICanvasControllerInput, GameMain
-        m_MethodName: VirtualSkill02Input
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &6085187789688475960
 GameObject:
   m_ObjectHideFlags: 0

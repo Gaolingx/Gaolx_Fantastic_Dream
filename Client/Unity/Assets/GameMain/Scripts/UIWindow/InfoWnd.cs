@@ -44,7 +44,12 @@ namespace DarkGod.Main
         protected override void InitWnd()
         {
             base.InitWnd();
+
             RegTouchEvts();
+            btnDetail.onClick.AddListener(delegate { ClickDetailBtn(); });
+            btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
+            btnCloseDetail.onClick.AddListener(delegate { ClickCloseDetailBtn(); });
+
             SetActive(transDetail, false);
             RefreshUI();
         }
@@ -108,6 +113,13 @@ namespace DarkGod.Main
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
             SetActive(transDetail, false);
+        }
+
+        private void OnDisable()
+        {
+            btnDetail.onClick.RemoveAllListeners();
+            btnClose.onClick.RemoveAllListeners();
+            btnCloseDetail.onClick.RemoveAllListeners();
         }
     }
 }

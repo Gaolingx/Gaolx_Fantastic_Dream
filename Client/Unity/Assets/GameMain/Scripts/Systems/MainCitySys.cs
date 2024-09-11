@@ -30,7 +30,9 @@ namespace DarkGod.Main
         private AutoGuideCfg curtTaskData;
         private List<Transform> npcPosTrans;
         private NavMeshAgent nav;
+
         private StarterAssetsInputs starterAssetsInputs;
+        private UICanvasControllerInput uICanvasController;
 
         public override void InitSys()
         {
@@ -44,6 +46,9 @@ namespace DarkGod.Main
         private void InitPlayerInput()
         {
             starterAssetsInputs = GameRoot.MainInstance.GetStarterAssetsInputs();
+            uICanvasController = UICanvasControllerInput.MainInstance;
+
+            uICanvasController.starterAssetsInputs = starterAssetsInputs;
         }
 
         public void EnterMainCity()
@@ -65,9 +70,6 @@ namespace DarkGod.Main
 
                 //打开主城场景UI
                 maincityWnd.SetWndState();
-
-                // 初始化摇杆插件
-                InitGamepad();
 
                 //播放主城背景音乐
                 PlayBGAudioLst();
@@ -161,18 +163,6 @@ namespace DarkGod.Main
             NpcSvc.MainInstance.LoadMapNpc(Constants.NpcTypeID_2);
             NpcSvc.MainInstance.LoadMapNpc(Constants.NpcTypeID_3);
 
-        }
-
-        private void InitGamepad()
-        {
-            Transform GamePadTrans = transform.Find(Constants.Path_Joysticks_MainCitySys);
-            if (GamePadTrans != null)
-            {
-                GamePadTrans.gameObject.SetActive(true);
-                UICanvasControllerInput uICanvasControllerInput = GamePadTrans.GetComponent<UICanvasControllerInput>();
-
-                uICanvasControllerInput.starterAssetsInputs = starterAssetsInputs;
-            }
         }
 
         public void PauseGameLogic(bool isPause)

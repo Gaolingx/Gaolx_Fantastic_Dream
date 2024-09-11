@@ -348,19 +348,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114856815062751088}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2395054267104386511}
-        m_TargetAssemblyTypeName: CreateWnd, GameMain
-        m_MethodName: ClickRandBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1427957799070396
 GameObject:
   m_ObjectHideFlags: 0
@@ -867,6 +855,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iptName: {fileID: 114952568983178414}
+  btnRand: {fileID: 114770250308211468}
+  btnEnter: {fileID: 114113429773365986}
 --- !u!1 &1793131585575732
 GameObject:
   m_ObjectHideFlags: 0
@@ -1139,19 +1129,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114558984888369990}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2395054267104386511}
-        m_TargetAssemblyTypeName: CreateWnd, GameMain
-        m_MethodName: ClickEnterBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1897989643012650
 GameObject:
   m_ObjectHideFlags: 0

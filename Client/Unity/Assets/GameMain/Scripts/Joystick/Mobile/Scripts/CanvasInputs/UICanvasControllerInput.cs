@@ -1,9 +1,9 @@
-using DarkGod.Main;
+using HuHu;
 using UnityEngine;
 
 namespace StarterAssets
 {
-    public class UICanvasControllerInput : MonoBehaviour
+    public class UICanvasControllerInput : Singleton<UICanvasControllerInput>
     {
 
         [Header("Output")]
@@ -12,7 +12,7 @@ namespace StarterAssets
         private bool EnableUICanvasInput = false;
         private void Update()
         {
-            EnableUICanvasInput = GameRoot.MainInstance.GetUIController()._isInputEnable;
+            EnableUICanvasInput = DarkGod.Main.GameRoot.MainInstance.GetUIController()._isInputEnable;
         }
 
         public void VirtualMoveInput(Vector2 virtualMoveDirection)

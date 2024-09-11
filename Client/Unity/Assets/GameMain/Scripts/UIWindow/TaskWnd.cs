@@ -12,6 +12,8 @@ namespace DarkGod.Main
     {
         public Transform scrollTrans;
 
+        public Button btnClose;
+
         private PlayerData pd = null;
         private List<TaskRewardData> trdLst = new List<TaskRewardData>();
 
@@ -20,6 +22,9 @@ namespace DarkGod.Main
             base.InitWnd();
 
             pd = GameRoot.MainInstance.PlayerData;
+
+            btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
+
             RefreshUI();
         }
 
@@ -140,6 +145,11 @@ namespace DarkGod.Main
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
             SetWndState(false);
+        }
+
+        private void OnDisable()
+        {
+            btnClose.onClick.RemoveAllListeners();
         }
     }
 }
