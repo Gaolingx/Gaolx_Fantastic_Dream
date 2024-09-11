@@ -81,5 +81,14 @@ namespace DarkGod.Main
             float targetValue = Mathf.Clamp(targetVolume, 0.0001f, 1f);
             return Mathf.Log10(targetValue) * 20;
         }
+
+        /// <summary>
+        /// ScreenScale
+        /// </summary>
+        /// <returns>Vector2(宽度, 高度)</returns>
+        public static Vector2 GetScreenScale()
+        {
+            return new Vector2(1.0f * Constants.ScreenStandardWidth / Screen.width, 1.0f * Constants.ScreenStandardHeight / Screen.height);
+        }
     }
 }

@@ -2,6 +2,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using TEngine;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -62,25 +63,24 @@ namespace DarkGod.Main
 
         #region Tool Functions
 
-        protected void SetActive(GameObject go, bool isActive = true)
+        protected void SetActive(GameObject go, bool value = true)
         {
-            go.SetActive(isActive);
+            bool tempState = go.activeSelf;
+            UnityExtension.SetActive(go, value, ref tempState);
         }
-        protected void SetActive(Transform trans, bool state = true)
+
+        protected void SetActive(Component component, bool value = true)
         {
-            trans.gameObject.SetActive(state);
+            GameObject go = component.gameObject;
+            bool tempState = go.activeSelf;
+            UnityExtension.SetActive(go, value, ref tempState);
         }
-        protected void SetActive(RectTransform rectTrans, bool state = true)
+
+        protected void SetActive<T>(bool value = true) where T : UnityEngine.Component
         {
-            rectTrans.gameObject.SetActive(state);
-        }
-        protected void SetActive(Image img, bool state = true)
-        {
-            img.transform.gameObject.SetActive(state);
-        }
-        protected void SetActive(Text txt, bool state = true)
-        {
-            txt.transform.gameObject.SetActive(state);
+            T component = gameObject.GetComponent<T>();
+            bool tempState = component.gameObject.activeSelf;
+            UnityExtension.SetActive(component.gameObject, value, ref tempState);
         }
 
         protected void SetText(Text txt, string context = "NaN")
@@ -108,12 +108,7 @@ namespace DarkGod.Main
 
         protected T GetOrAddComponect<T>(GameObject go) where T : Component
         {
-            T t = go.GetComponent<T>();
-            if (t == null)
-            {
-                t = go.AddComponent<T>();
-            }
-            return t;
+            return UnityExtension.GetOrAddComponent<T>(go);
         }
 
         protected Transform GetTrans(Transform trans, string name)
@@ -127,6 +122,30 @@ namespace DarkGod.Main
                 return transform.Find(name);
             }
         }
+        #endregion
+
+        #region FindChildComponent
+
+        public Transform FindChild(RectTransform rectTransform, string path)
+        {
+            return UnityExtension.FindChild(rectTransform, path);
+        }
+
+        public Transform FindChild(Transform trans, string path)
+        {
+            return UnityExtension.FindChild(trans, path);
+        }
+
+        public T FindChildComponent<T>(RectTransform rectTransform, string path) where T : Component
+        {
+            return UnityExtension.FindChildComponent<T>(rectTransform, path);
+        }
+
+        public T FindChildComponent<T>(Transform trans, string path) where T : Component
+        {
+            return UnityExtension.FindChildComponent<T>(trans, path);
+        }
+
         #endregion
 
         #region RichText
@@ -176,7 +195,7 @@ namespace DarkGod.Main
         }
         #endregion
 
-        #region Click Evts
+        #region UIEvent
         protected void OnClick(GameObject go, System.Action<object> cb, object args)
         {
             PEListener listener = GetOrAddComponect<PEListener>(go);
@@ -202,6 +221,16 @@ namespace DarkGod.Main
             listener.onDrag = cb;
         }
         #endregion
+
+        protected float GetScreenWidth()
+        {
+            //通过 标准屏幕高度/实际设备屏幕高度，计算出当前UI相对于当前屏幕需要缩放的比例（注意Canvas Scaler 也要基于高度作为缩放标准）
+            float globalRate = UIItemUtils.GetScreenScale().x;
+            //算出屏幕真实宽度
+            float screenWidth = Screen.width * globalRate;
+
+            return screenWidth;
+        }
 
         //Reload Cfg Data
         protected void ClickResetCfgsBtn()
