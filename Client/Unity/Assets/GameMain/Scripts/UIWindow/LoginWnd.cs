@@ -23,9 +23,9 @@ namespace DarkGod.Main
 
             SetHotfixVersionWnd();
 
-            btnRemember.isOn = PlayerPrefsSvc.MainInstance.GetLoginItem().isRemember;
-            iptAcct.text = PlayerPrefsSvc.MainInstance.GetLoginItem().account;
-            iptPass.text = PlayerPrefsSvc.MainInstance.GetLoginItem().password;
+            btnRemember.isOn = playerPrefsSvc.GetLoginItem().isRemember;
+            iptAcct.text = playerPrefsSvc.GetLoginItem().account;
+            iptPass.text = playerPrefsSvc.GetLoginItem().password;
         }
 
         private void SetHotfixVersionWnd()
@@ -51,7 +51,7 @@ namespace DarkGod.Main
                     password = _pass,
                     isRemember = btnRemember.isOn
                 };
-                PlayerPrefsSvc.MainInstance.SetGetLoginItem(loginItem);
+                playerPrefsSvc.SetGetLoginItem(loginItem);
 
                 //发送网络消息，请求登录
                 GameMsg msg = new GameMsg

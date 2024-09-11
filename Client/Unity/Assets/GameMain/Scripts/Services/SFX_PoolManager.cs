@@ -102,7 +102,7 @@ namespace DarkGod.Main
                     }
 
                     Q.Enqueue(go);
-                    // Debug.Log("播放音乐"+ soundName+"类型是"+soundStyle);
+                    // Debug.Log("播放音乐" + soundName + "类型是" + soundStyle);
 
                 }
                 else

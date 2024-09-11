@@ -15,6 +15,7 @@ namespace DarkGod.Main
         protected AudioSvc audioSvc = null;
         protected NetSvc netSvc = null;
         protected TimerSvc timerSvc = null;
+        protected PlayerPrefsSvc playerPrefsSvc = null;
 
         public void SetWndState(bool isActive = true)
         {
@@ -46,6 +47,7 @@ namespace DarkGod.Main
             audioSvc = AudioSvc.MainInstance;
             netSvc = NetSvc.MainInstance;
             timerSvc = TimerSvc.MainInstance;
+            playerPrefsSvc = PlayerPrefsSvc.MainInstance;
         }
 
         protected virtual void ClearWnd()

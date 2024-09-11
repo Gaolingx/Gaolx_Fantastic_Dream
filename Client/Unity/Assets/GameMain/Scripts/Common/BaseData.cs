@@ -37,7 +37,7 @@ namespace DarkGod.Main
     public class MonsterCfg : BaseData<MonsterCfg>
     {
         public string mName; //怪物名字
-        public MonsterType mType; //怪物类型 1:普通怪物 2:精英怪物（Boss）
+        public cfg.MonsterType mType; //怪物类型 1:普通怪物 2:精英怪物（Boss）
         public bool isStop; //怪物是否能被攻击中断当前的状态
         public string resPath; //资源路径
         public int skillID;
@@ -130,7 +130,7 @@ namespace DarkGod.Main
         public bool isCombo; //是否连招
         public bool isCollide; //忽略碰撞
         public bool isBreak; //是否可被中断
-        public DamageType dmgType; //伤害类型
+        public cfg.DamageType dmgType; //伤害类型
         public List<int> skillMoveLst;
         public List<int> skillActionLst;
         public List<int> skillDamageLst;

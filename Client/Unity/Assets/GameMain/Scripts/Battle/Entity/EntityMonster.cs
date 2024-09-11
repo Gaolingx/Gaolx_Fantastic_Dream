@@ -167,7 +167,7 @@ namespace DarkGod.Main
 
         public override void SetHPVal(int oldval, int newval)
         {
-            if (md.mCfg.mType == MonsterType.Boss)
+            if (md.mCfg.mType == cfg.MonsterType.Boss)
             {
                 BattleSys.Instance.playerCtrlWnd.SetBossHPBarVal(oldval, newval, Props.hp);
             }

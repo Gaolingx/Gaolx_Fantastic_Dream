@@ -19,8 +19,8 @@ public sealed partial class monster : Luban.BeanBase
     {
         { if(!_buf["ID"].IsNumber) { throw new SerializationException(); }  ID = _buf["ID"]; }
         { if(!_buf["mName"].IsString) { throw new SerializationException(); }  MName = _buf["mName"]; }
-        { if(!_buf["mType"].IsString) { throw new SerializationException(); }  MType = _buf["mType"]; }
-        { if(!_buf["isStop"].IsString) { throw new SerializationException(); }  IsStop = _buf["isStop"]; }
+        { if(!_buf["mType"].IsNumber) { throw new SerializationException(); }  MType = (MonsterType)_buf["mType"].AsInt; }
+        { if(!_buf["isStop"].IsBoolean) { throw new SerializationException(); }  IsStop = _buf["isStop"]; }
         { if(!_buf["resPath"].IsString) { throw new SerializationException(); }  ResPath = _buf["resPath"]; }
         { if(!_buf["skillID"].IsNumber) { throw new SerializationException(); }  SkillID = _buf["skillID"]; }
         { if(!_buf["atkDis"].IsNumber) { throw new SerializationException(); }  AtkDis = _buf["atkDis"]; }
@@ -41,8 +41,8 @@ public sealed partial class monster : Luban.BeanBase
 
     public readonly int ID;
     public readonly string MName;
-    public readonly string MType;
-    public readonly string IsStop;
+    public readonly MonsterType MType;
+    public readonly bool IsStop;
     public readonly string ResPath;
     public readonly int SkillID;
     public readonly float AtkDis;

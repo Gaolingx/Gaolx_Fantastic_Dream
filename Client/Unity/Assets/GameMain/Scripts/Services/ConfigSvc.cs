@@ -413,23 +413,10 @@ namespace DarkGod.Main
                 sc.skillTime = table.SkillTime;
                 sc.aniAction = table.AniAction;
                 sc.fx = table.Fx;
-                sc.isCombo = table.IsCombo.Equals("1");
-                sc.isCollide = table.IsCollide.Equals("1");
-                sc.isBreak = table.IsBreak.Equals("1");
-                {
-                    if (table.DmgType.Equals("1"))
-                    {
-                        sc.dmgType = DamageType.AD;
-                    }
-                    else if (table.DmgType.Equals("2"))
-                    {
-                        sc.dmgType = DamageType.AP;
-                    }
-                    else
-                    {
-                        PECommon.Log("DamageType Not Found !", PELogType.Error);
-                    }
-                }
+                sc.isCombo = table.IsCombo;
+                sc.isCollide = table.IsCollide;
+                sc.isBreak = table.IsBreak;
+                sc.dmgType = table.DmgType;
                 {
                     string[] skMoveArr = table.SkillMoveLst.Split('|');
                     for (int j = 0; j < skMoveArr.Length; j++)
@@ -560,22 +547,9 @@ namespace DarkGod.Main
                 };
 
                 mc.mName = table.MName;
-                {
-                    if (table.MType.Equals("1"))
-                    {
-                        mc.mType = MonsterType.Normal;
-                    }
-                    else if (table.MType.Equals("2"))
-                    {
-                        mc.mType = MonsterType.Boss;
-                    }
-                    else
-                    {
-                        PECommon.Log("Monster Type Not Found !", PELogType.Error);
-                    }
-                }
+                mc.mType = table.MType;
                 mc.resPath = table.ResPath;
-                mc.isStop = table.IsStop.Equals("1");
+                mc.isStop = table.IsStop;
                 mc.skillID = table.SkillID;
                 mc.atkDis = table.AtkDis;
                 mc.bps.hp = table.Hp;

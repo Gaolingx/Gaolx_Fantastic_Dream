@@ -121,7 +121,7 @@ namespace DarkGod.Main
         {
             int dmgSum = damage;
             //根据不同属性计算伤害
-            if (skillCfg.dmgType == DamageType.AD)
+            if (skillCfg.dmgType == cfg.DamageType.AD)
             {
                 //计算闪避（优先计算）
                 int dodgeNum = PETools.RDInt(1, 100, rd);
@@ -149,7 +149,7 @@ namespace DarkGod.Main
                 int addef = (int)((1 - caster.Props.pierce / 100.0f) * target.Props.addef); //计算护甲
                 dmgSum -= addef; //减去护甲抵消伤害
             }
-            else if (skillCfg.dmgType == DamageType.AP)
+            else if (skillCfg.dmgType == cfg.DamageType.AP)
             {
                 //计算属性加成（基础属性+技能加成）
                 dmgSum += caster.Props.ap;

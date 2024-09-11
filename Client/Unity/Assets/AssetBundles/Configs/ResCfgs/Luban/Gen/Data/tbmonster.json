@@ -2,8 +2,8 @@
   {
     "ID": 1001,
     "mName": "铁甲战士",
-    "mType": "1",
-    "isStop": "1",
+    "mType": 1,
+    "isStop": true,
     "resPath": "Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PrefabNPC/MonsterSoldier_1.prefab",
     "skillID": 201,
     "atkDis": 2,
@@ -19,8 +19,8 @@
   {
     "ID": 2001,
     "mName": "地狱魔卫",
-    "mType": "2",
-    "isStop": "0",
+    "mType": 2,
+    "isStop": false,
     "resPath": "Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PrefabNPC/MonsterBoss_1.prefab",
     "skillID": 301,
     "atkDis": 4.5,

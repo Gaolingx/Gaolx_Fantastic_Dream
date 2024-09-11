@@ -272,11 +272,11 @@ namespace DarkGod.Main
                     m.SetActive(false);
                     monsterDic.Add(m.name, em);
                     //Boss血条特殊处理
-                    if (md.mCfg.mType == MonsterType.Normal)
+                    if (md.mCfg.mType == cfg.MonsterType.Normal)
                     {
                         GameRoot.MainInstance.dynamicWnd.AddHpItemInfo(m.name, mc.hpRoot, em.currentHP.Value);
                     }
-                    else if (md.mCfg.mType == MonsterType.Boss)
+                    else if (md.mCfg.mType == cfg.MonsterType.Boss)
                     {
                         battleSys.playerCtrlWnd.SetBossHPBarState(true);
                     }

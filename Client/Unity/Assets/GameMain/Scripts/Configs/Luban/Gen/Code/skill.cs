@@ -23,10 +23,10 @@ public sealed partial class skill : Luban.BeanBase
         { if(!_buf["skillTime"].IsNumber) { throw new SerializationException(); }  SkillTime = _buf["skillTime"]; }
         { if(!_buf["aniAction"].IsNumber) { throw new SerializationException(); }  AniAction = _buf["aniAction"]; }
         { if(!_buf["fx"].IsString) { throw new SerializationException(); }  Fx = _buf["fx"]; }
-        { if(!_buf["isCombo"].IsString) { throw new SerializationException(); }  IsCombo = _buf["isCombo"]; }
-        { if(!_buf["isCollide"].IsString) { throw new SerializationException(); }  IsCollide = _buf["isCollide"]; }
-        { if(!_buf["isBreak"].IsString) { throw new SerializationException(); }  IsBreak = _buf["isBreak"]; }
-        { if(!_buf["dmgType"].IsString) { throw new SerializationException(); }  DmgType = _buf["dmgType"]; }
+        { if(!_buf["isCombo"].IsBoolean) { throw new SerializationException(); }  IsCombo = _buf["isCombo"]; }
+        { if(!_buf["isCollide"].IsBoolean) { throw new SerializationException(); }  IsCollide = _buf["isCollide"]; }
+        { if(!_buf["isBreak"].IsBoolean) { throw new SerializationException(); }  IsBreak = _buf["isBreak"]; }
+        { if(!_buf["dmgType"].IsNumber) { throw new SerializationException(); }  DmgType = (DamageType)_buf["dmgType"].AsInt; }
         { if(!_buf["skillMoveLst"].IsString) { throw new SerializationException(); }  SkillMoveLst = _buf["skillMoveLst"]; }
         { if(!_buf["skillActionLst"].IsString) { throw new SerializationException(); }  SkillActionLst = _buf["skillActionLst"]; }
         { if(!_buf["skillDamageLst"].IsString) { throw new SerializationException(); }  SkillDamageLst = _buf["skillDamageLst"]; }
@@ -43,10 +43,10 @@ public sealed partial class skill : Luban.BeanBase
     public readonly int SkillTime;
     public readonly int AniAction;
     public readonly string Fx;
-    public readonly string IsCombo;
-    public readonly string IsCollide;
-    public readonly string IsBreak;
-    public readonly string DmgType;
+    public readonly bool IsCombo;
+    public readonly bool IsCollide;
+    public readonly bool IsBreak;
+    public readonly DamageType DmgType;
     public readonly string SkillMoveLst;
     public readonly string SkillActionLst;
     public readonly string SkillDamageLst;
