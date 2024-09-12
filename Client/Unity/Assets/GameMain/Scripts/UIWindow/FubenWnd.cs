@@ -33,7 +33,7 @@ namespace DarkGod.Main
             //根据当前副本进度控制图标显示（只显示当前待完成副本的图标）
             for (int i = 0; i < fbBtnArr.Count; i++)
             {
-                fbBtnArr[i].onClick.AddListener(delegate { ClickTaskBtn((10000 - fbBtnArr.Count) + i); });
+                fbBtnArr[i].onClick.AddListener(delegate { ClickTaskBtn((10001 - fbBtnArr.Count) + i); });
                 if (i < fbid % 10000)
                 {
                     SetActive(fbBtnArr[i].gameObject);
