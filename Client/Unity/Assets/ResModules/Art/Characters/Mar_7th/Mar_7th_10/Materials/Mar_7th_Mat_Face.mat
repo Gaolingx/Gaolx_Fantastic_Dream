@@ -175,8 +175,9 @@ Material:
     - _NoseLinePower: 3
     - _OutlineNormal: 0
     - _OutlineNormalChannel: 0
+    - _OutlineScale: 50
     - _OutlineUseLutMapToggle: 0
-    - _OutlineWidth: 0.002
+    - _OutlineWidth: 0.04
     - _OutlineWidthMax: 30
     - _OutlineWidthMin: 2
     - _OutlineZOffset: 0
