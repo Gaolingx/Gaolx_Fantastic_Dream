@@ -35,27 +35,12 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM
         public void OnMove(InputValue value)
         {
-            canMove = GameRoot.MainInstance.GetUIController()._isInputEnable;
-            if (canMove)
-            {
-                MoveInput(value.Get<Vector2>());
-            }
-            else
-            {
-                MoveInput(Vector2.zero);
-            }
+            MoveInput(value.Get<Vector2>());
         }
 
         public void OnLook(InputValue value)
         {
-            if (canLook)
-            {
-                LookInput(value.Get<Vector2>());
-            }
-            else
-            {
-                LookInput(Vector2.zero);
-            }
+            LookInput(value.Get<Vector2>());
         }
 
         public void OnJump(InputValue value)
@@ -80,10 +65,7 @@ namespace StarterAssets
 
         public void OnZoom(InputValue value)
         {
-            if (canLook)
-            {
-                ZoomInput(value.Get<float>());
-            }
+            ZoomInput(value.Get<float>());
         }
 
         public void OnAtkSkill01(InputValue value)
@@ -112,14 +94,15 @@ namespace StarterAssets
         }
 #endif
 
-
         public void MoveInput(Vector2 newMoveDirection)
         {
+            if (!canMove) { newMoveDirection = Vector2.zero; }
             move = newMoveDirection;
         }
 
         public void LookInput(Vector2 newLookDirection)
         {
+            if (!canLook) { newLookDirection = Vector2.zero; }
             look = newLookDirection;
         }
 
@@ -139,6 +122,7 @@ namespace StarterAssets
         }
         public void ZoomInput(float newZoomValue)
         {
+            if (!canLook) { newZoomValue = 0; }
             zoom = newZoomValue;
         }
 

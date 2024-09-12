@@ -16,7 +16,7 @@ namespace DarkGod.Main
         {
             battleMgr = battle;
 
-            GameRoot.MainInstance.SetGameObjectTrans(this.gameObject, Vector3.zero, Vector3.zero, Vector3.one);
+            UIItemUtils.SetGameObjectTrans(this.gameObject, Vector3.zero, Vector3.zero, Vector3.one);
 
             //实例化第一批怪物
             battleMgr.LoadMonsterByWaveID(waveIndex);

@@ -6,10 +6,26 @@
     "playerPath": "Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PlayerPrefabs/Player_Avatar_March_7th Variant",
     "playerCamPath": "Assets/AssetBundles/Prefabs/GameMain/PrefabCamera/SceneMainCity/PlayerFollowCamera",
     "power": 0,
-    "mainCamPos": "0,1.375,0",
-    "mainCamRote": "0,0,0",
-    "playerBornPos": "137.5,10,124",
-    "playerBornRote": "0,-5.5,0",
+    "mainCamPos": {
+      "x": 0,
+      "y": 1.375,
+      "z": 0
+    },
+    "mainCamRote": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "playerBornPos": {
+      "x": 137.5,
+      "y": 10,
+      "z": 124
+    },
+    "playerBornRote": {
+      "x": 0,
+      "y": -5.5,
+      "z": 0
+    },
     "monsterLst": "",
     "exp": 0,
     "coin": 0,
@@ -22,10 +38,26 @@
     "playerPath": "Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PlayerPrefabs/Player_Avatar_March_7th Variant",
     "playerCamPath": "Assets/AssetBundles/Prefabs/GameMain/PrefabCamera/SceneMainCity/PlayerFollowCamera",
     "power": 5,
-    "mainCamPos": "216.39,6.84,448.95",
-    "mainCamRote": "0,101.531,0",
-    "playerBornPos": "220.1,4.878,448.65",
-    "playerBornRote": "0,90,0",
+    "mainCamPos": {
+      "x": 216.39,
+      "y": 6.84,
+      "z": 448.95
+    },
+    "mainCamRote": {
+      "x": 0,
+      "y": 101.531,
+      "z": 0
+    },
+    "playerBornPos": {
+      "x": 220.1,
+      "y": 4.878,
+      "z": 448.65
+    },
+    "playerBornRote": {
+      "x": 0,
+      "y": 90,
+      "z": 0
+    },
     "monsterLst": "#|1001,238.97,3.71,448.75,-121.5,1,2\t\t\t|1001,234.82,3.71,440.8,-45,1,2\t\t\t#|1001,293.41,1.06,417.64,-72.8,2,2\t\t\t|1001,294.61,1.06,429.47,-117.4,2,2\t\t\t|1001,302.51,1.06,418.59,-96.3,2,2\t\t\t#|1001,320.24,0.94,471.81,100.46,3,2\t\t\t|1001,310.63,0.94,461.05,76.8,3,2\t\t\t|1001,335.1,0.232,479.08,-188.5,3,2\t\t\t|1001,313.65,1.29,470.91,88.04,3,2\t\t\t|2001,330.13,0.79,480.48,145.21,1,2",
     "exp": 1250,
     "coin": 980,
@@ -38,10 +70,26 @@
     "playerPath": "Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PlayerPrefabs/Player_Avatar_March_7th Variant",
     "playerCamPath": "Assets/AssetBundles/Prefabs/GameMain/PrefabCamera/SceneMainCity/PlayerFollowCamera",
     "power": 5,
-    "mainCamPos": "216.39,6.84,448.95",
-    "mainCamRote": "0,101.531,0",
-    "playerBornPos": "220.1,4.878,448.65",
-    "playerBornRote": "0,90,0",
+    "mainCamPos": {
+      "x": 216.39,
+      "y": 6.84,
+      "z": 448.95
+    },
+    "mainCamRote": {
+      "x": 0,
+      "y": 101.531,
+      "z": 0
+    },
+    "playerBornPos": {
+      "x": 220.1,
+      "y": 4.878,
+      "z": 448.65
+    },
+    "playerBornRote": {
+      "x": 0,
+      "y": 90,
+      "z": 0
+    },
     "monsterLst": "#|1001,238.97,3.71,448.75,-121.5,1,2   |1001,234.82,3.71,440.8,-45,1,2   #|1001,293.41,1.06,417.64,-72.8,2,2   |1001,294.61,1.06,429.47,-117.4,2,2   |1001,302.51,1.06,418.59,-96.3,2,2   #|1001,320.24,0.94,471.81,100.46,3,2   |1001,310.63,0.94,461.05,76.8,3,2   |1001,335.1,0.232,479.08,-188.5,3,2   |1001,313.65,1.29,470.91,88.04,3,2   |2001,330.13,0.79,480.48,145.21,1,2",
     "exp": 1350,
     "coin": 1080,
@@ -54,10 +102,26 @@
     "playerPath": "Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PlayerPrefabs/Player_Avatar_March_7th Variant",
     "playerCamPath": "Assets/AssetBundles/Prefabs/GameMain/PrefabCamera/SceneMainCity/PlayerFollowCamera",
     "power": 5,
-    "mainCamPos": "216.39,6.84,448.95",
-    "mainCamRote": "0,101.531,0",
-    "playerBornPos": "220.1,4.878,448.65",
-    "playerBornRote": "0,90,0",
+    "mainCamPos": {
+      "x": 216.39,
+      "y": 6.84,
+      "z": 448.95
+    },
+    "mainCamRote": {
+      "x": 0,
+      "y": 101.531,
+      "z": 0
+    },
+    "playerBornPos": {
+      "x": 220.1,
+      "y": 4.878,
+      "z": 448.65
+    },
+    "playerBornRote": {
+      "x": 0,
+      "y": 90,
+      "z": 0
+    },
     "monsterLst": "#|1001,238.97,3.71,448.75,-121.5,1,2   |1001,234.82,3.71,440.8,-45,1,2   #|1001,293.41,1.06,417.64,-72.8,2,2   |1001,294.61,1.06,429.47,-117.4,2,2   |1001,302.51,1.06,418.59,-96.3,2,2   #|1001,320.24,0.94,471.81,100.46,3,2   |1001,310.63,0.94,461.05,76.8,3,2   |1001,335.1,0.232,479.08,-188.5,3,2   |1001,313.65,1.29,470.91,88.04,3,2   |2001,330.13,0.79,480.48,145.21,1,2",
     "exp": 1450,
     "coin": 1180,
@@ -70,10 +134,26 @@
     "playerPath": "Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PlayerPrefabs/Player_Avatar_March_7th Variant",
     "playerCamPath": "Assets/AssetBundles/Prefabs/GameMain/PrefabCamera/SceneMainCity/PlayerFollowCamera",
     "power": 5,
-    "mainCamPos": "216.39,6.84,448.95",
-    "mainCamRote": "0,101.531,0",
-    "playerBornPos": "220.1,4.878,448.65",
-    "playerBornRote": "0,90,0",
+    "mainCamPos": {
+      "x": 216.39,
+      "y": 6.84,
+      "z": 448.95
+    },
+    "mainCamRote": {
+      "x": 0,
+      "y": 101.531,
+      "z": 0
+    },
+    "playerBornPos": {
+      "x": 220.1,
+      "y": 4.878,
+      "z": 448.65
+    },
+    "playerBornRote": {
+      "x": 0,
+      "y": 90,
+      "z": 0
+    },
     "monsterLst": "#|1001,238.97,3.71,448.75,-121.5,1,2   |1001,234.82,3.71,440.8,-45,1,2   #|1001,293.41,1.06,417.64,-72.8,2,2   |1001,294.61,1.06,429.47,-117.4,2,2   |1001,302.51,1.06,418.59,-96.3,2,2   #|1001,320.24,0.94,471.81,100.46,3,2   |1001,310.63,0.94,461.05,76.8,3,2   |1001,335.1,0.232,479.08,-188.5,3,2   |1001,313.65,1.29,470.91,88.04,3,2   |2001,330.13,0.79,480.48,145.21,1,2",
     "exp": 1550,
     "coin": 1280,
@@ -86,10 +166,26 @@
     "playerPath": "Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PlayerPrefabs/Player_Avatar_March_7th Variant",
     "playerCamPath": "Assets/AssetBundles/Prefabs/GameMain/PrefabCamera/SceneMainCity/PlayerFollowCamera",
     "power": 5,
-    "mainCamPos": "216.39,6.84,448.95",
-    "mainCamRote": "0,101.531,0",
-    "playerBornPos": "220.1,4.878,448.65",
-    "playerBornRote": "0,90,0",
+    "mainCamPos": {
+      "x": 216.39,
+      "y": 6.84,
+      "z": 448.95
+    },
+    "mainCamRote": {
+      "x": 0,
+      "y": 101.531,
+      "z": 0
+    },
+    "playerBornPos": {
+      "x": 220.1,
+      "y": 4.878,
+      "z": 448.65
+    },
+    "playerBornRote": {
+      "x": 0,
+      "y": 90,
+      "z": 0
+    },
     "monsterLst": "#|1001,238.97,3.71,448.75,-121.5,1,2   |1001,234.82,3.71,440.8,-45,1,2   #|1001,293.41,1.06,417.64,-72.8,2,2   |1001,294.61,1.06,429.47,-117.4,2,2   |1001,302.51,1.06,418.59,-96.3,2,2   #|1001,320.24,0.94,471.81,100.46,3,2   |1001,310.63,0.94,461.05,76.8,3,2   |1001,335.1,0.232,479.08,-188.5,3,2   |1001,313.65,1.29,470.91,88.04,3,2   |2001,330.13,0.79,480.48,145.21,1,2",
     "exp": 1650,
     "coin": 1380,
@@ -102,10 +198,26 @@
     "playerPath": "Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PlayerPrefabs/Player_Avatar_March_7th Variant",
     "playerCamPath": "Assets/AssetBundles/Prefabs/GameMain/PrefabCamera/SceneMainCity/PlayerFollowCamera",
     "power": 5,
-    "mainCamPos": "216.39,6.84,448.95",
-    "mainCamRote": "0,101.531,0",
-    "playerBornPos": "220.1,4.878,448.65",
-    "playerBornRote": "0,90,0",
+    "mainCamPos": {
+      "x": 216.39,
+      "y": 6.84,
+      "z": 448.95
+    },
+    "mainCamRote": {
+      "x": 0,
+      "y": 101.531,
+      "z": 0
+    },
+    "playerBornPos": {
+      "x": 220.1,
+      "y": 4.878,
+      "z": 448.65
+    },
+    "playerBornRote": {
+      "x": 0,
+      "y": 90,
+      "z": 0
+    },
     "monsterLst": "#|1001,238.97,3.71,448.75,-121.5,1,2   |1001,234.82,3.71,440.8,-45,1,2   #|1001,293.41,1.06,417.64,-72.8,2,2   |1001,294.61,1.06,429.47,-117.4,2,2   |1001,302.51,1.06,418.59,-96.3,2,2   #|1001,320.24,0.94,471.81,100.46,3,2   |1001,310.63,0.94,461.05,76.8,3,2   |1001,335.1,0.232,479.08,-188.5,3,2   |1001,313.65,1.29,470.91,88.04,3,2   |2001,330.13,0.79,480.48,145.21,1,2",
     "exp": 1750,
     "coin": 1480,

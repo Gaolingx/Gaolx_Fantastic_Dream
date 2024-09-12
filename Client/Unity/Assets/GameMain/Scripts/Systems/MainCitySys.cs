@@ -39,20 +39,26 @@ namespace DarkGod.Main
             base.InitSys();
 
             Instance = MainInstance;
-            InitPlayerInput();
             PECommon.Log("Init MainCitySys...");
         }
 
         private void InitPlayerInput()
         {
             starterAssetsInputs = GameRoot.MainInstance.GetStarterAssetsInputs();
-            uICanvasController = UICanvasControllerInput.MainInstance;
+            uICanvasController = GameRoot.MainInstance.GetUICanvasControllerInput();
 
-            uICanvasController.starterAssetsInputs = starterAssetsInputs;
+            if (starterAssetsInputs != null && uICanvasController != null)
+            {
+                uICanvasController.gameObject.SetActive(true);
+                starterAssetsInputs.gameObject.SetActive(true);
+                uICanvasController.starterAssetsInputs = starterAssetsInputs;
+            }
         }
 
         public void EnterMainCity()
         {
+            InitPlayerInput();
+
             //通过id获取主城配置后，加载场景
             MapCfg mapData = configSvc.GetMapCfg(Constants.MainCityMapID);
             //加载主城场景

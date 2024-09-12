@@ -104,7 +104,7 @@ namespace DarkGod.Main
                 instantiatedPrefab = Instantiate(prefab, this.transform);
             }
 
-            GameRoot.MainInstance.SetGameObjectTrans(instantiatedPrefab, GameObjectPos, GameObjectRota, GameObjectScal, isLocalPos, isLocalEulerAngles, true, transform, isRename);
+            UIItemUtils.SetGameObjectTrans(instantiatedPrefab, GameObjectPos, GameObjectRota, GameObjectScal, isLocalPos, isLocalEulerAngles, true, transform, isRename);
 
 
             PECommon.Log("Prefab load Async. name:" + instantiatedPrefab.name + ". path:" + prefabPath + ",isCache:" + isCache);

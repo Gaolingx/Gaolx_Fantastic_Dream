@@ -13,21 +13,23 @@ using SimpleJSON;
 
 namespace cfg
 {
-public partial struct vector2
+public partial struct vec3
 {
-    public vector2(JSONNode _buf) 
+    public vec3(JSONNode _buf) 
     {
         { if(!_buf["x"].IsNumber) { throw new SerializationException(); }  X = _buf["x"]; }
         { if(!_buf["y"].IsNumber) { throw new SerializationException(); }  Y = _buf["y"]; }
+        { if(!_buf["z"].IsNumber) { throw new SerializationException(); }  Z = _buf["z"]; }
     }
 
-    public static vector2 Deserializevector2(JSONNode _buf)
+    public static vec3 Deserializevec3(JSONNode _buf)
     {
-        return new vector2(_buf);
+        return new vec3(_buf);
     }
 
     public readonly float X;
     public readonly float Y;
+    public readonly float Z;
    
 
     public  void ResolveRef(Tables tables)
@@ -39,6 +41,7 @@ public partial struct vector2
         return "{ "
         + "x:" + X + ","
         + "y:" + Y + ","
+        + "z:" + Z + ","
         + "}";
     }
 }

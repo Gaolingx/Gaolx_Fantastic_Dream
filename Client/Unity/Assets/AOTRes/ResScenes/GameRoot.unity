@@ -700,7 +700,7 @@ MonoBehaviour:
   AppVersion: v1.0
   PackageName: DefaultPackage
   AppendTimeTicks: 0
-  PlayMode: 2
+  PlayMode: 0
   BuildPipeline: 1
   GameRootObjectName: Assets/AssetBundles/Prefabs/RootPrefabs/HotFixRoot.prefab
   GameRootParentTransformName: Canvas

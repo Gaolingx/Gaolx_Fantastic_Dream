@@ -15,7 +15,8 @@ namespace DarkGod.Main
         public LoadingWnd loadingWnd;
         public DynamicWnd dynamicWnd;
 
-        private StarterAssetsInputs starterAssetsInputs;
+        public StarterAssetsInputs starterAssetsInputs;
+        public UICanvasControllerInput uICanvasController;
 
         BindableProperty<bool> pauseState = new BindableProperty<bool>();
 
@@ -79,11 +80,38 @@ namespace DarkGod.Main
             }
         }
 
+        public StarterAssetsInputs GetStarterAssetsInputs()
+        {
+            return starterAssetsInputs;
+        }
+
+        public UICanvasControllerInput GetUICanvasControllerInput()
+        {
+            return uICanvasController;
+        }
+
         private void InitStarterAssetsInputs()
         {
-            GameObject go = transform.Find(Constants.Path_PlayerInputs_Obj).gameObject;
-            go.SetActive(true);
-            starterAssetsInputs = go.GetComponent<StarterAssetsInputs>();
+            starterAssetsInputs = transform.Find(Constants.Path_PlayerInputs_Obj).gameObject.GetComponent<StarterAssetsInputs>();
+            uICanvasController = transform.Find(Constants.Path_Joysticks_Obj).GetComponent<UICanvasControllerInput>();
+        }
+
+        private void RefreshInputsState()
+        {
+            UIController uiController = GetUIController();
+            if (uiController != null && starterAssetsInputs != null)
+            {
+                if (uiController._isInputEnable && !uiController._isPause && !uiController._isPressingAlt)
+                {
+                    starterAssetsInputs.canLook = true;
+                }
+                else
+                {
+                    starterAssetsInputs.canLook = false;
+                }
+
+                starterAssetsInputs.canMove = GetUIController()._isInputEnable;
+            }
         }
 
         //初始化各个系统和服务模块
@@ -129,11 +157,6 @@ namespace DarkGod.Main
             return Constants.HotfixBuildVersion;
         }
 
-        public StarterAssetsInputs GetStarterAssetsInputs()
-        {
-            return starterAssetsInputs;
-        }
-
         public void EnableInputAction(bool state)
         {
             GetUIController()._isInputEnable = state;
@@ -152,18 +175,7 @@ namespace DarkGod.Main
 
         private void Update()
         {
-            UIController uiController = GetUIController();
-            if (uiController != null)
-            {
-                if (uiController._isInputEnable && !uiController._isPause && !uiController._isPressingAlt)
-                {
-                    starterAssetsInputs.canLook = true;
-                }
-                else
-                {
-                    starterAssetsInputs.canLook = false;
-                }
-            }
+            RefreshInputsState();
         }
 
         public UIController GetUIController()
@@ -228,42 +240,6 @@ namespace DarkGod.Main
         public void SetPlayerDataByPower(PshPower data)
         {
             PlayerData.power = data.power;
-        }
-
-        public Transform SetGameObjectTrans(GameObject obj, Vector3 GameObjectPos, Vector3 GameObjectRota, Vector3 GameObjectScal, bool isLocalPos = true, bool isLocalEulerAngles = true, bool isSetParent = false, Transform rootObjTrans = null, bool isReplaceName = false)
-        {
-            if (isReplaceName)
-            {
-                obj.name = obj.name.Replace("(Clone)", "");
-            }
-
-            if (isSetParent)
-            {
-                obj.transform.SetParent(rootObjTrans);
-            }
-
-            if (isLocalPos)
-            {
-                obj.transform.localPosition = GameObjectPos;
-            }
-            else
-            {
-                obj.transform.position = GameObjectPos;
-            }
-
-            if (isLocalEulerAngles)
-            {
-                obj.transform.localEulerAngles = GameObjectRota;
-            }
-            else
-            {
-                obj.transform.eulerAngles = GameObjectRota;
-            }
-
-            obj.transform.localScale = GameObjectScal;
-
-            Transform GOTrans = obj.transform;
-            return GOTrans;
         }
 
         public void SetPlayerDataByTask(RspTakeTaskReward data)

@@ -23,10 +23,10 @@ public sealed partial class map : Luban.BeanBase
         { if(!_buf["playerPath"].IsString) { throw new SerializationException(); }  PlayerPath = _buf["playerPath"]; }
         { if(!_buf["playerCamPath"].IsString) { throw new SerializationException(); }  PlayerCamPath = _buf["playerCamPath"]; }
         { if(!_buf["power"].IsNumber) { throw new SerializationException(); }  Power = _buf["power"]; }
-        { if(!_buf["mainCamPos"].IsString) { throw new SerializationException(); }  MainCamPos = _buf["mainCamPos"]; }
-        { if(!_buf["mainCamRote"].IsString) { throw new SerializationException(); }  MainCamRote = _buf["mainCamRote"]; }
-        { if(!_buf["playerBornPos"].IsString) { throw new SerializationException(); }  PlayerBornPos = _buf["playerBornPos"]; }
-        { if(!_buf["playerBornRote"].IsString) { throw new SerializationException(); }  PlayerBornRote = _buf["playerBornRote"]; }
+        { if(!_buf["mainCamPos"].IsObject) { throw new SerializationException(); }  MainCamPos = vec3.Deserializevec3(_buf["mainCamPos"]);  }
+        { if(!_buf["mainCamRote"].IsObject) { throw new SerializationException(); }  MainCamRote = vec3.Deserializevec3(_buf["mainCamRote"]);  }
+        { if(!_buf["playerBornPos"].IsObject) { throw new SerializationException(); }  PlayerBornPos = vec3.Deserializevec3(_buf["playerBornPos"]);  }
+        { if(!_buf["playerBornRote"].IsObject) { throw new SerializationException(); }  PlayerBornRote = vec3.Deserializevec3(_buf["playerBornRote"]);  }
         { if(!_buf["monsterLst"].IsString) { throw new SerializationException(); }  MonsterLst = _buf["monsterLst"]; }
         { if(!_buf["exp"].IsNumber) { throw new SerializationException(); }  Exp = _buf["exp"]; }
         { if(!_buf["coin"].IsNumber) { throw new SerializationException(); }  Coin = _buf["coin"]; }
@@ -44,10 +44,10 @@ public sealed partial class map : Luban.BeanBase
     public readonly string PlayerPath;
     public readonly string PlayerCamPath;
     public readonly int Power;
-    public readonly string MainCamPos;
-    public readonly string MainCamRote;
-    public readonly string PlayerBornPos;
-    public readonly string PlayerBornRote;
+    public readonly vec3 MainCamPos;
+    public readonly vec3 MainCamRote;
+    public readonly vec3 PlayerBornPos;
+    public readonly vec3 PlayerBornRote;
     public readonly string MonsterLst;
     public readonly int Exp;
     public readonly int Coin;

@@ -20,15 +20,9 @@ public sealed partial class npcCfg : Luban.BeanBase
         { if(!_buf["ID"].IsNumber) { throw new SerializationException(); }  ID = _buf["ID"]; }
         { if(!_buf["NPC_Name"].IsString) { throw new SerializationException(); }  NPCName = _buf["NPC_Name"]; }
         { if(!_buf["NPC_ResPath"].IsString) { throw new SerializationException(); }  NPCResPath = _buf["NPC_ResPath"]; }
-        { if(!_buf["NPC_Transform_Position_X"].IsNumber) { throw new SerializationException(); }  NPCTransformPositionX = _buf["NPC_Transform_Position_X"]; }
-        { if(!_buf["NPC_Transform_Position_Y"].IsNumber) { throw new SerializationException(); }  NPCTransformPositionY = _buf["NPC_Transform_Position_Y"]; }
-        { if(!_buf["NPC_Transform_Position_Z"].IsNumber) { throw new SerializationException(); }  NPCTransformPositionZ = _buf["NPC_Transform_Position_Z"]; }
-        { if(!_buf["NPC_Transform_Rotation_X"].IsNumber) { throw new SerializationException(); }  NPCTransformRotationX = _buf["NPC_Transform_Rotation_X"]; }
-        { if(!_buf["NPC_Transform_Rotation_Y"].IsNumber) { throw new SerializationException(); }  NPCTransformRotationY = _buf["NPC_Transform_Rotation_Y"]; }
-        { if(!_buf["NPC_Transform_Rotation_Z"].IsNumber) { throw new SerializationException(); }  NPCTransformRotationZ = _buf["NPC_Transform_Rotation_Z"]; }
-        { if(!_buf["NPC_Transform_Scale_X"].IsNumber) { throw new SerializationException(); }  NPCTransformScaleX = _buf["NPC_Transform_Scale_X"]; }
-        { if(!_buf["NPC_Transform_Scale_Y"].IsNumber) { throw new SerializationException(); }  NPCTransformScaleY = _buf["NPC_Transform_Scale_Y"]; }
-        { if(!_buf["NPC_Transform_Scale_Z"].IsNumber) { throw new SerializationException(); }  NPCTransformScaleZ = _buf["NPC_Transform_Scale_Z"]; }
+        { if(!_buf["NPC_Transform_Position"].IsObject) { throw new SerializationException(); }  NPCTransformPosition = vec3.Deserializevec3(_buf["NPC_Transform_Position"]);  }
+        { if(!_buf["NPC_Transform_Rotation"].IsObject) { throw new SerializationException(); }  NPCTransformRotation = vec3.Deserializevec3(_buf["NPC_Transform_Rotation"]);  }
+        { if(!_buf["NPC_Transform_Scale"].IsObject) { throw new SerializationException(); }  NPCTransformScale = vec3.Deserializevec3(_buf["NPC_Transform_Scale"]);  }
     }
 
     public static npcCfg DeserializenpcCfg(JSONNode _buf)
@@ -39,15 +33,9 @@ public sealed partial class npcCfg : Luban.BeanBase
     public readonly int ID;
     public readonly string NPCName;
     public readonly string NPCResPath;
-    public readonly float NPCTransformPositionX;
-    public readonly float NPCTransformPositionY;
-    public readonly float NPCTransformPositionZ;
-    public readonly float NPCTransformRotationX;
-    public readonly float NPCTransformRotationY;
-    public readonly float NPCTransformRotationZ;
-    public readonly float NPCTransformScaleX;
-    public readonly float NPCTransformScaleY;
-    public readonly float NPCTransformScaleZ;
+    public readonly vec3 NPCTransformPosition;
+    public readonly vec3 NPCTransformRotation;
+    public readonly vec3 NPCTransformScale;
    
     public const int __ID__ = -1039309373;
     public override int GetTypeId() => __ID__;
@@ -62,15 +50,9 @@ public sealed partial class npcCfg : Luban.BeanBase
         + "ID:" + ID + ","
         + "NPCName:" + NPCName + ","
         + "NPCResPath:" + NPCResPath + ","
-        + "NPCTransformPositionX:" + NPCTransformPositionX + ","
-        + "NPCTransformPositionY:" + NPCTransformPositionY + ","
-        + "NPCTransformPositionZ:" + NPCTransformPositionZ + ","
-        + "NPCTransformRotationX:" + NPCTransformRotationX + ","
-        + "NPCTransformRotationY:" + NPCTransformRotationY + ","
-        + "NPCTransformRotationZ:" + NPCTransformRotationZ + ","
-        + "NPCTransformScaleX:" + NPCTransformScaleX + ","
-        + "NPCTransformScaleY:" + NPCTransformScaleY + ","
-        + "NPCTransformScaleZ:" + NPCTransformScaleZ + ","
+        + "NPCTransformPosition:" + NPCTransformPosition + ","
+        + "NPCTransformRotation:" + NPCTransformRotation + ","
+        + "NPCTransformScale:" + NPCTransformScale + ","
         + "}";
     }
 }

@@ -95,15 +95,9 @@ namespace DarkGod.Main
     {
         public string npcResPath;
         public string npcName;
-        public float NPC_Transform_Position_X;
-        public float NPC_Transform_Position_Y;
-        public float NPC_Transform_Position_Z;
-        public float NPC_Transform_Rotation_X;
-        public float NPC_Transform_Rotation_Y;
-        public float NPC_Transform_Rotation_Z;
-        public float NPC_Transform_Scale_X;
-        public float NPC_Transform_Scale_Y;
-        public float NPC_Transform_Scale_Z;
+        public Vector3 NPC_Transform_Position;
+        public Vector3 NPC_Transform_Rotation;
+        public Vector3 NPC_Transform_Scale;
     }
 
     public class SkillMoveCfg : BaseData<SkillMoveCfg>

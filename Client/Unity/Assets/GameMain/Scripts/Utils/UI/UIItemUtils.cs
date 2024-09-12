@@ -7,7 +7,56 @@ namespace DarkGod.Main
     public static class UIItemUtils
     {
         /// <summary>
-        /// 1.判断怪物是否在屏幕内
+        /// 1.设置游戏对象位置
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="GameObjectPos"></param>
+        /// <param name="GameObjectRota"></param>
+        /// <param name="GameObjectScal"></param>
+        /// <param name="isLocalPos"></param>
+        /// <param name="isLocalEulerAngles"></param>
+        /// <param name="isSetParent"></param>
+        /// <param name="rootObjTrans"></param>
+        /// <param name="isReplaceName"></param>
+        /// <returns></returns>
+        public static Transform SetGameObjectTrans(GameObject obj, Vector3 GameObjectPos, Vector3 GameObjectRota, Vector3 GameObjectScal, bool isLocalPos = true, bool isLocalEulerAngles = true, bool isSetParent = false, Transform rootObjTrans = null, bool isReplaceName = false)
+        {
+            if (isReplaceName)
+            {
+                obj.name = obj.name.Replace("(Clone)", "");
+            }
+
+            if (isSetParent)
+            {
+                obj.transform.SetParent(rootObjTrans);
+            }
+
+            if (isLocalPos)
+            {
+                obj.transform.localPosition = GameObjectPos;
+            }
+            else
+            {
+                obj.transform.position = GameObjectPos;
+            }
+
+            if (isLocalEulerAngles)
+            {
+                obj.transform.localEulerAngles = GameObjectRota;
+            }
+            else
+            {
+                obj.transform.eulerAngles = GameObjectRota;
+            }
+
+            obj.transform.localScale = GameObjectScal;
+
+            Transform GOTrans = obj.transform;
+            return GOTrans;
+        }
+
+        /// <summary>
+        /// 2.判断怪物是否在屏幕内
         /// </summary>
         /// <param name="monsterScreenPos"></param>
         /// <returns></returns>
@@ -24,7 +73,14 @@ namespace DarkGod.Main
         }
 
 
-        // Tween相关
+        /// <summary>
+        /// Tween相关
+        /// </summary>
+        /// <param name="currentPrg"></param>
+        /// <param name="targetPrg"></param>
+        /// <param name="accelerHPSpeed"></param>
+        /// <param name="accelerOffset"></param>
+        /// <returns></returns>
         public static float UpdateMixBlend(float currentPrg, float targetPrg, float accelerHPSpeed, float accelerOffset = 0f)
         {
             if (Mathf.Abs(currentPrg - targetPrg) < (accelerHPSpeed + accelerOffset) * Time.deltaTime)
@@ -59,7 +115,11 @@ namespace DarkGod.Main
             obj.GetComponent<Animator>().SetFloat(propName, currentBlend);
         }
 
-        // 类型转换相关
+        /// <summary>
+        /// 类型转换相关
+        /// </summary>
+        /// <param name="val"></param>
+        /// <returns></returns>
         public static int BoolToInt(bool val)
         {
             if (val)
@@ -83,7 +143,7 @@ namespace DarkGod.Main
         }
 
         /// <summary>
-        /// ScreenScale
+        /// ScreenScale 获取
         /// </summary>
         /// <returns>Vector2(宽度, 高度)</returns>
         public static Vector2 GetScreenScale()

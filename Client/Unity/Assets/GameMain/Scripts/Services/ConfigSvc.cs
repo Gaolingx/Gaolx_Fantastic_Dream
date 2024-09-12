@@ -97,10 +97,10 @@ namespace DarkGod.Main
                 mapCfg.playerPath = table.PlayerPath;
                 mapCfg.playerCamPath = table.PlayerCamPath;
                 mapCfg.power = table.Power;
-                mapCfg.mainCamPos = new Vector3(float.Parse(table.MainCamPos.Split(',')[0]), float.Parse(table.MainCamPos.Split(',')[1]), float.Parse(table.MainCamPos.Split(',')[2]));
-                mapCfg.mainCamRote = new Vector3(float.Parse(table.MainCamRote.Split(',')[0]), float.Parse(table.MainCamRote.Split(',')[1]), float.Parse(table.MainCamRote.Split(',')[2]));
-                mapCfg.playerBornPos = new Vector3(float.Parse(table.PlayerBornPos.Split(',')[0]), float.Parse(table.PlayerBornPos.Split(',')[1]), float.Parse(table.PlayerBornPos.Split(',')[2]));
-                mapCfg.playerBornRote = new Vector3(float.Parse(table.PlayerBornRote.Split(',')[0]), float.Parse(table.PlayerBornRote.Split(',')[1]), float.Parse(table.PlayerBornRote.Split(',')[2]));
+                mapCfg.mainCamPos = new Vector3(table.MainCamPos.X, table.MainCamPos.Y, table.MainCamPos.Z);
+                mapCfg.mainCamRote = new Vector3(table.MainCamRote.X, table.MainCamRote.Y, table.MainCamRote.Z);
+                mapCfg.playerBornPos = new Vector3(table.PlayerBornPos.X, table.PlayerBornPos.Y, table.PlayerBornPos.Z);
+                mapCfg.playerBornRote = new Vector3(table.PlayerBornRote.X, table.PlayerBornRote.Y, table.PlayerBornRote.Z);
                 mapCfg.coin = table.Coin;
                 mapCfg.exp = table.Exp;
                 mapCfg.crystal = table.Crystal;
@@ -365,15 +365,9 @@ namespace DarkGod.Main
 
                 nd.npcName = table.NPCName;
                 nd.npcResPath = table.NPCResPath;
-                nd.NPC_Transform_Position_X = table.NPCTransformPositionX;
-                nd.NPC_Transform_Position_Y = table.NPCTransformPositionY;
-                nd.NPC_Transform_Position_Z = table.NPCTransformPositionZ;
-                nd.NPC_Transform_Rotation_X = table.NPCTransformRotationX;
-                nd.NPC_Transform_Rotation_Y = table.NPCTransformRotationY;
-                nd.NPC_Transform_Rotation_Z = table.NPCTransformRotationZ;
-                nd.NPC_Transform_Scale_X = table.NPCTransformScaleX;
-                nd.NPC_Transform_Scale_Y = table.NPCTransformScaleY;
-                nd.NPC_Transform_Scale_Z = table.NPCTransformScaleZ;
+                nd.NPC_Transform_Position = new Vector3(table.NPCTransformPosition.X, table.NPCTransformPosition.Y, table.NPCTransformPosition.Z);
+                nd.NPC_Transform_Rotation = new Vector3(table.NPCTransformRotation.X, table.NPCTransformRotation.Y, table.NPCTransformRotation.Z);
+                nd.NPC_Transform_Scale = new Vector3(table.NPCTransformScale.X, table.NPCTransformScale.Y, table.NPCTransformScale.Z);
 
                 npcDic.Add(table.ID, nd);
             }
