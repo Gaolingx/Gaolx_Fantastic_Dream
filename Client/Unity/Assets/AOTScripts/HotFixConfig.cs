@@ -10,6 +10,7 @@ namespace HotFix.Config
         public string HostServerIP;
         public string AppId;
         public string AppVersion;
+        public string HostServerToken;
         public string PackageName;
         public bool AppendTimeTicks;
         public EPlayMode PlayMode;
@@ -17,6 +18,6 @@ namespace HotFix.Config
         public string GameRootObjectName;
         public string GameRootParentTransformName;
         public string HotUpdateDllName;
-        public List<string> AOTMetaAssemblyNames = new List<string>();
+        public List<string> AOTMetaAssemblyNames;
     }
 }

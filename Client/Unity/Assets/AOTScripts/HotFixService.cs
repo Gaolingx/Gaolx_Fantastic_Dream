@@ -36,6 +36,7 @@ namespace HotFix.Service
             patchConfig.HostServerIP = hotFixConfig.HostServerIP;
             patchConfig.AppId = hotFixConfig.AppId;
             patchConfig.AppVersion = hotFixConfig.AppVersion;
+            patchConfig.HostServerToken = hotFixConfig.HostServerToken;
             patchConfig.PackageName = hotFixConfig.PackageName;
             patchConfig.appendTimeTicks = hotFixConfig.AppendTimeTicks;
             patchConfig.PlayMode = hotFixConfig.PlayMode;

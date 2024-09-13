@@ -698,9 +698,10 @@ MonoBehaviour:
   HostServerIP: http://gaolingxiang.dynv6.net:26660
   AppId: 10001
   AppVersion: v1.0
+  HostServerToken: 
   PackageName: DefaultPackage
   AppendTimeTicks: 0
-  PlayMode: 0
+  PlayMode: 2
   BuildPipeline: 1
   GameRootObjectName: Assets/AssetBundles/Prefabs/RootPrefabs/HotFixRoot.prefab
   GameRootParentTransformName: Canvas
