@@ -695,7 +695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbc01d0e5439010459a085c4d188e173, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HostServerIP: http://gaolingxiang.dynv6.net:26660
+  HostServerIP: http://gaolingxiang.dynv6.net:26660/d
   AppId: 10001
   AppVersion: v1.0
   HostServerToken: 
