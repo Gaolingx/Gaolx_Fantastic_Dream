@@ -9,6 +9,13 @@ namespace DarkGod.Main
 {
     public class ConfigSvc : Singleton<ConfigSvc>
     {
+        protected override void Awake()
+        {
+            base.Awake();
+
+            GameRoot.MainInstance.OnGameEnter += InitSvc;
+        }
+
         public void InitSvc()
         {
             InitRDNameCfg();
@@ -571,5 +578,10 @@ namespace DarkGod.Main
         #endregion
 
         #endregion
+
+        private void OnDestroy()
+        {
+            GameRoot.MainInstance.OnGameEnter -= InitSvc;
+        }
     }
 }

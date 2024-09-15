@@ -17,6 +17,13 @@ namespace DarkGod.Main
         private int battleFbid;
         private double startTime;
 
+        protected override void Awake()
+        {
+            base.Awake();
+
+            GameRoot.MainInstance.OnGameEnter += InitSys;
+        }
+
         public override void InitSys()
         {
             base.InitSys();
@@ -144,6 +151,11 @@ namespace DarkGod.Main
         public bool CanRlsSkill()
         {
             return battleMgr.CanRlsSkill();
+        }
+
+        private void OnDestroy()
+        {
+            GameRoot.MainInstance.OnGameEnter -= InitSys;
         }
     }
 }

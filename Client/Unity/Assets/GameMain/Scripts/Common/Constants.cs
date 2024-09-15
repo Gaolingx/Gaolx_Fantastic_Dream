@@ -220,14 +220,9 @@ namespace DarkGod.Main
         public const int NpcTypeID_2 = 2;
         public const int NpcTypeID_3 = 3;
 
-        //Battle Mgr配置
-        public const string MapRootGOTag = "MapRoot";
-
         //Mar_7th_00 动画参数配置
         public const string AniID_Mar7th00_Blend_Speed = "Speed";
         public const string AniID_Mar7th00_Blend_MotionSpeed = "MotionSpeed";
-        public const int State_Mar7th00_Blend_Skill_01 = 2;
-        public const int State_Mar7th00_Blend_CantControl = 10;
 
         //Action触发参数（对应animator）
         public const int ActionDefault = -1;
@@ -245,10 +240,6 @@ namespace DarkGod.Main
         //1.普攻连招有效间隔（单位：ms）
         public const int ComboSpace01 = 2500;
         public static int[] comboArr01 = { 111, 112, 113, 114, 115 };
-
-        //EventSystem配置
-        public const string EventSystemName = "GameRoot/EventSystem";
-        public const string UIControllerRootName = "GameRoot";
 
         //Monster配置
         public const int ActiveMonsterDelayTime = 500; //单位：ms

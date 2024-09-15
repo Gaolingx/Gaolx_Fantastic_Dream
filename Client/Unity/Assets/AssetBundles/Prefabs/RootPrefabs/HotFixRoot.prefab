@@ -68,6 +68,8 @@ MonoBehaviour:
   isDontDestroyOnLoad: 0
   loadingWnd: {fileID: 1203599176845366138}
   dynamicWnd: {fileID: 6375643048898361130}
+  starterAssetsInputs: {fileID: 0}
+  uICanvasController: {fileID: 0}
 --- !u!114 &74629058570999908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1847,27 +1849,27 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8991708001825433365}
     m_Modifications:
-    - target: {fileID: 5675113177725089161, guid: d65385e92d3e8954685097fe65dc075c,
+    - target: {fileID: 745824159130287861, guid: d65385e92d3e8954685097fe65dc075c,
         type: 3}
       propertyPath: fpsWnd
       value: 
-      objectReference: {fileID: 3693786210928856610}
-    - target: {fileID: 5675113177725089161, guid: d65385e92d3e8954685097fe65dc075c,
+      objectReference: {fileID: 5538793238571322588}
+    - target: {fileID: 745824159130287861, guid: d65385e92d3e8954685097fe65dc075c,
         type: 3}
       propertyPath: DebugItem
       value: 
       objectReference: {fileID: 1067014893535029894}
-    - target: {fileID: 5675113177725089161, guid: d65385e92d3e8954685097fe65dc075c,
+    - target: {fileID: 745824159130287861, guid: d65385e92d3e8954685097fe65dc075c,
         type: 3}
       propertyPath: RuntimeHierarchy
       value: 
       objectReference: {fileID: 6400743928353489488}
-    - target: {fileID: 5675113177725089161, guid: d65385e92d3e8954685097fe65dc075c,
+    - target: {fileID: 745824159130287861, guid: d65385e92d3e8954685097fe65dc075c,
         type: 3}
       propertyPath: RuntimeInspector
       value: 
       objectReference: {fileID: 7713044551336666783}
-    - target: {fileID: 5675113177725089161, guid: d65385e92d3e8954685097fe65dc075c,
+    - target: {fileID: 745824159130287861, guid: d65385e92d3e8954685097fe65dc075c,
         type: 3}
       propertyPath: btnCloseDebugItem
       value: 
@@ -3180,9 +3182,9 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 8755591845322414464}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &3693786210928856610 stripped
+--- !u!224 &5538793238571322588 stripped
 RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5386563101079984034, guid: 4c7d0fc1db4bbf64ca5d2ab052457947,
+  m_CorrespondingSourceObject: {fileID: 3845972369027814748, guid: 4c7d0fc1db4bbf64ca5d2ab052457947,
     type: 3}
   m_PrefabInstance: {fileID: 8755591845322414464}
   m_PrefabAsset: {fileID: 0}

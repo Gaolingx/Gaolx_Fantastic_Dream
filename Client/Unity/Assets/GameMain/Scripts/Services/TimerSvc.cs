@@ -14,6 +14,8 @@ namespace DarkGod.Main
         protected override void Awake()
         {
             base.Awake();
+
+            GameRoot.MainInstance.OnGameEnter += InitSvc;
         }
 
         public void InitSvc()
@@ -50,5 +52,9 @@ namespace DarkGod.Main
             pt.DeleteTimeTask(tid);
         }
 
+        private void OnDestroy()
+        {
+            GameRoot.MainInstance.OnGameEnter -= InitSvc;
+        }
     }
 }

@@ -9,17 +9,12 @@ namespace DarkGod.Main
     public class SettingsWnd : WindowRoot
     {
         public Slider BGAudioSlider, UIAudioSlider, CharacterAudioSlider, CharacterFxAudioSlider;
-        public Toggle VsyncSettingsToggle, MutedToggle, FpsWndToggle, RuntimeInspectorToggle, RuntimeHierarchyToggle;
+        public Toggle VsyncSettingsToggle, MutedToggle;
         public Button btnResetCfgs;
         public Button btnExitGame;
         public Button btnMainMenu;
         public Button btnCloseSettings;
-        public Button btnCloseDebugItem;
         public Dropdown qualitySelectDropdown;
-
-        public Transform DebugItem;
-        public Transform fpsWnd;
-        public Transform RuntimeHierarchy, RuntimeInspector;
 
         protected override void InitWnd()
         {
@@ -28,11 +23,6 @@ namespace DarkGod.Main
             InitQualityDropdownOptionData();
             UIAddListener();
             InitSliderValue();
-        }
-
-        private void ActiveDebugItemWnd(bool active = true)
-        {
-            DebugItem.gameObject.SetActive(active);
         }
 
         private bool GetVSyncCount()
@@ -76,7 +66,6 @@ namespace DarkGod.Main
             btnExitGame.onClick.AddListener(delegate { ClickExitGame(); });
             btnMainMenu.onClick.AddListener(delegate { ExitCurrentBattle(); });
             btnCloseSettings.onClick.AddListener(delegate { ClickCloseBtn(); });
-            btnCloseDebugItem.onClick.AddListener(delegate { ClickCloseDebugItemBtn(); });
 
             BGAudioSlider.onValueChanged.AddListener(TouchBGAudioSlider);
             UIAudioSlider.onValueChanged.AddListener(TouchUIAudioSlider);
@@ -85,9 +74,6 @@ namespace DarkGod.Main
 
             MutedToggle.onValueChanged.AddListener(ClickMutedToggle);
             VsyncSettingsToggle.onValueChanged.AddListener(ClickVsyncToggle);
-            FpsWndToggle.onValueChanged.AddListener(ClickFpsWndToggle);
-            RuntimeHierarchyToggle.onValueChanged.AddListener(ClickRuntimeHierarchyToggle);
-            RuntimeInspectorToggle.onValueChanged.AddListener(ClickRuntimeInspectorToggle);
 
             qualitySelectDropdown.onValueChanged.AddListener(OnQualityDropdownValueChanged);
         }
@@ -126,49 +112,15 @@ namespace DarkGod.Main
             audioSvc.SetMainAudioMuted(val);
         }
 
-        public void ClickFpsWndToggle(bool val)
-        {
-            audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            ActiveDebugItemWnd();
-            fpsWnd.gameObject.SetActive(val);
-        }
-
-        public void ClickRuntimeHierarchyToggle(bool val)
-        {
-            audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            ActiveDebugItemWnd();
-            RuntimeHierarchy.gameObject.SetActive(val);
-        }
-
-        public void ClickRuntimeInspectorToggle(bool val)
-        {
-            audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            ActiveDebugItemWnd();
-            RuntimeInspector.gameObject.SetActive(val);
-        }
-
         #endregion
 
         #region Buttonœ‡πÿ
-        public void ClickCloseDebugItemBtn()
-        {
-            fpsWnd.gameObject.SetActive(false);
-            RuntimeHierarchy.gameObject.SetActive(false);
-            RuntimeInspector.gameObject.SetActive(false);
-            ActiveDebugItemWnd(false);
-        }
 
         public void ClickCloseBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
             PauseGameInWnd();
             SetWndState(false);
-        }
-
-        public void ClickExitGame()
-        {
-            audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            GameRoot.MainInstance.ExitGame();
         }
 
         #endregion
@@ -220,7 +172,6 @@ namespace DarkGod.Main
             btnExitGame.onClick.RemoveAllListeners();
             btnMainMenu.onClick.RemoveAllListeners();
             btnCloseSettings.onClick.RemoveAllListeners();
-            btnCloseDebugItem.onClick.RemoveAllListeners();
 
             BGAudioSlider.onValueChanged.RemoveAllListeners();
             UIAudioSlider.onValueChanged.RemoveAllListeners();
@@ -229,9 +180,6 @@ namespace DarkGod.Main
 
             MutedToggle.onValueChanged.RemoveAllListeners();
             VsyncSettingsToggle.onValueChanged.RemoveAllListeners();
-            FpsWndToggle.onValueChanged.RemoveAllListeners();
-            RuntimeHierarchyToggle.onValueChanged.RemoveAllListeners();
-            RuntimeInspectorToggle.onValueChanged.RemoveAllListeners();
 
             qualitySelectDropdown.onValueChanged.RemoveAllListeners();
         }

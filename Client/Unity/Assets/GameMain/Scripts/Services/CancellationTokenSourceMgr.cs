@@ -14,7 +14,7 @@ namespace DarkGod.Main
 
         public void SetCtsValue(CtsType ctsType, CancellationTokenSource cts)
         {
-            SetGameData<CancellationTokenSource>(ctsType.ToString(), cts);
+            SetGameData(ctsType.ToString(), cts);
         }
 
         public CancellationTokenSource GetCtsValue(CtsType ctsType)

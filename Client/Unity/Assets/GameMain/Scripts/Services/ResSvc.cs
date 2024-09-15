@@ -17,12 +17,12 @@ namespace DarkGod.Main
         protected override void Awake()
         {
             base.Awake();
+
+            GameRoot.MainInstance.OnGameEnter += InitSvc;
         }
 
         public void InitSvc()
         {
-            ConfigSvc.MainInstance.InitSvc();
-
             PECommon.Log("Init ResSvc...");
         }
 
@@ -226,5 +226,10 @@ namespace DarkGod.Main
         }
 
         #endregion
+
+        private void OnDestroy()
+        {
+            GameRoot.MainInstance.OnGameEnter -= InitSvc;
+        }
     }
 }

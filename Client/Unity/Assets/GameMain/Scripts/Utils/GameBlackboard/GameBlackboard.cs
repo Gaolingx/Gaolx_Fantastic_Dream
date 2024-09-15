@@ -3,7 +3,7 @@ using UnityEngine;
 using HuHu;
 using System.Collections.Generic;
 
-public class GameBlackboard<K> : Singleton<K> where K : Singleton<K>
+public abstract class GameBlackboard<K> : Singleton<K> where K : Singleton<K>
 {
     protected override void Awake()
     {
@@ -14,7 +14,7 @@ public class GameBlackboard<K> : Singleton<K> where K : Singleton<K>
 
     //<T>表示声明一个泛型，但是字段和属性、委托字段都是无法声明泛型T的，只能在类名上面声明，而方法是可以在方法名后面声明<T>,供参数和返回类型使用
     //目前在使用共享角色的数据
-    private Dictionary<string, object> GameDataDic = new Dictionary<string, object>();
+    protected Dictionary<string, object> GameDataDic = new Dictionary<string, object>();
 
     protected virtual void SetGameData<T>(string DataName, T value) where T : class
     {

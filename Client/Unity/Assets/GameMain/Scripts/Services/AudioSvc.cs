@@ -29,10 +29,8 @@ namespace DarkGod.Main
         [SerializeField] private List<CharSoundItem> CharacterHitLst = new List<CharSoundItem>();
 
         [SerializeField] private float fadingDuration = 3f;
-
         private string bgAudioPath = PathDefine.bgAudioPath;
 
-        private UIController uiController;
         private SFX_PoolManager sfxPoolManager;
 
         private CancellationTokenSourceMgr ctsMgr;
@@ -40,12 +38,12 @@ namespace DarkGod.Main
         protected override void Awake()
         {
             base.Awake();
+
+            GameRoot.MainInstance.OnGameEnter += InitSvc;
         }
 
         public void InitSvc()
         {
-            uiController = GameRoot.MainInstance.GetUIController();
-
             sfxPoolManager = SFX_PoolManager.MainInstance;
             sfxPoolManager.InitSoundPool();
 
@@ -176,5 +174,10 @@ namespace DarkGod.Main
             sfxPoolManager.TryPlaySoundFromPool(CharacterHitLst[i].soundStyle, CharacterHitLst[i].soundName, transform.position, transform.rotation);
         }
         #endregion
+
+        private void OnDestroy()
+        {
+            GameRoot.MainInstance.OnGameEnter -= InitSvc;
+        }
     }
 }

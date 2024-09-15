@@ -20,6 +20,8 @@ namespace DarkGod.Main
         protected override void Awake()
         {
             base.Awake();
+
+            GameRoot.MainInstance.OnGameEnter += InitFX;
         }
 
         private void AddVFXOnInit()
@@ -115,6 +117,11 @@ namespace DarkGod.Main
                 main.simulationSpeed = SpeedMult;
             }
 
+        }
+
+        private void OnDestroy()
+        {
+            GameRoot.MainInstance.OnGameEnter -= InitFX;
         }
     }
 }

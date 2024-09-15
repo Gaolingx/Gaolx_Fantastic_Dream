@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.AI.Navigation;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class ScriptDontStrip : MonoBehaviour
 {
     //∑¿≤√ºÙ“˝”√
     [HideInInspector] public NavMeshSurface navMeshSurface;

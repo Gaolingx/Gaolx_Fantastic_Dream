@@ -13,6 +13,13 @@ namespace DarkGod.Main
 
         public FubenWnd fubenWnd;
 
+        protected override void Awake()
+        {
+            base.Awake();
+
+            GameRoot.MainInstance.OnGameEnter += InitSys;
+        }
+
         public override void InitSys()
         {
             base.InitSys();
@@ -42,5 +49,9 @@ namespace DarkGod.Main
             BattleSys.Instance.StartBattle(msg.rspFBFight.fbid);
         }
 
+        private void OnDestroy()
+        {
+            GameRoot.MainInstance.OnGameEnter -= InitSys;
+        }
     }
 }

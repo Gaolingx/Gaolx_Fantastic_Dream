@@ -13,6 +13,13 @@ namespace DarkGod.Main
         public LoginWnd loginWnd;
         public CreateWnd createWnd;
 
+        protected override void Awake()
+        {
+            base.Awake();
+
+            GameRoot.MainInstance.OnGameEnter += InitSys;
+        }
+
         public override void InitSys()
         {
             base.InitSys();
@@ -69,6 +76,11 @@ namespace DarkGod.Main
 
             //关闭创建界面
             createWnd.SetWndState(false);
+        }
+
+        private void OnDestroy()
+        {
+            GameRoot.MainInstance.OnGameEnter -= InitSys;
         }
     }
 }

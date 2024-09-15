@@ -18,11 +18,16 @@ namespace DarkGod.Main
         public StarterAssetsInputs starterAssetsInputs;
         public UICanvasControllerInput uICanvasController;
 
-        BindableProperty<bool> pauseState = new BindableProperty<bool>();
+        public System.Action OnGameEnter { get; set; }
+        public System.Action OnGameExit { get; set; }
+        private BindableProperty<bool> pauseState { get; set; } = new BindableProperty<bool>();
 
         protected override void Awake()
         {
             base.Awake();
+
+            OnGameExit += RmvBindablePropertyData;
+            OnGameExit += GetUIController().OnClickExit;
         }
 
         private void Start()
@@ -35,11 +40,17 @@ namespace DarkGod.Main
                 DontDestroyOnLoad(this);
             }
 
-            PECommon.Log("Game Start...");
+            OnGameEnter?.Invoke();
 
             CleanUIRoot();
 
             InitGameRoot();
+            PECommon.Log("Game Start...");
+        }
+
+        private void Update()
+        {
+            RefreshInputsState();
         }
 
         public void AddBindablePropertyData()
@@ -50,6 +61,11 @@ namespace DarkGod.Main
         public void RmvBindablePropertyData()
         {
             pauseState.OnValueChanged -= OnUpdatePauseState;
+        }
+
+        public void PauseGameUI(bool state = true)
+        {
+            pauseState.Value = state;
         }
 
         private void OnUpdatePauseState(bool state)
@@ -80,6 +96,12 @@ namespace DarkGod.Main
             }
         }
 
+        private void InitStarterAssetsInputs()
+        {
+            starterAssetsInputs = transform.Find(Constants.Path_PlayerInputs_Obj).gameObject.GetComponent<StarterAssetsInputs>();
+            uICanvasController = transform.Find(Constants.Path_Joysticks_Obj).GetComponent<UICanvasControllerInput>();
+        }
+
         public StarterAssetsInputs GetStarterAssetsInputs()
         {
             return starterAssetsInputs;
@@ -88,12 +110,6 @@ namespace DarkGod.Main
         public UICanvasControllerInput GetUICanvasControllerInput()
         {
             return uICanvasController;
-        }
-
-        private void InitStarterAssetsInputs()
-        {
-            starterAssetsInputs = transform.Find(Constants.Path_PlayerInputs_Obj).gameObject.GetComponent<StarterAssetsInputs>();
-            uICanvasController = transform.Find(Constants.Path_Joysticks_Obj).GetComponent<UICanvasControllerInput>();
         }
 
         private void RefreshInputsState()
@@ -119,37 +135,10 @@ namespace DarkGod.Main
         {
             InitStarterAssetsInputs();
 
-            //注：需要先初始化服务模块
-            //服务模块初始化
-            NetSvc netSvc = NetSvc.MainInstance;
-            netSvc.InitSvc();
-            ResSvc resSvc = ResSvc.MainInstance;
-            resSvc.InitSvc();
-            AudioSvc audioSvc = AudioSvc.MainInstance;
-            audioSvc.InitSvc();
-            NpcSvc npcSvc = NpcSvc.MainInstance;
-            npcSvc.InitCfg();
-            TimerSvc timerSvc = TimerSvc.MainInstance;
-            timerSvc.InitSvc();
-
-            VFXManager vFXManager = VFXManager.MainInstance;
-            vFXManager.InitFX();
-
-
-            //业务系统初始化
-            LoginSys loginSys = LoginSys.MainInstance;
-            loginSys.InitSys();
-            MainCitySys mainCitySys = MainCitySys.MainInstance;
-            mainCitySys.InitSys();
-            FubenSys fubenSys = FubenSys.MainInstance;
-            fubenSys.InitSys();
-            BattleSys battleSys = BattleSys.MainInstance;
-            battleSys.InitSys();
-
             dynamicWnd.SetWndState();
-            //进入登录场景并加载相应UI
-            loginSys.EnterLogin();
 
+            //进入登录场景并加载相应UI
+            LoginSys.MainInstance.EnterLogin();
         }
 
         public string GetHotfixVersion()
@@ -162,27 +151,16 @@ namespace DarkGod.Main
             GetUIController()._isInputEnable = state;
         }
 
-        public void PauseGameUI(bool state = true)
+        public void ExitGame(System.Action callBack = null)
         {
-            pauseState.Value = state;
-        }
-
-        public void ExitGame()
-        {
-            GameRoot.MainInstance.RmvBindablePropertyData();
-            GetUIController().OnClickExit();
-        }
-
-        private void Update()
-        {
-            RefreshInputsState();
+            OnGameExit += callBack;
+            OnGameExit?.Invoke();
         }
 
         public UIController GetUIController()
         {
             //return GameObject.Find(Constants.UIControllerRootName).GetComponent<UIController>();
-            var go = UIController.Instance;
-            return go.GetComponent<UIController>();
+            return UIController.Instance.GetComponent<UIController>();
         }
 
         public void SetVsyncState(bool state)
@@ -277,6 +255,11 @@ namespace DarkGod.Main
         public GameState GetGameState()
         {
             return gameState;
+        }
+
+        private void OnDestroy()
+        {
+            OnGameEnter -= OnGameExit;
         }
 
     }

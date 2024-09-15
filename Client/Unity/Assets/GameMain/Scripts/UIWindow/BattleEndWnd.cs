@@ -66,15 +66,7 @@ namespace DarkGod.Main
 
         public void ClickExitBtn()
         {
-            if (audioSvc != null)
-            {
-                audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            }
-            else
-            {
-                AudioSvc.MainInstance.PlayUIAudio(Constants.UIClickBtn);
-            }
-
+            audioSvc.PlayUIAudio(Constants.UIClickBtn);
             //进入主城，销毁当前战斗
             ExitCurrentBattle();
         }

@@ -34,6 +34,13 @@ namespace DarkGod.Main
         private StarterAssetsInputs starterAssetsInputs;
         private UICanvasControllerInput uICanvasController;
 
+        protected override void Awake()
+        {
+            base.Awake();
+
+            GameRoot.MainInstance.OnGameEnter += InitSys;
+        }
+
         public override void InitSys()
         {
             base.InitSys();
@@ -557,5 +564,10 @@ namespace DarkGod.Main
             maincityWnd.RefreshUI();
         }
         #endregion
+
+        private void OnDestroy()
+        {
+            GameRoot.MainInstance.OnGameEnter -= InitSys;
+        }
     }
 }

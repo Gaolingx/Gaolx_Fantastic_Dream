@@ -4548,6 +4548,7 @@ GameObject:
   - component: {fileID: 6120058157258717118}
   - component: {fileID: 6120058157258717117}
   - component: {fileID: 5675113177725089161}
+  - component: {fileID: 745824159130287861}
   m_Layer: 5
   m_Name: SettingsPanel
   m_TagString: Untagged
@@ -4645,15 +4646,27 @@ MonoBehaviour:
   CharacterFxAudioSlider: {fileID: 1210875646161684756}
   VsyncSettingsToggle: {fileID: 2402587727146082751}
   MutedToggle: {fileID: 6810430991717285848}
-  FpsWndToggle: {fileID: 8798081280075842717}
-  RuntimeInspectorToggle: {fileID: 6330633343833793806}
-  RuntimeHierarchyToggle: {fileID: 5689692364104491130}
   btnResetCfgs: {fileID: 7402273057185910262}
   btnExitGame: {fileID: 6120058156442399631}
   btnMainMenu: {fileID: 6120058156856597560}
   btnCloseSettings: {fileID: 6120058156070457368}
-  btnCloseDebugItem: {fileID: 0}
   qualitySelectDropdown: {fileID: 3892771302091618463}
+--- !u!114 &745824159130287861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6120058157258716995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6b93cd0b10fed047abf396d4c07d5a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FpsWndToggle: {fileID: 8798081280075842717}
+  RuntimeInspectorToggle: {fileID: 6330633343833793806}
+  RuntimeHierarchyToggle: {fileID: 5689692364104491130}
+  btnCloseDebugItem: {fileID: 0}
   DebugItem: {fileID: 0}
   fpsWnd: {fileID: 0}
   RuntimeHierarchy: {fileID: 0}

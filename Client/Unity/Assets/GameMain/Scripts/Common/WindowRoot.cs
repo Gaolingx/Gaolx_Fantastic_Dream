@@ -255,8 +255,14 @@ namespace DarkGod.Main
             }
         }
 
+        protected virtual void ClickExitGame()
+        {
+            AudioSvc.MainInstance.PlayUIAudio(Constants.UIClickBtn);
+            GameRoot.MainInstance.ExitGame();
+        }
+
         #region Expprg
-        protected virtual void SetExpprg(PlayerData pd, Text txtExpPrg, Transform expPrgTrans)
+        protected void SetExpprg(PlayerData pd, Text txtExpPrg, Transform expPrgTrans)
         {
             int expPrgVal = (int)(pd.exp * 1.0f / PECommon.GetExpUpValByLv(pd.lv) * 100);
             //经验条进度的显示

@@ -11,6 +11,8 @@ namespace DarkGod.Main
         protected override void Awake()
         {
             base.Awake();
+
+            GameRoot.MainInstance.OnGameEnter += InitCfg;
         }
 
         public void InitCfg()
@@ -25,5 +27,9 @@ namespace DarkGod.Main
             await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, data.npcResPath, data.NPC_Transform_Position, data.NPC_Transform_Rotation, data.NPC_Transform_Scale, false, true, true);
         }
 
+        private void OnDestroy()
+        {
+            GameRoot.MainInstance.OnGameEnter -= InitCfg;
+        }
     }
 }
