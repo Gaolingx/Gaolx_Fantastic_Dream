@@ -152,7 +152,7 @@ namespace DarkGod.Main
                 playerController.SetDir(dir);
             }
         }
-        public virtual void SetAction(int action, bool inputValues = true)
+        public virtual void SetAction(int action)
         {
             if (controller != null)
             {
@@ -160,7 +160,7 @@ namespace DarkGod.Main
             }
             else if (playerController != null)
             {
-                playerController.SetAction(action, inputValues);
+                playerController.SetAction(action);
             }
         }
 

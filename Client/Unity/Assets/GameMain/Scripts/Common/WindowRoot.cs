@@ -112,17 +112,6 @@ namespace DarkGod.Main
             return UnityExtension.GetOrAddComponent<T>(go);
         }
 
-        protected Transform GetTrans(Transform trans, string name)
-        {
-            if (trans != null)
-            {
-                return trans.Find(name);
-            }
-            else
-            {
-                return transform.Find(name);
-            }
-        }
         #endregion
 
         #region FindChildComponent
@@ -257,7 +246,6 @@ namespace DarkGod.Main
 
         protected virtual void ClickExitGame()
         {
-            AudioSvc.MainInstance.PlayUIAudio(Constants.UIClickBtn);
             GameRoot.MainInstance.ExitGame();
         }
 

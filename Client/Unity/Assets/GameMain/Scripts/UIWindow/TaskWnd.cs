@@ -78,15 +78,15 @@ namespace DarkGod.Main
                 TaskRewardCfg trf = configSvc.GetTaskRewardCfg(trd.ID);
 
                 //通过父物体的transform查找
-                SetText(GetTrans(go.transform, "txtName"), trf.taskName);
-                SetText(GetTrans(go.transform, "txtPrg"), trd.prgs + "/" + trf.count);
-                SetText(GetTrans(go.transform, "txtExp"), "奖励：    经验" + trf.exp);
-                SetText(GetTrans(go.transform, "txtCoin"), "金币" + trf.coin);
-                Image imgPrg = GetTrans(go.transform, "prgBar/prgVal").GetComponent<Image>();
+                SetText(FindChild(go.transform, "txtName"), trf.taskName);
+                SetText(FindChild(go.transform, "txtPrg"), trd.prgs + "/" + trf.count);
+                SetText(FindChild(go.transform, "txtExp"), "奖励：    经验" + trf.exp);
+                SetText(FindChild(go.transform, "txtCoin"), "金币" + trf.coin);
+                Image imgPrg = FindChild(go.transform, "prgBar/prgVal").GetComponent<Image>();
                 float prgVal = trd.prgs * 1.0f / trf.count;
                 imgPrg.fillAmount = prgVal;
 
-                Button btnTake = GetTrans(go.transform, "btnTake").GetComponent<Button>();
+                Button btnTake = FindChild(go.transform, "btnTake").GetComponent<Button>();
                 //lambda表达式用于传参，知道玩家点击的到底是哪个任务的领取按钮
                 //btnTake.onClick.AddListener(ClickTakeBtn);
                 btnTake.onClick.AddListener(() =>
@@ -94,7 +94,7 @@ namespace DarkGod.Main
                     ClickTakeBtn(go.name);
                 });
 
-                Transform transComp = GetTrans(go.transform, "imgComp");
+                Transform transComp = FindChild(go.transform, "imgComp");
                 if (trd.taked)
                 {
                     btnTake.interactable = false; //奖励被领取则不能交互

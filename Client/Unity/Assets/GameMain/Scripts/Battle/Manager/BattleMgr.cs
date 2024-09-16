@@ -61,7 +61,7 @@ namespace DarkGod.Main
                 controller.StarterAssetsInputs = starterAssetsInputs;
                 controller.playerFollowVirtualCamera = cinemachineVirtualCamera;
 
-                controller.SetMoveMode(false);
+                controller.SetMoveMode(ThirdPersonController.ControlState.Manual);
                 controller.MoveSpeed = Constants.PlayerMoveSpeed;
                 controller.SprintSpeed = Constants.PlayerSprintSpeed;
 
@@ -160,11 +160,6 @@ namespace DarkGod.Main
             EntityPlayer.OnValueChanged += OnUpdateEntityPlayer;
         }
 
-        public virtual void RmvEntityPlayerData()
-        {
-            EntityPlayer.OnValueChanged -= OnUpdateEntityPlayer;
-        }
-
         private void OnUpdateEntityPlayer(EntityPlayer value)
         {
             BattleSys.Instance.SetCurrentPlayer(value);
@@ -234,7 +229,6 @@ namespace DarkGod.Main
             entitySelfPlayer.StateIdle();
             //停止背景音乐
             audioSvc.StopBGMusic();
-            RmvEntityPlayerData();
             battleSys.EndBattle(isWin, restHP);
         }
 
@@ -444,6 +438,11 @@ namespace DarkGod.Main
         }
 
         #endregion
+
+        private void OnDestroy()
+        {
+            EntityPlayer.OnValueChanged -= OnUpdateEntityPlayer;
+        }
 
     }
 }

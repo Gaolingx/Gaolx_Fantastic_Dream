@@ -22,8 +22,8 @@ namespace StarterAssets
         public CinemachineVirtualCamera playerFollowVirtualCamera;
 
         [Header("Player")]
-        [Tooltip("Move Control By ThirdPersonController")]
-        public bool isMoveByController = true;
+        [Tooltip("Move Control Mode")]
+        public ControlState MoveControlState = ControlState.Walk;
 
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
@@ -95,14 +95,8 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
-        [Header("Player State")]
-        [SerializeField]
-        private int targetPlayerState = 0;
-
-        [Header("Move Mode")]
-        [SerializeField]
-        private bool MoveModeInput = true;
-
+        //Move State
+        [HideInInspector] public enum ControlState { None, Walk, Idle, Manual };
 
         // cinemachine
         private float _cinemachineTargetYaw;
@@ -111,7 +105,6 @@ namespace StarterAssets
         private float _targetCameraDistance;
 
         // player
-        private Vector2 _moveVal;
         private float _speed;
         private float _animationBlend;
         private float _targetRotation = 0.0f;
@@ -141,15 +134,15 @@ namespace StarterAssets
         private StarterAssetsInputs _input;
         private GameObject _mainCamera;
         private Cinemachine3rdPersonFollow _personFollow;
+        private BindableProperty<bool> idleAction = new BindableProperty<bool>();
+        private BindableProperty<bool> crouchAction = new BindableProperty<bool>();
+        private BindableProperty<int> skillAction = new BindableProperty<int>();
         private AudioSvc _audioSvc;
+        private TimerSvc _timerSvc;
 
         private const float _threshold = 0.01f;
 
         private bool _hasAnimator;
-
-        private bool _tryToCrouch;
-        private int skillAction;
-        private bool skillRelease;
         private bool _isSkillMove = false;
 
 
@@ -174,9 +167,9 @@ namespace StarterAssets
         /// 移动模式切换
         /// </summary>
         /// <param name="moveMode">默认使用StarterAssetsInputs</param>
-        public void SetMoveMode(bool moveMode = true)
+        public void SetMoveMode(ControlState state)
         {
-            MoveModeInput = moveMode;
+            MoveControlState = state;
         }
 
         private Vector2 _dir;
@@ -187,13 +180,12 @@ namespace StarterAssets
 
         public void SetAniBlend(int blend)
         {
-            targetPlayerState = blend;
+
         }
 
-        public void SetAction(int action, bool isReleaseSkill)
+        public void SetAction(int action)
         {
-            skillAction = action;
-            skillRelease = isReleaseSkill;
+            skillAction.Value = action;
         }
 
         public void SetSkillMove(bool isSkillMove, float skillMoveSpeed = 0f)
@@ -214,17 +206,13 @@ namespace StarterAssets
             return PlayerInput;
         }
 
-        private void SetMove()
-        {
-            if (isMoveByController)
-            {
-                Move();
-            }
-        }
-
         #region MonoBehaviour
         private void ClassAwake()
         {
+            idleAction.OnValueChanged += delegate { OnIdle(); };
+            crouchAction.OnValueChanged += delegate { OnCrouch(); };
+            skillAction.OnValueChanged += delegate { OnAtkSkill(); };
+
             // get a reference to our main camera
             if (_mainCamera == null)
             {
@@ -259,6 +247,7 @@ namespace StarterAssets
 
             // Init AudioSvc
             _audioSvc = AudioSvc.MainInstance;
+            _timerSvc = TimerSvc.MainInstance;
 
         }
         private void ClassUpdate()
@@ -266,10 +255,26 @@ namespace StarterAssets
             _hasAnimator = TryGetComponent(out _animator);
 
             GroundedCheck();
-            SetMove();
-            Crouch();
             JumpAndGravity();
-            SetAtkSkill();
+
+            // crouch state
+            _input.crouch = crouchAction.Value;
+
+            // idle state
+            if (_speed == 0f && MoveControlState != ControlState.None)
+            {
+                idleAction.Value = true;
+            }
+            else
+            {
+                idleAction.Value = false;
+            }
+
+            // move state
+            if (MoveControlState != ControlState.None)
+            {
+                Move();
+            }
         }
         private void ClassLateUpdate()
         {
@@ -356,26 +361,19 @@ namespace StarterAssets
                 _cinemachineTargetYaw, 0.0f);
         }
 
-        private void Crouch()
+        private Vector2 UpdateMoveInputState()
         {
-            bool currCrouch = _tryToCrouch;
-            _tryToCrouch = _input.crouch;
-            if (_hasAnimator)
+            if (MoveControlState == ControlState.Manual)
             {
-                _animator.SetBool(_animIDCrouch, _tryToCrouch);
+                return _dir;
             }
-
-        }
-
-        private void UpdateMoveInputState()
-        {
-            if (MoveModeInput == true)
+            else if (MoveControlState == ControlState.None)
             {
-                _moveVal = _input.move;
+                return Vector2.zero;
             }
             else
             {
-                _moveVal = _dir;
+                return _input.move;
             }
         }
 
@@ -393,9 +391,47 @@ namespace StarterAssets
             return targetSpeed;
         }
 
+        private void OnCrouch()
+        {
+            if (_hasAnimator)
+            {
+                _animator.SetBool(_animIDCrouch, crouchAction.Value);
+            }
+
+        }
+
+        private int tid1 = 0;
+        private void OnIdle() //取消任务的id
+        {
+            // 等待x秒后如果仍处于Idle状态，则播放待机动画（定时任务）
+            if (idleAction.Value == true)
+            {
+                tid1 = _timerSvc.AddTimeTask((int tid) =>
+                {
+                    SetAction(Constants.ActionIdle);
+                }, Constants.IdleAniWaitDelay);
+            }
+            else
+            {
+                SetAction(Constants.ActionDefault);
+                if (tid1 != 0)
+                {
+                    _timerSvc.DelTask(tid1);
+                }
+            }
+        }
+
+        private void OnAtkSkill()
+        {
+            if (_hasAnimator)
+            {
+                _animator.SetInteger(_animIDSkillAction, skillAction.Value);
+            }
+        }
+
         private void Move()
         {
-            UpdateMoveInputState();
+            Vector2 _moveVal = UpdateMoveInputState();
 
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = UpdateMoveSpeed();
@@ -460,7 +496,7 @@ namespace StarterAssets
             {
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
-                _animator.SetBool(_animIDCrouch, _tryToCrouch);
+                _animator.SetBool(_animIDCrouch, crouchAction.Value);
             }
         }
 
@@ -496,7 +532,7 @@ namespace StarterAssets
                         _animator.SetBool(_animIDCrouch, false);
                     }
 
-                    _tryToCrouch = false;
+                    crouchAction.Value = false;
                 }
                 // Jump
                 else if (_input.jump && _jumpTimeoutDelta <= 0.0f)
@@ -547,18 +583,6 @@ namespace StarterAssets
             if (_verticalVelocity < _terminalVelocity)
             {
                 _verticalVelocity += Gravity * Time.deltaTime;
-            }
-        }
-
-        private void SetAtkSkill()
-        {
-            bool currAtkSkill = skillRelease;
-            if (_hasAnimator)
-            {
-                if (currAtkSkill == true)
-                {
-                    _animator.SetInteger(_animIDSkillAction, skillAction);
-                }
             }
         }
 
@@ -616,5 +640,11 @@ namespace StarterAssets
             }
         }
 
+        private void OnDestroy()
+        {
+            idleAction.OnValueChanged -= delegate { OnIdle(); };
+            crouchAction.OnValueChanged -= delegate { OnCrouch(); };
+            skillAction.OnValueChanged -= delegate { OnAtkSkill(); };
+        }
     }
 }

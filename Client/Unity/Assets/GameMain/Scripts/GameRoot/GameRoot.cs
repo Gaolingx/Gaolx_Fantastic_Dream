@@ -26,7 +26,6 @@ namespace DarkGod.Main
         {
             base.Awake();
 
-            OnGameExit += RmvBindablePropertyData;
             OnGameExit += GetUIController().OnClickExit;
         }
 
@@ -56,11 +55,6 @@ namespace DarkGod.Main
         public void AddBindablePropertyData()
         {
             pauseState.OnValueChanged += OnUpdatePauseState;
-        }
-
-        public void RmvBindablePropertyData()
-        {
-            pauseState.OnValueChanged -= OnUpdatePauseState;
         }
 
         public void PauseGameUI(bool state = true)
@@ -259,7 +253,7 @@ namespace DarkGod.Main
 
         private void OnDestroy()
         {
-            OnGameEnter -= OnGameExit;
+            pauseState.OnValueChanged -= OnUpdatePauseState;
         }
 
     }

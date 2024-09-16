@@ -142,6 +142,9 @@ namespace DarkGod.Main
         public const int BlendIdle = 0;
         public const int BlendWalk = 1;
 
+        // 动画时长设置
+        public const int IdleAniWaitDelay = 5000;
+
         //角色移动速度
         public const float PlayerMoveSpeed = 2.0f;
         //角色奔跑速度
@@ -229,6 +232,7 @@ namespace DarkGod.Main
         public const int ActionBorn = 0;
         public const int ActionDie = 100;
         public const int ActionHit = 101;
+        public const int ActionIdle = 99;
 
         //技能ID配置
         public const int SkillID_Mar7th00_skill01 = 101;

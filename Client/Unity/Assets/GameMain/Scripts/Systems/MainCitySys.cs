@@ -153,7 +153,7 @@ namespace DarkGod.Main
                 controller.StarterAssetsInputs = starterAssetsInputs;
                 controller.playerFollowVirtualCamera = cinemachineVirtualCamera;
 
-                controller.SetMoveMode(true);
+                controller.SetMoveMode(ThirdPersonController.ControlState.Walk);
                 controller.MoveSpeed = Constants.PlayerMoveSpeed;
                 controller.SprintSpeed = Constants.PlayerSprintSpeed;
 
@@ -481,7 +481,7 @@ namespace DarkGod.Main
         {
             if (gameObject != null)
             {
-                gameObject.GetComponent<ThirdPersonController>().isMoveByController = false;
+                gameObject.GetComponent<ThirdPersonController>().SetMoveMode(ThirdPersonController.ControlState.None);
                 gameObject.GetComponent<Animator>().SetFloat(_animIDSpeed, 2f);
                 gameObject.GetComponent<Animator>().SetFloat(_animIDMotionSpeed, 1f);
             }
@@ -491,7 +491,7 @@ namespace DarkGod.Main
         {
             if (gameObject != null)
             {
-                gameObject.GetComponent<ThirdPersonController>().isMoveByController = true;
+                gameObject.GetComponent<ThirdPersonController>().SetMoveMode(ThirdPersonController.ControlState.Walk);
                 gameObject.GetComponent<Animator>().SetFloat(_animIDSpeed, 0f);
                 gameObject.GetComponent<Animator>().SetFloat(_animIDMotionSpeed, 1f);
             }

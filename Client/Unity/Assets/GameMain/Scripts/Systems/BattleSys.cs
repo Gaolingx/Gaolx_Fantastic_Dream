@@ -92,7 +92,6 @@ namespace DarkGod.Main
             SetPlayerCtrlWndState(false);
             SetBattleEndWndState(FBEndType.None, false);
             GameRoot.MainInstance.dynamicWnd.RmvAllHpItemInfo();
-            battleMgr.RmvEntityPlayerData();
             Destroy(battleMgr.gameObject);
         }
 
