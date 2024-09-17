@@ -261,7 +261,7 @@ namespace StarterAssets
             _input.crouch = crouchAction.Value;
 
             // idle state
-            if (_speed == 0f && MoveControlState != ControlState.None)
+            if (_speed == 0f && MoveControlState != ControlState.None && _input.jump == false)
             {
                 idleAction.Value = true;
             }
