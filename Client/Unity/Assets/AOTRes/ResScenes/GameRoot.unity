@@ -643,9 +643,8 @@ GameObject:
   m_Component:
   - component: {fileID: 963007393}
   - component: {fileID: 963007399}
-  - component: {fileID: 963007398}
-  - component: {fileID: 963007396}
-  - component: {fileID: 963007397}
+  - component: {fileID: 963007402}
+  - component: {fileID: 963007401}
   - component: {fileID: 963007400}
   m_Layer: 0
   m_Name: GameRoot
@@ -671,66 +670,6 @@ Transform:
   - {fileID: 8549510451735545887}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &963007396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963007392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3836301d5a61992418690bde4830b931, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &963007397
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963007392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbc01d0e5439010459a085c4d188e173, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HostServerIP: http://gaolingxiang.dynv6.net:26660/d
-  AppId: 10001
-  AppVersion: v1.0
-  HostServerToken: 
-  PackageName: DefaultPackage
-  AppendTimeTicks: 0
-  PlayMode: 2
-  BuildPipeline: 1
-  GameRootObjectName: Assets/AssetBundles/Prefabs/RootPrefabs/HotFixRoot.prefab
-  GameRootParentTransformName: Canvas
-  HotUpdateDllName: Assets/AssetBundles/Scripts/Dlls/GameMain.dll
-  AOTMetaAssemblyNames:
-  - Assets/AssetBundles/Scripts/Dlls/mscorlib.dll
-  - Assets/AssetBundles/Scripts/Dlls/System.dll
-  - Assets/AssetBundles/Scripts/Dlls/System.Core.dll
-  - Assets/AssetBundles/Scripts/Dlls/UnityEngine.CoreModule.dll
-  - Assets/AssetBundles/Scripts/Dlls/Unity.InputSystem.dll
-  - Assets/AssetBundles/Scripts/Dlls/DOTween.dll
-  - Assets/AssetBundles/Scripts/Dlls/Cinemachine.dll
-  - Assets/AssetBundles/Scripts/Dlls/PESocket.dll
-  - Assets/AssetBundles/Scripts/Dlls/PEProtocol.dll
-  - Assets/AssetBundles/Scripts/Dlls/PETimer.dll
-  - Assets/AssetBundles/Scripts/Dlls/YooAsset.dll
---- !u!114 &963007398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963007392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ec822973f861054ea6b648b1554ad6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isDontDestroyOnLoad: 1
 --- !u!114 &963007399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -770,130 +709,58 @@ MonoBehaviour:
   m_GameSpeed: 1
   m_RunInBackground: 1
   m_NeverSleep: 1
---- !u!1001 &1312651320
-PrefabInstance:
+--- !u!114 &963007401
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 8549510451735545887}
-    m_Modifications:
-    - target: {fileID: 770158323821192275, guid: 92e1a3357585db6459bd2d98f01ace11,
-        type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 770158323821192275, guid: 92e1a3357585db6459bd2d98f01ace11,
-        type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 770158323821192275, guid: 92e1a3357585db6459bd2d98f01ace11,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 770158323821192275, guid: 92e1a3357585db6459bd2d98f01ace11,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 770158323821192275, guid: 92e1a3357585db6459bd2d98f01ace11,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 770158323821192275, guid: 92e1a3357585db6459bd2d98f01ace11,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 770158323821192275, guid: 92e1a3357585db6459bd2d98f01ace11,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 770158323821192275, guid: 92e1a3357585db6459bd2d98f01ace11,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 770158323821192275, guid: 92e1a3357585db6459bd2d98f01ace11,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 770158323821192275, guid: 92e1a3357585db6459bd2d98f01ace11,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 770158323821192275, guid: 92e1a3357585db6459bd2d98f01ace11,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 770158323821192275, guid: 92e1a3357585db6459bd2d98f01ace11,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 770158323821192275, guid: 92e1a3357585db6459bd2d98f01ace11,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 770158323821192275, guid: 92e1a3357585db6459bd2d98f01ace11,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 770158323821192275, guid: 92e1a3357585db6459bd2d98f01ace11,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 770158323821192275, guid: 92e1a3357585db6459bd2d98f01ace11,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 770158323821192275, guid: 92e1a3357585db6459bd2d98f01ace11,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 770158323821192275, guid: 92e1a3357585db6459bd2d98f01ace11,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 770158323821192275, guid: 92e1a3357585db6459bd2d98f01ace11,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 770158323821192275, guid: 92e1a3357585db6459bd2d98f01ace11,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2274285450713248455, guid: 92e1a3357585db6459bd2d98f01ace11,
-        type: 3}
-      propertyPath: m_Name
-      value: SangoPatchRoot
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 92e1a3357585db6459bd2d98f01ace11, type: 3}
---- !u!224 &1312651321 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 770158323821192275, guid: 92e1a3357585db6459bd2d98f01ace11,
-    type: 3}
-  m_PrefabInstance: {fileID: 1312651320}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963007392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bae4189d474187e488ca523c4fceb2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hostServerIP: http://gaolingxiang.dynv6.net:26660/d
+  _appID: 10001
+  _appVersion: v1.0
+  _appendTimeTicks: 1
+  _timeout: 60
+  _packageName: DefaultPackage
+  _playMode: 2
+  _buildPipeline: 1
+  _sangoPatchWnd: {fileID: 2274285450713248455, guid: c8938a4a9c51bf04ba6bd4f91c02ef81,
+    type: 3}
+  _gameRootObjectName: Assets/AssetBundles/Prefabs/RootPrefabs/HotFixRoot.prefab
+  _gameRootParentTransformName: Canvas
+  _hotUpdateDllName: Assets/AssetBundles/Scripts/Dlls/GameMain.dll
+  _AOTMetaAssemblyNames:
+  - Assets/AssetBundles/Scripts/Dlls/mscorlib.dll
+  - Assets/AssetBundles/Scripts/Dlls/System.dll
+  - Assets/AssetBundles/Scripts/Dlls/System.Core.dll
+  - Assets/AssetBundles/Scripts/Dlls/UnityEngine.CoreModule.dll
+  - Assets/AssetBundles/Scripts/Dlls/Unity.InputSystem.dll
+  - Assets/AssetBundles/Scripts/Dlls/DOTween.dll
+  - Assets/AssetBundles/Scripts/Dlls/Cinemachine.dll
+  - Assets/AssetBundles/Scripts/Dlls/PESocket.dll
+  - Assets/AssetBundles/Scripts/Dlls/PEProtocol.dll
+  - Assets/AssetBundles/Scripts/Dlls/PETimer.dll
+  - Assets/AssetBundles/Scripts/Dlls/YooAsset.dll
+  _onUpdaterDone:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &963007402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963007392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d64334410c86344782da80d1ba2066a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &563086946449281894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -987,8 +854,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1312651321}
+  m_Children: []
   m_Father: {fileID: 963007393}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
