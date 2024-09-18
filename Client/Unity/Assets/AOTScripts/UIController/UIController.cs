@@ -164,13 +164,6 @@ public class UIController : MonoBehaviour
         GameSpeed = 1f;
     }
 
-    private void OnApplicationFocus(bool hasFocus)
-    {
-#if !UNITY_ANDROID
-        Cursor.lockState = CursorLockMode.Locked;
-#endif
-    }
-
     public void OnClickExit()
     {
         Debug.Log("Exit");

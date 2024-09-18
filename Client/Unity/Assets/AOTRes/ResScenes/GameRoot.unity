@@ -694,6 +694,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0948dad2a2dcfd843a7fd87b4e6af960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_cursorLocked: 0
   touchZone: {fileID: 0}
   m_FrameRate: 60
   m_GameSpeed: 1
