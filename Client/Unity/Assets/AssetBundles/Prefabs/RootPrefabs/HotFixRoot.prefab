@@ -70,6 +70,9 @@ MonoBehaviour:
   dynamicWnd: {fileID: 6375643048898361130}
   starterAssetsInputs: {fileID: 0}
   uICanvasController: {fileID: 0}
+  ShowCursorScene:
+  - GameRoot
+  - SceneLogin
 --- !u!114 &74629058570999908
 MonoBehaviour:
   m_ObjectHideFlags: 0

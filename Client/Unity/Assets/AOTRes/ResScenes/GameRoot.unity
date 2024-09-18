@@ -694,17 +694,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0948dad2a2dcfd843a7fd87b4e6af960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menu: {fileID: 0}
   touchZone: {fileID: 0}
-  _isPause: 0
-  _isInputEnable: 1
-  _isPressingEsc: 0
-  _isPressingAlt: 0
-  ShowCursorScene:
-  - GameRoot
-  - SceneLogin
-  - SceneLoading
-  EventSystemGOName: EventSystem
   m_FrameRate: 60
   m_GameSpeed: 1
   m_RunInBackground: 1

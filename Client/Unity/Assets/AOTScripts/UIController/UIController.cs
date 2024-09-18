@@ -15,28 +15,7 @@ public class UIController : MonoBehaviour
     public static UIController Instance { get; set; }
 
     [SerializeField]
-    private Canvas menu;
-    [SerializeField]
     private Canvas touchZone;
-
-    private EventSystem eventSystem;
-    private InputActionAsset _inputActionAsset;
-    private InputActionMap _player;
-    private InputAction _point;
-    private InputAction _click;
-    private InputAction _esc;
-    private InputAction _alt;
-
-    public bool _isPause = false;
-    public bool _isInputEnable = true;
-    public bool _isPressingEsc = false;
-    public bool _isPressingAlt = false;
-
-    [SerializeField]
-    private List<string> ShowCursorScene = new List<string>();
-
-    [SerializeField]
-    private string EventSystemGOName;
 
     [SerializeField]
     private int m_FrameRate = 60;
@@ -67,15 +46,6 @@ public class UIController : MonoBehaviour
     {
         PECommon.Log("UIController Init Done.");
 
-        eventSystem = transform.Find(EventSystemGOName).GetComponent<EventSystem>();
-        _inputActionAsset = eventSystem.GetComponent<InputSystemUIInputModule>().actionsAsset;
-        _player = _inputActionAsset.FindActionMap("Player");
-        _esc = _inputActionAsset.FindActionMap("UI").FindAction("Menu");
-        _alt = _inputActionAsset.FindActionMap("UI").FindAction("Alt");
-
-        _esc.Enable();
-        _alt.Enable();
-
 
 #if UNITY_ANDROID
         if (touchZone != null)
@@ -89,77 +59,6 @@ public class UIController : MonoBehaviour
             touchZone.gameObject.SetActive(false);
         }
 #endif
-    }
-
-    bool esc = false;
-    bool alt = false;
-    private void Update()
-    {
-
-        if (_esc != null)
-        {
-            esc = Convert.ToBoolean(_esc.ReadValue<float>());
-        }
-        if (_alt != null)
-        {
-            alt = Convert.ToBoolean(_alt.ReadValue<float>());
-        }
-
-        if (esc && !_isPressingEsc)
-        {
-            //_isPause = !_isPause;
-            _isPressingEsc = true;
-        }
-        else if (!esc)
-        {
-            _isPressingEsc = false;
-        }
-
-        if (alt && !_isPressingAlt)
-        {
-            _isPressingAlt = true;
-        }
-        else if (!alt)
-        {
-            _isPressingAlt = false;
-        }
-
-        if (menu != null)
-        {
-            menu.gameObject.SetActive(_isPause);
-        }
-#if UNITY_ANDROID
-        if (touchZone != null)
-        {
-            touchZone.gameObject.SetActive(!_isPause);
-        }
-#endif
-
-        if (_isPause || _isPressingAlt || GetCursorLockModeState() == true)
-        {
-            //_player.Disable();
-#if !UNITY_ANDROID
-            Cursor.lockState = CursorLockMode.None;
-#endif
-        }
-        else
-        {
-            //_player.Enable();
-#if !UNITY_ANDROID
-            Cursor.lockState = CursorLockMode.Locked;
-#endif
-        }
-    }
-
-    private bool GetCursorLockModeState()
-    {
-        return ShowCursorScene.Any(item => item == GetCurrentSceneName());
-    }
-
-    public string GetCurrentSceneName()
-    {
-        Scene currentScene = SceneManager.GetActiveScene();
-        return currentScene != null ? currentScene.name : null;
     }
 
     // Common Settings

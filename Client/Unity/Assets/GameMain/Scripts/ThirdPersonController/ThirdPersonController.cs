@@ -258,10 +258,10 @@ namespace StarterAssets
             JumpAndGravity();
 
             // crouch state
-            _input.crouch = crouchAction.Value;
+            crouchAction.Value = _input.crouch;
 
             // idle state
-            if (_speed == 0f && MoveControlState != ControlState.None && _input.jump == false)
+            if (_speed == 0f && MoveControlState != ControlState.None && !_input.jump && !_input.crouch)
             {
                 idleAction.Value = true;
             }
@@ -400,9 +400,9 @@ namespace StarterAssets
 
         }
 
-        private int tid1 = 0;
         private void OnIdle() //取消任务的id
         {
+            int tid1 = 0;
             // 等待x秒后如果仍处于Idle状态，则播放待机动画（定时任务）
             if (idleAction.Value == true)
             {
@@ -502,7 +502,7 @@ namespace StarterAssets
 
         private void JumpAndGravity()
         {
-            if (Grounded)
+            if (Grounded && !_input.crouch)
             {
                 // reset the fall timeout timer
                 _fallTimeoutDelta = FallTimeout;
@@ -532,7 +532,6 @@ namespace StarterAssets
                         _animator.SetBool(_animIDCrouch, false);
                     }
 
-                    crouchAction.Value = false;
                 }
                 // Jump
                 else if (_input.jump && _jumpTimeoutDelta <= 0.0f)
@@ -546,6 +545,7 @@ namespace StarterAssets
                         _animator.SetBool(_animIDJump, true);
                         _animator.SetBool(_animIDCrouch, false);
                     }
+
                 }
 
                 // jump timeout

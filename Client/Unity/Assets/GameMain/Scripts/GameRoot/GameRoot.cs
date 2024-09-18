@@ -5,6 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using HuHu;
+using UnityEngine.SceneManagement;
+using System.Linq;
 
 namespace DarkGod.Main
 {
@@ -18,6 +20,8 @@ namespace DarkGod.Main
         public StarterAssetsInputs starterAssetsInputs;
         public UICanvasControllerInput uICanvasController;
 
+        public List<string> ShowCursorScene;
+
         public System.Action OnGameEnter { get; set; }
         public System.Action OnGameExit { get; set; }
         private BindableProperty<bool> pauseState { get; set; } = new BindableProperty<bool>();
@@ -26,13 +30,14 @@ namespace DarkGod.Main
         {
             base.Awake();
 
+            InitStarterAssetsInputs();
+
             OnGameExit += GetUIController().OnClickExit;
+            pauseState.OnValueChanged += OnUpdatePauseState;
         }
 
         private void Start()
         {
-            AddBindablePropertyData();
-
             if (isDontDestroyOnLoad)
             {
                 //我们不希望GameRoot及其子物体在切换场景时被销毁
@@ -52,11 +57,6 @@ namespace DarkGod.Main
             RefreshInputsState();
         }
 
-        public void AddBindablePropertyData()
-        {
-            pauseState.OnValueChanged += OnUpdatePauseState;
-        }
-
         public void PauseGameUI(bool state = true)
         {
             pauseState.Value = state;
@@ -64,8 +64,6 @@ namespace DarkGod.Main
 
         private void OnUpdatePauseState(bool state)
         {
-            GetUIController()._isPause = state;
-
             if (starterAssetsInputs != null)
             {
                 starterAssetsInputs.isPause = state;
@@ -78,15 +76,6 @@ namespace DarkGod.Main
             else
             {
                 VFXManager.MainInstance.ResetVFX();
-            }
-        }
-
-        private void CleanUIRoot()
-        {
-            Transform canvas = transform.Find(Constants.Path_Canvas_Obj);
-            for (int i = 0; i < canvas.childCount; i++)
-            {
-                canvas.GetChild(i).gameObject.SetActive(false);
             }
         }
 
@@ -106,12 +95,43 @@ namespace DarkGod.Main
             return uICanvasController;
         }
 
+        public string GetCurrentSceneName()
+        {
+            Scene currentScene = SceneManager.GetActiveScene();
+            return currentScene.name;
+        }
+
+        private bool GetCursorLockModeState()
+        {
+            return ShowCursorScene.Any(item => item == GetCurrentSceneName());
+        }
+
+        private void SetCursorLockMode()
+        {
+            if (pauseState.Value == true || starterAssetsInputs.cursorLocked == true || GetCursorLockModeState() == true)
+            {
+
+#if !UNITY_ANDROID
+                Cursor.lockState = CursorLockMode.None;
+#endif
+            }
+            else
+            {
+
+#if !UNITY_ANDROID
+                Cursor.lockState = CursorLockMode.Locked;
+#endif
+            }
+        }
+
+        private bool _isInputEnable = true;
         private void RefreshInputsState()
         {
-            UIController uiController = GetUIController();
-            if (uiController != null && starterAssetsInputs != null)
+            if (starterAssetsInputs != null)
             {
-                if (uiController._isInputEnable && !uiController._isPause && !uiController._isPressingAlt)
+                SetCursorLockMode();
+
+                if (_isInputEnable && !pauseState.Value && !starterAssetsInputs.cursorLocked)
                 {
                     starterAssetsInputs.canLook = true;
                 }
@@ -120,16 +140,35 @@ namespace DarkGod.Main
                     starterAssetsInputs.canLook = false;
                 }
 
-                starterAssetsInputs.canMove = GetUIController()._isInputEnable;
+                starterAssetsInputs.canMove = _isInputEnable;
+            }
+        }
+
+        private void CleanUIRoot()
+        {
+            Transform canvas = transform.Find(Constants.Path_Canvas_Obj);
+            Transform input = transform.Find(Constants.Path_PlayerInputs_Obj);
+            if (canvas != null)
+            {
+                for (int i = 0; i < canvas.childCount; i++)
+                {
+                    canvas.GetChild(i).gameObject.SetActive(false);
+                }
+            }
+
+            if (input != null)
+            {
+                input.gameObject.SetActive(true);
             }
         }
 
         //初始化各个系统和服务模块
         private void InitGameRoot()
         {
-            InitStarterAssetsInputs();
-
-            dynamicWnd.SetWndState();
+            if (dynamicWnd != null)
+            {
+                dynamicWnd.SetWndState();
+            }
 
             //进入登录场景并加载相应UI
             LoginSys.MainInstance.EnterLogin();
@@ -142,7 +181,7 @@ namespace DarkGod.Main
 
         public void EnableInputAction(bool state)
         {
-            GetUIController()._isInputEnable = state;
+            _isInputEnable = state;
         }
 
         public void ExitGame(System.Action callBack = null)

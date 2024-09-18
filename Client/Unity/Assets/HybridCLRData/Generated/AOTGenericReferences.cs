@@ -7,6 +7,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	{
 		"Cinemachine.dll",
 		"PESocket.dll",
+		"System.Core.dll",
 		"UniTask.dll",
 		"Unity.InputSystem.dll",
 		"UnityEngine.CoreModule.dll",
@@ -557,6 +558,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<object>.Start<DarkGod.Main.ResSvc.<LoadVideoClipASync>d__14>(DarkGod.Main.ResSvc.<LoadVideoClipASync>d__14&)
 		// object System.Activator.CreateInstance<object>()
 		// object[] System.Array.Empty<object>()
+		// bool System.Linq.Enumerable.Any<object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,bool>)
 		// object System.Reflection.CustomAttributeExtensions.GetCustomAttribute<object>(System.Reflection.MemberInfo)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter,DarkGod.Main.AudioSvc.<PlayBGMusics>d__22>(Cysharp.Threading.Tasks.UniTask.Awaiter&,DarkGod.Main.AudioSvc.<PlayBGMusics>d__22&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter,DarkGod.Main.ResSvc.<AsyncLoadScene>d__6>(Cysharp.Threading.Tasks.UniTask.Awaiter&,DarkGod.Main.ResSvc.<AsyncLoadScene>d__6&)

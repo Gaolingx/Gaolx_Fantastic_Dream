@@ -88,6 +88,11 @@ namespace StarterAssets
             NormalAtkInput(value.isPressed);
         }
 
+        public void OnCursorLock(InputValue value)
+        {
+            CursorLockInput(value.isPressed);
+        }
+
         public void OnGamePause(InputValue value)
         {
             GamePauseInput(value.isPressed);
@@ -149,6 +154,11 @@ namespace StarterAssets
         public void NormalAtkInput(bool newNormalAtkState)
         {
             normalAtk = newNormalAtkState;
+        }
+
+        public void CursorLockInput(bool newCursorLockState)
+        {
+            cursorLocked = newCursorLockState;
         }
 
         public void GamePauseInput(bool newGamePauseState)
