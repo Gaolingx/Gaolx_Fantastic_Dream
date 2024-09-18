@@ -400,9 +400,9 @@ namespace StarterAssets
 
         }
 
+        private int tid1 = 0;
         private void OnIdle() //取消任务的id
         {
-            int tid1 = 0;
             // 等待x秒后如果仍处于Idle状态，则播放待机动画（定时任务）
             if (idleAction.Value == true)
             {
@@ -414,10 +414,7 @@ namespace StarterAssets
             else
             {
                 SetAction(Constants.ActionDefault);
-                if (tid1 != 0)
-                {
-                    _timerSvc.DelTask(tid1);
-                }
+                _timerSvc.DelTask(tid1);
             }
         }
 
