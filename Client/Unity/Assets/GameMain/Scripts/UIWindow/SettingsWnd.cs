@@ -16,6 +16,8 @@ namespace DarkGod.Main
         public Button btnCloseSettings;
         public Dropdown qualitySelectDropdown;
 
+        public DebugWnd debugWnd;
+
         protected override void InitWnd()
         {
             base.InitWnd();
@@ -23,6 +25,11 @@ namespace DarkGod.Main
             InitQualityDropdownOptionData();
             UIAddListener();
             InitSliderValue();
+
+            if (debugWnd != null)
+            {
+                debugWnd.SetWndState();
+            }
         }
 
         private bool GetVSyncCount()
@@ -129,8 +136,8 @@ namespace DarkGod.Main
         private void InitQualityDropdownOptionData()
         {
             List<string> qualityLst = new List<string>(QualitySettings.names);
-
             List<Dropdown.OptionData> qualitySelectDropdownOptionData = new List<Dropdown.OptionData>();
+
             foreach (var item in qualityLst)
             {
                 Dropdown.OptionData data = new Dropdown.OptionData();

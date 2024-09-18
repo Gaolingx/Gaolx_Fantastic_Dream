@@ -4651,6 +4651,7 @@ MonoBehaviour:
   btnMainMenu: {fileID: 6120058156856597560}
   btnCloseSettings: {fileID: 6120058156070457368}
   qualitySelectDropdown: {fileID: 3892771302091618463}
+  debugWnd: {fileID: 745824159130287861}
 --- !u!114 &745824159130287861
 MonoBehaviour:
   m_ObjectHideFlags: 0

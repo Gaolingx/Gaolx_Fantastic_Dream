@@ -1856,7 +1856,7 @@ PrefabInstance:
         type: 3}
       propertyPath: fpsWnd
       value: 
-      objectReference: {fileID: 5538793238571322588}
+      objectReference: {fileID: 3693786210928856610}
     - target: {fileID: 745824159130287861, guid: d65385e92d3e8954685097fe65dc075c,
         type: 3}
       propertyPath: DebugItem
@@ -3185,9 +3185,9 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 8755591845322414464}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &5538793238571322588 stripped
+--- !u!224 &3693786210928856610 stripped
 RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3845972369027814748, guid: 4c7d0fc1db4bbf64ca5d2ab052457947,
+  m_CorrespondingSourceObject: {fileID: 5386563101079984034, guid: 4c7d0fc1db4bbf64ca5d2ab052457947,
     type: 3}
   m_PrefabInstance: {fileID: 8755591845322414464}
   m_PrefabAsset: {fileID: 0}

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace DarkGod.Main
 {
-    public class FpsWnd : WindowRoot
+    public class DebugWnd : WindowRoot
     {
         public Toggle FpsWndToggle, RuntimeInspectorToggle, RuntimeHierarchyToggle;
         public Button btnCloseDebugItem;
