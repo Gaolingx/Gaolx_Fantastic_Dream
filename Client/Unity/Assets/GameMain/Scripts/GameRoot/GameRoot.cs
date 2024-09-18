@@ -110,17 +110,11 @@ namespace DarkGod.Main
         {
             if (pauseState.Value == true || starterAssetsInputs.cursorLocked == true || GetCursorLockModeState() == true)
             {
-
-#if !UNITY_ANDROID
-                Cursor.lockState = CursorLockMode.None;
-#endif
+                GetUIController().CursorLock = CursorLockMode.None;
             }
             else
             {
-
-#if !UNITY_ANDROID
-                Cursor.lockState = CursorLockMode.Locked;
-#endif
+                GetUIController().CursorLock = CursorLockMode.Locked;
             }
         }
 
