@@ -19,40 +19,39 @@ namespace DarkGod.Main
         /// <param name="rootObjTrans"></param>
         /// <param name="isReplaceName"></param>
         /// <returns></returns>
-        public static Transform SetGameObjectTrans(GameObject obj, Vector3 GameObjectPos, Vector3 GameObjectRota, Vector3 GameObjectScal, bool isLocalPos = true, bool isLocalEulerAngles = true, bool isSetParent = false, Transform rootObjTrans = null, bool isReplaceName = false)
+        public static Transform SetGameObjectTrans(GameObject gameObject, Vector3 gameObjectPos, Vector3 gameObjectRota, Vector3 gameObjectScal, bool isLocalPos = true, bool isLocalEulerAngles = true, bool isSetParent = false, Transform rootTrans = null, string gameObjectName = null)
         {
-            if (isReplaceName)
+            if (gameObjectName != null)
             {
-                obj.name = obj.name.Replace("(Clone)", "");
+                gameObject.name = gameObjectName;
             }
 
             if (isSetParent)
             {
-                obj.transform.SetParent(rootObjTrans);
+                gameObject.transform.SetParent(rootTrans);
             }
 
             if (isLocalPos)
             {
-                obj.transform.localPosition = GameObjectPos;
+                gameObject.transform.localPosition = gameObjectPos;
             }
             else
             {
-                obj.transform.position = GameObjectPos;
+                gameObject.transform.position = gameObjectPos;
             }
 
             if (isLocalEulerAngles)
             {
-                obj.transform.localEulerAngles = GameObjectRota;
+                gameObject.transform.localEulerAngles = gameObjectRota;
             }
             else
             {
-                obj.transform.eulerAngles = GameObjectRota;
+                gameObject.transform.eulerAngles = gameObjectRota;
             }
 
-            obj.transform.localScale = GameObjectScal;
+            gameObject.transform.localScale = gameObjectScal;
 
-            Transform GOTrans = obj.transform;
-            return GOTrans;
+            return gameObject.transform;
         }
 
         /// <summary>

@@ -91,21 +91,14 @@ namespace DarkGod.Main
             return instantiatedPrefab;
         }
 
-        public async UniTask<GameObject> LoadGameObjectAsync(string packageName, string prefabPath, Vector3 GameObjectPos, Vector3 GameObjectRota, Vector3 GameObjectScal, bool isCache = false, bool isLocalPos = true, bool isLocalEulerAngles = true, Transform transform = null, bool isRename = false, bool isNeedDestroy = true, CancellationToken cancellationToken = default, System.IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
+        public async UniTask<GameObject> LoadGameObjectAsync(string packageName, string prefabPath, Vector3 gameObjectPos, Vector3 gameObjectRota, Vector3 gameObjectScal, bool isCache = false, bool isLocalPos = true, bool isLocalEulerAngles = true, Transform rootTrans = null, string gameObjectName = null, bool isDestroy = true, CancellationToken cancellationToken = default, System.IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
         {
             GameObject prefab = await LoadAssetAsync<GameObject>(packageName, prefabPath, isCache, cancellationToken, progress, timing);
-            GameObject instantiatedPrefab = null;
-            if (isNeedDestroy)
-            {
-                instantiatedPrefab = Instantiate(prefab);
-            }
-            else
-            {
-                instantiatedPrefab = Instantiate(prefab, this.transform);
-            }
 
-            UIItemUtils.SetGameObjectTrans(instantiatedPrefab, GameObjectPos, GameObjectRota, GameObjectScal, isLocalPos, isLocalEulerAngles, true, transform, isRename);
+            GameObject instantiatedPrefab = Instantiate(prefab);
+            if (!isDestroy) { DontDestroyOnLoad(instantiatedPrefab); }
 
+            UIItemUtils.SetGameObjectTrans(instantiatedPrefab, gameObjectPos, gameObjectRota, gameObjectScal, isLocalPos, isLocalEulerAngles, true, rootTrans, gameObjectName);
 
             PECommon.Log("Prefab load Async. name:" + instantiatedPrefab.name + ". path:" + prefabPath + ",isCache:" + isCache);
             return instantiatedPrefab;
