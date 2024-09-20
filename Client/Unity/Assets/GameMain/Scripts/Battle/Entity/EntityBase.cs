@@ -152,7 +152,7 @@ namespace DarkGod.Main
                 playerController.SetDir(dir);
             }
         }
-        public virtual void SetAction(int action)
+        public virtual void SetAction(int action, bool rootMotion = true)
         {
             if (controller != null)
             {
@@ -160,6 +160,7 @@ namespace DarkGod.Main
             }
             else if (playerController != null)
             {
+                playerController.ApplyRootMotion = rootMotion;
                 playerController.SetAction(action);
             }
         }

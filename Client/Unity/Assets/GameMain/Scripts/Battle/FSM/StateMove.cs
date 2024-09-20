@@ -8,6 +8,10 @@ namespace DarkGod.Main
         {
             //当进入某个状态时，需要标记当前状态，当下一次进入该状态，判断是否已经处于目标状态，如果是则无需切换
             entity.currentAniState = AniState.Move;
+            if (entity.entityType == EntityType.Player)
+            {
+                entity.playerController.ApplyRootMotion = false;
+            }
             //PECommon.Log("StateMove:Enter State.");
         }
 

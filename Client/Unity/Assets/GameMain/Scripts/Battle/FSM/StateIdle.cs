@@ -11,6 +11,10 @@ namespace DarkGod.Main
             entity.currentAniState = AniState.Idle;
             entity.SetDir(Vector2.zero);
             entity.skEndCB = -1;
+            if (entity.entityType == EntityType.Player)
+            {
+                entity.playerController.ApplyRootMotion = false;
+            }
             //PECommon.Log("StateIdle:Enter State.");
         }
 

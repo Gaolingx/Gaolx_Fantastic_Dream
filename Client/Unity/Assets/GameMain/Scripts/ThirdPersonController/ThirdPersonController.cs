@@ -25,6 +25,9 @@ namespace StarterAssets
         [Tooltip("Move Control Mode")]
         public ControlState MoveControlState = ControlState.Walk;
 
+        [Tooltip("Apply Root Motion")]
+        public bool ApplyRootMotion = false;
+
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
 
@@ -270,11 +273,6 @@ namespace StarterAssets
                 idleAction.Value = false;
             }
 
-            // move state
-            if (MoveControlState != ControlState.None)
-            {
-                Move();
-            }
         }
         private void ClassLateUpdate()
         {
@@ -634,6 +632,21 @@ namespace StarterAssets
                 {
                     _audioSvc.PlayLanding(transform);
                 }
+            }
+        }
+
+        private void OnAnimatorMove()
+        {
+            // skill root motion
+            if (ApplyRootMotion == true && _hasAnimator == true)
+            {
+                _controller.Move(_animator.deltaPosition);
+            }
+
+            // move state
+            if (MoveControlState != ControlState.None)
+            {
+                Move();
             }
         }
 
