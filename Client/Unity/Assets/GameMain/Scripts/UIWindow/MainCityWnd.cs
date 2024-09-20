@@ -49,6 +49,16 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
+            pointDis = 1 / UIItemUtils.GetScreenScale().y * Constants.ScreenOPDis;
+            defaultPos = imgDirBg.transform.position;
+            SetActive(imgDirPoint, false);
+
+            RegisterTouchEvts();
+            RefreshUI();
+        }
+
+        private void OnEnable()
+        {
             btnMenu.onClick.AddListener(delegate { ClickMenuBtn(); });
             btnBuyPower.onClick.AddListener(delegate { ClickBuyPowerBtn(); });
             btnGuide.onClick.AddListener(delegate { ClickGuideBtn(); });
@@ -59,13 +69,6 @@ namespace DarkGod.Main
             btnStrong.onClick.AddListener(delegate { ClickStrongBtn(); });
             btnSettings.onClick.AddListener(delegate { ClickSettingsBtn(); });
             btnChat.onClick.AddListener(delegate { ClickChatBtn(); });
-
-            pointDis = 1 / UIItemUtils.GetScreenScale().y * Constants.ScreenOPDis;
-            defaultPos = imgDirBg.transform.position;
-            SetActive(imgDirPoint, false);
-
-            RegisterTouchEvts();
-            RefreshUI();
         }
 
         public void RefreshUI()

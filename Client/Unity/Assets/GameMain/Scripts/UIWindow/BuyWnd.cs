@@ -26,11 +26,15 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
-            btnSure.onClick.AddListener(delegate { ClickSureBtn(); });
-            btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
             btnSure.interactable = true;
 
             RefreshUI();
+        }
+
+        private void OnEnable()
+        {
+            btnSure.onClick.AddListener(delegate { ClickSureBtn(); });
+            btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
         }
 
         public void GetBuyCfg(int buyType)

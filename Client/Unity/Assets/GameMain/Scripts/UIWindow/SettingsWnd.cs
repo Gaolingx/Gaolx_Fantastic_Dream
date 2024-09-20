@@ -23,13 +23,17 @@ namespace DarkGod.Main
             base.InitWnd();
 
             InitQualityDropdownOptionData();
-            UIAddListener();
             InitSliderValue();
 
             if (debugWnd != null)
             {
                 debugWnd.SetWndState();
             }
+        }
+
+        private void OnEnable()
+        {
+            UIAddListener();
         }
 
         private bool GetVSyncCount()

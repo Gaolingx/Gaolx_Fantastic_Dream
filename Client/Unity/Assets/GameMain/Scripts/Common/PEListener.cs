@@ -23,32 +23,20 @@ namespace DarkGod.Main
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (onClick != null)
-            {
-                onClick(args);
-            }
+            onClick?.Invoke(args);
         }
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            if (onClickDown != null)
-            {
-                onClickDown(eventData);
-            }
+            onClickDown?.Invoke(eventData);
         }
         public void OnPointerUp(PointerEventData eventData)
         {
-            if (onClickUp != null)
-            {
-                onClickUp(eventData);
-            }
+            onClickUp?.Invoke(eventData);
         }
         public void OnDrag(PointerEventData eventData)
         {
-            if (onDrag != null)
-            {
-                onDrag(eventData);
-            }
+            onDrag?.Invoke(eventData);
         }
 
     }

@@ -17,11 +17,14 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
-            btnRand.onClick.AddListener(delegate { ClickRandBtn(); });
-            btnEnter.onClick.AddListener(delegate { ClickEnterBtn(); });
-
             //显示一个随机名字
             iptName.text = configSvc.GetRDNameCfg(false);
+        }
+
+        private void OnEnable()
+        {
+            btnRand.onClick.AddListener(delegate { ClickRandBtn(); });
+            btnEnter.onClick.AddListener(delegate { ClickEnterBtn(); });
         }
 
         public void ClickRandBtn()
@@ -53,6 +56,12 @@ namespace DarkGod.Main
             {
                 MsgBox.MainInstance.ShowMessageBox("当前名字不符合规范");
             }
+        }
+
+        private void OnDisable()
+        {
+            btnRand.onClick.RemoveAllListeners();
+            btnEnter.onClick.RemoveAllListeners();
         }
     }
 }

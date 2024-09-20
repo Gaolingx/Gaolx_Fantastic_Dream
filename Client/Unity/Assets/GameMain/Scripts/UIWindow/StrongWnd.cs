@@ -52,10 +52,14 @@ namespace DarkGod.Main
 
             //×¢²áµã»÷ÊÂ¼þ
             RegClickEvts();
-            btnStrong.onClick.AddListener(delegate { ClickStrongBtn(); });
-            btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
 
             ClickPosItem(0);
+        }
+
+        private void OnEnable()
+        {
+            btnStrong.onClick.AddListener(delegate { ClickStrongBtn(); });
+            btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
         }
 
         private void RegClickEvts()

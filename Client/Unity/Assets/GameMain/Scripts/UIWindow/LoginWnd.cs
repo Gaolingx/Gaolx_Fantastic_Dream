@@ -21,14 +21,17 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
-            btnEnter.onClick.AddListener(delegate { ClickEnterBtn(); });
-            btnNotice.onClick.AddListener(delegate { ClicKNoticeBtn(); });
-
             SetHotfixVersionWnd();
 
             btnRemember.isOn = playerPrefsSvc.GetLoginItem().isRemember;
             iptAcct.text = playerPrefsSvc.GetLoginItem().account;
             iptPass.text = playerPrefsSvc.GetLoginItem().password;
+        }
+
+        private void OnEnable()
+        {
+            btnEnter.onClick.AddListener(delegate { ClickEnterBtn(); });
+            btnNotice.onClick.AddListener(delegate { ClicKNoticeBtn(); });
         }
 
         private void SetHotfixVersionWnd()

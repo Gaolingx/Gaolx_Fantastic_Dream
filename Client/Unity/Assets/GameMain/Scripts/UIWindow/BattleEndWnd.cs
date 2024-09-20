@@ -45,11 +45,14 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
+            RefreshUI();
+        }
+
+        private void OnEnable()
+        {
             btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
             btnExit.onClick.AddListener(delegate { ClickExitBtn(); });
             btnSure.onClick.AddListener(delegate { ClickSureBtn(); });
-
-            RefreshUI();
         }
 
         public void SetWndType(FBEndType endType)

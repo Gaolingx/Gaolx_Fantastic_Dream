@@ -76,12 +76,6 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
-            btnSettings.onClick.AddListener(delegate { ClickSettingsBtn(); });
-            btnNormal.onClick.AddListener(delegate { uICanvasController.VirtualNormalAtkInput(true); });
-            btnSkill1.onClick.AddListener(delegate { uICanvasController.VirtualSkill01Input(true); });
-            btnSkill2.onClick.AddListener(delegate { uICanvasController.VirtualSkill02Input(true); });
-            btnSkill3.onClick.AddListener(delegate { uICanvasController.VirtualSkill03Input(true); });
-
             InitSkCDTime();
 
             SetBossHPBarState(false);
@@ -89,18 +83,15 @@ namespace DarkGod.Main
             InitHPVal();
         }
 
-        private void InitPlayerInput()
+        private void OnEnable()
         {
-            playerInput = GameRoot.MainInstance.GetStarterAssetsInputs();
-            uICanvasController = GameRoot.MainInstance.GetUICanvasControllerInput();
-
-            if (playerInput != null && uICanvasController != null)
-            {
-                uICanvasController.gameObject.SetActive(true);
-                playerInput.gameObject.SetActive(true);
-                uICanvasController.starterAssetsInputs = playerInput;
-            }
+            btnSettings.onClick.AddListener(delegate { ClickSettingsBtn(); });
+            btnNormal.onClick.AddListener(delegate { uICanvasController.VirtualNormalAtkInput(true); });
+            btnSkill1.onClick.AddListener(delegate { uICanvasController.VirtualSkill01Input(true); });
+            btnSkill2.onClick.AddListener(delegate { uICanvasController.VirtualSkill02Input(true); });
+            btnSkill3.onClick.AddListener(delegate { uICanvasController.VirtualSkill03Input(true); });
         }
+
 
         private void Awake()
         {
@@ -136,6 +127,19 @@ namespace DarkGod.Main
             }
 
             UpdateBossHPBlend();
+        }
+
+        private void InitPlayerInput()
+        {
+            playerInput = GameRoot.MainInstance.GetStarterAssetsInputs();
+            uICanvasController = GameRoot.MainInstance.GetUICanvasControllerInput();
+
+            if (playerInput != null && uICanvasController != null)
+            {
+                uICanvasController.gameObject.SetActive(true);
+                playerInput.gameObject.SetActive(true);
+                uICanvasController.starterAssetsInputs = playerInput;
+            }
         }
 
         private void InitSkCDTime()

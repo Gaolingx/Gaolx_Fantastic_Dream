@@ -29,15 +29,18 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
+            chatType = ChatType.ChatWorld;
+
+            RefreshUI();
+        }
+
+        private void OnEnable()
+        {
             btnWord.onClick.AddListener(delegate { ClickWorldBtn(); });
             btnGuild.onClick.AddListener(delegate { ClickGuildBtn(); });
             btnFriend.onClick.AddListener(delegate { ClickFriendBtn(); });
             btnSend.onClick.AddListener(delegate { ClickSendBtn(); });
             btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
-
-            chatType = ChatType.ChatWorld;
-
-            RefreshUI();
         }
 
         //显示聊天信息

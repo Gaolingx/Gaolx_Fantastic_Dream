@@ -22,10 +22,12 @@ namespace DarkGod.Main
             base.InitWnd();
 
             pd = GameRoot.MainInstance.PlayerData;
-
-            btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
-
             RefreshUI();
+        }
+
+        private void OnEnable()
+        {
+            btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
         }
 
         public async void RefreshUI()
