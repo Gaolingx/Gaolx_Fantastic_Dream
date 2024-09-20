@@ -120,7 +120,7 @@ namespace DarkGod.Main
             resSvc.AsyncLoadScene(Constants.ResourcePackgeName, mapCfg.sceneName, () =>
             {
                 //初始化地图数据
-                mapMgr = MapMgr.MainInstance;
+                mapMgr = GameObject.FindGameObjectWithTag(Constants.MapRootGameObjectWithTag).GetComponent<MapMgr>();
                 mapMgr.Init(this);
 
                 AddEntityPlayerData();
@@ -147,9 +147,7 @@ namespace DarkGod.Main
 
         private void PlayBGAudioLst()
         {
-            List<string> auLst = new();
-            auLst.Add(Constants.BGHuangYe);
-            auLst.Add(Constants.BGBattle01);
+            List<string> auLst = new List<string> { Constants.BGHuangYe, Constants.BGBattle01 };
             audioSvc.StopBGMusic();
             audioSvc.PlayBGMusics(auLst, 3f, true);
         }

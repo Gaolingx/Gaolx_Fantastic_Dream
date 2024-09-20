@@ -39,8 +39,7 @@ namespace DarkGod.Main
             {
                 //加载完成以后再打开注册登录界面
                 loginWnd.SetWndState();
-                List<string> auLst = new List<string>();
-                auLst.Add(Constants.BGLogin);
+                List<string> auLst = new List<string> { Constants.BGLogin };
                 audioSvc.StopBGMusic();
                 audioSvc.PlayBGMusics(auLst, 3f);
             });

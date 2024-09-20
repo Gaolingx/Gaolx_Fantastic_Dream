@@ -231,12 +231,13 @@ namespace DarkGod.Main
             MsgBox.MainInstance.ShowMessageBox("技能数据重置成功！");
         }
 
-        protected void ExitCurrentBattle(bool enterFubenWndIfNeed = false)
+        protected void ExitCurrentBattle(System.Action callback = null)
         {
             if (GameRoot.MainInstance.GetGameState() == GameState.FBFight)
             {
                 BattleSys.Instance.EnterMainCity();
                 BattleSys.Instance.DestroyBattle();
+                callback?.Invoke();
             }
             else if (GameRoot.MainInstance.GetGameState() == GameState.MainCity)
             {

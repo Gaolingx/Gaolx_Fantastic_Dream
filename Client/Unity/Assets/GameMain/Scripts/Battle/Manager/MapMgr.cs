@@ -6,15 +6,27 @@ using HuHu;
 
 namespace DarkGod.Main
 {
-    public class MapMgr : Singleton<MapMgr>
+    public class MapMgr : MonoBehaviour
     {
-        public List<TriggerData> triggerLst = new List<TriggerData>();
+        [SerializeField] private List<TriggerData> triggerLst;
         private int waveIndex = 1; //默认生成第一波怪物
         private BattleMgr battleMgr;
+
+        private void InitTriggerData()
+        {
+            TriggerData[] triggerData = GameObject.FindObjectsOfType<TriggerData>();
+            triggerLst = new List<TriggerData>(triggerData);
+
+            for (int i = 0; i < triggerLst.Count; i++)
+            {
+                triggerLst[i].mapMgr = this;
+            }
+        }
 
         public void Init(BattleMgr battle)
         {
             battleMgr = battle;
+            InitTriggerData();
 
             UIItemUtils.SetGameObjectTrans(this.gameObject, Vector3.zero, Vector3.zero, Vector3.one);
 

@@ -81,22 +81,25 @@ namespace DarkGod.Main
         }
         #endregion
 
-        public void SetCtrl(Controller ctrl)
+        public void SetCtrl<T>(T ctrl) where T : Component
         {
-            controller = ctrl;
-        }
-        public void SetCtrl(ThirdPersonController ctrl)
-        {
-            playerController = ctrl;
+            if (ctrl is Controller)
+            {
+                controller = ctrl as Controller;
+            }
+            else if (ctrl is ThirdPersonController)
+            {
+                playerController = ctrl as ThirdPersonController;
+            }
         }
 
         public void SetActive(bool active = true)
         {
-            if (controller != null)
+            if (entityType == EntityType.Monster)
             {
                 controller.gameObject.SetActive(active);
             }
-            else if (playerController != null)
+            else if (entityType == EntityType.Player)
             {
                 playerController.gameObject.SetActive(active);
             }
@@ -132,33 +135,33 @@ namespace DarkGod.Main
 
         public virtual void SetAniBlend(int blend)
         {
-            if (controller != null)
+            if (entityType == EntityType.Monster)
             {
                 controller.SetBlend(blend);
             }
-            else if (playerController != null)
+            else if (entityType == EntityType.Player)
             {
                 playerController.SetAniBlend(blend);
             }
         }
         public virtual void SetDir(Vector2 dir)
         {
-            if (controller != null)
+            if (entityType == EntityType.Monster)
             {
                 controller.Dir = dir;
             }
-            else if (playerController != null)
+            else if (entityType == EntityType.Player)
             {
                 playerController.SetDir(dir);
             }
         }
         public virtual void SetAction(int action, bool rootMotion = true)
         {
-            if (controller != null)
+            if (entityType == EntityType.Monster)
             {
                 controller.SetAction(action);
             }
-            else if (playerController != null)
+            else if (entityType == EntityType.Player)
             {
                 playerController.ApplyRootMotion = rootMotion;
                 playerController.SetAction(action);
@@ -167,21 +170,21 @@ namespace DarkGod.Main
 
         public virtual void SetCFX(string fxName, float destroyTime)
         {
-            if (playerController != null)
+            if (entityType == EntityType.Player)
             {
                 VFXManager.MainInstance.SetFX(playerController.transform, fxName, destroyTime);
             }
         }
         public virtual void SetSkillMoveState(bool move, float speed = 0f)
         {
-            if (playerController != null)
+            if (entityType == EntityType.Player)
             {
                 playerController.SetSkillMove(move, speed);
             }
         }
         public virtual void SetAtkRotation(Vector2 dir, bool isOffset = false) //¿¼ÂÇÉãÏñ»úÆ«ÒÆ
         {
-            if (controller != null)
+            if (entityType == EntityType.Monster)
             {
                 if (isOffset)
                 {
@@ -192,7 +195,7 @@ namespace DarkGod.Main
                     controller.SetAtkRotationLocal(dir);
                 }
             }
-            else if (playerController != null)
+            else if (entityType == EntityType.Player)
             {
                 playerController.SetAtkRotationLocal(dir);
             }
@@ -241,11 +244,11 @@ namespace DarkGod.Main
 
         public virtual Vector3 GetPos()
         {
-            if (controller != null)
+            if (entityType == EntityType.Monster)
             {
                 return controller.transform.position;
             }
-            else if (playerController != null)
+            else if (entityType == EntityType.Player)
             {
                 return playerController.transform.position;
             }
@@ -255,11 +258,11 @@ namespace DarkGod.Main
 
         public virtual Transform GetTrans()
         {
-            if (controller != null)
+            if (entityType == EntityType.Monster)
             {
                 return controller.transform;
             }
-            else if (playerController != null)
+            else if (entityType == EntityType.Player)
             {
                 return playerController.transform;
             }
@@ -269,11 +272,11 @@ namespace DarkGod.Main
 
         public AnimationClip[] GetAniClips()
         {
-            if (controller != null)
+            if (entityType == EntityType.Monster)
             {
                 return controller.ani.runtimeAnimatorController.animationClips;
             }
-            else if (playerController != null)
+            else if (entityType == EntityType.Player)
             {
                 return playerController.GetAnimator().runtimeAnimatorController.animationClips;
             }
@@ -282,11 +285,11 @@ namespace DarkGod.Main
 
         public AudioSource GetAudioSource()
         {
-            if (controller != null)
+            if (entityType == EntityType.Monster)
             {
                 return controller.GetComponent<AudioSource>();
             }
-            else if (playerController != null)
+            else if (entityType == EntityType.Player)
             {
                 return playerController.GetComponent<AudioSource>();
             }
@@ -295,11 +298,11 @@ namespace DarkGod.Main
 
         public CharacterController GetCharacterController()
         {
-            if (controller != null)
+            if (entityType == EntityType.Monster)
             {
                 return controller.GetComponent<CharacterController>();
             }
-            else if (playerController != null)
+            else if (entityType == EntityType.Player)
             {
                 return playerController.GetComponent<CharacterController>();
             }

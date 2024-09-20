@@ -107,8 +107,7 @@ namespace DarkGod.Main
 
         private void PlayBGAudioLst()
         {
-            List<string> auLst = new List<string>();
-            auLst.Add(Constants.BGMainCity);
+            List<string> auLst = new List<string> { Constants.BGMainCity };
             audioSvc.StopBGMusic();
             audioSvc.PlayBGMusics(auLst, 3f);
         }
