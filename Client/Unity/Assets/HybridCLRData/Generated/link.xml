@@ -13,38 +13,12 @@
     <type fullname="SimpleJSON.JSON" preserve="all" />
     <type fullname="SimpleJSON.JSONNode" preserve="all" />
   </assembly>
-  <assembly fullname="PEProtocol">
-    <type fullname="PECommon" preserve="all" />
-    <type fullname="PELogType" preserve="all" />
-    <type fullname="PEProtocol.CMD" preserve="all" />
-    <type fullname="PEProtocol.ErrorCode" preserve="all" />
-    <type fullname="PEProtocol.GameMsg" preserve="all" />
-    <type fullname="PEProtocol.PlayerData" preserve="all" />
-    <type fullname="PEProtocol.PshChat" preserve="all" />
-    <type fullname="PEProtocol.PshPower" preserve="all" />
-    <type fullname="PEProtocol.PshTaskPrgs" preserve="all" />
-    <type fullname="PEProtocol.ReqBuy" preserve="all" />
-    <type fullname="PEProtocol.ReqFBFight" preserve="all" />
-    <type fullname="PEProtocol.ReqFBFightEnd" preserve="all" />
-    <type fullname="PEProtocol.ReqGuide" preserve="all" />
-    <type fullname="PEProtocol.ReqLogin" preserve="all" />
-    <type fullname="PEProtocol.ReqRename" preserve="all" />
-    <type fullname="PEProtocol.ReqStrong" preserve="all" />
-    <type fullname="PEProtocol.ReqTakeTaskReward" preserve="all" />
-    <type fullname="PEProtocol.RspBuy" preserve="all" />
-    <type fullname="PEProtocol.RspFBFight" preserve="all" />
-    <type fullname="PEProtocol.RspFBFightEnd" preserve="all" />
-    <type fullname="PEProtocol.RspGuide" preserve="all" />
-    <type fullname="PEProtocol.RspLogin" preserve="all" />
-    <type fullname="PEProtocol.RspRename" preserve="all" />
-    <type fullname="PEProtocol.RspStrong" preserve="all" />
-    <type fullname="PEProtocol.RspTakeTaskReward" preserve="all" />
-    <type fullname="PEProtocol.SndChat" preserve="all" />
-  </assembly>
   <assembly fullname="PESocket">
+    <type fullname="PENet.LogLevel" preserve="all" />
     <type fullname="PENet.PEMsg" preserve="all" />
     <type fullname="PENet.PESession`1" preserve="all" />
     <type fullname="PENet.PESocket`2" preserve="all" />
+    <type fullname="PENet.PETool" preserve="all" />
   </assembly>
   <assembly fullname="PETimer">
     <type fullname="PETimeUnit" preserve="all" />
@@ -266,6 +240,12 @@
     <type fullname="System.OperationCanceledException" preserve="all" />
     <type fullname="System.ParamArrayAttribute" preserve="all" />
     <type fullname="System.Random" preserve="all" />
+    <type fullname="System.Reflection.AssemblyCompanyAttribute" preserve="all" />
+    <type fullname="System.Reflection.AssemblyConfigurationAttribute" preserve="all" />
+    <type fullname="System.Reflection.AssemblyFileVersionAttribute" preserve="all" />
+    <type fullname="System.Reflection.AssemblyInformationalVersionAttribute" preserve="all" />
+    <type fullname="System.Reflection.AssemblyProductAttribute" preserve="all" />
+    <type fullname="System.Reflection.AssemblyTitleAttribute" preserve="all" />
     <type fullname="System.Reflection.BindingFlags" preserve="all" />
     <type fullname="System.Reflection.CustomAttributeExtensions" preserve="all" />
     <type fullname="System.Reflection.DefaultMemberAttribute" preserve="all" />
@@ -281,6 +261,7 @@
     <type fullname="System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.RuntimeHelpers" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.TupleElementNamesAttribute" preserve="all" />
+    <type fullname="System.Runtime.Versioning.TargetFrameworkAttribute" preserve="all" />
     <type fullname="System.RuntimeFieldHandle" preserve="all" />
     <type fullname="System.RuntimeTypeHandle" preserve="all" />
     <type fullname="System.Security.Permissions.SecurityAction" preserve="all" />

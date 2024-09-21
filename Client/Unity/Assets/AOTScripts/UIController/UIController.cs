@@ -48,7 +48,7 @@ public class UIController : MonoBehaviour
 
     private void Start()
     {
-        PECommon.Log("UIController Init Done.");
+        Debug.Log("UIController Init Done.");
 
 
 #if UNITY_ANDROID

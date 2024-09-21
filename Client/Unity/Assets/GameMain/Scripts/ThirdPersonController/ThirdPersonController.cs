@@ -114,6 +114,7 @@ namespace StarterAssets
         private float _rotationVelocity;
         private float _verticalVelocity;
         private float _terminalVelocity = 53.0f;
+        private bool _isSkillMove = false;
 
         // timeout deltatime
         private float _jumpTimeoutDelta;
@@ -146,8 +147,6 @@ namespace StarterAssets
         private const float _threshold = 0.01f;
 
         private bool _hasAnimator;
-        private bool _isSkillMove = false;
-
 
         private bool IsCurrentDeviceMouse
         {
@@ -375,20 +374,6 @@ namespace StarterAssets
             }
         }
 
-        private float UpdateMoveSpeed()
-        {
-            float targetSpeed;
-            if (_isSkillMove)
-            {
-                targetSpeed = SkillMoveSpeed;
-            }
-            else
-            {
-                targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
-            }
-            return targetSpeed;
-        }
-
         private void OnCrouch()
         {
             if (_hasAnimator)
@@ -429,7 +414,7 @@ namespace StarterAssets
             Vector2 _moveVal = UpdateMoveInputState();
 
             // set target speed based on move speed, sprint speed and if sprint is pressed
-            float targetSpeed = UpdateMoveSpeed();
+            float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
@@ -483,8 +468,16 @@ namespace StarterAssets
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
             // move the player
-            _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
+            if (!_isSkillMove)
+            {
+                _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
+                                 new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            }
+            else
+            {
+                _controller.Move(targetDirection.normalized * (SkillMoveSpeed * Time.deltaTime) +
                              new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            }
 
             // update animator if using character
             if (_hasAnimator)
