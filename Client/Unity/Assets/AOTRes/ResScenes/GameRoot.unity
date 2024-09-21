@@ -725,8 +725,8 @@ MonoBehaviour:
   _gameRootObjectName: Assets/AssetBundles/Prefabs/RootPrefabs/HotFixRoot.prefab
   _gameRootParentTransform: {fileID: 8549510451735545887}
   _hotUpdateDllList:
-  - Assets/AssetBundles/Scripts/Dlls/GameMain.dll
   - Assets/AssetBundles/Scripts/Dlls/PEProtocol.dll
+  - Assets/AssetBundles/Scripts/Dlls/GameMain.dll
   _AOTMetaAssemblyNames:
   - Assets/AssetBundles/Scripts/Dlls/Cinemachine.dll
   - Assets/AssetBundles/Scripts/Dlls/DOTween.dll
