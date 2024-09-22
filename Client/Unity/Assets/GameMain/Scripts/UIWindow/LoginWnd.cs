@@ -8,7 +8,7 @@ using static DarkGod.Main.PlayerPrefsSvc;
 
 namespace DarkGod.Main
 {
-    public class LoginWnd : WindowRoot
+    public class LoginWnd : WindowRoot, IWindowRoot
     {
         public InputField iptAcct;
         public InputField iptPass;
@@ -28,7 +28,7 @@ namespace DarkGod.Main
             iptPass.text = playerPrefsSvc.GetLoginItem().password;
         }
 
-        private void OnEnable()
+        public void OnEnable()
         {
             btnEnter.onClick.AddListener(delegate { ClickEnterBtn(); });
             btnNotice.onClick.AddListener(delegate { ClicKNoticeBtn(); });
@@ -85,10 +85,15 @@ namespace DarkGod.Main
             MsgBox.MainInstance.ShowMessageBox("功能正在开发中...");
         }
 
-        private void OnDisable()
+        public void OnDisable()
         {
             btnEnter.onClick.RemoveAllListeners();
             btnNotice.onClick.RemoveAllListeners();
+        }
+
+        public void ClickCloseBtn()
+        {
+
         }
     }
 }

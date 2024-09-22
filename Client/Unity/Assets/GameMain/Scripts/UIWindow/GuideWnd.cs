@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace DarkGod.Main
 {
-    public class GuideWnd : WindowRoot
+    public class GuideWnd : WindowRoot, IWindowRoot
     {
         public Text txtName; //名字
         public Text txtTalk; //显示的对话内容
@@ -30,7 +30,7 @@ namespace DarkGod.Main
             SetTalk();
         }
 
-        private void OnEnable()
+        public void OnEnable()
         {
             btnNext.onClick.AddListener(delegate { ClickNextBtn(); });
         }
@@ -108,9 +108,14 @@ namespace DarkGod.Main
             }
         }
 
-        private void OnDisable()
+        public void OnDisable()
         {
             btnNext.onClick.RemoveAllListeners();
+        }
+
+        public void ClickCloseBtn()
+        {
+
         }
     }
 }

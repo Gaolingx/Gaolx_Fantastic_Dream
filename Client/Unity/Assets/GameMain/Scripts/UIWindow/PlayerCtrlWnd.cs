@@ -11,7 +11,7 @@ using UnityEngine.UI;
 
 namespace DarkGod.Main
 {
-    public class PlayerCtrlWnd : WindowRoot
+    public class PlayerCtrlWnd : WindowRoot, IWindowRoot
     {
         public Text txtLevel;
         public Text txtName;
@@ -83,7 +83,7 @@ namespace DarkGod.Main
             InitHPVal();
         }
 
-        private void OnEnable()
+        public void OnEnable()
         {
             btnSettings.onClick.AddListener(delegate { ClickSettingsBtn(); });
             btnNormal.onClick.AddListener(delegate { uICanvasController.VirtualNormalAtkInput(true); });
@@ -408,7 +408,7 @@ namespace DarkGod.Main
 
         #endregion
 
-        private void OnDisable()
+        public void OnDisable()
         {
             btnSettings.onClick.RemoveAllListeners();
             btnNormal.onClick.RemoveAllListeners();
@@ -417,5 +417,9 @@ namespace DarkGod.Main
             btnSkill3.onClick.RemoveAllListeners();
         }
 
+        public void ClickCloseBtn()
+        {
+
+        }
     }
 }

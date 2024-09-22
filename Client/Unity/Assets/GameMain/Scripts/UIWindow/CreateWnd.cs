@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace DarkGod.Main
 {
-    public class CreateWnd : WindowRoot
+    public class CreateWnd : WindowRoot, IWindowRoot
     {
         public InputField iptName;
         public Button btnRand;
@@ -21,7 +21,7 @@ namespace DarkGod.Main
             iptName.text = configSvc.GetRDNameCfg(false);
         }
 
-        private void OnEnable()
+        public void OnEnable()
         {
             btnRand.onClick.AddListener(delegate { ClickRandBtn(); });
             btnEnter.onClick.AddListener(delegate { ClickEnterBtn(); });
@@ -58,10 +58,15 @@ namespace DarkGod.Main
             }
         }
 
-        private void OnDisable()
+        public void OnDisable()
         {
             btnRand.onClick.RemoveAllListeners();
             btnEnter.onClick.RemoveAllListeners();
+        }
+
+        public void ClickCloseBtn()
+        {
+
         }
     }
 }

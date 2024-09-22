@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace DarkGod.Main
 {
-    public class MainCityWnd : WindowRoot
+    public class MainCityWnd : WindowRoot, IWindowRoot
     {
         #region UIDefine
         public Image imgTouch;
@@ -57,7 +57,7 @@ namespace DarkGod.Main
             RefreshUI();
         }
 
-        private void OnEnable()
+        public void OnEnable()
         {
             btnMenu.onClick.AddListener(delegate { ClickMenuBtn(); });
             btnBuyPower.onClick.AddListener(delegate { ClickBuyPowerBtn(); });
@@ -242,7 +242,7 @@ namespace DarkGod.Main
             MainCitySys.Instance.OpenSettingsWnd();
         }
 
-        private void OnDisable()
+        public void OnDisable()
         {
             btnMenu.onClick.RemoveAllListeners();
             btnBuyPower.onClick.RemoveAllListeners();
@@ -254,6 +254,11 @@ namespace DarkGod.Main
             btnStrong.onClick.RemoveAllListeners();
             btnSettings.onClick.RemoveAllListeners();
             btnChat.onClick.RemoveAllListeners();
+        }
+
+        public void ClickCloseBtn()
+        {
+
         }
     }
 }

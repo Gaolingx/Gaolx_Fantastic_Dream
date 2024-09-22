@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace DarkGod.Main
 {
-    public class InfoWnd : WindowRoot
+    public class InfoWnd : WindowRoot, IWindowRoot
     {
         #region UI Define
         public RawImage imgChar;
@@ -51,7 +51,7 @@ namespace DarkGod.Main
             RefreshUI();
         }
 
-        private void OnEnable()
+        public void OnEnable()
         {
             btnDetail.onClick.AddListener(delegate { ClickDetailBtn(); });
             btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
@@ -119,7 +119,7 @@ namespace DarkGod.Main
             SetActive(transDetail, false);
         }
 
-        private void OnDisable()
+        public void OnDisable()
         {
             btnDetail.onClick.RemoveAllListeners();
             btnClose.onClick.RemoveAllListeners();

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace DarkGod.Main
 {
-    public class LoadingWnd : WindowRoot
+    public class LoadingWnd : WindowRoot, IWindowRoot
     {
         public Text txtTips;
         public Image imgFG;
@@ -42,5 +42,19 @@ namespace DarkGod.Main
             imgPoint.GetComponent<RectTransform>().anchoredPosition = new Vector2(posX, 0);
         }
 
+        public void OnEnable()
+        {
+
+        }
+
+        public void OnDisable()
+        {
+
+        }
+
+        public void ClickCloseBtn()
+        {
+
+        }
     }
 }

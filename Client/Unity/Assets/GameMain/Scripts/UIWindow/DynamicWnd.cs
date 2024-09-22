@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace DarkGod.Main
 {
-    public class DynamicWnd : WindowRoot
+    public class DynamicWnd : WindowRoot, IWindowRoot
     {
         public Animation tipsAni;
         public Text txtTips;
@@ -191,6 +191,21 @@ namespace DarkGod.Main
         {
             selfDodgeAni.Stop();
             selfDodgeAni.Play();
+        }
+
+        public void OnEnable()
+        {
+
+        }
+
+        public void OnDisable()
+        {
+
+        }
+
+        public void ClickCloseBtn()
+        {
+
         }
     }
 }

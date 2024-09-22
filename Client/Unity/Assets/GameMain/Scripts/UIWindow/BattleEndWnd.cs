@@ -14,7 +14,7 @@ namespace DarkGod.Main
         Win, //副本战斗胜利
         Lose
     }
-    public class BattleEndWnd : WindowRoot
+    public class BattleEndWnd : WindowRoot, IWindowRoot
     {
         #region UI Define
         public Transform rewardTrans;
@@ -48,7 +48,7 @@ namespace DarkGod.Main
             RefreshUI();
         }
 
-        private void OnEnable()
+        public void OnEnable()
         {
             btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
             btnExit.onClick.AddListener(delegate { ClickExitBtn(); });
@@ -146,7 +146,7 @@ namespace DarkGod.Main
             _ => throw new System.ArgumentOutOfRangeException(nameof(endType)),
         };
 
-        private void OnDisable()
+        public void OnDisable()
         {
             btnClose.onClick.RemoveAllListeners();
             btnExit.onClick.RemoveAllListeners();

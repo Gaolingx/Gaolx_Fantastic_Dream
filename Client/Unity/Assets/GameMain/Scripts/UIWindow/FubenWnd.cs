@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace DarkGod.Main
 {
-    public class FubenWnd : WindowRoot
+    public class FubenWnd : WindowRoot, IWindowRoot
     {
         public List<Button> fbBtnArr;
         public Button btnClose;
@@ -24,7 +24,7 @@ namespace DarkGod.Main
             RefreshUI();
         }
 
-        private void OnEnable()
+        public void OnEnable()
         {
             btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
         }
@@ -82,7 +82,7 @@ namespace DarkGod.Main
             SetWndState(false);
         }
 
-        private void OnDisable()
+        public void OnDisable()
         {
             btnClose.onClick.RemoveAllListeners();
             for (int i = 0; i < fbBtnArr.Count; i++)

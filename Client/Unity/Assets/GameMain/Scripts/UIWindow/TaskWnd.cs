@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace DarkGod.Main
 {
-    public class TaskWnd : WindowRoot
+    public class TaskWnd : WindowRoot, IWindowRoot
     {
         public Transform scrollTrans;
 
@@ -25,7 +25,7 @@ namespace DarkGod.Main
             RefreshUI();
         }
 
-        private void OnEnable()
+        public void OnEnable()
         {
             btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
         }
@@ -147,7 +147,7 @@ namespace DarkGod.Main
             SetWndState(false);
         }
 
-        private void OnDisable()
+        public void OnDisable()
         {
             btnClose.onClick.RemoveAllListeners();
         }

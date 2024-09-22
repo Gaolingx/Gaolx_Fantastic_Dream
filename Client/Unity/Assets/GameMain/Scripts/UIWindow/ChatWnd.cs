@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace DarkGod.Main
 {
-    public class ChatWnd : WindowRoot
+    public class ChatWnd : WindowRoot, IWindowRoot
     {
         public InputField iptChat;
         public Text txtChat;
@@ -34,7 +34,7 @@ namespace DarkGod.Main
             RefreshUI();
         }
 
-        private void OnEnable()
+        public void OnEnable()
         {
             btnWord.onClick.AddListener(delegate { ClickWorldBtn(); });
             btnGuild.onClick.AddListener(delegate { ClickGuildBtn(); });
@@ -164,7 +164,7 @@ namespace DarkGod.Main
             SetWndState(false);
         }
 
-        private void OnDisable()
+        public void OnDisable()
         {
             btnWord.onClick.RemoveAllListeners();
             btnGuild.onClick.RemoveAllListeners();

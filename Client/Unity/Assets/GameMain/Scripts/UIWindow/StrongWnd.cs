@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 
 namespace DarkGod.Main
 {
-    public class StrongWnd : WindowRoot
+    public class StrongWnd : WindowRoot, IWindowRoot
     {
         #region UI Define
         public Image imgCurtPos; //当前选中位置的图片
@@ -56,7 +56,7 @@ namespace DarkGod.Main
             ClickPosItem(0);
         }
 
-        private void OnEnable()
+        public void OnEnable()
         {
             btnStrong.onClick.AddListener(delegate { ClickStrongBtn(); });
             btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
@@ -259,7 +259,7 @@ namespace DarkGod.Main
             ClickPosItem(currentIndex);
         }
 
-        private void OnDisable()
+        public void OnDisable()
         {
             btnStrong.onClick.RemoveAllListeners();
             btnClose.onClick.RemoveAllListeners();

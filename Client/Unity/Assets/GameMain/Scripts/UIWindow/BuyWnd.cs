@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace DarkGod.Main
 {
-    public class BuyWnd : WindowRoot
+    public class BuyWnd : WindowRoot, IWindowRoot
     {
         public Text txtInfo;
         public Button btnSure;
@@ -31,7 +31,7 @@ namespace DarkGod.Main
             RefreshUI();
         }
 
-        private void OnEnable()
+        public void OnEnable()
         {
             btnSure.onClick.AddListener(delegate { ClickSureBtn(); });
             btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
@@ -88,7 +88,7 @@ namespace DarkGod.Main
             SetWndState(false);
         }
 
-        private void OnDisable()
+        public void OnDisable()
         {
             btnSure.onClick.RemoveAllListeners();
             btnClose.onClick.RemoveAllListeners();

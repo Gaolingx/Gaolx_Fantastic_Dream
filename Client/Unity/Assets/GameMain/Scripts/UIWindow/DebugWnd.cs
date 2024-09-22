@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace DarkGod.Main
 {
-    public class DebugWnd : WindowRoot
+    public class DebugWnd : WindowRoot, IWindowRoot
     {
         public Toggle FpsWndToggle, RuntimeInspectorToggle, RuntimeHierarchyToggle;
         public Button btnCloseDebugItem;
@@ -17,7 +17,11 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
-            btnCloseDebugItem.onClick.AddListener(delegate { ClickCloseDebugItemBtn(); });
+        }
+
+        public void OnEnable()
+        {
+            btnCloseDebugItem.onClick.AddListener(delegate { ClickCloseBtn(); });
             FpsWndToggle.onValueChanged.AddListener(ClickFpsWndToggle);
             RuntimeHierarchyToggle.onValueChanged.AddListener(ClickRuntimeHierarchyToggle);
             RuntimeInspectorToggle.onValueChanged.AddListener(ClickRuntimeInspectorToggle);
@@ -49,20 +53,25 @@ namespace DarkGod.Main
             RuntimeInspector.gameObject.SetActive(val);
         }
 
-        public void ClickCloseDebugItemBtn()
-        {
-            fpsWnd.gameObject.SetActive(false);
-            RuntimeHierarchy.gameObject.SetActive(false);
-            RuntimeInspector.gameObject.SetActive(false);
-            ActiveDebugItemWnd(false);
-        }
-
-        private void OnDisable()
+        public void OnDisable()
         {
             btnCloseDebugItem.onClick.RemoveAllListeners();
             FpsWndToggle.onValueChanged.RemoveAllListeners();
             RuntimeHierarchyToggle.onValueChanged.RemoveAllListeners();
             RuntimeInspectorToggle.onValueChanged.RemoveAllListeners();
+        }
+
+        public void ClickCloseBtn()
+        {
+            fpsWnd.gameObject.SetActive(false);
+            RuntimeHierarchy.gameObject.SetActive(false);
+            RuntimeInspector.gameObject.SetActive(false);
+
+            FpsWndToggle.isOn = false;
+            RuntimeHierarchyToggle.isOn = false;
+            RuntimeInspectorToggle.isOn = false;
+
+            ActiveDebugItemWnd(false);
         }
     }
 }

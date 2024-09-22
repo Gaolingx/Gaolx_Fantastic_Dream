@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace DarkGod.Main
 {
-    public class SettingsWnd : WindowRoot
+    public class SettingsWnd : WindowRoot, IWindowRoot
     {
         public Slider BGAudioSlider, UIAudioSlider, CharacterAudioSlider, CharacterFxAudioSlider;
         public Toggle VsyncSettingsToggle, MutedToggle;
@@ -31,7 +31,7 @@ namespace DarkGod.Main
             }
         }
 
-        private void OnEnable()
+        public void OnEnable()
         {
             UIAddListener();
         }
@@ -177,7 +177,7 @@ namespace DarkGod.Main
             SetQualityLevel(value);
         }
 
-        private void OnDisable()
+        public void OnDisable()
         {
             btnResetCfgs.onClick.RemoveAllListeners();
             btnExitGame.onClick.RemoveAllListeners();
