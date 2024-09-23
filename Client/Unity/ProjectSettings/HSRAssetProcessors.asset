@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AvatarModelProcessConfig:
-    Enable: 0
+    Enable: 1
     MatchMode: 0
     PathPattern: Avatar_*_00*.fbx | Art_*_00*.fbx
     IgnoreCase: 1
     OverridePresetAssetPath: 
     SmoothNormalStoreMode: 0
-    Foldout: 0
+    Foldout: 1
   RampTextureProcessConfig:
     Enable: 0
     MatchMode: 0
