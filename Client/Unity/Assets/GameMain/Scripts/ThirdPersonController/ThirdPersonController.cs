@@ -1,10 +1,8 @@
 ﻿using Cinemachine;
-using System.Collections.Generic;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
-using DarkGod.Main;
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
  */
@@ -141,8 +139,8 @@ namespace StarterAssets
         private BindableProperty<bool> idleAction = new BindableProperty<bool>();
         private BindableProperty<bool> crouchAction = new BindableProperty<bool>();
         private BindableProperty<int> skillAction = new BindableProperty<int>();
-        private AudioSvc _audioSvc;
-        private TimerSvc _timerSvc;
+        private static DarkGod.Main.AudioSvc _audioSvc;
+        private static DarkGod.Main.TimerSvc _timerSvc;
 
         private const float _threshold = 0.01f;
 
@@ -220,6 +218,10 @@ namespace StarterAssets
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
+
+            // get instance reference
+            _audioSvc = DarkGod.Main.AudioSvc.MainInstance;
+            _timerSvc = DarkGod.Main.TimerSvc.MainInstance;
         }
         private void ClassStart()
         {
@@ -247,10 +249,6 @@ namespace StarterAssets
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
 
-            // Init AudioSvc
-            _audioSvc = AudioSvc.MainInstance;
-            _timerSvc = TimerSvc.MainInstance;
-
         }
         private void ClassUpdate()
         {
@@ -263,14 +261,7 @@ namespace StarterAssets
             crouchAction.Value = _input.crouch;
 
             // idle state
-            if (_speed == 0f && MoveControlState != ControlState.None && !_input.jump && !_input.crouch)
-            {
-                idleAction.Value = true;
-            }
-            else
-            {
-                idleAction.Value = false;
-            }
+            idleAction.Value = !CheckHasInput();
 
         }
         private void ClassLateUpdate()
@@ -391,14 +382,26 @@ namespace StarterAssets
             {
                 tid1 = _timerSvc.AddTimeTask((int tid) =>
                 {
-                    SetAction(Constants.ActionIdle);
-                }, Constants.IdleAniWaitDelay);
+                    SetAction(DarkGod.Main.Constants.ActionIdle);
+                }, DarkGod.Main.Constants.IdleAniWaitDelay);
             }
-            else
+            else if (idleAction.Value == false && tid1 != 0)
             {
-                SetAction(Constants.ActionDefault);
+                SetAction(DarkGod.Main.Constants.ActionDefault);
                 _timerSvc.DelTask(tid1);
             }
+        }
+
+        private bool CheckHasInput()
+        {
+            if (MoveControlState != ControlState.None)
+            {
+                if (UpdateMoveInputState() != Vector2.zero || _input.jump || _input.crouch)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void OnAtkSkill()
