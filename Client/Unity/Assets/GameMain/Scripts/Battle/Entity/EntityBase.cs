@@ -155,7 +155,7 @@ namespace DarkGod.Main
                 playerController.SetDir(dir);
             }
         }
-        public virtual void SetAction(int action, bool rootMotion = true)
+        public virtual void SetAction(int action)
         {
             if (entityType == EntityType.Monster)
             {
@@ -163,7 +163,6 @@ namespace DarkGod.Main
             }
             else if (entityType == EntityType.Player)
             {
-                playerController.ApplyRootMotion = rootMotion;
                 playerController.SetAction(action);
             }
         }

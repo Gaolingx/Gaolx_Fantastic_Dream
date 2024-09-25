@@ -3698,7 +3698,7 @@ MonoBehaviour:
   PlayerInput: {fileID: 0}
   StarterAssetsInputs: {fileID: 0}
   playerFollowVirtualCamera: {fileID: 0}
-  isMoveByController: 1
+  MoveControlState: 1
   MoveSpeed: 2
   SprintSpeed: 5.335
   SkillMoveSpeed: 0
@@ -3724,8 +3724,6 @@ MonoBehaviour:
   distanceChangeRate: 10
   CameraAngleOverride: 0
   LockCameraPosition: 0
-  targetPlayerState: 0
-  MoveModeInput: 1
 --- !u!195 &8075067447599205545
 NavMeshAgent:
   m_ObjectHideFlags: 0

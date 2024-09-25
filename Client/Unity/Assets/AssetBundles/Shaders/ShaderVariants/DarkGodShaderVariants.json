@@ -1,6 +1,6 @@
 {
-    "ShaderTotalCount": 37,
-    "VariantTotalCount": 70,
+    "ShaderTotalCount": 38,
+    "VariantTotalCount": 92,
     "ShaderVariantInfos": [
         {
             "AssetPath": "Assets/ResModules/Art/Characters/DarkGod/Compond/MakeChar/Shader/MogoFakeLight.shader",
@@ -135,7 +135,7 @@
         {
             "AssetPath": "Assets/StylizedEnvironement/Art/Shader/Vegetation.shader",
             "ShaderName": "Vegetation",
-            "ShaderVariantCount": 5,
+            "ShaderVariantCount": 10,
             "ShaderVariantElements": [
                 {
                     "PassType": 8,
@@ -161,6 +161,84 @@
                 {
                     "PassType": 13,
                     "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_FIXTHEBASEOFFOLIAGE_ON",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_REFLECTION_PROBE_BLENDING",
+                        "_REFLECTION_PROBE_BOX_PROJECTION",
+                        "_SCREEN_SPACE_OCCLUSION",
+                        "_SHADOWS_SOFT",
+                        "_TOPCOLORENABLE1_ON",
+                        "_TOPCOLORENABLE2_ON",
+                        "_TOPCOLORENABLE_ON",
+                        "_WIND_ON"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_FIXTHEBASEOFFOLIAGE_ON",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_REFLECTION_PROBE_BLENDING",
+                        "_REFLECTION_PROBE_BOX_PROJECTION",
+                        "_SCREEN_SPACE_OCCLUSION",
+                        "_SHADOWS_SOFT",
+                        "_TOPCOLORENABLE1_ON",
+                        "_TOPCOLORENABLE2_ON",
+                        "_WIND_ON"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_FIXTHEBASEOFFOLIAGE_ON",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_REFLECTION_PROBE_BLENDING",
+                        "_REFLECTION_PROBE_BOX_PROJECTION",
+                        "_SCREEN_SPACE_OCCLUSION",
+                        "_SHADOWS_SOFT",
+                        "_TOPCOLORENABLE1_ON",
+                        "_TOPCOLORENABLE_ON",
+                        "_WIND_ON"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_REFLECTION_PROBE_BLENDING",
+                        "_REFLECTION_PROBE_BOX_PROJECTION",
+                        "_SCREEN_SPACE_OCCLUSION",
+                        "_SHADOWS_SOFT",
+                        "_TOPCOLORENABLE1_ON",
+                        "_TOPCOLORENABLE2_ON",
+                        "_TOPCOLORENABLE_ON",
+                        "_WIND_ON"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_REFLECTION_PROBE_BLENDING",
+                        "_REFLECTION_PROBE_BOX_PROJECTION",
+                        "_SCREEN_SPACE_OCCLUSION",
+                        "_SHADOWS_SOFT",
+                        "_WIND_ON"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
                         "_FIXTHEBASEOFFOLIAGE_ON",
                         "_WIND_ON"
                     ]
@@ -176,7 +254,7 @@
         {
             "AssetPath": "Assets/Suntail Village/Shaders/Suntail_Foliage.shader",
             "ShaderName": "Raygeas/Suntail Foliage",
-            "ShaderVariantCount": 4,
+            "ShaderVariantCount": 9,
             "ShaderVariantElements": [
                 {
                     "PassType": 8,
@@ -189,6 +267,71 @@
                     "PassType": 8,
                     "Keywords": [
                         "_ENABLEWIND_ON"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_ANCHORTHEFOLIAGEBASE_ON",
+                        "_COLOR2ENABLE_ON",
+                        "_ENABLEWIND_ON",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_SCREEN_SPACE_OCCLUSION",
+                        "_SECONDCOLOROVERLAYTYPE_WORLD_POSITION",
+                        "_SHADOWS_SOFT"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_ANCHORTHEFOLIAGEBASE_ON",
+                        "_ENABLEWIND_ON",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_SCREEN_SPACE_OCCLUSION",
+                        "_SECONDCOLOROVERLAYTYPE_WORLD_POSITION",
+                        "_SHADOWS_SOFT"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_COLOR2ENABLE_ON",
+                        "_ENABLEWIND_ON",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_SCREEN_SPACE_OCCLUSION",
+                        "_SECONDCOLOROVERLAYTYPE_UV_BASED",
+                        "_SHADOWS_SOFT"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_COLOR2ENABLE_ON",
+                        "_ENABLEWIND_ON",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_SCREEN_SPACE_OCCLUSION",
+                        "_SECONDCOLOROVERLAYTYPE_WORLD_POSITION",
+                        "_SHADOWS_SOFT"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_ENABLEWIND_ON",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_SCREEN_SPACE_OCCLUSION",
+                        "_SECONDCOLOROVERLAYTYPE_WORLD_POSITION",
+                        "_SHADOWS_SOFT"
                     ]
                 },
                 {
@@ -209,7 +352,7 @@
         {
             "AssetPath": "Assets/Suntail Village/Shaders/Suntail_Surface.shader",
             "ShaderName": "Raygeas/Suntail Surface",
-            "ShaderVariantCount": 3,
+            "ShaderVariantCount": 5,
             "ShaderVariantElements": [
                 {
                     "PassType": 8,
@@ -228,14 +371,117 @@
                     "Keywords": [
                         ""
                     ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_REFLECTION_PROBE_BLENDING",
+                        "_REFLECTION_PROBE_BOX_PROJECTION",
+                        "_SCREEN_SPACE_OCCLUSION",
+                        "_SHADOWS_SOFT",
+                        "_SMOOTHNESSSOURCE_ALBEDO_ALPHA"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_REFLECTION_PROBE_BLENDING",
+                        "_REFLECTION_PROBE_BOX_PROJECTION",
+                        "_SCREEN_SPACE_OCCLUSION",
+                        "_SHADOWS_SOFT",
+                        "_SMOOTHNESSSOURCE_METALLIC_ALPHA"
+                    ]
+                }
+            ]
+        },
+        {
+            "AssetPath": "Assets/Suntail Village/Shaders/Suntail_Water.shader",
+            "ShaderName": "Raygeas/Suntail Water",
+            "ShaderVariantCount": 1,
+            "ShaderVariantElements": [
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_MAIN_LIGHT_SHADOWS_CASCADE",
+                        "_REFLECTION_PROBE_BLENDING",
+                        "_REFLECTION_PROBE_BOX_PROJECTION",
+                        "_SCREEN_SPACE_OCCLUSION",
+                        "_SHADOWS_SOFT"
+                    ]
                 }
             ]
         },
         {
             "AssetPath": "Packages/com.gaolingx.honkaistarrailtoonshader/Shaders/SRUniversal-main/Shaders/SRUniversalCharBody.shader",
             "ShaderName": "HonkaiStarRailToon/Character/Body",
-            "ShaderVariantCount": 2,
+            "ShaderVariantCount": 4,
             "ShaderVariantElements": [
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_AREA_BODY",
+                        "_AUTO_Brightness_ON",
+                        "_BACKFACEUV2_ON",
+                        "_CUSTOMBLOOMCOLORVARENUM_OVERLAY",
+                        "_CUSTOMBLOOMVARENUM_OVERLAY",
+                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
+                        "_CUSTOMOUTLINEVARENUM_OVERLAY",
+                        "_CUSTOMRIMLIGHTCOLORVARENUM_OVERLAY",
+                        "_CUSTOMRIMLIGHTVARENUM_OVERLAY",
+                        "_CUSTOMRIMSHADOWCOLORVARENUM_OVERLAY",
+                        "_CUSTOMRIMSHADOWVARENUM_OVERLAY",
+                        "_CUSTOMSPECULARCOLORVARENUM_OVERLAY",
+                        "_CUSTOMSPECULARVARENUM_OVERLAY",
+                        "_CUSTOM_RAMP_MAPPING_ON",
+                        "_MAIN_LIGHT_SELF_SHADOWS",
+                        "_MAIN_LIGHT_SHADOWS_CASCADE",
+                        "_MODEL_GAME",
+                        "_OUTLINENORMALCHANNEL_TANGENT",
+                        "_RIM_LIGHTING_ON",
+                        "_RIM_SHADOW_ON",
+                        "_SHADOWS_SOFT",
+                        "_SPECULAR_ON",
+                        "_STOCKINGS_ON"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_AREA_BODY",
+                        "_AUTO_Brightness_ON",
+                        "_CUSTOMBLOOMCOLORVARENUM_OVERLAY",
+                        "_CUSTOMBLOOMVARENUM_OVERLAY",
+                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
+                        "_CUSTOMOUTLINEVARENUM_OVERLAY",
+                        "_CUSTOMRIMLIGHTCOLORVARENUM_OVERLAY",
+                        "_CUSTOMRIMLIGHTVARENUM_OVERLAY",
+                        "_CUSTOMRIMSHADOWCOLORVARENUM_OVERLAY",
+                        "_CUSTOMRIMSHADOWVARENUM_OVERLAY",
+                        "_CUSTOMSPECULARCOLORVARENUM_OVERLAY",
+                        "_CUSTOMSPECULARVARENUM_OVERLAY",
+                        "_CUSTOM_RAMP_MAPPING_ON",
+                        "_MAIN_LIGHT_SELF_SHADOWS",
+                        "_MAIN_LIGHT_SHADOWS_CASCADE",
+                        "_MODEL_GAME",
+                        "_OUTLINENORMALCHANNEL_TANGENT",
+                        "_RIM_LIGHTING_ON",
+                        "_RIM_SHADOW_ON",
+                        "_SHADOWS_SOFT",
+                        "_SPECULAR_ON"
+                    ]
+                },
                 {
                     "PassType": 13,
                     "Keywords": [
@@ -302,8 +548,34 @@
         {
             "AssetPath": "Packages/com.gaolingx.honkaistarrailtoonshader/Shaders/SRUniversal-main/Shaders/SRUniversalCharFace.shader",
             "ShaderName": "HonkaiStarRailToon/Character/Face",
-            "ShaderVariantCount": 1,
+            "ShaderVariantCount": 2,
             "ShaderVariantElements": [
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_AREA_FACE",
+                        "_AUTO_Brightness_ON",
+                        "_CUSTOMBLOOMCOLORVARENUM_OVERLAY",
+                        "_CUSTOMBLOOMVARENUM_OVERLAY",
+                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
+                        "_CUSTOMOUTLINEVARENUM_OVERLAY",
+                        "_CUSTOMRIMLIGHTCOLORVARENUM_DISABLE",
+                        "_CUSTOMRIMLIGHTVARENUM_DISABLE",
+                        "_CUSTOMRIMSHADOWCOLORVARENUM_DISABLE",
+                        "_CUSTOMRIMSHADOWVARENUM_DISABLE",
+                        "_CUSTOMSPECULARCOLORVARENUM_DISABLE",
+                        "_CUSTOMSPECULARVARENUM_DISABLE",
+                        "_CUSTOM_RAMP_MAPPING_ON",
+                        "_MAIN_LIGHT_FRONT_HAIR_SHADOWS",
+                        "_MAIN_LIGHT_SHADOWS_CASCADE",
+                        "_MODEL_GAME",
+                        "_OUTLINENORMALCHANNEL_TANGENT",
+                        "_SHADOWS_SOFT",
+                        "_SPECULAR_ON"
+                    ]
+                },
                 {
                     "PassType": 13,
                     "Keywords": [
@@ -343,8 +615,35 @@
         {
             "AssetPath": "Packages/com.gaolingx.honkaistarrailtoonshader/Shaders/SRUniversal-main/Shaders/SRUniversalCharHair.shader",
             "ShaderName": "HonkaiStarRailToon/Character/Hair",
-            "ShaderVariantCount": 1,
+            "ShaderVariantCount": 2,
             "ShaderVariantElements": [
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_AREA_HAIR",
+                        "_AUTO_Brightness_ON",
+                        "_CUSTOMBLOOMCOLORVARENUM_OVERLAY",
+                        "_CUSTOMBLOOMVARENUM_OVERLAY",
+                        "_CUSTOMHEADBONEMODEVARENUM_GAME",
+                        "_CUSTOMOUTLINEVARENUM_OVERLAY",
+                        "_CUSTOMRIMLIGHTCOLORVARENUM_OVERLAY",
+                        "_CUSTOMRIMLIGHTVARENUM_OVERLAY",
+                        "_CUSTOMRIMSHADOWCOLORVARENUM_OVERLAY",
+                        "_CUSTOMRIMSHADOWVARENUM_OVERLAY",
+                        "_CUSTOMSPECULARCOLORVARENUM_OVERLAY",
+                        "_CUSTOMSPECULARVARENUM_OVERLAY",
+                        "_CUSTOM_RAMP_MAPPING_ON",
+                        "_MAIN_LIGHT_SHADOWS_CASCADE",
+                        "_MODEL_GAME",
+                        "_OUTLINENORMALCHANNEL_TANGENT",
+                        "_RIM_LIGHTING_ON",
+                        "_RIM_SHADOW_ON",
+                        "_SHADOWS_SOFT",
+                        "_SPECULAR_ON"
+                    ]
+                },
                 {
                     "PassType": 13,
                     "Keywords": [
@@ -406,7 +705,7 @@
         {
             "AssetPath": "Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader",
             "ShaderName": "Universal Render Pipeline/Lit",
-            "ShaderVariantCount": 4,
+            "ShaderVariantCount": 9,
             "ShaderVariantElements": [
                 {
                     "PassType": 8,
@@ -424,7 +723,74 @@
                     "PassType": 13,
                     "Keywords": [
                         "_ADDITIONAL_LIGHTS",
-                        "_MAIN_LIGHT_SHADOWS_SCREEN"
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_ALPHAPREMULTIPLY_ON",
+                        "_MAIN_LIGHT_SHADOWS_CASCADE",
+                        "_METALLICSPECGLOSSMAP",
+                        "_NORMALMAP",
+                        "_REFLECTION_PROBE_BLENDING",
+                        "_REFLECTION_PROBE_BOX_PROJECTION",
+                        "_SCREEN_SPACE_OCCLUSION",
+                        "_SHADOWS_SOFT",
+                        "_SPECULAR_SETUP",
+                        "_SURFACE_TYPE_TRANSPARENT"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_METALLICSPECGLOSSMAP",
+                        "_NORMALMAP",
+                        "_REFLECTION_PROBE_BLENDING",
+                        "_REFLECTION_PROBE_BOX_PROJECTION",
+                        "_SCREEN_SPACE_OCCLUSION",
+                        "_SHADOWS_SOFT",
+                        "_SPECULAR_SETUP"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_NORMALMAP",
+                        "_REFLECTION_PROBE_BLENDING",
+                        "_REFLECTION_PROBE_BOX_PROJECTION",
+                        "_SCREEN_SPACE_OCCLUSION",
+                        "_SHADOWS_SOFT",
+                        "_SPECULAR_SETUP"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_REFLECTION_PROBE_BLENDING",
+                        "_REFLECTION_PROBE_BOX_PROJECTION",
+                        "_SCREEN_SPACE_OCCLUSION",
+                        "_SHADOWS_SOFT"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_MAIN_LIGHT_SHADOWS_CASCADE",
+                        "_NORMALMAP"
+                    ]
+                },
+                {
+                    "PassType": 13,
+                    "Keywords": [
+                        "_ADDITIONAL_LIGHTS",
+                        "_MAIN_LIGHT_SHADOWS_SCREEN",
+                        "_NORMALMAP"
                     ]
                 },
                 {
