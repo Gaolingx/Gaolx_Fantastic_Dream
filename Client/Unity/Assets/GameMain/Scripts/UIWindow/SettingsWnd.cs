@@ -38,18 +38,11 @@ namespace DarkGod.Main
             UIAddListener();
         }
 
-        private bool GetVSyncCount()
-        {
-            if (Application.targetFrameRate == -1) { return true; }
-            return false;
-        }
-
         private void InitWindowValue()
         {
             InitDropdownOptionData(qualitySelectDropdown, new List<string>(QualitySettings.names));
             qualitySelectDropdown.value = (int)playerPrefsSvc.GetSettingsItem("Settings_QualitySelect");
 
-            VsyncSettingsToggle.isOn = GetVSyncCount();
             BGAudioSlider.value = (float)playerPrefsSvc.GetSettingsItem("Settings_BGAudioSlider");
             UIAudioSlider.value = (float)playerPrefsSvc.GetSettingsItem("Settings_UIAudioSlider");
             CharacterAudioSlider.value = (float)playerPrefsSvc.GetSettingsItem("Settings_CharacterAudioSlider");
