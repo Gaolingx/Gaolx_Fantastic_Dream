@@ -36,7 +36,7 @@ namespace DarkGod.Main
             for (int i = 0; i < fbBtnArr.Count; i++)
             {
                 int j = i;
-                fbBtnArr[i].onClick.AddListener(delegate { ClickTaskBtn(10000 + j); });
+                fbBtnArr[i].onClick.AddListener(delegate { ClickTaskBtn(10001 + j); });
 
                 if (i < fbid % 10000)
                 {

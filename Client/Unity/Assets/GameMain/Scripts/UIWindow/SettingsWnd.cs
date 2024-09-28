@@ -17,16 +17,6 @@ namespace DarkGod.Main
         public Button btnCloseSettings;
         public Dropdown qualitySelectDropdown;
 
-        public enum SettingsPrefsType
-        {
-            None,
-            QualitySelect,
-            BGAudioVolume,
-            UIAudioVolume,
-            CharacterAudioVolume,
-            CharacterFxAudioVolume
-        }
-
         protected override void InitWnd()
         {
             base.InitWnd();
@@ -47,6 +37,9 @@ namespace DarkGod.Main
 
         private void InitWindowValue()
         {
+            InitDropdownOptionData(qualitySelectDropdown, new List<string>(QualitySettings.names));
+            qualitySelectDropdown.value = (int)playerPrefsSvc.GetSettingsItem("Settings_QualitySelect");
+
             VsyncSettingsToggle.isOn = GetVSyncCount();
             BGAudioSlider.value = (float)playerPrefsSvc.GetSettingsItem("Settings_BGAudioSlider");
             UIAudioSlider.value = (float)playerPrefsSvc.GetSettingsItem("Settings_UIAudioSlider");
@@ -125,21 +118,6 @@ namespace DarkGod.Main
         #endregion
 
         #region QualityDropdown
-        private void InitQualityDropdownOptionData()
-        {
-            List<string> qualityLst = new List<string>(QualitySettings.names);
-            List<Dropdown.OptionData> qualitySelectDropdownOptionData = new List<Dropdown.OptionData>();
-
-            foreach (var item in qualityLst)
-            {
-                Dropdown.OptionData data = new Dropdown.OptionData();
-                data.text = item;
-                qualitySelectDropdownOptionData.Add(data);
-            }
-
-            qualitySelectDropdown.options = qualitySelectDropdownOptionData;
-            qualitySelectDropdown.value = (int)playerPrefsSvc.GetSettingsItem("Settings_QualitySelect");
-        }
 
         private void SetQualityLevel(int desiredQualityLevelIndex)
         {

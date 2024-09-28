@@ -222,6 +222,20 @@ namespace DarkGod.Main
             return screenWidth;
         }
 
+        protected void InitDropdownOptionData(Dropdown dropdown, List<string> itemLst)
+        {
+            List<Dropdown.OptionData> qualitySelectDropdownOptionData = new List<Dropdown.OptionData>();
+
+            foreach (var item in itemLst)
+            {
+                Dropdown.OptionData data = new Dropdown.OptionData();
+                data.text = item;
+                qualitySelectDropdownOptionData.Add(data);
+            }
+
+            dropdown.options = qualitySelectDropdownOptionData;
+        }
+
         #region Common UI
 
         protected void PauseGameInWnd()

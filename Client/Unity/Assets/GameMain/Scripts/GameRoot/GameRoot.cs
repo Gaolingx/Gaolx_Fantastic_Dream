@@ -30,6 +30,8 @@ namespace DarkGod.Main
         {
             base.Awake();
 
+            QualitySettings.SetQualityLevel((int)PlayerPrefsSvc.MainInstance.GetSettingsItem("Settings_QualitySelect"));
+
             InitStarterAssetsInputs();
 
             OnGameExit += GetUIController().OnClickExit;
