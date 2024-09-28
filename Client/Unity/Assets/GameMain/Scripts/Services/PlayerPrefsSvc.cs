@@ -13,49 +13,90 @@ namespace DarkGod.Main
         }
 
         #region Login
-        private string PrefsKeyLoginAccount = "Login_Account";
-        private string PrefsKeyLoginPassword = "Login_Password";
-        private string PrefsKeyLoginRemember = "Login_RememberPass";
+        private const string PrefsKey_LoginAccount = "Login_Account";
+        private const string PrefsKey_LoginPassword = "Login_Password";
+        private const string PrefsKey_LoginRemember = "Login_RememberPass";
 
-        public class LoginItem
+        public object GetLoginItem(string key)
         {
-            public string account;
-            public string password;
-            public bool isRemember;
-        }
+            bool isRemember;
 
-        public LoginItem GetLoginItem()
-        {
-            LoginItem loginItem = new LoginItem();
-
-            if (PlayerPrefsUtil.HasKey(PrefsKeyLoginRemember))
+            if (PlayerPrefsUtil.HasKey(PrefsKey_LoginRemember))
             {
-                loginItem.isRemember = PlayerPrefsUtil.Get(PrefsKeyLoginRemember, false);
+                isRemember = PlayerPrefsUtil.Get(PrefsKey_LoginRemember, false);
             }
             else
             {
-                loginItem.isRemember = false;
+                isRemember = false;
             }
 
-            if (PlayerPrefsUtil.HasKey(PrefsKeyLoginAccount) && PlayerPrefsUtil.HasKey(PrefsKeyLoginPassword) && loginItem.isRemember == true)
+            switch (key)
             {
-                loginItem.account = PlayerPrefsUtil.Get(PrefsKeyLoginAccount, "");
-                loginItem.password = PlayerPrefsUtil.Get(PrefsKeyLoginPassword, "");
+                case PrefsKey_LoginRemember:
+                    return isRemember;
+                case PrefsKey_LoginAccount:
+                    if (PlayerPrefsUtil.HasKey(PrefsKey_LoginAccount) && isRemember)
+                    {
+                        return PlayerPrefsUtil.Get(PrefsKey_LoginAccount, "");
+                    }
+                    return "";
+                case PrefsKey_LoginPassword:
+                    if (PlayerPrefsUtil.HasKey(PrefsKey_LoginPassword) && isRemember)
+                    {
+                        return PlayerPrefsUtil.Get(PrefsKey_LoginPassword, "");
+                    }
+                    return "";
+                default:
+                    return null;
             }
-            else
-            {
-                loginItem.account = "";
-                loginItem.password = "";
-            }
-
-            return loginItem;
         }
 
-        public void SetGetLoginItem(LoginItem loginItem)
+        #endregion
+
+        #region Settings
+        private const string PrefsKey_QualitySelect = "Settings_QualitySelect";
+        private const string PrefsKey_BGAudioVolume = "Settings_BGAudioSlider";
+        private const string PrefsKey_UIAudioVolume = "Settings_UIAudioSlider";
+        private const string PrefsKey_CharacterAudioVolume = "Settings_CharacterAudioSlider";
+        private const string PrefsKey_CharacterFxAudioVolume = "Settings_CharacterFxAudioSlider";
+
+        public object GetSettingsItem(string key)
         {
-            PlayerPrefsUtil.Set(PrefsKeyLoginAccount, loginItem.account);
-            PlayerPrefsUtil.Set(PrefsKeyLoginPassword, loginItem.password);
-            PlayerPrefsUtil.Set(PrefsKeyLoginRemember, loginItem.isRemember);
+            switch (key)
+            {
+                case PrefsKey_QualitySelect:
+                    if (PlayerPrefsUtil.HasKey(PrefsKey_QualitySelect))
+                    {
+                        return PlayerPrefsUtil.Get(PrefsKey_QualitySelect, 0);
+                    }
+                    return QualitySettings.GetQualityLevel();
+                case PrefsKey_BGAudioVolume:
+                    if (PlayerPrefsUtil.HasKey(PrefsKey_BGAudioVolume))
+                    {
+                        return PlayerPrefsUtil.Get(PrefsKey_BGAudioVolume, 0f);
+                    }
+                    return AudioSvc.MainInstance.BGAudioVolumeValue;
+                case PrefsKey_UIAudioVolume:
+                    if (PlayerPrefsUtil.HasKey(PrefsKey_UIAudioVolume))
+                    {
+                        return PlayerPrefsUtil.Get(PrefsKey_UIAudioVolume, 0f);
+                    }
+                    return AudioSvc.MainInstance.UIAudioVolumeValue;
+                case PrefsKey_CharacterAudioVolume:
+                    if (PlayerPrefsUtil.HasKey(PrefsKey_CharacterAudioVolume))
+                    {
+                        return PlayerPrefsUtil.Get(PrefsKey_CharacterAudioVolume, 0f);
+                    }
+                    return AudioSvc.MainInstance.CharacterAudioVolumeValue;
+                case PrefsKey_CharacterFxAudioVolume:
+                    if (PlayerPrefsUtil.HasKey(PrefsKey_CharacterFxAudioVolume))
+                    {
+                        return PlayerPrefsUtil.Get(PrefsKey_CharacterFxAudioVolume, 0f);
+                    }
+                    return AudioSvc.MainInstance.CharacterFxAudioVolumeValue;
+                default:
+                    return null;
+            }
         }
 
         #endregion

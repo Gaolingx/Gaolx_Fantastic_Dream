@@ -29,11 +29,11 @@ namespace DarkGod.Main
         [SerializeField] private List<CharSoundItem> CharacterHitLst = new List<CharSoundItem>();
 
         [SerializeField] private float fadingDuration = 3f;
-        private string bgAudioPath = PathDefine.bgAudioPath;
+        private readonly string bgAudioPath = PathDefine.bgAudioPath;
 
         private SFX_PoolManager sfxPoolManager;
-
         private CancellationTokenSourceMgr ctsMgr;
+        private PlayerPrefsSvc playerPrefsSvc;
 
         protected override void Awake()
         {
@@ -48,6 +48,12 @@ namespace DarkGod.Main
             sfxPoolManager.InitSoundPool();
 
             ctsMgr = CancellationTokenSourceMgr.MainInstance;
+
+            playerPrefsSvc = PlayerPrefsSvc.MainInstance;
+            BGAudioVolumeValue = (float)playerPrefsSvc.GetSettingsItem("Settings_BGAudioSlider");
+            UIAudioVolumeValue = (float)playerPrefsSvc.GetSettingsItem("Settings_UIAudioSlider");
+            CharacterAudioVolumeValue = (float)playerPrefsSvc.GetSettingsItem("Settings_CharacterAudioSlider");
+            CharacterFxAudioVolumeValue = (float)playerPrefsSvc.GetSettingsItem("Settings_CharacterFxAudioSlider");
 
             PECommon.Log("Init AudioSvc...");
         }

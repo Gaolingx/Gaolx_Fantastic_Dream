@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static DarkGod.Main.PlayerPrefsSvc;
+using XiHUtil;
 
 namespace DarkGod.Main
 {
@@ -23,9 +23,9 @@ namespace DarkGod.Main
 
             SetHotfixVersionWnd();
 
-            btnRemember.isOn = playerPrefsSvc.GetLoginItem().isRemember;
-            iptAcct.text = playerPrefsSvc.GetLoginItem().account;
-            iptPass.text = playerPrefsSvc.GetLoginItem().password;
+            btnRemember.isOn = (bool)playerPrefsSvc.GetLoginItem("Login_RememberPass");
+            iptAcct.text = (string)playerPrefsSvc.GetLoginItem("Login_Password");
+            iptPass.text = (string)playerPrefsSvc.GetLoginItem("Login_Password");
         }
 
         public void OnEnable()
@@ -51,13 +51,9 @@ namespace DarkGod.Main
             if (_acct != "" && _pass != "")
             {
                 //更新本地存储的账号密码
-                LoginItem loginItem = new LoginItem
-                {
-                    account = _acct,
-                    password = _pass,
-                    isRemember = btnRemember.isOn
-                };
-                playerPrefsSvc.SetGetLoginItem(loginItem);
+                PlayerPrefsUtil.Set("Login_Account", _acct);
+                PlayerPrefsUtil.Set("Login_Password", _pass);
+                PlayerPrefsUtil.Set("Login_RememberPass", btnRemember.isOn);
 
                 //发送网络消息，请求登录
                 GameMsg msg = new GameMsg

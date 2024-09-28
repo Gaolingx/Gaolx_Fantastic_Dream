@@ -146,9 +146,9 @@ namespace DarkGod.Main
         public const int IdleAniWaitDelay = 5000;
 
         //角色移动速度
-        public const float PlayerMoveSpeed = 2.4f;
+        public const float PlayerMoveSpeed = 3.82f;
         //角色奔跑速度
-        public const float PlayerSprintSpeed = 6.286f;
+        public const float PlayerSprintSpeed = 6.727f;
         //怪物移动速度
         public const int MonsterMoveSpeed = 4;
 

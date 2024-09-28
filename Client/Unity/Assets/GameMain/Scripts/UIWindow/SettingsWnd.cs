@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
+using XiHUtil;
 
 namespace DarkGod.Main
 {
@@ -16,19 +17,21 @@ namespace DarkGod.Main
         public Button btnCloseSettings;
         public Dropdown qualitySelectDropdown;
 
-        public DebugWnd debugWnd;
+        public enum SettingsPrefsType
+        {
+            None,
+            QualitySelect,
+            BGAudioVolume,
+            UIAudioVolume,
+            CharacterAudioVolume,
+            CharacterFxAudioVolume
+        }
 
         protected override void InitWnd()
         {
             base.InitWnd();
 
-            InitQualityDropdownOptionData();
-            InitSliderValue();
-
-            if (debugWnd != null)
-            {
-                debugWnd.SetWndState();
-            }
+            InitWindowValue();
         }
 
         public void OnEnable()
@@ -38,36 +41,17 @@ namespace DarkGod.Main
 
         private bool GetVSyncCount()
         {
-            if (QualitySettings.vSyncCount == 0)
-            {
-                return false;
-            }
-            else if (QualitySettings.vSyncCount == 1)
-            {
-                return true;
-            }
-            return false;
+            if (Application.targetFrameRate != -1) { return false; }
+            return true;
         }
 
-        private void PauseGameInWnd()
-        {
-            if (GameRoot.MainInstance.GetGameState() == GameState.FBFight)
-            {
-                BattleSys.Instance.battleMgr.SetPauseGame(false, false);
-            }
-            else if (GameRoot.MainInstance.GetGameState() == GameState.MainCity)
-            {
-                MainCitySys.Instance.PauseGameLogic(false);
-            }
-        }
-
-        private void InitSliderValue()
+        private void InitWindowValue()
         {
             VsyncSettingsToggle.isOn = GetVSyncCount();
-            BGAudioSlider.value = audioSvc.BGAudioVolumeValue;
-            UIAudioSlider.value = audioSvc.UIAudioVolumeValue;
-            CharacterAudioSlider.value = audioSvc.CharacterAudioVolumeValue;
-            CharacterFxAudioSlider.value = audioSvc.CharacterFxAudioVolumeValue;
+            BGAudioSlider.value = (float)playerPrefsSvc.GetSettingsItem("Settings_BGAudioSlider");
+            UIAudioSlider.value = (float)playerPrefsSvc.GetSettingsItem("Settings_UIAudioSlider");
+            CharacterAudioSlider.value = (float)playerPrefsSvc.GetSettingsItem("Settings_CharacterAudioSlider");
+            CharacterFxAudioSlider.value = (float)playerPrefsSvc.GetSettingsItem("Settings_CharacterFxAudioSlider");
         }
 
         #region Slider相关
@@ -92,21 +76,25 @@ namespace DarkGod.Main
         public void TouchBGAudioSlider(float volume)
         {
             audioSvc.BGAudioVolumeValue = volume;
+            PlayerPrefsUtil.Set("Settings_BGAudioSlider", volume);
         }
 
         public void TouchUIAudioSlider(float volume)
         {
             audioSvc.UIAudioVolumeValue = volume;
+            PlayerPrefsUtil.Set("Settings_UIAudioSlider", volume);
         }
 
         public void TouchCharacterAudioSlider(float volume)
         {
             audioSvc.CharacterAudioVolumeValue = volume;
+            PlayerPrefsUtil.Set("Settings_CharacterAudioSlider", volume);
         }
 
         public void TouchCharacterFxAudioSlider(float volume)
         {
             audioSvc.CharacterFxAudioVolumeValue = volume;
+            PlayerPrefsUtil.Set("Settings_CharacterFxAudioSlider", volume);
         }
 
         #endregion
@@ -150,14 +138,7 @@ namespace DarkGod.Main
             }
 
             qualitySelectDropdown.options = qualitySelectDropdownOptionData;
-            qualitySelectDropdown.value = GetQualityLevel();
-        }
-
-        private int GetQualityLevel()
-        {
-            // 获取当前的质量等级索引  
-            int currentQualityLevel = QualitySettings.GetQualityLevel();
-            return currentQualityLevel;
+            qualitySelectDropdown.value = (int)playerPrefsSvc.GetSettingsItem("Settings_QualitySelect");
         }
 
         private void SetQualityLevel(int desiredQualityLevelIndex)
@@ -165,6 +146,7 @@ namespace DarkGod.Main
             if (desiredQualityLevelIndex < QualitySettings.names.Length)
             {
                 QualitySettings.SetQualityLevel(desiredQualityLevelIndex);
+                PlayerPrefsUtil.Set("Settings_QualitySelect", desiredQualityLevelIndex);
             }
             else
             {
@@ -176,6 +158,8 @@ namespace DarkGod.Main
         {
             SetQualityLevel(value);
         }
+
+        #endregion
 
         public void OnDisable()
         {
@@ -194,8 +178,6 @@ namespace DarkGod.Main
 
             qualitySelectDropdown.onValueChanged.RemoveAllListeners();
         }
-
-        #endregion
 
     }
 }

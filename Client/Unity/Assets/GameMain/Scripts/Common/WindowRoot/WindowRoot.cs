@@ -223,6 +223,19 @@ namespace DarkGod.Main
         }
 
         #region Common UI
+
+        protected void PauseGameInWnd()
+        {
+            if (GameRoot.MainInstance.GetGameState() == GameState.FBFight)
+            {
+                BattleSys.Instance.battleMgr.SetPauseGame(false, false);
+            }
+            else if (GameRoot.MainInstance.GetGameState() == GameState.MainCity)
+            {
+                MainCitySys.Instance.PauseGameLogic(false);
+            }
+        }
+
         //Reload Cfg Data
         protected void ClickResetCfgsBtn()
         {

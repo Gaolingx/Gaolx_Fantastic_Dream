@@ -5,7 +5,9 @@ namespace DarkGod.Main
     public interface IWindowRoot
     {
         void OnEnable();
+
         void OnDisable();
+
         void ClickCloseBtn();
     }
 }
