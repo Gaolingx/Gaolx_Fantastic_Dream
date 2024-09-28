@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 818631900482909262}
-  - component: {fileID: 5428812027309186292}
   - component: {fileID: 2008573708432596149}
   - component: {fileID: 74629058570999908}
+  - component: {fileID: 5428812027309186292}
   - component: {fileID: 7971872647809939409}
   - component: {fileID: 3613098232053783086}
   - component: {fileID: 2234119999772338486}
@@ -53,18 +53,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5428812027309186292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 957888942964509855}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e830c81e846cf5b4196e14d22aa06707, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2008573708432596149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,6 +83,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b37b1524fcb5114b8e9559c9eea9962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5428812027309186292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957888942964509855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e830c81e846cf5b4196e14d22aa06707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &7971872647809939409
@@ -164,6 +164,7 @@ MonoBehaviour:
   BGAudioAudioSource: {fileID: 8673037108130610541}
   UIAudioAudioSource: {fileID: 4076293606306624143}
   _audioMixer: {fileID: 24100000, guid: f6a684d1da2437a4c88de1635a80bab1, type: 2}
+  fadingDuration: 1
   CharacterFootStepsLst:
   - soundStyle: 1
     soundName: Player_Footstep_01
@@ -194,7 +195,6 @@ MonoBehaviour:
   CharacterHitLst:
   - soundStyle: 13
     soundName: assassin_Hit
-  fadingDuration: 1
 --- !u!114 &4961261660839420595
 MonoBehaviour:
   m_ObjectHideFlags: 0

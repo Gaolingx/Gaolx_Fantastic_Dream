@@ -7,7 +7,9 @@ namespace DarkGod.Main
 {
     public class DebugWnd : WindowRoot, IWindowRoot
     {
-        public Toggle FpsWndToggle, RuntimeInspectorToggle, RuntimeHierarchyToggle;
+        public Toggle FpsWndToggle;
+        public Toggle RuntimeInspectorToggle;
+        public Toggle RuntimeHierarchyToggle;
         public Button btnCloseDebugItem;
         public Transform DebugItem;
         public Transform fpsWnd;

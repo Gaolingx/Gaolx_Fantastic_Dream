@@ -9,7 +9,13 @@ namespace DarkGod.Main
         protected override void Awake()
         {
             base.Awake();
-            Debug.Log("PlayerPrefsSvc Init Done.");
+
+            GameRoot.MainInstance.OnGameEnter += InitSvc;
+        }
+
+        private void InitSvc()
+        {
+            PECommon.Log("PrefsSvc Init Done.");
         }
 
         #region Login
@@ -100,5 +106,10 @@ namespace DarkGod.Main
         }
 
         #endregion
+
+        private void OnDestroy()
+        {
+            GameRoot.MainInstance.OnGameEnter -= InitSvc;
+        }
     }
 }

@@ -9,8 +9,13 @@ namespace DarkGod.Main
 {
     public class SettingsWnd : WindowRoot, IWindowRoot
     {
-        public Slider BGAudioSlider, UIAudioSlider, CharacterAudioSlider, CharacterFxAudioSlider;
-        public Toggle VsyncSettingsToggle, MutedToggle;
+        public DebugWnd debugWnd;
+        public Slider BGAudioSlider;
+        public Slider UIAudioSlider;
+        public Slider CharacterAudioSlider;
+        public Slider CharacterFxAudioSlider;
+        public Toggle VsyncSettingsToggle;
+        public Toggle MutedToggle;
         public Button btnResetCfgs;
         public Button btnExitGame;
         public Button btnMainMenu;
@@ -22,6 +27,10 @@ namespace DarkGod.Main
             base.InitWnd();
 
             InitWindowValue();
+            if (debugWnd != null)
+            {
+                debugWnd.SetWndState(true);
+            }
         }
 
         public void OnEnable()
@@ -31,8 +40,8 @@ namespace DarkGod.Main
 
         private bool GetVSyncCount()
         {
-            if (Application.targetFrameRate != -1) { return false; }
-            return true;
+            if (Application.targetFrameRate == -1) { return true; }
+            return false;
         }
 
         private void InitWindowValue()

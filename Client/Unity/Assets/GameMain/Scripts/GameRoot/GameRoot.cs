@@ -30,8 +30,6 @@ namespace DarkGod.Main
         {
             base.Awake();
 
-            QualitySettings.SetQualityLevel((int)PlayerPrefsSvc.MainInstance.GetSettingsItem("Settings_QualitySelect"));
-
             InitStarterAssetsInputs();
 
             OnGameExit += GetUIController().OnClickExit;
@@ -50,6 +48,7 @@ namespace DarkGod.Main
 
             CleanUIRoot();
 
+            QualitySettings.SetQualityLevel((int)PlayerPrefsSvc.MainInstance.GetSettingsItem("Settings_QualitySelect"));
             InitGameRoot();
             PECommon.Log("Game Start...");
         }
@@ -180,9 +179,8 @@ namespace DarkGod.Main
             _isInputEnable = state;
         }
 
-        public void ExitGame(System.Action callBack = null)
+        public void ExitGame()
         {
-            OnGameExit += callBack;
             OnGameExit?.Invoke();
         }
 

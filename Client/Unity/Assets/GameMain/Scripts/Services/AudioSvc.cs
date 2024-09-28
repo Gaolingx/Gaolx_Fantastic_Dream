@@ -1,4 +1,5 @@
 //功能：音频播放服务
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,9 +13,14 @@ namespace DarkGod.Main
 {
     public class AudioSvc : Singleton<AudioSvc>
     {
-        [Range(0, 1)] public float BGAudioVolumeValue, UIAudioVolumeValue, CharacterAudioVolumeValue, CharacterFxAudioVolumeValue;
+        [Range(0, 1)] public float BGAudioVolumeValue;
+        [Range(0, 1)] public float UIAudioVolumeValue;
+        [Range(0, 1)] public float CharacterAudioVolumeValue;
+        [Range(0, 1)] public float CharacterFxAudioVolumeValue;
         public AudioSource BGAudioAudioSource, UIAudioAudioSource;
         public AudioMixer _audioMixer;
+
+        [SerializeField] private float fadingDuration = 3f;
 
         [System.Serializable]
         public class CharSoundItem
@@ -28,7 +34,6 @@ namespace DarkGod.Main
         [SerializeField] private List<CharSoundItem> CharacterLandingLst = new List<CharSoundItem>();
         [SerializeField] private List<CharSoundItem> CharacterHitLst = new List<CharSoundItem>();
 
-        [SerializeField] private float fadingDuration = 3f;
         private readonly string bgAudioPath = PathDefine.bgAudioPath;
 
         private SFX_PoolManager sfxPoolManager;

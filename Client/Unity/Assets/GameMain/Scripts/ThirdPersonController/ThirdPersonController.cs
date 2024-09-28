@@ -209,9 +209,9 @@ namespace StarterAssets
         #region MonoBehaviour
         private void ClassAwake()
         {
-            idleAction.OnValueChanged += delegate { OnIdle(); };
-            crouchAction.OnValueChanged += delegate { OnCrouch(); };
-            skillAction.OnValueChanged += delegate { OnAtkSkill(); };
+            idleAction.OnValueChanged += delegate (bool val) { OnIdle(val); };
+            crouchAction.OnValueChanged += delegate (bool val) { OnCrouch(val); };
+            skillAction.OnValueChanged += delegate (int val) { OnAtkSkill(val); };
 
             // get a reference to our main camera
             if (_mainCamera == null)
@@ -368,27 +368,27 @@ namespace StarterAssets
             }
         }
 
-        private void OnCrouch()
+        private void OnCrouch(bool val)
         {
             if (_hasAnimator)
             {
-                _animator.SetBool(_animIDCrouch, crouchAction.Value);
+                _animator.SetBool(_animIDCrouch, val);
             }
 
         }
 
         private int tid1 = 0;
-        private void OnIdle() //取消任务的id
+        private void OnIdle(bool val) //取消任务的id
         {
             // 等待x秒后如果仍处于Idle状态，则播放待机动画（定时任务）
-            if (idleAction.Value == true)
+            if (val == true)
             {
                 tid1 = _timerSvc.AddTimeTask((int tid) =>
                 {
                     SetAction(DarkGod.Main.Constants.ActionIdle);
                 }, DarkGod.Main.Constants.IdleAniWaitDelay);
             }
-            else if (idleAction.Value == false && tid1 != 0)
+            else if (val == false && tid1 != 0)
             {
                 SetAction(DarkGod.Main.Constants.ActionDefault);
                 _timerSvc.DelTask(tid1);
@@ -407,11 +407,11 @@ namespace StarterAssets
             return false;
         }
 
-        private void OnAtkSkill()
+        private void OnAtkSkill(int val)
         {
             if (_hasAnimator)
             {
-                _animator.SetInteger(_animIDSkillAction, skillAction.Value);
+                _animator.SetInteger(_animIDSkillAction, val);
             }
         }
 
@@ -629,9 +629,9 @@ namespace StarterAssets
 
         private void OnDestroy()
         {
-            idleAction.OnValueChanged -= delegate { OnIdle(); };
-            crouchAction.OnValueChanged -= delegate { OnCrouch(); };
-            skillAction.OnValueChanged -= delegate { OnAtkSkill(); };
+            idleAction.OnValueChanged -= delegate (bool val) { OnIdle(val); };
+            crouchAction.OnValueChanged -= delegate (bool val) { OnCrouch(val); };
+            skillAction.OnValueChanged -= delegate (int val) { OnAtkSkill(val); };
         }
     }
 }
