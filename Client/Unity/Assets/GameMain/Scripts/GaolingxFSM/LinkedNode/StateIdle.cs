@@ -1,13 +1,16 @@
 ﻿//功能：待机状态
 
+using SangoUtils.Patchs_YooAsset.Utils;
 using UnityEngine;
 
 namespace DarkGod.Main
 {
-    public class StateIdle : IState
+    internal class StateIdle : FSMLinkedStaterItemBase
     {
-        public void StateEnter(EntityBase entity, params object[] args)
+        internal override void OnEnter()
         {
+            EntityBase entity = (EntityBase)_fsmLinkedStater.GetBlackboardValue("EntityBase");
+
             entity.currentAniState = AniState.Idle;
             entity.SetDir(Vector2.zero);
             entity.skEndCB = -1;
@@ -15,13 +18,15 @@ namespace DarkGod.Main
             //PECommon.Log("StateIdle:Enter State.");
         }
 
-        public void StateExit(EntityBase entity, params object[] args)
+        internal override void OnExit()
         {
             //PECommon.Log("StateIdle:Exit State.");
         }
 
-        public void StateProcess(EntityBase entity, params object[] args)
+        internal override void OnUpdate()
         {
+            EntityBase entity = (EntityBase)_fsmLinkedStater.GetBlackboardValue("EntityBase");
+
             //连招判定
             if (entity.nextSkillID != 0)
             {

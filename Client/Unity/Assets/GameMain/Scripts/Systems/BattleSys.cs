@@ -17,10 +17,13 @@ namespace DarkGod.Main
         private int battleFbid;
         private double startTime;
 
+        public EntityPlayer currentEntityPlayer { get; set; }
+
         protected override void Awake()
         {
             base.Awake();
 
+            Instance = MainInstance;
             GameRoot.MainInstance.OnGameEnter += InitSys;
         }
 
@@ -28,7 +31,6 @@ namespace DarkGod.Main
         {
             base.InitSys();
 
-            Instance = MainInstance;
             PECommon.Log("Init BattleSys...");
         }
 
@@ -113,20 +115,6 @@ namespace DarkGod.Main
 
             battleEndWnd.SetBattleEndData(data.fbid, data.costtime, data.resthp);
             SetBattleEndWndState(FBEndType.Win);
-        }
-
-        private EntityPlayer currentEntityPlayer = null;
-        public void SetCurrentPlayer(EntityPlayer player)
-        {
-            currentEntityPlayer = player;
-        }
-        public EntityPlayer GetCurrentPlayer()
-        {
-            if (GameRoot.MainInstance.GetGameState() == GameState.FBFight)
-            {
-                return currentEntityPlayer;
-            }
-            return null;
         }
 
         public void SetPlayerMoveDir(Vector2 dir)

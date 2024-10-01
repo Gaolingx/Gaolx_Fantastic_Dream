@@ -197,7 +197,15 @@ namespace DarkGod.Main
             else if (target.entityType == EntityType.Player)
             {
                 //战斗失败
-                target.battleMgr.EndBattle(false, 0);
+                if (target.battleMgr.playerDic.Count == 0)
+                {
+                    target.battleMgr.EndBattle(false, 0);
+                }
+                else
+                {
+                    target.battleMgr.RmvPlayer(target.EntityName);
+                    //TODO:切换角色
+                }
             }
 
         }

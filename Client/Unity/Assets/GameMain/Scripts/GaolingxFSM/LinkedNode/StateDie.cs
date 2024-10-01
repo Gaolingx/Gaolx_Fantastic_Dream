@@ -1,24 +1,30 @@
 ﻿//功能：死亡状态
 
 
+using SangoUtils.Patchs_YooAsset.Utils;
+
 namespace DarkGod.Main
 {
-    public class StateDie : IState
+    internal class StateDie : FSMLinkedStaterItemBase
     {
-        public void StateEnter(EntityBase entity, params object[] args)
+        internal override void OnEnter()
         {
+            EntityBase entity = (EntityBase)_fsmLinkedStater.GetBlackboardValue("EntityBase");
+
             entity.currentAniState = AniState.Die;
 
             entity.RmvSkillCB();
         }
 
-        public void StateExit(EntityBase entity, params object[] args)
+        internal override void OnExit()
         {
 
         }
 
-        public void StateProcess(EntityBase entity, params object[] args)
+        internal override void OnUpdate()
         {
+            EntityBase entity = (EntityBase)_fsmLinkedStater.GetBlackboardValue("EntityBase");
+
             entity.SetAction(Constants.ActionDie);
             if (entity.entityType == EntityType.Monster)
             {

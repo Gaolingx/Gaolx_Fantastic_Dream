@@ -250,6 +250,8 @@ namespace DarkGod.Main
         public const int StateIdleMonsterDelayTime = 1000;
         public const int StateBornMonsterDurationTime = 500;
         public const int StateDieMonsterAnimTime = 5000;
+        public const int ActivePlayerDelayTime = 100;
+        public const int StateIdlePlayerDelayTime = 150;
 
         //AI Logic
         public const float MonsterCheckTime = 2.0f;

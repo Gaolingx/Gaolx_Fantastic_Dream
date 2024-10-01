@@ -1,22 +1,28 @@
 ﻿//功能：出生状态
 
 
+using SangoUtils.Patchs_YooAsset.Utils;
+
 namespace DarkGod.Main
 {
-    public class StateBorn : IState
+    internal class StateBorn : FSMLinkedStaterItemBase
     {
-        public void StateEnter(EntityBase entity, params object[] args)
+        internal override void OnEnter()
         {
+            EntityBase entity = (EntityBase)_fsmLinkedStater.GetBlackboardValue("EntityBase");
+
             entity.currentAniState = AniState.Born;
         }
 
-        public void StateExit(EntityBase entity, params object[] args)
+        internal override void OnExit()
         {
 
         }
 
-        public void StateProcess(EntityBase entity, params object[] args)
+        internal override void OnUpdate()
         {
+            EntityBase entity = (EntityBase)_fsmLinkedStater.GetBlackboardValue("EntityBase");
+
             //播放出生动画
             entity.SetAction(Constants.ActionBorn);
             TimerSvc.MainInstance.AddTimeTask((int tid) =>

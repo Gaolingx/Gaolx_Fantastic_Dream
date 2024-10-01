@@ -189,6 +189,19 @@
     <type fullname="YooAsset.SceneHandle" preserve="all" />
     <type fullname="YooAsset.YooAssets" preserve="all" />
   </assembly>
+  <assembly fullname="mscorlib">
+    <type fullname="System.Reflection.AssemblyCompanyAttribute" preserve="all" />
+    <type fullname="System.Reflection.AssemblyConfigurationAttribute" preserve="all" />
+    <type fullname="System.Reflection.AssemblyCopyrightAttribute" preserve="all" />
+    <type fullname="System.Reflection.AssemblyDescriptionAttribute" preserve="all" />
+    <type fullname="System.Reflection.AssemblyFileVersionAttribute" preserve="all" />
+    <type fullname="System.Reflection.AssemblyProductAttribute" preserve="all" />
+    <type fullname="System.Reflection.AssemblyTitleAttribute" preserve="all" />
+    <type fullname="System.Reflection.AssemblyTrademarkAttribute" preserve="all" />
+    <type fullname="System.Runtime.InteropServices.ComVisibleAttribute" preserve="all" />
+    <type fullname="System.Runtime.InteropServices.GuidAttribute" preserve="all" />
+    <type fullname="System.Runtime.Versioning.TargetFrameworkAttribute" preserve="all" />
+  </assembly>
   <assembly fullname="netstandard">
     <type fullname="System.Action" preserve="all" />
     <type fullname="System.Action`1" preserve="all" />
@@ -213,6 +226,8 @@
     <type fullname="System.Collections.Generic.IEnumerable`1" preserve="all" />
     <type fullname="System.Collections.Generic.IEnumerator`1" preserve="all" />
     <type fullname="System.Collections.Generic.KeyValuePair`2" preserve="all" />
+    <type fullname="System.Collections.Generic.LinkedListNode`1" preserve="all" />
+    <type fullname="System.Collections.Generic.LinkedList`1" preserve="all" />
     <type fullname="System.Collections.Generic.List`1" preserve="all" />
     <type fullname="System.Collections.Generic.List`1/Enumerator" preserve="all" />
     <type fullname="System.Collections.Generic.Queue`1" preserve="all" />
@@ -228,6 +243,7 @@
     <type fullname="System.Exception" preserve="all" />
     <type fullname="System.Func`1" preserve="all" />
     <type fullname="System.Func`2" preserve="all" />
+    <type fullname="System.Func`4" preserve="all" />
     <type fullname="System.IAsyncResult" preserve="all" />
     <type fullname="System.IDisposable" preserve="all" />
     <type fullname="System.IProgress`1" preserve="all" />
@@ -240,12 +256,6 @@
     <type fullname="System.OperationCanceledException" preserve="all" />
     <type fullname="System.ParamArrayAttribute" preserve="all" />
     <type fullname="System.Random" preserve="all" />
-    <type fullname="System.Reflection.AssemblyCompanyAttribute" preserve="all" />
-    <type fullname="System.Reflection.AssemblyConfigurationAttribute" preserve="all" />
-    <type fullname="System.Reflection.AssemblyFileVersionAttribute" preserve="all" />
-    <type fullname="System.Reflection.AssemblyInformationalVersionAttribute" preserve="all" />
-    <type fullname="System.Reflection.AssemblyProductAttribute" preserve="all" />
-    <type fullname="System.Reflection.AssemblyTitleAttribute" preserve="all" />
     <type fullname="System.Reflection.BindingFlags" preserve="all" />
     <type fullname="System.Reflection.CustomAttributeExtensions" preserve="all" />
     <type fullname="System.Reflection.DefaultMemberAttribute" preserve="all" />
@@ -261,7 +271,6 @@
     <type fullname="System.Runtime.CompilerServices.RuntimeCompatibilityAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.RuntimeHelpers" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.TupleElementNamesAttribute" preserve="all" />
-    <type fullname="System.Runtime.Versioning.TargetFrameworkAttribute" preserve="all" />
     <type fullname="System.RuntimeFieldHandle" preserve="all" />
     <type fullname="System.RuntimeTypeHandle" preserve="all" />
     <type fullname="System.Security.Permissions.SecurityAction" preserve="all" />

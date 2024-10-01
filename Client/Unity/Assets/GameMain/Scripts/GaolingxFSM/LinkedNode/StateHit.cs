@@ -1,25 +1,30 @@
 ﻿//功能：受击状态
 
+using SangoUtils.Patchs_YooAsset.Utils;
 using UnityEngine;
 
 namespace DarkGod.Main
 {
-    public class StateHit : IState
+    internal class StateHit : FSMLinkedStaterItemBase
     {
-        public void StateEnter(EntityBase entity, params object[] args)
+        internal override void OnEnter()
         {
+            EntityBase entity = (EntityBase)_fsmLinkedStater.GetBlackboardValue("EntityBase");
+
             entity.currentAniState = AniState.Hit;
 
             entity.RmvSkillCB();
         }
 
-        public void StateExit(EntityBase entity, params object[] args)
+        internal override void OnExit()
         {
 
         }
 
-        public void StateProcess(EntityBase entity, params object[] args)
+        internal override void OnUpdate()
         {
+            EntityBase entity = (EntityBase)_fsmLinkedStater.GetBlackboardValue("EntityBase");
+
             if (entity.entityType == EntityType.Player)
             {
                 entity.CanRlsSkill = false;

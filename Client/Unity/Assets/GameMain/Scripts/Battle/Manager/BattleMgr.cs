@@ -5,6 +5,7 @@ using Cinemachine;
 using PEProtocol;
 using StarterAssets;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -24,13 +25,12 @@ namespace DarkGod.Main
 
         private BattleSys battleSys;
 
-        private EntityPlayer entitySelfPlayer;
-
-        public BindableProperty<EntityPlayer> EntityPlayer = new BindableProperty<EntityPlayer>();
+        public BindableProperty<EntityPlayer> EntityPlayer = new BindableProperty<EntityPlayer>(); //记录当前玩家
 
         private MapCfg mapCfg;
 
-        private Dictionary<string, EntityMonster> monsterDic = new Dictionary<string, EntityMonster>();
+        public Dictionary<string, EntityMonster> monsterDic = new Dictionary<string, EntityMonster>();
+        public Dictionary<string, EntityPlayer> playerDic = new Dictionary<string, EntityPlayer>();
 
         private CinemachineVirtualCamera cinemachineVirtualCamera;
         private async void LoadVirtualCameraInstance(MapCfg mapData)
@@ -46,6 +46,23 @@ namespace DarkGod.Main
                 cinemachineVirtualCamera.m_Lens.FarClipPlane = Constants.CinemachineVirtualCameraFarClipPlane;
                 cinemachineVirtualCamera.m_Lens.NearClipPlane = Constants.CinemachineVirtualCameraNearClipPlane;
             }
+        }
+
+        public void ActiveCurrentPlayer(string key)
+        {
+            timerSvc.AddTimeTask((int tid) =>
+            {
+                if (playerDic.TryGetValue(key, out EntityPlayer item))
+                {
+                    EntityPlayer.Value = item;
+                    item.SetActive(true);
+                    item.StateBorn();
+                    timerSvc.AddTimeTask((int tid1) =>
+                    {
+                        item.StateIdle();
+                    }, Constants.StateIdlePlayerDelayTime);
+                }
+            }, Constants.ActivePlayerDelayTime);
         }
 
         private async void LoadPlayerInstance(MapCfg mapData)
@@ -82,7 +99,7 @@ namespace DarkGod.Main
                 };
 
                 //实例化玩家逻辑实体
-                entitySelfPlayer = new EntityPlayer
+                EntityPlayer entitySelfPlayer = new EntityPlayer
                 {
                     battleMgr = this,
                     stateMgr = stateMgr, //将stateMgr注入逻辑实体类中
@@ -93,8 +110,10 @@ namespace DarkGod.Main
                 entitySelfPlayer.SetBattleProps(props);
 
                 entitySelfPlayer.SetCtrl(controller);
-                entitySelfPlayer.StateIdle();
-                EntityPlayer.Value = entitySelfPlayer;
+                entitySelfPlayer.SetActive(false);
+                playerDic.Add(player.name, entitySelfPlayer);
+                entitySelfPlayer.OnInitFSM();
+                ActiveCurrentPlayer(player.name);
             }
         }
 
@@ -111,7 +130,6 @@ namespace DarkGod.Main
 
             //初始化各管理器
             stateMgr = gameObject.AddComponent<StateMgr>();
-            stateMgr.Init();
             skillMgr = gameObject.AddComponent<SkillMgr>();
             skillMgr.Init();
 
@@ -160,8 +178,7 @@ namespace DarkGod.Main
 
         private void OnUpdateEntityPlayer(EntityPlayer value)
         {
-            BattleSys.Instance.SetCurrentPlayer(value);
-            entitySelfPlayer = value;
+            BattleSys.Instance.currentEntityPlayer = value;
         }
 
         //相关逻辑驱动
@@ -180,10 +197,16 @@ namespace DarkGod.Main
         {
             CheckMonsterCount();
 
-            RunMonsterAILogic();
+            RunMonsterTickLogic();
+            RunPlayerTickLogic();
         }
 
-        private void RunMonsterAILogic()
+        private void RunPlayerTickLogic()
+        {
+
+        }
+
+        private void RunMonsterTickLogic()
         {
             foreach (var item in monsterDic)
             {
@@ -214,6 +237,7 @@ namespace DarkGod.Main
                     if (!isExist)
                     {
                         //关卡结束，战斗胜利
+                        var entitySelfPlayer = EntityPlayer.Value;
                         EndBattle(true, entitySelfPlayer.currentHP.Value);
                     }
                 }
@@ -224,6 +248,8 @@ namespace DarkGod.Main
         public void EndBattle(bool isWin, int restHP)
         {
             SetPauseGame(false, true);
+
+            var entitySelfPlayer = EntityPlayer.Value;
             entitySelfPlayer.StateIdle();
             //停止背景音乐
             audioSvc.StopBGMusic();
@@ -263,6 +289,8 @@ namespace DarkGod.Main
 
                     m.SetActive(false);
                     monsterDic.Add(m.name, em);
+                    em.OnInitFSM();
+
                     //Boss血条特殊处理
                     if (md.mCfg.mType == cfg.MonsterType.Normal)
                     {
@@ -298,12 +326,12 @@ namespace DarkGod.Main
         //获取所有怪物实体
         public List<EntityMonster> GetEntityMonsters()
         {
-            List<EntityMonster> monsterLst = new List<EntityMonster>();
-            foreach (var item in monsterDic)
-            {
-                monsterLst.Add(item.Value);
-            }
-            return monsterLst;
+            return monsterDic.Values.ToList();
+        }
+
+        public List<EntityPlayer> GetEntityPlayers()
+        {
+            return playerDic.Values.ToList();
         }
 
         public void RmvMonster(string key)
@@ -318,9 +346,24 @@ namespace DarkGod.Main
             }
         }
 
+        public void RmvPlayer(string key)
+        {
+            EntityPlayer entityPlayer;
+            if (playerDic.TryGetValue(key, out entityPlayer))
+            {
+                playerDic.Remove(key);
+            }
+        }
+
+        public void RmvAllPlayer()
+        {
+            playerDic.Clear();
+        }
+
         #region 技能施放与角色控制
         public void SetSelfPlayerMoveDir(Vector2 dir)
         {
+            var entitySelfPlayer = EntityPlayer.Value;
             //设置玩家移动
             //PECommon.Log(dir.ToString());
             if (entitySelfPlayer.CanControl == false)
@@ -376,6 +419,7 @@ namespace DarkGod.Main
         public int comboIndex = 0; //记录当前要存储的连招的id为第n个
         private void CalcNormalAtkCombo()
         {
+            var entitySelfPlayer = EntityPlayer.Value;
             if (entitySelfPlayer.currentAniState == AniState.Attack)
             {
                 //在500ms以内进行第二次点击，保存点击数据
@@ -414,16 +458,19 @@ namespace DarkGod.Main
         private void PlayerReleaseSkill01()
         {
             //PECommon.Log("Click Skill01");
+            var entitySelfPlayer = EntityPlayer.Value;
             entitySelfPlayer.StateAttack(Constants.SkillID_Mar7th00_skill01);
         }
         private void PlayerReleaseSkill02()
         {
             //PECommon.Log("Click Skill02");
+            var entitySelfPlayer = EntityPlayer.Value;
             entitySelfPlayer.StateAttack(Constants.SkillID_Mar7th00_skill02);
         }
         private void PlayerReleaseSkill03()
         {
             //PECommon.Log("Click Skill03");
+            var entitySelfPlayer = EntityPlayer.Value;
             entitySelfPlayer.StateAttack(Constants.SkillID_Mar7th00_skill03);
         }
         public Vector2 GetDirInput()
@@ -432,6 +479,7 @@ namespace DarkGod.Main
         }
         public bool CanRlsSkill()
         {
+            var entitySelfPlayer = EntityPlayer.Value;
             return entitySelfPlayer.CanRlsSkill;
         }
 

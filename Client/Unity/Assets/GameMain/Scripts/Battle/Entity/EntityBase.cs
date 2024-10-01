@@ -11,14 +11,14 @@ namespace DarkGod.Main
         //Íæ¼Òµ±Ç°×´Ì¬
         public AniState currentAniState { get; set; } = AniState.None;
 
-        public BattleMgr battleMgr { get; set; } = null;
-        public StateMgr stateMgr { get; set; } = null;
-        public SkillMgr skillMgr { get; set; } = null;
+        public BattleMgr battleMgr { get; set; }
+        public StateMgr stateMgr { get; set; }
+        public SkillMgr skillMgr { get; set; }
 
-        public ThirdPersonController playerController { get; set; } = null;
-        protected Controller controller { get; set; } = null;
+        public ThirdPersonController playerController { get; set; }
+        public Controller controller { get; set; }
 
-        public string EntityName { get; set; } = null;
+        public string EntityName { get; set; }
 
         public bool CanControl { get; set; } = true;
         public bool CanRlsSkill { get; set; } = true;
@@ -46,30 +46,56 @@ namespace DarkGod.Main
         public int skEndCB { get; set; } = -1;
 
         #region State Define
+        public void OnInitFSM()
+        {
+            if (stateMgr != null)
+            {
+                stateMgr.InitFSM(this);
+            }
+        }
+
         //×´Ì¬ÇÐ»»
         public void StateBorn()
         {
-            stateMgr.ChangeStatus(this, AniState.Born, null);
+            if (stateMgr != null)
+            {
+                stateMgr.ChangeStatus(this, AniState.Born, null);
+            }
         }
         public void StateMove()
         {
-            stateMgr.ChangeStatus(this, AniState.Move, null);
+            if (stateMgr != null)
+            {
+                stateMgr.ChangeStatus(this, AniState.Move, null);
+            }
         }
         public void StateIdle()
         {
-            stateMgr.ChangeStatus(this, AniState.Idle, null);
+            if (stateMgr != null)
+            {
+                stateMgr.ChangeStatus(this, AniState.Idle, null);
+            }
         }
         public void StateAttack(int skillID)
         {
-            stateMgr.ChangeStatus(this, AniState.Attack, skillID);
+            if (stateMgr != null)
+            {
+                stateMgr.ChangeStatus(this, AniState.Attack, skillID);
+            }
         }
         public void StateHit()
         {
-            stateMgr.ChangeStatus(this, AniState.Hit, null);
+            if (stateMgr != null)
+            {
+                stateMgr.ChangeStatus(this, AniState.Hit, null);
+            }
         }
         public void StateDie()
         {
-            stateMgr.ChangeStatus(this, AniState.Die, null);
+            if (stateMgr != null)
+            {
+                stateMgr.ChangeStatus(this, AniState.Die, null);
+            }
         }
         #endregion
 

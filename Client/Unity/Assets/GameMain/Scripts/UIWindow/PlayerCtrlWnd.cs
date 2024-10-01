@@ -102,7 +102,7 @@ namespace DarkGod.Main
         {
             float delta = Time.deltaTime;
 
-            if (BattleSys.Instance.GetCurrentPlayer() == null || GameRoot.MainInstance.GetGameState() != GameState.FBFight)
+            if (BattleSys.Instance.currentEntityPlayer == null || GameRoot.MainInstance.GetGameState() != GameState.FBFight)
             {
                 return;
             }
