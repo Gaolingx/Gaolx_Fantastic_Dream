@@ -127,6 +127,7 @@ namespace StarterAssets
         private int _animIDCrouch;
         private int _animIDFlip;
         private int _animIDSkillAction;
+        private int _animIDIdleAnim;
 
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
@@ -303,6 +304,7 @@ namespace StarterAssets
             _animIDCrouch = Animator.StringToHash("Crouch");
             _animIDFlip = Animator.StringToHash("Flip");
             _animIDSkillAction = Animator.StringToHash("SkillAction");
+            _animIDIdleAnim = Animator.StringToHash("IdleAnim");
         }
 
         private void GroundedCheck()
@@ -385,12 +387,12 @@ namespace StarterAssets
             {
                 tid1 = _timerSvc.AddTimeTask((int tid) =>
                 {
-                    SetAction(DarkGod.Main.Constants.ActionIdle);
+                    _animator.SetBool(_animIDIdleAnim, true);
                 }, DarkGod.Main.Constants.IdleAniWaitDelay);
             }
             else if (val == false && tid1 != 0)
             {
-                SetAction(DarkGod.Main.Constants.ActionDefault);
+                _animator.SetBool(_animIDIdleAnim, false);
                 _timerSvc.DelTask(tid1);
             }
         }
