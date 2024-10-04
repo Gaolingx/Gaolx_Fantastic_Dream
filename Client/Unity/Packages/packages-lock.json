@@ -47,7 +47,7 @@
       "hash": "cc4ea8aa5bd4406ee258cf5a889f08615fdd3bcd"
     },
     "com.stalomeow.star-rail-npr-shader": {
-      "version": "file:StarRailNPRShader-2.9.0",
+      "version": "file:StarRailNPRShader-2.10.1",
       "depth": 0,
       "source": "embedded",
       "dependencies": {
