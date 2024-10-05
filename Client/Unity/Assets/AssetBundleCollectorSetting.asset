@@ -115,8 +115,8 @@ MonoBehaviour:
         FilterRuleName: CollectShaderVariants
         AssetTags: 
         UserData: 
-      - CollectPath: Assets/ResModules/Shaders/GenshinCelShaderURP/Shaders/GenshinCelShaderURP/V5.0Beta/GenshinLikeRendering
-        CollectorGUID: cb8ed0ecd275e794f9461e5ff84cb3da
+      - CollectPath: Assets/ResModules/Shaders/GenshinCelShaderURP/Shaders
+        CollectorGUID: 6bc3a5f6759f7ae43af111db5fcbb63f
         CollectorType: 0
         AddressRuleName: AddressByFileName
         PackRuleName: PackShader
