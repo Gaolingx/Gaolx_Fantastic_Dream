@@ -26,8 +26,7 @@ Material:
   - _CUSTOMSPECULARCOLORVARENUM_OVERLAY
   - _CUSTOMSPECULARVARENUM_OVERLAY
   - _CUSTOM_RAMP_MAPPING_ON
-  - _MODEL_GAME
-  - _OUTLINENORMALCHANNEL_TANGENT
+  - _OUTLINENORMALCHANNEL_NORMAL
   - _RIM_LIGHTING_ON
   - _RIM_SHADOW_ON
   - _SPECULAR_ON
@@ -35,6 +34,7 @@ Material:
   m_InvalidKeywords:
   - _DAYTIME_MANUAL_ON_ON
   - _ENABLEOUTLINE_ON
+  - _MODEL_GAME
   - _OUTLINENORMAL_TANGENT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -196,8 +196,8 @@ Material:
     - _NoseLinePower: 1
     - _OutlineColor: 0
     - _OutlineNormal: 0
-    - _OutlineNormalChannel: 1
-    - _OutlineScale: 50
+    - _OutlineNormalChannel: 0
+    - _OutlineScale: 15
     - _OutlineUseLutMapToggle: 0
     - _OutlineWidth: 0.06
     - _OutlineWidthMax: 30
@@ -391,6 +391,7 @@ Material:
     - _OutlineColor6: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor7: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineDefaultColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _OutlineWidthParams: {r: 0, g: 1, b: 0, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor0: {r: 0.9811321, g: 0.83303666, b: 0.8537288, a: 1}
     - _RimColor1: {r: 0.944132, g: 0.8679245, b: 1, a: 1}
@@ -410,6 +411,7 @@ Material:
     - _RimShadowColor6: {r: 1, g: 1, b: 1, a: 1}
     - _RimShadowColor7: {r: 1, g: 1, b: 1, a: 1}
     - _RimShadowOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _ScreenOffset: {r: 0, g: 0, b: 0, a: 0}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecularColor0: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor1: {r: 0, g: 0, b: 0, a: 1}
