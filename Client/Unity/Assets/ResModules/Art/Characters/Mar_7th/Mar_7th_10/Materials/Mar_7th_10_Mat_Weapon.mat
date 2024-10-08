@@ -195,7 +195,7 @@ Material:
     - _OutlineColor: 0
     - _OutlineNormal: 0
     - _OutlineNormalChannel: 0
-    - _OutlineScale: 15
+    - _OutlineScale: 10
     - _OutlineUseLutMapToggle: 0
     - _OutlineWidth: 0.06
     - _OutlineWidthMax: 30

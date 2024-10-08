@@ -188,12 +188,12 @@ Material:
     - _NoseLinePower: 1
     - _OutlineNormal: 0
     - _OutlineNormalChannel: 0
-    - _OutlineScale: 15
+    - _OutlineScale: 10
     - _OutlineUseLutMapToggle: 0
     - _OutlineWidth: 0.04
     - _OutlineWidthMax: 30
     - _OutlineWidthMin: 2
-    - _OutlineZOffset: 0.1
+    - _OutlineZOffset: 0
     - _PerObjShadowCasterId: -1
     - _RampCoolWarmLerpFactor: 1
     - _RampV0: 0
