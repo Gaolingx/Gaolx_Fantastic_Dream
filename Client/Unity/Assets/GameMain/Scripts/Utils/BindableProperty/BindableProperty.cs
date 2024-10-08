@@ -16,8 +16,11 @@ public class BindableProperty<T>
                 mValue = value;
                 OnValueChanged?.Invoke(mValue);
             }
-
         }
+    }
 
+    public void Invoke()
+    {
+        OnValueChanged?.Invoke(mValue);
     }
 }

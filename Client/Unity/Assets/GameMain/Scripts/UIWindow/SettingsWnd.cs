@@ -40,10 +40,10 @@ namespace DarkGod.Main
         {
             InitDropdownOptionData(qualitySelectDropdown, new List<string>(QualitySettings.names));
             qualitySelectDropdown.value = QualitySettings.GetQualityLevel();
-            BGAudioSlider.value = audioSvc.BGAudioVolumeValue;
-            UIAudioSlider.value = audioSvc.UIAudioVolumeValue;
-            CharacterAudioSlider.value = audioSvc.CharacterAudioVolumeValue;
-            CharacterFxAudioSlider.value = audioSvc.CharacterFxAudioVolumeValue;
+            BGAudioSlider.value = audioSvc.BGAudioVolumeValue.Value;
+            UIAudioSlider.value = audioSvc.UIAudioVolumeValue.Value;
+            CharacterAudioSlider.value = audioSvc.CharacterAudioVolumeValue.Value;
+            CharacterFxAudioSlider.value = audioSvc.CharacterFxAudioVolumeValue.Value;
         }
 
         #region Sliderœ‡πÿ
@@ -54,35 +54,35 @@ namespace DarkGod.Main
             btnMainMenu.onClick.AddListener(delegate { ExitCurrentBattle(); });
             btnCloseSettings.onClick.AddListener(delegate { ClickCloseBtn(); });
 
-            BGAudioSlider.onValueChanged.AddListener(TouchBGAudioSlider);
-            UIAudioSlider.onValueChanged.AddListener(TouchUIAudioSlider);
-            CharacterAudioSlider.onValueChanged.AddListener(TouchCharacterAudioSlider);
-            CharacterFxAudioSlider.onValueChanged.AddListener(TouchCharacterFxAudioSlider);
+            BGAudioSlider.onValueChanged.AddListener(delegate (float val) { TouchBGAudioSlider(val); });
+            UIAudioSlider.onValueChanged.AddListener(delegate (float val) { TouchUIAudioSlider(val); });
+            CharacterAudioSlider.onValueChanged.AddListener(delegate (float val) { TouchCharacterAudioSlider(val); });
+            CharacterFxAudioSlider.onValueChanged.AddListener(delegate (float val) { TouchCharacterFxAudioSlider(val); });
 
-            MutedToggle.onValueChanged.AddListener(ClickMutedToggle);
-            VsyncSettingsToggle.onValueChanged.AddListener(ClickVsyncToggle);
+            MutedToggle.onValueChanged.AddListener(delegate (bool val) { ClickMutedToggle(val); });
+            VsyncSettingsToggle.onValueChanged.AddListener(delegate (bool val) { ClickVsyncToggle(val); });
 
-            qualitySelectDropdown.onValueChanged.AddListener(OnQualityDropdownValueChanged);
+            qualitySelectDropdown.onValueChanged.AddListener(delegate (int val) { OnQualityDropdownValueChanged(val); });
         }
 
         public void TouchBGAudioSlider(float volume)
         {
-            audioSvc.BGAudioVolumeValue = volume;
+            audioSvc.BGAudioVolumeValue.Value = volume;
         }
 
         public void TouchUIAudioSlider(float volume)
         {
-            audioSvc.UIAudioVolumeValue = volume;
+            audioSvc.UIAudioVolumeValue.Value = volume;
         }
 
         public void TouchCharacterAudioSlider(float volume)
         {
-            audioSvc.CharacterAudioVolumeValue = volume;
+            audioSvc.CharacterAudioVolumeValue.Value = volume;
         }
 
         public void TouchCharacterFxAudioSlider(float volume)
         {
-            audioSvc.CharacterFxAudioVolumeValue = volume;
+            audioSvc.CharacterFxAudioVolumeValue.Value = volume;
         }
 
         #endregion
