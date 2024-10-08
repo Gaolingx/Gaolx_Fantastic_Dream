@@ -7,6 +7,7 @@ using UnityEngine;
 using HuHu;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace DarkGod.Main
 {
@@ -24,7 +25,41 @@ namespace DarkGod.Main
 
         public System.Action OnGameEnter { get; set; }
         public System.Action OnGameExit { get; set; }
+        public BindableProperty<int> qualityLevel { get; set; } = new BindableProperty<int>();
         private BindableProperty<bool> pauseState { get; set; } = new BindableProperty<bool>();
+        private PlayerPrefsSvc playerPrefsSvc;
+
+        private const string prefsKey_SettingsGameRoot = "prefsKey_SettingsGameRoot";
+
+
+        [HideInInspector]
+        [System.Serializable]
+        private class PlayerPrefsData
+        {
+            public int QualityLevel;
+        }
+
+        private void LoadPrefsData()
+        {
+            if (playerPrefsSvc.CheckPlayerPrefsHasKey(prefsKey_SettingsGameRoot))
+            {
+                var json = playerPrefsSvc.LoadFromPlayerPrefs(prefsKey_SettingsGameRoot);
+                var saveData = JsonConvert.DeserializeObject<PlayerPrefsData>(json);
+                qualityLevel.Value = saveData.QualityLevel;
+            }
+            else
+            {
+                qualityLevel.Value = QualitySettings.GetQualityLevel();
+            }
+        }
+
+        private void SavePrefsData()
+        {
+            var saveData = new PlayerPrefsData();
+
+            saveData.QualityLevel = qualityLevel.Value;
+            playerPrefsSvc.SaveByPlayerPrefs(prefsKey_SettingsGameRoot, saveData);
+        }
 
         protected override void Awake()
         {
@@ -34,6 +69,7 @@ namespace DarkGod.Main
 
             OnGameExit += GetUIController().OnClickExit;
             pauseState.OnValueChanged += OnUpdatePauseState;
+            qualityLevel.OnValueChanged += OnUpdateQualityLevel;
         }
 
         private void Start()
@@ -44,11 +80,13 @@ namespace DarkGod.Main
                 DontDestroyOnLoad(this);
             }
 
+            playerPrefsSvc = PlayerPrefsSvc.MainInstance;
+
             OnGameEnter?.Invoke();
 
             CleanUIRoot();
 
-            QualitySettings.SetQualityLevel((int)PlayerPrefsSvc.MainInstance.GetSettingsItem("Settings_QualitySelect"));
+            LoadPrefsData();
             InitGameRoot();
             PECommon.Log("Game Start...");
         }
@@ -78,6 +116,12 @@ namespace DarkGod.Main
             {
                 VFXManager.MainInstance.ResetVFX();
             }
+        }
+
+        private void OnUpdateQualityLevel(int value)
+        {
+            QualitySettings.SetQualityLevel(value);
+            SavePrefsData();
         }
 
         private void InitStarterAssetsInputs()
@@ -287,6 +331,7 @@ namespace DarkGod.Main
         private void OnDestroy()
         {
             pauseState.OnValueChanged -= OnUpdatePauseState;
+            qualityLevel.OnValueChanged -= OnUpdateQualityLevel;
         }
 
     }

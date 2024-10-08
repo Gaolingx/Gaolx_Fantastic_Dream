@@ -8,6 +8,7 @@ using static DarkGod.Main.SFX_PoolManager;
 using UnityEngine.Audio;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using Newtonsoft.Json;
 
 namespace DarkGod.Main
 {
@@ -40,6 +41,43 @@ namespace DarkGod.Main
         private CancellationTokenSourceMgr ctsMgr;
         private PlayerPrefsSvc playerPrefsSvc;
 
+        private const string prefsKey_SettingsAudioSvc = "prefsKey_SettingsAudioSvc";
+
+        [HideInInspector]
+        [System.Serializable]
+        private class PlayerPrefsData
+        {
+            public float BGAudioVolume;
+            public float UIAudioVolume;
+            public float CharacterAudioVolume;
+            public float CharacterFxAudioVolume;
+        }
+
+        private void LoadPrefsData()
+        {
+            if (playerPrefsSvc.CheckPlayerPrefsHasKey(prefsKey_SettingsAudioSvc))
+            {
+                var json = playerPrefsSvc.LoadFromPlayerPrefs(prefsKey_SettingsAudioSvc);
+                var saveData = JsonConvert.DeserializeObject<PlayerPrefsData>(json);
+                BGAudioVolumeValue = saveData.BGAudioVolume;
+                UIAudioVolumeValue = saveData.UIAudioVolume;
+                CharacterAudioVolumeValue = saveData.CharacterAudioVolume;
+                CharacterFxAudioVolumeValue = saveData.CharacterFxAudioVolume;
+            }
+        }
+
+        private void SavePrefsData()
+        {
+            var saveData = new PlayerPrefsData();
+
+            saveData.BGAudioVolume = BGAudioVolumeValue;
+            saveData.UIAudioVolume = UIAudioVolumeValue;
+            saveData.CharacterAudioVolume = CharacterAudioVolumeValue;
+            saveData.CharacterFxAudioVolume = CharacterFxAudioVolumeValue;
+
+            playerPrefsSvc.SaveByPlayerPrefs(prefsKey_SettingsAudioSvc, saveData);
+        }
+
         protected override void Awake()
         {
             base.Awake();
@@ -53,12 +91,9 @@ namespace DarkGod.Main
             sfxPoolManager.InitSoundPool();
 
             ctsMgr = CancellationTokenSourceMgr.MainInstance;
-
             playerPrefsSvc = PlayerPrefsSvc.MainInstance;
-            BGAudioVolumeValue = (float)playerPrefsSvc.GetSettingsItem("Settings_BGAudioSlider");
-            UIAudioVolumeValue = (float)playerPrefsSvc.GetSettingsItem("Settings_UIAudioSlider");
-            CharacterAudioVolumeValue = (float)playerPrefsSvc.GetSettingsItem("Settings_CharacterAudioSlider");
-            CharacterFxAudioVolumeValue = (float)playerPrefsSvc.GetSettingsItem("Settings_CharacterFxAudioSlider");
+
+            LoadPrefsData();
 
             PECommon.Log("Init AudioSvc...");
         }
@@ -66,6 +101,7 @@ namespace DarkGod.Main
         private void Update()
         {
             RefreshAudioSourceVolume();
+            SavePrefsData();
         }
 
         public void SetMainAudioMuted(bool state)

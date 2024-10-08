@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
-using XiHUtil;
 
 namespace DarkGod.Main
 {
@@ -41,12 +39,11 @@ namespace DarkGod.Main
         private void InitWindowValue()
         {
             InitDropdownOptionData(qualitySelectDropdown, new List<string>(QualitySettings.names));
-            qualitySelectDropdown.value = (int)playerPrefsSvc.GetSettingsItem("Settings_QualitySelect");
-
-            BGAudioSlider.value = (float)playerPrefsSvc.GetSettingsItem("Settings_BGAudioSlider");
-            UIAudioSlider.value = (float)playerPrefsSvc.GetSettingsItem("Settings_UIAudioSlider");
-            CharacterAudioSlider.value = (float)playerPrefsSvc.GetSettingsItem("Settings_CharacterAudioSlider");
-            CharacterFxAudioSlider.value = (float)playerPrefsSvc.GetSettingsItem("Settings_CharacterFxAudioSlider");
+            qualitySelectDropdown.value = QualitySettings.GetQualityLevel();
+            BGAudioSlider.value = audioSvc.BGAudioVolumeValue;
+            UIAudioSlider.value = audioSvc.UIAudioVolumeValue;
+            CharacterAudioSlider.value = audioSvc.CharacterAudioVolumeValue;
+            CharacterFxAudioSlider.value = audioSvc.CharacterFxAudioVolumeValue;
         }
 
         #region Sliderœ‡πÿ
@@ -71,25 +68,21 @@ namespace DarkGod.Main
         public void TouchBGAudioSlider(float volume)
         {
             audioSvc.BGAudioVolumeValue = volume;
-            PlayerPrefsUtil.Set("Settings_BGAudioSlider", volume);
         }
 
         public void TouchUIAudioSlider(float volume)
         {
             audioSvc.UIAudioVolumeValue = volume;
-            PlayerPrefsUtil.Set("Settings_UIAudioSlider", volume);
         }
 
         public void TouchCharacterAudioSlider(float volume)
         {
             audioSvc.CharacterAudioVolumeValue = volume;
-            PlayerPrefsUtil.Set("Settings_CharacterAudioSlider", volume);
         }
 
         public void TouchCharacterFxAudioSlider(float volume)
         {
             audioSvc.CharacterFxAudioVolumeValue = volume;
-            PlayerPrefsUtil.Set("Settings_CharacterFxAudioSlider", volume);
         }
 
         #endregion
@@ -126,7 +119,7 @@ namespace DarkGod.Main
             if (desiredQualityLevelIndex < QualitySettings.names.Length)
             {
                 QualitySettings.SetQualityLevel(desiredQualityLevelIndex);
-                PlayerPrefsUtil.Set("Settings_QualitySelect", desiredQualityLevelIndex);
+                GameRoot.MainInstance.qualityLevel.Value = desiredQualityLevelIndex;
             }
             else
             {

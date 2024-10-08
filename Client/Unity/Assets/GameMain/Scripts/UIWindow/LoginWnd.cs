@@ -1,10 +1,10 @@
 //功能：登录注册界面
+using Newtonsoft.Json;
 using PEProtocol;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using XiHUtil;
 
 namespace DarkGod.Main
 {
@@ -17,15 +17,53 @@ namespace DarkGod.Main
         public Toggle btnRemember;  //记住密码选项
         public Text txtVersion;
 
+        private const string prefsKey_LoginWnd = "prefsKey_LoginWnd";
+
+        [HideInInspector]
+        [System.Serializable]
+        private class PlayerPrefsData
+        {
+            public bool isRemember;
+            public string Login_Account;
+            public string Login_Password;
+        }
+
+        private void LoadPrefsData()
+        {
+            if (playerPrefsSvc.CheckPlayerPrefsHasKey(prefsKey_LoginWnd))
+            {
+                var json = playerPrefsSvc.LoadFromPlayerPrefs(prefsKey_LoginWnd);
+                var saveData = JsonConvert.DeserializeObject<PlayerPrefsData>(json);
+
+                btnRemember.isOn = saveData.isRemember;
+                iptAcct.text = saveData.Login_Account;
+                iptPass.text = saveData.Login_Password;
+            }
+            else
+            {
+                btnRemember.isOn = true;
+                iptAcct.text = "";
+                iptPass.text = "";
+            }
+        }
+
+        private void SavePrefsData()
+        {
+            var saveData = new PlayerPrefsData();
+
+            saveData.isRemember = btnRemember.isOn;
+            saveData.Login_Account = iptAcct.text;
+            saveData.Login_Password = iptPass.text;
+
+            playerPrefsSvc.SaveByPlayerPrefs(prefsKey_LoginWnd, saveData);
+        }
+
         protected override void InitWnd()
         {
             base.InitWnd();
 
             SetHotfixVersionWnd();
-
-            btnRemember.isOn = (bool)playerPrefsSvc.GetLoginItem("Login_RememberPass");
-            iptAcct.text = (string)playerPrefsSvc.GetLoginItem("Login_Password");
-            iptPass.text = (string)playerPrefsSvc.GetLoginItem("Login_Password");
+            LoadPrefsData();
         }
 
         public void OnEnable()
@@ -51,9 +89,10 @@ namespace DarkGod.Main
             if (_acct != "" && _pass != "")
             {
                 //更新本地存储的账号密码
-                PlayerPrefsUtil.Set("Login_Account", _acct);
-                PlayerPrefsUtil.Set("Login_Password", _pass);
-                PlayerPrefsUtil.Set("Login_RememberPass", btnRemember.isOn);
+                if (btnRemember.isOn)
+                {
+                    SavePrefsData();
+                }
 
                 //发送网络消息，请求登录
                 GameMsg msg = new GameMsg

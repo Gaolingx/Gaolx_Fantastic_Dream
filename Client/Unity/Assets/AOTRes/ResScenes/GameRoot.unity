@@ -730,7 +730,7 @@ MonoBehaviour:
   _AOTMetaAssemblyNames:
   - Assets/AssetBundles/Scripts/Dlls/Cinemachine.dll
   - Assets/AssetBundles/Scripts/Dlls/DOTween.dll
-  - Assets/AssetBundles/Scripts/Dlls/mscorlib.dll
+  - Assets/AssetBundles/Scripts/Dlls/Newtonsoft.Json.dll
   - Assets/AssetBundles/Scripts/Dlls/PESocket.dll
   - Assets/AssetBundles/Scripts/Dlls/System.Core.dll
   - Assets/AssetBundles/Scripts/Dlls/System.dll
@@ -738,6 +738,7 @@ MonoBehaviour:
   - Assets/AssetBundles/Scripts/Dlls/Unity.InputSystem.dll
   - Assets/AssetBundles/Scripts/Dlls/UnityEngine.CoreModule.dll
   - Assets/AssetBundles/Scripts/Dlls/YooAsset.dll
+  - Assets/AssetBundles/Scripts/Dlls/mscorlib.dll
   _onUpdaterDone:
     m_PersistentCalls:
       m_Calls: []

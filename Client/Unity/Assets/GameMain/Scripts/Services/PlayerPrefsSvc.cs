@@ -1,6 +1,7 @@
 using UnityEngine;
 using HuHu;
 using XiHUtil;
+using Newtonsoft.Json;
 
 namespace DarkGod.Main
 {
@@ -18,94 +19,27 @@ namespace DarkGod.Main
             PECommon.Log("PrefsSvc Init Done.");
         }
 
-        #region Login
-        private const string PrefsKey_LoginAccount = "Login_Account";
-        private const string PrefsKey_LoginPassword = "Login_Password";
-        private const string PrefsKey_LoginRemember = "Login_RememberPass";
-
-        public object GetLoginItem(string key)
+        public void SaveByPlayerPrefs(string key, object value)
         {
-            bool isRemember;
+            var jsonStr = JsonConvert.SerializeObject(value);
 
-            if (PlayerPrefsUtil.HasKey(PrefsKey_LoginRemember))
-            {
-                isRemember = PlayerPrefsUtil.Get(PrefsKey_LoginRemember, false);
-            }
-            else
-            {
-                isRemember = false;
-            }
-
-            switch (key)
-            {
-                case PrefsKey_LoginRemember:
-                    return isRemember;
-                case PrefsKey_LoginAccount:
-                    if (PlayerPrefsUtil.HasKey(PrefsKey_LoginAccount) && isRemember)
-                    {
-                        return PlayerPrefsUtil.Get(PrefsKey_LoginAccount, "");
-                    }
-                    return "";
-                case PrefsKey_LoginPassword:
-                    if (PlayerPrefsUtil.HasKey(PrefsKey_LoginPassword) && isRemember)
-                    {
-                        return PlayerPrefsUtil.Get(PrefsKey_LoginPassword, "");
-                    }
-                    return "";
-                default:
-                    return null;
-            }
+            PlayerPrefsUtil.Set(key, jsonStr);
+            PlayerPrefs.Save();
         }
 
-        #endregion
-
-        #region Settings
-        private const string PrefsKey_QualitySelect = "Settings_QualitySelect";
-        private const string PrefsKey_BGAudioVolume = "Settings_BGAudioSlider";
-        private const string PrefsKey_UIAudioVolume = "Settings_UIAudioSlider";
-        private const string PrefsKey_CharacterAudioVolume = "Settings_CharacterAudioSlider";
-        private const string PrefsKey_CharacterFxAudioVolume = "Settings_CharacterFxAudioSlider";
-
-        public object GetSettingsItem(string key)
+        public string LoadFromPlayerPrefs(string key)
         {
-            switch (key)
-            {
-                case PrefsKey_QualitySelect:
-                    if (PlayerPrefsUtil.HasKey(PrefsKey_QualitySelect))
-                    {
-                        return PlayerPrefsUtil.Get(PrefsKey_QualitySelect, 0);
-                    }
-                    return QualitySettings.GetQualityLevel();
-                case PrefsKey_BGAudioVolume:
-                    if (PlayerPrefsUtil.HasKey(PrefsKey_BGAudioVolume))
-                    {
-                        return PlayerPrefsUtil.Get(PrefsKey_BGAudioVolume, 0f);
-                    }
-                    return AudioSvc.MainInstance.BGAudioVolumeValue;
-                case PrefsKey_UIAudioVolume:
-                    if (PlayerPrefsUtil.HasKey(PrefsKey_UIAudioVolume))
-                    {
-                        return PlayerPrefsUtil.Get(PrefsKey_UIAudioVolume, 0f);
-                    }
-                    return AudioSvc.MainInstance.UIAudioVolumeValue;
-                case PrefsKey_CharacterAudioVolume:
-                    if (PlayerPrefsUtil.HasKey(PrefsKey_CharacterAudioVolume))
-                    {
-                        return PlayerPrefsUtil.Get(PrefsKey_CharacterAudioVolume, 0f);
-                    }
-                    return AudioSvc.MainInstance.CharacterAudioVolumeValue;
-                case PrefsKey_CharacterFxAudioVolume:
-                    if (PlayerPrefsUtil.HasKey(PrefsKey_CharacterFxAudioVolume))
-                    {
-                        return PlayerPrefsUtil.Get(PrefsKey_CharacterFxAudioVolume, 0f);
-                    }
-                    return AudioSvc.MainInstance.CharacterFxAudioVolumeValue;
-                default:
-                    return null;
-            }
+            return PlayerPrefsUtil.Get(key, "");
         }
 
-        #endregion
+        public bool CheckPlayerPrefsHasKey(string key)
+        {
+            if (PlayerPrefsUtil.Get(key, "") == "" || PlayerPrefsUtil.Get(key, "") == null)
+            {
+                return false;
+            }
+            return true;
+        }
 
         private void OnDestroy()
         {
