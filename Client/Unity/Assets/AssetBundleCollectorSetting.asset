@@ -115,35 +115,3 @@ MonoBehaviour:
         FilterRuleName: CollectShaderVariants
         AssetTags: 
         UserData: 
-      - CollectPath: Assets/ResModules/Shaders/GenshinCelShaderURP/Shaders
-        CollectorGUID: 6bc3a5f6759f7ae43af111db5fcbb63f
-        CollectorType: 0
-        AddressRuleName: AddressByFileName
-        PackRuleName: PackShader
-        FilterRuleName: CollectShader
-        AssetTags: 
-        UserData: 
-      - CollectPath: Packages/com.gaolingx.honkaistarrailtoonshader/Shaders/SRUniversal-main/Shaders
-        CollectorGUID: f3ea0920607280a42a5ee96bcf8331a4
-        CollectorType: 0
-        AddressRuleName: AddressByFileName
-        PackRuleName: PackShader
-        FilterRuleName: CollectShader
-        AssetTags: 
-        UserData: 
-      - CollectPath: Packages/com.stalomeow.star-rail-npr-shader/Shaders
-        CollectorGUID: 3fb7ee35d84d8ad449ca8c8faf4ddbb5
-        CollectorType: 0
-        AddressRuleName: AddressByFileName
-        PackRuleName: PackShader
-        FilterRuleName: CollectShader
-        AssetTags: 
-        UserData: 
-      - CollectPath: Assets/ResModules/Shaders/Autodesk
-        CollectorGUID: a97c6fceae4837e4bb6425a8ee2f7426
-        CollectorType: 0
-        AddressRuleName: AddressByFileName
-        PackRuleName: PackShader
-        FilterRuleName: CollectAll
-        AssetTags: 
-        UserData: 
