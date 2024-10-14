@@ -709,25 +709,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 963007392}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bae4189d474187e488ca523c4fceb2a0, type: 3}
+  m_Script: {fileID: 11500000, guid: dbc01d0e5439010459a085c4d188e173, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hostServerIP: http://gaolingxiang.dynv6.net:26660/d
-  _appID: 10001
-  _appVersion: v1.0
-  _appendTimeTicks: 1
-  _timeout: 60
-  _packageName: DefaultPackage
-  _playMode: 2
-  _buildPipeline: 1
-  _sangoPatchWnd: {fileID: 2274285450713248455, guid: c8938a4a9c51bf04ba6bd4f91c02ef81,
+  HostServerIP: http://gaolingxiang.dynv6.net:26660/d
+  AppID: 10001
+  AppVersion: v1.0
+  AppendTimeTicks: 1
+  Timeout: 60
+  DownloadingMaxNum: 10
+  FailedTryAgain: 3
+  PackageName: DefaultPackage
+  PlayMode: 2
+  BuildPipeline: 1
+  SangoPatchWnd: {fileID: 2274285450713248455, guid: c8938a4a9c51bf04ba6bd4f91c02ef81,
     type: 3}
-  _gameRootObjectName: Assets/AssetBundles/Prefabs/RootPrefabs/HotFixRoot.prefab
-  _gameRootParentTransform: {fileID: 8549510451735545887}
-  _hotUpdateDllList:
+  GameRootObjectName: Assets/AssetBundles/Prefabs/RootPrefabs/HotFixRoot.prefab
+  GameRootParentTransform: {fileID: 8549510451735545887}
+  HotUpdateDllList:
   - Assets/AssetBundles/Scripts/Dlls/PEProtocol.dll
   - Assets/AssetBundles/Scripts/Dlls/GameMain.dll
-  _AOTMetaAssemblyNames:
+  AOTMetaAssemblyNames:
   - Assets/AssetBundles/Scripts/Dlls/Cinemachine.dll
   - Assets/AssetBundles/Scripts/Dlls/DOTween.dll
   - Assets/AssetBundles/Scripts/Dlls/Newtonsoft.Json.dll
@@ -739,7 +741,7 @@ MonoBehaviour:
   - Assets/AssetBundles/Scripts/Dlls/UnityEngine.CoreModule.dll
   - Assets/AssetBundles/Scripts/Dlls/YooAsset.dll
   - Assets/AssetBundles/Scripts/Dlls/mscorlib.dll
-  _onUpdaterDone:
+  OnUpdaterDone:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &963007402
@@ -751,7 +753,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 963007392}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d64334410c86344782da80d1ba2066a, type: 3}
+  m_Script: {fileID: 11500000, guid: a6e807045c4993c4d917efc28f75d1ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &563086946449281894

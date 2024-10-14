@@ -1,0 +1,3 @@
+<linker>
+    <assembly fullname="SangoUtils_Patch_YooAsset.Runtime" preserve="all" />
+</linker>
