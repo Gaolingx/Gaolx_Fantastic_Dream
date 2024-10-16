@@ -53,64 +53,64 @@ MonoBehaviour:
     soundName: Player_Footstep_01
     soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_01.prefab
     soundCount: 1
-    ApplyBigCenter: 1
-  - soundStyle: 2
+    isRepeat: 1
+  - soundStyle: 1
     soundName: Player_Footstep_02
     soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_02.prefab
     soundCount: 1
-    ApplyBigCenter: 1
-  - soundStyle: 3
+    isRepeat: 1
+  - soundStyle: 1
     soundName: Player_Footstep_03
     soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_03.prefab
     soundCount: 1
-    ApplyBigCenter: 1
-  - soundStyle: 4
+    isRepeat: 1
+  - soundStyle: 1
     soundName: Player_Footstep_04
     soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_04.prefab
     soundCount: 1
-    ApplyBigCenter: 1
-  - soundStyle: 5
+    isRepeat: 1
+  - soundStyle: 1
     soundName: Player_Footstep_05
     soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_05.prefab
     soundCount: 1
-    ApplyBigCenter: 1
-  - soundStyle: 6
+    isRepeat: 1
+  - soundStyle: 1
     soundName: Player_Footstep_06
     soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_06.prefab
     soundCount: 1
-    ApplyBigCenter: 1
-  - soundStyle: 7
+    isRepeat: 1
+  - soundStyle: 1
     soundName: Player_Footstep_07
     soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_07.prefab
     soundCount: 1
-    ApplyBigCenter: 1
-  - soundStyle: 8
+    isRepeat: 1
+  - soundStyle: 1
     soundName: Player_Footstep_08
     soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_08.prefab
     soundCount: 1
-    ApplyBigCenter: 1
-  - soundStyle: 9
+    isRepeat: 1
+  - soundStyle: 1
     soundName: Player_Footstep_09
     soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_09.prefab
     soundCount: 1
-    ApplyBigCenter: 1
-  - soundStyle: 10
+    isRepeat: 1
+  - soundStyle: 1
     soundName: Player_Footstep_10
     soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_10.prefab
     soundCount: 1
-    ApplyBigCenter: 1
-  - soundStyle: 11
+    isRepeat: 1
+  - soundStyle: 1
     soundName: Player_Land
     soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Land.prefab
     soundCount: 1
-    ApplyBigCenter: 1
-  - soundStyle: 12
+    isRepeat: 1
+  - soundStyle: 6
     soundName: Player_Land
     soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Land.prefab
     soundCount: 1
-    ApplyBigCenter: 1
-  - soundStyle: 13
+    isRepeat: 0
+  - soundStyle: 7
     soundName: assassin_Hit
     soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/assassin_Hit.prefab
     soundCount: 1
-    ApplyBigCenter: 1
+    isRepeat: 0

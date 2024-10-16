@@ -176,7 +176,7 @@ namespace DarkGod.Main
         public const string CharPlayerWithTag = "Player";
 
         //GamePad配置
-        public const string Path_PlayerInputs_Obj = "Canvas/PlayerInputs";
+        public const string Path_PlayerInputs_Obj = "PlayerInputs";
         public const string Path_Joysticks_Obj = "Canvas/UI_Canvas_StarterAssetsInputs_Joysticks";
 
         //自动任务图标配置

@@ -24,27 +24,13 @@ namespace DarkGod.Main
 
         [SerializeField] private float fadingDuration = 3f;
 
-        [System.Serializable]
-        public class CharSoundItem
-        {
-            public SoundStyle soundStyle;
-            public string soundName;
-        }
-
-        [SerializeField] private List<CharSoundItem> CharacterFootStepsLst = new List<CharSoundItem>();
-        [SerializeField] private List<CharSoundItem> CharacterJumpEffortsLst = new List<CharSoundItem>();
-        [SerializeField] private List<CharSoundItem> CharacterLandingLst = new List<CharSoundItem>();
-        [SerializeField] private List<CharSoundItem> CharacterHitLst = new List<CharSoundItem>();
-
         private readonly string bgAudioPath = PathDefine.bgAudioPath;
 
         private SFX_PoolManager sfxPoolManager;
         private CancellationTokenSourceMgr ctsMgr;
-        private PlayerPrefsSvc playerPrefsSvc;
 
         private const string prefsKey_SettingsAudioSvc = "prefsKey_SettingsAudioSvc";
 
-        [HideInInspector]
         [System.Serializable]
         private class PlayerPrefsData
         {
@@ -61,9 +47,9 @@ namespace DarkGod.Main
             CharacterAudioVolumeValue.Value = 0.5f;
             CharacterFxAudioVolumeValue.Value = 0.5f;
 
-            if (playerPrefsSvc.CheckPlayerPrefsHasKey(prefsKey_SettingsAudioSvc))
+            if (PlayerPrefsSvc.MainInstance.CheckPlayerPrefsHasKey(prefsKey_SettingsAudioSvc))
             {
-                var json = playerPrefsSvc.LoadFromPlayerPrefs(prefsKey_SettingsAudioSvc);
+                var json = PlayerPrefsSvc.MainInstance.LoadFromPlayerPrefs(prefsKey_SettingsAudioSvc);
                 var saveData = JsonConvert.DeserializeObject<PlayerPrefsData>(json);
 
                 BGAudioVolumeValue.Value = saveData.BGAudioVolume;
@@ -73,16 +59,16 @@ namespace DarkGod.Main
             }
         }
 
-        private void SavePrefsData()
+        private void SavePrefsData(params float[] vals)
         {
             var saveData = new PlayerPrefsData();
 
-            saveData.BGAudioVolume = BGAudioVolumeValue.Value;
-            saveData.UIAudioVolume = UIAudioVolumeValue.Value;
-            saveData.CharacterAudioVolume = CharacterAudioVolumeValue.Value;
-            saveData.CharacterFxAudioVolume = CharacterFxAudioVolumeValue.Value;
+            saveData.BGAudioVolume = vals[0];
+            saveData.UIAudioVolume = vals[1];
+            saveData.CharacterAudioVolume = vals[2];
+            saveData.CharacterFxAudioVolume = vals[3];
 
-            playerPrefsSvc.SaveByPlayerPrefs(prefsKey_SettingsAudioSvc, saveData);
+            PlayerPrefsSvc.MainInstance.SaveByPlayerPrefs(prefsKey_SettingsAudioSvc, saveData);
         }
 
         protected override void Awake()
@@ -92,21 +78,12 @@ namespace DarkGod.Main
             GameRoot.MainInstance.OnGameEnter += InitSvc;
         }
 
-        private void FixedUpdate()
-        {
-            if (playerPrefsSvc != null)
-            {
-                SavePrefsData();
-            }
-        }
-
         public void InitSvc()
         {
             sfxPoolManager = SFX_PoolManager.MainInstance;
             sfxPoolManager.InitSoundPool();
 
             ctsMgr = CancellationTokenSourceMgr.MainInstance;
-            playerPrefsSvc = PlayerPrefsSvc.MainInstance;
 
             AssignBindableData();
             LoadPrefsData();
@@ -114,9 +91,9 @@ namespace DarkGod.Main
             PECommon.Log("Init AudioSvc...");
         }
 
-        public void SetMainAudioMuted(bool state)
+        private void FixedUpdate()
         {
-            StartCoroutine(StartAudioFade(_audioMixer, "MainAudioVolumeParam", fadingDuration, UIItemUtils.BoolToInt(!state)));
+            SavePrefsData(new float[] { BGAudioVolumeValue.Value, UIAudioVolumeValue.Value, CharacterAudioVolumeValue.Value, CharacterFxAudioVolumeValue.Value });
         }
 
         private void AssignBindableData()
@@ -127,6 +104,10 @@ namespace DarkGod.Main
             CharacterFxAudioVolumeValue.OnValueChanged += delegate (float value) { CharacterFxAudioVolumeValueChanged(_audioMixer, value); };
         }
 
+        public void SetMainAudioMuted(bool state)
+        {
+            StartCoroutine(StartAudioFade(_audioMixer, "MainAudioVolumeParam", fadingDuration, UIItemUtils.BoolToInt(!state)));
+        }
         private void BGAudioVolumeValueChanged(AudioMixer audioMixer, float value)
         {
             StartCoroutine(StartAudioFade(audioMixer, "BGAudioVolumeParam", fadingDuration, value));
@@ -226,26 +207,22 @@ namespace DarkGod.Main
 
         public void PlayFootStep(Transform transform)
         {
-            int i = Random.Range(0, CharacterFootStepsLst.Count);
-            sfxPoolManager.TryPlaySoundFromPool(CharacterFootStepsLst[i].soundStyle, CharacterFootStepsLst[i].soundName, transform.position, transform.rotation);
+            sfxPoolManager.TryPlaySoundFromPool(SoundStyle.StateFootSteps_01, transform.position, transform.rotation);
         }
 
         public void PlayJumpEffort(Transform transform)
         {
-            int i = Random.Range(0, CharacterJumpEffortsLst.Count);
-            sfxPoolManager.TryPlaySoundFromPool(CharacterJumpEffortsLst[i].soundStyle, CharacterJumpEffortsLst[i].soundName, transform.position, transform.rotation);
+            sfxPoolManager.TryPlaySoundFromPool(SoundStyle.StateJumpEfforts, transform.position, transform.rotation);
         }
 
         public void PlayLanding(Transform transform)
         {
-            int i = Random.Range(0, CharacterLandingLst.Count);
-            sfxPoolManager.TryPlaySoundFromPool(CharacterLandingLst[i].soundStyle, CharacterLandingLst[i].soundName, transform.position, transform.rotation);
+            sfxPoolManager.TryPlaySoundFromPool(SoundStyle.StateJumpLanding, transform.position, transform.rotation);
         }
 
         public void PlayHit(Transform transform)
         {
-            int i = Random.Range(0, CharacterHitLst.Count);
-            sfxPoolManager.TryPlaySoundFromPool(CharacterHitLst[i].soundStyle, CharacterHitLst[i].soundName, transform.position, transform.rotation);
+            sfxPoolManager.TryPlaySoundFromPool(SoundStyle.StateHit, transform.position, transform.rotation);
         }
         #endregion
 

@@ -153,13 +153,16 @@ namespace DarkGod.Main
 
         private void SetCursorLockMode()
         {
-            if (pauseState.Value == true || starterAssetsInputs.cursorLocked == true || GetCursorLockModeState() == true)
+            if (starterAssetsInputs != null)
             {
-                GetUIController().CursorLock = CursorLockMode.None;
-            }
-            else
-            {
-                GetUIController().CursorLock = CursorLockMode.Locked;
+                if (pauseState.Value == true || starterAssetsInputs.cursorLocked == true || GetCursorLockModeState() == true)
+                {
+                    GetUIController().CursorLock = CursorLockMode.None;
+                }
+                else
+                {
+                    GetUIController().CursorLock = CursorLockMode.Locked;
+                }
             }
         }
 
@@ -186,18 +189,13 @@ namespace DarkGod.Main
         private void CleanUIRoot()
         {
             Transform canvas = transform.Find(Constants.Path_Canvas_Obj);
-            Transform input = transform.Find(Constants.Path_PlayerInputs_Obj);
+
             if (canvas != null)
             {
                 for (int i = 0; i < canvas.childCount; i++)
                 {
                     canvas.GetChild(i).gameObject.SetActive(false);
                 }
-            }
-
-            if (input != null)
-            {
-                input.gameObject.SetActive(true);
             }
         }
 
@@ -246,11 +244,12 @@ namespace DarkGod.Main
             }
         }
 
-        private PlayerData _playerData = null;
-        public PlayerData PlayerData { get { return _playerData; } }
+
+        public PlayerData PlayerData { get; set; }
+
         public void SetPlayerData(RspLogin data)
         {
-            _playerData = data.playerData;
+            PlayerData = data.playerData;
         }
 
         public void SetPlayerName(string name)

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3613098232053783086}
   - component: {fileID: 2234119999772338486}
   - component: {fileID: 3859229750392605625}
-  - component: {fileID: 3506841949591225091}
+  - component: {fileID: 9170951285180938492}
   - component: {fileID: 4961261660839420595}
   - component: {fileID: 7346758293401920855}
   - component: {fileID: 9219833685541573652}
@@ -45,6 +45,7 @@ RectTransform:
   m_Children:
   - {fileID: 8991708001825433365}
   - {fileID: 8621601018219933318}
+  - {fileID: 6700168370878498178}
   - {fileID: 7719015410583380095}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -145,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e714134e820f0d740bc4d4a329fc7c24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3506841949591225091
+--- !u!114 &9170951285180938492
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -157,44 +158,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f0b93f0a08dea742b15d8ed960bb455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BGAudioVolumeValue: 0.25
-  UIAudioVolumeValue: 0.5
-  CharacterAudioVolumeValue: 0.5
-  CharacterFxAudioVolumeValue: 0.5
   BGAudioAudioSource: {fileID: 8673037108130610541}
   UIAudioAudioSource: {fileID: 4076293606306624143}
   _audioMixer: {fileID: 24100000, guid: f6a684d1da2437a4c88de1635a80bab1, type: 2}
   fadingDuration: 1
-  CharacterFootStepsLst:
-  - soundStyle: 1
-    soundName: Player_Footstep_01
-  - soundStyle: 2
-    soundName: Player_Footstep_02
-  - soundStyle: 3
-    soundName: Player_Footstep_03
-  - soundStyle: 4
-    soundName: Player_Footstep_04
-  - soundStyle: 5
-    soundName: Player_Footstep_05
-  - soundStyle: 6
-    soundName: Player_Footstep_06
-  - soundStyle: 7
-    soundName: Player_Footstep_07
-  - soundStyle: 8
-    soundName: Player_Footstep_08
-  - soundStyle: 9
-    soundName: Player_Footstep_09
-  - soundStyle: 10
-    soundName: Player_Footstep_10
-  CharacterJumpEffortsLst:
-  - soundStyle: 11
-    soundName: Player_Land
-  CharacterLandingLst:
-  - soundStyle: 12
-    soundName: Player_Land
-  CharacterHitLst:
-  - soundStyle: 13
-    soundName: assassin_Hit
 --- !u!114 &4961261660839420595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -472,7 +439,6 @@ RectTransform:
   - {fileID: 2295111956707412744}
   - {fileID: 4774145813179052363}
   - {fileID: 3282998853866319472}
-  - {fileID: 6700168370878498178}
   - {fileID: 1067014893535029894}
   m_Father: {fileID: 818631900482909262}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -659,6 +625,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 818631900482909262}
     m_Modifications:
+    - target: {fileID: 1844841045769906993, guid: cd7c7d8b0a6b17546be78623e6019051,
+        type: 3}
+      propertyPath: soundPools.Array.data[11].soundStyle
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1844841045769906993, guid: cd7c7d8b0a6b17546be78623e6019051,
+        type: 3}
+      propertyPath: soundPools.Array.data[12].soundStyle
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1915349771855784684, guid: cd7c7d8b0a6b17546be78623e6019051,
         type: 3}
       propertyPath: m_Name
@@ -2281,7 +2257,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 8991708001825433365}
+    m_TransformParent: {fileID: 818631900482909262}
     m_Modifications:
     - target: {fileID: 4352389178894639074, guid: e10c342c3ecf9d84188205089b1c4f8d,
         type: 3}
@@ -2346,17 +2322,17 @@ PrefabInstance:
     - target: {fileID: 4352389178894639074, guid: e10c342c3ecf9d84188205089b1c4f8d,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4352389178894639074, guid: e10c342c3ecf9d84188205089b1c4f8d,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4352389178894639074, guid: e10c342c3ecf9d84188205089b1c4f8d,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4352389178894639074, guid: e10c342c3ecf9d84188205089b1c4f8d,
         type: 3}

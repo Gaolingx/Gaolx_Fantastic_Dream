@@ -15,12 +15,11 @@ namespace DarkGod.Main
             public string soundName;
             public string soundPath;
             public int soundCount;
-            public bool ApplyBigCenter;
+            public bool isRepeat;
         }
 
         [SerializeField] private List<SoundItem> soundPools = new List<SoundItem>();
         private Dictionary<SoundStyle, Queue<GameObject>> soundCenter = new Dictionary<SoundStyle, Queue<GameObject>>();
-        private Dictionary<string, Dictionary<SoundStyle, Queue<GameObject>>> bigSoundCenter = new Dictionary<string, Dictionary<SoundStyle, Queue<GameObject>>>();
 
         protected override void Awake()
         {
@@ -32,92 +31,39 @@ namespace DarkGod.Main
             if (soundPools.Count == 0) { return; }
             for (int i = 0; i < soundPools.Count; i++)
             {
-                if (soundPools[i].ApplyBigCenter)
+                for (int j = 0; j < soundPools[i].soundCount; j++)
                 {
-                    for (int j = 0; j < soundPools[i].soundCount; j++)
+                    //实例化
+                    var go = await ResSvc.MainInstance.LoadGameObjectAsync(Constants.ResourcePackgeName, soundPools[i].soundPath, Vector3.zero, Vector3.zero, Vector3.one, true, true, true, this.transform, null, false);
+                    //设置父级点
+                    go.transform.parent = this.transform;
+                    //掩藏
+                    go.SetActive(false);
+                    //放入字典
+                    if (!soundCenter.ContainsKey(soundPools[i].soundStyle))
                     {
-                        //实例化
-                        var go = await ResSvc.MainInstance.LoadGameObjectAsync(Constants.ResourcePackgeName, soundPools[i].soundPath, Vector3.zero, Vector3.zero, Vector3.one, true, true, true, this.transform, null, false);
-                        //设置父级点
-                        go.transform.parent = this.transform;
-                        //掩藏
-                        go.SetActive(false);
-                        if (!bigSoundCenter.ContainsKey(soundPools[i].soundName))
-                        {
-                            // PECommon.Log(soundPools[i].soundName + "加入对象池");
-                            bigSoundCenter.Add(soundPools[i].soundName, new Dictionary<SoundStyle, Queue<GameObject>>());
-                        }
-                        if (!bigSoundCenter[soundPools[i].soundName].ContainsKey(soundPools[i].soundStyle))
-                        {
-                            bigSoundCenter[soundPools[i].soundName].Add(soundPools[i].soundStyle, new Queue<GameObject>());
-                        }
-                        bigSoundCenter[soundPools[i].soundName][soundPools[i].soundStyle].Enqueue(go);
+                        //加入Kay
+                        soundCenter.Add(soundPools[i].soundStyle, new Queue<GameObject>());
+                        //把新实例加入Value，而不是预制体
+                        soundCenter[soundPools[i].soundStyle].Enqueue(go);
                     }
-                }
-                else
-                {
-                    for (int j = 0; j < soundPools[i].soundCount; j++)
+                    else
                     {
-                        //实例化
-                        var go = await ResSvc.MainInstance.LoadGameObjectAsync(Constants.ResourcePackgeName, soundPools[i].soundPath, Vector3.zero, Vector3.zero, Vector3.one, true, true, true, this.transform, null, false);
-                        //设置父级点
-                        go.transform.parent = this.transform;
-                        //掩藏
-                        go.SetActive(false);
-                        //放入字典
-                        if (!soundCenter.ContainsKey(soundPools[i].soundStyle))
+                        //只用加Value
+                        if (soundPools[i].isRepeat)
                         {
-                            //加入Kay
-                            soundCenter.Add(soundPools[i].soundStyle, new Queue<GameObject>());
-                            //把新实例加入Value，而不是预制体
                             soundCenter[soundPools[i].soundStyle].Enqueue(go);
                         }
                         else
                         {
-                            //只用加Value
-                            soundCenter[soundPools[i].soundStyle].Enqueue(go);
+                            PECommon.Log("You try to add same SoundStyle item,but not allowed repeat SoundItem.The remaining item will be ignored.", PELogType.Warn);
                         }
                     }
                 }
-
             }
-
         }
 
-        public void TryPlaySoundFromPool(SoundStyle soundStyle, string soundName, Vector3 position, Quaternion quaternion)
-        {
-            if (bigSoundCenter.ContainsKey(soundName))
-            {
-                if (bigSoundCenter[soundName].TryGetValue(soundStyle, out var Q))
-                {
-                    GameObject go = Q.Dequeue();
-                    go.transform.position = position;
-                    go.transform.rotation = quaternion;
-                    go.gameObject.SetActive(true);
-
-                    AudioSource audioSource = go.GetComponent<AudioSource>();
-                    if (audioSource != null && audioSource.clip != null)
-                    {
-                        audioSource.Play();
-                    }
-
-                    Q.Enqueue(go);
-                    // Debug.Log("播放音乐" + soundName + "类型是" + soundStyle);
-
-                }
-                else
-                {
-                    // Debug.LogWarning(soundStyle + "找不到");
-                }
-            }
-            else
-            {
-                // Debug.LogWarning(soundName + "找不到");
-            }
-
-        }
-
-        public void TryPlaySoundFromPool(SoundStyle soundStye, Vector3 position, Quaternion quaternion)
+        public void TryPlaySoundFromPool(SoundStyle soundStye, Vector3 position, Quaternion quaternion, float vol = 1f)
         {
             if (soundCenter.TryGetValue(soundStye, out var sound))
             {
@@ -125,11 +71,13 @@ namespace DarkGod.Main
                 GameObject go = sound.Dequeue();
                 go.transform.position = position;
                 go.transform.rotation = quaternion;
-                go.gameObject.SetActive(true);
+                go.SetActive(true);
 
                 AudioSource audioSource = go.GetComponent<AudioSource>();
                 if (audioSource != null && audioSource.clip != null)
                 {
+                    vol = Mathf.Clamp01(vol);
+                    audioSource.volume = vol;
                     audioSource.Play();
                 }
 
@@ -147,17 +95,15 @@ namespace DarkGod.Main
             StateFootSteps_01,
             StateFootSteps_02,
             StateFootSteps_03,
-            StateFootSteps_04,
-            StateFootSteps_05,
-            StateFootSteps_06,
-            StateFootSteps_07,
-            StateFootSteps_08,
-            StateFootSteps_09,
-            StateFootSteps_10,
             StateJumpEfforts,
-            StateLanding,
+            StateJumpLanding,
             StateHit,
-
+            StateSkill_01,
+            StateSkill_02,
+            StateSkill_03,
+            StateSkill_04,
+            StateSkill_05,
+            StateDie_01,
         }
 
     }
