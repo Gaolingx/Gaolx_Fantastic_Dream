@@ -35,12 +35,14 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM
         public void OnMove(InputValue value)
         {
-            MoveInput(value.Get<Vector2>());
+            if (!canMove) { MoveInput(Vector2.zero); }
+            else { MoveInput(value.Get<Vector2>()); }
         }
 
         public void OnLook(InputValue value)
         {
-            LookInput(value.Get<Vector2>());
+            if (!canLook) { LookInput(Vector2.zero); }
+            else { LookInput(value.Get<Vector2>()); }
         }
 
         public void OnJump(InputValue value)
@@ -65,7 +67,8 @@ namespace StarterAssets
 
         public void OnZoom(InputValue value)
         {
-            ZoomInput(value.Get<float>());
+            if (!canLook) { ZoomInput(0f); }
+            else { ZoomInput(value.Get<float>()); }
         }
 
         public void OnAtkSkill01(InputValue value)
@@ -101,13 +104,11 @@ namespace StarterAssets
 
         public void MoveInput(Vector2 newMoveDirection)
         {
-            if (!canMove) { newMoveDirection = Vector2.zero; }
             move = newMoveDirection;
         }
 
         public void LookInput(Vector2 newLookDirection)
         {
-            if (!canLook) { newLookDirection = Vector2.zero; }
             look = newLookDirection;
         }
 
@@ -115,19 +116,19 @@ namespace StarterAssets
         {
             jump = newJumpState;
         }
+
         private void FlipJumpInput(bool newFlipJumpState)
         {
             flipJump = newFlipJumpState;
         }
 
-
         public void SprintInput(bool newSprintState)
         {
             sprint = newSprintState;
         }
+
         public void ZoomInput(float newZoomValue)
         {
-            if (!canLook) { newZoomValue = 0; }
             zoom = newZoomValue;
         }
 
