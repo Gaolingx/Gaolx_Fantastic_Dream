@@ -8,7 +8,7 @@ namespace DarkGod.Main
 {
     public class MapMgr : MonoBehaviour
     {
-        [SerializeField] private List<TriggerData> triggerLst;
+        private List<TriggerData> triggerLst;
         private int waveIndex = 1; //默认生成第一波怪物
         private BattleMgr battleMgr;
 
