@@ -143,7 +143,7 @@ namespace DarkGod.Main
         public const int BlendWalk = 1;
 
         // 动画时长设置
-        public const int IdleAniWaitDelay = 5000;
+        public const int IdleAniWaitDelay = 15000;
 
         //角色移动速度
         public const float PlayerMoveSpeed = 3.82f;

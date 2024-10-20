@@ -379,7 +379,7 @@ namespace StarterAssets
 
         }
 
-        private int tid1 = 0;
+        int tid1 = 0;
         private void OnIdle(bool val) //取消任务的id
         {
             // 等待x秒后如果仍处于Idle状态，则播放待机动画（定时任务）
@@ -387,12 +387,18 @@ namespace StarterAssets
             {
                 tid1 = _timerSvc.AddTimeTask((int tid) =>
                 {
-                    _animator.SetBool(_animIDIdleAnim, true);
+                    if (_hasAnimator)
+                    {
+                        _animator.SetBool(_animIDIdleAnim, true);
+                    }
                 }, DarkGod.Main.Constants.IdleAniWaitDelay);
             }
             else if (val == false && tid1 != 0)
             {
-                _animator.SetBool(_animIDIdleAnim, false);
+                if (_hasAnimator)
+                {
+                    _animator.SetBool(_animIDIdleAnim, false);
+                }
                 _timerSvc.DelTask(tid1);
             }
         }

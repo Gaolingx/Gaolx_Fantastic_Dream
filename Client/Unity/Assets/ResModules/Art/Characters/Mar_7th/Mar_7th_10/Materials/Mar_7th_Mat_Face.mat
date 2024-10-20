@@ -176,7 +176,7 @@ Material:
     - _NoseLinePower: 3
     - _OutlineNormal: 0
     - _OutlineNormalChannel: 0
-    - _OutlineScale: 10
+    - _OutlineScale: 0.001
     - _OutlineUseLutMapToggle: 0
     - _OutlineWidth: 0.04
     - _OutlineWidthMax: 30
@@ -357,6 +357,8 @@ Material:
     - _OutlineColor6: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor7: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineDefaultColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _OutlineDistanceAdjust: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineScaleAdjust: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineWidthParams: {r: 0, g: 1, b: 0, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor0: {r: 1, g: 1, b: 1, a: 1}
