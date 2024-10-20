@@ -28,7 +28,7 @@ namespace DarkGod.Main
 
         private SFX_PoolManager sfxPoolManager;
         private CancellationTokenSourceMgr ctsMgr;
-
+        private System.Action<object[]> saveAction;
         private const string prefsKey_SettingsAudioSvc = "prefsKey_SettingsAudioSvc";
 
         [System.Serializable]
@@ -57,16 +57,18 @@ namespace DarkGod.Main
                 CharacterAudioVolumeValue.Value = saveData.CharacterAudioVolume;
                 CharacterFxAudioVolumeValue.Value = saveData.CharacterFxAudioVolume;
             }
+
+            saveAction += delegate (object[] objects) { SavePrefsData(objects); };
         }
 
-        private void SavePrefsData(params float[] vals)
+        private void SavePrefsData(params object[] vals)
         {
             var saveData = new PlayerPrefsData();
 
-            saveData.BGAudioVolume = vals[0];
-            saveData.UIAudioVolume = vals[1];
-            saveData.CharacterAudioVolume = vals[2];
-            saveData.CharacterFxAudioVolume = vals[3];
+            saveData.BGAudioVolume = (float)vals[0];
+            saveData.UIAudioVolume = (float)vals[1];
+            saveData.CharacterAudioVolume = (float)vals[2];
+            saveData.CharacterFxAudioVolume = (float)vals[3];
 
             PlayerPrefsSvc.MainInstance.SaveByPlayerPrefs(prefsKey_SettingsAudioSvc, saveData);
         }
@@ -91,11 +93,6 @@ namespace DarkGod.Main
             PECommon.Log("Init AudioSvc...");
         }
 
-        private void FixedUpdate()
-        {
-            SavePrefsData(new float[] { BGAudioVolumeValue.Value, UIAudioVolumeValue.Value, CharacterAudioVolumeValue.Value, CharacterFxAudioVolumeValue.Value });
-        }
-
         private void AssignBindableData()
         {
             BGAudioVolumeValue.OnValueChanged += delegate (float value) { BGAudioVolumeValueChanged(_audioMixer, value); };
@@ -111,18 +108,22 @@ namespace DarkGod.Main
         private void BGAudioVolumeValueChanged(AudioMixer audioMixer, float value)
         {
             StartCoroutine(StartAudioFade(audioMixer, "BGAudioVolumeParam", fadingDuration, value));
+            saveAction?.Invoke(new object[] { BGAudioVolumeValue.Value, UIAudioVolumeValue.Value, CharacterAudioVolumeValue.Value, CharacterFxAudioVolumeValue.Value });
         }
         private void UIAudioVolumeValueChanged(AudioMixer audioMixer, float value)
         {
             StartCoroutine(StartAudioFade(audioMixer, "UIAudioVolumeParam", fadingDuration, value));
+            saveAction?.Invoke(new object[] { BGAudioVolumeValue.Value, UIAudioVolumeValue.Value, CharacterAudioVolumeValue.Value, CharacterFxAudioVolumeValue.Value });
         }
         private void CharacterAudioVolumeValueChanged(AudioMixer audioMixer, float value)
         {
             StartCoroutine(StartAudioFade(audioMixer, "CharAudioVolumeParam", fadingDuration, value));
+            saveAction?.Invoke(new object[] { BGAudioVolumeValue.Value, UIAudioVolumeValue.Value, CharacterAudioVolumeValue.Value, CharacterFxAudioVolumeValue.Value });
         }
         private void CharacterFxAudioVolumeValueChanged(AudioMixer audioMixer, float value)
         {
             StartCoroutine(StartAudioFade(audioMixer, "CharVFXAudioVolumeParam", fadingDuration, value));
+            saveAction?.Invoke(new object[] { BGAudioVolumeValue.Value, UIAudioVolumeValue.Value, CharacterAudioVolumeValue.Value, CharacterFxAudioVolumeValue.Value });
         }
 
         public static IEnumerator StartAudioFade(AudioMixer audioMixer, string exposedParam, float duration, float targetVolume)
@@ -233,6 +234,7 @@ namespace DarkGod.Main
             UIAudioVolumeValue.OnValueChanged -= delegate (float value) { UIAudioVolumeValueChanged(_audioMixer, value); };
             CharacterAudioVolumeValue.OnValueChanged -= delegate (float value) { CharacterAudioVolumeValueChanged(_audioMixer, value); };
             CharacterFxAudioVolumeValue.OnValueChanged -= delegate (float value) { CharacterFxAudioVolumeValueChanged(_audioMixer, value); };
+            saveAction -= delegate (object[] objects) { SavePrefsData(objects); };
         }
     }
 }
