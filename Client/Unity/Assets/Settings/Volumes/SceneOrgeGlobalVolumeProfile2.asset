@@ -83,7 +83,7 @@ MonoBehaviour:
     m_Value: 2
   CharactersOnly:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0
   BlurFirstRTWidth:
     m_OverrideState: 0
     m_Value: 310
