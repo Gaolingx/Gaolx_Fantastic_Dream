@@ -12,7 +12,8 @@ namespace DarkGod.Main
         public Slider UIAudioSlider;
         public Slider CharacterAudioSlider;
         public Slider CharacterFxAudioSlider;
-        public Toggle VsyncSettingsToggle;
+        public Dropdown TargetFrameDropdown;
+        public Toggle FullScreenToggle;
         public Toggle MutedToggle;
         public Button btnResetCfgs;
         public Button btnExitGame;
@@ -20,10 +21,13 @@ namespace DarkGod.Main
         public Button btnCloseSettings;
         public Dropdown qualitySelectDropdown;
 
+        private UIController _UIController;
+
         protected override void InitWnd()
         {
             base.InitWnd();
 
+            _UIController = GameRoot.MainInstance.GetUIController();
             InitWindowValue();
             if (debugWnd != null)
             {
@@ -38,6 +42,7 @@ namespace DarkGod.Main
 
         private void InitWindowValue()
         {
+            InitDropdownOptionData(TargetFrameDropdown, new List<string>(new string[] { "60", "120", "No Limits" }));
             InitDropdownOptionData(qualitySelectDropdown, new List<string>(QualitySettings.names));
             qualitySelectDropdown.value = QualitySettings.GetQualityLevel();
             BGAudioSlider.value = audioSvc.BGAudioVolumeValue.Value;
@@ -60,8 +65,9 @@ namespace DarkGod.Main
             CharacterFxAudioSlider.onValueChanged.AddListener(delegate (float val) { TouchCharacterFxAudioSlider(val); });
 
             MutedToggle.onValueChanged.AddListener(delegate (bool val) { ClickMutedToggle(val); });
-            VsyncSettingsToggle.onValueChanged.AddListener(delegate (bool val) { ClickVsyncToggle(val); });
+            FullScreenToggle.onValueChanged.AddListener(delegate (bool val) { ClickFullScreenToggle(val); });
 
+            TargetFrameDropdown.onValueChanged.AddListener(delegate (int val) { OnTargetFrameDropdownValueChanged(val); });
             qualitySelectDropdown.onValueChanged.AddListener(delegate (int val) { OnQualityDropdownValueChanged(val); });
         }
 
@@ -88,10 +94,10 @@ namespace DarkGod.Main
         #endregion
 
         #region Toggle相关
-        public void ClickVsyncToggle(bool val)
+
+        public void ClickFullScreenToggle(bool state)
         {
-            audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            GameRoot.MainInstance.SetVsyncState(val);
+            _UIController.FullScreen = state;
         }
 
         public void ClickMutedToggle(bool val)
@@ -121,15 +127,29 @@ namespace DarkGod.Main
                 QualitySettings.SetQualityLevel(desiredQualityLevelIndex);
                 GameRoot.MainInstance.qualityLevel.Value = desiredQualityLevelIndex;
             }
-            else
-            {
-                PECommon.Log("请求的质量等级索引超出范围: " + QualitySettings.names[desiredQualityLevelIndex], PELogType.Error);
-            }
         }
 
         public void OnQualityDropdownValueChanged(int value)
         {
             SetQualityLevel(value);
+        }
+
+        public void OnTargetFrameDropdownValueChanged(int value)
+        {
+            switch (value)
+            {
+                case 0:
+                    _UIController.FrameRate = 60;
+                    break;
+                case 1:
+                    _UIController.FrameRate = 120;
+                    break;
+                case 2:
+                    _UIController.FrameRate = -1;
+                    break;
+                default:
+                    break;
+            }
         }
 
         #endregion
@@ -147,8 +167,9 @@ namespace DarkGod.Main
             CharacterFxAudioSlider.onValueChanged.RemoveAllListeners();
 
             MutedToggle.onValueChanged.RemoveAllListeners();
-            VsyncSettingsToggle.onValueChanged.RemoveAllListeners();
+            FullScreenToggle.onValueChanged.RemoveAllListeners();
 
+            TargetFrameDropdown.onValueChanged.RemoveAllListeners();
             qualitySelectDropdown.onValueChanged.RemoveAllListeners();
         }
 

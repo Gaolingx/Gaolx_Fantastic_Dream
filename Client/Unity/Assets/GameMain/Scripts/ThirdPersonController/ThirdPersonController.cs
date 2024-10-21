@@ -637,6 +637,7 @@ namespace StarterAssets
 
         private void OnDestroy()
         {
+            _timerSvc.DelTask(tid1);
             idleAction.OnValueChanged -= delegate (bool val) { OnIdle(val); };
             crouchAction.OnValueChanged -= delegate (bool val) { OnCrouch(val); };
             skillAction.OnValueChanged -= delegate (int val) { OnAtkSkill(val); };

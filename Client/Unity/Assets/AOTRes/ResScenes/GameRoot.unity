@@ -700,6 +700,8 @@ MonoBehaviour:
   m_GameSpeed: 1
   m_RunInBackground: 1
   m_NeverSleep: 1
+  m_FullScreenMode: 1
+  m_ScreenResolution: {x: 1280, y: 720}
 --- !u!114 &963007401
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,15 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
-using UnityEngine.SceneManagement;
 
-#if ENABLE_INPUT_SYSTEM
 public class UIController : MonoBehaviour
 {
     public static UIController Instance { get; set; }
@@ -32,6 +26,12 @@ public class UIController : MonoBehaviour
     [SerializeField]
     private bool m_NeverSleep = true;
 
+    [SerializeField]
+    private bool m_FullScreenMode = true;
+
+    [SerializeField]
+    private Vector2 m_ScreenResolution = new Vector2(1280f, 720f);
+
     private float m_GameSpeedBeforePause = 1f;
 
 
@@ -44,6 +44,7 @@ public class UIController : MonoBehaviour
         Time.timeScale = m_GameSpeed;
         Application.runInBackground = m_RunInBackground;
         Screen.sleepTimeout = m_NeverSleep ? SleepTimeout.NeverSleep : SleepTimeout.SystemSetting;
+        Screen.SetResolution((int)m_ScreenResolution.x, (int)m_ScreenResolution.y, m_FullScreenMode);
     }
 
     private void Start()
@@ -125,6 +126,32 @@ public class UIController : MonoBehaviour
     }
 
     /// <summary>
+    /// 获取或设置是否全屏。
+    /// </summary>
+    public bool FullScreen
+    {
+        get => m_FullScreenMode;
+        set
+        {
+            m_FullScreenMode = value;
+            Screen.SetResolution((int)m_ScreenResolution.x, (int)m_ScreenResolution.y, value);
+        }
+    }
+
+    /// <summary>
+    /// 获取或设置屏幕分辨率。
+    /// </summary>
+    public Vector2 ScreenResolution
+    {
+        get => m_ScreenResolution;
+        set
+        {
+            m_ScreenResolution = value;
+            Screen.SetResolution((int)value.x, (int)value.y, m_FullScreenMode);
+        }
+    }
+
+    /// <summary>
     /// 暂停游戏。
     /// </summary>
     public void PauseGame()
@@ -180,4 +207,3 @@ public class UIController : MonoBehaviour
     }
 
 }
-#endif

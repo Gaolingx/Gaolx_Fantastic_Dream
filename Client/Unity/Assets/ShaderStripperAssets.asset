@@ -16,54 +16,36 @@ MonoBehaviour:
   shaderExcludeShaderList: []
   shaderExcludePassTypeList: 0b000000
   variantExcludeList:
-  - rid: 2677982914203353093
-  - rid: 2677982914203353094
-  - rid: 2677982914203353095
-  - rid: 2677982914203353096
-  - rid: 2677982914203353097
-  - rid: 2677982914203353098
-  - rid: 2677982914203353099
-  - rid: 2677982914203353100
+  - rid: 2677983099649523717
+  - rid: 2677983099649523718
+  - rid: 2677983099649523719
+  - rid: 2677983099649523720
+  - rid: 2677983099649523721
   references:
     version: 2
     RefIds:
-    - rid: 2677982914203353093
+    - rid: 2677983099649523717
       type: {class: VariantStripData, ns: LcLTools, asm: Assembly-CSharp-Editor}
       data:
         keyword: STEREO_INSTANCING_ON
         reservedShaderList: []
-    - rid: 2677982914203353094
+    - rid: 2677983099649523718
       type: {class: VariantStripData, ns: LcLTools, asm: Assembly-CSharp-Editor}
       data:
         keyword: STEREO_MULTIVIEW_ON
         reservedShaderList: []
-    - rid: 2677982914203353095
+    - rid: 2677983099649523719
       type: {class: VariantStripData, ns: LcLTools, asm: Assembly-CSharp-Editor}
       data:
         keyword: STEREO_CUBEMAP_RENDER_ON
         reservedShaderList: []
-    - rid: 2677982914203353096
+    - rid: 2677983099649523720
       type: {class: VariantStripData, ns: LcLTools, asm: Assembly-CSharp-Editor}
       data:
         keyword: UNITY_SINGLE_PASS_STEREO
         reservedShaderList: []
-    - rid: 2677982914203353097
+    - rid: 2677983099649523721
       type: {class: VariantStripData, ns: LcLTools, asm: Assembly-CSharp-Editor}
       data:
         keyword: EDITOR_VISUALIZATION
-        reservedShaderList: []
-    - rid: 2677982914203353098
-      type: {class: VariantStripData, ns: LcLTools, asm: Assembly-CSharp-Editor}
-      data:
-        keyword: DYNAMICLIGHTMAP_ON
-        reservedShaderList: []
-    - rid: 2677982914203353099
-      type: {class: VariantStripData, ns: LcLTools, asm: Assembly-CSharp-Editor}
-      data:
-        keyword: FOG_LINEAR
-        reservedShaderList: []
-    - rid: 2677982914203353100
-      type: {class: VariantStripData, ns: LcLTools, asm: Assembly-CSharp-Editor}
-      data:
-        keyword: ADDITIONAL_LIGHTS_VERTEX
         reservedShaderList: []

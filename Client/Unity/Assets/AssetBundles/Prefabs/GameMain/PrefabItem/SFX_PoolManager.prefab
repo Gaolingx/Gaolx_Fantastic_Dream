@@ -104,12 +104,12 @@ MonoBehaviour:
     soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Land.prefab
     soundCount: 1
     isRepeat: 1
-  - soundStyle: 6
+  - soundStyle: 5
     soundName: Player_Land
     soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Land.prefab
     soundCount: 1
     isRepeat: 0
-  - soundStyle: 7
+  - soundStyle: 6
     soundName: assassin_Hit
     soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/assassin_Hit.prefab
     soundCount: 1

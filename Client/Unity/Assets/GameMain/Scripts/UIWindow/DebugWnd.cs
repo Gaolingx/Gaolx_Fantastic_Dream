@@ -11,7 +11,6 @@ namespace DarkGod.Main
         public Toggle RuntimeInspectorToggle;
         public Toggle RuntimeHierarchyToggle;
         public Button btnCloseDebugItem;
-        public Transform DebugItem;
         public Transform fpsWnd;
         public Transform RuntimeHierarchy, RuntimeInspector;
 
@@ -31,7 +30,8 @@ namespace DarkGod.Main
 
         private void ActiveDebugItemWnd(bool active = true)
         {
-            DebugItem.gameObject.SetActive(active);
+            SetWndState(active);
+            btnCloseDebugItem.gameObject.SetActive(active);
         }
 
         public void ClickFpsWndToggle(bool val)

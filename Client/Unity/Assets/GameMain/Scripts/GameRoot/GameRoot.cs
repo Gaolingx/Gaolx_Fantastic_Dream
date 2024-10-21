@@ -232,18 +232,6 @@ namespace DarkGod.Main
             return UIController.Instance.GetComponent<UIController>();
         }
 
-        public void SetVsyncState(bool state)
-        {
-            if (state == true)
-            {
-                GetUIController().FrameRate = 60;
-            }
-            else
-            {
-                GetUIController().FrameRate = -1;
-            }
-        }
-
 
         public PlayerData PlayerData { get; set; }
 
