@@ -1,7 +1,4 @@
 //功能：公用的类，用于常量配置
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 //注意：业务相关的数据、配置等由于频繁发生变动，为了方便调整，尽量不要直接写死在代码中，而是做成一个配置，在统一的地方进行修改
 namespace DarkGod.Main
@@ -82,6 +79,8 @@ namespace DarkGod.Main
         // GameRoot Config
         public const string Path_GameRoot_Obj = "/GameRoot";
         public const string Path_Canvas_Obj = "Canvas";
+        public const string Path_LoadingWnd_Obj = "Canvas/LoadingWnd";
+        public const string Path_DynamicWnd_Obj = "Canvas/DynamicWnd";
 
         //Hotfix
         public const string HotfixBuildVersion = "Release_CN_1.1.0";

@@ -17,7 +17,7 @@ namespace DarkGod.Main
         {
             base.Awake();
 
-            GameRoot.MainInstance.OnGameEnter += InitSys;
+            EventMgr.MainInstance.OnGameEnter += InitSys;
         }
 
         public override void InitSys()
@@ -46,12 +46,12 @@ namespace DarkGod.Main
             MainCitySys.Instance.maincityWnd.SetWndState(false);
             SetFubenWndState(false);
             //加载对应的战斗场景，开始副本战斗任务
-            BattleSys.Instance.StartBattle(msg.rspFBFight.fbid);
+            BattleSys.MainInstance.StartBattle(msg.rspFBFight.fbid);
         }
 
         private void OnDestroy()
         {
-            GameRoot.MainInstance.OnGameEnter -= InitSys;
+            EventMgr.MainInstance.OnGameEnter -= InitSys;
         }
     }
 }

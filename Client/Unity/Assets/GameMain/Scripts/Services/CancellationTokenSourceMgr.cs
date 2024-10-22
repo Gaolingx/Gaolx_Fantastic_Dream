@@ -7,9 +7,9 @@ namespace DarkGod.Main
 {
     public class CancellationTokenSourceMgr : GameBlackboard<CancellationTokenSourceMgr>
     {
-        protected override void Awake()
+        protected override void Init()
         {
-            base.Awake();
+            base.Init();
         }
 
         public void SetCtsValue(CtsType ctsType, CancellationTokenSource cts)

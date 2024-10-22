@@ -104,7 +104,7 @@ namespace DarkGod.Main
 
         public override Vector2 CalcTargetDir()
         {
-            EntityPlayer entityPlayer = battleMgr.EntityPlayer.Value;
+            EntityPlayer entityPlayer = eventMgr.CurrentEPlayer.Value;
             if (entityPlayer == null || entityPlayer.currentAniState == AniState.Die)
             {
                 runAI = false;
@@ -120,7 +120,7 @@ namespace DarkGod.Main
 
         private bool InAtkRange()
         {
-            EntityPlayer entityPlayer = battleMgr.EntityPlayer.Value;
+            EntityPlayer entityPlayer = eventMgr.CurrentEPlayer.Value;
             if (entityPlayer == null || entityPlayer.currentAniState == AniState.Die)
             {
                 runAI = false;
@@ -169,7 +169,7 @@ namespace DarkGod.Main
         {
             if (md.mCfg.mType == cfg.MonsterType.Boss)
             {
-                BattleSys.Instance.playerCtrlWnd.SetBossHPBarVal(oldval, newval, Props.hp);
+                BattleSys.MainInstance.playerCtrlWnd.SetBossHPBarVal(oldval, newval, Props.hp);
             }
             else
             {

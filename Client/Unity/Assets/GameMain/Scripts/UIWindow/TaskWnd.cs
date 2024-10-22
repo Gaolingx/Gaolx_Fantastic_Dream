@@ -1,6 +1,5 @@
 //功能：任务奖励界面
 
-
 using PEProtocol;
 using UnityEngine;
 using UnityEngine.UI;
@@ -138,7 +137,7 @@ namespace DarkGod.Main
             TaskRewardCfg trc = configSvc.GetTaskRewardCfg(trdLst[index].ID);
             int coin = trc.coin;
             int exp = trc.exp;
-            MsgBox.MainInstance.ShowMessageBox(GetTextWithHexColor("获得奖励：", TextColorCode.Blue) + GetTextWithHexColor(" 金币 +" + coin + " 经验 +" + exp, TextColorCode.Green));
+            EventMgr.MainInstance.ShowMessageBox(this, new(GetTextWithHexColor("获得奖励：", TextColorCode.Blue) + GetTextWithHexColor(" 金币 +" + coin + " 经验 +" + exp, TextColorCode.Green)));
         }
 
         public void ClickCloseBtn()

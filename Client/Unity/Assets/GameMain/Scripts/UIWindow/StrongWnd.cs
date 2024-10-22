@@ -1,4 +1,5 @@
 //功能：强化升级界面
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -222,18 +223,18 @@ namespace DarkGod.Main
                 //判断级别是否足够强化
                 if (pd.lv < nextSd.minlv)
                 {
-                    MsgBox.MainInstance.ShowMessageBox("角色等级不够");
+                    EventMgr.MainInstance.ShowMessageBox(this, new("角色等级不够"));
                     return;
                 }
                 //各种资源...
                 if (pd.coin < nextSd.coin)
                 {
-                    MsgBox.MainInstance.ShowMessageBox("金币数量不够");
+                    EventMgr.MainInstance.ShowMessageBox(this, new("金币数量不够"));
                     return;
                 }
                 if (pd.crystal < nextSd.crystal)
                 {
-                    MsgBox.MainInstance.ShowMessageBox("水晶不够");
+                    EventMgr.MainInstance.ShowMessageBox(this, new("水晶不够"));
                     return;
                 }
 
@@ -249,7 +250,7 @@ namespace DarkGod.Main
             }
             else
             {
-                MsgBox.MainInstance.ShowMessageBox("星级已经升满");
+                EventMgr.MainInstance.ShowMessageBox(this, new("星级已经升满"));
             }
         }
 

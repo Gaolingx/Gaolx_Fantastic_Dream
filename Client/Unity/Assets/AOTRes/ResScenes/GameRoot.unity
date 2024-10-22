@@ -722,7 +722,7 @@ MonoBehaviour:
   DownloadingMaxNum: 10
   FailedTryAgain: 3
   PackageName: DefaultPackage
-  PlayMode: 0
+  PlayMode: 2
   BuildPipeline: 1
   SangoPatchWnd: {fileID: 2274285450713248455, guid: c8938a4a9c51bf04ba6bd4f91c02ef81,
     type: 3}

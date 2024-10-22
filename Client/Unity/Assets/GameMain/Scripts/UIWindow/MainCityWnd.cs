@@ -1,4 +1,5 @@
 //功能：主城UI界面
+
 using PEProtocol;
 using System.Collections;
 using System.Collections.Generic;
@@ -161,7 +162,7 @@ namespace DarkGod.Main
             }
             else
             {
-                MsgBox.MainInstance.ShowMessageBox("更多引导任务，正在开发中...");
+                EventMgr.MainInstance.ShowMessageBox(this, new("更多引导任务，正在开发中..."));
             }
         }
         public void ClickMenuBtn()

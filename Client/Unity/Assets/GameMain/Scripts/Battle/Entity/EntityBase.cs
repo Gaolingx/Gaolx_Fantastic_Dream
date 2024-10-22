@@ -14,6 +14,7 @@ namespace DarkGod.Main
         public BattleMgr battleMgr { get; set; }
         public StateMgr stateMgr { get; set; }
         public SkillMgr skillMgr { get; set; }
+        public EventMgr eventMgr { get; set; }
 
         public ThirdPersonController playerController { get; set; }
         public Controller controller { get; set; }
@@ -144,12 +145,12 @@ namespace DarkGod.Main
 
         public virtual void AddHealthData()
         {
-            currentHP.OnValueChanged += OnUpdateHP;
+            currentHP.OnValueChanged += delegate (int val) { OnUpdateHP(val); };
         }
 
         public virtual void RmvHealthData()
         {
-            currentHP.OnValueChanged -= OnUpdateHP;
+            currentHP.OnValueChanged -= delegate (int val) { OnUpdateHP(val); };
         }
 
         private void OnUpdateHP(int value)

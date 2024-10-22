@@ -13,7 +13,7 @@ namespace DarkGod.Main
         {
             base.Awake();
 
-            GameRoot.MainInstance.OnGameEnter += InitSvc;
+            EventMgr.MainInstance.OnGameEnter += InitSvc;
         }
 
         public void InitSvc()
@@ -581,7 +581,7 @@ namespace DarkGod.Main
 
         private void OnDestroy()
         {
-            GameRoot.MainInstance.OnGameEnter -= InitSvc;
+            EventMgr.MainInstance.OnGameEnter -= InitSvc;
         }
     }
 }

@@ -76,7 +76,7 @@ namespace DarkGod.Main
             {
                 //怪物攻击玩家
 
-                EntityPlayer epTarget = caster.battleMgr.EntityPlayer.Value;
+                EntityPlayer epTarget = caster.eventMgr.CurrentEPlayer.Value;
                 if (epTarget == null)
                 {
                     return;
@@ -196,14 +196,14 @@ namespace DarkGod.Main
             }
             else if (target.entityType == EntityType.Player)
             {
+                target.battleMgr.RmvPlayer(target.EntityName);
                 //战斗失败
-                if (target.battleMgr.playerDic.Count == 0)
+                if (target.battleMgr.playerDic.Count <= 0)
                 {
                     target.battleMgr.EndBattle(false, 0);
                 }
                 else
                 {
-                    target.battleMgr.RmvPlayer(target.EntityName);
                     //TODO:切换角色
                 }
             }

@@ -12,7 +12,7 @@ namespace DarkGod.Main
         {
             base.Awake();
 
-            GameRoot.MainInstance.OnGameEnter += InitCfg;
+            EventMgr.MainInstance.OnGameEnter += InitCfg;
         }
 
         public void InitCfg()
@@ -29,7 +29,7 @@ namespace DarkGod.Main
 
         private void OnDestroy()
         {
-            GameRoot.MainInstance.OnGameEnter -= InitCfg;
+            EventMgr.MainInstance.OnGameEnter -= InitCfg;
         }
     }
 }

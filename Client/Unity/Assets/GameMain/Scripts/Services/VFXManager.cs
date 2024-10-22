@@ -21,7 +21,7 @@ namespace DarkGod.Main
         {
             base.Awake();
 
-            GameRoot.MainInstance.OnGameEnter += InitFX;
+            EventMgr.MainInstance.OnGameEnter += InitFX;
         }
 
         private void AddVFXOnInit()
@@ -121,7 +121,7 @@ namespace DarkGod.Main
 
         private void OnDestroy()
         {
-            GameRoot.MainInstance.OnGameEnter -= InitFX;
+            EventMgr.MainInstance.OnGameEnter -= InitFX;
         }
     }
 }

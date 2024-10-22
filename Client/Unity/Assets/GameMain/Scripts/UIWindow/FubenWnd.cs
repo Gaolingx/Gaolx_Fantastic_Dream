@@ -62,7 +62,7 @@ namespace DarkGod.Main
             int powerInMission = configSvc.GetMapCfg(clickFbid).power;
             if (powerInMission > pd.power)
             {
-                MsgBox.MainInstance.ShowMessageBox("体力值不足");
+                EventMgr.MainInstance.ShowMessageBox(this, new("体力值不足"));
             }
             else
             {

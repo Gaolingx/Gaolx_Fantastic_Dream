@@ -1,4 +1,5 @@
 //功能：登陆注册业务系统
+
 using PEProtocol;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace DarkGod.Main
         {
             base.Awake();
 
-            GameRoot.MainInstance.OnGameEnter += InitSys;
+            EventMgr.MainInstance.OnGameEnter += InitSys;
         }
 
         public override void InitSys()
@@ -48,7 +49,7 @@ namespace DarkGod.Main
 
         public void RspLogin(GameMsg msg)
         {
-            MsgBox.MainInstance.ShowMessageBox("登录成功");
+            EventMgr.MainInstance.ShowMessageBox(this, new("登录成功"));
             GameRoot.MainInstance.SetPlayerData(msg.rspLogin);
 
             if (msg.rspLogin.playerData.name == "")
@@ -79,7 +80,7 @@ namespace DarkGod.Main
 
         private void OnDestroy()
         {
-            GameRoot.MainInstance.OnGameEnter -= InitSys;
+            EventMgr.MainInstance.OnGameEnter -= InitSys;
         }
     }
 }

@@ -242,7 +242,7 @@ namespace DarkGod.Main
         {
             if (GameRoot.MainInstance.GetGameState() == GameState.FBFight)
             {
-                BattleSys.Instance.battleMgr.SetPauseGame(false, false);
+                BattleSys.MainInstance.battleMgr.SetPauseGame(false, false);
             }
             else if (GameRoot.MainInstance.GetGameState() == GameState.MainCity)
             {
@@ -255,20 +255,20 @@ namespace DarkGod.Main
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
             configSvc.ResetSkillCfgs();
-            MsgBox.MainInstance.ShowMessageBox("技能数据重置成功！");
+            EventMgr.MainInstance.ShowMessageBox(this, new("技能数据重置成功！"));
         }
 
         protected void ExitCurrentBattle(System.Action callback = null)
         {
             if (GameRoot.MainInstance.GetGameState() == GameState.FBFight)
             {
-                BattleSys.Instance.EnterMainCity();
-                BattleSys.Instance.DestroyBattle();
+                BattleSys.MainInstance.EnterMainCity();
+                BattleSys.MainInstance.DestroyBattle();
                 callback?.Invoke();
             }
             else if (GameRoot.MainInstance.GetGameState() == GameState.MainCity)
             {
-                MsgBox.MainInstance.ShowMessageBox("当前未处于副本战斗关卡");
+                EventMgr.MainInstance.ShowMessageBox(this, new("当前未处于副本战斗关卡"));
             }
         }
 

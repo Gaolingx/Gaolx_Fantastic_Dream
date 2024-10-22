@@ -29,7 +29,16 @@ namespace DarkGod.Main
         private StarterAssetsInputs playerInput;
         private UICanvasControllerInput uICanvasController;
 
-        private Vector2 currentDir;
+        #region Action List
+        private BindableProperty<Vector2> InputMoveDir { get; set; } = new BindableProperty<Vector2>();
+        private BindableProperty<bool> InputPauseState { get; set; } = new BindableProperty<bool>();
+        private BindableProperty<bool> InputPlayerNormalAtk { get; set; } = new BindableProperty<bool>();
+        private BindableProperty<bool> InputPlayerSkill01 { get; set; } = new BindableProperty<bool>();
+        private BindableProperty<bool> InputPlayerSkill02 { get; set; } = new BindableProperty<bool>();
+        private BindableProperty<bool> InputPlayerSkill03 { get; set; } = new BindableProperty<bool>();
+
+        #endregion
+
 
         #region Skill
         #region SK1
@@ -90,6 +99,13 @@ namespace DarkGod.Main
             btnSkill1.onClick.AddListener(delegate { uICanvasController.VirtualSkill01Input(true); });
             btnSkill2.onClick.AddListener(delegate { uICanvasController.VirtualSkill02Input(true); });
             btnSkill3.onClick.AddListener(delegate { uICanvasController.VirtualSkill03Input(true); });
+
+            InputMoveDir.OnValueChanged += delegate (Vector2 val) { OnUpdateInputMoveDir(val); };
+            InputPauseState.OnValueChanged += delegate (bool val) { OnUpdateInputPauseState(val); };
+            InputPlayerNormalAtk.OnValueChanged += delegate (bool val) { OnUpdategClickNormalAtk(val); };
+            InputPlayerSkill01.OnValueChanged += delegate (bool val) { OnUpdateClickSkill01(val); };
+            InputPlayerSkill02.OnValueChanged += delegate (bool val) { OnUpdateClickSkill02(val); };
+            InputPlayerSkill03.OnValueChanged += delegate (bool val) { OnUpdateClickSkill03(val); };
         }
 
 
@@ -102,31 +118,60 @@ namespace DarkGod.Main
         {
             float delta = Time.deltaTime;
 
-            if (BattleSys.Instance.currentEntityPlayer == null || GameRoot.MainInstance.GetGameState() != GameState.FBFight)
-            {
-                return;
-            }
-
             if (playerInput != null)
             {
-                SetCurrentDir();
+                InputMoveDir.Value = playerInput.move;
+                InputPauseState.Value = playerInput.isPause;
+                InputPlayerNormalAtk.Value = playerInput.normalAtk;
+                InputPlayerSkill01.Value = playerInput.skill01;
+                InputPlayerSkill02.Value = playerInput.skill02;
+                InputPlayerSkill03.Value = playerInput.skill03;
 
-                if (!BattleSys.Instance.battleMgr.GetPauseGame())
-                {
-                    ListeningTouchEvts();
-                    ListeningClickGamePause();
-                    ListeningClickPlayerNormalAtk();
-                    ListeningClickPlayerSkill01Atk();
-                    ListeningClickPlayerSkill02Atk();
-                    ListeningClickPlayerSkill03Atk();
-                }
-
-                UpdateSk1CD(delta);
-                UpdateSk2CD(delta);
-                UpdateSk3CD(delta);
+                ResetInput();
             }
 
+            UpdateSk1CD(delta);
+            UpdateSk2CD(delta);
+            UpdateSk3CD(delta);
             UpdateBossHPBlend();
+        }
+
+        private void OnUpdateInputMoveDir(Vector2 val)
+        {
+            ListeningTouchEvts(val);
+        }
+
+        private void OnUpdateInputPauseState(bool val)
+        {
+            ListeningClickGamePause(val);
+        }
+
+        private void OnUpdategClickNormalAtk(bool val)
+        {
+            ListeningClickPlayerNormalAtk(val);
+        }
+
+        private void OnUpdateClickSkill01(bool val)
+        {
+            ListeningClickPlayerSkill01Atk(val);
+        }
+
+        private void OnUpdateClickSkill02(bool val)
+        {
+            ListeningClickPlayerSkill02Atk(val);
+        }
+
+        private void OnUpdateClickSkill03(bool val)
+        {
+            ListeningClickPlayerSkill03Atk(val);
+        }
+
+        private void ResetInput()
+        {
+            playerInput.normalAtk = false;
+            playerInput.skill01 = false;
+            playerInput.skill02 = false;
+            playerInput.skill03 = false;
         }
 
         private void InitPlayerInput()
@@ -241,62 +286,48 @@ namespace DarkGod.Main
             }
         }
 
-        private void SetCurrentDir()
-        {
-            currentDir = playerInput.move;
-        }
-
-        public Vector2 GetCurrentDir()
-        {
-            return currentDir;
-        }
-
         #region RegEvts
         //注册触摸事件
-        public void ListeningTouchEvts()
+        public void ListeningTouchEvts(Vector2 val)
         {
-            BattleSys.Instance.SetPlayerMoveDir(currentDir);
+            BattleSys.MainInstance.SetPlayerMoveDir(val);
         }
 
         //暂停控制
-        public void ListeningClickGamePause()
+        public void ListeningClickGamePause(bool val)
         {
-            if (playerInput.isPause)
+            if (val == true)
             {
                 if (!settingsWnd.isActiveAndEnabled)
                 {
-                    BattleSys.Instance.battleMgr.SetPauseGame(true, true);
-                    BattleSys.Instance.SetBattleEndWndState(FBEndType.Pause);
+                    BattleSys.MainInstance.battleMgr.SetPauseGame(true, true);
+                    BattleSys.MainInstance.SetBattleEndWndState(FBEndType.Pause);
                 }
             }
-
-            //_playerInput.isPause = false;
         }
 
         public void ClickSettingsBtn()
         {
-            BattleSys.Instance.battleMgr.SetPauseGame(true, true);
+            BattleSys.MainInstance.battleMgr.SetPauseGame(true, true);
             settingsWnd.SetWndState(true);
         }
 
         //释放技能
-        public void ListeningClickPlayerNormalAtk()
+        public void ListeningClickPlayerNormalAtk(bool val)
         {
-            if (playerInput.normalAtk)
+            if (val == true)
             {
-                BattleSys.Instance.ReqPlayerReleaseSkill(0);
+                BattleSys.MainInstance.ReqPlayerReleaseSkill(0);
             }
-
-            playerInput.normalAtk = false;
         }
 
-        public void ListeningClickPlayerSkill01Atk()
+        public void ListeningClickPlayerSkill01Atk(bool val)
         {
-            if (playerInput.skill01)
+            if (val == true)
             {
                 if (isSk1CD == false && GetCanRlsSkill())
                 {
-                    BattleSys.Instance.ReqPlayerReleaseSkill(1);
+                    BattleSys.MainInstance.ReqPlayerReleaseSkill(1);
                     isSk1CD = true;
                     SetActive(imgSk1CD);
                     imgSk1CD.fillAmount = 1;
@@ -304,17 +335,15 @@ namespace DarkGod.Main
                     SetText(txtSk1CD, sk1Num);
                 }
             }
-
-            playerInput.skill01 = false;
         }
 
-        public void ListeningClickPlayerSkill02Atk()
+        public void ListeningClickPlayerSkill02Atk(bool val)
         {
-            if (playerInput.skill02)
+            if (val == true)
             {
                 if (isSk2CD == false && GetCanRlsSkill())
                 {
-                    BattleSys.Instance.ReqPlayerReleaseSkill(2);
+                    BattleSys.MainInstance.ReqPlayerReleaseSkill(2);
                     isSk2CD = true;
                     SetActive(imgSk2CD);
                     imgSk2CD.fillAmount = 1;
@@ -322,17 +351,15 @@ namespace DarkGod.Main
                     SetText(txtSk1CD, sk2Num);
                 }
             }
-
-            playerInput.skill02 = false;
         }
 
-        public void ListeningClickPlayerSkill03Atk()
+        public void ListeningClickPlayerSkill03Atk(bool val)
         {
-            if (playerInput.skill03)
+            if (val == true)
             {
                 if (isSk3CD == false && GetCanRlsSkill())
                 {
-                    BattleSys.Instance.ReqPlayerReleaseSkill(3);
+                    BattleSys.MainInstance.ReqPlayerReleaseSkill(3);
                     isSk3CD = true;
                     SetActive(imgSk3CD);
                     imgSk3CD.fillAmount = 1;
@@ -340,8 +367,6 @@ namespace DarkGod.Main
                     SetText(txtSk3CD, sk3Num);
                 }
             }
-
-            playerInput.skill03 = false;
         }
         #endregion
 
@@ -372,7 +397,7 @@ namespace DarkGod.Main
 
         public bool GetCanRlsSkill()
         {
-            return BattleSys.Instance.CanRlsSkill();
+            return BattleSys.MainInstance.CanRlsSkill();
         }
 
         #region BossHPItem
@@ -415,6 +440,13 @@ namespace DarkGod.Main
             btnSkill1.onClick.RemoveAllListeners();
             btnSkill2.onClick.RemoveAllListeners();
             btnSkill3.onClick.RemoveAllListeners();
+
+            InputMoveDir.OnValueChanged -= delegate (Vector2 val) { OnUpdateInputMoveDir(val); };
+            InputPauseState.OnValueChanged -= delegate (bool val) { OnUpdateInputPauseState(val); };
+            InputPlayerNormalAtk.OnValueChanged -= delegate (bool val) { OnUpdategClickNormalAtk(val); };
+            InputPlayerSkill01.OnValueChanged -= delegate (bool val) { OnUpdateClickSkill01(val); };
+            InputPlayerSkill02.OnValueChanged -= delegate (bool val) { OnUpdateClickSkill02(val); };
+            InputPlayerSkill03.OnValueChanged -= delegate (bool val) { OnUpdateClickSkill03(val); };
         }
 
         public void ClickCloseBtn()

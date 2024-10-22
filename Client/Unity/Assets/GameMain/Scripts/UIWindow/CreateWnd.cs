@@ -1,4 +1,5 @@
 //功能：角色创建界面
+
 using PEProtocol;
 using System.Collections;
 using System.Collections.Generic;
@@ -54,7 +55,7 @@ namespace DarkGod.Main
             }
             else
             {
-                MsgBox.MainInstance.ShowMessageBox("当前名字不符合规范");
+                EventMgr.MainInstance.ShowMessageBox(this, new("当前名字不符合规范"));
             }
         }
 

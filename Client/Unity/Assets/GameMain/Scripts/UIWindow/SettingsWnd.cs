@@ -125,7 +125,7 @@ namespace DarkGod.Main
             if (desiredQualityLevelIndex < QualitySettings.names.Length)
             {
                 QualitySettings.SetQualityLevel(desiredQualityLevelIndex);
-                GameRoot.MainInstance.qualityLevel.Value = desiredQualityLevelIndex;
+                EventMgr.MainInstance.QualityLevel.Value = desiredQualityLevelIndex;
             }
         }
 

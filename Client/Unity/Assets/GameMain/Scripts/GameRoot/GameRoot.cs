@@ -14,25 +14,15 @@ namespace DarkGod.Main
     public class GameRoot : Singleton<GameRoot>
     {
         public bool isDontDestroyOnLoad = true;
-
-        public LoadingWnd loadingWnd;
-        public DynamicWnd dynamicWnd;
-
-        public StarterAssetsInputs starterAssetsInputs;
-        public UICanvasControllerInput uICanvasController;
-
         public List<string> ShowCursorScene;
 
-        public System.Action OnGameEnter { get; set; }
-        public System.Action OnGameExit { get; set; }
-        public BindableProperty<int> qualityLevel { get; set; } = new BindableProperty<int>();
-        private BindableProperty<bool> pauseState { get; set; } = new BindableProperty<bool>();
-        private PlayerPrefsSvc playerPrefsSvc;
+        public LoadingWnd loadingWnd { get; set; }
+        public DynamicWnd dynamicWnd { get; set; }
+        private StarterAssetsInputs starterAssetsInputs;
+        private UICanvasControllerInput uICanvasController;
 
         private const string prefsKey_SettingsGameRoot = "prefsKey_SettingsGameRoot";
 
-
-        [HideInInspector]
         [System.Serializable]
         private class PlayerPrefsData
         {
@@ -41,15 +31,15 @@ namespace DarkGod.Main
 
         private void LoadPrefsData()
         {
-            if (playerPrefsSvc.CheckPlayerPrefsHasKey(prefsKey_SettingsGameRoot))
+            if (PlayerPrefsSvc.MainInstance.CheckPlayerPrefsHasKey(prefsKey_SettingsGameRoot))
             {
-                var json = playerPrefsSvc.LoadFromPlayerPrefs(prefsKey_SettingsGameRoot);
+                var json = PlayerPrefsSvc.MainInstance.LoadFromPlayerPrefs(prefsKey_SettingsGameRoot);
                 var saveData = JsonConvert.DeserializeObject<PlayerPrefsData>(json);
-                qualityLevel.Value = saveData.QualityLevel;
+                EventMgr.MainInstance.QualityLevel.Value = saveData.QualityLevel;
             }
             else
             {
-                qualityLevel.Value = QualitySettings.GetQualityLevel();
+                EventMgr.MainInstance.QualityLevel.Value = QualitySettings.GetQualityLevel();
             }
         }
 
@@ -57,19 +47,27 @@ namespace DarkGod.Main
         {
             var saveData = new PlayerPrefsData();
 
-            saveData.QualityLevel = qualityLevel.Value;
-            playerPrefsSvc.SaveByPlayerPrefs(prefsKey_SettingsGameRoot, saveData);
+            saveData.QualityLevel = EventMgr.MainInstance.QualityLevel.Value;
+            PlayerPrefsSvc.MainInstance.SaveByPlayerPrefs(prefsKey_SettingsGameRoot, saveData);
+        }
+
+        private void InitTransform()
+        {
+            loadingWnd = transform.Find(Constants.Path_LoadingWnd_Obj).gameObject.GetComponent<LoadingWnd>();
+            dynamicWnd = transform.Find(Constants.Path_DynamicWnd_Obj).gameObject.GetComponent<DynamicWnd>();
+            starterAssetsInputs = transform.Find(Constants.Path_PlayerInputs_Obj).gameObject.GetComponent<StarterAssetsInputs>();
+            uICanvasController = transform.Find(Constants.Path_Joysticks_Obj).GetComponent<UICanvasControllerInput>();
         }
 
         protected override void Awake()
         {
             base.Awake();
 
-            InitStarterAssetsInputs();
+            InitTransform();
 
-            OnGameExit += GetUIController().OnClickExit;
-            pauseState.OnValueChanged += OnUpdatePauseState;
-            qualityLevel.OnValueChanged += OnUpdateQualityLevel;
+            EventMgr.MainInstance.OnGameExit += GetUIController().OnClickExit;
+            EventMgr.MainInstance.PauseState.OnValueChanged += delegate (bool val) { OnUpdatePauseState(val); };
+            EventMgr.MainInstance.QualityLevel.OnValueChanged += delegate (int val) { OnUpdateQualityLevel(val); };
         }
 
         private void Start()
@@ -80,9 +78,7 @@ namespace DarkGod.Main
                 DontDestroyOnLoad(this);
             }
 
-            playerPrefsSvc = PlayerPrefsSvc.MainInstance;
-
-            OnGameEnter?.Invoke();
+            EventMgr.MainInstance.SendMessage_GameState(this, new GameStateEventArgs(GameStateEventCode.GameStart));
 
             CleanUIRoot();
 
@@ -98,7 +94,7 @@ namespace DarkGod.Main
 
         public void PauseGameUI(bool state = true)
         {
-            pauseState.Value = state;
+            EventMgr.MainInstance.PauseState.Value = state;
         }
 
         private void OnUpdatePauseState(bool state)
@@ -122,12 +118,6 @@ namespace DarkGod.Main
         {
             QualitySettings.SetQualityLevel(value);
             SavePrefsData();
-        }
-
-        private void InitStarterAssetsInputs()
-        {
-            starterAssetsInputs = transform.Find(Constants.Path_PlayerInputs_Obj).gameObject.GetComponent<StarterAssetsInputs>();
-            uICanvasController = transform.Find(Constants.Path_Joysticks_Obj).GetComponent<UICanvasControllerInput>();
         }
 
         public StarterAssetsInputs GetStarterAssetsInputs()
@@ -155,7 +145,7 @@ namespace DarkGod.Main
         {
             if (starterAssetsInputs != null)
             {
-                if (pauseState.Value == true || starterAssetsInputs.cursorLocked == true || GetCursorLockModeState() == true)
+                if (EventMgr.MainInstance.PauseState.Value == true || starterAssetsInputs.cursorLocked == true || GetCursorLockModeState() == true)
                 {
                     GetUIController().CursorLock = CursorLockMode.None;
                 }
@@ -173,7 +163,7 @@ namespace DarkGod.Main
             {
                 SetCursorLockMode();
 
-                if (_isInputEnable && !pauseState.Value && !starterAssetsInputs.cursorLocked)
+                if (_isInputEnable && !EventMgr.MainInstance.PauseState.Value && !starterAssetsInputs.cursorLocked)
                 {
                     starterAssetsInputs.canLook = true;
                 }
@@ -223,13 +213,13 @@ namespace DarkGod.Main
 
         public void ExitGame()
         {
-            OnGameExit?.Invoke();
+            EventMgr.MainInstance.SendMessage_GameState(this, new GameStateEventArgs(GameStateEventCode.GameStop));
         }
 
         public UIController GetUIController()
         {
             //return GameObject.Find(Constants.UIControllerRootName).GetComponent<UIController>();
-            return UIController.Instance.GetComponent<UIController>();
+            return UIController.Instance;
         }
 
 
@@ -317,8 +307,9 @@ namespace DarkGod.Main
 
         private void OnDestroy()
         {
-            pauseState.OnValueChanged -= OnUpdatePauseState;
-            qualityLevel.OnValueChanged -= OnUpdateQualityLevel;
+            EventMgr.MainInstance.OnGameExit -= GetUIController().OnClickExit;
+            EventMgr.MainInstance.PauseState.OnValueChanged -= delegate (bool val) { OnUpdatePauseState(val); };
+            EventMgr.MainInstance.QualityLevel.OnValueChanged -= delegate (int val) { OnUpdateQualityLevel(val); };
         }
 
     }

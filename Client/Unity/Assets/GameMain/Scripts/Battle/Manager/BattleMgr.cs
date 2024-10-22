@@ -21,11 +21,10 @@ namespace DarkGod.Main
 
         private StateMgr stateMgr;
         private SkillMgr skillMgr;
+        private EventMgr eventMgr;
         private MapMgr mapMgr;
 
         private BattleSys battleSys;
-
-        public BindableProperty<EntityPlayer> EntityPlayer = new BindableProperty<EntityPlayer>(); //记录当前玩家
 
         private MapCfg mapCfg;
 
@@ -54,7 +53,7 @@ namespace DarkGod.Main
             {
                 if (playerDic.TryGetValue(key, out EntityPlayer item))
                 {
-                    EntityPlayer.Value = item;
+                    eventMgr.CurrentEPlayer.Value = item;
                     item.SetActive(true);
                     item.StateBorn();
                     timerSvc.AddTimeTask((int tid1) =>
@@ -103,7 +102,8 @@ namespace DarkGod.Main
                 {
                     battleMgr = this,
                     stateMgr = stateMgr, //将stateMgr注入逻辑实体类中
-                    skillMgr = skillMgr
+                    skillMgr = skillMgr,
+                    eventMgr = eventMgr
                 };
                 entitySelfPlayer.EntityName = pd.name;
                 entitySelfPlayer.AddHealthData();
@@ -111,9 +111,9 @@ namespace DarkGod.Main
 
                 entitySelfPlayer.SetCtrl(controller);
                 entitySelfPlayer.SetActive(false);
-                playerDic.Add(player.name, entitySelfPlayer);
+                playerDic.Add(entitySelfPlayer.EntityName, entitySelfPlayer);
                 entitySelfPlayer.OnInitFSM();
-                ActiveCurrentPlayer(player.name);
+                ActiveCurrentPlayer(entitySelfPlayer.EntityName);
             }
         }
 
@@ -126,9 +126,10 @@ namespace DarkGod.Main
             timerSvc = TimerSvc.MainInstance;
 
             //初始化系统
-            battleSys = BattleSys.Instance;
+            battleSys = BattleSys.MainInstance;
 
             //初始化各管理器
+            eventMgr = EventMgr.MainInstance;
             stateMgr = gameObject.AddComponent<StateMgr>();
             skillMgr = gameObject.AddComponent<SkillMgr>();
             skillMgr.Init();
@@ -173,12 +174,12 @@ namespace DarkGod.Main
         //相关回调处理
         public virtual void AddEntityPlayerData()
         {
-            EntityPlayer.OnValueChanged += OnUpdateEntityPlayer;
+            eventMgr.CurrentEPlayer.OnValueChanged += delegate (EntityPlayer entity) { OnUpdateEntityPlayer(entity); };
         }
 
         private void OnUpdateEntityPlayer(EntityPlayer value)
         {
-            BattleSys.Instance.currentEntityPlayer = value;
+            PECommon.Log("玩家切换:" + value.EntityName);
         }
 
         //相关逻辑驱动
@@ -237,7 +238,7 @@ namespace DarkGod.Main
                     if (!isExist)
                     {
                         //关卡结束，战斗胜利
-                        var entitySelfPlayer = EntityPlayer.Value;
+                        var entitySelfPlayer = eventMgr.CurrentEPlayer.Value;
                         EndBattle(true, entitySelfPlayer.currentHP.Value);
                     }
                 }
@@ -249,7 +250,7 @@ namespace DarkGod.Main
         {
             SetPauseGame(false, true);
 
-            var entitySelfPlayer = EntityPlayer.Value;
+            var entitySelfPlayer = eventMgr.CurrentEPlayer.Value;
             entitySelfPlayer.StateIdle();
             //停止背景音乐
             audioSvc.StopBGMusic();
@@ -273,7 +274,8 @@ namespace DarkGod.Main
                     {
                         battleMgr = this,
                         stateMgr = stateMgr, //将stateMgr注入逻辑实体类中
-                        skillMgr = skillMgr
+                        skillMgr = skillMgr,
+                        eventMgr = eventMgr
                     };
                     //设置初始属性
                     em.md = md;
@@ -363,7 +365,7 @@ namespace DarkGod.Main
         #region 技能施放与角色控制
         public void SetSelfPlayerMoveDir(Vector2 dir)
         {
-            var entitySelfPlayer = EntityPlayer.Value;
+            var entitySelfPlayer = eventMgr.CurrentEPlayer.Value;
             //设置玩家移动
             //PECommon.Log(dir.ToString());
             if (entitySelfPlayer.CanControl == false)
@@ -419,7 +421,7 @@ namespace DarkGod.Main
         public int comboIndex = 0; //记录当前要存储的连招的id为第n个
         private void CalcNormalAtkCombo()
         {
-            var entitySelfPlayer = EntityPlayer.Value;
+            var entitySelfPlayer = eventMgr.CurrentEPlayer.Value;
             if (entitySelfPlayer.currentAniState == AniState.Attack)
             {
                 //在500ms以内进行第二次点击，保存点击数据
@@ -458,19 +460,19 @@ namespace DarkGod.Main
         private void PlayerReleaseSkill01()
         {
             //PECommon.Log("Click Skill01");
-            var entitySelfPlayer = EntityPlayer.Value;
+            var entitySelfPlayer = eventMgr.CurrentEPlayer.Value;
             entitySelfPlayer.StateAttack(Constants.SkillID_Mar7th00_skill01);
         }
         private void PlayerReleaseSkill02()
         {
             //PECommon.Log("Click Skill02");
-            var entitySelfPlayer = EntityPlayer.Value;
+            var entitySelfPlayer = eventMgr.CurrentEPlayer.Value;
             entitySelfPlayer.StateAttack(Constants.SkillID_Mar7th00_skill02);
         }
         private void PlayerReleaseSkill03()
         {
             //PECommon.Log("Click Skill03");
-            var entitySelfPlayer = EntityPlayer.Value;
+            var entitySelfPlayer = eventMgr.CurrentEPlayer.Value;
             entitySelfPlayer.StateAttack(Constants.SkillID_Mar7th00_skill03);
         }
         public Vector2 GetDirInput()
@@ -479,7 +481,7 @@ namespace DarkGod.Main
         }
         public bool CanRlsSkill()
         {
-            var entitySelfPlayer = EntityPlayer.Value;
+            var entitySelfPlayer = eventMgr.CurrentEPlayer.Value;
             return entitySelfPlayer.CanRlsSkill;
         }
 
@@ -487,7 +489,7 @@ namespace DarkGod.Main
 
         private void OnDestroy()
         {
-            EntityPlayer.OnValueChanged -= OnUpdateEntityPlayer;
+            eventMgr.CurrentEPlayer.OnValueChanged -= delegate (EntityPlayer entity) { OnUpdateEntityPlayer(entity); };
         }
 
     }

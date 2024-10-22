@@ -146,6 +146,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// PENet.PESession<object>
 	// PENet.PESocket.<>c__DisplayClass6_0<object,object>
 	// PENet.PESocket<object,object>
+	// System.Action<UnityEngine.Vector2>
 	// System.Action<byte>
 	// System.Action<float>
 	// System.Action<int>
@@ -277,6 +278,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.ObjectModel.ReadOnlyCollection<object>
 	// System.Comparison<int>
 	// System.Comparison<object>
+	// System.EventHandler<object>
 	// System.Func<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,byte>>>>>>>>
 	// System.Func<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>>
 	// System.Func<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,byte>>>>>>>
@@ -627,6 +629,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.SFX_PoolManager.<InitSoundPool>d__4>(DarkGod.Main.SFX_PoolManager.<InitSoundPool>d__4&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.TaskWnd.<RefreshUI>d__6>(DarkGod.Main.TaskWnd.<RefreshUI>d__6&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.WindowRoot.<SetSprite>d__17>(DarkGod.Main.WindowRoot.<SetSprite>d__17&)
+		// object& System.Runtime.CompilerServices.Unsafe.As<object,object>(object&)
+		// System.Void* System.Runtime.CompilerServices.Unsafe.AsPointer<object>(object&)
 		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<UnityEngine.Vector2>(UnityEngine.Vector2&)
 		// System.Void* Unity.Collections.LowLevel.Unsafe.UnsafeUtility.AddressOf<float>(float&)
 		// int Unity.Collections.LowLevel.Unsafe.UnsafeUtility.SizeOf<UnityEngine.Vector2>()

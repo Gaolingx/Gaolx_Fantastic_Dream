@@ -73,7 +73,7 @@ namespace DarkGod.Main
         {
             if (playerController != null)
             {
-                BattleSys.Instance.playerCtrlWnd.SetSelfHPBarVal(newval);
+                BattleSys.MainInstance.playerCtrlWnd.SetSelfHPBarVal(newval);
             }
         }
 

@@ -1,4 +1,5 @@
 //功能：登录注册界面
+
 using Newtonsoft.Json;
 using PEProtocol;
 using System.Collections;
@@ -109,7 +110,7 @@ namespace DarkGod.Main
             }
             else
             {
-                MsgBox.MainInstance.ShowMessageBox("账号或密码为空");
+                EventMgr.MainInstance.ShowMessageBox(this, new("账号或密码为空"));
             }
         }
 
@@ -117,7 +118,7 @@ namespace DarkGod.Main
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
 
-            MsgBox.MainInstance.ShowMessageBox("功能正在开发中...");
+            EventMgr.MainInstance.ShowMessageBox(this, new("功能正在开发中..."));
         }
 
         public void OnDisable()

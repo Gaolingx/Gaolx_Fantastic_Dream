@@ -9,7 +9,6 @@ namespace DarkGod.Main
 {
     public class BattleSys : SystemRoot<BattleSys>
     {
-        public static BattleSys Instance = null;
         public PlayerCtrlWnd playerCtrlWnd;
         public BattleEndWnd battleEndWnd;
         public BattleMgr battleMgr;
@@ -17,14 +16,11 @@ namespace DarkGod.Main
         private int battleFbid;
         private double startTime;
 
-        public EntityPlayer currentEntityPlayer { get; set; }
-
         protected override void Awake()
         {
             base.Awake();
 
-            Instance = MainInstance;
-            GameRoot.MainInstance.OnGameEnter += InitSys;
+            EventMgr.MainInstance.OnGameEnter += InitSys;
         }
 
         public override void InitSys()
@@ -43,7 +39,7 @@ namespace DarkGod.Main
             };
 
             //成为GameRoot的子物体
-            go.transform.SetParent(GameRoot.MainInstance.transform);
+            go.transform.SetParent(EventMgr.MainInstance.transform);
             battleMgr = go.AddComponent<BattleMgr>();
 
             battleMgr.Init(mapid, () =>
@@ -119,7 +115,7 @@ namespace DarkGod.Main
 
         public void SetPlayerMoveDir(Vector2 dir)
         {
-            if (battleMgr.EntityPlayer.Value != null)
+            if (EventMgr.MainInstance.CurrentEPlayer.Value != null)
             {
                 battleMgr.SetSelfPlayerMoveDir(dir);
             }
@@ -132,7 +128,7 @@ namespace DarkGod.Main
 
         public Vector2 GetDirInput()
         {
-            return playerCtrlWnd.GetCurrentDir();
+            return GameRoot.MainInstance.GetStarterAssetsInputs().move;
         }
 
         public bool CanRlsSkill()
@@ -142,7 +138,7 @@ namespace DarkGod.Main
 
         private void OnDestroy()
         {
-            GameRoot.MainInstance.OnGameEnter -= InitSys;
+            EventMgr.MainInstance.OnGameEnter -= InitSys;
         }
     }
 }

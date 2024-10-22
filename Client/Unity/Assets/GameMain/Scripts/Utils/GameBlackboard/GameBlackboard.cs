@@ -1,14 +1,11 @@
 
 using UnityEngine;
-using HuHu;
 using System.Collections.Generic;
 
-public abstract class GameBlackboard<K> : Singleton<K> where K : Singleton<K>
+public abstract class GameBlackboard<K> where K : class, new()
 {
-    protected override void Awake()
+    protected virtual void Init()
     {
-        base.Awake();
-
         GameDataDic.Clear();
     }
 
