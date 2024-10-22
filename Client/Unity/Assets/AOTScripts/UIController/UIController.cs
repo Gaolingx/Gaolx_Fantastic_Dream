@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -34,22 +34,26 @@ public class UIController : MonoBehaviour
 
     private float m_GameSpeedBeforePause = 1f;
 
-
-    private void Awake()
+    private void Init()
     {
-        Instance = this;
-
         Cursor.lockState = m_cursorLocked;
         Application.targetFrameRate = m_FrameRate;
         Time.timeScale = m_GameSpeed;
         Application.runInBackground = m_RunInBackground;
         Screen.sleepTimeout = m_NeverSleep ? SleepTimeout.NeverSleep : SleepTimeout.SystemSetting;
         Screen.SetResolution((int)m_ScreenResolution.x, (int)m_ScreenResolution.y, m_FullScreenMode);
+
+        Debug.Log("UIController Init Done.");
+    }
+
+    private void Awake()
+    {
+        Instance = this;
     }
 
     private void Start()
     {
-        Debug.Log("UIController Init Done.");
+        Init();
 
 
 #if UNITY_ANDROID
@@ -67,7 +71,7 @@ public class UIController : MonoBehaviour
     }
 
     /// <summary>
-    /// »ñÈ¡»òÉèÖÃ¹â±ê×´Ì¬¡£
+    /// è·å–æˆ–è®¾ç½®å…‰æ ‡çŠ¶æ€ã€‚
     /// </summary>
     public CursorLockMode CursorLock
     {
@@ -76,7 +80,7 @@ public class UIController : MonoBehaviour
     }
 
     /// <summary>
-    /// »ñÈ¡»òÉèÖÃÓÎÏ·Ö¡ÂÊ¡£
+    /// è·å–æˆ–è®¾ç½®æ¸¸æˆå¸§ç‡ã€‚
     /// </summary>
     public int FrameRate
     {
@@ -85,7 +89,7 @@ public class UIController : MonoBehaviour
     }
 
     /// <summary>
-    /// »ñÈ¡»òÉèÖÃÓÎÏ·ËÙ¶È¡£
+    /// è·å–æˆ–è®¾ç½®æ¸¸æˆé€Ÿåº¦ã€‚
     /// </summary>
     public float GameSpeed
     {
@@ -94,17 +98,17 @@ public class UIController : MonoBehaviour
     }
 
     /// <summary>
-    /// »ñÈ¡ÓÎÏ·ÊÇ·ñÔİÍ£¡£
+    /// è·å–æ¸¸æˆæ˜¯å¦æš‚åœã€‚
     /// </summary>
     public bool IsGamePaused => m_GameSpeed <= 0f;
 
     /// <summary>
-    /// »ñÈ¡ÊÇ·ñÕı³£ÓÎÏ·ËÙ¶È¡£
+    /// è·å–æ˜¯å¦æ­£å¸¸æ¸¸æˆé€Ÿåº¦ã€‚
     /// </summary>
     public bool IsNormalGameSpeed => Math.Abs(m_GameSpeed - 1f) < 0.01f;
 
     /// <summary>
-    /// »ñÈ¡»òÉèÖÃÊÇ·ñÔÊĞíºóÌ¨ÔËĞĞ¡£
+    /// è·å–æˆ–è®¾ç½®æ˜¯å¦å…è®¸åå°è¿è¡Œã€‚
     /// </summary>
     public bool RunInBackground
     {
@@ -113,7 +117,7 @@ public class UIController : MonoBehaviour
     }
 
     /// <summary>
-    /// »ñÈ¡»òÉèÖÃÊÇ·ñ½ûÖ¹ĞİÃß¡£
+    /// è·å–æˆ–è®¾ç½®æ˜¯å¦ç¦æ­¢ä¼‘çœ ã€‚
     /// </summary>
     public bool NeverSleep
     {
@@ -126,7 +130,7 @@ public class UIController : MonoBehaviour
     }
 
     /// <summary>
-    /// »ñÈ¡»òÉèÖÃÊÇ·ñÈ«ÆÁ¡£
+    /// è·å–æˆ–è®¾ç½®æ˜¯å¦å…¨å±ã€‚
     /// </summary>
     public bool FullScreen
     {
@@ -139,7 +143,7 @@ public class UIController : MonoBehaviour
     }
 
     /// <summary>
-    /// »ñÈ¡»òÉèÖÃÆÁÄ»·Ö±æÂÊ¡£
+    /// è·å–æˆ–è®¾ç½®å±å¹•åˆ†è¾¨ç‡ã€‚
     /// </summary>
     public Vector2 ScreenResolution
     {
@@ -152,7 +156,7 @@ public class UIController : MonoBehaviour
     }
 
     /// <summary>
-    /// ÔİÍ£ÓÎÏ·¡£
+    /// æš‚åœæ¸¸æˆã€‚
     /// </summary>
     public void PauseGame()
     {
@@ -166,7 +170,7 @@ public class UIController : MonoBehaviour
     }
 
     /// <summary>
-    /// »Ö¸´ÓÎÏ·¡£
+    /// æ¢å¤æ¸¸æˆã€‚
     /// </summary>
     public void ResumeGame()
     {
@@ -179,7 +183,7 @@ public class UIController : MonoBehaviour
     }
 
     /// <summary>
-    /// ÖØÖÃÎªÕı³£ÓÎÏ·ËÙ¶È¡£
+    /// é‡ç½®ä¸ºæ­£å¸¸æ¸¸æˆé€Ÿåº¦ã€‚
     /// </summary>
     public void ResetNormalGameSpeed()
     {
