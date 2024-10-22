@@ -1,4 +1,4 @@
-//¹¦ÄÜ£ºProperty Helper
+ï»¿//åŠŸèƒ½ï¼šProperty Helper
 
 public class BindableProperty<T>
 {

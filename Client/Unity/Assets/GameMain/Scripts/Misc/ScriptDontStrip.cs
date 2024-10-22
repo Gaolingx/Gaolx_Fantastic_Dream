@@ -1,4 +1,4 @@
-using SRUniversal.Main;
+ï»¿using SRUniversal.Main;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class ScriptDontStrip : MonoBehaviour
 {
-    //·À²Ã¼ôÒıÓÃ
+    //é˜²è£å‰ªå¼•ç”¨
     [HideInInspector] public NavMeshSurface navMeshSurface;
     [HideInInspector] public SRCharacterRenderingController srCharacterRenderingController;
 

@@ -1,4 +1,4 @@
-//¹¦ÄÜ£ºÇ¿»¯Éı¼¶½çÃæ
+ï»¿//åŠŸèƒ½ï¼šå¼ºåŒ–å‡çº§ç•Œé¢
 
 using System.Collections;
 using System.Collections.Generic;
@@ -12,28 +12,28 @@ namespace DarkGod.Main
     public class StrongWnd : WindowRoot, IWindowRoot
     {
         #region UI Define
-        public Image imgCurtPos; //µ±Ç°Ñ¡ÖĞÎ»ÖÃµÄÍ¼Æ¬
-        public Text txtStartLv; //µ±Ç°ĞÇ¼¶ÊıÁ¿
-        public Transform starTransGrp; //ĞÇĞÇ¸¸ÎïÌåµÄTransform
-        public Text propHP1; //ÑªÁ¿
-        public Text propHurt1; //ÉËº¦
-        public Text propDef1; //·ÀÓù
+        public Image imgCurtPos; //å½“å‰é€‰ä¸­ä½ç½®çš„å›¾ç‰‡
+        public Text txtStartLv; //å½“å‰æ˜Ÿçº§æ•°é‡
+        public Transform starTransGrp; //æ˜Ÿæ˜Ÿçˆ¶ç‰©ä½“çš„Transform
+        public Text propHP1; //è¡€é‡
+        public Text propHurt1; //ä¼¤å®³
+        public Text propDef1; //é˜²å¾¡
         public Text propHP2;
         public Text propHurt2;
         public Text propDef2;
-        public Image propArr1; //¼ıÍ·
+        public Image propArr1; //ç®­å¤´
         public Image propArr2;
         public Image propArr3;
 
         public Button btnStrong;
         public Button btnClose;
 
-        public Text txtNeedLv; //Éı¼¶ËùĞèµÄ×îµÍµÈ¼¶
-        public Text txtCostCoin; //ÏûºÄµÄ½ğ±Ò
-        public Text txtCostCrystal; //ÏûºÄµÄË®¾§
+        public Text txtNeedLv; //å‡çº§æ‰€éœ€çš„æœ€ä½ç­‰çº§
+        public Text txtCostCoin; //æ¶ˆè€—çš„é‡‘å¸
+        public Text txtCostCrystal; //æ¶ˆè€—çš„æ°´æ™¶
 
         public Transform costTransRoot;
-        public Text txtCoin; //µ±Ç°ÓµÓĞµÄ½ğ±Ò
+        public Text txtCoin; //å½“å‰æ‹¥æœ‰çš„é‡‘å¸
         #endregion
 
         #region Data Area
@@ -51,7 +51,7 @@ namespace DarkGod.Main
 
             pd = GameRoot.MainInstance.PlayerData;
 
-            //×¢²áµã»÷ÊÂ¼ş
+            //æ³¨å†Œç‚¹å‡»äº‹ä»¶
             RegClickEvts();
 
             ClickPosItem(0);
@@ -65,12 +65,12 @@ namespace DarkGod.Main
 
         private void RegClickEvts()
         {
-            //»ñÈ¡Ã¿¸ö×ÓÎïÌåÖĞµÄimage×é¼ş
+            //è·å–æ¯ä¸ªå­ç‰©ä½“ä¸­çš„imageç»„ä»¶
             for (int i = 0; i < posBtnTrans.childCount; i++)
             {
                 Image img = posBtnTrans.GetChild(i).GetComponent<Image>();
 
-                //Ìí¼Óµã»÷ÊÂ¼ş
+                //æ·»åŠ ç‚¹å‡»äº‹ä»¶
                 OnClick(img.gameObject, (object args) =>
                 {
                     ClickPosItem((int)args);
@@ -81,25 +81,25 @@ namespace DarkGod.Main
             }
         }
 
-        //¸ù¾İµã»÷Î»ÖÃ£¬Õ¹Ê¾²»Í¬²¿Î»ĞÅÏ¢£¬ĞèÒªµã»÷Ê±´«ÈëÒ»¸ö²ÎÊı£¬¸ù¾İ²ÎÊıÏÔÊ¾ÏàÓ¦Êı¾İĞÅÏ¢
+        //æ ¹æ®ç‚¹å‡»ä½ç½®ï¼Œå±•ç¤ºä¸åŒéƒ¨ä½ä¿¡æ¯ï¼Œéœ€è¦ç‚¹å‡»æ—¶ä¼ å…¥ä¸€ä¸ªå‚æ•°ï¼Œæ ¹æ®å‚æ•°æ˜¾ç¤ºç›¸åº”æ•°æ®ä¿¡æ¯
         private void ClickPosItem(int index)
         {
             PECommon.Log("Click Window:StrongWnd.Click Item:" + index);
 
-            //±éÀúÊı×é£¬µ±µã»÷ÆäÖĞÒ»¸ö²¿Î»£¬Æä±³¾°±äÎª¼ıÍ·£¬ÆäÓàµÄ±ä³ÉÆ½°å
+            //éå†æ•°ç»„ï¼Œå½“ç‚¹å‡»å…¶ä¸­ä¸€ä¸ªéƒ¨ä½ï¼Œå…¶èƒŒæ™¯å˜ä¸ºç®­å¤´ï¼Œå…¶ä½™çš„å˜æˆå¹³æ¿
             for (int i = 0; i < imgs.Count; i++)
             {
                 Transform trans = imgs[i].transform;
 
                 currentIndex = index;
-                //ÅĞ¶Ïµ±Ç°µã»÷µÄÍ¼Æ¬ºÍ±éÀúµÄÍ¼Æ¬ÊÇ·ñÒ»ÖÂ
+                //åˆ¤æ–­å½“å‰ç‚¹å‡»çš„å›¾ç‰‡å’Œéå†çš„å›¾ç‰‡æ˜¯å¦ä¸€è‡´
                 if (i == currentIndex)
                 {
-                    //Èç¹ûÏàµÈ£¬ÔòÓÃ¼ıÍ·ÏÔÊ¾
+                    //å¦‚æœç›¸ç­‰ï¼Œåˆ™ç”¨ç®­å¤´æ˜¾ç¤º
                     SetSprite(imgs[i], PathDefine.ItemArrorBG);
-                    //ÉèÖÃÎ»ÖÃ
+                    //è®¾ç½®ä½ç½®
                     trans.localPosition = new Vector3(10, trans.localPosition.y, 0);
-                    //ÉèÖÃ³ß´ç
+                    //è®¾ç½®å°ºå¯¸
                     trans.GetComponent<RectTransform>().sizeDelta = new Vector2(250, 95);
                 }
                 else
@@ -115,7 +115,7 @@ namespace DarkGod.Main
 
         private void RefreshItem()
         {
-            //½ğ±Ò
+            //é‡‘å¸
             SetText(txtCoin, pd.coin);
             switch (currentIndex)
             {
@@ -140,37 +140,37 @@ namespace DarkGod.Main
                 default:
                     break;
             }
-            //ĞÇ¼¶
-            SetText(txtStartLv, pd.strongArr[currentIndex] + "ĞÇ¼¶");
+            //æ˜Ÿçº§
+            SetText(txtStartLv, pd.strongArr[currentIndex] + "æ˜Ÿçº§");
 
             int curtStarLv = pd.strongArr[currentIndex];
             for (int i = 0; i < starTransGrp.childCount; i++)
             {
-                //±éÀú»ñÈ¡×ÓÎïÌåµÄImage×é¼ş
+                //éå†è·å–å­ç‰©ä½“çš„Imageç»„ä»¶
                 Image img = starTransGrp.GetChild(i).GetComponent<Image>();
                 if (i < curtStarLv)
                 {
-                    //Èç¹ûµ±Ç°±éÀúµÄĞÇ¼¶Í¼Æ¬<µ±Ç°ĞÇ¼¶£¬ËµÃ÷Ã»´ïµ½¸ÃĞÂ¼¶£¬ÏÔÊ¾¿ÕµÄĞÇ¼¶Í¼Æ¬
+                    //å¦‚æœå½“å‰éå†çš„æ˜Ÿçº§å›¾ç‰‡<å½“å‰æ˜Ÿçº§ï¼Œè¯´æ˜æ²¡è¾¾åˆ°è¯¥æ–°çº§ï¼Œæ˜¾ç¤ºç©ºçš„æ˜Ÿçº§å›¾ç‰‡
                     SetSprite(img, PathDefine.SpStar2);
                 }
                 else
                 {
-                    //·ñÔòÏÔÊ¾ÊµµÄĞÇ¼¶Í¼Æ¬
+                    //å¦åˆ™æ˜¾ç¤ºå®çš„æ˜Ÿçº§å›¾ç‰‡
                     SetSprite(img, PathDefine.SpStar1);
                 }
             }
 
             int nextStarLv = curtStarLv + 1;
-            //µ±Ç°ĞÇ¼¶ËùÓĞÊôĞÔ¼Ó³É
-            //resSvc.GetPropAddValPreLv(µ±Ç°²¿Î», µ±Ç°ĞÇ¼¶, ÀàĞÍ)
+            //å½“å‰æ˜Ÿçº§æ‰€æœ‰å±æ€§åŠ æˆ
+            //resSvc.GetPropAddValPreLv(å½“å‰éƒ¨ä½, å½“å‰æ˜Ÿçº§, ç±»å‹)
             int sumAddHp = configSvc.GetPropAddValPreLv(currentIndex, nextStarLv, 1);
             int sumAddHurt = configSvc.GetPropAddValPreLv(currentIndex, nextStarLv, 2);
             int sumAddDef = configSvc.GetPropAddValPreLv(currentIndex, nextStarLv, 3);
-            SetText(propHP1, "ÉúÃü  +" + sumAddHp);
-            SetText(propHurt1, "ÉËº¦  +" + sumAddHurt);
-            SetText(propDef1, "·ÀÓù  +" + sumAddDef);
+            SetText(propHP1, "ç”Ÿå‘½  +" + sumAddHp);
+            SetText(propHurt1, "ä¼¤å®³  +" + sumAddHurt);
+            SetText(propDef1, "é˜²å¾¡  +" + sumAddDef);
 
-            //»ñÈ¡ÏÂÒ»ĞÇ¼¶ĞèÒªµÄÊôĞÔÊıÖµ
+            //è·å–ä¸‹ä¸€æ˜Ÿçº§éœ€è¦çš„å±æ€§æ•°å€¼
             nextSd = configSvc.GetStrongCfg(currentIndex, nextStarLv);
             if (nextSd != null)
             {
@@ -183,18 +183,18 @@ namespace DarkGod.Main
                 SetActive(propArr2);
                 SetActive(propArr3);
 
-                SetText(propHP2, "Ç¿»¯ºó +" + nextSd.addhp);
+                SetText(propHP2, "å¼ºåŒ–å +" + nextSd.addhp);
                 SetText(propHurt2, "+" + nextSd.addhurt);
                 SetText(propDef2, "+" + nextSd.adddef);
 
-                SetText(txtNeedLv, "ĞèÒªµÈ¼¶£º" + nextSd.minlv);
-                SetText(txtCostCoin, "ĞèÒªÏûºÄ£º      " + nextSd.coin);
+                SetText(txtNeedLv, "éœ€è¦ç­‰çº§ï¼š" + nextSd.minlv);
+                SetText(txtCostCoin, "éœ€è¦æ¶ˆè€—ï¼š      " + nextSd.coin);
 
                 SetText(txtCostCrystal, nextSd.crystal + "/" + pd.crystal);
             }
             else
             {
-                //µ±Ç°ĞÇ¼¶ÉıÂúºó£¬²»ÄÜ½øĞĞÇ¿»¯£¨¹Ø±Õ»¨Ïú²¿·Ö¡¢Òş²ØÇ¿»¯Ëù»ñÈ¡µÄÊôĞÔ¼Ó³É£©
+                //å½“å‰æ˜Ÿçº§å‡æ»¡åï¼Œä¸èƒ½è¿›è¡Œå¼ºåŒ–ï¼ˆå…³é—­èŠ±é”€éƒ¨åˆ†ã€éšè—å¼ºåŒ–æ‰€è·å–çš„å±æ€§åŠ æˆï¼‰
                 SetActive(propHP2, false);
                 SetActive(propHurt2, false);
                 SetActive(propDef2, false);
@@ -216,29 +216,29 @@ namespace DarkGod.Main
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
 
-            //¿Í»§¶Ë±¾µØÊı¾İĞ£Ñé£¬¼õĞ¡·şÎñÆ÷ÑéÖ¤Ñ¹Á¦
-            //ÅĞ¶ÏÊÇ·ñĞÇ¼¶ÒÑÂú
+            //å®¢æˆ·ç«¯æœ¬åœ°æ•°æ®æ ¡éªŒï¼Œå‡å°æœåŠ¡å™¨éªŒè¯å‹åŠ›
+            //åˆ¤æ–­æ˜¯å¦æ˜Ÿçº§å·²æ»¡
             if (pd.strongArr[currentIndex] < 10)
             {
-                //ÅĞ¶Ï¼¶±ğÊÇ·ñ×ã¹»Ç¿»¯
+                //åˆ¤æ–­çº§åˆ«æ˜¯å¦è¶³å¤Ÿå¼ºåŒ–
                 if (pd.lv < nextSd.minlv)
                 {
-                    EventMgr.MainInstance.ShowMessageBox(this, new("½ÇÉ«µÈ¼¶²»¹»"));
+                    EventMgr.MainInstance.ShowMessageBox(this, new("è§’è‰²ç­‰çº§ä¸å¤Ÿ"));
                     return;
                 }
-                //¸÷ÖÖ×ÊÔ´...
+                //å„ç§èµ„æº...
                 if (pd.coin < nextSd.coin)
                 {
-                    EventMgr.MainInstance.ShowMessageBox(this, new("½ğ±ÒÊıÁ¿²»¹»"));
+                    EventMgr.MainInstance.ShowMessageBox(this, new("é‡‘å¸æ•°é‡ä¸å¤Ÿ"));
                     return;
                 }
                 if (pd.crystal < nextSd.crystal)
                 {
-                    EventMgr.MainInstance.ShowMessageBox(this, new("Ë®¾§²»¹»"));
+                    EventMgr.MainInstance.ShowMessageBox(this, new("æ°´æ™¶ä¸å¤Ÿ"));
                     return;
                 }
 
-                //·¢ËÍÇëÇóÇ¿»¯Êı¾İ
+                //å‘é€è¯·æ±‚å¼ºåŒ–æ•°æ®
                 netSvc.SendMsg(new GameMsg
                 {
                     cmd = (int)CMD.ReqStrong,
@@ -250,7 +250,7 @@ namespace DarkGod.Main
             }
             else
             {
-                EventMgr.MainInstance.ShowMessageBox(this, new("ĞÇ¼¶ÒÑ¾­ÉıÂú"));
+                EventMgr.MainInstance.ShowMessageBox(this, new("æ˜Ÿçº§å·²ç»å‡æ»¡"));
             }
         }
 

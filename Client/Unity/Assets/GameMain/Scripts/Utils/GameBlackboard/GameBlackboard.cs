@@ -1,5 +1,4 @@
-
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections.Generic;
 
 public abstract class GameBlackboard<K> where K : class, new()
@@ -9,8 +8,8 @@ public abstract class GameBlackboard<K> where K : class, new()
         GameDataDic.Clear();
     }
 
-    //<T>±íÊ¾ÉùÃ÷Ò»¸ö·ºÐÍ£¬µ«ÊÇ×Ö¶ÎºÍÊôÐÔ¡¢Î¯ÍÐ×Ö¶Î¶¼ÊÇÎÞ·¨ÉùÃ÷·ºÐÍTµÄ£¬Ö»ÄÜÔÚÀàÃûÉÏÃæÉùÃ÷£¬¶ø·½·¨ÊÇ¿ÉÒÔÔÚ·½·¨ÃûºóÃæÉùÃ÷<T>,¹©²ÎÊýºÍ·µ»ØÀàÐÍÊ¹ÓÃ
-    //Ä¿Ç°ÔÚÊ¹ÓÃ¹²Ïí½ÇÉ«µÄÊý¾Ý
+    //<T>è¡¨ç¤ºå£°æ˜Žä¸€ä¸ªæ³›åž‹ï¼Œä½†æ˜¯å­—æ®µå’Œå±žæ€§ã€å§”æ‰˜å­—æ®µéƒ½æ˜¯æ— æ³•å£°æ˜Žæ³›åž‹Tçš„ï¼Œåªèƒ½åœ¨ç±»åä¸Šé¢å£°æ˜Žï¼Œè€Œæ–¹æ³•æ˜¯å¯ä»¥åœ¨æ–¹æ³•ååŽé¢å£°æ˜Ž<T>,ä¾›å‚æ•°å’Œè¿”å›žç±»åž‹ä½¿ç”¨
+    //ç›®å‰åœ¨ä½¿ç”¨å…±äº«è§’è‰²çš„æ•°æ®
     protected Dictionary<string, object> GameDataDic = new Dictionary<string, object>();
 
     protected virtual void SetGameData<T>(string DataName, T value) where T : class
@@ -33,9 +32,9 @@ public abstract class GameBlackboard<K> where K : class, new()
             return e as T;
         }
         return default(T);
-        //·ºÐÍTµÄ·µ»ØÀàÐÍ±Èobject¸ü¾ßÓÐÀàÐÍµÄ°²È«ÐÔ£¬ÒòÎªÔÚµ÷ÓÃÉèÖÃ·½·¨Ê±ÐèÒªËµÃ÷Ö¸¶¨µÄÀàÐÍ£¬´Ó¶øÖ±½Ó×ª»»Îª¸ÃÀàÐÍ
-        //¶øÓÃobjectÄãÐèÒªÏÔÊ½×ª»»£º(ÀàÐÍ)object£¬Èç¹ûÕâ¸öe¸ù±¾¾Í²»ÊÇÕâ¸öÀàÐÍ¾Í»á·¢Éú±¨´í
-        //ÕâÀïµÄTÊÇÒ»¸öÒýÓÃÀàÐÍ£¬ÄÇÃ´´æÈëµÄÖµÒ²±ØÐëÊÇÒýÓÃÀàÐÍ
-        //Èç¹ûÏëÈÃT¼È¿ÉÒÔÎªÖµ¡¢Ò²¿ÉÒÔÎªÒýÓÃ£¬ÄÇÃ´ÐèÒªif£¨e is T A£©{return A} À´½øÐÐ×ª»¯£¬asÖ»ÄÜÖ§³ÖÒýÓÃÀàÐÍµÄ×ª»¯
+        //æ³›åž‹Tçš„è¿”å›žç±»åž‹æ¯”objectæ›´å…·æœ‰ç±»åž‹çš„å®‰å…¨æ€§ï¼Œå› ä¸ºåœ¨è°ƒç”¨è®¾ç½®æ–¹æ³•æ—¶éœ€è¦è¯´æ˜ŽæŒ‡å®šçš„ç±»åž‹ï¼Œä»Žè€Œç›´æŽ¥è½¬æ¢ä¸ºè¯¥ç±»åž‹
+        //è€Œç”¨objectä½ éœ€è¦æ˜¾å¼è½¬æ¢ï¼š(ç±»åž‹)objectï¼Œå¦‚æžœè¿™ä¸ªeæ ¹æœ¬å°±ä¸æ˜¯è¿™ä¸ªç±»åž‹å°±ä¼šå‘ç”ŸæŠ¥é”™
+        //è¿™é‡Œçš„Tæ˜¯ä¸€ä¸ªå¼•ç”¨ç±»åž‹ï¼Œé‚£ä¹ˆå­˜å…¥çš„å€¼ä¹Ÿå¿…é¡»æ˜¯å¼•ç”¨ç±»åž‹
+        //å¦‚æžœæƒ³è®©Tæ—¢å¯ä»¥ä¸ºå€¼ã€ä¹Ÿå¯ä»¥ä¸ºå¼•ç”¨ï¼Œé‚£ä¹ˆéœ€è¦ifï¼ˆe is T Aï¼‰{return A} æ¥è¿›è¡Œè½¬åŒ–ï¼Œasåªèƒ½æ”¯æŒå¼•ç”¨ç±»åž‹çš„è½¬åŒ–
     }
 }

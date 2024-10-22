@@ -1,4 +1,4 @@
-//¹¦ÄÜ£ºÒôÆµ²¥·Å·şÎñ
+ï»¿//åŠŸèƒ½ï¼šéŸ³é¢‘æ’­æ”¾æœåŠ¡
 
 using System.Collections;
 using System.Collections.Generic;
@@ -156,7 +156,7 @@ namespace DarkGod.Main
                 audioClips.Add(await ResSvc.MainInstance.LoadAudioClipAsync(Constants.ResourcePackgeName, bgAudioPath + names[i], isCache));
             }
 
-            //´¦ÀíÈ¡ÏûÒì²½Å×³öµÄÒì³£
+            //å¤„ç†å–æ¶ˆå¼‚æ­¥æŠ›å‡ºçš„å¼‚å¸¸
             try
             {
                 await PlayAudioClips(audioClips, duration, isLoop).ToUniTask(PlayerLoopTiming.Update, ctsMgr.GetCtsValue(ctsType).Token);
@@ -173,7 +173,7 @@ namespace DarkGod.Main
             while (isLoop)
             {
                 if (audioClips == null || audioClips.Count == 0)
-                    yield break; // Èç¹ûÃ»ÓĞÒôÆµÆ¬¶Î£¬ÔòÍË³öĞ­³Ì  
+                    yield break; // å¦‚æœæ²¡æœ‰éŸ³é¢‘ç‰‡æ®µï¼Œåˆ™é€€å‡ºåç¨‹  
 
                 for (int i = 0; i < audioClips.Count; i++)
                 {
@@ -183,7 +183,7 @@ namespace DarkGod.Main
                         BGAudioAudioSource.loop = false;
                         BGAudioAudioSource.Play();
                         float targetValue = Mathf.Clamp(duration, 0f, 10f);
-                        yield return new WaitForSeconds(audioClips[i].length + targetValue); // µÈ´ıµ±Ç°ÒôÆµ²¥·ÅÍê³É  
+                        yield return new WaitForSeconds(audioClips[i].length + targetValue); // ç­‰å¾…å½“å‰éŸ³é¢‘æ’­æ”¾å®Œæˆ  
                     }
                 }
             }

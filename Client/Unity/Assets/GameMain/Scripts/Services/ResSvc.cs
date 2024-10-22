@@ -1,4 +1,4 @@
-//¹¦ÄÜ£º×ÊÔ´¼ÓÔØ·şÎñ
+ï»¿//åŠŸèƒ½ï¼šèµ„æºåŠ è½½æœåŠ¡
 
 using Cysharp.Threading.Tasks;
 using System.Collections;
@@ -45,7 +45,7 @@ namespace DarkGod.Main
             _cacheAssetHandles.Clear();
         }
 
-        //Òì²½µÄ¼ÓÔØ³¡¾°£¬ĞèÒªÏÔÊ¾½ø¶ÈÌõ
+        //å¼‚æ­¥çš„åŠ è½½åœºæ™¯ï¼Œéœ€è¦æ˜¾ç¤ºè¿›åº¦æ¡
         public async void AsyncLoadScene(string packageName, string sceneName, System.Action loaded)
         {
             GameRoot.MainInstance.loadingWnd.SetWndState();
@@ -134,7 +134,7 @@ namespace DarkGod.Main
                 if (!handle.IsValid)
                 {
                     _assetHandleDict.Remove(assetPath);
-                    PECommon.Log($"Asset Load Failed:´ËAsset handle {assetPath} ÒÑ¾­ÊÍ·Å!", PELogType.Warn);
+                    PECommon.Log($"Asset Load Failed:æ­¤Asset handle {assetPath} å·²ç»é‡Šæ”¾!", PELogType.Warn);
                     return null;
                 }
             }
@@ -167,7 +167,7 @@ namespace DarkGod.Main
                 if (!handle.IsValid)
                 {
                     _assetHandleDict.Remove(assetPath);
-                    PECommon.Log($"Asset Load Failed:´ËAsset handle {assetPath} ÒÑ¾­ÊÍ·Å!", PELogType.Warn);
+                    PECommon.Log($"Asset Load Failed:æ­¤Asset handle {assetPath} å·²ç»é‡Šæ”¾!", PELogType.Warn);
                     return null;
                 }
             }
@@ -194,24 +194,24 @@ namespace DarkGod.Main
         #endregion
 
         #region UnloadAsset
-        // Ğ¶ÔØËùÓĞÒıÓÃ¼ÆÊıÎªÁãµÄ×ÊÔ´°ü¡£
-        // ¿ÉÒÔÔÚÇĞ»»³¡¾°Ö®ºóµ÷ÓÃ×ÊÔ´ÊÍ·Å·½·¨»òÕßĞ´¶¨Ê±Æ÷¼ä¸ôÊ±¼äÈ¥ÊÍ·Å¡£
+        // å¸è½½æ‰€æœ‰å¼•ç”¨è®¡æ•°ä¸ºé›¶çš„èµ„æºåŒ…ã€‚
+        // å¯ä»¥åœ¨åˆ‡æ¢åœºæ™¯ä¹‹åè°ƒç”¨èµ„æºé‡Šæ”¾æ–¹æ³•æˆ–è€…å†™å®šæ—¶å™¨é—´éš”æ—¶é—´å»é‡Šæ”¾ã€‚
         public void UnloadUnusedAssets(string packageName)
         {
             var package = YooAssets.GetPackage(packageName);
             package.UnloadUnusedAssets();
         }
 
-        // ³¢ÊÔĞ¶ÔØÖ¸¶¨µÄ×ÊÔ´¶ÔÏó
-        // ×¢Òâ£ºÈç¹û¸Ã×ÊÔ´»¹ÔÚ±»Ê¹ÓÃ£¬¸Ã·½·¨»áÎŞĞ§¡£
+        // å°è¯•å¸è½½æŒ‡å®šçš„èµ„æºå¯¹è±¡
+        // æ³¨æ„ï¼šå¦‚æœè¯¥èµ„æºè¿˜åœ¨è¢«ä½¿ç”¨ï¼Œè¯¥æ–¹æ³•ä¼šæ— æ•ˆã€‚
         public void TryUnloadUnusedAsset(string packageName, string path)
         {
             var package = YooAssets.GetPackage(packageName);
             package.TryUnloadUnusedAsset(path);
         }
 
-        // Ç¿ÖÆĞ¶ÔØËùÓĞ×ÊÔ´°ü£¬¸Ã·½·¨ÇëÔÚºÏÊÊµÄÊ±»úµ÷ÓÃ¡£
-        // ×¢Òâ£ºPackageÔÚÏú»ÙµÄÊ±ºòÒ²»á×Ô¶¯µ÷ÓÃ¸Ã·½·¨¡£
+        // å¼ºåˆ¶å¸è½½æ‰€æœ‰èµ„æºåŒ…ï¼Œè¯¥æ–¹æ³•è¯·åœ¨åˆé€‚çš„æ—¶æœºè°ƒç”¨ã€‚
+        // æ³¨æ„ï¼šPackageåœ¨é”€æ¯çš„æ—¶å€™ä¹Ÿä¼šè‡ªåŠ¨è°ƒç”¨è¯¥æ–¹æ³•ã€‚
         public void ForceUnloadAllAssets(string packageName)
         {
             var package = YooAssets.GetPackage(packageName);

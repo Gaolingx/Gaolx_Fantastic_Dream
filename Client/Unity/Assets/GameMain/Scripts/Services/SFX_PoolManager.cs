@@ -1,4 +1,4 @@
-using Cysharp.Threading.Tasks;
+ï»¿using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
 using HuHu;
@@ -7,7 +7,7 @@ namespace DarkGod.Main
 {
     public class SFX_PoolManager : Singleton<SFX_PoolManager>
     {
-        //ÓĞSoundNameµÄ´ú±í·ÖµÄ¸üÏ¸µÄÒôÆµ
+        //æœ‰SoundNameçš„ä»£è¡¨åˆ†çš„æ›´ç»†çš„éŸ³é¢‘
         [System.Serializable]
         public class SoundItem
         {
@@ -33,23 +33,23 @@ namespace DarkGod.Main
             {
                 for (int j = 0; j < soundPools[i].soundCount; j++)
                 {
-                    //ÊµÀı»¯
+                    //å®ä¾‹åŒ–
                     var go = await ResSvc.MainInstance.LoadGameObjectAsync(Constants.ResourcePackgeName, soundPools[i].soundPath, Vector3.zero, Vector3.zero, Vector3.one, true, true, true, this.transform, null, false);
-                    //ÉèÖÃ¸¸¼¶µã
+                    //è®¾ç½®çˆ¶çº§ç‚¹
                     go.transform.parent = this.transform;
-                    //ÑÚ²Ø
+                    //æ©è—
                     go.SetActive(false);
-                    //·ÅÈë×Öµä
+                    //æ”¾å…¥å­—å…¸
                     if (!soundCenter.ContainsKey(soundPools[i].soundStyle))
                     {
-                        //¼ÓÈëKay
+                        //åŠ å…¥Kay
                         soundCenter.Add(soundPools[i].soundStyle, new Queue<GameObject>());
-                        //°ÑĞÂÊµÀı¼ÓÈëValue£¬¶ø²»ÊÇÔ¤ÖÆÌå
+                        //æŠŠæ–°å®ä¾‹åŠ å…¥Valueï¼Œè€Œä¸æ˜¯é¢„åˆ¶ä½“
                         soundCenter[soundPools[i].soundStyle].Enqueue(go);
                     }
                     else
                     {
-                        //Ö»ÓÃ¼ÓValue
+                        //åªç”¨åŠ Value
                         if (soundPools[i].isRepeat)
                         {
                             soundCenter[soundPools[i].soundStyle].Enqueue(go);
@@ -67,7 +67,7 @@ namespace DarkGod.Main
         {
             if (soundCenter.TryGetValue(soundStye, out var sound))
             {
-                // Debug.Log(soundStye + "²¥·Å");
+                // Debug.Log(soundStye + "æ’­æ”¾");
                 GameObject go = sound.Dequeue();
                 go.transform.position = position;
                 go.transform.rotation = quaternion;
@@ -85,7 +85,7 @@ namespace DarkGod.Main
             }
             else
             {
-                // Debug.Log(soundStye + "²»´æÔÚ");
+                // Debug.Log(soundStye + "ä¸å­˜åœ¨");
             }
         }
 

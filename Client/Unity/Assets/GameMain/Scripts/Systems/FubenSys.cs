@@ -1,4 +1,4 @@
-//¹¦ÄÜ£º¸±±¾ÒµÎñÏµÍ³
+ï»¿//åŠŸèƒ½ï¼šå‰¯æœ¬ä¸šåŠ¡ç³»ç»Ÿ
 
 using PEProtocol;
 using System.Collections;
@@ -45,7 +45,7 @@ namespace DarkGod.Main
             GameRoot.MainInstance.SetPlayerDataByFBStart(msg.rspFBFight);
             MainCitySys.Instance.maincityWnd.SetWndState(false);
             SetFubenWndState(false);
-            //¼ÓÔØ¶ÔÓ¦µÄÕ½¶·³¡¾°£¬¿ªÊ¼¸±±¾Õ½¶·ÈÎÎñ
+            //åŠ è½½å¯¹åº”çš„æˆ˜æ–—åœºæ™¯ï¼Œå¼€å§‹å‰¯æœ¬æˆ˜æ–—ä»»åŠ¡
             BattleSys.MainInstance.StartBattle(msg.rspFBFight.fbid);
         }
 

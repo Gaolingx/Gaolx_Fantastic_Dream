@@ -1,4 +1,5 @@
-//¹¦ÄÜ£ºÅäÖÃÊı¾İÀà
+ï»¿//åŠŸèƒ½ï¼šé…ç½®æ•°æ®ç±»
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,20 +27,20 @@ namespace DarkGod.Main
 
     public class AutoGuideCfg : BaseData<AutoGuideCfg>
     {
-        public int npcID; //´¥·¢ÈÎÎñÄ¿±êNPCË÷ÒıºÅ
-        public string dilogArr; //¶Ô»°Êı¾İ
-        public int actID; //Ä¿±êÈÎÎñID
-        public int coin; //½±ÀøµÄ½ğ±Ò
-        public int exp; //¾­Ñé
+        public int npcID; //è§¦å‘ä»»åŠ¡ç›®æ ‡NPCç´¢å¼•å·
+        public string dilogArr; //å¯¹è¯æ•°æ®
+        public int actID; //ç›®æ ‡ä»»åŠ¡ID
+        public int coin; //å¥–åŠ±çš„é‡‘å¸
+        public int exp; //ç»éªŒ
 
     }
 
     public class MonsterCfg : BaseData<MonsterCfg>
     {
-        public string mName; //¹ÖÎïÃû×Ö
-        public cfg.MonsterType mType; //¹ÖÎïÀàĞÍ 1:ÆÕÍ¨¹ÖÎï 2:¾«Ó¢¹ÖÎï£¨Boss£©
-        public bool isStop; //¹ÖÎïÊÇ·ñÄÜ±»¹¥»÷ÖĞ¶Ïµ±Ç°µÄ×´Ì¬
-        public string resPath; //×ÊÔ´Â·¾¶
+        public string mName; //æ€ªç‰©åå­—
+        public cfg.MonsterType mType; //æ€ªç‰©ç±»å‹ 1:æ™®é€šæ€ªç‰© 2:ç²¾è‹±æ€ªç‰©ï¼ˆBossï¼‰
+        public bool isStop; //æ€ªç‰©æ˜¯å¦èƒ½è¢«æ”»å‡»ä¸­æ–­å½“å‰çš„çŠ¶æ€
+        public string resPath; //èµ„æºè·¯å¾„
         public int skillID;
         public float atkDis;
         public BattleProps bps;
@@ -47,8 +48,8 @@ namespace DarkGod.Main
 
     public class MonsterData : BaseData<MonsterData>
     {
-        public int mWave;//Åú´Î
-        public int mIndex;//ĞòºÅ
+        public int mWave;//æ‰¹æ¬¡
+        public int mIndex;//åºå·
         public MonsterCfg mCfg;
         public Vector3 mBornPos;
         public Vector3 mBornRote;
@@ -58,14 +59,14 @@ namespace DarkGod.Main
 
     public class MapCfg : BaseData<MapCfg>
     {
-        public string mapName; //µØÍ¼Ãû³Æ
-        public string sceneName; //³¡¾°Ãû³Æ
-        public string playerPath; //Íæ¼ÒÔ¤ÖÆ¼şÂ·¾¶
-        public string playerCamPath; //Íæ¼ÒCameraÔ¤ÖÆ¼şÂ·¾¶
-        public int power; //½øÈë¹Ø¿¨ÏûºÄµÄÌåÁ¦
-        public Vector3 mainCamPos; //Ïà»úÎ»ÖÃ
-        public Vector3 mainCamRote; //Ïà»úĞı×ª
-        public Vector3 playerBornPos; //Íæ¼Ò³öÉúÎ»ÖÃ
+        public string mapName; //åœ°å›¾åç§°
+        public string sceneName; //åœºæ™¯åç§°
+        public string playerPath; //ç©å®¶é¢„åˆ¶ä»¶è·¯å¾„
+        public string playerCamPath; //ç©å®¶Cameraé¢„åˆ¶ä»¶è·¯å¾„
+        public int power; //è¿›å…¥å…³å¡æ¶ˆè€—çš„ä½“åŠ›
+        public Vector3 mainCamPos; //ç›¸æœºä½ç½®
+        public Vector3 mainCamRote; //ç›¸æœºæ—‹è½¬
+        public Vector3 playerBornPos; //ç©å®¶å‡ºç”Ÿä½ç½®
         public Vector3 playerBornRote;
         public List<MonsterData> monsterLst;
 
@@ -75,7 +76,7 @@ namespace DarkGod.Main
         public int crystal;
     }
 
-    //ÈÎÎñ½±ÀøÅäÖÃ
+    //ä»»åŠ¡å¥–åŠ±é…ç½®
     public class TaskRewardCfg : BaseData<TaskRewardCfg>
     {
         public string taskName;
@@ -84,7 +85,7 @@ namespace DarkGod.Main
         public int coin;
     }
 
-    //×ÓÈÎÎñ×´Ì¬£¨½ø¶È/ÊÇ·ñ±»ÁìÈ¡£©
+    //å­ä»»åŠ¡çŠ¶æ€ï¼ˆè¿›åº¦/æ˜¯å¦è¢«é¢†å–ï¼‰
     public class TaskRewardData : BaseData<TaskRewardData>
     {
         public int prgs;
@@ -110,21 +111,21 @@ namespace DarkGod.Main
     public class SkillActionCfg : BaseData<SkillActionCfg>
     {
         public int delayTime;
-        public float radius; //ÉËº¦¼ÆËã·¶Î§
-        public int angle; //ÉËº¦ÓĞĞ§½Ç¶È
+        public float radius; //ä¼¤å®³è®¡ç®—èŒƒå›´
+        public int angle; //ä¼¤å®³æœ‰æ•ˆè§’åº¦
     }
 
     public class SkillCfg : BaseData<SkillCfg>
     {
         public string skillName;
         public int cdTime;
-        public int skillTime; //¼¼ÄÜ³ÖĞøÊ±¼ä
-        public int aniAction; //¶¯»­¿ØÖÆ²ÎÊı
-        public string fx; //ÌØĞ§Ãû³Æ
-        public bool isCombo; //ÊÇ·ñÁ¬ÕĞ
-        public bool isCollide; //ºöÂÔÅö×²
-        public bool isBreak; //ÊÇ·ñ¿É±»ÖĞ¶Ï
-        public cfg.DamageType dmgType; //ÉËº¦ÀàĞÍ
+        public int skillTime; //æŠ€èƒ½æŒç»­æ—¶é—´
+        public int aniAction; //åŠ¨ç”»æ§åˆ¶å‚æ•°
+        public string fx; //ç‰¹æ•ˆåç§°
+        public bool isCombo; //æ˜¯å¦è¿æ‹›
+        public bool isCollide; //å¿½ç•¥ç¢°æ’
+        public bool isBreak; //æ˜¯å¦å¯è¢«ä¸­æ–­
+        public cfg.DamageType dmgType; //ä¼¤å®³ç±»å‹
         public List<int> skillMoveLst;
         public List<int> skillActionLst;
         public List<int> skillDamageLst;
@@ -136,7 +137,7 @@ namespace DarkGod.Main
         public int ID;
     }
 
-    //Õ½¶·ÊıÖµÊôĞÔ
+    //æˆ˜æ–—æ•°å€¼å±æ€§
     public class BattleProps
     {
         public int hp;

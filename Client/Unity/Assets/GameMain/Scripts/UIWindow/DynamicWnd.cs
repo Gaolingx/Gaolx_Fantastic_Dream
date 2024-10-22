@@ -1,4 +1,4 @@
-//¹¦ÄÜ£º¶¯Ì¬UIÔªËØ½çÃæ
+ï»¿//åŠŸèƒ½ï¼šåŠ¨æ€UIå…ƒç´ ç•Œé¢
 
 using System.Collections;
 using System.Collections.Generic;
@@ -26,7 +26,7 @@ namespace DarkGod.Main
             SetActive(txtTips, false);
         }
 
-        #region TipsÏà¹Ø
+        #region Tipsç›¸å…³
         public void AddTips(string tips)
         {
             lock (tipsQue)
@@ -83,7 +83,7 @@ namespace DarkGod.Main
             return UIItemUtils.IsMonsterOnScreen(screenPos);
         }
 
-        //ÏÔÊ¾TipsµÄ½Ó¿Ú
+        //æ˜¾ç¤ºTipsçš„æ¥å£
         private void SetTips(string tips)
         {
             SetActive(txtTips);
@@ -91,7 +91,7 @@ namespace DarkGod.Main
 
             AnimationClip clip = tipsAni.GetClip(Constants.TipsAniClipName);
             tipsAni.Play();
-            //ÑÓÊ±¹Ø±Õ¼¤»î×´Ì¬
+            //å»¶æ—¶å…³é—­æ¿€æ´»çŠ¶æ€
 
             StartCoroutine(AniPlayDone(clip.length, () =>
             {
@@ -119,11 +119,11 @@ namespace DarkGod.Main
             }
             else
             {
-                //¼ÓÔØ¶ÔÓ¦item£¬²¢·ÅÈëItemRootÏÂ
-                GameObject go = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, PathDefine.HPItemPrefab, new Vector3(-1000, 0, 0), Vector3.zero, Vector3.one, true, true, true, transform.Find("hpItemRoot")); //Ä¬ÈÏÉèÖÃÔÚÆÁÄ»Íâ
+                //åŠ è½½å¯¹åº”itemï¼Œå¹¶æ”¾å…¥ItemRootä¸‹
+                GameObject go = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, PathDefine.HPItemPrefab, new Vector3(-1000, 0, 0), Vector3.zero, Vector3.one, true, true, true, transform.Find("hpItemRoot")); //é»˜è®¤è®¾ç½®åœ¨å±å¹•å¤–
                 go.transform.SetParent(hpItemRoot);
                 ItemEntityHP ieh = go.GetComponent<ItemEntityHP>();
-                ieh.InitItemInfo(trans, hp); //½«hpÉèÖÃµ½ItemÖĞ
+                ieh.InitItemInfo(trans, hp); //å°†hpè®¾ç½®åˆ°Itemä¸­
                 itemDic.Add(mName, ieh);
             }
             monsterTransDic.Add(mName, trans);
@@ -134,9 +134,9 @@ namespace DarkGod.Main
             ItemEntityHP item = null;
             if (itemDic.TryGetValue(mName, out item))
             {
-                //Ïú»ÙÑªÌõÎïÌå
+                //é”€æ¯è¡€æ¡ç‰©ä½“
                 Destroy(item.gameObject);
-                //ÒÆ³ı×ÖµäÊı¾İ
+                //ç§»é™¤å­—å…¸æ•°æ®
                 itemDic.Remove(mName);
                 monsterTransDic.Remove(mName);
             }

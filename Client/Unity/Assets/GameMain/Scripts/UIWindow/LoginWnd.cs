@@ -1,4 +1,4 @@
-//¹¦ÄÜ£ºµÇÂ¼×¢²á½çÃæ
+ï»¿//åŠŸèƒ½ï¼šç™»å½•æ³¨å†Œç•Œé¢
 
 using Newtonsoft.Json;
 using PEProtocol;
@@ -15,7 +15,7 @@ namespace DarkGod.Main
         public InputField iptPass;
         public Button btnEnter;
         public Button btnNotice;
-        public Toggle btnRemember;  //¼Ç×¡ÃÜÂëÑ¡Ïî
+        public Toggle btnRemember;  //è®°ä½å¯†ç é€‰é¡¹
         public Text txtVersion;
 
         private const string prefsKey_LoginWnd = "prefsKey_LoginWnd";
@@ -79,7 +79,7 @@ namespace DarkGod.Main
         }
 
         /// <summary>
-        /// µã»÷½øÈëÓÎÏ·
+        /// ç‚¹å‡»è¿›å…¥æ¸¸æˆ
         /// </summary>
         public void ClickEnterBtn()
         {
@@ -89,13 +89,13 @@ namespace DarkGod.Main
             string _pass = iptPass.text;
             if (_acct != "" && _pass != "")
             {
-                //¸üĞÂ±¾µØ´æ´¢µÄÕËºÅÃÜÂë
+                //æ›´æ–°æœ¬åœ°å­˜å‚¨çš„è´¦å·å¯†ç 
                 if (btnRemember.isOn)
                 {
                     SavePrefsData();
                 }
 
-                //·¢ËÍÍøÂçÏûÏ¢£¬ÇëÇóµÇÂ¼
+                //å‘é€ç½‘ç»œæ¶ˆæ¯ï¼Œè¯·æ±‚ç™»å½•
                 GameMsg msg = new GameMsg
                 {
                     cmd = (int)CMD.ReqLogin,
@@ -105,12 +105,12 @@ namespace DarkGod.Main
                         pass = _pass
                     }
                 };
-                //µ÷ÓÃÍøÂç·şÎñ£¬·¢ËÍ°üº¬ÕËºÅÃÜÂëµÄÍøÂçÏûÏ¢
+                //è°ƒç”¨ç½‘ç»œæœåŠ¡ï¼Œå‘é€åŒ…å«è´¦å·å¯†ç çš„ç½‘ç»œæ¶ˆæ¯
                 netSvc.SendMsg(msg);
             }
             else
             {
-                EventMgr.MainInstance.ShowMessageBox(this, new("ÕËºÅ»òÃÜÂëÎª¿Õ"));
+                EventMgr.MainInstance.ShowMessageBox(this, new("è´¦å·æˆ–å¯†ç ä¸ºç©º"));
             }
         }
 
@@ -118,7 +118,7 @@ namespace DarkGod.Main
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
 
-            EventMgr.MainInstance.ShowMessageBox(this, new("¹¦ÄÜÕıÔÚ¿ª·¢ÖĞ..."));
+            EventMgr.MainInstance.ShowMessageBox(this, new("åŠŸèƒ½æ­£åœ¨å¼€å‘ä¸­..."));
         }
 
         public void OnDisable()

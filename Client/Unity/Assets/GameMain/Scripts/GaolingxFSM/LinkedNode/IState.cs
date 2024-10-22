@@ -1,3 +1,4 @@
+﻿//功能：动画参数
 
 namespace DarkGod.Main
 {

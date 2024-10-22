@@ -1,4 +1,4 @@
-//¹¦ÄÜ£ºÍæ¼Ò¿ØÖÆ½çÃæ
+ï»¿//åŠŸèƒ½ï¼šç©å®¶æ§åˆ¶ç•Œé¢
 
 using PEProtocol;
 using StarterAssets;
@@ -199,22 +199,22 @@ namespace DarkGod.Main
         {
             if (isSk1CD)
             {
-                //ÕÚÕÖ¿ØÖÆ
+                //é®ç½©æ§åˆ¶
                 sk1FillCount += deltaTime;
                 if (sk1FillCount >= sk1CDTime)
                 {
-                    //CDÍê³É
+                    //CDå®Œæˆ
                     isSk1CD = false;
                     SetActive(imgSk1CD, false);
                     sk1FillCount = 0;
                 }
                 else
                 {
-                    //¸üĞÂÀäÈ´½ø¶È£¨´Ó1µ½0£©
+                    //æ›´æ–°å†·å´è¿›åº¦ï¼ˆä»1åˆ°0ï¼‰
                     imgSk1CD.fillAmount = 1 - sk1FillCount / sk1CDTime;
                 }
 
-                //Ê±¼äÏÔÊ¾
+                //æ—¶é—´æ˜¾ç¤º
                 sk1NumCount += deltaTime;
                 if (sk1NumCount >= 1)
                 {
@@ -278,7 +278,7 @@ namespace DarkGod.Main
 
         private void UpdateBossHPBlend()
         {
-            //Ö»ÔÚbossÑªÌõ³öÏÖ²Å¸üĞÂ
+            //åªåœ¨bossè¡€æ¡å‡ºç°æ‰æ›´æ–°
             if (transBossHPBar.gameObject.activeSelf)
             {
                 BlendBossHP();
@@ -287,13 +287,13 @@ namespace DarkGod.Main
         }
 
         #region RegEvts
-        //×¢²á´¥ÃşÊÂ¼ş
+        //æ³¨å†Œè§¦æ‘¸äº‹ä»¶
         public void ListeningTouchEvts(Vector2 val)
         {
             BattleSys.MainInstance.SetPlayerMoveDir(val);
         }
 
-        //ÔİÍ£¿ØÖÆ
+        //æš‚åœæ§åˆ¶
         public void ListeningClickGamePause(bool val)
         {
             if (val == true)
@@ -312,7 +312,7 @@ namespace DarkGod.Main
             settingsWnd.SetWndState(true);
         }
 
-        //ÊÍ·Å¼¼ÄÜ
+        //é‡Šæ”¾æŠ€èƒ½
         public void ListeningClickPlayerNormalAtk(bool val)
         {
             if (val == true)
@@ -403,7 +403,7 @@ namespace DarkGod.Main
         #region BossHPItem
         public Transform transBossHPBar;
         public Image imgRed;
-        public Image imgYellow; //ÑªÌõ½¥±äÕÚÕÖ
+        public Image imgYellow; //è¡€æ¡æ¸å˜é®ç½©
         private float currentPrg = 1f;
         private float targetPrg = 1f;
 
@@ -420,10 +420,10 @@ namespace DarkGod.Main
         }
 
         /// <summary>
-        /// ÉèÖÃBossÑªÌõ×´Ì¬
+        /// è®¾ç½®Bossè¡€æ¡çŠ¶æ€
         /// </summary>
-        /// <param name="state">×´Ì¬</param>
-        /// <param name="prg">ÑªÌõÄ¬ÈÏ½ø¶È</param>
+        /// <param name="state">çŠ¶æ€</param>
+        /// <param name="prg">è¡€æ¡é»˜è®¤è¿›åº¦</param>
         public void SetBossHPBarState(bool state, float prg = 1)
         {
             SetActive(transBossHPBar, state);

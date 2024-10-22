@@ -1,4 +1,4 @@
-//功能：战斗结算界面
+﻿//功能：战斗结算界面
 
 using System.Collections;
 using System.Collections.Generic;

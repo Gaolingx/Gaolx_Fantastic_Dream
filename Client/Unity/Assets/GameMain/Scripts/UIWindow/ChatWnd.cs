@@ -1,4 +1,4 @@
-//功能：聊天界面
+﻿//功能：聊天界面
 
 using PEProtocol;
 using UnityEngine;

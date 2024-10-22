@@ -1,4 +1,4 @@
-//功能：副本选择界面
+﻿//功能：副本选择界面
 
 using PEProtocol;
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-//¹¦ÄÜ£ºCancellationTokenSource ¹ÜÀíÆ÷
+ï»¿//åŠŸèƒ½ï¼šCancellationTokenSource ç®¡ç†å™¨
 
 using System.Collections.Generic;
 using System.Threading;

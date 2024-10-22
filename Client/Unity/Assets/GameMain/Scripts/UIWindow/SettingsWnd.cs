@@ -1,4 +1,4 @@
-using System.Collections;
+锘縰sing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -51,7 +51,7 @@ namespace DarkGod.Main
             CharacterFxAudioSlider.value = audioSvc.CharacterFxAudioVolumeValue.Value;
         }
 
-        #region Slider相关
+        #region Slider鐩稿叧
         private void UIAddListener()
         {
             btnResetCfgs.onClick.AddListener(delegate { ClickResetCfgsBtn(); });
@@ -93,7 +93,7 @@ namespace DarkGod.Main
 
         #endregion
 
-        #region Toggle相关
+        #region Toggle鐩稿叧
 
         public void ClickFullScreenToggle(bool state)
         {
@@ -107,7 +107,7 @@ namespace DarkGod.Main
 
         #endregion
 
-        #region Button相关
+        #region Button鐩稿叧
 
         public void ClickCloseBtn()
         {

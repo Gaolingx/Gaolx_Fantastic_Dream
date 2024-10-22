@@ -1,4 +1,4 @@
-//¹¦ÄÜ£º¼ÆÊ±·þÎñ
+ï»¿//åŠŸèƒ½ï¼šè®¡æ—¶æœåŠ¡
 
 using System.Collections;
 using System.Collections.Generic;
@@ -22,7 +22,7 @@ namespace DarkGod.Main
         {
             pt = new PETimer();
 
-            //ÉèÖÃ¶¨Ê±Æ÷ÈÕÖ¾Êä³ö
+            //è®¾ç½®å®šæ—¶å™¨æ—¥å¿—è¾“å‡º
             pt.SetLog((string info) =>
             {
                 PECommon.Log(info);
@@ -30,13 +30,13 @@ namespace DarkGod.Main
             PECommon.Log("Init TimerSvc...");
         }
 
-        //¶¨Ê±ÈÎÎñ¼ì²â
+        //å®šæ—¶ä»»åŠ¡æ£€æµ‹
         public void Update()
         {
             pt.Update();
         }
 
-        //Ôö¼Ó¶¨Ê±ÈÎÎñ
+        //å¢žåŠ å®šæ—¶ä»»åŠ¡
         public int AddTimeTask(System.Action<int> callback, double delay, PETimeUnit timeUnit = PETimeUnit.Millisecond, int count = 1)
         {
             return pt.AddTimeTask(callback, delay, timeUnit, count);

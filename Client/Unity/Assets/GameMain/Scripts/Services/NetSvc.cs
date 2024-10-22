@@ -1,4 +1,4 @@
-//¹¦ÄÜ£ºÍøÂç·şÎñ
+ï»¿//åŠŸèƒ½ï¼šç½‘ç»œæœåŠ¡
 
 using System.Collections.Generic;
 using PENet;
@@ -58,7 +58,7 @@ namespace DarkGod.Main
             }
             else
             {
-                EventMgr.MainInstance.ShowMessageBox(this, new("·şÎñÆ÷Î´Á¬½Ó"));
+                EventMgr.MainInstance.ShowMessageBox(this, new("æœåŠ¡å™¨æœªè¿æ¥"));
                 InitSvc();
             }
         }
@@ -83,45 +83,45 @@ namespace DarkGod.Main
             }
         }
 
-        //ÏûÏ¢·Ö·¢
+        //æ¶ˆæ¯åˆ†å‘
         private void ProcessMsg(GameMsg msg)
         {
             if (msg.err != (int)ErrorCode.None)
             {
-                //Óöµ½´íÎóµ¯³öÌáÊ¾£¬·µ»Ø£¬Í£Ö¹´¦ÀíºóÃæµÄÒµÎñÂß¼­
+                //é‡åˆ°é”™è¯¯å¼¹å‡ºæç¤ºï¼Œè¿”å›ï¼Œåœæ­¢å¤„ç†åé¢çš„ä¸šåŠ¡é€»è¾‘
                 switch ((ErrorCode)msg.err)
                 {
                     case ErrorCode.ServerDataError:
-                        PECommon.Log("·şÎñÆ÷Êı¾İÒì³£", PELogType.Error);
-                        EventMgr.MainInstance.ShowMessageBox(this, new("¿Í»§¶ËÊı¾İÒì³£"));
+                        PECommon.Log("æœåŠ¡å™¨æ•°æ®å¼‚å¸¸", PELogType.Error);
+                        EventMgr.MainInstance.ShowMessageBox(this, new("å®¢æˆ·ç«¯æ•°æ®å¼‚å¸¸"));
                         break;
                     case ErrorCode.UpdateDBError:
-                        PECommon.Log("Êı¾İ¿â¸üĞÂÒì³£", PELogType.Error);
-                        EventMgr.MainInstance.ShowMessageBox(this, new("ÍøÂç²»ÎÈ¶¨"));
+                        PECommon.Log("æ•°æ®åº“æ›´æ–°å¼‚å¸¸", PELogType.Error);
+                        EventMgr.MainInstance.ShowMessageBox(this, new("ç½‘ç»œä¸ç¨³å®š"));
                         break;
                     case ErrorCode.ClientDataError:
-                        PECommon.Log("¿Í»§¶ËÊı¾İÒì³£", PELogType.Error);
+                        PECommon.Log("å®¢æˆ·ç«¯æ•°æ®å¼‚å¸¸", PELogType.Error);
                         break;
                     case ErrorCode.AcctIsOnline:
-                        EventMgr.MainInstance.ShowMessageBox(this, new("µ±Ç°ÕËºÅÒÑ¾­ÉÏÏß"));
+                        EventMgr.MainInstance.ShowMessageBox(this, new("å½“å‰è´¦å·å·²ç»ä¸Šçº¿"));
                         break;
                     case ErrorCode.WrongPass:
-                        EventMgr.MainInstance.ShowMessageBox(this, new("ÃÜÂë´íÎó"));
+                        EventMgr.MainInstance.ShowMessageBox(this, new("å¯†ç é”™è¯¯"));
                         break;
                     case ErrorCode.LackLevel:
-                        EventMgr.MainInstance.ShowMessageBox(this, new("½ÇÉ«µÈ¼¶²»¹»"));
+                        EventMgr.MainInstance.ShowMessageBox(this, new("è§’è‰²ç­‰çº§ä¸å¤Ÿ"));
                         break;
                     case ErrorCode.LackCoin:
-                        EventMgr.MainInstance.ShowMessageBox(this, new("½ğ±ÒÊıÁ¿²»¹»"));
+                        EventMgr.MainInstance.ShowMessageBox(this, new("é‡‘å¸æ•°é‡ä¸å¤Ÿ"));
                         break;
                     case ErrorCode.LackCrystal:
-                        EventMgr.MainInstance.ShowMessageBox(this, new("Ë®¾§ÊıÁ¿²»¹»"));
+                        EventMgr.MainInstance.ShowMessageBox(this, new("æ°´æ™¶æ•°é‡ä¸å¤Ÿ"));
                         break;
                     case ErrorCode.LackDiamond:
-                        EventMgr.MainInstance.ShowMessageBox(this, new("×êÊ¯ÊıÁ¿²»¹»"));
+                        EventMgr.MainInstance.ShowMessageBox(this, new("é’»çŸ³æ•°é‡ä¸å¤Ÿ"));
                         break;
                     case ErrorCode.LackPower:
-                        EventMgr.MainInstance.ShowMessageBox(this, new("ÌåÁ¦Öµ²»×ã"));
+                        EventMgr.MainInstance.ShowMessageBox(this, new("ä½“åŠ›å€¼ä¸è¶³"));
                         break;
                 }
                 return;

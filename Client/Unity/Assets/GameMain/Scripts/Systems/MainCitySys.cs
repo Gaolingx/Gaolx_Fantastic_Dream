@@ -1,4 +1,4 @@
-//¹¦ÄÜ£ºÖ÷³ÇÒµÎñÏµÍ³
+ï»¿//åŠŸèƒ½ï¼šä¸»åŸä¸šåŠ¡ç³»ç»Ÿ
 
 using System.Collections;
 using System.Collections.Generic;
@@ -67,36 +67,36 @@ namespace DarkGod.Main
         {
             InitPlayerInput();
 
-            //Í¨¹ıid»ñÈ¡Ö÷³ÇÅäÖÃºó£¬¼ÓÔØ³¡¾°
+            //é€šè¿‡idè·å–ä¸»åŸé…ç½®åï¼ŒåŠ è½½åœºæ™¯
             MapCfg mapData = configSvc.GetMapCfg(Constants.MainCityMapID);
-            //¼ÓÔØÖ÷³Ç³¡¾°
+            //åŠ è½½ä¸»åŸåœºæ™¯
             resSvc.AsyncLoadScene(Constants.ResourcePackgeName, mapData.sceneName, () =>
             {
                 PECommon.Log("Init MainCitySys...");
 
-                // ¼ÓÔØÓÎÏ·Ö÷½Ç
+                // åŠ è½½æ¸¸æˆä¸»è§’
                 LoadPlayer(mapData);
 
                 AssignAnimationIDs();
 
-                // ¼ÓÔØNPC
+                // åŠ è½½NPC
                 LoadNpcPrefab();
 
-                //´ò¿ªÖ÷³Ç³¡¾°UI
+                //æ‰“å¼€ä¸»åŸåœºæ™¯UI
                 maincityWnd.SetWndState();
 
-                //²¥·ÅÖ÷³Ç±³¾°ÒôÀÖ
+                //æ’­æ”¾ä¸»åŸèƒŒæ™¯éŸ³ä¹
                 PlayBGAudioLst();
 
-                //»ñÈ¡Ö÷³ÇNPCsµÄTransform
+                //è·å–ä¸»åŸNPCsçš„Transform
                 GetMapNpcTransform();
 
-                //ÉèÖÃÈËÎïÕ¹Ê¾Ïà»ú
+                //è®¾ç½®äººç‰©å±•ç¤ºç›¸æœº
                 InitCharCam();
 
                 SetInputState(true);
 
-                //ÉèÖÃÓÎÏ·×´Ì¬
+                //è®¾ç½®æ¸¸æˆçŠ¶æ€
                 GameRoot.MainInstance.SetGameState(GameState.MainCity);
 
                 PauseGameLogic(false);
@@ -116,9 +116,9 @@ namespace DarkGod.Main
         private CinemachineVirtualCamera cinemachineVirtualCamera;
         private async void LoadVirtualCameraInstance(MapCfg mapData)
         {
-            //Ïà»ú³õÊ¼»¯
-            //Ê×ÏÈÒª¼ÓÔØĞéÄâÏà»úµÄÔ¤ÖÆ¼ş
-            //ÉèÖÃÊµÀı»¯¶ÔÏóÊ±ºòµÄÎ»ÖÃ¡¢Ğı×ª
+            //ç›¸æœºåˆå§‹åŒ–
+            //é¦–å…ˆè¦åŠ è½½è™šæ‹Ÿç›¸æœºçš„é¢„åˆ¶ä»¶
+            //è®¾ç½®å®ä¾‹åŒ–å¯¹è±¡æ—¶å€™çš„ä½ç½®ã€æ—‹è½¬
             Vector3 CM_player_Pos = mapData.mainCamPos;
             Vector3 CM_player_Rote = mapData.mainCamRote;
             GameObject CM_player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, mapData.playerCamPath, CM_player_Pos, CM_player_Rote, Vector3.one, false, true, true);
@@ -126,10 +126,10 @@ namespace DarkGod.Main
             if (CM_player != null)
             {
 
-                // »ñÈ¡ĞéÄâÏà»úÔ¤ÖÆ¼şÉÏµÄCinemachineVirtualCamera×é¼ş  
+                // è·å–è™šæ‹Ÿç›¸æœºé¢„åˆ¶ä»¶ä¸Šçš„CinemachineVirtualCameraç»„ä»¶  
                 cinemachineVirtualCamera = CM_player.GetComponent<CinemachineVirtualCamera>();
 
-                //Í¨¹ı¶ÁÈ¡ÅäÖÃ±íÉèÖÃCinemachineVirtualCameraÏà²Ã¼ôÆ½Ãæ
+                //é€šè¿‡è¯»å–é…ç½®è¡¨è®¾ç½®CinemachineVirtualCameraç›¸è£å‰ªå¹³é¢
                 cinemachineVirtualCamera.m_Lens.FarClipPlane = Constants.CinemachineVirtualCameraFarClipPlane;
                 cinemachineVirtualCamera.m_Lens.NearClipPlane = Constants.CinemachineVirtualCameraNearClipPlane;
             }
@@ -138,13 +138,13 @@ namespace DarkGod.Main
 
         private async void LoadPlayerInstance(MapCfg mapData)
         {
-            //Íæ¼Ò³õÊ¼»¯
-            //»ñÈ¡PrefabÊµÀı»¯µÄ¶ÔÏó
+            //ç©å®¶åˆå§‹åŒ–
+            //è·å–Prefabå®ä¾‹åŒ–çš„å¯¹è±¡
             GameObject player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, mapData.playerPath, mapData.playerBornPos, mapData.playerBornRote, new Vector3(0.8f, 0.8f, 0.8f), false, true, true);
 
             if (player != null)
             {
-                //»ñÈ¡playerµ¼º½×é¼ş
+                //è·å–playerå¯¼èˆªç»„ä»¶
                 nav = player.GetComponent<NavMeshAgent>();
 
                 ThirdPersonController controller = player.GetComponent<ThirdPersonController>();
@@ -184,12 +184,12 @@ namespace DarkGod.Main
         }
 
 
-        //Ô­·½°¸
+        //åŸæ–¹æ¡ˆ
         public void SetMoveDir(Vector2 dir)
         {
             StopNavTask();
             /*
-            //ÉèÖÃ¶¯»­
+            //è®¾ç½®åŠ¨ç”»
             if (dir == Vector2.zero)
             {
                 playerCtrl.SetBlend(Constants.BlendIdle);
@@ -198,7 +198,7 @@ namespace DarkGod.Main
             {
                 playerCtrl.SetBlend(Constants.BlendWalk);
             }
-            //ÉèÖÃ·½Ïò
+            //è®¾ç½®æ–¹å‘
             playerCtrl.Dir = dir;
             */
         }
@@ -247,13 +247,13 @@ namespace DarkGod.Main
         public void RspBuy(GameMsg msg)
         {
             RspBuy rspBuydata = msg.rspBuy;
-            //¸üĞÂÍæ¼ÒÊı¾İµ½GameRootÖĞ
+            //æ›´æ–°ç©å®¶æ•°æ®åˆ°GameRootä¸­
             GameRoot.MainInstance.SetPlayerDataByBuy(rspBuydata);
-            EventMgr.MainInstance.ShowMessageBox(this, new("¹ºÂò³É¹¦"));
+            EventMgr.MainInstance.ShowMessageBox(this, new("è´­ä¹°æˆåŠŸ"));
 
-            //¸üĞÂÖ÷³Ç½çÃæ
+            //æ›´æ–°ä¸»åŸç•Œé¢
             maincityWnd.RefreshUI();
-            //¹Ø±Õ¹ºÂò´°¿Ú
+            //å…³é—­è´­ä¹°çª—å£
             buyWnd.SetWndState(false);
 
             if (msg.pshTaskPrgs != null)
@@ -301,16 +301,16 @@ namespace DarkGod.Main
 
         public void RspStrong(GameMsg msg)
         {
-            //¼ÆËãÉı¼¶Ç°µÄÕ½Á¦
+            //è®¡ç®—å‡çº§å‰çš„æˆ˜åŠ›
             int zhanliPre = PECommon.GetFightByProps(GameRoot.MainInstance.PlayerData);
-            //¸üĞÂÍæ¼ÒÊôĞÔÊı¾İ
+            //æ›´æ–°ç©å®¶å±æ€§æ•°æ®
             GameRoot.MainInstance.SetPlayerDataByStrong(msg.rspStrong);
-            //Éı¼¶ºóÕ½Á¦
+            //å‡çº§åæˆ˜åŠ›
             int zhanliNow = PECommon.GetFightByProps(GameRoot.MainInstance.PlayerData);
-            //Éı¼¶ºóµÄ·´À¡
-            EventMgr.MainInstance.ShowMessageBox(this, new(WindowRoot.GetTextWithHexColor("Õ½Á¦ÌáÉı " + (zhanliNow - zhanliPre), TextColorCode.Blue)));
+            //å‡çº§åçš„åé¦ˆ
+            EventMgr.MainInstance.ShowMessageBox(this, new(WindowRoot.GetTextWithHexColor("æˆ˜åŠ›æå‡ " + (zhanliNow - zhanliPre), TextColorCode.Blue)));
 
-            //Ë¢ĞÂÇ¿»¯ºÍÖ÷³Ç½çÃæ
+            //åˆ·æ–°å¼ºåŒ–å’Œä¸»åŸç•Œé¢
             strongWnd.UpdateUI();
             maincityWnd.RefreshUI();
         }
@@ -321,7 +321,7 @@ namespace DarkGod.Main
         {
             StopNavTask();
 
-            //ÉèÖÃÈËÎïÕ¹Ê¾Ïà»úÏà¶ÔÎ»ÖÃ£¨Ö÷½Ç£©¡¢Ğı×ª
+            //è®¾ç½®äººç‰©å±•ç¤ºç›¸æœºç›¸å¯¹ä½ç½®ï¼ˆä¸»è§’ï¼‰ã€æ—‹è½¬
             if (charCamTrans != null)
             {
                 charCamTrans.localPosition = mainCityPlayer.transform.position + mainCityPlayer.transform.forward * Constants.CharShowCamDistanceOffset + new Vector3(0, Constants.CharShowCamHeightOffset, 0);
@@ -385,16 +385,16 @@ namespace DarkGod.Main
             }
 
             nav.enabled = true;
-            //½âÎöÈÎÎñÊı¾İ
-            //ÅĞ¶ÏÊÇ·ñĞèÒªÑ°Â·£¨ÕÒµ½npc£©
+            //è§£æä»»åŠ¡æ•°æ®
+            //åˆ¤æ–­æ˜¯å¦éœ€è¦å¯»è·¯ï¼ˆæ‰¾åˆ°npcï¼‰
             if (curtTaskData.npcID != -1)
             {
-                float dis = Vector3.Distance(mainCityPlayer.transform.position, npcPosTrans[agc.npcID].position); //´Ë´¦µÄnpcIDÓëÅäÖÃ±íguide¶¨ÒåµÄnpcIDÒ»Ò»¶ÔÓ¦
-                                                                                                                  //ÅĞ¶Ïµ±Ç°ÓÎÏ·Ö÷½ÇÓëÄ¿±ênpcÖ®¼äµÄ¾àÀë
+                float dis = Vector3.Distance(mainCityPlayer.transform.position, npcPosTrans[agc.npcID].position); //æ­¤å¤„çš„npcIDä¸é…ç½®è¡¨guideå®šä¹‰çš„npcIDä¸€ä¸€å¯¹åº”
+                                                                                                                  //åˆ¤æ–­å½“å‰æ¸¸æˆä¸»è§’ä¸ç›®æ ‡npcä¹‹é—´çš„è·ç¦»
                 if (dis < Constants.NavNpcDst)
                 {
-                    Debug.Log("ÒÑµ½´ïÄ¿±ê¸½½ü£¬µ¼º½×Ô¶¯È¡Ïû");
-                    //ÕÒµ½Ä¿±ênpc£¬Í£Ö¹µ¼º½
+                    Debug.Log("å·²åˆ°è¾¾ç›®æ ‡é™„è¿‘ï¼Œå¯¼èˆªè‡ªåŠ¨å–æ¶ˆ");
+                    //æ‰¾åˆ°ç›®æ ‡npcï¼Œåœæ­¢å¯¼èˆª
                     isNavGuide = false;
                     nav.isStopped = true;
                     SetPlayerStopInNavTask(mainCityPlayer);
@@ -405,12 +405,12 @@ namespace DarkGod.Main
                 }
                 else
                 {
-                    Debug.Log("NavMeshµ¼º½Æô¶¯£¬×Ô¶¯Ñ°Â·ÖĞ...");
-                    //Î´ÕÒµ½Ä¿±ênpc£¬Æô¶¯µ¼º½
+                    Debug.Log("NavMeshå¯¼èˆªå¯åŠ¨ï¼Œè‡ªåŠ¨å¯»è·¯ä¸­...");
+                    //æœªæ‰¾åˆ°ç›®æ ‡npcï¼Œå¯åŠ¨å¯¼èˆª
                     isNavGuide = true;
-                    nav.enabled = true; //¼¤»îµ¼º½×é¼ş
-                    nav.speed = Constants.PlayerMoveSpeedNav; //µ¼º½ËÙ¶È
-                    nav.SetDestination(npcPosTrans[agc.npcID].position); //ÉèÖÃµ¼º½Ä¿±êµã
+                    nav.enabled = true; //æ¿€æ´»å¯¼èˆªç»„ä»¶
+                    nav.speed = Constants.PlayerMoveSpeedNav; //å¯¼èˆªé€Ÿåº¦
+                    nav.SetDestination(npcPosTrans[agc.npcID].position); //è®¾ç½®å¯¼èˆªç›®æ ‡ç‚¹
                     SetInputState(false);
                     SetPlayerMoveInNavTask(mainCityPlayer);
                 }
@@ -444,7 +444,7 @@ namespace DarkGod.Main
             float dis = Vector3.Distance(mainCityPlayer.transform.position, npcPosTrans[curtTaskData.npcID].position);
             if (dis < Constants.NavNpcDst)
             {
-                Debug.Log("ÒÑ¾­µ½´ïÄ¿µÄµØ£¬µ¼º½½áÊø£¡");
+                Debug.Log("å·²ç»åˆ°è¾¾ç›®çš„åœ°ï¼Œå¯¼èˆªç»“æŸï¼");
                 isNavGuide = false;
                 nav.isStopped = true;
                 SetPlayerStopInNavTask(mainCityPlayer);
@@ -459,7 +459,7 @@ namespace DarkGod.Main
         {
             if (isNavGuide)
             {
-                Debug.Log("ÒòÎªµ¼º½ÖĞÍ¾Ö´ĞĞÆäËû²Ù×÷£¬µ¼º½ÖĞ¶Ï£¡");
+                Debug.Log("å› ä¸ºå¯¼èˆªä¸­é€”æ‰§è¡Œå…¶ä»–æ“ä½œï¼Œå¯¼èˆªä¸­æ–­ï¼");
                 isNavGuide = false;
 
                 nav.isStopped = true;
@@ -528,32 +528,32 @@ namespace DarkGod.Main
         {
             RspGuide data = msg.rspGuide;
 
-            EventMgr.MainInstance.ShowMessageBox(this, new(WindowRoot.GetTextWithHexColor("ÈÎÎñ½±Àø ½ğ±Ò+" + curtTaskData.coin + "  ¾­Ñé+" + curtTaskData.exp, TextColorCode.Blue)));
+            EventMgr.MainInstance.ShowMessageBox(this, new(WindowRoot.GetTextWithHexColor("ä»»åŠ¡å¥–åŠ± é‡‘å¸+" + curtTaskData.coin + "  ç»éªŒ+" + curtTaskData.exp, TextColorCode.Blue)));
 
-            //¶ÁÈ¡ÈÎÎñactionID£¬½øĞĞÏàÓ¦²Ù×÷
+            //è¯»å–ä»»åŠ¡actionIDï¼Œè¿›è¡Œç›¸åº”æ“ä½œ
             switch (curtTaskData.actID)
             {
                 case Constants.CurtTaskDataActID_0:
-                    //ÓëÖÇÕß¶Ô»°
+                    //ä¸æ™ºè€…å¯¹è¯
                     break;
                 case Constants.CurtTaskDataActID_1:
-                    //½øÈë¸±±¾
+                    //è¿›å…¥å‰¯æœ¬
                     EnterFuben();
                     break;
                 case Constants.CurtTaskDataActID_2:
-                    //½øÈëÇ¿»¯½çÃæ
+                    //è¿›å…¥å¼ºåŒ–ç•Œé¢
                     OpenStrongWnd();
                     break;
                 case Constants.CurtTaskDataActID_3:
-                    //½øÈëÌåÁ¦¹ºÂò
+                    //è¿›å…¥ä½“åŠ›è´­ä¹°
                     OpenBuyWnd(Constants.BuyTypePower);
                     break;
                 case Constants.CurtTaskDataActID_4:
-                    //½øÈë½ğ±ÒÖıÔì
+                    //è¿›å…¥é‡‘å¸é“¸é€ 
                     OpenBuyWnd(Constants.MakeTypeCoin);
                     break;
                 case Constants.CurtTaskDataActID_5:
-                    //½øÈëÊÀ½çÁÄÌì
+                    //è¿›å…¥ä¸–ç•ŒèŠå¤©
                     OpenChatWnd();
                     break;
             }

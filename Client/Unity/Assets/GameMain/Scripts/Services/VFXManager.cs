@@ -1,4 +1,4 @@
-using HuHu;
+锘縰sing HuHu;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +9,7 @@ namespace DarkGod.Main
     {
         [Header("Player FX GameObject")]
         public List<GameObject> PlayerFxList = new List<GameObject>();
-        [Header("特效播放倍率")] public float SpeedMult;
+        [Header("鐗规晥鎾斁鍊嶇巼")] public float SpeedMult;
         public List<ParticleSystem> allParticleSystems => particleSystems;
 
         private List<ParticleSystem> particleSystems = new List<ParticleSystem>();

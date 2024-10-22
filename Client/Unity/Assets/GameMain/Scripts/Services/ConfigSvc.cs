@@ -1,4 +1,4 @@
-//¹¦ÄÜ£ºÅäÖÃ¼ÓÔØ·şÎñ
+ï»¿//åŠŸèƒ½ï¼šé…ç½®åŠ è½½æœåŠ¡
 
 using HuHu;
 using System.Collections;
@@ -36,7 +36,7 @@ namespace DarkGod.Main
 
         public void ResetSkillCfgs()
         {
-            //Çå¿Õ×Öµä£¬±ÜÃâkey³åÍ»
+            //æ¸…ç©ºå­—å…¸ï¼Œé¿å…keyå†²çª
             skillDic.Clear();
             InitSkillCfg();
             skillMoveDic.Clear();
@@ -48,7 +48,7 @@ namespace DarkGod.Main
         }
 
         #region InitCfgs
-        #region Ëæ»úÃû×Ö
+        #region éšæœºåå­—
         private List<string> surnameLst = new List<string>();
         private List<string> manLst = new List<string>();
         private List<string> womanLst = new List<string>();
@@ -83,7 +83,7 @@ namespace DarkGod.Main
         }
         #endregion
 
-        #region µØÍ¼
+        #region åœ°å›¾
         private Dictionary<int, MapCfg> mapCfgDataDic = new Dictionary<int, MapCfg>();
 
         private void InitMapCfg()
@@ -158,7 +158,7 @@ namespace DarkGod.Main
         }
         #endregion
 
-        #region ×Ô¶¯Òıµ¼ÅäÖÃ
+        #region è‡ªåŠ¨å¼•å¯¼é…ç½®
         private Dictionary<int, AutoGuideCfg> guideTaskDic = new Dictionary<int, AutoGuideCfg>();
 
         private void InitGuideCfg()
@@ -194,7 +194,7 @@ namespace DarkGod.Main
         }
         #endregion
 
-        #region Ç¿»¯Éı¼¶ÅäÖÃ
+        #region å¼ºåŒ–å‡çº§é…ç½®
         private Dictionary<int, Dictionary<int, StrongCfg>> strongDic = new Dictionary<int, Dictionary<int, StrongCfg>>();
 
         private void InitStrongCfg()
@@ -219,32 +219,32 @@ namespace DarkGod.Main
                 sd.crystal = table.Crystal;
 
                 Dictionary<int, StrongCfg> dic = null;
-                //ÅĞ¶Ïµ±Ç°ÔÚ¸Ã²¿Î»µÄ×ÖµäÊÇ·ñ´æÔÚ
+                //åˆ¤æ–­å½“å‰åœ¨è¯¥éƒ¨ä½çš„å­—å…¸æ˜¯å¦å­˜åœ¨
                 if (strongDic.TryGetValue(sd.pos, out dic))
                 {
-                    //Èç¹ûÓĞÔòÖ±½ÓÍù×ÖµäÔö¼ÓÊı¾İÏî
+                    //å¦‚æœæœ‰åˆ™ç›´æ¥å¾€å­—å…¸å¢åŠ æ•°æ®é¡¹
                     dic.Add(sd.startlv, sd);
                 }
                 else
                 {
-                    //Èç¹ûÃ»ÓĞ£¬ÔòĞèÒªÏÈ½«¸ÃÎ»ÖÃµÄ×Öµänew³öÀ´
+                    //å¦‚æœæ²¡æœ‰ï¼Œåˆ™éœ€è¦å…ˆå°†è¯¥ä½ç½®çš„å­—å…¸newå‡ºæ¥
                     dic = new Dictionary<int, StrongCfg>();
                     dic.Add(sd.startlv, sd);
 
-                    //Ìí¼Óµ½strongDicÖĞ
+                    //æ·»åŠ åˆ°strongDicä¸­
                     strongDic.Add(sd.pos, dic);
                 }
             }
         }
 
-        //»ñÈ¡¶ÔÓ¦Î»ÖÃ¶ÔÓ¦ĞÇ¼¶µÄÊôĞÔ
+        //è·å–å¯¹åº”ä½ç½®å¯¹åº”æ˜Ÿçº§çš„å±æ€§
         public StrongCfg GetStrongCfg(int pos, int starlv)
         {
             StrongCfg sd = null;
             Dictionary<int, StrongCfg> dic = null;
             if (strongDic.TryGetValue(pos, out dic))
             {
-                //ÅĞ¶Ï×ÖµäÖĞÊÇ·ñº¬ÓĞÏàÓ¦µÄĞÇ¼¶
+                //åˆ¤æ–­å­—å…¸ä¸­æ˜¯å¦å«æœ‰ç›¸åº”çš„æ˜Ÿçº§
                 if (dic.ContainsKey(starlv))
                 {
                     sd = dic[starlv];
@@ -253,21 +253,21 @@ namespace DarkGod.Main
             return sd;
         }
 
-        //»ñÈ¡Ä³¸öĞÇ¼¶°üÀ¨Ç°ÃæËùÓĞĞÇ¼¶ÔÚÄ³¸öÊôĞÔÀÛ¼ÓµÄºÍ 
+        //è·å–æŸä¸ªæ˜Ÿçº§åŒ…æ‹¬å‰é¢æ‰€æœ‰æ˜Ÿçº§åœ¨æŸä¸ªå±æ€§ç´¯åŠ çš„å’Œ 
         public int GetPropAddValPreLv(int pos, int starlv, int type)
         {
-            //»ñÈ¡¶ÔÓ¦Î»ÖÃËùÓĞµÄÇ¿»¯Êı¾İ
+            //è·å–å¯¹åº”ä½ç½®æ‰€æœ‰çš„å¼ºåŒ–æ•°æ®
             Dictionary<int, StrongCfg> posDic = null;
             int val = 0;
             if (strongDic.TryGetValue(pos, out posDic))
             {
-                //¸ù¾İĞÇ¼¶ºÍÀàĞÍ»ñÈ¡¶ÔÓ¦ÊôĞÔ
+                //æ ¹æ®æ˜Ÿçº§å’Œç±»å‹è·å–å¯¹åº”å±æ€§
                 for (int i = 0; i < starlv; i++)
                 {
                     StrongCfg sd;
                     if (posDic.TryGetValue(i, out sd))
                     {
-                        //¸ù¾İÀàĞÍÀÛ¼ÓÊıÖµ
+                        //æ ¹æ®ç±»å‹ç´¯åŠ æ•°å€¼
                         switch (type)
                         {
                             case 1://hp
@@ -287,7 +287,7 @@ namespace DarkGod.Main
         }
         #endregion
 
-        #region ×ÊÔ´½»Ò×ÅäÖÃ
+        #region èµ„æºäº¤æ˜“é…ç½®
         private Dictionary<int, BuyCfg> buyCfgDic = new Dictionary<int, BuyCfg>();
 
         private void InitBuyCfg()
@@ -320,7 +320,7 @@ namespace DarkGod.Main
         }
         #endregion
 
-        #region ÈÎÎñ½±ÀøÅäÖÃ
+        #region ä»»åŠ¡å¥–åŠ±é…ç½®
         private Dictionary<int, TaskRewardCfg> taskRewardDic = new Dictionary<int, TaskRewardCfg>();
 
         private void InitTaskRewardCfg()
@@ -355,7 +355,7 @@ namespace DarkGod.Main
         }
         #endregion
 
-        #region È«¾ÖNPCÅäÖÃ
+        #region å…¨å±€NPCé…ç½®
         private Dictionary<int, NpcData> npcDic = new Dictionary<int, NpcData>();
 
         private void InitNpcCfg()
@@ -391,7 +391,7 @@ namespace DarkGod.Main
         }
         #endregion
 
-        #region ¼¼ÄÜÅäÖÃ
+        #region æŠ€èƒ½é…ç½®
         private Dictionary<int, SkillCfg> skillDic = new Dictionary<int, SkillCfg>();
 
         private void InitSkillCfg()
@@ -463,7 +463,7 @@ namespace DarkGod.Main
         }
         #endregion
 
-        #region ¼¼ÄÜÎ»ÒÆÅäÖÃ
+        #region æŠ€èƒ½ä½ç§»é…ç½®
         private Dictionary<int, SkillMoveCfg> skillMoveDic = new Dictionary<int, SkillMoveCfg>();
 
         private void InitSkillMoveCfg()
@@ -497,7 +497,7 @@ namespace DarkGod.Main
         }
         #endregion
 
-        #region ¼¼ÄÜActionÅäÖÃ
+        #region æŠ€èƒ½Actioné…ç½®
         private Dictionary<int, SkillActionCfg> skillActionDic = new Dictionary<int, SkillActionCfg>();
 
         private void InitSkillActionCfg()
@@ -531,7 +531,7 @@ namespace DarkGod.Main
         }
         #endregion
 
-        #region ¹ÖÎïÊôĞÔÅäÖÃ
+        #region æ€ªç‰©å±æ€§é…ç½®
         private Dictionary<int, MonsterCfg> monsterCfgDataDic = new Dictionary<int, MonsterCfg>();
 
         private void InitMonsterCfg()

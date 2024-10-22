@@ -1,4 +1,5 @@
-//¼ÓÔØ½ø¶È½çÃæ
+ï»¿//åŠŸèƒ½ï¼šåŠ è½½è¿›åº¦ç•Œé¢
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,33 +12,33 @@ namespace DarkGod.Main
         public Text txtTips;
         public Image imgFG;
         public Image imgPoint;
-        public Text txtPrg;  //½ø¶ÈµÄ°Ù·Ö±È
+        public Text txtPrg;  //è¿›åº¦çš„ç™¾åˆ†æ¯”
 
         private float fgWidth;
 
-        //³õÊ¼»¯´°¿Ú£¨½ø¶ÈÌõ¹éÁã£©
-        //Ëæ»úµ¯³öÒ»ÌõTips
+        //åˆå§‹åŒ–çª—å£ï¼ˆè¿›åº¦æ¡å½’é›¶ï¼‰
+        //éšæœºå¼¹å‡ºä¸€æ¡Tips
         protected override void InitWnd()
         {
             base.InitWnd();
 
             fgWidth = imgFG.GetComponent<RectTransform>().sizeDelta.x;
 
-            SetText(txtTips, "°´×¡Alt¼ü²»·Å¿ÉÏÔÊ¾¹â±ê");
+            SetText(txtTips, "æŒ‰ä½Alté”®ä¸æ”¾å¯æ˜¾ç¤ºå…‰æ ‡");
             SetText(txtPrg, "0%");
             imgFG.fillAmount = 0;
-            //¼ÆËã½ø¶ÈÌõµãµÄÎ»ÖÃ
+            //è®¡ç®—è¿›åº¦æ¡ç‚¹çš„ä½ç½®
             imgPoint.transform.localPosition = new Vector3(-570f, 0, 0);
 
         }
 
-        //¶¨Òåº¯ÊıÉèÖÃ½ø¶È
-        public void SetProgress(float prg)  //´«Èëµ±Ç°½ø¶È
+        //å®šä¹‰å‡½æ•°è®¾ç½®è¿›åº¦
+        public void SetProgress(float prg)  //ä¼ å…¥å½“å‰è¿›åº¦
         {
-            SetText(txtPrg, (int)(prg * 100) + "%");  //½«¸¡µãÊı×ª»»Îª°Ù·Ö±È
+            SetText(txtPrg, (int)(prg * 100) + "%");  //å°†æµ®ç‚¹æ•°è½¬æ¢ä¸ºç™¾åˆ†æ¯”
             imgFG.fillAmount = prg;
 
-            //Ëã³öµ±Ç°½ø¶ÈÌõµÄÎ»ÖÃ
+            //ç®—å‡ºå½“å‰è¿›åº¦æ¡çš„ä½ç½®
             float posX = prg * fgWidth - 570;
             imgPoint.GetComponent<RectTransform>().anchoredPosition = new Vector2(posX, 0);
         }

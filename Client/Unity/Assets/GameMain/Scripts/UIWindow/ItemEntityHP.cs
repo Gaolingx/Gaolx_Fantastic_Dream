@@ -1,4 +1,4 @@
-//¹¦ÄÜ£ºÑªÌõÎïÌå
+ï»¿//åŠŸèƒ½ï¼šè¡€æ¡ç‰©ä½“
 
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ namespace DarkGod.Main
     {
         #region UI Define
         public Image imgHPGray;
-        public Image imgHPRed; //Êµ¼ÊÑªÁ¿
+        public Image imgHPRed; //å®é™…è¡€é‡
 
         public Animation criticalAni;
         public Text txtCritical;
@@ -26,7 +26,7 @@ namespace DarkGod.Main
         #endregion
 
         private RectTransform rect;
-        private Transform rootTrans; //¹ÖÎïµÄTransform
+        private Transform rootTrans; //æ€ªç‰©çš„Transform
         private int hpVal;
 
         private float scaleRate = 1.0f * Constants.ScreenStandardHeight / Screen.height;
@@ -34,7 +34,7 @@ namespace DarkGod.Main
         Vector3 screenPos;
         private void Update()
         {
-            //½«³¡¾°ÖĞ¹ÖÎïµÄTransformÓ³Éä³ÉÆÁÄ»¿Õ¼ä×ø±ê
+            //å°†åœºæ™¯ä¸­æ€ªç‰©çš„Transformæ˜ å°„æˆå±å¹•ç©ºé—´åæ ‡
             if (rootTrans != null)
             {
                 screenPos = Camera.main.WorldToScreenPoint(rootTrans.position);
@@ -50,7 +50,7 @@ namespace DarkGod.Main
         {
             rect = transform.GetComponent<RectTransform>();
             rootTrans = trans;
-            hpVal = hp; //×ÜÑªÁ¿
+            hpVal = hp; //æ€»è¡€é‡
             imgHPGray.fillAmount = 1;
             imgHPRed.fillAmount = 1;
         }
@@ -58,14 +58,14 @@ namespace DarkGod.Main
         public void SetCritical(int critical)
         {
             criticalAni.Stop();
-            txtCritical.text = "±©»÷ " + critical;
+            txtCritical.text = "æš´å‡» " + critical;
             criticalAni.Play();
         }
 
         public void SetDodge()
         {
             dodgeAni.Stop();
-            txtDodge.text = "ÉÁ±Ü";
+            txtDodge.text = "é—ªé¿";
             dodgeAni.Play();
         }
 
@@ -80,12 +80,12 @@ namespace DarkGod.Main
         private float targetPrg;
         public void SetHPVal(int oldVal, int newVal)
         {
-            //¼ÆËãÑªÁ¿±ä»¯
+            //è®¡ç®—è¡€é‡å˜åŒ–
             currentPrg = oldVal * 1.0f / hpVal;
             targetPrg = newVal * 1.0f / hpVal;
-            //ÉèÖÃÄ¿±êÑªÁ¿
+            //è®¾ç½®ç›®æ ‡è¡€é‡
             imgHPRed.fillAmount = targetPrg;
-            //²úÉú½¥±ä¶¯»­
+            //äº§ç”Ÿæ¸å˜åŠ¨ç”»
         }
     }
 }

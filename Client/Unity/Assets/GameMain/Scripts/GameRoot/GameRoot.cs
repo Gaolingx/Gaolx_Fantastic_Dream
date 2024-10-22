@@ -1,4 +1,5 @@
-//¹¦ÄÜ£ºÓÎÏ·Æô¶¯Èë¿Ú£¬³õÊ¼»¯¸÷¸öÒµÎñÏµÍ³
+ï»¿//åŠŸèƒ½ï¼šæ¸¸æˆå¯åŠ¨å…¥å£ï¼Œåˆå§‹åŒ–å„ä¸ªä¸šåŠ¡ç³»ç»Ÿ
+
 using PEProtocol;
 using StarterAssets;
 using System.Collections;
@@ -74,7 +75,7 @@ namespace DarkGod.Main
         {
             if (isDontDestroyOnLoad)
             {
-                //ÎÒÃÇ²»Ï£ÍûGameRoot¼°Æä×ÓÎïÌåÔÚÇĞ»»³¡¾°Ê±±»Ïú»Ù
+                //æˆ‘ä»¬ä¸å¸Œæœ›GameRootåŠå…¶å­ç‰©ä½“åœ¨åˆ‡æ¢åœºæ™¯æ—¶è¢«é”€æ¯
                 DontDestroyOnLoad(this);
             }
 
@@ -189,7 +190,7 @@ namespace DarkGod.Main
             }
         }
 
-        //³õÊ¼»¯¸÷¸öÏµÍ³ºÍ·şÎñÄ£¿é
+        //åˆå§‹åŒ–å„ä¸ªç³»ç»Ÿå’ŒæœåŠ¡æ¨¡å—
         private void InitGameRoot()
         {
             if (dynamicWnd != null)
@@ -197,7 +198,7 @@ namespace DarkGod.Main
                 dynamicWnd.SetWndState();
             }
 
-            //½øÈëµÇÂ¼³¡¾°²¢¼ÓÔØÏàÓ¦UI
+            //è¿›å…¥ç™»å½•åœºæ™¯å¹¶åŠ è½½ç›¸åº”UI
             LoginSys.MainInstance.EnterLogin();
         }
 

@@ -1,4 +1,5 @@
-//¹¦ÄÜ£ºÖ÷³ÇµØÍ¼Êı¾İ
+ï»¿//åŠŸèƒ½ï¼šä¸»åŸåœ°å›¾æ•°æ®
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ namespace DarkGod.Main
 {
     public class MainCityMap : MonoBehaviour
     {
-        //¶¨ÒåÒ»¸öÊı×é£¬´æ´¢npcµÄTransform
+        //å®šä¹‰ä¸€ä¸ªæ•°ç»„ï¼Œå­˜å‚¨npcçš„Transform
         public List<Transform> NpcPosTrans = new List<Transform>();
     }
 }

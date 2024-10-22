@@ -1,4 +1,4 @@
-//¹¦ÄÜ£ºµØÍ¼´¥·¢Êı¾İÀà
+ï»¿//åŠŸèƒ½ï¼šåœ°å›¾è§¦å‘æ•°æ®ç±»
 
 using System.Collections;
 using System.Collections.Generic;
@@ -14,10 +14,10 @@ namespace DarkGod.Main
 
         public void OnTriggerExit(Collider other)
         {
-            //¹ıÂËÍæ¼Ò±êÇ©
+            //è¿‡æ»¤ç©å®¶æ ‡ç­¾
             if (other.gameObject.CompareTag(Constants.CharPlayerWithTag))
             {
-                //µ÷ÓÃµØÍ¼¹ÜÀíÆ÷Éú³ÉÏÂÒ»Åú¹ÖÎï
+                //è°ƒç”¨åœ°å›¾ç®¡ç†å™¨ç”Ÿæˆä¸‹ä¸€æ‰¹æ€ªç‰©
                 if (mapMgr != null)
                 {
                     mapMgr.TriggerMonsterBorn(this, triggerWave);

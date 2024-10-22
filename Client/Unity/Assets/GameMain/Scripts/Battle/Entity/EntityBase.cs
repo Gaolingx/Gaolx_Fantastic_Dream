@@ -1,4 +1,4 @@
-//¹¦ÄÜ£ºÂß¼­ÊµÌå»ùÀà
+ï»¿//åŠŸèƒ½ï¼šé€»è¾‘å®ä½“åŸºç±»
 
 using StarterAssets;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ namespace DarkGod.Main
 {
     public abstract class EntityBase
     {
-        //Íæ¼Òµ±Ç°×´Ì¬
+        //ç©å®¶å½“å‰çŠ¶æ€
         public AniState currentAniState { get; set; } = AniState.None;
 
         public BattleMgr battleMgr { get; set; }
@@ -27,23 +27,23 @@ namespace DarkGod.Main
         public EntityType entityType { get; set; } = EntityType.None;
         public EntityState entityState { get; set; } = EntityState.None;
 
-        public BattleProps Props { get; protected set; } //Ö»ÄÜÔÚ¼Ì³ĞËûµÄ×ÓÀàÖĞĞŞ¸Ä
+        public BattleProps Props { get; protected set; } //åªèƒ½åœ¨ç»§æ‰¿ä»–çš„å­ç±»ä¸­ä¿®æ”¹
 
         public BindableProperty<int> currentHP { get; set; } = new BindableProperty<int>();
-        protected int oldHp; //Õ½¶·ÖĞµÄhp
+        protected int oldHp; //æˆ˜æ–—ä¸­çš„hp
 
-        //ÓÃ¶ÓÁĞ´æ´¢Á¬ÕĞ¶ÔÓ¦µÄ¼¼ÄÜid£¬µ±ÊÍ·ÅÍê´Ë´ÎÆÕ¹¥ºó£¬¼ì²âÊÇ·ñ´æÔÚÏÂÒ»´Î¼¼ÄÜid¡£
+        //ç”¨é˜Ÿåˆ—å­˜å‚¨è¿æ‹›å¯¹åº”çš„æŠ€èƒ½idï¼Œå½“é‡Šæ”¾å®Œæ­¤æ¬¡æ™®æ”»åï¼Œæ£€æµ‹æ˜¯å¦å­˜åœ¨ä¸‹ä¸€æ¬¡æŠ€èƒ½idã€‚
         public Queue<int> comboQue { get; set; } = new Queue<int>();
         public int nextSkillID { get; set; } = 0;
 
-        public SkillCfg curtSkillCfg { get; set; } //µ±Ç°ÕıÔÚÊ©·Å¼¼ÄÜµÄid
+        public SkillCfg curtSkillCfg { get; set; } //å½“å‰æ­£åœ¨æ–½æ”¾æŠ€èƒ½çš„id
 
-        //¼¼ÄÜÎ»ÒÆµÄ»Øµ÷id
+        //æŠ€èƒ½ä½ç§»çš„å›è°ƒid
         public List<int> skMoveCBLst { get; set; } = new List<int>();
-        //¼¼ÄÜÉËº¦¼ÆËã»Øµ÷id
+        //æŠ€èƒ½ä¼¤å®³è®¡ç®—å›è°ƒid
         public List<int> skActionCBLst { get; set; } = new List<int>();
 
-        //¼¼ÄÜ½áÊø»Øµ÷
+        //æŠ€èƒ½ç»“æŸå›è°ƒ
         public int skEndCB { get; set; } = -1;
 
         #region State Define
@@ -55,7 +55,7 @@ namespace DarkGod.Main
             }
         }
 
-        //×´Ì¬ÇĞ»»
+        //çŠ¶æ€åˆ‡æ¢
         public void StateBorn()
         {
             if (stateMgr != null)
@@ -101,7 +101,7 @@ namespace DarkGod.Main
         #endregion
 
         #region AI Logic
-        //¹ÖÎïaiÂß¼­
+        //æ€ªç‰©aié€»è¾‘
         public virtual void TickAILogic()
         {
 
@@ -208,7 +208,7 @@ namespace DarkGod.Main
                 playerController.SetSkillMove(move, speed);
             }
         }
-        public virtual void SetAtkRotation(Vector2 dir, bool isOffset = false) //¿¼ÂÇÉãÏñ»úÆ«ÒÆ
+        public virtual void SetAtkRotation(Vector2 dir, bool isOffset = false) //è€ƒè™‘æ‘„åƒæœºåç§»
         {
             if (entityType == EntityType.Monster)
             {
@@ -227,7 +227,7 @@ namespace DarkGod.Main
             }
         }
 
-        #region Õ½¶·ĞÅÏ¢ÏÔÊ¾
+        #region æˆ˜æ–—ä¿¡æ¯æ˜¾ç¤º
         public virtual void SetDodge()
         {
             if (controller != null || playerController != null)
@@ -335,7 +335,7 @@ namespace DarkGod.Main
             return null;
         }
 
-        //»ñÈ¡µ±Ç°¹ÖÎïÊÇ·ñ¿É±»ÖĞ¶Ï×´Ì¬
+        //è·å–å½“å‰æ€ªç‰©æ˜¯å¦å¯è¢«ä¸­æ–­çŠ¶æ€
         public virtual bool GetBreakState()
         {
             return true;
@@ -351,22 +351,22 @@ namespace DarkGod.Main
             return Vector2.zero;
         }
 
-        //Á¬ÕĞË¼Â·£º°´ÏÂÆÕ¹¥Ê±£¬Ğ´Èë¶ÓÁĞ¡£µ±ÆÕÍ¨¹¥»÷Íê³Éºó£¬ÍË³öAttack×´Ì¬Ê±¼ì²â£¬ÅĞ¶Ï´æ´¢Á¬ÕĞÊı¾İµÄ¶ÓÁĞÖĞÊÇ·ñÓĞÊı¾İ£¬
-        //ÓĞÔòÈ¡³öÒ»ÌõskillID¸³Öµ¸ønextSkillID¡£½øÈëIdle×´Ì¬Ê±ºò£¬Èç¹ûnextSkillID²»ÎªÁã£¬½øÈë¹¥»÷×´Ì¬£¬ÊÍ·ÅÏÂÒ»¸ö¼¼ÄÜ
+        //è¿æ‹›æ€è·¯ï¼šæŒ‰ä¸‹æ™®æ”»æ—¶ï¼Œå†™å…¥é˜Ÿåˆ—ã€‚å½“æ™®é€šæ”»å‡»å®Œæˆåï¼Œé€€å‡ºAttackçŠ¶æ€æ—¶æ£€æµ‹ï¼Œåˆ¤æ–­å­˜å‚¨è¿æ‹›æ•°æ®çš„é˜Ÿåˆ—ä¸­æ˜¯å¦æœ‰æ•°æ®ï¼Œ
+        //æœ‰åˆ™å–å‡ºä¸€æ¡skillIDèµ‹å€¼ç»™nextSkillIDã€‚è¿›å…¥IdleçŠ¶æ€æ—¶å€™ï¼Œå¦‚æœnextSkillIDä¸ä¸ºé›¶ï¼Œè¿›å…¥æ”»å‡»çŠ¶æ€ï¼Œé‡Šæ”¾ä¸‹ä¸€ä¸ªæŠ€èƒ½
 
-        //ÍË³ö¼¼ÄÜµÄÍ³Ò»´¦Àí
+        //é€€å‡ºæŠ€èƒ½çš„ç»Ÿä¸€å¤„ç†
         public void ExitCurtSkill()
         {
             PlayerCanControl(true);
 
             if (curtSkillCfg != null)
             {
-                //ÍË³ö°ÔÌå×´Ì¬
+                //é€€å‡ºéœ¸ä½“çŠ¶æ€
                 if (!curtSkillCfg.isBreak)
                 {
                     entityState = EntityState.None;
                 }
-                //Á¬ÕĞÊı¾İ¸üĞÂ
+                //è¿æ‹›æ•°æ®æ›´æ–°
                 if (curtSkillCfg.isCombo)
                 {
                     if (comboQue.Count > 0)
@@ -378,7 +378,7 @@ namespace DarkGod.Main
                         nextSkillID = 0;
                     }
                 }
-                //¼¼ÄÜÅäÖÃÇåÀí
+                //æŠ€èƒ½é…ç½®æ¸…ç†
                 curtSkillCfg = null;
             }
             SetAction(Constants.ActionDefault);
@@ -472,13 +472,13 @@ namespace DarkGod.Main
         {
             CancelSkillMove(this);
 
-            //¸ù¾İtidÉ¾³ı¶¨Ê±»Øµ÷£¬ÏàÓ¦µÄÉËº¦ºÍÒÆ¶¯½«²»ÉúĞ§
+            //æ ¹æ®tidåˆ é™¤å®šæ—¶å›è°ƒï¼Œç›¸åº”çš„ä¼¤å®³å’Œç§»åŠ¨å°†ä¸ç”Ÿæ•ˆ
             DelTimeTaskByTid(this);
 
-            //¹¥»÷±»ÖĞ¶Ï£¬É¾³ı¶¨Ê±»Øµ÷
+            //æ”»å‡»è¢«ä¸­æ–­ï¼Œåˆ é™¤å®šæ—¶å›è°ƒ
             ClearSkillEndCB(this);
 
-            //Çå¿ÕÁ¬ÕĞÊı¾İ
+            //æ¸…ç©ºè¿æ‹›æ•°æ®
             ClearComboData(this);
         }
         #endregion

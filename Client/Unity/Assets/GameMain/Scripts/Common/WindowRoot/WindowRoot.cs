@@ -1,4 +1,4 @@
-//¹¦ÄÜ£ºUI½çÃæ»ùÀà
+ï»¿//åŠŸèƒ½ï¼šUIç•Œé¢åŸºç±»
 
 using PEProtocol;
 using System.Collections;
@@ -23,7 +23,7 @@ namespace DarkGod.Main
         {
             if (gameObject.activeSelf != isActive)
             {
-                //Èç¹û´«ÈëµÄ²ÎÊıÓëµ±Ç°×´Ì¬²»ÏàÍ¬ÔòÉèÖÃÎªÄ¿±ê×´Ì¬
+                //å¦‚æœä¼ å…¥çš„å‚æ•°ä¸å½“å‰çŠ¶æ€ä¸ç›¸åŒåˆ™è®¾ç½®ä¸ºç›®æ ‡çŠ¶æ€
                 SetActive(gameObject, isActive);
             }
             if (isActive)
@@ -43,7 +43,7 @@ namespace DarkGod.Main
 
         protected virtual void InitWnd()
         {
-            //»ñÈ¡µ¥ÀıµÄÒıÓÃ
+            //è·å–å•ä¾‹çš„å¼•ç”¨
             resSvc = ResSvc.MainInstance;
             configSvc = ConfigSvc.MainInstance;
             audioSvc = AudioSvc.MainInstance;
@@ -54,7 +54,7 @@ namespace DarkGod.Main
 
         protected virtual void ClearWnd()
         {
-            //ÖØÖÃÎª¿Õ
+            //é‡ç½®ä¸ºç©º
             resSvc = null;
             configSvc = null;
             audioSvc = null;
@@ -214,9 +214,9 @@ namespace DarkGod.Main
 
         protected float GetScreenWidth()
         {
-            //Í¨¹ı ±ê×¼ÆÁÄ»¸ß¶È/Êµ¼ÊÉè±¸ÆÁÄ»¸ß¶È£¬¼ÆËã³öµ±Ç°UIÏà¶ÔÓÚµ±Ç°ÆÁÄ»ĞèÒªËõ·ÅµÄ±ÈÀı£¨×¢ÒâCanvas Scaler Ò²Òª»ùÓÚ¸ß¶È×÷ÎªËõ·Å±ê×¼£©
+            //é€šè¿‡ æ ‡å‡†å±å¹•é«˜åº¦/å®é™…è®¾å¤‡å±å¹•é«˜åº¦ï¼Œè®¡ç®—å‡ºå½“å‰UIç›¸å¯¹äºå½“å‰å±å¹•éœ€è¦ç¼©æ”¾çš„æ¯”ä¾‹ï¼ˆæ³¨æ„Canvas Scaler ä¹Ÿè¦åŸºäºé«˜åº¦ä½œä¸ºç¼©æ”¾æ ‡å‡†ï¼‰
             float globalRate = UIItemUtils.GetScreenScale().x;
-            //Ëã³öÆÁÄ»ÕæÊµ¿í¶È
+            //ç®—å‡ºå±å¹•çœŸå®å®½åº¦
             float screenWidth = Screen.width * globalRate;
 
             return screenWidth;
@@ -255,7 +255,7 @@ namespace DarkGod.Main
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
             configSvc.ResetSkillCfgs();
-            EventMgr.MainInstance.ShowMessageBox(this, new("¼¼ÄÜÊı¾İÖØÖÃ³É¹¦£¡"));
+            EventMgr.MainInstance.ShowMessageBox(this, new("æŠ€èƒ½æ•°æ®é‡ç½®æˆåŠŸï¼"));
         }
 
         protected void ExitCurrentBattle(System.Action callback = null)
@@ -268,7 +268,7 @@ namespace DarkGod.Main
             }
             else if (GameRoot.MainInstance.GetGameState() == GameState.MainCity)
             {
-                EventMgr.MainInstance.ShowMessageBox(this, new("µ±Ç°Î´´¦ÓÚ¸±±¾Õ½¶·¹Ø¿¨"));
+                EventMgr.MainInstance.ShowMessageBox(this, new("å½“å‰æœªå¤„äºå‰¯æœ¬æˆ˜æ–—å…³å¡"));
             }
         }
 
@@ -281,19 +281,19 @@ namespace DarkGod.Main
         protected void SetExpprg(PlayerData pd, Text txtExpPrg, Transform expPrgTrans)
         {
             int expPrgVal = (int)(pd.exp * 1.0f / PECommon.GetExpUpValByLv(pd.lv) * 100);
-            //¾­ÑéÌõ½ø¶ÈµÄÏÔÊ¾
+            //ç»éªŒæ¡è¿›åº¦çš„æ˜¾ç¤º
             SetText(txtExpPrg, expPrgVal + "%");
 
             int expPrgindex = expPrgVal / 10;
 
             GridLayoutGroup expGrid = expPrgTrans.GetComponent<GridLayoutGroup>();
 
-            //¼õÈ¥Ğ¡µÄ¼äÏ¶
+            //å‡å»å°çš„é—´éš™
             float expCellWidth = (GetScreenWidth() - 180) / 10;
 
             expGrid.cellSize = new Vector2(expCellWidth, 7);
 
-            //±éÀúËùÓĞexpItem
+            //éå†æ‰€æœ‰expItem
             for (int i = 0; i < expPrgTrans.childCount; i++)
             {
                 Image img = expPrgTrans.GetChild(i).GetComponent<Image>();

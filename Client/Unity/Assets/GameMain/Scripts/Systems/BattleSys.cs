@@ -1,4 +1,4 @@
-//¹¦ÄÜ£ºÕ½¶·ÒµÎñÏµÍ³
+ï»¿//åŠŸèƒ½ï¼šæˆ˜æ–—ä¸šåŠ¡ç³»ç»Ÿ
 
 using PEProtocol;
 using System.Collections;
@@ -38,7 +38,7 @@ namespace DarkGod.Main
                 name = "BattleRoot"
             };
 
-            //³ÉÎªGameRootµÄ×ÓÎïÌå
+            //æˆä¸ºGameRootçš„å­ç‰©ä½“
             go.transform.SetParent(EventMgr.MainInstance.transform);
             battleMgr = go.AddComponent<BattleMgr>();
 
@@ -59,7 +59,7 @@ namespace DarkGod.Main
             if (isWin)
             {
                 double endTime = timerSvc.GetNowTime();
-                //Õ½¶·Ê¤Àû£¬·¢ËÍ½áËãÕ½¶·ÇëÇó
+                //æˆ˜æ–—èƒœåˆ©ï¼Œå‘é€ç»“ç®—æˆ˜æ–—è¯·æ±‚
                 GameMsg msg = new GameMsg
                 {
                     cmd = (int)CMD.ReqFBFightEnd,

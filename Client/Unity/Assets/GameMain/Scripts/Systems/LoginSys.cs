@@ -1,4 +1,4 @@
-//¹¦ÄÜ£ºµÇÂ½×¢²áÒµÎñÏµÍ³
+ï»¿//åŠŸèƒ½ï¼šç™»é™†æ³¨å†Œä¸šåŠ¡ç³»ç»Ÿ
 
 using PEProtocol;
 using System.Collections;
@@ -30,15 +30,15 @@ namespace DarkGod.Main
         }
 
         /// <summary>
-        /// ½øÈëµÇÂ¼³¡¾°
+        /// è¿›å…¥ç™»å½•åœºæ™¯
         /// </summary>
         public void EnterLogin()
         {
-            //Òì²½µÄ¼ÓÔØµÇÂ¼³¡¾°
-            //²¢ÏÔÊ¾¼ÓÔØµÄ½ø¶È
+            //å¼‚æ­¥çš„åŠ è½½ç™»å½•åœºæ™¯
+            //å¹¶æ˜¾ç¤ºåŠ è½½çš„è¿›åº¦
             resSvc.AsyncLoadScene(Constants.ResourcePackgeName, PathDefine.SceneLogin, () =>
             {
-                //¼ÓÔØÍê³ÉÒÔºóÔÙ´ò¿ª×¢²áµÇÂ¼½çÃæ
+                //åŠ è½½å®Œæˆä»¥åå†æ‰“å¼€æ³¨å†Œç™»å½•ç•Œé¢
                 loginWnd.SetWndState();
                 List<string> auLst = new List<string> { Constants.BGLogin };
                 audioSvc.StopBGMusic();
@@ -49,20 +49,20 @@ namespace DarkGod.Main
 
         public void RspLogin(GameMsg msg)
         {
-            EventMgr.MainInstance.ShowMessageBox(this, new("µÇÂ¼³É¹¦"));
+            EventMgr.MainInstance.ShowMessageBox(this, new("ç™»å½•æˆåŠŸ"));
             GameRoot.MainInstance.SetPlayerData(msg.rspLogin);
 
             if (msg.rspLogin.playerData.name == "")
             {
-                //´ò¿ª½ÇÉ«´´½¨½çÃæ
+                //æ‰“å¼€è§’è‰²åˆ›å»ºç•Œé¢
                 createWnd.SetWndState();
             }
             else
             {
-                //½øÈëÖ÷³Ç
+                //è¿›å…¥ä¸»åŸ
                 MainCitySys.Instance.EnterMainCity();
             }
-            //¹Ø±ÕµÇÂ¼½çÃæ
+            //å…³é—­ç™»å½•ç•Œé¢
             loginWnd.SetWndState(false);
         }
 
@@ -70,11 +70,11 @@ namespace DarkGod.Main
         {
             GameRoot.MainInstance.SetPlayerName(msg.rspRename.name);
 
-            //Ìø×ª³¡¾°½øÈëÖ÷³Ç
-            //´ò¿ªÖ÷³ÇµÄ½çÃæ
+            //è·³è½¬åœºæ™¯è¿›å…¥ä¸»åŸ
+            //æ‰“å¼€ä¸»åŸçš„ç•Œé¢
             MainCitySys.Instance.EnterMainCity();
 
-            //¹Ø±Õ´´½¨½çÃæ
+            //å…³é—­åˆ›å»ºç•Œé¢
             createWnd.SetWndState(false);
         }
 

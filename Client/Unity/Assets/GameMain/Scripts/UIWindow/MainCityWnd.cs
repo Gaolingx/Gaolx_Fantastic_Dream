@@ -1,4 +1,4 @@
-//¹¦ÄÜ£ºÖ÷³ÇUI½çÃæ
+ï»¿//åŠŸèƒ½ï¼šä¸»åŸUIç•Œé¢
 
 using PEProtocol;
 using System.Collections;
@@ -77,14 +77,14 @@ namespace DarkGod.Main
             PlayerData pd = GameRoot.MainInstance.PlayerData;
 
             SetText(txtFight, PECommon.GetFightByProps(pd));
-            SetText(txtPower, "ÌåÁ¦:" + pd.power + "/" + PECommon.GetPowerLimit(pd.lv));
+            SetText(txtPower, "ä½“åŠ›:" + pd.power + "/" + PECommon.GetPowerLimit(pd.lv));
             imgPowerPrg.fillAmount = pd.power * 1.0f / PECommon.GetPowerLimit(pd.lv);
             SetText(txtLevel, pd.lv);
             SetText(txtName, pd.name);
 
             SetExpprg(pd, txtExpPrg, expPrgTrans);
 
-            //ÉèÖÃ×Ô¶¯ÈÎÎñÍ¼±ê
+            //è®¾ç½®è‡ªåŠ¨ä»»åŠ¡å›¾æ ‡
             curtTaskData = configSvc.GetAutoGuideCfg(pd.guideid);
             if (curtTaskData != null)
             {
@@ -100,7 +100,7 @@ namespace DarkGod.Main
         {
             string spPath = "";
             Image img = btnGuide.GetComponent<Image>();
-            //¸ù¾İ²»Í¬µÄnpcID»ñÈ¡²»Í¬µÄÍ¼Æ¬(»ñÈ¡¶ÔÓ¦NPCµÄÍ¼Æ¬Â·¾¶)
+            //æ ¹æ®ä¸åŒçš„npcIDè·å–ä¸åŒçš„å›¾ç‰‡(è·å–å¯¹åº”NPCçš„å›¾ç‰‡è·¯å¾„)
             switch (npcID)
             {
                 case Constants.NPCWiseMan:
@@ -120,7 +120,7 @@ namespace DarkGod.Main
                     break;
             }
 
-            //¼ÓÔØÂ·¾¶ÖĞµÄÍ¼Æ¬£¬²¢ÏÔÊ¾µ½ButtonÄÚ
+            //åŠ è½½è·¯å¾„ä¸­çš„å›¾ç‰‡ï¼Œå¹¶æ˜¾ç¤ºåˆ°Buttonå†…
             SetSprite(img, spPath);
         }
         #endregion
@@ -157,12 +157,12 @@ namespace DarkGod.Main
 
             if (curtTaskData != null)
             {
-                //ÈÎÎñ´æÔÚ£¬Ö´ĞĞÒıµ¼ÈÎÎñ
+                //ä»»åŠ¡å­˜åœ¨ï¼Œæ‰§è¡Œå¼•å¯¼ä»»åŠ¡
                 MainCitySys.Instance.RunTask(curtTaskData);
             }
             else
             {
-                EventMgr.MainInstance.ShowMessageBox(this, new("¸ü¶àÒıµ¼ÈÎÎñ£¬ÕıÔÚ¿ª·¢ÖĞ..."));
+                EventMgr.MainInstance.ShowMessageBox(this, new("æ›´å¤šå¼•å¯¼ä»»åŠ¡ï¼Œæ­£åœ¨å¼€å‘ä¸­..."));
             }
         }
         public void ClickMenuBtn()
@@ -192,38 +192,38 @@ namespace DarkGod.Main
             MainCitySys.Instance.OpenChatWnd();
         }
 
-        //×¢²á´¥ÃşÊÂ¼ş
+        //æ³¨å†Œè§¦æ‘¸äº‹ä»¶
         public void RegisterTouchEvts()
         {
-            //Ò¡¸Ë°´ÏÂ
+            //æ‘‡æ†æŒ‰ä¸‹
             OnClickDown(imgTouch.gameObject, (PointerEventData evt) =>
             {
-                //¼ÆËãÒ¡¸Ë°´ÏÂÈ¥ºó£¬ÍÏ×§µÄ·½Ïò
-                //·½·¨ÊÇ¼ÇÂ¼°´ÏÂÈ¥Ê±µã»÷µÄÎ»ÖÃ(ÆğÊ¼Î»ÖÃstartPos)£¬ÍÏ×§Ê±ÓÃÍÏ×§ºóÒ¡¸ËĞÂµÄµã¼õÈ¥µ±Ç°°´ÏÂÈ¥µÄµã£¬Ëã³ö·½ÏòÏòÁ¿
+                //è®¡ç®—æ‘‡æ†æŒ‰ä¸‹å»åï¼Œæ‹–æ‹½çš„æ–¹å‘
+                //æ–¹æ³•æ˜¯è®°å½•æŒ‰ä¸‹å»æ—¶ç‚¹å‡»çš„ä½ç½®(èµ·å§‹ä½ç½®startPos)ï¼Œæ‹–æ‹½æ—¶ç”¨æ‹–æ‹½åæ‘‡æ†æ–°çš„ç‚¹å‡å»å½“å‰æŒ‰ä¸‹å»çš„ç‚¹ï¼Œç®—å‡ºæ–¹å‘å‘é‡
                 startPos = evt.position;
-                //°´ÏÂÈ¥Ê±¼¤»î±»Òş²ØµÄÒ¡¸Ëµã
+                //æŒ‰ä¸‹å»æ—¶æ¿€æ´»è¢«éšè—çš„æ‘‡æ†ç‚¹
                 SetActive(imgDirPoint);
-                //µ±Ò¡¸Ë°´ÏÂÊ±£¬ÆäÎ»ÖÃÒª¸üĞÂµ½µã»÷Î»ÖÃ
-                imgDirBg.transform.position = evt.position; //Ê¹ÓÃpositionµÄÔ­ÒòÊÇµã»÷ÊÂ¼ş´«ÈëµÄÊÇÈ«¾Ö×ø±ê
+                //å½“æ‘‡æ†æŒ‰ä¸‹æ—¶ï¼Œå…¶ä½ç½®è¦æ›´æ–°åˆ°ç‚¹å‡»ä½ç½®
+                imgDirBg.transform.position = evt.position; //ä½¿ç”¨positionçš„åŸå› æ˜¯ç‚¹å‡»äº‹ä»¶ä¼ å…¥çš„æ˜¯å…¨å±€åæ ‡
             });
-            //Ò¡¸ËÌ§Æğ
+            //æ‘‡æ†æŠ¬èµ·
             OnClickUp(imgTouch.gameObject, (PointerEventData evt) =>
             {
-                //µ±Ì§ÆğÊ±¸´Ô­±³¾°µ½³õÊ¼Î»ÖÃ£¨defaultPos£©
+                //å½“æŠ¬èµ·æ—¶å¤åŸèƒŒæ™¯åˆ°åˆå§‹ä½ç½®ï¼ˆdefaultPosï¼‰
                 imgDirBg.transform.position = defaultPos;
                 SetActive(imgDirPoint, false);
-                //¸´Ô­Ò¡¸ËµãµÄÎ»ÖÃÖÁÕıÖĞÑë
-                imgDirPoint.transform.localPosition = Vector2.zero; //Ê¹ÓÃlocalPositionµÄÔ­ÒòÊÇimgDirPointµÄ×ø±êÊÇÏà¶ÔÓÚ¸¸ÎïÌå×ø±ê£¨±¾µØ×ø±ê£©
+                //å¤åŸæ‘‡æ†ç‚¹çš„ä½ç½®è‡³æ­£ä¸­å¤®
+                imgDirPoint.transform.localPosition = Vector2.zero; //ä½¿ç”¨localPositionçš„åŸå› æ˜¯imgDirPointçš„åæ ‡æ˜¯ç›¸å¯¹äºçˆ¶ç‰©ä½“åæ ‡ï¼ˆæœ¬åœ°åæ ‡ï¼‰
                 MainCitySys.Instance.SetMoveDir(Vector2.zero);
             });
-            //Ò¡¸ËÍÏ¶¯
+            //æ‘‡æ†æ‹–åŠ¨
             OnDrag(imgTouch.gameObject, (PointerEventData evt) =>
             {
-                //¼ÆËãÍÏ×§µÄ·½ÏòÏòÁ¿
+                //è®¡ç®—æ‹–æ‹½çš„æ–¹å‘å‘é‡
                 Vector2 dragDir = evt.position - startPos;
                 float dragLen = dragDir.magnitude;
 
-                //ÏŞÖÆÒ¡¸ËÒÆ¶¯¾àÀë
+                //é™åˆ¶æ‘‡æ†ç§»åŠ¨è·ç¦»
                 if (dragLen > pointDis)
                 {
                     Vector2 clampDragDir = Vector2.ClampMagnitude(dragDir, pointDis);

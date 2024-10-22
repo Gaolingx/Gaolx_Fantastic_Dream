@@ -1,4 +1,4 @@
-//¹¦ÄÜ£º½ÇÉ«´´½¨½çÃæ
+ï»¿//åŠŸèƒ½ï¼šè§’è‰²åˆ›å»ºç•Œé¢
 
 using PEProtocol;
 using System.Collections;
@@ -18,7 +18,7 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
-            //ÏÔÊ¾Ò»¸öËæ»úÃû×Ö
+            //æ˜¾ç¤ºä¸€ä¸ªéšæœºåå­—
             iptName.text = configSvc.GetRDNameCfg(false);
         }
 
@@ -42,7 +42,7 @@ namespace DarkGod.Main
 
             if (iptName.text != "")
             {
-                //·¢ËÍÃû×ÖÊı¾İµ½·şÎñÆ÷£¬µÇÂ¼Ö÷³Ç
+                //å‘é€åå­—æ•°æ®åˆ°æœåŠ¡å™¨ï¼Œç™»å½•ä¸»åŸ
                 GameMsg msg = new GameMsg
                 {
                     cmd = (int)CMD.ReqRename,
@@ -55,7 +55,7 @@ namespace DarkGod.Main
             }
             else
             {
-                EventMgr.MainInstance.ShowMessageBox(this, new("µ±Ç°Ãû×Ö²»·ûºÏ¹æ·¶"));
+                EventMgr.MainInstance.ShowMessageBox(this, new("å½“å‰åå­—ä¸ç¬¦åˆè§„èŒƒ"));
             }
         }
 

@@ -1,6 +1,6 @@
-//¹¦ÄÜ£º¹«ÓÃµÄÀà£¬ÓÃÓÚ³£Á¿ÅäÖÃ
+ï»¿//åŠŸèƒ½ï¼šå…¬ç”¨çš„ç±»ï¼Œç”¨äºå¸¸é‡é…ç½®
 
-//×¢Òâ£ºÒµÎñÏà¹ØµÄÊı¾İ¡¢ÅäÖÃµÈÓÉÓÚÆµ·±·¢Éú±ä¶¯£¬ÎªÁË·½±ãµ÷Õû£¬¾¡Á¿²»ÒªÖ±½ÓĞ´ËÀÔÚ´úÂëÖĞ£¬¶øÊÇ×ö³ÉÒ»¸öÅäÖÃ£¬ÔÚÍ³Ò»µÄµØ·½½øĞĞĞŞ¸Ä
+//æ³¨æ„ï¼šä¸šåŠ¡ç›¸å…³çš„æ•°æ®ã€é…ç½®ç­‰ç”±äºé¢‘ç¹å‘ç”Ÿå˜åŠ¨ï¼Œä¸ºäº†æ–¹ä¾¿è°ƒæ•´ï¼Œå°½é‡ä¸è¦ç›´æ¥å†™æ­»åœ¨ä»£ç ä¸­ï¼Œè€Œæ˜¯åšæˆä¸€ä¸ªé…ç½®ï¼Œåœ¨ç»Ÿä¸€çš„åœ°æ–¹è¿›è¡Œä¿®æ”¹
 namespace DarkGod.Main
 {
     public enum GameState
@@ -28,15 +28,15 @@ namespace DarkGod.Main
         Yellow
     }
 
-    //ÉËº¦ÀàĞÍ
+    //ä¼¤å®³ç±»å‹
     public enum DamageType
     {
         None,
-        AD = 1,//ÎïÀíÉËº¦
-        AP = 2//Ä§·¨ÉËº¦
+        AD = 1,//ç‰©ç†ä¼¤å®³
+        AP = 2//é­”æ³•ä¼¤å®³
     }
 
-    //ÊµÌåÀàĞÍ
+    //å®ä½“ç±»å‹
     public enum EntityType
     {
         None,
@@ -47,7 +47,7 @@ namespace DarkGod.Main
     public enum EntityState
     {
         None,
-        BatiState, //°ÔÌå×´Ì¬£º²»¿É¿ØÖÆ£¨¼¼ÄÜ²»»á±»ÖĞ¶ÏÇÒ²»»á½øÈëHit×´Ì¬£©£¬µ«¿ÉÊÜµ½ÉËº¦
+        BatiState, //éœ¸ä½“çŠ¶æ€ï¼šä¸å¯æ§åˆ¶ï¼ˆæŠ€èƒ½ä¸ä¼šè¢«ä¸­æ–­ä¸”ä¸ä¼šè¿›å…¥HitçŠ¶æ€ï¼‰ï¼Œä½†å¯å—åˆ°ä¼¤å®³
         //etc..
     }
 
@@ -67,7 +67,7 @@ namespace DarkGod.Main
     public class Constants
     {
         #region ColorHex Code
-        //ÎÄ×ÖÑÕÉ«
+        //æ–‡å­—é¢œè‰²
         public const string ColorWhiteHex = "#FFFFFF";
         public const string ColorRedHex = "#FF0000FF";
         public const string ColorGreenHex = "#00FF00FF";
@@ -98,21 +98,21 @@ namespace DarkGod.Main
         public const int NPCTrader = 3;
 
 
-        //³¡¾°Ãû³Æ/ID
+        //åœºæ™¯åç§°/ID
         public const int MainCityMapID = 10000;
         //public const string SceneMainCity = "SceneMainCity";
 
 
-        //±³¾°ÒôĞ§Ãû³Æ
+        //èƒŒæ™¯éŸ³æ•ˆåç§°
         public const string BGLogin = "bgLogin";
         public const string BGMainCity = "bgMainCity";
         public const string BGHuangYe = "bgHuangYe";
         public const string BGBattle01 = "1c19a603d769341c0285eeb548f3f9a0_567248410615622045";
 
-        //µÇÂ¼°´Å¥ÒôĞ§
+        //ç™»å½•æŒ‰é’®éŸ³æ•ˆ
         public const string UILoginBtn = "uiLoginBtn";
 
-        //³£¹æUIµã»÷ÒôĞ§
+        //å¸¸è§„UIç‚¹å‡»éŸ³æ•ˆ
         public const string UIClickBtn = "uiClickBtn";
         public const string UIExtenBtn = "uiExtenBtn";
         public const string UIOpenPage = "uiOpenPage";
@@ -121,85 +121,85 @@ namespace DarkGod.Main
         public const string FBLose = "fblose";
         public const string FBLogoEnter = "fbwin";
 
-        //½ÇÉ«Ïà¹ØÒôĞ§
+        //è§’è‰²ç›¸å…³éŸ³æ•ˆ
         public const string Audio_Mar7th00_Hit = "assassin_Hit";
 
-        //UI¶¯»­Â·¾¶ÅäÖÃ
+        //UIåŠ¨ç”»è·¯å¾„é…ç½®
         public const string openMCmenuAniClipName = "OpenMCMenu";
         public const string closeMCmenuAniClipName = "CloseMCMenu";
 
 
-        //ÆÁÄ»±ê×¼¿í¸ß
+        //å±å¹•æ ‡å‡†å®½é«˜
         public const int ScreenStandardWidth = 1920;
         public const int ScreenStandardHeight = 1080;
 
-        //Ò¡¸Ëµã±ê×¼¾àÀë
+        //æ‘‡æ†ç‚¹æ ‡å‡†è·ç¦»
         public const int ScreenOPDis = 90;
 
 
-        //»ìºÏ²ÎÊı
+        //æ··åˆå‚æ•°
         public const int BlendIdle = 0;
         public const int BlendWalk = 1;
 
-        // ¶¯»­Ê±³¤ÉèÖÃ
+        // åŠ¨ç”»æ—¶é•¿è®¾ç½®
         public const int IdleAniWaitDelay = 15000;
 
-        //½ÇÉ«ÒÆ¶¯ËÙ¶È
+        //è§’è‰²ç§»åŠ¨é€Ÿåº¦
         public const float PlayerMoveSpeed = 3.82f;
-        //½ÇÉ«±¼ÅÜËÙ¶È
+        //è§’è‰²å¥”è·‘é€Ÿåº¦
         public const float PlayerSprintSpeed = 6.727f;
-        //¹ÖÎïÒÆ¶¯ËÙ¶È
+        //æ€ªç‰©ç§»åŠ¨é€Ÿåº¦
         public const int MonsterMoveSpeed = 4;
 
-        //ÔË¶¯Æ½»¬¼ÓËÙ¶È
+        //è¿åŠ¨å¹³æ»‘åŠ é€Ÿåº¦
         public const float AccelerSpeed = 5;
         public const float AccelerHPSpeed = 0.3f;
 
-        //PlayerFollowCamera±êÇ©
+        //PlayerFollowCameraæ ‡ç­¾
         public const string PlayerFollowCameraWithTag = "PlayerFollowCam";
-        //CinemachineVirtualCamera¸úËæÄ¿±êµÄ±êÇ©
+        //CinemachineVirtualCameraè·Ÿéšç›®æ ‡çš„æ ‡ç­¾
         public const string CinemachineVirtualCameraFollowGameObjectWithTag = "PlayerCameraRoot";
-        //CinemachineVirtualCamera²Ã¼ôÆ½Ãæ
+        //CinemachineVirtualCameraè£å‰ªå¹³é¢
         public const float CinemachineVirtualCameraNearClipPlane = 0.2f;
         public const float CinemachineVirtualCameraFarClipPlane = 15000;
 
-        //½ÇÉ«Õ¹Ê¾Ïà»úÅäÖÃ
+        //è§’è‰²å±•ç¤ºç›¸æœºé…ç½®
         public const string CharShowCamWithTag = "CharShowCam";
         public const float CharShowCamDistanceOffset = 2.8f;
         public const float CharShowCamHeightOffset = 0.8f;
 
-        //Íæ¼ÒĞÅÏ¢Ò³Ä£ĞÍÍÏ×§ËÙ¶È
+        //ç©å®¶ä¿¡æ¯é¡µæ¨¡å‹æ‹–æ‹½é€Ÿåº¦
         public const float OnDragCharRoateSpeed = 0.4f;
 
-        //Íæ¼Ò±êÇ©
+        //ç©å®¶æ ‡ç­¾
         public const string CharPlayerWithTag = "Player";
 
-        //GamePadÅäÖÃ
+        //GamePadé…ç½®
         public const string Path_PlayerInputs_Obj = "PlayerInputs";
         public const string Path_Joysticks_Obj = "Canvas/UI_Canvas_StarterAssetsInputs_Joysticks";
 
-        //×Ô¶¯ÈÎÎñÍ¼±êÅäÖÃ
+        //è‡ªåŠ¨ä»»åŠ¡å›¾æ ‡é…ç½®
         public const int DefaultGuideBtnIconID = -1;
 
-        //MainCityMapÅäÖÃ
+        //MainCityMapé…ç½®
         public const string MapRootGameObjectWithTag = "MapRoot";
 
-        //NavMeshÅäÖÃ
+        //NavMeshé…ç½®
         public const float NavNpcDst = 0.5f;
         public const float PlayerMoveSpeedNav = 2;
 
-        //DialogueWndÅäÖÃ
-        public const string CurtTaskData_NpcID_0_Name = "ÖÇÕß";
-        public const string CurtTaskData_NpcID_1_Name = "½«¾ü";
-        public const string CurtTaskData_NpcID_2_Name = "¹¤½³";
-        public const string CurtTaskData_NpcID_3_Name = "ÉÌÈË";
-        public const string CurtTaskData_NpcID_Default_Name = "Ğ¡Ü¿";
+        //DialogueWndé…ç½®
+        public const string CurtTaskData_NpcID_0_Name = "æ™ºè€…";
+        public const string CurtTaskData_NpcID_1_Name = "å°†å†›";
+        public const string CurtTaskData_NpcID_2_Name = "å·¥åŒ ";
+        public const string CurtTaskData_NpcID_3_Name = "å•†äºº";
+        public const string CurtTaskData_NpcID_Default_Name = "å°èŠ¸";
 
-        //SettingsÃæ°åÅäÖÃ
+        //Settingsé¢æ¿é…ç½®
         public const string BGAudioGameObjectName = "BGAudio";
         public const string UIAudioGameObjectName = "UIAudio";
 
-        //actIDÅäÖÃ
+        //actIDé…ç½®
         public const int CurtTaskDataActID_0 = 0;
         public const int CurtTaskDataActID_1 = 1;
         public const int CurtTaskDataActID_2 = 2;
@@ -207,45 +207,45 @@ namespace DarkGod.Main
         public const int CurtTaskDataActID_4 = 4;
         public const int CurtTaskDataActID_5 = 5;
 
-        //ÁÄÌì½çÃæÅäÖÃ
+        //èŠå¤©ç•Œé¢é…ç½®
         public const int TextMaxLength = 12;
         public const float SndMsgWaitForSeconds = 5.0f;
 
-        //¹ºÂòÏà¹ØÅäÖÃ
+        //è´­ä¹°ç›¸å…³é…ç½®
         public const int BuyTypePower = 0;
         public const int MakeTypeCoin = 1;
         public const int BuyCostDiamondOnce = 10;
 
-        //npcIDÅäÖÃ
+        //npcIDé…ç½®
         public const int NpcTypeID_0 = 0;
         public const int NpcTypeID_1 = 1;
         public const int NpcTypeID_2 = 2;
         public const int NpcTypeID_3 = 3;
 
-        //Mar_7th_00 ¶¯»­²ÎÊıÅäÖÃ
+        //Mar_7th_00 åŠ¨ç”»å‚æ•°é…ç½®
         public const string AniID_Mar7th00_Blend_Speed = "Speed";
         public const string AniID_Mar7th00_Blend_MotionSpeed = "MotionSpeed";
 
-        //Action´¥·¢²ÎÊı£¨¶ÔÓ¦animator£©
+        //Actionè§¦å‘å‚æ•°ï¼ˆå¯¹åº”animatorï¼‰
         public const int ActionDefault = -1;
         public const int ActionBorn = 0;
         public const int ActionDie = 100;
         public const int ActionHit = 101;
         public const int ActionIdle = 99;
 
-        //¼¼ÄÜIDÅäÖÃ
+        //æŠ€èƒ½IDé…ç½®
         public const int SkillID_Mar7th00_skill01 = 101;
         public const int SkillID_Mar7th00_skill02 = 102;
         public const int SkillID_Mar7th00_skill03 = 103;
         public const int SkillID_Mar7th00_normalAtk01 = 111;
 
-        //Á¬ÕĞÅäÖÃ
-        //1.ÆÕ¹¥Á¬ÕĞÓĞĞ§¼ä¸ô£¨µ¥Î»£ºms£©
+        //è¿æ‹›é…ç½®
+        //1.æ™®æ”»è¿æ‹›æœ‰æ•ˆé—´éš”ï¼ˆå•ä½ï¼šmsï¼‰
         public const int ComboSpace01 = 2500;
         public static int[] comboArr01 = { 111, 112, 113, 114, 115 };
 
-        //MonsterÅäÖÃ
-        public const int ActiveMonsterDelayTime = 500; //µ¥Î»£ºms
+        //Monsteré…ç½®
+        public const int ActiveMonsterDelayTime = 500; //å•ä½ï¼šms
         public const int StateIdleMonsterDelayTime = 1000;
         public const int StateBornMonsterDurationTime = 500;
         public const int StateDieMonsterAnimTime = 5000;
@@ -261,6 +261,6 @@ namespace DarkGod.Main
         public const int PlayerCollideLayer = 13;
 
         //FSM
-        public const float HitAniLengthOffset = -2.1f; //Õâ¸öÖµ²»½¨ÒéÔÚ´ËĞŞ¸Ä
+        public const float HitAniLengthOffset = -2.1f; //è¿™ä¸ªå€¼ä¸å»ºè®®åœ¨æ­¤ä¿®æ”¹
     }
 }

@@ -1,4 +1,4 @@
-using HuHu;
+锘縰sing HuHu;
 using System;
 
 namespace DarkGod.Main
@@ -36,7 +36,7 @@ namespace DarkGod.Main
             _onGameWindowShowMessageEventHandler += C_OnGameWindowShowMessageEvent;
         }
 
-        // 定义游戏全局事件
+        // 瀹氫箟娓告垙鍏ㄥ眬浜嬩欢
         private event EventHandler<GameStateEventArgs> _onGameStateEventHandler;
         public Action OnGameEnter { get; set; }
         public Action OnGameExit { get; set; }

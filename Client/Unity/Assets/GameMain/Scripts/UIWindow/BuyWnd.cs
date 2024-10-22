@@ -1,5 +1,4 @@
-//功能：购买交易窗口
-
+﻿//功能：购买交易窗口
 
 using PEProtocol;
 using UnityEngine;

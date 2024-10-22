@@ -1,10 +1,10 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 namespace HuHu
 {
     public abstract class Singleton<T> : MonoBehaviour where T : Singleton<T>
     {
-        private static readonly object syslock = new object(); // Ïß³ÌËø
+        private static readonly object syslock = new object(); // çº¿ç¨‹é”
         private static T _instance;
 
         public static T MainInstance
@@ -13,7 +13,7 @@ namespace HuHu
             {
                 if (_instance == null)
                 {
-                    lock (syslock) //ËøÒ»ÏÂ£¬±ÜÃâ¶àÏß³Ì³öÎÊÌâ
+                    lock (syslock) //é”ä¸€ä¸‹ï¼Œé¿å…å¤šçº¿ç¨‹å‡ºé—®é¢˜
                     {
                         _instance = FindObjectOfType(typeof(T)) as T;
 
