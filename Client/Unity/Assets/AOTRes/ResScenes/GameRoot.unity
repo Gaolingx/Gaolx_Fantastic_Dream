@@ -695,7 +695,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_cursorLocked: 0
-  touchZone: {fileID: 0}
   m_FrameRate: 60
   m_GameSpeed: 1
   m_RunInBackground: 1
