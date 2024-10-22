@@ -12,9 +12,6 @@ public class UIController : MonoBehaviour
     private CursorLockMode m_cursorLocked = CursorLockMode.None;
 
     [SerializeField]
-    private Canvas touchZone;
-
-    [SerializeField]
     private int m_FrameRate = 60;
 
     [SerializeField]
@@ -49,25 +46,8 @@ public class UIController : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-    }
 
-    private void Start()
-    {
         Init();
-
-
-#if UNITY_ANDROID
-        if (touchZone != null)
-        {
-            touchZone.gameObject.SetActive(true);
-        }
-
-#else
-        if (touchZone != null)
-        {
-            touchZone.gameObject.SetActive(false);
-        }
-#endif
     }
 
     /// <summary>
