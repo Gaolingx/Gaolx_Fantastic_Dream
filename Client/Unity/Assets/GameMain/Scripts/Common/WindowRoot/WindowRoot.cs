@@ -246,7 +246,7 @@ namespace DarkGod.Main
             }
             else if (GameRoot.MainInstance.GetGameState() == GameState.MainCity)
             {
-                MainCitySys.Instance.PauseGameLogic(false);
+                MainCitySys.MainInstance.PauseGameLogic(false);
             }
         }
 

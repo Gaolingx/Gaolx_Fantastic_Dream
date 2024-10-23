@@ -6,6 +6,8 @@ namespace DarkGod.Main
     public enum GameStateEventCode
     {
         GameStart,
+        GamePause,
+        GameContinue,
         GameStop
     }
     public class GameStateEventArgs : EventArgs
@@ -39,6 +41,7 @@ namespace DarkGod.Main
         // 定义游戏全局事件
         private event EventHandler<GameStateEventArgs> _onGameStateEventHandler;
         public Action OnGameEnter { get; set; }
+        public Action<bool> OnGamePause { get; set; }
         public Action OnGameExit { get; set; }
 
         private void C_OnGameStateOperationEvent(object sender, GameStateEventArgs eventArgs)
@@ -46,6 +49,14 @@ namespace DarkGod.Main
             if (eventArgs.GameStateEventCode == GameStateEventCode.GameStart)
             {
                 OnGameEnter?.Invoke();
+            }
+            else if (eventArgs.GameStateEventCode == GameStateEventCode.GamePause)
+            {
+                OnGamePause?.Invoke(true);
+            }
+            else if (eventArgs.GameStateEventCode == GameStateEventCode.GameContinue)
+            {
+                OnGamePause.Invoke(false);
             }
             else if (eventArgs.GameStateEventCode == GameStateEventCode.GameStop)
             {
@@ -71,7 +82,6 @@ namespace DarkGod.Main
         }
 
         public BindableProperty<int> QualityLevel { get; set; } = new BindableProperty<int>();
-        public BindableProperty<bool> PauseState { get; set; } = new BindableProperty<bool>();
         public BindableProperty<EntityPlayer> CurrentEPlayer { get; set; } = new BindableProperty<EntityPlayer>();
 
         private void OnDestroy()

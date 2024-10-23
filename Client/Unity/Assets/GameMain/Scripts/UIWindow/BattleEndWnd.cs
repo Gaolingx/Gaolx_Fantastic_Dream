@@ -78,7 +78,7 @@ namespace DarkGod.Main
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
             //进入主城，销毁当前战斗，打开副本界面
-            ExitCurrentBattle(delegate { FubenSys.Instance.EnterFuben(); });
+            ExitCurrentBattle(delegate { FubenSys.MainInstance.EnterFuben(); });
         }
 
         private bool FBEndTypePause()

@@ -82,7 +82,7 @@ namespace DarkGod.Main
 
         public void EnterMainCity()
         {
-            MainCitySys.Instance.EnterMainCity();
+            MainCitySys.MainInstance.EnterMainCity();
         }
 
         public void DestroyBattle()

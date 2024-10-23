@@ -9,8 +9,6 @@ namespace DarkGod.Main
 {
     public class FubenSys : SystemRoot<FubenSys>
     {
-        public static FubenSys Instance = null;
-
         public FubenWnd fubenWnd;
 
         protected override void Awake()
@@ -24,7 +22,6 @@ namespace DarkGod.Main
         {
             base.InitSys();
 
-            Instance = MainInstance;
             PECommon.Log("Init FubenSys...");
         }
 
@@ -43,7 +40,7 @@ namespace DarkGod.Main
         public void RspFBFight(GameMsg msg)
         {
             GameRoot.MainInstance.SetPlayerDataByFBStart(msg.rspFBFight);
-            MainCitySys.Instance.maincityWnd.SetWndState(false);
+            MainCitySys.MainInstance.maincityWnd.SetWndState(false);
             SetFubenWndState(false);
             //加载对应的战斗场景，开始副本战斗任务
             BattleSys.MainInstance.StartBattle(msg.rspFBFight.fbid);

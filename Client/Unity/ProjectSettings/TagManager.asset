@@ -10,6 +10,9 @@ TagManager:
   - MapRoot
   - PlayerFollowCam
   - Joysticks
+  - Item
+  - Door
+  - MapRoot2
   layers:
   - Default
   - TransparentFX

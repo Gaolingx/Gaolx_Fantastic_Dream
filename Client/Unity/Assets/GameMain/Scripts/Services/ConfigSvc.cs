@@ -461,6 +461,19 @@ namespace DarkGod.Main
             }
             return null;
         }
+
+        public List<int> GetAllComboAction()
+        {
+            List<int> listCombo = new List<int>();
+            foreach (SkillCfg sc in skillDic.Values)
+            {
+                if (sc.isCombo)
+                {
+                    listCombo.Add(sc.ID);
+                }
+            }
+            return listCombo;
+        }
         #endregion
 
         #region 技能位移配置

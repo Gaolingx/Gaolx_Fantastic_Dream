@@ -9,8 +9,6 @@ namespace DarkGod.Main
 {
     public class LoginSys : SystemRoot<LoginSys>
     {
-        public static LoginSys Instance = null;
-
         public LoginWnd loginWnd;
         public CreateWnd createWnd;
 
@@ -25,7 +23,6 @@ namespace DarkGod.Main
         {
             base.InitSys();
 
-            Instance = MainInstance;
             PECommon.Log("Init LoginSys...");
         }
 
@@ -60,7 +57,7 @@ namespace DarkGod.Main
             else
             {
                 //进入主城
-                MainCitySys.Instance.EnterMainCity();
+                MainCitySys.MainInstance.EnterMainCity();
             }
             //关闭登录界面
             loginWnd.SetWndState(false);
@@ -72,7 +69,7 @@ namespace DarkGod.Main
 
             //跳转场景进入主城
             //打开主城的界面
-            MainCitySys.Instance.EnterMainCity();
+            MainCitySys.MainInstance.EnterMainCity();
 
             //关闭创建界面
             createWnd.SetWndState(false);

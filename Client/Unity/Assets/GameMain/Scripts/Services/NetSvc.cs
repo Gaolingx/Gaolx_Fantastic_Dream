@@ -130,34 +130,34 @@ namespace DarkGod.Main
             switch ((CMD)msg.cmd)
             {
                 case CMD.RspLogin:
-                    LoginSys.Instance.RspLogin(msg);
+                    LoginSys.MainInstance.RspLogin(msg);
                     break;
                 case CMD.RspRename:
-                    LoginSys.Instance.RspRename(msg);
+                    LoginSys.MainInstance.RspRename(msg);
                     break;
                 case CMD.RspGuide:
-                    MainCitySys.Instance.RspGuide(msg);
+                    MainCitySys.MainInstance.RspGuide(msg);
                     break;
                 case CMD.RspStrong:
-                    MainCitySys.Instance.RspStrong(msg);
+                    MainCitySys.MainInstance.RspStrong(msg);
                     break;
                 case CMD.PshChat:
-                    MainCitySys.Instance.PshChat(msg);
+                    MainCitySys.MainInstance.PshChat(msg);
                     break;
                 case CMD.RspBuy:
-                    MainCitySys.Instance.RspBuy(msg);
+                    MainCitySys.MainInstance.RspBuy(msg);
                     break;
                 case CMD.PshPower:
-                    MainCitySys.Instance.PshPower(msg);
+                    MainCitySys.MainInstance.PshPower(msg);
                     break;
                 case CMD.RspTakeTaskReward:
-                    MainCitySys.Instance.RspTakeTaskReward(msg);
+                    MainCitySys.MainInstance.RspTakeTaskReward(msg);
                     break;
                 case CMD.PshTaskPrgs:
-                    MainCitySys.Instance.PshTaskPrgs(msg);
+                    MainCitySys.MainInstance.PshTaskPrgs(msg);
                     break;
                 case CMD.RspFBFight:
-                    FubenSys.Instance.RspFBFight(msg);
+                    FubenSys.MainInstance.RspFBFight(msg);
                     break;
                 case CMD.RspFBFightEnd:
                     BattleSys.MainInstance.RspFightEnd(msg);

@@ -138,7 +138,7 @@ namespace DarkGod.Main
             resSvc.AsyncLoadScene(Constants.ResourcePackgeName, mapCfg.sceneName, () =>
             {
                 //初始化地图数据
-                mapMgr = GameObject.FindGameObjectWithTag(Constants.MapRootGameObjectWithTag).GetComponent<MapMgr>();
+                mapMgr = GameObject.FindGameObjectWithTag(Constants.MapRootWithTag_Battle).GetComponent<MapMgr>();
                 mapMgr.Init(this);
 
                 AddEntityPlayerData();
@@ -416,7 +416,7 @@ namespace DarkGod.Main
 
         //释放相关技能
         public double lastAtkTime = 0; //上一次释放普攻时间
-        private int[] comboArr = Constants.comboArr01; //普攻连招技能id
+        private int[] comboArr = ConfigSvc.MainInstance.GetAllComboAction().ToArray(); //普攻连招技能id
         public int comboIndex = 0; //记录当前要存储的连招的id为第n个
         private void CalcNormalAtkCombo()
         {

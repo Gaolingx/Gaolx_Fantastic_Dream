@@ -13,8 +13,6 @@ namespace DarkGod.Main
 {
     public class MainCitySys : SystemRoot<MainCitySys>
     {
-        public static MainCitySys Instance = null;
-
         public MainCityWnd maincityWnd;
         public InfoWnd infoWnd;
         public GuideWnd guideWnd;
@@ -46,7 +44,6 @@ namespace DarkGod.Main
         {
             base.InitSys();
 
-            Instance = MainInstance;
             PECommon.Log("Init MainCitySys...");
         }
 
@@ -207,7 +204,7 @@ namespace DarkGod.Main
         public void EnterFuben()
         {
             StopNavTask();
-            FubenSys.Instance.EnterFuben();
+            FubenSys.MainInstance.EnterFuben();
         }
         #endregion
 
@@ -357,8 +354,7 @@ namespace DarkGod.Main
 
         private void GetMapNpcTransform()
         {
-            GameObject map = GameObject.FindGameObjectWithTag(Constants.MapRootGameObjectWithTag);
-            MainCityMap mainCityMap = map.GetComponent<MainCityMap>();
+            MainCityMap mainCityMap = GameObject.FindGameObjectWithTag(Constants.MapRootWithTag_MainCity).GetComponent<MainCityMap>();
             npcPosTrans = mainCityMap.NpcPosTrans;
         }
 

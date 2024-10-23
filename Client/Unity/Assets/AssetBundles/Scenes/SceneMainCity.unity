@@ -648,7 +648,7 @@ GameObject:
   - component: {fileID: 1032041174}
   m_Layer: 0
   m_Name: MapRoot
-  m_TagString: MapRoot
+  m_TagString: MapRoot2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -161,7 +161,7 @@ namespace DarkGod.Main
         public const string CinemachineVirtualCameraFollowGameObjectWithTag = "PlayerCameraRoot";
         //CinemachineVirtualCamera裁剪平面
         public const float CinemachineVirtualCameraNearClipPlane = 0.2f;
-        public const float CinemachineVirtualCameraFarClipPlane = 15000;
+        public const float CinemachineVirtualCameraFarClipPlane = 15000f;
 
         //角色展示相机配置
         public const string CharShowCamWithTag = "CharShowCam";
@@ -182,7 +182,8 @@ namespace DarkGod.Main
         public const int DefaultGuideBtnIconID = -1;
 
         //MainCityMap配置
-        public const string MapRootGameObjectWithTag = "MapRoot";
+        public const string MapRootWithTag_Battle = "MapRoot";
+        public const string MapRootWithTag_MainCity = "MapRoot2";
 
         //NavMesh配置
         public const float NavNpcDst = 0.5f;
@@ -194,10 +195,6 @@ namespace DarkGod.Main
         public const string CurtTaskData_NpcID_2_Name = "工匠";
         public const string CurtTaskData_NpcID_3_Name = "商人";
         public const string CurtTaskData_NpcID_Default_Name = "小芸";
-
-        //Settings面板配置
-        public const string BGAudioGameObjectName = "BGAudio";
-        public const string UIAudioGameObjectName = "UIAudio";
 
         //actID配置
         public const int CurtTaskDataActID_0 = 0;
@@ -240,9 +237,8 @@ namespace DarkGod.Main
         public const int SkillID_Mar7th00_normalAtk01 = 111;
 
         //连招配置
-        //1.普攻连招有效间隔（单位：ms）
-        public const int ComboSpace01 = 2500;
-        public static int[] comboArr01 = { 111, 112, 113, 114, 115 };
+        //普攻连招有效间隔（单位：ms）
+        public const int ComboSpace01 = 1500;
 
         //Monster配置
         public const int ActiveMonsterDelayTime = 500; //单位：ms

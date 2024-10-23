@@ -66,12 +66,12 @@ namespace DarkGod.Main
             OnClickDown(imgChar.gameObject, (PointerEventData evt) =>
             {
                 startPos = evt.position;
-                MainCitySys.Instance.SetStartRoate();
+                MainCitySys.MainInstance.SetStartRoate();
             });
             OnDrag(imgChar.gameObject, (PointerEventData evt) =>
             {
                 float roate = -(evt.position.x - startPos.x) * Constants.OnDragCharRoateSpeed;
-                MainCitySys.Instance.SetPlayerRoate(roate);
+                MainCitySys.MainInstance.SetPlayerRoate(roate);
             });
         }
 
@@ -107,7 +107,7 @@ namespace DarkGod.Main
         public void ClickCloseBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            MainCitySys.Instance.CloseInfoWnd();
+            MainCitySys.MainInstance.CloseInfoWnd();
         }
 
         public void ClickDetailBtn()

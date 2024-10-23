@@ -129,27 +129,27 @@ namespace DarkGod.Main
         public void ClickFubenBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIOpenPage);
-            MainCitySys.Instance.EnterFuben();
+            MainCitySys.MainInstance.EnterFuben();
         }
         public void ClickTaskBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIOpenPage);
-            MainCitySys.Instance.OpenTaskRewardWnd();
+            MainCitySys.MainInstance.OpenTaskRewardWnd();
         }
         public void ClickBuyPowerBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIOpenPage);
-            MainCitySys.Instance.OpenBuyWnd(Constants.BuyTypePower);
+            MainCitySys.MainInstance.OpenBuyWnd(Constants.BuyTypePower);
         }
         public void ClickMKCoinBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIOpenPage);
-            MainCitySys.Instance.OpenBuyWnd(Constants.MakeTypeCoin);
+            MainCitySys.MainInstance.OpenBuyWnd(Constants.MakeTypeCoin);
         }
         public void ClickStrongBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIOpenPage);
-            MainCitySys.Instance.OpenStrongWnd();
+            MainCitySys.MainInstance.OpenStrongWnd();
         }
         public void ClickGuideBtn()
         {
@@ -158,7 +158,7 @@ namespace DarkGod.Main
             if (curtTaskData != null)
             {
                 //任务存在，执行引导任务
-                MainCitySys.Instance.RunTask(curtTaskData);
+                MainCitySys.MainInstance.RunTask(curtTaskData);
             }
             else
             {
@@ -184,12 +184,12 @@ namespace DarkGod.Main
         public void ClickHeadBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIOpenPage);
-            MainCitySys.Instance.OpenInfoWnd();
+            MainCitySys.MainInstance.OpenInfoWnd();
         }
         public void ClickChatBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIOpenPage);
-            MainCitySys.Instance.OpenChatWnd();
+            MainCitySys.MainInstance.OpenChatWnd();
         }
 
         //注册触摸事件
@@ -214,7 +214,7 @@ namespace DarkGod.Main
                 SetActive(imgDirPoint, false);
                 //复原摇杆点的位置至正中央
                 imgDirPoint.transform.localPosition = Vector2.zero; //使用localPosition的原因是imgDirPoint的坐标是相对于父物体坐标（本地坐标）
-                MainCitySys.Instance.SetMoveDir(Vector2.zero);
+                MainCitySys.MainInstance.SetMoveDir(Vector2.zero);
             });
             //摇杆拖动
             OnDrag(imgTouch.gameObject, (PointerEventData evt) =>
@@ -233,14 +233,14 @@ namespace DarkGod.Main
                 {
                     imgDirPoint.transform.position = evt.position;
                 }
-                MainCitySys.Instance.SetMoveDir(dragDir.normalized);
+                MainCitySys.MainInstance.SetMoveDir(dragDir.normalized);
             });
         }
         #endregion
 
         public void ClickSettingsBtn()
         {
-            MainCitySys.Instance.OpenSettingsWnd();
+            MainCitySys.MainInstance.OpenSettingsWnd();
         }
 
         public void OnDisable()

@@ -6,8 +6,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using HuHu;
-using UnityEngine.SceneManagement;
-using System.Linq;
 using Newtonsoft.Json;
 
 namespace DarkGod.Main
@@ -15,7 +13,6 @@ namespace DarkGod.Main
     public class GameRoot : Singleton<GameRoot>
     {
         public bool isDontDestroyOnLoad = true;
-        public List<string> ShowCursorScene;
 
         public LoadingWnd loadingWnd { get; set; }
         public DynamicWnd dynamicWnd { get; set; }
@@ -67,7 +64,7 @@ namespace DarkGod.Main
             InitTransform();
 
             EventMgr.MainInstance.OnGameExit += GetUIController().OnClickExit;
-            EventMgr.MainInstance.PauseState.OnValueChanged += delegate (bool val) { OnUpdatePauseState(val); };
+            EventMgr.MainInstance.OnGamePause += delegate (bool val) { OnUpdatePauseState(val); };
             EventMgr.MainInstance.QualityLevel.OnValueChanged += delegate (int val) { OnUpdateQualityLevel(val); };
         }
 
@@ -93,19 +90,26 @@ namespace DarkGod.Main
             RefreshInputsState();
         }
 
-        public void PauseGameUI(bool state = true)
+        public void PauseGameUI(bool isPause)
         {
-            EventMgr.MainInstance.PauseState.Value = state;
+            if (isPause)
+            {
+                EventMgr.MainInstance.SendMessage_GameState(this, new(GameStateEventCode.GamePause));
+            }
+            else
+            {
+                EventMgr.MainInstance.SendMessage_GameState(this, new(GameStateEventCode.GameContinue));
+            }
         }
 
-        private void OnUpdatePauseState(bool state)
+        private void OnUpdatePauseState(bool isPause)
         {
             if (starterAssetsInputs != null)
             {
-                starterAssetsInputs.isPause = state;
+                starterAssetsInputs.isPause = isPause;
             }
 
-            if (state == true)
+            if (isPause)
             {
                 VFXManager.MainInstance.PauseVFX();
             }
@@ -131,29 +135,15 @@ namespace DarkGod.Main
             return uICanvasController;
         }
 
-        public string GetCurrentSceneName()
+        private void SetCursorLockMode(bool locked)
         {
-            Scene currentScene = SceneManager.GetActiveScene();
-            return currentScene.name;
-        }
-
-        private bool GetCursorLockModeState()
-        {
-            return ShowCursorScene.Any(item => item == GetCurrentSceneName());
-        }
-
-        private void SetCursorLockMode()
-        {
-            if (starterAssetsInputs != null)
+            if (!locked)
             {
-                if (EventMgr.MainInstance.PauseState.Value == true || starterAssetsInputs.cursorLocked == true || GetCursorLockModeState() == true)
-                {
-                    GetUIController().CursorLock = CursorLockMode.None;
-                }
-                else
-                {
-                    GetUIController().CursorLock = CursorLockMode.Locked;
-                }
+                GetUIController().CursorLock = CursorLockMode.None;
+            }
+            else
+            {
+                GetUIController().CursorLock = CursorLockMode.Locked;
             }
         }
 
@@ -162,15 +152,15 @@ namespace DarkGod.Main
         {
             if (starterAssetsInputs != null)
             {
-                SetCursorLockMode();
-
-                if (_isInputEnable && !EventMgr.MainInstance.PauseState.Value && !starterAssetsInputs.cursorLocked)
+                if (_isInputEnable && !starterAssetsInputs.isPause && !starterAssetsInputs.cursorLocked)
                 {
                     starterAssetsInputs.canLook = true;
+                    SetCursorLockMode(true);
                 }
                 else
                 {
                     starterAssetsInputs.canLook = false;
+                    SetCursorLockMode(false);
                 }
 
                 starterAssetsInputs.canMove = _isInputEnable;
@@ -309,7 +299,7 @@ namespace DarkGod.Main
         private void OnDestroy()
         {
             EventMgr.MainInstance.OnGameExit -= GetUIController().OnClickExit;
-            EventMgr.MainInstance.PauseState.OnValueChanged -= delegate (bool val) { OnUpdatePauseState(val); };
+            EventMgr.MainInstance.OnGamePause -= delegate (bool val) { OnUpdatePauseState(val); };
             EventMgr.MainInstance.QualityLevel.OnValueChanged -= delegate (int val) { OnUpdateQualityLevel(val); };
         }
 

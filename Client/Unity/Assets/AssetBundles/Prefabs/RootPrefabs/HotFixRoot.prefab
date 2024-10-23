@@ -78,11 +78,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDontDestroyOnLoad: 0
-  ShowCursorScene:
-  - GameRoot
-  - SceneLogin
-  loadingWnd: {fileID: 0}
-  dynamicWnd: {fileID: 0}
 --- !u!114 &5428812027309186292
 MonoBehaviour:
   m_ObjectHideFlags: 0
