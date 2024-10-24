@@ -1,5 +1,6 @@
 ﻿//功能：战斗结算界面
 
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +25,7 @@ namespace DarkGod.Main
         public Text txtTime;
         public Text txtRestHP;
         public Text txtReward;
-        public Animation ani;
+        public Image imgLogo;
         #endregion
 
         private FBEndType endType = FBEndType.None;
@@ -84,17 +85,13 @@ namespace DarkGod.Main
         private bool FBEndTypePause()
         {
             SetActive(rewardTrans, false);
-            SetActive(btnExit.gameObject);
-            SetActive(btnClose.gameObject);
+            SetActive(btnExit);
+            SetActive(btnClose);
 
             return true;
         }
         private bool FBEndTypeWin()
         {
-            SetActive(rewardTrans, false);
-            SetActive(btnExit.gameObject, false);
-            SetActive(btnClose.gameObject, false);
-
             MapCfg cfg = configSvc.GetMapCfg(fbid);
             int min = costtime / 60;
             int sec = costtime % 60;
@@ -105,34 +102,53 @@ namespace DarkGod.Main
             SetText(txtRestHP, "剩余血量：" + resthp);
             SetText(txtReward, "关卡奖励：" + GetTextWithHexColor(coin + "金币 ", TextColorCode.Green) + GetTextWithHexColor(exp + "经验 ", TextColorCode.Yellow) + GetTextWithHexColor(crystal + "水晶", TextColorCode.Blue));
 
-            timerSvc.AddTimeTask((int tid) =>
-            {
-                SetActive(rewardTrans);
-                ani.Play();
-                timerSvc.AddTimeTask((int tid1) =>
-                {
-                    audioSvc.PlayUIAudio(Constants.FBItemEnter);
-                    timerSvc.AddTimeTask((int tid2) =>
-                    {
-                        audioSvc.PlayUIAudio(Constants.FBItemEnter);
-                        timerSvc.AddTimeTask((int tid3) =>
-                        {
-                            audioSvc.PlayUIAudio(Constants.FBItemEnter);
-                            timerSvc.AddTimeTask((int tid5) =>
-                            {
-                                audioSvc.PlayUIAudio(Constants.FBLogoEnter);
-                            }, 300);
-                        }, 270);
-                    }, 270);
-                }, 325);
-            }, 1000);
+            LogoShowAni();
+
             return true;
         }
+
+        private void LogoShowAni()
+        {
+            Sequence se;
+            se = DOTween.Sequence();
+            se.SetAutoKill(false);
+
+            SetActive(rewardTrans, true);
+            SetActive(btnExit, false);
+            SetActive(btnClose, false);
+            SetActive(imgLogo, false);
+            SetActive(btnSure, false);
+            CanvasGroup[] canvasGroups = rewardTrans.GetComponentsInChildren<CanvasGroup>();
+
+            for (int i = 0; i < canvasGroups.Length; i++)
+            {
+                SetActive(canvasGroups[i], true);
+            }
+
+            se.Append(canvasGroups[0].DOFade(0, 1f).From().SetDelay(1f));
+            se.Insert(0.5f, canvasGroups[0].DOFade(0, 1f).From())
+               .Join(canvasGroups[0].GetComponent<RectTransform>().DOAnchorPosX(850f, 1f).From(true).SetEase(Ease.OutExpo).SetDelay(0.5f))
+               .AppendCallback(() => { audioSvc.PlayUIAudio(Constants.FBItemEnter); })
+               .Join(canvasGroups[1].DOFade(0, 1f).From())
+               .Join(canvasGroups[1].GetComponent<RectTransform>().DOAnchorPosX(850f, 1f).From(true).SetEase(Ease.OutExpo))
+               .AppendCallback(() => { audioSvc.PlayUIAudio(Constants.FBItemEnter); })
+               .Join(canvasGroups[2].DOFade(0, 1f).From())
+               .Join(canvasGroups[2].GetComponent<RectTransform>().DOAnchorPosX(850f, 1f).From(true).SetEase(Ease.OutExpo))
+               .AppendCallback(() => { audioSvc.PlayUIAudio(Constants.FBItemEnter); });
+
+            se.AppendInterval(0.5f);
+            se.AppendCallback(() => { SetActive(imgLogo, true); });
+
+            se.AppendInterval(2f);
+            se.AppendCallback(() => { SetActive(btnSure, true); });
+
+        }
+
         private bool FBEndTypeLose()
         {
             SetActive(rewardTrans, false);
-            SetActive(btnExit.gameObject);
-            SetActive(btnClose.gameObject, false);
+            SetActive(btnExit);
+            SetActive(btnClose, false);
             audioSvc.PlayUIAudio(Constants.FBLose);
 
             return true;

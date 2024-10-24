@@ -77,7 +77,7 @@ namespace DarkGod.Main
         {
             base.Awake();
 
-            EventMgr.MainInstance.OnGameEnter += InitSvc;
+            EventMgr.MainInstance.OnGameEnter += delegate { InitSvc(); };
         }
 
         public void InitSvc()
@@ -229,7 +229,7 @@ namespace DarkGod.Main
 
         private void OnDestroy()
         {
-            EventMgr.MainInstance.OnGameEnter -= InitSvc;
+            EventMgr.MainInstance.OnGameEnter -= delegate { InitSvc(); };
             BGAudioVolumeValue.OnValueChanged -= delegate (float value) { BGAudioVolumeValueChanged(_audioMixer, value); };
             UIAudioVolumeValue.OnValueChanged -= delegate (float value) { UIAudioVolumeValueChanged(_audioMixer, value); };
             CharacterAudioVolumeValue.OnValueChanged -= delegate (float value) { CharacterAudioVolumeValueChanged(_audioMixer, value); };

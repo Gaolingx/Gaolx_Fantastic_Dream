@@ -20,7 +20,7 @@ namespace DarkGod.Main
         {
             base.Awake();
 
-            EventMgr.MainInstance.OnGameEnter += InitSys;
+            EventMgr.MainInstance.OnGameEnter += delegate { InitSys(); };
         }
 
         public override void InitSys()
@@ -138,7 +138,7 @@ namespace DarkGod.Main
 
         private void OnDestroy()
         {
-            EventMgr.MainInstance.OnGameEnter -= InitSys;
+            EventMgr.MainInstance.OnGameEnter -= delegate { InitSys(); };
         }
     }
 }

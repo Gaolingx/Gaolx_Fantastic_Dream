@@ -23,9 +23,19 @@ namespace StarterAssets
             starterAssetsInputs.JumpInput(virtualJumpState);
         }
 
+        public void VirtualFlipJumpInput(bool virtualFlipJumpState)
+        {
+            starterAssetsInputs.FlipJumpInput(virtualFlipJumpState);
+        }
+
         public void VirtualSprintInput(bool virtualSprintState)
         {
             starterAssetsInputs.SprintInput(virtualSprintState);
+        }
+
+        public void VirtualCrouchInput(bool virtualCrouchState)
+        {
+            starterAssetsInputs.CrouchInput(virtualCrouchState);
         }
 
         public void VirtualSkill01Input(bool virtualSkill01State)

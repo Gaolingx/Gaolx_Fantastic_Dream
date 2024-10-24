@@ -24,7 +24,7 @@ namespace DarkGod.Main
             if (gameObject.activeSelf != isActive)
             {
                 //如果传入的参数与当前状态不相同则设置为目标状态
-                SetActive(gameObject, isActive);
+                gameObject.SetActive(isActive);
             }
             if (isActive)
             {
@@ -63,12 +63,6 @@ namespace DarkGod.Main
         }
 
         #region Tool Functions
-
-        protected void SetActive(GameObject go, bool value = true)
-        {
-            bool tempState = go.activeSelf;
-            UnityExtension.SetActive(go, value, ref tempState);
-        }
 
         protected void SetActive(Component component, bool value = true)
         {

@@ -21,7 +21,7 @@ namespace DarkGod.Main
         {
             base.Awake();
 
-            EventMgr.MainInstance.OnGameEnter += InitFX;
+            EventMgr.MainInstance.OnGameEnter += delegate { InitMgr(); };
         }
 
         private void AddVFXOnInit()
@@ -42,7 +42,7 @@ namespace DarkGod.Main
             }
         }
 
-        public void InitFX()
+        public void InitMgr()
         {
             timerSvc = TimerSvc.MainInstance;
 
@@ -121,7 +121,7 @@ namespace DarkGod.Main
 
         private void OnDestroy()
         {
-            EventMgr.MainInstance.OnGameEnter -= InitFX;
+            EventMgr.MainInstance.OnGameEnter -= delegate { InitMgr(); };
         }
     }
 }

@@ -9,7 +9,7 @@ public class UIController : MonoBehaviour
     public static UIController Instance { get; set; }
 
     [SerializeField]
-    private CursorLockMode m_cursorLocked = CursorLockMode.None;
+    private bool m_cursorLocked = false;
 
     [SerializeField]
     private int m_FrameRate = 60;
@@ -33,7 +33,7 @@ public class UIController : MonoBehaviour
 
     private void Init()
     {
-        Cursor.lockState = m_cursorLocked;
+        SetCursorState(m_cursorLocked);
         Application.targetFrameRate = m_FrameRate;
         Time.timeScale = m_GameSpeed;
         Application.runInBackground = m_RunInBackground;
@@ -50,13 +50,27 @@ public class UIController : MonoBehaviour
         Init();
     }
 
+    private void OnApplicationFocus(bool focus)
+    {
+        SetCursorState(m_cursorLocked);
+    }
+
+    private void SetCursorState(bool newState)
+    {
+        Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
+    }
+
     /// <summary>
     /// 获取或设置光标状态。
     /// </summary>
-    public CursorLockMode CursorLock
+    public bool CursorLock
     {
         get => m_cursorLocked;
-        set => Cursor.lockState = m_cursorLocked = value;
+        set
+        {
+            SetCursorState(value);
+            m_cursorLocked = value;
+        }
     }
 
     /// <summary>

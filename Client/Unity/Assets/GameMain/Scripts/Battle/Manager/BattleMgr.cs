@@ -63,9 +63,9 @@ namespace DarkGod.Main
             }, Constants.ActivePlayerDelayTime);
         }
 
-        private async void LoadPlayerInstance(MapCfg mapData)
+        private async void LoadPlayerInstance(string playerPath, Vector3 playerBornPos, Vector3 playerBornRote, Vector3 playerBornScale)
         {
-            GameObject player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, mapData.playerPath, mapData.playerBornPos, mapData.playerBornRote, new Vector3(0.8f, 0.8f, 0.8f), false, true, true);
+            GameObject player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, playerPath, playerBornPos, playerBornRote, playerBornScale, false, true, true);
 
             if (player != null)
             {
@@ -147,7 +147,7 @@ namespace DarkGod.Main
                 LoadVirtualCameraInstance(mapCfg);
 
                 //加载玩家实体
-                LoadPlayerInstance(mapCfg);
+                LoadPlayerInstance(mapCfg.playerPath, mapCfg.playerBornPos, mapCfg.playerBornRote, new Vector3(0.8f, 0.8f, 0.8f));
 
                 //延迟激活第一批次怪物
                 ActiveCurrentBatchMonsters();
@@ -265,7 +265,7 @@ namespace DarkGod.Main
                 //判断是否为对应批次的怪物，是则实例化
                 if (md.mWave == wave)
                 {
-                    GameObject m = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, md.mCfg.resPath, md.mBornPos, md.mBornRote, Vector3.one, false, true, true);
+                    GameObject m = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, md.mCfg.resPath, md.mBornPos, md.mBornRote, new Vector3(0.8f, 0.8f, 0.8f), false, true, true);
 
                     m.name = "m" + md.mWave + "_" + md.mIndex;
 
@@ -356,11 +356,6 @@ namespace DarkGod.Main
             }
         }
 
-        public void RmvAllPlayer()
-        {
-            playerDic.Clear();
-        }
-
         #region 技能施放与角色控制
         public void SetSelfPlayerMoveDir(Vector2 dir)
         {
@@ -370,7 +365,6 @@ namespace DarkGod.Main
             if (entitySelfPlayer.CanControl == false)
             {
                 GameRoot.MainInstance.EnableInputAction(false);
-                return;
             }
             else
             {

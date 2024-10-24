@@ -19,6 +19,9 @@ namespace DarkGod.Main
         private StarterAssetsInputs starterAssetsInputs;
         private UICanvasControllerInput uICanvasController;
 
+        private bool _isGamePause = false;
+        private bool _isInputEnable = true;
+
         private const string prefsKey_SettingsGameRoot = "prefsKey_SettingsGameRoot";
 
         [System.Serializable]
@@ -63,7 +66,7 @@ namespace DarkGod.Main
 
             InitTransform();
 
-            EventMgr.MainInstance.OnGameExit += GetUIController().OnClickExit;
+            EventMgr.MainInstance.OnGameExit += delegate { GetUIController().OnClickExit(); };
             EventMgr.MainInstance.OnGamePause += delegate (bool val) { OnUpdatePauseState(val); };
             EventMgr.MainInstance.QualityLevel.OnValueChanged += delegate (int val) { OnUpdateQualityLevel(val); };
         }
@@ -104,10 +107,7 @@ namespace DarkGod.Main
 
         private void OnUpdatePauseState(bool isPause)
         {
-            if (starterAssetsInputs != null)
-            {
-                starterAssetsInputs.isPause = isPause;
-            }
+            _isGamePause = isPause;
 
             if (isPause)
             {
@@ -137,22 +137,14 @@ namespace DarkGod.Main
 
         private void SetCursorLockMode(bool locked)
         {
-            if (!locked)
-            {
-                GetUIController().CursorLock = CursorLockMode.None;
-            }
-            else
-            {
-                GetUIController().CursorLock = CursorLockMode.Locked;
-            }
+            GetUIController().CursorLock = locked;
         }
 
-        private bool _isInputEnable = true;
         private void RefreshInputsState()
         {
             if (starterAssetsInputs != null)
             {
-                if (_isInputEnable && !starterAssetsInputs.isPause && !starterAssetsInputs.cursorLocked)
+                if (_isInputEnable && !_isGamePause && !starterAssetsInputs.cursorLocked)
                 {
                     starterAssetsInputs.canLook = true;
                     SetCursorLockMode(true);
@@ -298,7 +290,7 @@ namespace DarkGod.Main
 
         private void OnDestroy()
         {
-            EventMgr.MainInstance.OnGameExit -= GetUIController().OnClickExit;
+            EventMgr.MainInstance.OnGameExit -= delegate { GetUIController().OnClickExit(); };
             EventMgr.MainInstance.OnGamePause -= delegate (bool val) { OnUpdatePauseState(val); };
             EventMgr.MainInstance.QualityLevel.OnValueChanged -= delegate (int val) { OnUpdateQualityLevel(val); };
         }

@@ -21,11 +21,10 @@ namespace DarkGod.Main
         public ChatWnd chatWnd;
         public BuyWnd buyWnd;
         public TaskWnd taskWnd;
-        public Transform CharCamTrans { get { return charCamTrans; } set { charCamTrans = value; } }
+        public Transform charCamTrans { get; set; }
 
         private GameObject mainCityPlayer;
         //private PlayerController playerCtrl;
-        private Transform charCamTrans;
         private AutoGuideCfg curtTaskData;
         private List<Transform> npcPosTrans;
         private NavMeshAgent nav;
@@ -37,7 +36,7 @@ namespace DarkGod.Main
         {
             base.Awake();
 
-            EventMgr.MainInstance.OnGameEnter += InitSys;
+            EventMgr.MainInstance.OnGameEnter += delegate { InitSys(); };
         }
 
         public override void InitSys()
@@ -133,11 +132,11 @@ namespace DarkGod.Main
         }
 
 
-        private async void LoadPlayerInstance(MapCfg mapData)
+        private async void LoadPlayerInstance(string playerPath, Vector3 playerBornPos, Vector3 playerBornRote, Vector3 playerBornScale)
         {
             //玩家初始化
             //获取Prefab实例化的对象
-            GameObject player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, mapData.playerPath, mapData.playerBornPos, mapData.playerBornRote, new Vector3(0.8f, 0.8f, 0.8f), false, true, true);
+            GameObject player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, playerPath, playerBornPos, playerBornRote, playerBornScale, false, true, true);
 
             if (player != null)
             {
@@ -163,7 +162,7 @@ namespace DarkGod.Main
         private void LoadPlayer(MapCfg mapData)
         {
             LoadVirtualCameraInstance(mapData);
-            LoadPlayerInstance(mapData);
+            LoadPlayerInstance(mapData.playerPath, mapData.playerBornPos, mapData.playerBornRote, new Vector3(0.8f, 0.8f, 0.8f));
         }
 
         private void LoadNpcPrefab()
@@ -561,7 +560,7 @@ namespace DarkGod.Main
 
         private void OnDestroy()
         {
-            EventMgr.MainInstance.OnGameEnter -= InitSys;
+            EventMgr.MainInstance.OnGameEnter -= delegate { InitSys(); };
         }
     }
 }

@@ -643,9 +643,9 @@ GameObject:
   m_Component:
   - component: {fileID: 963007393}
   - component: {fileID: 963007399}
+  - component: {fileID: 963007400}
   - component: {fileID: 963007402}
   - component: {fileID: 963007401}
-  - component: {fileID: 963007400}
   m_Layer: 0
   m_Name: GameRoot
   m_TagString: Untagged

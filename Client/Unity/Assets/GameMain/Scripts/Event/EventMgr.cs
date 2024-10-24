@@ -56,7 +56,7 @@ namespace DarkGod.Main
             }
             else if (eventArgs.GameStateEventCode == GameStateEventCode.GameContinue)
             {
-                OnGamePause.Invoke(false);
+                OnGamePause?.Invoke(false);
             }
             else if (eventArgs.GameStateEventCode == GameStateEventCode.GameStop)
             {

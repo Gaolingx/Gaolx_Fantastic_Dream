@@ -12,10 +12,10 @@ namespace DarkGod.Main
         {
             base.Awake();
 
-            EventMgr.MainInstance.OnGameEnter += InitCfg;
+            EventMgr.MainInstance.OnGameEnter += delegate { InitSvc(); };
         }
 
-        public void InitCfg()
+        public void InitSvc()
         {
             resSvc = ResSvc.MainInstance;
             PECommon.Log("Init NpcCfg...");
@@ -29,7 +29,7 @@ namespace DarkGod.Main
 
         private void OnDestroy()
         {
-            EventMgr.MainInstance.OnGameEnter -= InitCfg;
+            EventMgr.MainInstance.OnGameEnter -= delegate { InitSvc(); };
         }
     }
 }

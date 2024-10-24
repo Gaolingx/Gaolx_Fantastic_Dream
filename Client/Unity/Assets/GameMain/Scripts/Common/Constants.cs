@@ -258,5 +258,6 @@ namespace DarkGod.Main
 
         //FSM
         public const float HitAniLengthOffset = -2.1f; //这个值不建议在此修改
+
     }
 }

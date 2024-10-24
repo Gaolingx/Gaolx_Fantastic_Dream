@@ -40,7 +40,7 @@ namespace DarkGod.Main
 
                 if (i < fbid % 10000)
                 {
-                    SetActive(fbBtnArr[i].gameObject);
+                    SetActive(fbBtnArr[i]);
                     if (i == fbid % 10000 - 1)
                     {
                         pointerTrans.SetParent(fbBtnArr[i].transform);
@@ -49,7 +49,7 @@ namespace DarkGod.Main
                 }
                 else
                 {
-                    SetActive(fbBtnArr[i].gameObject, false);
+                    SetActive(fbBtnArr[i], false);
                 }
             }
         }

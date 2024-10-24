@@ -47,22 +47,26 @@ namespace StarterAssets
 
         public void OnJump(InputValue value)
         {
-            JumpInput(value.isPressed);
+            if (!canMove) { JumpInput(false); }
+            else { JumpInput(value.isPressed); }
         }
 
         public void OnFlipJump(InputValue value)
         {
-            FlipJumpInput(value.isPressed);
+            if (!canMove) { FlipJumpInput(false); }
+            else { FlipJumpInput(value.isPressed); }
         }
 
         public void OnSprint(InputValue value)
         {
-            SprintInput(value.isPressed);
+            if (!canMove) { SprintInput(false); }
+            else { SprintInput(value.isPressed); }
         }
 
         public void OnCrouch(InputValue value)
         {
-            CrouchInput(value.isPressed);
+            if (!canMove) { CrouchInput(false); }
+            else { CrouchInput(value.isPressed); }
         }
 
         public void OnZoom(InputValue value)
@@ -73,22 +77,26 @@ namespace StarterAssets
 
         public void OnAtkSkill01(InputValue value)
         {
-            Skill01Input(value.isPressed);
+            if (!canMove) { Skill01Input(false); }
+            else { Skill01Input(value.isPressed); }
         }
 
         public void OnAtkSkill02(InputValue value)
         {
-            Skill02Input(value.isPressed);
+            if (!canMove) { Skill02Input(false); }
+            else { Skill02Input(value.isPressed); }
         }
 
         public void OnAtkSkill03(InputValue value)
         {
-            Skill03Input(value.isPressed);
+            if (!canMove) { Skill03Input(false); }
+            else { Skill03Input(value.isPressed); }
         }
 
         public void OnNormalAtk(InputValue value)
         {
-            NormalAtkInput(value.isPressed);
+            if (!canMove) { NormalAtkInput(false); }
+            else { NormalAtkInput(value.isPressed); }
         }
 
         public void OnCursorLock(InputValue value)
@@ -117,7 +125,7 @@ namespace StarterAssets
             jump = newJumpState;
         }
 
-        private void FlipJumpInput(bool newFlipJumpState)
+        public void FlipJumpInput(bool newFlipJumpState)
         {
             flipJump = newFlipJumpState;
         }
@@ -132,7 +140,7 @@ namespace StarterAssets
             zoom = newZoomValue;
         }
 
-        private void CrouchInput(bool newCrouchState)
+        public void CrouchInput(bool newCrouchState)
         {
             crouch = newCrouchState;
         }
