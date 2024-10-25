@@ -12,7 +12,8 @@ namespace DarkGod.Main
         public Toggle RuntimeHierarchyToggle;
         public Button btnCloseDebugItem;
         public Transform fpsWnd;
-        public Transform RuntimeHierarchy, RuntimeInspector;
+        public Transform RuntimeHierarchy;
+        public Transform RuntimeInspector;
 
         protected override void InitWnd()
         {
@@ -23,35 +24,26 @@ namespace DarkGod.Main
         public void OnEnable()
         {
             btnCloseDebugItem.onClick.AddListener(delegate { ClickCloseBtn(); });
-            FpsWndToggle.onValueChanged.AddListener(ClickFpsWndToggle);
-            RuntimeHierarchyToggle.onValueChanged.AddListener(ClickRuntimeHierarchyToggle);
-            RuntimeInspectorToggle.onValueChanged.AddListener(ClickRuntimeInspectorToggle);
-        }
-
-        private void ActiveDebugItemWnd(bool active = true)
-        {
-            SetWndState(active);
-            btnCloseDebugItem.gameObject.SetActive(active);
+            FpsWndToggle.onValueChanged.AddListener(delegate (bool val) { ClickFpsWndToggle(val); });
+            RuntimeHierarchyToggle.onValueChanged.AddListener(delegate (bool val) { ClickRuntimeHierarchyToggle(val); });
+            RuntimeInspectorToggle.onValueChanged.AddListener(delegate (bool val) { ClickRuntimeInspectorToggle(val); });
         }
 
         public void ClickFpsWndToggle(bool val)
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            ActiveDebugItemWnd();
             fpsWnd.gameObject.SetActive(val);
         }
 
         public void ClickRuntimeHierarchyToggle(bool val)
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            ActiveDebugItemWnd();
             RuntimeHierarchy.gameObject.SetActive(val);
         }
 
         public void ClickRuntimeInspectorToggle(bool val)
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            ActiveDebugItemWnd();
             RuntimeInspector.gameObject.SetActive(val);
         }
 
@@ -65,15 +57,16 @@ namespace DarkGod.Main
 
         public void ClickCloseBtn()
         {
-            fpsWnd.gameObject.SetActive(false);
-            RuntimeHierarchy.gameObject.SetActive(false);
-            RuntimeInspector.gameObject.SetActive(false);
+            SetActive(RuntimeHierarchy, false);
+            SetActive(RuntimeInspector, false);
+            SetActive(fpsWnd, false);
+            SetActive(btnCloseDebugItem, false);
 
             FpsWndToggle.isOn = false;
             RuntimeHierarchyToggle.isOn = false;
             RuntimeInspectorToggle.isOn = false;
 
-            ActiveDebugItemWnd(false);
+            SetWndState(false);
         }
     }
 }

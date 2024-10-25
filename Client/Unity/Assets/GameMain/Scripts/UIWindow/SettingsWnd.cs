@@ -13,13 +13,13 @@ namespace DarkGod.Main
         public Slider CharacterAudioSlider;
         public Slider CharacterFxAudioSlider;
         public Dropdown TargetFrameDropdown;
+        public Dropdown qualitySelectDropdown;
         public Toggle FullScreenToggle;
         public Toggle MutedToggle;
         public Button btnResetCfgs;
         public Button btnExitGame;
         public Button btnMainMenu;
         public Button btnCloseSettings;
-        public Dropdown qualitySelectDropdown;
 
         private UIController _UIController;
 
@@ -27,12 +27,13 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
-            _UIController = GameRoot.MainInstance.GetUIController();
-            InitWindowValue();
             if (debugWnd != null)
             {
                 debugWnd.SetWndState(true);
             }
+
+            _UIController = GameRoot.MainInstance.GetUIController();
+            InitWindowValue();
         }
 
         public void OnEnable()
@@ -45,6 +46,7 @@ namespace DarkGod.Main
             InitDropdownOptionData(TargetFrameDropdown, new List<string>(new string[] { "60", "120", "No Limits" }));
             InitDropdownOptionData(qualitySelectDropdown, new List<string>(QualitySettings.names));
             qualitySelectDropdown.value = QualitySettings.GetQualityLevel();
+            FullScreenToggle.isOn = Screen.fullScreen;
             BGAudioSlider.value = audioSvc.BGAudioVolumeValue.Value;
             UIAudioSlider.value = audioSvc.UIAudioVolumeValue.Value;
             CharacterAudioSlider.value = audioSvc.CharacterAudioVolumeValue.Value;
@@ -124,7 +126,6 @@ namespace DarkGod.Main
         {
             if (desiredQualityLevelIndex < QualitySettings.names.Length)
             {
-                QualitySettings.SetQualityLevel(desiredQualityLevelIndex);
                 EventMgr.MainInstance.QualityLevel.Value = desiredQualityLevelIndex;
             }
         }

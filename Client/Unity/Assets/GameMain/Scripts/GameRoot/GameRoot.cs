@@ -36,19 +36,16 @@ namespace DarkGod.Main
             {
                 var json = PlayerPrefsSvc.MainInstance.LoadFromPlayerPrefs(prefsKey_SettingsGameRoot);
                 var saveData = JsonConvert.DeserializeObject<PlayerPrefsData>(json);
+
                 EventMgr.MainInstance.QualityLevel.Value = saveData.QualityLevel;
-            }
-            else
-            {
-                EventMgr.MainInstance.QualityLevel.Value = QualitySettings.GetQualityLevel();
             }
         }
 
-        private void SavePrefsData()
+        private void SavePrefsData(int val)
         {
             var saveData = new PlayerPrefsData();
 
-            saveData.QualityLevel = EventMgr.MainInstance.QualityLevel.Value;
+            saveData.QualityLevel = val;
             PlayerPrefsSvc.MainInstance.SaveByPlayerPrefs(prefsKey_SettingsGameRoot, saveData);
         }
 
@@ -122,7 +119,7 @@ namespace DarkGod.Main
         private void OnUpdateQualityLevel(int value)
         {
             QualitySettings.SetQualityLevel(value);
-            SavePrefsData();
+            SavePrefsData(value);
         }
 
         public StarterAssetsInputs GetStarterAssetsInputs()

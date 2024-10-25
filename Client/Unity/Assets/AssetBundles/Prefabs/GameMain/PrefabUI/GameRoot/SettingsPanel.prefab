@@ -2402,7 +2402,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &4505882790419070610
 GameObject:
   m_ObjectHideFlags: 0
@@ -5318,13 +5318,13 @@ MonoBehaviour:
   CharacterAudioSlider: {fileID: 6120058155654383011}
   CharacterFxAudioSlider: {fileID: 1210875646161684756}
   TargetFrameDropdown: {fileID: 7624363254676400063}
+  qualitySelectDropdown: {fileID: 3892771302091618463}
   FullScreenToggle: {fileID: 4739453766608794239}
   MutedToggle: {fileID: 6810430991717285848}
   btnResetCfgs: {fileID: 7402273057185910262}
   btnExitGame: {fileID: 6120058156442399631}
   btnMainMenu: {fileID: 6120058156856597560}
   btnCloseSettings: {fileID: 6120058156070457368}
-  qualitySelectDropdown: {fileID: 3892771302091618463}
 --- !u!1 &6120058157266450827
 GameObject:
   m_ObjectHideFlags: 0
