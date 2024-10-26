@@ -24,7 +24,7 @@ namespace DarkGod.Main
             if (gameObject.activeSelf != isActive)
             {
                 //如果传入的参数与当前状态不相同则设置为目标状态
-                gameObject.SetActive(isActive);
+                SetActive(gameObject, isActive);
             }
             if (isActive)
             {
@@ -63,6 +63,12 @@ namespace DarkGod.Main
         }
 
         #region Tool Functions
+
+        protected void SetActive(GameObject gameObject, bool value = true)
+        {
+            bool tempState = gameObject.activeSelf;
+            UnityExtension.SetActive(gameObject, value, ref tempState);
+        }
 
         protected void SetActive(Component component, bool value = true)
         {
@@ -231,18 +237,6 @@ namespace DarkGod.Main
         }
 
         #region Common UI
-
-        protected void PauseGameInWnd()
-        {
-            if (GameRoot.MainInstance.GetGameState() == GameState.FBFight)
-            {
-                BattleSys.MainInstance.battleMgr.SetPauseGame(false, false);
-            }
-            else if (GameRoot.MainInstance.GetGameState() == GameState.MainCity)
-            {
-                MainCitySys.MainInstance.PauseGameLogic(false);
-            }
-        }
 
         //Reload Cfg Data
         protected void ClickResetCfgsBtn()

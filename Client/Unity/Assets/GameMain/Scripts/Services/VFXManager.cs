@@ -9,11 +9,8 @@ namespace DarkGod.Main
     {
         [Header("Player FX GameObject")]
         public List<GameObject> PlayerFxList = new List<GameObject>();
-        [Header("特效播放倍率")] public float SpeedMult;
-        public List<ParticleSystem> allParticleSystems => particleSystems;
 
-        private List<ParticleSystem> particleSystems = new List<ParticleSystem>();
-        private Dictionary<string, GameObject> fxObjDic = new Dictionary<string, GameObject>();
+        private Dictionary<string, GameObject> particleSystems = new Dictionary<string, GameObject>();
 
         private TimerSvc timerSvc;
 
@@ -26,19 +23,9 @@ namespace DarkGod.Main
 
         private void AddVFXOnInit()
         {
-            for (int i = 0; i < PlayerFxList.Count; i++)
+            foreach (var item in PlayerFxList)
             {
-                fxObjDic.Add(PlayerFxList[i].name, PlayerFxList[i]);
-            }
-
-            for (int i = 0; i < PlayerFxList.Count; i++)
-            {
-                particleSystems.Add(PlayerFxList[i].GetComponent<ParticleSystem>());
-            }
-            foreach (var particle in particleSystems)
-            {
-                var main = particle.main;
-                main.simulationSpeed = SpeedMult;
+                particleSystems.Add(item.name, item);
             }
         }
 
@@ -51,28 +38,27 @@ namespace DarkGod.Main
 
         public void SetFX(Transform parent, string name, float destroy)
         {
-            GameObject go;
-            if (fxObjDic.TryGetValue(name, out go))
+            if (particleSystems.TryGetValue(name, out GameObject asset))
             {
-                go.transform.SetParent(parent, false);
-                AudioSource audioSource = go.GetComponent<AudioSource>();
-                ParticleSystem particle = go.GetComponent<ParticleSystem>();
-                if (audioSource != null)
+                GameObject go = Instantiate(asset, parent);
+                go.SetActive(true);
+                ParticleSystem[] particles = go.GetComponentsInChildren<ParticleSystem>();
+                if (go.TryGetComponent<AudioSource>(out var audioSource))
                 {
                     audioSource.Play();
                 }
-                if (particle != null)
+                foreach (ParticleSystem particle in particles)
                 {
                     particle.Play();
                 }
-                go.SetActive(true);
+
                 timerSvc.AddTimeTask((int tid) =>
                 {
                     if (audioSource != null)
                     {
                         audioSource.Stop();
                     }
-                    if (particle != null)
+                    foreach (ParticleSystem particle in particles)
                     {
                         particle.Stop();
                     }
@@ -81,42 +67,12 @@ namespace DarkGod.Main
             }
         }
 
-        public void AddVFX(ParticleSystem particleSystem, float speedMult = 1f)
+        public void AddVFX(List<GameObject> particleLst)
         {
-            fxObjDic.Add(particleSystem.gameObject.name, particleSystem.gameObject);
-            particleSystems.Add(particleSystem);
-            foreach (var particle in particleSystems)
+            foreach (var item in particleLst)
             {
-                var main = particle.main;
-                main.simulationSpeed = speedMult;
+                particleSystems.Add(item.name, item);
             }
-        }
-
-        public void PauseVFX()
-        {
-            foreach (var particleSystem in allParticleSystems)
-            {
-                var main = particleSystem.main;
-                main.simulationSpeed = 0f;
-            }
-
-        }
-        public void SetVFXSpeed(float speedMult)
-        {
-            foreach (var particleSystem in allParticleSystems)
-            {
-                var main = particleSystem.main;
-                main.simulationSpeed = speedMult;
-            }
-        }
-        public void ResetVFX()
-        {
-            foreach (var particleSystem in allParticleSystems)
-            {
-                var main = particleSystem.main;
-                main.simulationSpeed = SpeedMult;
-            }
-
         }
 
         private void OnDestroy()

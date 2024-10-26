@@ -106,14 +106,7 @@ namespace DarkGod.Main
         {
             _isGamePause = isPause;
 
-            if (isPause)
-            {
-                VFXManager.MainInstance.PauseVFX();
-            }
-            else
-            {
-                VFXManager.MainInstance.ResetVFX();
-            }
+            starterAssetsInputs.isPause = isPause;
         }
 
         private void OnUpdateQualityLevel(int value)

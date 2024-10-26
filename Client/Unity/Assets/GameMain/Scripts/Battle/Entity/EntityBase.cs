@@ -15,6 +15,7 @@ namespace DarkGod.Main
         public StateMgr stateMgr { get; set; }
         public SkillMgr skillMgr { get; set; }
         public EventMgr eventMgr { get; set; }
+        public VFXManager VFXMgr { get; set; }
 
         public ThirdPersonController playerController { get; set; }
         public Controller controller { get; set; }
@@ -196,9 +197,9 @@ namespace DarkGod.Main
 
         public virtual void SetCFX(string fxName, float destroyTime)
         {
-            if (entityType == EntityType.Player)
+            if (entityType == EntityType.Player && VFXMgr != null)
             {
-                VFXManager.MainInstance.SetFX(playerController.transform, fxName, destroyTime);
+                VFXMgr.SetFX(playerController.transform, fxName, destroyTime);
             }
         }
         public virtual void SetSkillMoveState(bool move, float speed = 0f)

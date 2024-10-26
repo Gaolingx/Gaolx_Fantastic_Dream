@@ -21,7 +21,7 @@ namespace DarkGod.Main
         public ChatWnd chatWnd;
         public BuyWnd buyWnd;
         public TaskWnd taskWnd;
-        public Transform charCamTrans { get; set; }
+        public Transform charCamTrans;
 
         private GameObject mainCityPlayer;
         //private PlayerController playerCtrl;
@@ -32,11 +32,14 @@ namespace DarkGod.Main
         private StarterAssetsInputs starterAssetsInputs;
         private UICanvasControllerInput uICanvasController;
 
+        private BindableProperty<bool> propertyPause = new BindableProperty<bool>();
+
         protected override void Awake()
         {
             base.Awake();
 
             EventMgr.MainInstance.OnGameEnter += delegate { InitSys(); };
+            propertyPause.OnValueChanged += delegate (bool val) { OpenSettingsWnd(val); };
         }
 
         public override void InitSys()
@@ -94,8 +97,6 @@ namespace DarkGod.Main
 
                 //设置游戏状态
                 GameRoot.MainInstance.SetGameState(GameState.MainCity);
-
-                PauseGameLogic(false);
 
                 resSvc.UnloadUnusedAssets(Constants.ResourcePackgeName);
             });
@@ -173,12 +174,6 @@ namespace DarkGod.Main
             NpcSvc.MainInstance.LoadMapNpc(Constants.NpcTypeID_3);
 
         }
-
-        public void PauseGameLogic(bool isPause)
-        {
-            GameRoot.MainInstance.PauseGameUI(isPause);
-        }
-
 
         //原方案
         public void SetMoveDir(Vector2 dir)
@@ -424,13 +419,9 @@ namespace DarkGod.Main
                 //playerCtrl.SetCam();
             }
 
-            if (starterAssetsInputs != null)
+            if (starterAssetsInputs != null && GameRoot.MainInstance.GetGameState() == GameState.MainCity)
             {
-                if (starterAssetsInputs.isPause && GameRoot.MainInstance.GetGameState() == GameState.MainCity)
-                {
-                    StopNavTask();
-                    OpenSettingsWnd();
-                }
+                propertyPause.Value = starterAssetsInputs.isPause;
             }
         }
 
@@ -509,13 +500,13 @@ namespace DarkGod.Main
         #endregion
 
         #region Guide Wnd
-        public void OpenSettingsWnd()
+        public void OpenSettingsWnd(bool state = true)
         {
-            PauseGameLogic(true);
-            if (settingsWnd.GetWndState() != true)
+            GameRoot.MainInstance.PauseGameUI(state);
+            if (settingsWnd.GetWndState() == false)
             {
                 audioSvc.PlayUIAudio(Constants.UIClickBtn);
-                settingsWnd.SetWndState(true);
+                settingsWnd.SetWndState(state);
             }
         }
 
@@ -561,6 +552,7 @@ namespace DarkGod.Main
         private void OnDestroy()
         {
             EventMgr.MainInstance.OnGameEnter -= delegate { InitSys(); };
+            propertyPause.OnValueChanged -= delegate (bool val) { OpenSettingsWnd(val); };
         }
     }
 }

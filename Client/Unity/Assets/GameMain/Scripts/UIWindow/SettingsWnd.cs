@@ -111,6 +111,18 @@ namespace DarkGod.Main
 
         #region Button相关
 
+        private void PauseGameInWnd()
+        {
+            if (GameRoot.MainInstance.GetGameState() == GameState.FBFight)
+            {
+                BattleSys.MainInstance.battleMgr.SetPauseGame(false, false);
+            }
+            else if (GameRoot.MainInstance.GetGameState() == GameState.MainCity)
+            {
+                GameRoot.MainInstance.PauseGameUI(false);
+            }
+        }
+
         public void ClickCloseBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);

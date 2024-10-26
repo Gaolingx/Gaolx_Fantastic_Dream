@@ -5,8 +5,6 @@ using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace DarkGod.Main
@@ -298,7 +296,7 @@ namespace DarkGod.Main
         {
             if (val == true)
             {
-                if (!settingsWnd.isActiveAndEnabled)
+                if (settingsWnd.GetWndState() == false)
                 {
                     BattleSys.MainInstance.battleMgr.SetPauseGame(true, true);
                     BattleSys.MainInstance.SetBattleEndWndState(FBEndType.Pause);

@@ -21,6 +21,7 @@ namespace DarkGod.Main
         private StateMgr stateMgr;
         private SkillMgr skillMgr;
         private EventMgr eventMgr;
+        private VFXManager VFXMgr;
         private MapMgr mapMgr;
 
         private BattleSys battleSys;
@@ -102,7 +103,8 @@ namespace DarkGod.Main
                     battleMgr = this,
                     stateMgr = stateMgr, //将stateMgr注入逻辑实体类中
                     skillMgr = skillMgr,
-                    eventMgr = eventMgr
+                    eventMgr = eventMgr,
+                    VFXMgr = VFXMgr,
                 };
                 entitySelfPlayer.EntityName = pd.name;
                 entitySelfPlayer.AddHealthData();
@@ -129,6 +131,7 @@ namespace DarkGod.Main
 
             //初始化各管理器
             eventMgr = EventMgr.MainInstance;
+            VFXMgr = VFXManager.MainInstance;
             stateMgr = gameObject.AddComponent<StateMgr>();
             skillMgr = gameObject.AddComponent<SkillMgr>();
             skillMgr.Init();
