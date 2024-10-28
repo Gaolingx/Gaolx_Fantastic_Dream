@@ -52,10 +52,10 @@ GraphicsSettings:
   m_InstancingStripping: 2
   m_BrgStripping: 0
   m_LightmapKeepPlain: 0
-  m_LightmapKeepDirCombined: 1
+  m_LightmapKeepDirCombined: 0
   m_LightmapKeepDynamicPlain: 0
   m_LightmapKeepDynamicDirCombined: 0
-  m_LightmapKeepShadowMask: 1
+  m_LightmapKeepShadowMask: 0
   m_LightmapKeepSubtractive: 0
   m_FogKeepLinear: 0
   m_FogKeepExp: 1

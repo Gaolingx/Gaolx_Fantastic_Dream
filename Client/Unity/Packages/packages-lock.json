@@ -35,6 +35,14 @@
         "com.stalomeow.star-rail-npr-shader": "2.9.0"
       }
     },
+    "com.jiaozi158.unityssgiurp": {
+      "version": "file:UnitySSGIURP",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.render-pipelines.universal": "14.0.11"
+      }
+    },
     "com.sangoutils.patchyooassetsystem": {
       "version": "https://github.com/Gaolingx/SangoUtils.Hotfix_YooAsset.git",
       "depth": 0,
