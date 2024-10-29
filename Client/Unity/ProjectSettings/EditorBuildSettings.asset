@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/AOTRes/ResScenes/GameRoot.unity
     guid: 4314eb8046efb8949b920a0979095c02
+  - enabled: 1
+    path: Assets/AOTRes/ResScenes/SampleScene.unity
+    guid: 7b760af2d712ea94e8abc2df05b61dab
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7,
       type: 2}

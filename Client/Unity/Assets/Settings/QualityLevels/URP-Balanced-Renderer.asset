@@ -1,29 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8962140697668181369
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90f480a675b73fa4ebe11bab7b01dc3a, type: 3}
-  m_Name: StarRailRendererFeature
-  m_EditorClassIdentifier: 
-  m_Active: 1
-  m_SceneShadowDepthBits: 16
-  m_SceneShadowTileResolution: 512
-  m_SceneShadowDebugMode: 0
-  m_EnableSelfShadow: 1
-  m_SelfShadowDepthBits: 16
-  m_SelfShadowTileResolution: 1024
-  m_SelfShadowDebugMode: 0
-  m_EnableFrontHairShadow: 1
-  m_FrontHairShadowDownscale: 2
-  m_FrontHairShadowDepthBits: 16
-  m_EnableTransparentFrontHair: 1
 --- !u!114 &-1878332245247344467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,9 +53,9 @@ MonoBehaviour:
     hdrDebugViewPS: {fileID: 4800000, guid: 573620ae32aec764abd4d728906d2587, type: 3}
   m_RendererFeatures:
   - {fileID: -1878332245247344467}
-  - {fileID: -8962140697668181369}
-  - {fileID: 2272299363217841547}
-  m_RendererFeatureMap: adc0de57c6d2eee587a26ad88414a0838b1df24f3bd4881f
+  - {fileID: 4561540317061492707}
+  - {fileID: 7584078143236286206}
+  m_RendererFeatureMap: adc0de57c6d2eee5e3af1213c0d84d3ffe26679ce30e4069
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -119,10 +95,34 @@ MonoBehaviour:
   m_ShadowTransparentReceive: 1
   m_RenderingMode: 0
   m_DepthPrimingMode: 0
-  m_CopyDepthMode: 0
+  m_CopyDepthMode: 1
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 1
---- !u!114 &2272299363217841547
+--- !u!114 &4561540317061492707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90f480a675b73fa4ebe11bab7b01dc3a, type: 3}
+  m_Name: StarRailRendererFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  m_SceneShadowDepthBits: 16
+  m_SceneShadowTileResolution: 512
+  m_SceneShadowDebugMode: 0
+  m_EnableSelfShadow: 1
+  m_SelfShadowDepthBits: 16
+  m_SelfShadowTileResolution: 512
+  m_SelfShadowDebugMode: 0
+  m_EnableFrontHairShadow: 1
+  m_FrontHairShadowDownscale: 2
+  m_FrontHairShadowDepthBits: 16
+  m_EnableTransparentFrontHair: 1
+--- !u!114 &7584078143236286206
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
