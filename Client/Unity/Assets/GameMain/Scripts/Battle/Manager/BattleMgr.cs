@@ -340,8 +340,7 @@ namespace DarkGod.Main
 
         public void RmvMonster(string key)
         {
-            EntityMonster entityMonster;
-            if (monsterDic.TryGetValue(key, out entityMonster))
+            if (monsterDic.TryGetValue(key, out EntityMonster entityMonster))
             {
                 //移除数据
                 monsterDic.Remove(key);

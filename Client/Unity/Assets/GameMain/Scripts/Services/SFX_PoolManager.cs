@@ -76,8 +76,7 @@ namespace DarkGod.Main
                 AudioSource audioSource = go.GetComponent<AudioSource>();
                 if (audioSource != null && audioSource.clip != null)
                 {
-                    vol = Mathf.Clamp01(vol);
-                    audioSource.volume = vol;
+                    audioSource.volume = Mathf.Clamp01(vol);
                     audioSource.Play();
                 }
 

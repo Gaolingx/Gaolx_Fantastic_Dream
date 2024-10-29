@@ -82,15 +82,16 @@ namespace DarkGod.Main
             ExitCurrentBattle(delegate { FubenSys.MainInstance.EnterFuben(); });
         }
 
-        private bool FBEndTypePause()
+        private int FBEndTypePause()
         {
             SetActive(rewardTrans, false);
             SetActive(btnExit);
             SetActive(btnClose);
 
-            return true;
+            return 0;
         }
-        private bool FBEndTypeWin()
+
+        private int FBEndTypeWin()
         {
             MapCfg cfg = configSvc.GetMapCfg(fbid);
             int min = costtime / 60;
@@ -101,13 +102,12 @@ namespace DarkGod.Main
             SetText(txtTime, "通关时间：" + min + ":" + sec);
             SetText(txtRestHP, "剩余血量：" + resthp);
             SetText(txtReward, "关卡奖励：" + GetTextWithHexColor(coin + "金币 ", TextColorCode.Green) + GetTextWithHexColor(exp + "经验 ", TextColorCode.Yellow) + GetTextWithHexColor(crystal + "水晶", TextColorCode.Blue));
+            StartCoroutine(LogoShowAni());
 
-            LogoShowAni();
-
-            return true;
+            return 1;
         }
 
-        private void LogoShowAni()
+        IEnumerator LogoShowAni()
         {
             Sequence se;
             se = DOTween.Sequence();
@@ -142,19 +142,20 @@ namespace DarkGod.Main
             se.AppendInterval(2f);
             se.AppendCallback(() => { SetActive(btnSure, true); });
 
+            yield return new WaitForSeconds(0.5f);
         }
 
-        private bool FBEndTypeLose()
+        private int FBEndTypeLose()
         {
             SetActive(rewardTrans, false);
             SetActive(btnExit);
             SetActive(btnClose, false);
             audioSvc.PlayUIAudio(Constants.FBLose);
 
-            return true;
+            return 2;
         }
 
-        private bool RefreshUI() => endType switch
+        private int RefreshUI() => endType switch
         {
             FBEndType.Pause => FBEndTypePause(),
             FBEndType.Win => FBEndTypeWin(),
