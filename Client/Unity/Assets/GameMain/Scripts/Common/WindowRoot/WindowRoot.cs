@@ -4,6 +4,7 @@ using PEProtocol;
 using System.Collections;
 using System.Collections.Generic;
 using TEngine;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -84,19 +85,19 @@ namespace DarkGod.Main
             UnityExtension.SetActive(component.gameObject, value, ref tempState);
         }
 
-        protected void SetText(Text txt, string context = "NaN")
+        protected void SetText(TMP_Text txt, string context = "NaN")
         {
             txt.text = context;
         }
         protected void SetText(Transform trans, int num = 0)
         {
-            SetText(trans.GetComponent<Text>(), num);
+            SetText(trans.GetComponent<TMP_Text>(), num);
         }
         protected void SetText(Transform trans, string context = "")
         {
-            SetText(trans.GetComponent<Text>(), context);
+            SetText(trans.GetComponent<TMP_Text>(), context);
         }
-        protected void SetText(Text txt, int num = 0)
+        protected void SetText(TMP_Text txt, int num = 0)
         {
             SetText(txt, num.ToString());
         }
@@ -222,13 +223,13 @@ namespace DarkGod.Main
             return screenWidth;
         }
 
-        protected void InitDropdownOptionData(Dropdown dropdown, List<string> itemLst)
+        protected void InitDropdownOptionData(TMP_Dropdown dropdown, List<string> itemLst)
         {
-            List<Dropdown.OptionData> qualitySelectDropdownOptionData = new List<Dropdown.OptionData>();
+            List<TMP_Dropdown.OptionData> qualitySelectDropdownOptionData = new List<TMP_Dropdown.OptionData>();
 
             foreach (var item in itemLst)
             {
-                Dropdown.OptionData data = new Dropdown.OptionData();
+                TMP_Dropdown.OptionData data = new TMP_Dropdown.OptionData();
                 data.text = item;
                 qualitySelectDropdownOptionData.Add(data);
             }
@@ -248,13 +249,13 @@ namespace DarkGod.Main
 
         protected void ExitCurrentBattle(System.Action callback = null)
         {
-            if (GameRoot.MainInstance.GetGameState() == GameState.FBFight)
+            if (GameRoot.MainInstance.GameRootGameState == GameState.FBFight)
             {
                 BattleSys.MainInstance.EnterMainCity();
                 BattleSys.MainInstance.DestroyBattle();
                 callback?.Invoke();
             }
-            else if (GameRoot.MainInstance.GetGameState() == GameState.MainCity)
+            else if (GameRoot.MainInstance.GameRootGameState == GameState.MainCity)
             {
                 EventMgr.MainInstance.ShowMessageBox(this, new("当前未处于副本战斗关卡"));
             }
@@ -266,7 +267,7 @@ namespace DarkGod.Main
         }
 
         #region Expprg
-        protected void SetExpprg(PlayerData pd, Text txtExpPrg, Transform expPrgTrans)
+        protected void SetExpprg(PlayerData pd, TMP_Text txtExpPrg, Transform expPrgTrans)
         {
             int expPrgVal = (int)(pd.exp * 1.0f / PECommon.GetExpUpValByLv(pd.lv) * 100);
             //经验条进度的显示

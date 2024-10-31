@@ -2,6 +2,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,13 +15,13 @@ namespace DarkGod.Main
         public Image imgHPRed; //实际血量
 
         public Animation criticalAni;
-        public Text txtCritical;
+        public TMP_Text txtCritical;
 
         public Animation dodgeAni;
-        public Text txtDodge;
+        public TMP_Text txtDodge;
 
         public Animation hpAni;
-        public Text txtHp;
+        public TMP_Text txtHp;
 
         public float SPvalOffset = 0f;
         #endregion

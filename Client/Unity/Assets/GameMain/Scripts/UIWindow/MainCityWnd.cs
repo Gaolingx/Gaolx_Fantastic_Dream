@@ -3,6 +3,7 @@
 using PEProtocol;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -19,12 +20,12 @@ namespace DarkGod.Main
         public Animation menuAni;
         public Button btnMenu;
 
-        public Text txtFight;
-        public Text txtPower;
+        public TMP_Text txtFight;
+        public TMP_Text txtPower;
         public Image imgPowerPrg;
-        public Text txtLevel;
-        public Text txtName;
-        public Text txtExpPrg;
+        public TMP_Text txtLevel;
+        public TMP_Text txtName;
+        public TMP_Text txtExpPrg;
 
         public Transform expPrgTrans;
 

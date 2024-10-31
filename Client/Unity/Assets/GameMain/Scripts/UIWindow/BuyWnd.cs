@@ -1,6 +1,7 @@
 ﻿//功能：购买交易窗口
 
 using PEProtocol;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +9,7 @@ namespace DarkGod.Main
 {
     public class BuyWnd : WindowRoot, IWindowRoot
     {
-        public Text txtInfo;
+        public TMP_Text txtInfo;
         public Button btnSure;
         public Button btnClose;
 

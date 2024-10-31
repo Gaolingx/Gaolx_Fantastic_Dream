@@ -1,6 +1,7 @@
 ﻿//功能：聊天界面
 
 using PEProtocol;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
@@ -10,8 +11,8 @@ namespace DarkGod.Main
 {
     public class ChatWnd : WindowRoot, IWindowRoot
     {
-        public InputField iptChat;
-        public Text txtChat;
+        public TMP_InputField iptChat;
+        public TMP_Text txtChat;
         public Image imgWorld;
         public Image imgGuild;
         public Image imgFriend;

@@ -382,24 +382,34 @@ namespace StarterAssets
         int tid1 = 0;
         private void OnIdle(bool val) //取消任务的id
         {
-            // 等待x秒后如果仍处于Idle状态，则播放待机动画（定时任务）
-            if (val == true)
+            if (MoveControlState != ControlState.None)
             {
-                tid1 = _timerSvc.AddTimeTask((int tid) =>
+                // 等待x秒后如果仍处于Idle状态，则播放待机动画（定时任务）
+                if (val == true)
+                {
+                    tid1 = _timerSvc.AddTimeTask((int tid) =>
+                    {
+                        if (_hasAnimator)
+                        {
+                            _animator.SetBool(_animIDIdleAnim, true);
+                        }
+                    }, DarkGod.Main.Constants.IdleAniWaitDelay);
+                }
+                else if (val == false && tid1 != 0)
                 {
                     if (_hasAnimator)
                     {
-                        _animator.SetBool(_animIDIdleAnim, true);
+                        _animator.SetBool(_animIDIdleAnim, false);
                     }
-                }, DarkGod.Main.Constants.IdleAniWaitDelay);
+                    _timerSvc.DelTask(tid1);
+                }
             }
-            else if (val == false && tid1 != 0)
+            else
             {
                 if (_hasAnimator)
                 {
                     _animator.SetBool(_animIDIdleAnim, false);
                 }
-                _timerSvc.DelTask(tid1);
             }
         }
 
@@ -561,8 +571,8 @@ namespace StarterAssets
                 }
 
                 // if we are not grounded, do not jump
-                _input.jump = false;
-                _input.flipJump = false;
+                //_input.jump = false;
+                //_input.flipJump = false;
             }
 
             // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)

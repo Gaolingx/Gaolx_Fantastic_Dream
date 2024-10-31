@@ -1,6 +1,7 @@
 ﻿//功能：角色信息展示界面
 
 using PEProtocol;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,17 +13,17 @@ namespace DarkGod.Main
         #region UI Define
         public RawImage imgChar;
 
-        public Text txtInfo;
-        public Text txtExp;
+        public TMP_Text txtInfo;
+        public TMP_Text txtExp;
         public Image imgExpPrg;
-        public Text txtPower;
+        public TMP_Text txtPower;
         public Image imgPowerPrg;
 
-        public Text txtJob;
-        public Text txtFight;
-        public Text txtHP;
-        public Text txtHurt;
-        public Text txtDef;
+        public TMP_Text txtJob;
+        public TMP_Text txtFight;
+        public TMP_Text txtHP;
+        public TMP_Text txtHurt;
+        public TMP_Text txtDef;
 
         public Button btnClose;
 
@@ -30,14 +31,14 @@ namespace DarkGod.Main
         public Button btnCloseDetail;
         public Transform transDetail;
 
-        public Text dtxhp;
-        public Text dtxad;
-        public Text dtxap;
-        public Text dtxaddef;
-        public Text dtxapdef;
-        public Text dtxdodge;
-        public Text dtxpierce;
-        public Text dtxcritical;
+        public TMP_Text dtxhp;
+        public TMP_Text dtxad;
+        public TMP_Text dtxap;
+        public TMP_Text dtxaddef;
+        public TMP_Text dtxapdef;
+        public TMP_Text dtxdodge;
+        public TMP_Text dtxpierce;
+        public TMP_Text dtxcritical;
         #endregion
 
         private Vector2 startPos;

@@ -2,10 +2,10 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using PEProtocol;
-using UnityEngine.EventSystems;
 
 namespace DarkGod.Main
 {
@@ -13,14 +13,14 @@ namespace DarkGod.Main
     {
         #region UI Define
         public Image imgCurtPos; //当前选中位置的图片
-        public Text txtStartLv; //当前星级数量
+        public TMP_Text txtStartLv; //当前星级数量
         public Transform starTransGrp; //星星父物体的Transform
-        public Text propHP1; //血量
-        public Text propHurt1; //伤害
-        public Text propDef1; //防御
-        public Text propHP2;
-        public Text propHurt2;
-        public Text propDef2;
+        public TMP_Text propHP1; //血量
+        public TMP_Text propHurt1; //伤害
+        public TMP_Text propDef1; //防御
+        public TMP_Text propHP2;
+        public TMP_Text propHurt2;
+        public TMP_Text propDef2;
         public Image propArr1; //箭头
         public Image propArr2;
         public Image propArr3;
@@ -28,12 +28,12 @@ namespace DarkGod.Main
         public Button btnStrong;
         public Button btnClose;
 
-        public Text txtNeedLv; //升级所需的最低等级
-        public Text txtCostCoin; //消耗的金币
-        public Text txtCostCrystal; //消耗的水晶
+        public TMP_Text txtNeedLv; //升级所需的最低等级
+        public TMP_Text txtCostCoin; //消耗的金币
+        public TMP_Text txtCostCrystal; //消耗的水晶
 
         public Transform costTransRoot;
-        public Text txtCoin; //当前拥有的金币
+        public TMP_Text txtCoin; //当前拥有的金币
         #endregion
 
         #region Data Area

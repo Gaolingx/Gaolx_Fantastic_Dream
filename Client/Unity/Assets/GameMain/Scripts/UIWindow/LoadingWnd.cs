@@ -2,6 +2,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,10 +10,10 @@ namespace DarkGod.Main
 {
     public class LoadingWnd : WindowRoot, IWindowRoot
     {
-        public Text txtTips;
+        public TMP_Text txtTips;
         public Image imgFG;
         public Image imgPoint;
-        public Text txtPrg;  //进度的百分比
+        public TMP_Text txtPrg;  //进度的百分比
 
         private float fgWidth;
 

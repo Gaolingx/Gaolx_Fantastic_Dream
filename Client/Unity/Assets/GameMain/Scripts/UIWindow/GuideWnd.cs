@@ -1,6 +1,7 @@
 ﻿//功能：引导对话界面
 
 using PEProtocol;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,8 +9,8 @@ namespace DarkGod.Main
 {
     public class GuideWnd : WindowRoot, IWindowRoot
     {
-        public Text txtName; //名字
-        public Text txtTalk; //显示的对话内容
+        public TMP_Text txtName; //名字
+        public TMP_Text txtTalk; //显示的对话内容
         public Image imgIcon; //人物形象（立绘）
 
         public Button btnNext;

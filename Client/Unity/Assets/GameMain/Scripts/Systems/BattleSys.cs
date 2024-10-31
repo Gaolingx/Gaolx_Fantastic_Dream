@@ -48,7 +48,7 @@ namespace DarkGod.Main
             });
             SetPlayerCtrlWndState();
 
-            GameRoot.MainInstance.SetGameState(GameState.FBFight);
+            GameRoot.MainInstance.GameRootGameState = GameState.FBFight;
         }
 
         public void EndBattle(bool isWin, int restHP)

@@ -32,21 +32,27 @@ namespace DarkGod.Main
         private StarterAssetsInputs starterAssetsInputs;
         private UICanvasControllerInput uICanvasController;
 
-        private BindableProperty<bool> propertyPause = new BindableProperty<bool>();
-
         protected override void Awake()
         {
             base.Awake();
 
             EventMgr.MainInstance.OnGameEnter += delegate { InitSys(); };
-            propertyPause.OnValueChanged += delegate (bool val) { OpenSettingsWnd(val); };
         }
 
         public override void InitSys()
         {
             base.InitSys();
 
+            EventMgr.MainInstance.OnGamePause += delegate (bool val) { OnUpdatePauseState2(val); };
             PECommon.Log("Init MainCitySys...");
+        }
+
+        private void OnUpdatePauseState2(bool isPause)
+        {
+            if (isPause)
+            {
+                StopNavTask();
+            }
         }
 
         private void InitPlayerInput()
@@ -96,7 +102,7 @@ namespace DarkGod.Main
                 SetInputState(true);
 
                 //设置游戏状态
-                GameRoot.MainInstance.SetGameState(GameState.MainCity);
+                GameRoot.MainInstance.GameRootGameState = GameState.MainCity;
 
                 resSvc.UnloadUnusedAssets(Constants.ResourcePackgeName);
             });
@@ -178,7 +184,7 @@ namespace DarkGod.Main
         //原方案
         public void SetMoveDir(Vector2 dir)
         {
-            StopNavTask();
+            //StopNavTask();
             /*
             //设置动画
             if (dir == Vector2.zero)
@@ -419,10 +425,6 @@ namespace DarkGod.Main
                 //playerCtrl.SetCam();
             }
 
-            if (starterAssetsInputs != null && GameRoot.MainInstance.GetGameState() == GameState.MainCity)
-            {
-                propertyPause.Value = starterAssetsInputs.isPause;
-            }
         }
 
         private void IsArriveNavPos()
@@ -502,7 +504,6 @@ namespace DarkGod.Main
         #region Guide Wnd
         public void OpenSettingsWnd(bool state = true)
         {
-            GameRoot.MainInstance.PauseGameUI(state);
             if (settingsWnd.GetWndState() == false)
             {
                 audioSvc.PlayUIAudio(Constants.UIClickBtn);
@@ -552,7 +553,7 @@ namespace DarkGod.Main
         private void OnDestroy()
         {
             EventMgr.MainInstance.OnGameEnter -= delegate { InitSys(); };
-            propertyPause.OnValueChanged -= delegate (bool val) { OpenSettingsWnd(val); };
+            EventMgr.MainInstance.OnGamePause -= delegate (bool val) { OnUpdatePauseState2(val); };
         }
     }
 }

@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using PEProtocol;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,12 +12,12 @@ namespace DarkGod.Main
 {
     public class LoginWnd : WindowRoot, IWindowRoot
     {
-        public InputField iptAcct;
-        public InputField iptPass;
+        public TMP_InputField iptAcct;
+        public TMP_InputField iptPass;
         public Button btnEnter;
         public Button btnNotice;
         public Toggle btnRemember;  //记住密码选项
-        public Text txtVersion;
+        public TMP_Text txtVersion;
 
         private const string prefsKey_LoginWnd = "prefsKey_LoginWnd";
 

@@ -3,6 +3,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,9 +23,9 @@ namespace DarkGod.Main
         public Button btnClose;
         public Button btnExit;
         public Button btnSure;
-        public Text txtTime;
-        public Text txtRestHP;
-        public Text txtReward;
+        public TMP_Text txtTime;
+        public TMP_Text txtRestHP;
+        public TMP_Text txtReward;
         public Image imgLogo;
         #endregion
 
@@ -64,7 +65,7 @@ namespace DarkGod.Main
         public void ClickCloseBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            BattleSys.MainInstance.battleMgr.SetPauseGame(false, false);
+            GameRoot.MainInstance.PauseGameUI(false);
             SetWndState(false);
         }
 

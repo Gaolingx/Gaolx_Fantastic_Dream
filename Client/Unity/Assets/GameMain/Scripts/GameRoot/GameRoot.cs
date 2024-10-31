@@ -79,9 +79,9 @@ namespace DarkGod.Main
             EventMgr.MainInstance.SendMessage_GameState(this, new GameStateEventArgs(GameStateEventCode.GameStart));
 
             CleanUIRoot();
-
             LoadPrefsData();
             InitGameRoot();
+
             PECommon.Log("Game Start...");
         }
 
@@ -106,7 +106,15 @@ namespace DarkGod.Main
         {
             _isGamePause = isPause;
 
-            starterAssetsInputs.isPause = isPause;
+            if (GameRootGameState == GameState.MainCity)
+            {
+                MainCitySys.MainInstance.OpenSettingsWnd();
+            }
+            else if (GameRootGameState == GameState.FBFight)
+            {
+                BattleSys.MainInstance.battleMgr.SetPauseGame(true);
+                BattleSys.MainInstance.SetBattleEndWndState(FBEndType.Pause);
+            }
         }
 
         private void OnUpdateQualityLevel(int value)
@@ -146,6 +154,11 @@ namespace DarkGod.Main
                 }
 
                 starterAssetsInputs.canMove = _isInputEnable;
+
+                if (starterAssetsInputs.isPause)
+                {
+                    PauseGameUI(true);
+                }
             }
         }
 
@@ -268,15 +281,8 @@ namespace DarkGod.Main
             PlayerData.fuben = data.fuben;
         }
 
-        private GameState gameState = GameState.None;
-        public void SetGameState(GameState state)
-        {
-            gameState = state;
-        }
-        public GameState GetGameState()
-        {
-            return gameState;
-        }
+        public GameState GameRootGameState { get; set; } = GameState.None;
+
 
         private void OnDestroy()
         {

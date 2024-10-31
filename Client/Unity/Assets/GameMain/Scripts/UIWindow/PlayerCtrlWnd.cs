@@ -4,6 +4,7 @@ using PEProtocol;
 using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,9 +12,9 @@ namespace DarkGod.Main
 {
     public class PlayerCtrlWnd : WindowRoot, IWindowRoot
     {
-        public Text txtLevel;
-        public Text txtName;
-        public Text txtExpPrg;
+        public TMP_Text txtLevel;
+        public TMP_Text txtName;
+        public TMP_Text txtExpPrg;
 
         public Button btnSettings;
         public Button btnNormal;
@@ -29,7 +30,6 @@ namespace DarkGod.Main
 
         #region Action List
         private BindableProperty<Vector2> InputMoveDir { get; set; } = new BindableProperty<Vector2>();
-        private BindableProperty<bool> InputPauseState { get; set; } = new BindableProperty<bool>();
         private BindableProperty<bool> InputPlayerNormalAtk { get; set; } = new BindableProperty<bool>();
         private BindableProperty<bool> InputPlayerSkill01 { get; set; } = new BindableProperty<bool>();
         private BindableProperty<bool> InputPlayerSkill02 { get; set; } = new BindableProperty<bool>();
@@ -41,7 +41,7 @@ namespace DarkGod.Main
         #region Skill
         #region SK1
         public Image imgSk1CD;
-        public Text txtSk1CD;
+        public TMP_Text txtSk1CD;
         private bool isSk1CD = false;
         private float sk1CDTime;
         private int sk1Num;
@@ -51,7 +51,7 @@ namespace DarkGod.Main
 
         #region SK2
         public Image imgSk2CD;
-        public Text txtSk2CD;
+        public TMP_Text txtSk2CD;
         private bool isSk2CD = false;
         private float sk2CDTime;
         private int sk2Num;
@@ -61,7 +61,7 @@ namespace DarkGod.Main
 
         #region SK3
         public Image imgSk3CD;
-        public Text txtSk3CD;
+        public TMP_Text txtSk3CD;
         private bool isSk3CD = false;
         private float sk3CDTime;
         private int sk3Num;
@@ -72,7 +72,7 @@ namespace DarkGod.Main
         #endregion
 
         #region HPDefine
-        public Text txtSelfHP;
+        public TMP_Text txtSelfHP;
         public Image imgSelfHP;
 
         private int HPSum;
@@ -99,7 +99,6 @@ namespace DarkGod.Main
             btnSkill3.onClick.AddListener(delegate { uICanvasController.VirtualSkill03Input(true); });
 
             InputMoveDir.OnValueChanged += delegate (Vector2 val) { OnUpdateInputMoveDir(val); };
-            InputPauseState.OnValueChanged += delegate (bool val) { OnUpdateInputPauseState(val); };
             InputPlayerNormalAtk.OnValueChanged += delegate (bool val) { OnUpdategClickNormalAtk(val); };
             InputPlayerSkill01.OnValueChanged += delegate (bool val) { OnUpdateClickSkill01(val); };
             InputPlayerSkill02.OnValueChanged += delegate (bool val) { OnUpdateClickSkill02(val); };
@@ -119,13 +118,11 @@ namespace DarkGod.Main
             if (playerInput != null)
             {
                 InputMoveDir.Value = playerInput.move;
-                InputPauseState.Value = playerInput.isPause;
                 InputPlayerNormalAtk.Value = playerInput.normalAtk;
                 InputPlayerSkill01.Value = playerInput.skill01;
                 InputPlayerSkill02.Value = playerInput.skill02;
                 InputPlayerSkill03.Value = playerInput.skill03;
 
-                ResetInput();
             }
 
             UpdateSk1CD(delta);
@@ -137,11 +134,6 @@ namespace DarkGod.Main
         private void OnUpdateInputMoveDir(Vector2 val)
         {
             ListeningTouchEvts(val);
-        }
-
-        private void OnUpdateInputPauseState(bool val)
-        {
-            ListeningClickGamePause(val);
         }
 
         private void OnUpdategClickNormalAtk(bool val)
@@ -162,14 +154,6 @@ namespace DarkGod.Main
         private void OnUpdateClickSkill03(bool val)
         {
             ListeningClickPlayerSkill03Atk(val);
-        }
-
-        private void ResetInput()
-        {
-            playerInput.normalAtk = false;
-            playerInput.skill01 = false;
-            playerInput.skill02 = false;
-            playerInput.skill03 = false;
         }
 
         private void InitPlayerInput()
@@ -291,22 +275,8 @@ namespace DarkGod.Main
             BattleSys.MainInstance.SetPlayerMoveDir(val);
         }
 
-        //暂停控制
-        public void ListeningClickGamePause(bool val)
-        {
-            if (val == true)
-            {
-                if (settingsWnd.GetWndState() == false)
-                {
-                    BattleSys.MainInstance.battleMgr.SetPauseGame(true, true);
-                    BattleSys.MainInstance.SetBattleEndWndState(FBEndType.Pause);
-                }
-            }
-        }
-
         public void ClickSettingsBtn()
         {
-            BattleSys.MainInstance.battleMgr.SetPauseGame(true, true);
             settingsWnd.SetWndState(true);
         }
 
@@ -440,7 +410,6 @@ namespace DarkGod.Main
             btnSkill3.onClick.RemoveAllListeners();
 
             InputMoveDir.OnValueChanged -= delegate (Vector2 val) { OnUpdateInputMoveDir(val); };
-            InputPauseState.OnValueChanged -= delegate (bool val) { OnUpdateInputPauseState(val); };
             InputPlayerNormalAtk.OnValueChanged -= delegate (bool val) { OnUpdategClickNormalAtk(val); };
             InputPlayerSkill01.OnValueChanged -= delegate (bool val) { OnUpdateClickSkill01(val); };
             InputPlayerSkill02.OnValueChanged -= delegate (bool val) { OnUpdateClickSkill02(val); };

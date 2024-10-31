@@ -158,7 +158,7 @@ namespace DarkGod.Main
                 //切换BGM
                 PlayBGAudioLst();
 
-                SetPauseGame(false, false);
+                SetPauseGame(false);
 
                 cb?.Invoke();
 
@@ -186,10 +186,9 @@ namespace DarkGod.Main
 
         //相关逻辑驱动
         private bool isPauseGameAI = false;
-        public void SetPauseGame(bool stateUI, bool stateAI)
+        public void SetPauseGame(bool stateAI)
         {
             isPauseGameAI = stateAI;
-            GameRoot.MainInstance.PauseGameUI(stateUI);
         }
         public bool GetPauseGame()
         {
@@ -250,7 +249,7 @@ namespace DarkGod.Main
         //战斗结算处理
         public void EndBattle(bool isWin, int restHP)
         {
-            SetPauseGame(false, true);
+            SetPauseGame(true);
 
             var entitySelfPlayer = eventMgr.CurrentEPlayer.Value;
             entitySelfPlayer.StateIdle();

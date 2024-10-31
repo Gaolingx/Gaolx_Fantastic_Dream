@@ -188,6 +188,7 @@ MonoBehaviour:
   chatWnd: {fileID: 8582370531870333400}
   buyWnd: {fileID: 7611581401624385505}
   taskWnd: {fileID: 662377767552011033}
+  charCamTrans: {fileID: 0}
 --- !u!114 &8267285274660475252
 MonoBehaviour:
   m_ObjectHideFlags: 0

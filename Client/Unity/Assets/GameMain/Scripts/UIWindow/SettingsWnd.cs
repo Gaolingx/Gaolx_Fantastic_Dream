@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,8 +13,8 @@ namespace DarkGod.Main
         public Slider UIAudioSlider;
         public Slider CharacterAudioSlider;
         public Slider CharacterFxAudioSlider;
-        public Dropdown TargetFrameDropdown;
-        public Dropdown qualitySelectDropdown;
+        public TMP_Dropdown TargetFrameDropdown;
+        public TMP_Dropdown qualitySelectDropdown;
         public Toggle FullScreenToggle;
         public Toggle MutedToggle;
         public Button btnResetCfgs;
@@ -33,6 +34,7 @@ namespace DarkGod.Main
             }
 
             _UIController = GameRoot.MainInstance.GetUIController();
+            GameRoot.MainInstance.PauseGameUI(true);
             InitWindowValue();
         }
 
@@ -111,22 +113,10 @@ namespace DarkGod.Main
 
         #region Button相关
 
-        private void PauseGameInWnd()
-        {
-            if (GameRoot.MainInstance.GetGameState() == GameState.FBFight)
-            {
-                BattleSys.MainInstance.battleMgr.SetPauseGame(false, false);
-            }
-            else if (GameRoot.MainInstance.GetGameState() == GameState.MainCity)
-            {
-                GameRoot.MainInstance.PauseGameUI(false);
-            }
-        }
-
         public void ClickCloseBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            PauseGameInWnd();
+            GameRoot.MainInstance.PauseGameUI(false);
             SetWndState(false);
         }
 

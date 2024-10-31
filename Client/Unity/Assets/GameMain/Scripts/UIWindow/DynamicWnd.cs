@@ -2,6 +2,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +11,7 @@ namespace DarkGod.Main
     public class DynamicWnd : WindowRoot, IWindowRoot
     {
         public Animation tipsAni;
-        public Text txtTips;
+        public TMP_Text txtTips;
         public Transform hpItemRoot;
 
         public Animation selfDodgeAni;
@@ -35,7 +36,7 @@ namespace DarkGod.Main
             }
         }
 
-        private void Update()
+        private void UpdateDynamicWnd()
         {
             if (tipsQue.Count > 0 && isTipsShow == false)
             {
@@ -56,6 +57,11 @@ namespace DarkGod.Main
                     }
                 }
             }
+        }
+
+        private void Update()
+        {
+            UpdateDynamicWnd();
         }
 
         private Transform HasTrans(string mName)
@@ -103,10 +109,7 @@ namespace DarkGod.Main
         private IEnumerator AniPlayDone(float sec, System.Action cb)
         {
             yield return new WaitForSeconds(sec);
-            if (cb != null)
-            {
-                cb();
-            }
+            cb?.Invoke();
         }
         #endregion
 

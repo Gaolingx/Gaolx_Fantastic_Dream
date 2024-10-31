@@ -3,6 +3,7 @@
 using PEProtocol;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +11,7 @@ namespace DarkGod.Main
 {
     public class CreateWnd : WindowRoot, IWindowRoot
     {
-        public InputField iptName;
+        public TMP_InputField iptName;
         public Button btnRand;
         public Button btnEnter;
 
