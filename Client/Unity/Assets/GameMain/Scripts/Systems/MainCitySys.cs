@@ -470,7 +470,7 @@ namespace DarkGod.Main
             if (gameObject != null)
             {
                 gameObject.GetComponent<ThirdPersonController>().SetMoveMode(ThirdPersonController.ControlState.None);
-                gameObject.GetComponent<Animator>().SetFloat(_animIDSpeed, Constants.PlayerSprintSpeed);
+                gameObject.GetComponent<Animator>().SetFloat(_animIDSpeed, Constants.PlayerMoveSpeed);
             }
         }
 

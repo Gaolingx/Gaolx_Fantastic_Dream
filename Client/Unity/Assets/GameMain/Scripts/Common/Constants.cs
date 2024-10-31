@@ -152,7 +152,7 @@ namespace DarkGod.Main
         public const int MonsterMoveSpeed = 4;
 
         //运动平滑加速度
-        public const float AccelerSpeed = 5;
+        public const float AccelerSpeed = 5f;
         public const float AccelerHPSpeed = 0.3f;
 
         //PlayerFollowCamera标签
@@ -187,7 +187,7 @@ namespace DarkGod.Main
 
         //NavMesh配置
         public const float NavNpcDst = 0.5f;
-        public const float PlayerMoveSpeedNav = 2;
+        public const float PlayerMoveSpeedNav = 1.8f;
 
         //DialogueWnd配置
         public const string CurtTaskData_NpcID_0_Name = "智者";

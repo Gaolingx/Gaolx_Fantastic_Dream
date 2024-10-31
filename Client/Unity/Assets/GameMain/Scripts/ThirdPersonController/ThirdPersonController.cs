@@ -379,37 +379,27 @@ namespace StarterAssets
 
         }
 
-        int tid1 = 0;
-        private void OnIdle(bool val) //取消任务的id
+        int tid1 = 0; //取消任务的id
+        private void OnIdle(bool val)
         {
-            if (MoveControlState != ControlState.None)
+            // 等待x秒后如果仍处于Idle状态，则播放待机动画（定时任务）
+            if (val == true)
             {
-                // 等待x秒后如果仍处于Idle状态，则播放待机动画（定时任务）
-                if (val == true)
-                {
-                    tid1 = _timerSvc.AddTimeTask((int tid) =>
-                    {
-                        if (_hasAnimator)
-                        {
-                            _animator.SetBool(_animIDIdleAnim, true);
-                        }
-                    }, DarkGod.Main.Constants.IdleAniWaitDelay);
-                }
-                else if (val == false && tid1 != 0)
+                tid1 = _timerSvc.AddTimeTask((int tid) =>
                 {
                     if (_hasAnimator)
                     {
-                        _animator.SetBool(_animIDIdleAnim, false);
+                        _animator.SetBool(_animIDIdleAnim, true);
                     }
-                    _timerSvc.DelTask(tid1);
-                }
+                }, DarkGod.Main.Constants.IdleAniWaitDelay);
             }
-            else
+            else if (val == false && tid1 != 0)
             {
                 if (_hasAnimator)
                 {
                     _animator.SetBool(_animIDIdleAnim, false);
                 }
+                _timerSvc.DelTask(tid1);
             }
         }
 
@@ -417,12 +407,16 @@ namespace StarterAssets
         {
             if (MoveControlState != ControlState.None)
             {
-                if (GetMoveInputState() != Vector2.zero || !Grounded || _input.crouch)
+                if (GetMoveInputState() != Vector2.zero || !Grounded)
                 {
                     return true;
                 }
+                else
+                {
+                    return false;
+                }
             }
-            return false;
+            return true;
         }
 
         private void OnAtkSkill(int val)
