@@ -17,6 +17,12 @@ namespace DarkGod.Main
 
         #endregion
 
+        #region
+        public const string PlayerHead = "Assets/ResModules/Art/StarRailRes/icon/avatar/1001";
+        public const string PlayerPreview = "Assets/ResModules/Art/StarRailRes/image/character_preview/1001";
+
+        #endregion
+
         #region Strong
         public const string ItemArrorBG = "Assets/AssetBundles/UIs/ResImages/btnstrong";
         public const string ItemPlatBG = "Assets/AssetBundles/UIs/ResImages/charbg3";
@@ -51,7 +57,7 @@ namespace DarkGod.Main
         public const string ArtisanHead = "Assets/AssetBundles/UIs/ResImages/artisan";
         public const string TraderHead = "Assets/AssetBundles/UIs/ResImages/trader";
 
-        public const string SelfIcon = "Assets/AssetBundles/UIs/ResImages/assassin";
+        public const string SelfIcon = "Assets/ResModules/Art/StarRailRes/image/character_portrait/1001";
         public const string GuideIcon = "Assets/AssetBundles/UIs/ResImages/npcguide";
         public const string WiseManIcon = "Assets/AssetBundles/UIs/ResImages/npc0";
         public const string GeneralIcon = "Assets/AssetBundles/UIs/ResImages/npc1";

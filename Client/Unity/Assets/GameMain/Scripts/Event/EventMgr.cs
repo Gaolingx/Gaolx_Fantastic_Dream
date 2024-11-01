@@ -41,7 +41,7 @@ namespace DarkGod.Main
         // 定义游戏全局事件
         private event EventHandler<GameStateEventArgs> _onGameStateEventHandler;
         public Action OnGameEnter { get; set; }
-        public Action<bool> OnGamePause { get; set; }
+        public BindableProperty<bool> OnGamePause { get; set; } = new BindableProperty<bool>();
         public Action OnGameExit { get; set; }
 
         private void C_OnGameStateOperationEvent(object sender, GameStateEventArgs eventArgs)
@@ -52,11 +52,11 @@ namespace DarkGod.Main
             }
             else if (eventArgs.GameStateEventCode == GameStateEventCode.GamePause)
             {
-                OnGamePause?.Invoke(true);
+                OnGamePause.Value = true;
             }
             else if (eventArgs.GameStateEventCode == GameStateEventCode.GameContinue)
             {
-                OnGamePause?.Invoke(false);
+                OnGamePause.Value = false;
             }
             else if (eventArgs.GameStateEventCode == GameStateEventCode.GameStop)
             {

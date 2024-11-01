@@ -30,7 +30,6 @@ Material:
   - _RIM_LIGHTING_ON
   - _RIM_SHADOW_ON
   - _SPECULAR_ON
-  - _STOCKINGS_ON
   m_InvalidKeywords:
   - _DAYTIME_MANUAL_ON_ON
   - _ENABLEOUTLINE_ON
@@ -176,6 +175,7 @@ Material:
     - _EnableOutline: 1
     - _EnableSpecular: 1
     - _ExCheekIntensity: 0
+    - _ExEyeShadowIntensity: 0
     - _ExShadowIntensity: 0
     - _ExShyIntensity: 0
     - _FaceMaterial: 0
@@ -325,7 +325,7 @@ Material:
     - _UseNormalMap: 0
     - _UseRimLight: 1
     - _UseRimShadow: 1
-    - _UseStockings: 1
+    - _UseStockings: 0
     - _WarmShadowMultColorFac0: 0
     - _WarmShadowMultColorFac1: 0
     - _WarmShadowMultColorFac2: 0

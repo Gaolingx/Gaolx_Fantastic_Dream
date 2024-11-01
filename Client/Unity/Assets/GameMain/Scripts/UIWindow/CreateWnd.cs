@@ -12,6 +12,7 @@ namespace DarkGod.Main
     public class CreateWnd : WindowRoot, IWindowRoot
     {
         public TMP_InputField iptName;
+        public Image imgActor;
         public Button btnRand;
         public Button btnEnter;
 
@@ -21,6 +22,7 @@ namespace DarkGod.Main
 
             //显示一个随机名字
             iptName.text = configSvc.GetRDNameCfg(false);
+            SetSprite(imgActor, PathDefine.PlayerPreview);
         }
 
         public void OnEnable()

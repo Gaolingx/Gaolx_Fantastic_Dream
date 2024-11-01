@@ -30,8 +30,9 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
-            chatType = ChatType.ChatWorld;
+            GameRoot.MainInstance.EnableInputAction(false);
 
+            chatType = ChatType.ChatWorld;
             RefreshUI();
         }
 
@@ -167,6 +168,8 @@ namespace DarkGod.Main
 
         public void OnDisable()
         {
+            GameRoot.MainInstance.EnableInputAction(true);
+
             btnWord.onClick.RemoveAllListeners();
             btnGuild.onClick.RemoveAllListeners();
             btnFriend.onClick.RemoveAllListeners();

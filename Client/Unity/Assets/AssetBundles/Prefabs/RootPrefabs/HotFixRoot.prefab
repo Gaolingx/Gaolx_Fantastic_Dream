@@ -188,7 +188,6 @@ MonoBehaviour:
   chatWnd: {fileID: 8582370531870333400}
   buyWnd: {fileID: 7611581401624385505}
   taskWnd: {fileID: 662377767552011033}
-  charCamTrans: {fileID: 0}
 --- !u!114 &8267285274660475252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1913,18 +1912,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 5352851909375126889}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6421602212765523441 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1393647768866861208, guid: e02f108e2dd7b184f94eb88838bc3883,
-    type: 3}
-  m_PrefabInstance: {fileID: 5352851909375126889}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6b93cd0b10fed047abf396d4c07d5a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &5419853856168164532
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1933,11 +1920,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8991708001825433365}
     m_Modifications:
-    - target: {fileID: 5675113177725089161, guid: d65385e92d3e8954685097fe65dc075c,
-        type: 3}
-      propertyPath: debugWnd
-      value: 
-      objectReference: {fileID: 6421602212765523441}
     - target: {fileID: 6120058157258716995, guid: d65385e92d3e8954685097fe65dc075c,
         type: 3}
       propertyPath: m_Name
@@ -2995,11 +2977,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerBattleWnd
       objectReference: {fileID: 0}
-    - target: {fileID: 5186525922862661629, guid: c6e6e72f730b4074480dae9796842549,
-        type: 3}
-      propertyPath: settingsWnd
-      value: 
-      objectReference: {fileID: 429316410449987901}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

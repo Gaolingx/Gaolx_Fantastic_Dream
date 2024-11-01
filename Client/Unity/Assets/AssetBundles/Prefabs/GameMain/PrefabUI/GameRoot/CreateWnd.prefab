@@ -997,6 +997,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iptName: {fileID: 887929520789160080}
+  imgActor: {fileID: 114758113181559332}
   btnRand: {fileID: 114770250308211468}
   btnEnter: {fileID: 114113429773365986}
 --- !u!1 &1793131585575732
@@ -1141,7 +1142,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9c99e69786f3b294ebd4d2c07bbe2a34, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

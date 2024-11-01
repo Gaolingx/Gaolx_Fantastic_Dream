@@ -32,6 +32,7 @@ namespace DarkGod.Main
         public Button btnBuyPower;
         public Button btnGuide;
         public Button btnHead;
+        public Image imgHead;
         public Button btnTask;
         public Button btnArena;
         public Button btnMKCoin;
@@ -80,6 +81,7 @@ namespace DarkGod.Main
             SetText(txtFight, PECommon.GetFightByProps(pd));
             SetText(txtPower, "体力:" + pd.power + "/" + PECommon.GetPowerLimit(pd.lv));
             imgPowerPrg.fillAmount = pd.power * 1.0f / PECommon.GetPowerLimit(pd.lv);
+            SetSprite(imgHead, PathDefine.PlayerHead);
             SetText(txtLevel, pd.lv);
             SetText(txtName, pd.name);
 

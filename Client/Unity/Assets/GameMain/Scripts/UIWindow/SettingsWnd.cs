@@ -8,13 +8,13 @@ namespace DarkGod.Main
 {
     public class SettingsWnd : WindowRoot, IWindowRoot
     {
-        public DebugWnd debugWnd;
         public Slider BGAudioSlider;
         public Slider UIAudioSlider;
         public Slider CharacterAudioSlider;
         public Slider CharacterFxAudioSlider;
         public TMP_Dropdown TargetFrameDropdown;
         public TMP_Dropdown qualitySelectDropdown;
+        public TMP_Dropdown screenResolutionDropdown;
         public Toggle FullScreenToggle;
         public Toggle MutedToggle;
         public Button btnResetCfgs;
@@ -22,11 +22,17 @@ namespace DarkGod.Main
         public Button btnMainMenu;
         public Button btnCloseSettings;
 
+        private DebugWnd debugWnd;
+        private BattleEndWnd battleEndWnd;
+
         private UIController _UIController;
 
         protected override void InitWnd()
         {
             base.InitWnd();
+
+            debugWnd = GameRoot.MainInstance.transform.Find($"{Constants.Path_Canvas_Obj}/DebugItems").gameObject.GetComponent<DebugWnd>();
+            battleEndWnd = GameRoot.MainInstance.transform.Find($"{Constants.Path_Canvas_Obj}/BattleEndWnd").gameObject.GetComponent<BattleEndWnd>();
 
             if (debugWnd != null)
             {
@@ -35,6 +41,12 @@ namespace DarkGod.Main
 
             _UIController = GameRoot.MainInstance.GetUIController();
             GameRoot.MainInstance.PauseGameUI(true);
+
+            if (battleEndWnd != null)
+            {
+                battleEndWnd.SetWndState(false);
+            }
+
             InitWindowValue();
         }
 
@@ -47,6 +59,7 @@ namespace DarkGod.Main
         {
             InitDropdownOptionData(TargetFrameDropdown, new List<string>(new string[] { "60", "120", "No Limits" }));
             InitDropdownOptionData(qualitySelectDropdown, new List<string>(QualitySettings.names));
+            InitDropdownOptionData(screenResolutionDropdown, new List<string>(new string[] { "1024x768", "1280x720", "1360x768", "1600x900", "1920x1080" }));
             qualitySelectDropdown.value = QualitySettings.GetQualityLevel();
             FullScreenToggle.isOn = Screen.fullScreen;
             BGAudioSlider.value = audioSvc.BGAudioVolumeValue.Value;
@@ -73,6 +86,7 @@ namespace DarkGod.Main
 
             TargetFrameDropdown.onValueChanged.AddListener(delegate (int val) { OnTargetFrameDropdownValueChanged(val); });
             qualitySelectDropdown.onValueChanged.AddListener(delegate (int val) { OnQualityDropdownValueChanged(val); });
+            screenResolutionDropdown.onValueChanged.AddListener(delegate (int val) { OnSetScreenResolution(val); });
         }
 
         public void TouchBGAudioSlider(float volume)
@@ -132,14 +146,38 @@ namespace DarkGod.Main
             }
         }
 
-        public void OnQualityDropdownValueChanged(int value)
+        private void OnQualityDropdownValueChanged(int value)
         {
             SetQualityLevel(value);
         }
 
-        public void OnTargetFrameDropdownValueChanged(int value)
+        private void OnSetScreenResolution(int index)
         {
-            switch (value)
+            switch (index)
+            {
+                case 0:
+                    _UIController.ScreenResolution = new Vector2(1024, 768);
+                    break;
+                case 1:
+                    _UIController.ScreenResolution = new Vector2(1280, 720);
+                    break;
+                case 2:
+                    _UIController.ScreenResolution = new Vector2(1360, 768);
+                    break;
+                case 3:
+                    _UIController.ScreenResolution = new Vector2(1600, 900);
+                    break;
+                case 4:
+                    _UIController.ScreenResolution = new Vector2(1920, 1080);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void OnTargetFrameDropdownValueChanged(int index)
+        {
+            switch (index)
             {
                 case 0:
                     _UIController.FrameRate = 60;
@@ -174,7 +212,7 @@ namespace DarkGod.Main
 
             TargetFrameDropdown.onValueChanged.RemoveAllListeners();
             qualitySelectDropdown.onValueChanged.RemoveAllListeners();
+            screenResolutionDropdown.onValueChanged.RemoveAllListeners();
         }
-
     }
 }

@@ -16,6 +16,8 @@ namespace DarkGod.Main
         public TMP_Text txtName;
         public TMP_Text txtExpPrg;
 
+        public Image imgHead;
+
         public Button btnSettings;
         public Button btnNormal;
         public Button btnSkill1;
@@ -23,7 +25,7 @@ namespace DarkGod.Main
         public Button btnSkill3;
 
         public Transform expPrgTrans;
-        public SettingsWnd settingsWnd;
+        private SettingsWnd settingsWnd;
 
         private StarterAssetsInputs playerInput;
         private UICanvasControllerInput uICanvasController;
@@ -82,6 +84,8 @@ namespace DarkGod.Main
         protected override void InitWnd()
         {
             base.InitWnd();
+
+            settingsWnd = GameRoot.MainInstance.transform.Find($"{Constants.Path_Canvas_Obj}/SettingsPanel").gameObject.GetComponent<SettingsWnd>();
 
             InitSkCDTime();
 
@@ -277,7 +281,10 @@ namespace DarkGod.Main
 
         public void ClickSettingsBtn()
         {
-            settingsWnd.SetWndState(true);
+            if (settingsWnd != null)
+            {
+                settingsWnd.SetWndState(true);
+            }
         }
 
         //释放技能
@@ -346,6 +353,7 @@ namespace DarkGod.Main
             SetText(txtName, pd.name);
 
             SetExpprg(pd, txtExpPrg, expPrgTrans);
+            SetSprite(imgHead, PathDefine.PlayerHead);
         }
 
         #region HPVal

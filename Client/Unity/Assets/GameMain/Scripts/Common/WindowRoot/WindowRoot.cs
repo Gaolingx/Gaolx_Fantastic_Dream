@@ -258,10 +258,11 @@ namespace DarkGod.Main
             else if (GameRoot.MainInstance.GameRootGameState == GameState.MainCity)
             {
                 EventMgr.MainInstance.ShowMessageBox(this, new("当前未处于副本战斗关卡"));
+                callback?.Invoke();
             }
         }
 
-        protected virtual void ClickExitGame()
+        protected void ClickExitGame()
         {
             GameRoot.MainInstance.ExitGame();
         }

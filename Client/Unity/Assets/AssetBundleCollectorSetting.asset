@@ -115,3 +115,24 @@ MonoBehaviour:
         FilterRuleName: CollectShaderVariants
         AssetTags: 
         UserData: 
+    - GroupName: ABImage
+      GroupDesc: 
+      AssetTags: 
+      ActiveRuleName: EnableGroup
+      Collectors:
+      - CollectPath: Assets/ResModules/Art/StarRailRes/image
+        CollectorGUID: eaca9de1f8bf1e94d8ee1057aa6b8ea8
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 
+      - CollectPath: Assets/ResModules/Art/StarRailRes/icon/avatar
+        CollectorGUID: 88097f2589d12ef47a7dda0118b9eb32
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 

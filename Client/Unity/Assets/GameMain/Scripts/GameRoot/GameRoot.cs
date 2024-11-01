@@ -64,7 +64,7 @@ namespace DarkGod.Main
             InitTransform();
 
             EventMgr.MainInstance.OnGameExit += delegate { GetUIController().OnClickExit(); };
-            EventMgr.MainInstance.OnGamePause += delegate (bool val) { OnUpdatePauseState(val); };
+            EventMgr.MainInstance.OnGamePause.OnValueChanged += delegate (bool val) { OnUpdatePauseState(val); };
             EventMgr.MainInstance.QualityLevel.OnValueChanged += delegate (int val) { OnUpdateQualityLevel(val); };
         }
 
@@ -106,14 +106,17 @@ namespace DarkGod.Main
         {
             _isGamePause = isPause;
 
-            if (GameRootGameState == GameState.MainCity)
+            if (GameRootGameState == GameState.MainCity && isPause)
             {
                 MainCitySys.MainInstance.OpenSettingsWnd();
             }
             else if (GameRootGameState == GameState.FBFight)
             {
-                BattleSys.MainInstance.battleMgr.SetPauseGame(true);
-                BattleSys.MainInstance.SetBattleEndWndState(FBEndType.Pause);
+                BattleSys.MainInstance.battleMgr.SetPauseGame(isPause);
+                if (isPause)
+                {
+                    BattleSys.MainInstance.SetBattleEndWndState(FBEndType.Pause);
+                }
             }
         }
 
@@ -287,7 +290,7 @@ namespace DarkGod.Main
         private void OnDestroy()
         {
             EventMgr.MainInstance.OnGameExit -= delegate { GetUIController().OnClickExit(); };
-            EventMgr.MainInstance.OnGamePause -= delegate (bool val) { OnUpdatePauseState(val); };
+            EventMgr.MainInstance.OnGamePause.OnValueChanged -= delegate (bool val) { OnUpdatePauseState(val); };
             EventMgr.MainInstance.QualityLevel.OnValueChanged -= delegate (int val) { OnUpdateQualityLevel(val); };
         }
 

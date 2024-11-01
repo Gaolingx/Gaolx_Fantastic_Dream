@@ -21,8 +21,8 @@ namespace DarkGod.Main
         public ChatWnd chatWnd;
         public BuyWnd buyWnd;
         public TaskWnd taskWnd;
-        public Transform charCamTrans;
 
+        private Transform charCamTrans;
         private GameObject mainCityPlayer;
         //private PlayerController playerCtrl;
         private AutoGuideCfg curtTaskData;
@@ -43,7 +43,7 @@ namespace DarkGod.Main
         {
             base.InitSys();
 
-            EventMgr.MainInstance.OnGamePause += delegate (bool val) { OnUpdatePauseState2(val); };
+            EventMgr.MainInstance.OnGamePause.OnValueChanged += delegate (bool val) { OnUpdatePauseState2(val); };
             PECommon.Log("Init MainCitySys...");
         }
 
@@ -94,7 +94,7 @@ namespace DarkGod.Main
                 PlayBGAudioLst();
 
                 //获取主城NPCs的Transform
-                GetMapNpcTransform();
+                SetMapNpcTransform();
 
                 //设置人物展示相机
                 InitCharCam();
@@ -352,7 +352,7 @@ namespace DarkGod.Main
         }
         #endregion
 
-        private void GetMapNpcTransform()
+        private void SetMapNpcTransform()
         {
             MainCityMap mainCityMap = GameObject.FindGameObjectWithTag(Constants.MapRootWithTag_MainCity).GetComponent<MainCityMap>();
             npcPosTrans = mainCityMap.NpcPosTrans;
@@ -360,15 +360,8 @@ namespace DarkGod.Main
 
         private void InitCharCam()
         {
-            if (charCamTrans == null)
-            {
-                charCamTrans = GameObject.FindGameObjectWithTag(Constants.CharShowCamWithTag).transform;
-                charCamTrans.gameObject.SetActive(false);
-            }
-            else
-            {
-                charCamTrans.gameObject.SetActive(false);
-            }
+            charCamTrans = GameObject.FindGameObjectWithTag(Constants.CharShowCamWithTag).transform;
+            charCamTrans.gameObject.SetActive(false);
         }
 
         #region Guide Wnd
@@ -495,9 +488,9 @@ namespace DarkGod.Main
         #endregion
 
         #region Input
-        public void SetInputState(bool stateInputAction)
+        private void SetInputState(bool state = true)
         {
-            GameRoot.MainInstance.EnableInputAction(stateInputAction);
+            GameRoot.MainInstance.EnableInputAction(state);
         }
         #endregion
 
@@ -553,7 +546,7 @@ namespace DarkGod.Main
         private void OnDestroy()
         {
             EventMgr.MainInstance.OnGameEnter -= delegate { InitSys(); };
-            EventMgr.MainInstance.OnGamePause -= delegate (bool val) { OnUpdatePauseState2(val); };
+            EventMgr.MainInstance.OnGamePause.OnValueChanged -= delegate (bool val) { OnUpdatePauseState2(val); };
         }
     }
 }
