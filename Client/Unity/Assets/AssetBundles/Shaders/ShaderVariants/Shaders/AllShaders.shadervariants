@@ -225,9 +225,10 @@ ShaderVariantCollection:
       variants:
       - keywords: 
         passType: 0
-  - first: {fileID: 4800000, guid: 0781c64b7f2a1604ea6aa7e252080372, type: 3}
+  - first: {fileID: 4800000, guid: 6459b2db96a08ca41b0f9b39dc7ad59e, type: 3}
     second:
       variants:
-      - keywords: _ADDITIONAL_LIGHTS _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE
-          _MTOON_OUTLINE_WORLD _SHADOWS_SOFT
-        passType: 13
+      - keywords: LIGHTMAP_ON N_F_EAL_ON N_F_O_ON N_F_RDC_ON N_F_RELGI_ON N_F_RL_ON
+          N_F_SS_ON N_F_TRANSAFFSHA_ON _ADDITIONAL_LIGHTS _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE
+          _SHADOWS_SOFT
+        passType: 14

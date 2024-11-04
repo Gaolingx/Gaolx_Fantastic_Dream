@@ -99,11 +99,6 @@ MonoBehaviour:
     soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Footstep_10.prefab
     soundCount: 1
     isRepeat: 1
-  - soundStyle: 1
-    soundName: Player_Land
-    soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Land.prefab
-    soundCount: 1
-    isRepeat: 1
   - soundStyle: 5
     soundName: Player_Land
     soundPath: Assets/AssetBundles/Prefabs/GameMain/PrefabSound/Player/Player_Land.prefab

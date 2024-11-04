@@ -55,8 +55,7 @@ MonoBehaviour:
   - {fileID: -1878332245247344467}
   - {fileID: 4561540317061492707}
   - {fileID: 7584078143236286206}
-  - {fileID: 7425585056841605948}
-  m_RendererFeatureMap: adc0de57c6d2eee5e3af1213c0d84d3ffe26679ce30e40693c237e4a44fa0c67
+  m_RendererFeatureMap: adc0de57c6d2eee5e3af1213c0d84d3ffe26679ce30e4069
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -123,19 +122,6 @@ MonoBehaviour:
   m_FrontHairShadowDownscale: 2
   m_FrontHairShadowDepthBits: 16
   m_EnableTransparentFrontHair: 1
---- !u!114 &7425585056841605948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b6d00cd3f0249a2b4ee7dc86f9a8d63, type: 3}
-  m_Name: MToonOutlineRenderFeature
-  m_EditorClassIdentifier: 
-  m_Active: 1
 --- !u!114 &7584078143236286206
 MonoBehaviour:
   m_ObjectHideFlags: 0
