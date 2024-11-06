@@ -17,8 +17,8 @@ namespace DarkGod.Main
         public EventMgr eventMgr { get; set; }
         public VFXManager VFXMgr { get; set; }
 
-        public ThirdPersonController playerController { get; set; }
-        public Controller controller { get; set; }
+        protected ThirdPersonController playerController { get; set; }
+        protected Controller controller { get; set; }
 
         public string EntityName { get; set; }
 
@@ -31,19 +31,20 @@ namespace DarkGod.Main
         public BattleProps Props { get; protected set; } //只能在继承他的子类中修改
 
         public BindableProperty<int> currentHP { get; set; } = new BindableProperty<int>();
-        protected int oldHp; //战斗中的hp
+        //战斗中的hp
+        protected int oldHp;
 
         //用队列存储连招对应的技能id，当释放完此次普攻后，检测是否存在下一次技能id。
         public Queue<int> comboQue { get; set; } = new Queue<int>();
         public int nextSkillID { get; set; } = 0;
 
-        public SkillCfg curtSkillCfg { get; set; } //当前正在施放技能的id
+        //当前正在施放技能的id
+        public SkillCfg curtSkillCfg { get; set; }
 
         //技能位移的回调id
         public List<int> skMoveCBLst { get; set; } = new List<int>();
         //技能伤害计算回调id
         public List<int> skActionCBLst { get; set; } = new List<int>();
-
         //技能结束回调
         public int skEndCB { get; set; } = -1;
 

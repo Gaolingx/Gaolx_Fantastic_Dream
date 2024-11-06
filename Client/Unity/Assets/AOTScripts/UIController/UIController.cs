@@ -27,6 +27,9 @@ public class UIController : MonoBehaviour
     private bool m_FullScreenMode = true;
 
     [SerializeField]
+    private bool m_UseCurrentResolution = true;
+
+    [SerializeField]
     private Vector2 m_ScreenResolution = new Vector2(1280f, 720f);
 
     private float m_GameSpeedBeforePause = 1f;
@@ -38,7 +41,15 @@ public class UIController : MonoBehaviour
         Time.timeScale = m_GameSpeed;
         Application.runInBackground = m_RunInBackground;
         Screen.sleepTimeout = m_NeverSleep ? SleepTimeout.NeverSleep : SleepTimeout.SystemSetting;
-        Screen.SetResolution((int)m_ScreenResolution.x, (int)m_ScreenResolution.y, m_FullScreenMode);
+
+        if (!m_UseCurrentResolution)
+        {
+            Screen.SetResolution((int)m_ScreenResolution.x, (int)m_ScreenResolution.y, m_FullScreenMode);
+        }
+        else
+        {
+            Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, m_FullScreenMode);
+        }
 
         Debug.Log("UIController Init Done.");
     }

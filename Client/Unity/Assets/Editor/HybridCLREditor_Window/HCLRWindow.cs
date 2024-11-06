@@ -1,4 +1,4 @@
-using HybridCLR.Editor;
+ï»¿using HybridCLR.Editor;
 using HybridCLR.Editor.Commands;
 using HybridCLR.Editor.Installer;
 using LKZ.HybridCLREditor.DataStruct;
@@ -17,15 +17,15 @@ namespace LKZ.HybridCLREditor
         private static string dataPath;
 
         /// <summary>
-        /// °´ÏÂÏÔÊ¾´°¿Ú
+        /// æŒ‰ä¸‹æ˜¾ç¤ºçª—å£
         /// </summary>
-        [MenuItem("LKZ/HybridCLR´°¿Ú¹¤¾ß", priority = 2050)]
+        [MenuItem("LKZ/HybridCLRçª—å£å·¥å…·", priority = 2050)]
         public static void ShowWindow()
         {
             LoadABEditorData();
 
             var window = GetWindow<HCLRWindow>();
-            window.titleContent = new GUIContent("HybridCLR ´°¿Ú¹¤¾ß");
+            window.titleContent = new GUIContent("HybridCLR çª—å£å·¥å…·");
             window.minSize = new Vector2(500, 300);
             window.Show();
 
@@ -36,10 +36,10 @@ namespace LKZ.HybridCLREditor
         {
             EditorGUILayout.Space(10);
 
-            //¸ß¼¶
-            using (new EditorGUI.DisabledScope(false))//ÊÇ·ñ¿ÉÒÔ½ûÓÃ
+            //é«˜çº§
+            using (new EditorGUI.DisabledScope(false))//æ˜¯å¦å¯ä»¥ç¦ç”¨
             {
-                dataStruct.HybridCLRInitializedAdvancedOptions = EditorGUILayout.Foldout(dataStruct.HybridCLRInitializedAdvancedOptions, "HybridCLR³õÊ¼»¯ÅäÖÃ");
+                dataStruct.HybridCLRInitializedAdvancedOptions = EditorGUILayout.Foldout(dataStruct.HybridCLRInitializedAdvancedOptions, "HybridCLRåˆå§‹åŒ–é…ç½®");
 
                 if (dataStruct.HybridCLRInitializedAdvancedOptions)
                 {
@@ -49,8 +49,8 @@ namespace LKZ.HybridCLREditor
                     centeredStyle.alignment = TextAnchor.UpperLeft;
                     centeredStyle.contentOffset = new Vector2(8, 0);
 
-                    GUILayout.Label(new GUIContent("HybridCLR ³õÊ¼»¯,Ê×´Î±ØĞëÖ´ĞĞ"), centeredStyle);
-                    if (GUILayout.Button("³õÊ¼»¯(Installer)", GUILayout.MaxWidth(130f)))
+                    GUILayout.Label(new GUIContent("HybridCLR åˆå§‹åŒ–,é¦–æ¬¡å¿…é¡»æ‰§è¡Œ"), centeredStyle);
+                    if (GUILayout.Button("åˆå§‹åŒ–(Installer)", GUILayout.MaxWidth(130f)))
                     {
                         InstallerWindow window = EditorWindow.GetWindow<InstallerWindow>("HybridCLR Installer", true);
                         window.minSize = new Vector2(800f, 500f);
@@ -58,10 +58,10 @@ namespace LKZ.HybridCLREditor
                     GUILayout.EndHorizontal();
                 }
                 EditorGUILayout.Space(20);
-                using (new EditorGUI.DisabledScope(false))//ÊÇ·ñ¿ÉÒÔ½ûÓÃ
+                using (new EditorGUI.DisabledScope(false))//æ˜¯å¦å¯ä»¥ç¦ç”¨
                 {
-                    //¸ß¼¶ 
-                    dataStruct.HybridCLRGenerateAdvancedOptions = EditorGUILayout.Foldout(dataStruct.HybridCLRGenerateAdvancedOptions, "HybridCLRÉú³É");
+                    //é«˜çº§ 
+                    dataStruct.HybridCLRGenerateAdvancedOptions = EditorGUILayout.Foldout(dataStruct.HybridCLRGenerateAdvancedOptions, "HybridCLRç”Ÿæˆ");
 
                     if (dataStruct.HybridCLRGenerateAdvancedOptions)
                     {
@@ -71,16 +71,16 @@ namespace LKZ.HybridCLREditor
                         centeredStyle.alignment = TextAnchor.UpperLeft;
                         centeredStyle.contentOffset = new Vector2(8, 0);
 
-                        GUILayout.Label(new GUIContent("Éú³ÉIL2CPP±ÜÃâ²Ã¼ôLinkXmlÎÄ¼ş"), centeredStyle);
-                        if (GUILayout.Button("Éú³ÉLink", GUILayout.MaxWidth(150)))
+                        GUILayout.Label(new GUIContent("ç”ŸæˆIL2CPPé¿å…è£å‰ªLinkXmlæ–‡ä»¶"), centeredStyle);
+                        if (GUILayout.Button("ç”ŸæˆLink", GUILayout.MaxWidth(150)))
                         {
                             LinkGeneratorCommand.GenerateLinkXml();
                         }
                         GUILayout.EndHorizontal();
 
                         GUILayout.BeginHorizontal();
-                        GUILayout.Label(new GUIContent("Éú³ÉMethodBridge"), centeredStyle);
-                        if (GUILayout.Button("Éú³ÉMethodBridge", GUILayout.MaxWidth(150)))
+                        GUILayout.Label(new GUIContent("ç”ŸæˆMethodBridge"), centeredStyle);
+                        if (GUILayout.Button("ç”ŸæˆMethodBridge", GUILayout.MaxWidth(150)))
                         {
                             //MethodBridgeGeneratorCommand.CompileAndGenerateMethodBridge();
                             MethodBridgeGeneratorCommand.GenerateMethodBridgeAndReversePInvokeWrapper();
@@ -90,16 +90,16 @@ namespace LKZ.HybridCLREditor
                         GUILayout.BeginHorizontal();
 
 
-                        GUILayout.Label(new GUIContent("Éú³ÉAOTGenericReference"), centeredStyle);
-                        if (GUILayout.Button("Éú³ÉRef", GUILayout.MaxWidth(150)))
+                        GUILayout.Label(new GUIContent("ç”ŸæˆAOTGenericReference"), centeredStyle);
+                        if (GUILayout.Button("ç”ŸæˆRef", GUILayout.MaxWidth(150)))
                         {
                             AOTReferenceGeneratorCommand.CompileAndGenerateAOTGenericReference();
                         }
                         GUILayout.EndHorizontal();
 
                         GUILayout.BeginHorizontal();
-                        GUILayout.Label(new GUIContent("Éú³ÉReversePInvokeWrapper"), centeredStyle);
-                        if (GUILayout.Button("Éú³ÉReversePInvokeWrapper", GUILayout.MaxWidth(150)))
+                        GUILayout.Label(new GUIContent("ç”ŸæˆReversePInvokeWrapper"), centeredStyle);
+                        if (GUILayout.Button("ç”ŸæˆReversePInvokeWrapper", GUILayout.MaxWidth(150)))
                         {
                             //ReversePInvokeWrapperGeneratorCommand.CompileAndGenerateReversePInvokeWrapper();
                             MethodBridgeGeneratorCommand.GenerateMethodBridgeAndReversePInvokeWrapper();
@@ -107,16 +107,16 @@ namespace LKZ.HybridCLREditor
                         GUILayout.EndHorizontal();
 
                         GUILayout.BeginHorizontal();
-                        GUILayout.Label(new GUIContent("Éú³ÉIl2CppDef"), centeredStyle);
-                        if (GUILayout.Button("Éú³ÉCppDef", GUILayout.MaxWidth(150)))
+                        GUILayout.Label(new GUIContent("ç”ŸæˆIl2CppDef"), centeredStyle);
+                        if (GUILayout.Button("ç”ŸæˆCppDef", GUILayout.MaxWidth(150)))
                         {
                             Il2CppDefGeneratorCommand.GenerateIl2CppDef();
                         }
                         GUILayout.EndHorizontal();
 
                         GUILayout.BeginHorizontal();
-                        GUILayout.Label(new GUIContent("Éú³ÉAOTDlls"), centeredStyle);
-                        if (GUILayout.Button("Éú³ÉAOTDlls", GUILayout.MaxWidth(150)))
+                        GUILayout.Label(new GUIContent("ç”ŸæˆAOTDlls"), centeredStyle);
+                        if (GUILayout.Button("ç”ŸæˆAOTDlls", GUILayout.MaxWidth(150)))
                         {
                             StripAOTDllCommand.GenerateStripedAOTDlls();
                         }
@@ -125,10 +125,10 @@ namespace LKZ.HybridCLREditor
 
 
                         GUILayout.BeginHorizontal();
-                        GUILayout.Label(new GUIContent("Éú³ÉAll"), centeredStyle);
+                        GUILayout.Label(new GUIContent("ç”ŸæˆAll"), centeredStyle);
 
 
-                        if (GUILayout.Button("Éú³ÉAll", GUILayout.MaxWidth(150)))
+                        if (GUILayout.Button("ç”ŸæˆAll", GUILayout.MaxWidth(150)))
                         {
                             PrebuildCommand.GenerateAll();
                         }
@@ -140,17 +140,17 @@ namespace LKZ.HybridCLREditor
 
                         GUILayout.BeginHorizontal();
 
-                        GUILayout.Label(new GUIContent("ÃüÁîÔËĞĞ¹ı³ÌÖĞ»áÖ´ĞĞÒ»´Îµ¼³ö¹¤³Ì£¬ÒÔÉú³É²Ã¼ôºóµÄAOT dll¡£ÕâÒ»²½¶ÔÓÚ´óĞÍÏîÄ¿À´Ëµ¿ÉÄÜ·Ç³£ºÄÊ±£¬¼¸ºõ½«´ò°üÊ±¼äÔö¼ÓÁËÒ»±¶¡£"), centeredStyle_t);
+                        GUILayout.Label(new GUIContent("å‘½ä»¤è¿è¡Œè¿‡ç¨‹ä¸­ä¼šæ‰§è¡Œä¸€æ¬¡å¯¼å‡ºå·¥ç¨‹ï¼Œä»¥ç”Ÿæˆè£å‰ªåçš„AOT dllã€‚è¿™ä¸€æ­¥å¯¹äºå¤§å‹é¡¹ç›®æ¥è¯´å¯èƒ½éå¸¸è€—æ—¶ï¼Œå‡ ä¹å°†æ‰“åŒ…æ—¶é—´å¢åŠ äº†ä¸€å€ã€‚"), centeredStyle_t);
                         GUILayout.EndHorizontal();
 
                     }
                 }
 
                 EditorGUILayout.Space(20);
-                using (new EditorGUI.DisabledScope(false))//ÊÇ·ñ¿ÉÒÔ½ûÓÃ
+                using (new EditorGUI.DisabledScope(false))//æ˜¯å¦å¯ä»¥ç¦ç”¨
                 {
-                    //¸ß¼¶ 
-                    dataStruct.HybridCLRCompileAdvancedOptions = EditorGUILayout.Foldout(dataStruct.HybridCLRCompileAdvancedOptions, "±àÒëÈÈ¸üµÄdll");
+                    //é«˜çº§ 
+                    dataStruct.HybridCLRCompileAdvancedOptions = EditorGUILayout.Foldout(dataStruct.HybridCLRCompileAdvancedOptions, "ç¼–è¯‘çƒ­æ›´çš„dll");
 
                     if (dataStruct.HybridCLRCompileAdvancedOptions)
                     {
@@ -160,8 +160,8 @@ namespace LKZ.HybridCLREditor
                         centeredStyle.alignment = TextAnchor.UpperLeft;
                         centeredStyle.contentOffset = new Vector2(8, 0);
 
-                        GUILayout.Label(new GUIContent("±àÒëµ±Ç°Æ½Ì¨"), centeredStyle);
-                        if (GUILayout.Button("±àÒë", GUILayout.MaxWidth(100)))
+                        GUILayout.Label(new GUIContent("ç¼–è¯‘å½“å‰å¹³å°"), centeredStyle);
+                        if (GUILayout.Button("ç¼–è¯‘", GUILayout.MaxWidth(100)))
                         {
                             CompileDllCommand.CompileDllActiveBuildTarget();
                         }
@@ -170,8 +170,8 @@ namespace LKZ.HybridCLREditor
                         GUILayout.BeginHorizontal();
 
 
-                        GUILayout.Label(new GUIContent("±àÒëµ±Ç°Æ½Ì¨¿ª·¢°ü"), centeredStyle);
-                        if (GUILayout.Button("±àÒë", GUILayout.MaxWidth(100)))
+                        GUILayout.Label(new GUIContent("ç¼–è¯‘å½“å‰å¹³å°å¼€å‘åŒ…"), centeredStyle);
+                        if (GUILayout.Button("ç¼–è¯‘", GUILayout.MaxWidth(100)))
                         {
                             CompileDllCommand.CompileDllActiveBuildTargetDevelopment();
                         }
@@ -181,56 +181,56 @@ namespace LKZ.HybridCLREditor
 
                         GUILayout.BeginHorizontal();
 
-                        GUILayout.Label(new GUIContent("±àÒëWin32Æ½Ì¨"), centeredStyle);
-                        if (GUILayout.Button("±àÒë", GUILayout.MaxWidth(100)))
+                        GUILayout.Label(new GUIContent("ç¼–è¯‘Win32å¹³å°"), centeredStyle);
+                        if (GUILayout.Button("ç¼–è¯‘", GUILayout.MaxWidth(100)))
                         {
                             CompileDllCommand.CompileDllWin32();
                         }
                         GUILayout.EndHorizontal();
                         GUILayout.BeginHorizontal();
 
-                        GUILayout.Label(new GUIContent("±àÒëWin64Æ½Ì¨"), centeredStyle);
-                        if (GUILayout.Button("±àÒë", GUILayout.MaxWidth(100)))
+                        GUILayout.Label(new GUIContent("ç¼–è¯‘Win64å¹³å°"), centeredStyle);
+                        if (GUILayout.Button("ç¼–è¯‘", GUILayout.MaxWidth(100)))
                         {
                             CompileDllCommand.CompileDllWin64();
                         }
                         GUILayout.EndHorizontal();
                         GUILayout.BeginHorizontal();
 
-                        GUILayout.Label(new GUIContent("±àÒëMacOSÆ½Ì¨"), centeredStyle);
-                        if (GUILayout.Button("±àÒë", GUILayout.MaxWidth(100)))
+                        GUILayout.Label(new GUIContent("ç¼–è¯‘MacOSå¹³å°"), centeredStyle);
+                        if (GUILayout.Button("ç¼–è¯‘", GUILayout.MaxWidth(100)))
                         {
                             CompileDllCommand.CompileDllMacOS();
                         }
                         GUILayout.EndHorizontal();
                         GUILayout.BeginHorizontal();
 
-                        GUILayout.Label(new GUIContent("±àÒëLinuxÆ½Ì¨"), centeredStyle);
-                        if (GUILayout.Button("±àÒë", GUILayout.MaxWidth(100)))
+                        GUILayout.Label(new GUIContent("ç¼–è¯‘Linuxå¹³å°"), centeredStyle);
+                        if (GUILayout.Button("ç¼–è¯‘", GUILayout.MaxWidth(100)))
                         {
                             CompileDllCommand.CompileDllLinux();
                         }
                         GUILayout.EndHorizontal();
                         GUILayout.BeginHorizontal();
 
-                        GUILayout.Label(new GUIContent("±àÒëAndroidÆ½Ì¨"), centeredStyle);
-                        if (GUILayout.Button("±àÒë", GUILayout.MaxWidth(100)))
+                        GUILayout.Label(new GUIContent("ç¼–è¯‘Androidå¹³å°"), centeredStyle);
+                        if (GUILayout.Button("ç¼–è¯‘", GUILayout.MaxWidth(100)))
                         {
                             CompileDllCommand.CompileDllAndroid();
                         }
                         GUILayout.EndHorizontal();
                         GUILayout.BeginHorizontal();
 
-                        GUILayout.Label(new GUIContent("±àÒëIOSÆ½Ì¨"), centeredStyle);
-                        if (GUILayout.Button("±àÒë", GUILayout.MaxWidth(100)))
+                        GUILayout.Label(new GUIContent("ç¼–è¯‘IOSå¹³å°"), centeredStyle);
+                        if (GUILayout.Button("ç¼–è¯‘", GUILayout.MaxWidth(100)))
                         {
                             CompileDllCommand.CompileDllIOS();
                         }
                         GUILayout.EndHorizontal();
                         GUILayout.BeginHorizontal();
 
-                        GUILayout.Label(new GUIContent("±àÒëWebGLÆ½Ì¨"), centeredStyle);
-                        if (GUILayout.Button("±àÒë", GUILayout.MaxWidth(100)))
+                        GUILayout.Label(new GUIContent("ç¼–è¯‘WebGLå¹³å°"), centeredStyle);
+                        if (GUILayout.Button("ç¼–è¯‘", GUILayout.MaxWidth(100)))
                         {
                             CompileDllCommand.CompileDllWebGL();
                         }
@@ -239,32 +239,32 @@ namespace LKZ.HybridCLREditor
                 }
 
                 EditorGUILayout.Space(20);
-                using (new EditorGUI.DisabledScope(false))//ÊÇ·ñ¿ÉÒÔ½ûÓÃ
+                using (new EditorGUI.DisabledScope(false))//æ˜¯å¦å¯ä»¥ç¦ç”¨
                 {
-                    //¸ß¼¶ 
-                    dataStruct.HybridCLRDllMoveAdvancedOptions = EditorGUILayout.Foldout(dataStruct.HybridCLRDllMoveAdvancedOptions, "±àÒëÈÈ¸üµÄdll");
+                    //é«˜çº§ 
+                    dataStruct.HybridCLRDllMoveAdvancedOptions = EditorGUILayout.Foldout(dataStruct.HybridCLRDllMoveAdvancedOptions, "ç¼–è¯‘çƒ­æ›´çš„dll");
 
                     if (dataStruct.HybridCLRDllMoveAdvancedOptions)
                     {
                         GUILayout.BeginHorizontal();
-                        dataStruct.CoptHotUpdateDllToPath = EditorGUILayout.TextField(new GUIContent("HybridCLR±àÒë³öÀ´µÄÈÈ¸üDll¸´ÖÆÔÚÂ·¾¶ÏÂ"), dataStruct.CoptHotUpdateDllToPath);
+                        dataStruct.CoptHotUpdateDllToPath = EditorGUILayout.TextField(new GUIContent("HybridCLRç¼–è¯‘å‡ºæ¥çš„çƒ­æ›´Dllå¤åˆ¶åœ¨è·¯å¾„ä¸‹"), dataStruct.CoptHotUpdateDllToPath);
                         GUILayout.EndHorizontal();
 
                         GUILayout.BeginHorizontal();
                         GUILayout.FlexibleSpace();
-                        if (GUILayout.Button("Ñ¡ÔñÒÆ¶¯ÈÈ¸üdllÂ·¾¶", GUILayout.MaxWidth(130f)))
-                            dataStruct.CoptHotUpdateDllToPath = OpenSelectFilePath("Ñ¡ÔñAB×ÊÔ´ÎÄ¼şÂ·¾¶", defaultPath: dataStruct.CoptHotUpdateDllToPath ?? Application.dataPath);
+                        if (GUILayout.Button("é€‰æ‹©ç§»åŠ¨çƒ­æ›´dllè·¯å¾„", GUILayout.MaxWidth(130f)))
+                            dataStruct.CoptHotUpdateDllToPath = OpenSelectFilePath("é€‰æ‹©ABèµ„æºæ–‡ä»¶è·¯å¾„", defaultPath: dataStruct.CoptHotUpdateDllToPath ?? Application.dataPath);
 
                         GUILayout.EndHorizontal();
 
                         GUILayout.BeginHorizontal();
-                        dataStruct.CoptAssembliesPostIl2CppStripToPath = EditorGUILayout.TextField(new GUIContent("HybridCLRĞèÒª²¹³äÔªÊı¾İµÄdll¸´ÖÆµ½Â·¾¶ÏÂ"), dataStruct.CoptAssembliesPostIl2CppStripToPath);
+                        dataStruct.CoptAssembliesPostIl2CppStripToPath = EditorGUILayout.TextField(new GUIContent("HybridCLRéœ€è¦è¡¥å……å…ƒæ•°æ®çš„dllå¤åˆ¶åˆ°è·¯å¾„ä¸‹"), dataStruct.CoptAssembliesPostIl2CppStripToPath);
                         GUILayout.EndHorizontal();
 
                         GUILayout.BeginHorizontal();
                         GUILayout.FlexibleSpace();
-                        if (GUILayout.Button("Ñ¡ÔñÒÆ¶¯²¹³äÔªÊı¾İdllÂ·¾¶", GUILayout.MaxWidth(130f)))
-                            dataStruct.CoptAssembliesPostIl2CppStripToPath = OpenSelectFilePath("Ñ¡ÔñAB×ÊÔ´ÎÄ¼şÂ·¾¶", defaultPath: dataStruct.CoptAssembliesPostIl2CppStripToPath ?? Application.dataPath);
+                        if (GUILayout.Button("é€‰æ‹©ç§»åŠ¨è¡¥å……å…ƒæ•°æ®dllè·¯å¾„", GUILayout.MaxWidth(130f)))
+                            dataStruct.CoptAssembliesPostIl2CppStripToPath = OpenSelectFilePath("é€‰æ‹©ABèµ„æºæ–‡ä»¶è·¯å¾„", defaultPath: dataStruct.CoptAssembliesPostIl2CppStripToPath ?? Application.dataPath);
 
 
 
@@ -273,17 +273,17 @@ namespace LKZ.HybridCLREditor
                         GUILayout.BeginHorizontal();
                         dataStruct.IsChangeDllSuffix = GUILayout.Toggle(
                     dataStruct.IsChangeDllSuffix,
-                    new GUIContent("DllĞŞ¸Äºó×º"));
+                    new GUIContent("Dllä¿®æ”¹åç¼€"));
                         GUILayout.EndHorizontal();
                         GUILayout.BeginHorizontal();
 
                         if (dataStruct.IsChangeDllSuffix)
                         {
-                            dataStruct.AssembliesDllSuffix = EditorGUILayout.TextField(new GUIContent("ºó×º"), dataStruct.AssembliesDllSuffix);
+                            dataStruct.AssembliesDllSuffix = EditorGUILayout.TextField(new GUIContent("åç¼€"), dataStruct.AssembliesDllSuffix);
                         }
                         GUILayout.EndHorizontal();
 
-                        if (GUILayout.Button("ÒÆ¶¯"))
+                        if (GUILayout.Button("ç§»åŠ¨"))
                         {
                             if (!Directory.Exists(dataStruct.CoptHotUpdateDllToPath))
                                 Directory.CreateDirectory(dataStruct.CoptHotUpdateDllToPath);
@@ -296,7 +296,7 @@ namespace LKZ.HybridCLREditor
 
                                 try
                                 {
-                                    File.Copy(item, path_temp); 
+                                    File.Copy(item, path_temp);
                                 }
                                 catch (System.Exception ex)
                                 {
@@ -320,8 +320,8 @@ namespace LKZ.HybridCLREditor
                                 {
                                     Debug.LogError(ex);
                                 }
-                            } 
-                            AssetDatabase.Refresh(); 
+                            }
+                            AssetDatabase.Refresh();
                         }
 
                     }
@@ -335,7 +335,7 @@ namespace LKZ.HybridCLREditor
         }
 
         /// <summary>
-        /// ¼ÓÔØAB°ü±à¼­Æ÷µÄÊı¾İ
+        /// åŠ è½½ABåŒ…ç¼–è¾‘å™¨çš„æ•°æ®
         /// </summary>
         private static void LoadABEditorData()
         {
@@ -362,7 +362,7 @@ namespace LKZ.HybridCLREditor
         }
 
         /// <summary>
-        /// ±£´æAB°ü±à¼­Æ÷µÄÊı¾İ
+        /// ä¿å­˜ABåŒ…ç¼–è¾‘å™¨çš„æ•°æ®
         /// </summary>
         private static void SaveABEditorData()
         {
@@ -374,9 +374,9 @@ namespace LKZ.HybridCLREditor
 
 
         /// <summary>
-        /// ´ò¿ªÎÄ¼şÑ¡ÔñÎÄ¼şÂ·¾¶
+        /// æ‰“å¼€æ–‡ä»¶é€‰æ‹©æ–‡ä»¶è·¯å¾„
         /// </summary>
-        /// <param name="title">±êÌâ</param>
+        /// <param name="title">æ ‡é¢˜</param>
         /// <returns></returns>
         public static string OpenSelectFilePath(string title, string defaultPath = @"C:\")
         {
@@ -393,9 +393,9 @@ namespace LKZ.HybridCLREditor
         }
 
         /// <summary>
-        /// ´ò¿ªÎÄ¼ş±£´æÃæ°å
+        /// æ‰“å¼€æ–‡ä»¶ä¿å­˜é¢æ¿
         /// </summary>
-        /// <param name="title">±êÌâ</param>
+        /// <param name="title">æ ‡é¢˜</param>
         /// <returns></returns>
         public static string SaveFilePanel(string title, string defaultPath = @"C:\", string defaultName = "Name", string defaultextension = "xml")
         {

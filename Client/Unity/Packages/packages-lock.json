@@ -43,12 +43,6 @@
         "com.unity.render-pipelines.universal": "14.0.11"
       }
     },
-    "com.sabresaurus.playerprefseditor": {
-      "version": "file:PlayerPrefsEditor-1.4.1",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
-    },
     "com.sangoutils.patchyooassetsystem": {
       "version": "https://github.com/Gaolingx/SangoUtils.Hotfix_YooAsset.git",
       "depth": 0,
@@ -405,22 +399,6 @@
         "com.unity.shadergraph": "14.0.11",
         "com.unity.render-pipelines.core": "14.0.11"
       }
-    },
-    "com.unity.visualscripting": {
-      "version": "1.9.4",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.ugui": "1.0.0",
-        "com.unity.modules.jsonserialize": "1.0.0"
-      },
-      "url": "https://packages.unity.cn"
-    },
-    "com.yasirkula.runtimeinspector": {
-      "version": "file:UnityRuntimeInspector-1.7.2",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
