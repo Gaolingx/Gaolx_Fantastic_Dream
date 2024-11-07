@@ -161,10 +161,10 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.test.ET
+    Android: com.Gaolingx.DarkGod
     Standalone: com.Gaolingx.DarkGod
     Tizen: com.Company.ProductName
-    iPhone: com.test.ET
+    iPhone: com.Gaolingx.DarkGod
     tvOS: com.Company.ProductName
   buildNumber:
     Standalone: 0
@@ -880,7 +880,7 @@ PlayerSettings:
   scriptingDefineSymbols:
     Android: NETSTANDARD2_0;UNITY
     Server: NETSTANDARD2_0;UNITY
-    Standalone: NETSTANDARD2_0;UNITY;AMPLIFY_SHADER_EDITOR;MAGICACLOTH2;DOTWEEN_ENABLED
+    Standalone: AMPLIFY_SHADER_EDITOR;MAGICACLOTH2;DOTWEEN_ENABLED
     WebGL: NETSTANDARD2_0;UNITY
     iPhone: NETSTANDARD2_0;UNITY
   additionalCompilerArguments: {}
