@@ -243,7 +243,7 @@ namespace DarkGod.Main
 
         public void ClickSettingsBtn()
         {
-            MainCitySys.MainInstance.OpenSettingsWnd();
+            GameRoot.MainInstance.SettingsWndAction?.Invoke(true);
         }
 
         public void OnDisable()

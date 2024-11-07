@@ -14,10 +14,13 @@ namespace DarkGod.Main
     {
         public bool isDontDestroyOnLoad = true;
 
-        public LoadingWnd loadingWnd { get; set; }
-        public DynamicWnd dynamicWnd { get; set; }
+        public LoadingWnd loadingWnd { get; private set; }
+        public DynamicWnd dynamicWnd { get; private set; }
+        public SettingsWnd settingsWnd { get; private set; }
         private StarterAssetsInputs starterAssetsInputs;
         private UICanvasControllerInput uICanvasController;
+        public System.Action<bool> SettingsWndAction { get; private set; }
+        public System.Action<bool> PauseGameUIAction { get; private set; }
 
         private bool _isGamePause = false;
         private bool _isInputEnable = true;
@@ -53,6 +56,7 @@ namespace DarkGod.Main
         {
             loadingWnd = transform.Find(Constants.Path_LoadingWnd_Obj).gameObject.GetComponent<LoadingWnd>();
             dynamicWnd = transform.Find(Constants.Path_DynamicWnd_Obj).gameObject.GetComponent<DynamicWnd>();
+            settingsWnd = transform.Find(Constants.Path_SettingsWnd_Obj).gameObject.GetComponent<SettingsWnd>();
             starterAssetsInputs = transform.Find(Constants.Path_PlayerInputs_Obj).gameObject.GetComponent<StarterAssetsInputs>();
             uICanvasController = transform.Find(Constants.Path_Joysticks_Obj).GetComponent<UICanvasControllerInput>();
         }
@@ -66,6 +70,8 @@ namespace DarkGod.Main
             EventMgr.MainInstance.OnGameExit += delegate { GetUIController().OnClickExit(); };
             EventMgr.MainInstance.OnGamePause.OnValueChanged += delegate (bool val) { OnUpdatePauseState(val); };
             EventMgr.MainInstance.QualityLevel.OnValueChanged += delegate (int val) { OnUpdateQualityLevel(val); };
+            SettingsWndAction += delegate (bool val) { OpenSettingsWnd(val); };
+            PauseGameUIAction += delegate (bool val) { OnPauseGameHandle(val); };
         }
 
         private void Start()
@@ -90,7 +96,19 @@ namespace DarkGod.Main
             RefreshInputsState();
         }
 
-        public void PauseGameUI(bool isPause)
+        private void OpenSettingsWnd(bool state = true)
+        {
+            if (settingsWnd != null)
+            {
+                if (settingsWnd.GetWndState() == false)
+                {
+                    AudioSvc.MainInstance.PlayUIAudio(Constants.UIClickBtn);
+                    settingsWnd.SetWndState(state);
+                }
+            }
+        }
+
+        public void OnPauseGameHandle(bool isPause)
         {
             if (isPause)
             {
@@ -106,9 +124,9 @@ namespace DarkGod.Main
         {
             _isGamePause = isPause;
 
-            if (GameRootGameState == GameState.MainCity && isPause)
+            if (GameRootGameState == GameState.MainCity)
             {
-                MainCitySys.MainInstance.OpenSettingsWnd();
+
             }
             else if (GameRootGameState == GameState.FBFight)
             {
@@ -145,7 +163,7 @@ namespace DarkGod.Main
         {
             if (starterAssetsInputs != null)
             {
-                if (_isInputEnable && !_isGamePause && !starterAssetsInputs.cursorLocked)
+                if (!_isGamePause && !starterAssetsInputs.cursorLocked)
                 {
                     starterAssetsInputs.canLook = true;
                     SetCursorLockMode(true);
@@ -156,11 +174,23 @@ namespace DarkGod.Main
                     SetCursorLockMode(false);
                 }
 
-                starterAssetsInputs.canMove = _isInputEnable;
+                if (_isInputEnable && !_isGamePause)
+                {
+                    starterAssetsInputs.canMove = true;
+                }
+                else
+                {
+                    starterAssetsInputs.canMove = false;
+                }
 
                 if (starterAssetsInputs.isPause)
                 {
-                    PauseGameUI(true);
+                    if (GameRootGameState == GameState.MainCity)
+                    {
+                        SettingsWndAction?.Invoke(true);
+                    }
+
+                    PauseGameUIAction?.Invoke(true);
                 }
             }
         }
@@ -212,7 +242,7 @@ namespace DarkGod.Main
         }
 
 
-        public PlayerData PlayerData { get; set; }
+        public PlayerData PlayerData { get; private set; }
 
         public void SetPlayerData(RspLogin data)
         {
@@ -292,6 +322,8 @@ namespace DarkGod.Main
             EventMgr.MainInstance.OnGameExit -= delegate { GetUIController().OnClickExit(); };
             EventMgr.MainInstance.OnGamePause.OnValueChanged -= delegate (bool val) { OnUpdatePauseState(val); };
             EventMgr.MainInstance.QualityLevel.OnValueChanged -= delegate (int val) { OnUpdateQualityLevel(val); };
+            SettingsWndAction -= delegate (bool val) { OpenSettingsWnd(val); };
+            PauseGameUIAction -= delegate (bool val) { OnPauseGameHandle(val); };
         }
 
     }

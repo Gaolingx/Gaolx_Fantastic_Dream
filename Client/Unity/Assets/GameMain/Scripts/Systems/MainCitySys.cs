@@ -17,7 +17,6 @@ namespace DarkGod.Main
         public InfoWnd infoWnd;
         public GuideWnd guideWnd;
         public StrongWnd strongWnd;
-        public SettingsWnd settingsWnd;
         public ChatWnd chatWnd;
         public BuyWnd buyWnd;
         public TaskWnd taskWnd;
@@ -495,14 +494,6 @@ namespace DarkGod.Main
         #endregion
 
         #region Guide Wnd
-        public void OpenSettingsWnd(bool state = true)
-        {
-            if (settingsWnd.GetWndState() == false)
-            {
-                audioSvc.PlayUIAudio(Constants.UIClickBtn);
-                settingsWnd.SetWndState(state);
-            }
-        }
 
         public void RspGuide(GameMsg msg)
         {

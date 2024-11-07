@@ -40,7 +40,7 @@ namespace DarkGod.Main
             }
 
             _UIController = GameRoot.MainInstance.GetUIController();
-            GameRoot.MainInstance.PauseGameUI(true);
+            GameRoot.MainInstance.PauseGameUIAction?.Invoke(true);
 
             if (battleEndWnd != null)
             {
@@ -130,7 +130,7 @@ namespace DarkGod.Main
         public void ClickCloseBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            GameRoot.MainInstance.PauseGameUI(false);
+            GameRoot.MainInstance.PauseGameUIAction?.Invoke(false);
             SetWndState(false);
         }
 

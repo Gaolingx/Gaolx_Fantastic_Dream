@@ -81,6 +81,7 @@ namespace DarkGod.Main
         public const string Path_Canvas_Obj = "Canvas";
         public const string Path_LoadingWnd_Obj = "Canvas/LoadingWnd";
         public const string Path_DynamicWnd_Obj = "Canvas/DynamicWnd";
+        public const string Path_SettingsWnd_Obj = "Canvas/SettingsPanel";
 
         //Hotfix
         public const string HotfixBuildVersion = "Release_CN_1.1.0";

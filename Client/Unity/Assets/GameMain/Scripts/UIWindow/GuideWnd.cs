@@ -24,6 +24,8 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
+            GameRoot.MainInstance.PauseGameUIAction?.Invoke(true);
+
             pd = GameRoot.MainInstance.PlayerData; //获取玩家数据
             curtTaskData = MainCitySys.MainInstance.GetCurtTaskData(); //获取任务数据
             dialogArr = curtTaskData.dilogArr.Split('#'); //切割对话文本
@@ -76,7 +78,6 @@ namespace DarkGod.Main
                 }
             }
 
-            imgIcon.SetNativeSize();
             //将文本中"$name"的部分替换为玩家的名字
             SetText(txtTalk, talkArr[1].Replace("$name", pd.name));
         }
@@ -102,6 +103,7 @@ namespace DarkGod.Main
                 };
 
                 netSvc.SendMsg(msg);
+                GameRoot.MainInstance.PauseGameUIAction?.Invoke(false);
                 SetWndState(false);
             }
             else

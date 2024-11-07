@@ -30,7 +30,7 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
-            GameRoot.MainInstance.EnableInputAction(false);
+            GameRoot.MainInstance.PauseGameUIAction?.Invoke(true);
 
             chatType = ChatType.ChatWorld;
             RefreshUI();
@@ -162,6 +162,7 @@ namespace DarkGod.Main
         public void ClickCloseBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
+            GameRoot.MainInstance.PauseGameUIAction?.Invoke(false);
             chatType = 0;
             SetWndState(false);
         }

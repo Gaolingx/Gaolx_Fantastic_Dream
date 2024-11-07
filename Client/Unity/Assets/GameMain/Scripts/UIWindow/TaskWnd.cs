@@ -20,6 +20,8 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
+            GameRoot.MainInstance.PauseGameUIAction?.Invoke(true);
+
             pd = GameRoot.MainInstance.PlayerData;
             RefreshUI();
         }
@@ -143,6 +145,7 @@ namespace DarkGod.Main
         public void ClickCloseBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
+            GameRoot.MainInstance.PauseGameUIAction?.Invoke(false);
             SetWndState(false);
         }
 

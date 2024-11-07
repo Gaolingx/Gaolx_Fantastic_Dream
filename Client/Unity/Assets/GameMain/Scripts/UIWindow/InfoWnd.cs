@@ -47,6 +47,8 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
+            GameRoot.MainInstance.PauseGameUIAction?.Invoke(true);
+
             RegTouchEvts();
 
             SetActive(transDetail, false);
@@ -108,6 +110,7 @@ namespace DarkGod.Main
         public void ClickCloseBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
+            GameRoot.MainInstance.PauseGameUIAction?.Invoke(false);
             MainCitySys.MainInstance.CloseInfoWnd();
         }
 
