@@ -40,7 +40,6 @@ namespace DarkGod.Main
             }
 
             _UIController = GameRoot.MainInstance.GetUIController();
-            GameRoot.MainInstance.PauseGameUIAction?.Invoke(true);
 
             if (battleEndWnd != null)
             {
@@ -53,6 +52,7 @@ namespace DarkGod.Main
         public void OnEnable()
         {
             UIAddListener();
+            GameRoot.MainInstance.PauseGameUIAction?.Invoke(true);
         }
 
         private void InitWindowValue()
@@ -130,7 +130,6 @@ namespace DarkGod.Main
         public void ClickCloseBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            GameRoot.MainInstance.PauseGameUIAction?.Invoke(false);
             SetWndState(false);
         }
 
@@ -213,6 +212,8 @@ namespace DarkGod.Main
             TargetFrameDropdown.onValueChanged.RemoveAllListeners();
             qualitySelectDropdown.onValueChanged.RemoveAllListeners();
             screenResolutionDropdown.onValueChanged.RemoveAllListeners();
+
+            GameRoot.MainInstance.PauseGameUIAction?.Invoke(false);
         }
     }
 }

@@ -49,8 +49,6 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
-            GameRoot.MainInstance.PauseGameUIAction?.Invoke(true);
-
             pd = GameRoot.MainInstance.PlayerData;
 
             //注册点击事件
@@ -63,6 +61,7 @@ namespace DarkGod.Main
         {
             btnStrong.onClick.AddListener(delegate { ClickStrongBtn(); });
             btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
+            GameRoot.MainInstance.PauseGameUIAction?.Invoke(true);
         }
 
         private void RegClickEvts()
@@ -211,7 +210,6 @@ namespace DarkGod.Main
         public void ClickCloseBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            GameRoot.MainInstance.PauseGameUIAction?.Invoke(false);
             SetWndState(false);
         }
 
@@ -267,6 +265,7 @@ namespace DarkGod.Main
         {
             btnStrong.onClick.RemoveAllListeners();
             btnClose.onClick.RemoveAllListeners();
+            GameRoot.MainInstance.PauseGameUIAction?.Invoke(false);
         }
     }
 }

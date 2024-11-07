@@ -24,8 +24,6 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
-            GameRoot.MainInstance.PauseGameUIAction?.Invoke(true);
-
             pd = GameRoot.MainInstance.PlayerData; //获取玩家数据
             curtTaskData = MainCitySys.MainInstance.GetCurtTaskData(); //获取任务数据
             dialogArr = curtTaskData.dilogArr.Split('#'); //切割对话文本
@@ -37,6 +35,7 @@ namespace DarkGod.Main
         public void OnEnable()
         {
             btnNext.onClick.AddListener(delegate { ClickNextBtn(); });
+            GameRoot.MainInstance.PauseGameUIAction?.Invoke(true);
         }
 
         //显示对话内容
@@ -103,7 +102,7 @@ namespace DarkGod.Main
                 };
 
                 netSvc.SendMsg(msg);
-                GameRoot.MainInstance.PauseGameUIAction?.Invoke(false);
+
                 SetWndState(false);
             }
             else
@@ -115,6 +114,7 @@ namespace DarkGod.Main
         public void OnDisable()
         {
             btnNext.onClick.RemoveAllListeners();
+            GameRoot.MainInstance.PauseGameUIAction?.Invoke(false);
         }
 
         public void ClickCloseBtn()

@@ -128,7 +128,7 @@ namespace DarkGod.Main
 
         public Vector2 GetDirInput()
         {
-            return GameRoot.MainInstance.GetStarterAssetsInputs().move;
+            return GameRoot.MainInstance.starterAssetsInputs.move;
         }
 
         public bool CanRlsSkill()

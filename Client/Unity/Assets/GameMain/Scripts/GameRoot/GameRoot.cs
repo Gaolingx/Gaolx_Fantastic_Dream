@@ -14,11 +14,12 @@ namespace DarkGod.Main
     {
         public bool isDontDestroyOnLoad = true;
 
+        public GameState GameRootGameState { get; set; } = GameState.None;
         public LoadingWnd loadingWnd { get; private set; }
         public DynamicWnd dynamicWnd { get; private set; }
         public SettingsWnd settingsWnd { get; private set; }
-        private StarterAssetsInputs starterAssetsInputs;
-        private UICanvasControllerInput uICanvasController;
+        public StarterAssetsInputs starterAssetsInputs { get; private set; }
+        public UICanvasControllerInput uICanvasController { get; private set; }
         public System.Action<bool> SettingsWndAction { get; private set; }
         public System.Action<bool> PauseGameUIAction { get; private set; }
 
@@ -142,16 +143,6 @@ namespace DarkGod.Main
         {
             QualitySettings.SetQualityLevel(value);
             SavePrefsData(value);
-        }
-
-        public StarterAssetsInputs GetStarterAssetsInputs()
-        {
-            return starterAssetsInputs;
-        }
-
-        public UICanvasControllerInput GetUICanvasControllerInput()
-        {
-            return uICanvasController;
         }
 
         private void SetCursorLockMode(bool locked)
@@ -313,8 +304,6 @@ namespace DarkGod.Main
             PlayerData.crystal = data.crystal;
             PlayerData.fuben = data.fuben;
         }
-
-        public GameState GameRootGameState { get; set; } = GameState.None;
 
 
         private void OnDestroy()

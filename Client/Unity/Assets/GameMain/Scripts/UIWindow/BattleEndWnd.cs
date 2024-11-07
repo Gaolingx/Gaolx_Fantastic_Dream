@@ -55,6 +55,8 @@ namespace DarkGod.Main
             btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
             btnExit.onClick.AddListener(delegate { ClickExitBtn(); });
             btnSure.onClick.AddListener(delegate { ClickSureBtn(); });
+
+            GameRoot.MainInstance.PauseGameUIAction?.Invoke(true);
         }
 
         public void SetWndType(FBEndType endType)
@@ -65,7 +67,6 @@ namespace DarkGod.Main
         public void ClickCloseBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            GameRoot.MainInstance.PauseGameUIAction?.Invoke(false);
             SetWndState(false);
         }
 
@@ -173,6 +174,8 @@ namespace DarkGod.Main
             btnClose.onClick.RemoveAllListeners();
             btnExit.onClick.RemoveAllListeners();
             btnSure.onClick.RemoveAllListeners();
+
+            GameRoot.MainInstance.PauseGameUIAction?.Invoke(false);
         }
 
     }

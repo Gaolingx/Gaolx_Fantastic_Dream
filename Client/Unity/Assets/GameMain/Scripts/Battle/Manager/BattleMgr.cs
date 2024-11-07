@@ -71,7 +71,7 @@ namespace DarkGod.Main
             if (player != null)
             {
                 ThirdPersonController controller = player.GetComponent<ThirdPersonController>();
-                StarterAssetsInputs starterAssetsInputs = GameRoot.MainInstance.GetStarterAssetsInputs();
+                StarterAssetsInputs starterAssetsInputs = GameRoot.MainInstance.starterAssetsInputs;
 
                 controller.PlayerInput = starterAssetsInputs.gameObject.GetComponent<PlayerInput>();
                 controller.StarterAssetsInputs = starterAssetsInputs;

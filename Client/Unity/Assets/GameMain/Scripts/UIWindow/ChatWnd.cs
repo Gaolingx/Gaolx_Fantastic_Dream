@@ -30,8 +30,6 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
-            GameRoot.MainInstance.PauseGameUIAction?.Invoke(true);
-
             chatType = ChatType.ChatWorld;
             RefreshUI();
         }
@@ -43,6 +41,8 @@ namespace DarkGod.Main
             btnFriend.onClick.AddListener(delegate { ClickFriendBtn(); });
             btnSend.onClick.AddListener(delegate { ClickSendBtn(); });
             btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
+
+            GameRoot.MainInstance.PauseGameUIAction(true);
         }
 
         //显示聊天信息
@@ -162,20 +162,20 @@ namespace DarkGod.Main
         public void ClickCloseBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
-            GameRoot.MainInstance.PauseGameUIAction?.Invoke(false);
+
             chatType = 0;
             SetWndState(false);
         }
 
         public void OnDisable()
         {
-            GameRoot.MainInstance.EnableInputAction(true);
-
             btnWord.onClick.RemoveAllListeners();
             btnGuild.onClick.RemoveAllListeners();
             btnFriend.onClick.RemoveAllListeners();
             btnSend.onClick.RemoveAllListeners();
             btnClose.onClick.RemoveAllListeners();
+
+            GameRoot.MainInstance.PauseGameUIAction(false);
         }
     }
 }

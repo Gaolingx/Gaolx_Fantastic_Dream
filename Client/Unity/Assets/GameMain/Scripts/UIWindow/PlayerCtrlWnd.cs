@@ -162,8 +162,8 @@ namespace DarkGod.Main
 
         private void InitPlayerInput()
         {
-            playerInput = GameRoot.MainInstance.GetStarterAssetsInputs();
-            uICanvasController = GameRoot.MainInstance.GetUICanvasControllerInput();
+            playerInput = GameRoot.MainInstance.starterAssetsInputs;
+            uICanvasController = GameRoot.MainInstance.uICanvasController;
 
             if (playerInput != null && uICanvasController != null)
             {
