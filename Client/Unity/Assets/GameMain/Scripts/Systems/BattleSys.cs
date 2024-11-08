@@ -10,7 +10,6 @@ namespace DarkGod.Main
     public class BattleSys : SystemRoot<BattleSys>
     {
         public PlayerCtrlWnd playerCtrlWnd;
-        public BattleEndWnd battleEndWnd;
         public BattleMgr battleMgr;
 
         private int battleFbid;
@@ -100,8 +99,7 @@ namespace DarkGod.Main
 
         public void SetBattleEndWndState(FBEndType endType, bool isActive = true)
         {
-            battleEndWnd.SetWndType(endType);
-            battleEndWnd.SetWndState(isActive);
+            GameRoot.MainInstance.BattleEndWndAction?.Invoke(isActive, endType);
         }
 
         public void RspFightEnd(GameMsg msg)
@@ -109,7 +107,7 @@ namespace DarkGod.Main
             RspFBFightEnd data = msg.rspFBFightEnd;
             GameRoot.MainInstance.SetPlayerDataByFBEnd(data);
 
-            battleEndWnd.SetBattleEndData(data.fbid, data.costtime, data.resthp);
+            GameRoot.MainInstance.battleEndWnd.SetBattleEndData(data.fbid, data.costtime, data.resthp);
             SetBattleEndWndState(FBEndType.Win);
         }
 
@@ -136,7 +134,7 @@ namespace DarkGod.Main
             return battleMgr.CanRlsSkill();
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             EventMgr.MainInstance.OnGameEnter -= delegate { InitSys(); };
         }

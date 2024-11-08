@@ -84,7 +84,7 @@ namespace DarkGod.Main
         public BindableProperty<int> QualityLevel { get; set; } = new BindableProperty<int>();
         public BindableProperty<EntityPlayer> CurrentEPlayer { get; set; } = new BindableProperty<EntityPlayer>();
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             _onGameStateEventHandler -= C_OnGameStateOperationEvent;
             _onGameWindowShowMessageEventHandler -= C_OnGameWindowShowMessageEvent;

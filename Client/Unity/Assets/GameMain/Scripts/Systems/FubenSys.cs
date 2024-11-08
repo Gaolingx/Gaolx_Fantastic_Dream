@@ -46,7 +46,7 @@ namespace DarkGod.Main
             BattleSys.MainInstance.StartBattle(msg.rspFBFight.fbid);
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             EventMgr.MainInstance.OnGameEnter -= delegate { InitSys(); };
         }

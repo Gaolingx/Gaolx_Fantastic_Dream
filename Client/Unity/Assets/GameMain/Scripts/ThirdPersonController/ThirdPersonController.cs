@@ -639,7 +639,7 @@ namespace StarterAssets
             }
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             _timerSvc.DelTask(tid1);
             idleAction.OnValueChanged -= delegate (bool val) { OnIdle(val); };

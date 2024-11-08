@@ -18,10 +18,12 @@ namespace DarkGod.Main
         public LoadingWnd loadingWnd { get; private set; }
         public DynamicWnd dynamicWnd { get; private set; }
         public SettingsWnd settingsWnd { get; private set; }
+        public BattleEndWnd battleEndWnd { get; private set; }
         public StarterAssetsInputs starterAssetsInputs { get; private set; }
         public UICanvasControllerInput uICanvasController { get; private set; }
         public System.Action<bool> SettingsWndAction { get; private set; }
         public System.Action<bool> PauseGameUIAction { get; private set; }
+        public System.Action<bool, FBEndType> BattleEndWndAction { get; private set; }
 
         private bool _isGamePause = false;
         private bool _isInputEnable = true;
@@ -58,6 +60,7 @@ namespace DarkGod.Main
             loadingWnd = transform.Find(Constants.Path_LoadingWnd_Obj).gameObject.GetComponent<LoadingWnd>();
             dynamicWnd = transform.Find(Constants.Path_DynamicWnd_Obj).gameObject.GetComponent<DynamicWnd>();
             settingsWnd = transform.Find(Constants.Path_SettingsWnd_Obj).gameObject.GetComponent<SettingsWnd>();
+            battleEndWnd = transform.Find(Constants.Path_BattleEndWnd_Obj).gameObject.GetComponent<BattleEndWnd>();
             starterAssetsInputs = transform.Find(Constants.Path_PlayerInputs_Obj).gameObject.GetComponent<StarterAssetsInputs>();
             uICanvasController = transform.Find(Constants.Path_Joysticks_Obj).GetComponent<UICanvasControllerInput>();
         }
@@ -73,6 +76,7 @@ namespace DarkGod.Main
             EventMgr.MainInstance.QualityLevel.OnValueChanged += delegate (int val) { OnUpdateQualityLevel(val); };
             SettingsWndAction += delegate (bool val) { OpenSettingsWnd(val); };
             PauseGameUIAction += delegate (bool val) { OnPauseGameHandle(val); };
+            BattleEndWndAction += delegate (bool val1, FBEndType val2) { OnBattleEndWndHandle(val1, val2); };
         }
 
         private void Start()
@@ -121,6 +125,15 @@ namespace DarkGod.Main
             }
         }
 
+        public void OnBattleEndWndHandle(bool isActive, FBEndType endType)
+        {
+            if (battleEndWnd != null)
+            {
+                battleEndWnd.SetWndType(endType);
+                battleEndWnd.SetWndState(isActive);
+            }
+        }
+
         private void OnUpdatePauseState(bool isPause)
         {
             _isGamePause = isPause;
@@ -132,9 +145,9 @@ namespace DarkGod.Main
             else if (GameRootGameState == GameState.FBFight)
             {
                 BattleSys.MainInstance.battleMgr.SetPauseGame(isPause);
-                if (isPause)
+                if (isPause && !settingsWnd.GetWndState())
                 {
-                    BattleSys.MainInstance.SetBattleEndWndState(FBEndType.Pause);
+                    BattleEndWndAction?.Invoke(true, FBEndType.Pause);
                 }
             }
         }
@@ -176,7 +189,7 @@ namespace DarkGod.Main
 
                 if (starterAssetsInputs.isPause)
                 {
-                    if (GameRootGameState == GameState.MainCity)
+                    if (GameRootGameState == GameState.MainCity || GameRootGameState == GameState.Login)
                     {
                         SettingsWndAction?.Invoke(true);
                     }
@@ -306,13 +319,14 @@ namespace DarkGod.Main
         }
 
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             EventMgr.MainInstance.OnGameExit -= delegate { GetUIController().OnClickExit(); };
             EventMgr.MainInstance.OnGamePause.OnValueChanged -= delegate (bool val) { OnUpdatePauseState(val); };
             EventMgr.MainInstance.QualityLevel.OnValueChanged -= delegate (int val) { OnUpdateQualityLevel(val); };
             SettingsWndAction -= delegate (bool val) { OpenSettingsWnd(val); };
             PauseGameUIAction -= delegate (bool val) { OnPauseGameHandle(val); };
+            BattleEndWndAction -= delegate (bool val1, FBEndType val2) { OnBattleEndWndHandle(val1, val2); };
         }
 
     }

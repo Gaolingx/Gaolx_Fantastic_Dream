@@ -23,8 +23,6 @@ namespace DarkGod.Main
         public Button btnCloseSettings;
 
         private DebugWnd debugWnd;
-        private BattleEndWnd battleEndWnd;
-
         private UIController _UIController;
 
         protected override void InitWnd()
@@ -32,18 +30,11 @@ namespace DarkGod.Main
             base.InitWnd();
 
             debugWnd = GameRoot.MainInstance.transform.Find($"{Constants.Path_Canvas_Obj}/DebugItems").gameObject.GetComponent<DebugWnd>();
-            battleEndWnd = GameRoot.MainInstance.transform.Find($"{Constants.Path_Canvas_Obj}/BattleEndWnd").gameObject.GetComponent<BattleEndWnd>();
+            _UIController = GameRoot.MainInstance.GetUIController();
 
             if (debugWnd != null)
             {
                 debugWnd.SetWndState(true);
-            }
-
-            _UIController = GameRoot.MainInstance.GetUIController();
-
-            if (battleEndWnd != null)
-            {
-                battleEndWnd.SetWndState(false);
             }
 
             InitWindowValue();

@@ -27,7 +27,7 @@ namespace DarkGod.Main
             await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, data.npcResPath, data.NPC_Transform_Position, data.NPC_Transform_Rotation, data.NPC_Transform_Scale, false, true, true);
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             EventMgr.MainInstance.OnGameEnter -= delegate { InitSvc(); };
         }

@@ -227,7 +227,7 @@ namespace DarkGod.Main
         }
         #endregion
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             EventMgr.MainInstance.OnGameEnter -= delegate { InitSvc(); };
             BGAudioVolumeValue.OnValueChanged -= delegate (float value) { BGAudioVolumeValueChanged(_audioMixer, value); };

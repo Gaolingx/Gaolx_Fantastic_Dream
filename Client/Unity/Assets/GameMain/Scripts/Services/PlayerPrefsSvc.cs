@@ -41,7 +41,7 @@ namespace DarkGod.Main
             return true;
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             EventMgr.MainInstance.OnGameEnter -= delegate { InitSvc(); };
         }

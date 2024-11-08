@@ -52,7 +52,7 @@ namespace DarkGod.Main
             pt.DeleteTimeTask(tid);
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             EventMgr.MainInstance.OnGameEnter -= delegate { InitSvc(); };
         }

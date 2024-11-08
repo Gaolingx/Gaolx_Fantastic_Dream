@@ -534,7 +534,7 @@ namespace DarkGod.Main
         }
         #endregion
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             EventMgr.MainInstance.OnGameEnter -= delegate { InitSys(); };
             EventMgr.MainInstance.OnGamePause.OnValueChanged -= delegate (bool val) { OnUpdatePauseState2(val); };

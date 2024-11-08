@@ -75,7 +75,7 @@ namespace DarkGod.Main
             createWnd.SetWndState(false);
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             EventMgr.MainInstance.OnGameEnter -= delegate { InitSys(); };
         }

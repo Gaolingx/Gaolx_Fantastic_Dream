@@ -481,7 +481,7 @@ namespace DarkGod.Main
 
         #endregion
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             eventMgr.CurrentEPlayer.OnValueChanged -= delegate (EntityPlayer entity) { OnUpdateEntityPlayer(entity); };
         }
