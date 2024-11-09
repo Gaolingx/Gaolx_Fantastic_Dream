@@ -62,7 +62,7 @@ namespace DarkGod.Main
             settingsWnd = transform.Find(Constants.Path_SettingsWnd_Obj).gameObject.GetComponent<SettingsWnd>();
             battleEndWnd = transform.Find(Constants.Path_BattleEndWnd_Obj).gameObject.GetComponent<BattleEndWnd>();
             starterAssetsInputs = transform.Find(Constants.Path_PlayerInputs_Obj).gameObject.GetComponent<StarterAssetsInputs>();
-            uICanvasController = transform.Find(Constants.Path_Joysticks_Obj).GetComponent<UICanvasControllerInput>();
+            uICanvasController = transform.Find(Constants.Path_Joysticks_Obj).gameObject.GetComponent<UICanvasControllerInput>();
         }
 
         protected override void Awake()

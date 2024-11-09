@@ -15,7 +15,7 @@ namespace DarkGod.Main
         public void OnTriggerExit(Collider other)
         {
             //过滤玩家标签
-            if (other.gameObject.CompareTag(Constants.CharPlayerWithTag))
+            if (other.CompareTag(Constants.CharPlayerWithTag))
             {
                 //调用地图管理器生成下一批怪物
                 if (mapMgr != null)

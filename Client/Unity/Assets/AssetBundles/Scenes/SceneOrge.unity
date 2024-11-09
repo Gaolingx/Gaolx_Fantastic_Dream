@@ -919,11 +919,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MapCollision02
       objectReference: {fileID: 0}
-    - target: {fileID: 719198995673342932, guid: f59aad45a8a29784c8e4903699290a0c,
-        type: 3}
-      propertyPath: mapMgr
-      value: 
-      objectReference: {fileID: 1965343298}
     - target: {fileID: 1843817230612168099, guid: f59aad45a8a29784c8e4903699290a0c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -987,11 +982,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1965343299}
     m_Modifications:
-    - target: {fileID: 1312996235523293568, guid: 97ab46a3b1de27f4eaeadc7a88b72bbf,
-        type: 3}
-      propertyPath: mapMgr
-      value: 
-      objectReference: {fileID: 1965343298}
     - target: {fileID: 5479111717265682368, guid: 97ab46a3b1de27f4eaeadc7a88b72bbf,
         type: 3}
       propertyPath: m_Name

@@ -2,7 +2,6 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-using HuHu;
 
 namespace DarkGod.Main
 {
@@ -20,6 +19,7 @@ namespace DarkGod.Main
             for (int i = 0; i < triggerLst.Count; i++)
             {
                 triggerLst[i].mapMgr = this;
+                triggerLst[0].GetComponent<BoxCollider>().isTrigger = true;
             }
         }
 
@@ -41,7 +41,7 @@ namespace DarkGod.Main
             if (battleMgr != null)
             {
                 //修改碰撞环境(Trigger->Collider)
-                BoxCollider boxCollider = trigger.gameObject.GetComponent<BoxCollider>();
+                BoxCollider boxCollider = trigger.GetComponent<BoxCollider>();
                 boxCollider.isTrigger = false;
 
                 //生成对应批次怪物
@@ -61,7 +61,7 @@ namespace DarkGod.Main
                 //匹配对应TriggerData
                 if (triggerLst[i].triggerWave == waveIndex)
                 {
-                    BoxCollider boxCollider = triggerLst[i].gameObject.GetComponent<BoxCollider>();
+                    BoxCollider boxCollider = triggerLst[i].GetComponent<BoxCollider>();
                     boxCollider.isTrigger = true;
                     return true;
                 }
