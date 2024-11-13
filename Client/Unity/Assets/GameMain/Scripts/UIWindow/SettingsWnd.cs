@@ -29,7 +29,7 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
-            debugWnd = GameRoot.MainInstance.transform.Find($"{Constants.Path_Canvas_Obj}/DebugItems").gameObject.GetComponent<DebugWnd>();
+            debugWnd = GameRoot.MainInstance.transform.Find($"{Constants.Path_Canvas_Obj}/DebugItems").GetComponent<DebugWnd>();
             _UIController = GameRoot.MainInstance.GetUIController();
 
             if (debugWnd != null)

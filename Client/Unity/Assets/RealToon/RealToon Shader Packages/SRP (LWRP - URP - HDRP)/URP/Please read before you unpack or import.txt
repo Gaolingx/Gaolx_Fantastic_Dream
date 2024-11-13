@@ -1,0 +1,27 @@
+RealToon V5.0.9 (URP)
+===========================================================
+Note:
+===========================================================
+
+URP is universal, from mobile, console to high end.
+Currently Shadow for Pointlight is only available on URP 11 to later.
+Tessellation will be coming soon.
+
+===========================================================
+*How to download, import and unpack RealToon (URP) Shader Packages Video Tutorial:
+https://www.youtube.com/watch?v=JVlbOYi2V3M&t=83s
+===========================================================
+
+===========================================================
+RealToon URP Current Update - RealToon 5.0.9
+===========================================================
+
+[New]
+- Perspective Adjustment
+"Adjusting the perspective from 3D to 2D/2D to 3D."
+
+- Smear Effect
+"For Anime/Toon style smear motion."
+
+[Improvements]
+- Minor UI improvements. [Unity 6 - URP 17]

@@ -57,12 +57,12 @@ namespace DarkGod.Main
 
         private void InitTransform()
         {
-            loadingWnd = transform.Find(Constants.Path_LoadingWnd_Obj).gameObject.GetComponent<LoadingWnd>();
-            dynamicWnd = transform.Find(Constants.Path_DynamicWnd_Obj).gameObject.GetComponent<DynamicWnd>();
-            settingsWnd = transform.Find(Constants.Path_SettingsWnd_Obj).gameObject.GetComponent<SettingsWnd>();
-            battleEndWnd = transform.Find(Constants.Path_BattleEndWnd_Obj).gameObject.GetComponent<BattleEndWnd>();
-            starterAssetsInputs = transform.Find(Constants.Path_PlayerInputs_Obj).gameObject.GetComponent<StarterAssetsInputs>();
-            uICanvasController = transform.Find(Constants.Path_Joysticks_Obj).gameObject.GetComponent<UICanvasControllerInput>();
+            loadingWnd = transform.Find(Constants.Path_LoadingWnd_Obj).GetComponent<LoadingWnd>();
+            dynamicWnd = transform.Find(Constants.Path_DynamicWnd_Obj).GetComponent<DynamicWnd>();
+            settingsWnd = transform.Find(Constants.Path_SettingsWnd_Obj).GetComponent<SettingsWnd>();
+            battleEndWnd = transform.Find(Constants.Path_BattleEndWnd_Obj).GetComponent<BattleEndWnd>();
+            starterAssetsInputs = transform.Find(Constants.Path_PlayerInputs_Obj).GetComponent<StarterAssetsInputs>();
+            uICanvasController = transform.Find(Constants.Path_Joysticks_Obj).GetComponent<UICanvasControllerInput>();
         }
 
         protected override void Awake()

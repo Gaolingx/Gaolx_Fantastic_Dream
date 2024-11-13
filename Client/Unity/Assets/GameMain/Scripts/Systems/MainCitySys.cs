@@ -151,7 +151,7 @@ namespace DarkGod.Main
 
                 ThirdPersonController controller = player.GetComponent<ThirdPersonController>();
 
-                controller.PlayerInput = starterAssetsInputs.gameObject.GetComponent<PlayerInput>();
+                controller.PlayerInput = starterAssetsInputs.GetComponent<PlayerInput>();
                 controller.StarterAssetsInputs = starterAssetsInputs;
                 controller.playerFollowVirtualCamera = cinemachineVirtualCamera;
 

@@ -1,0 +1,23 @@
+What's New to RealToon V5.0.9 (October 2024)
+=====================================
+
+[New]
+- Perspective Adjustment
+"Adjusting the perspective from 3D to 2D/2D to 3D."
+
+- Smear Effect 
+"For Anime/Toon style smear motion."
+
+[Improvements]
+- Minor UI improvements starting Unity 6 - URP 16 & HDRP 16.
+
+[Fixed]
+- Fix all errors starting URP10/HDRP 10 to 16.
+
+====================================
+
+#Read the "Change - Fix Log.txt." file for previous updates.
+#This update supports Unity 5, 2017, 2018, 2019, 2020, 2022, 2023, Unity 6 and future unity versions.
+
+[Other Notes]
+* If you encounter some problems or need help just contact by email.

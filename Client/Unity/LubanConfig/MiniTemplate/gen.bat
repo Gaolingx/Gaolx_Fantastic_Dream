@@ -7,7 +7,7 @@ dotnet %LUBAN_DLL% ^
     -d json ^
     -c cs-simple-json ^
     --conf %CONF_ROOT%\luban.conf ^
-    -x outputCodeDir=%WORKSPACE%\Assets\GameMain\Scripts\Configs\Luban\Gen\Code ^
+    -x outputCodeDir=%WORKSPACE%\Assets\GameConfig\Scripts\Configs\Luban\Gen\Code ^
     -x outputDataDir=%WORKSPACE%\Assets\AssetBundles\Configs\ResCfgs\Luban\Gen\Data
 
 pause

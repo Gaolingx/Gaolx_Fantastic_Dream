@@ -78,8 +78,7 @@ MonoBehaviour:
   m_RendererFeatures:
   - {fileID: -1878332245247344467}
   - {fileID: -6525245458014940662}
-  - {fileID: 174028452472904841}
-  m_RendererFeatureMap: adc0de57c6d2eee50ad2c902d4ab71a5895c759af4456a02
+  m_RendererFeatureMap: adc0de57c6d2eee50ad2c902d4ab71a5
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -122,22 +121,3 @@ MonoBehaviour:
   m_CopyDepthMode: 0
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 1
---- !u!114 &174028452472904841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8826dbbd2f20a84180629a9ae196e22, type: 3}
-  m_Name: ScreenSpaceGlobalIlluminationURP
-  m_EditorClassIdentifier: 
-  m_Active: 1
-  m_Shader: {fileID: 4800000, guid: 052b080a79c052c4993acc96081d70b1, type: 3}
-  m_RenderingDebugger: 0
-  m_ReflectionProbes: 1
-  m_HighQualityUpscaling: 0
-  m_OverrideAmbientLighting: 1
-  m_BackfaceLighting: 0

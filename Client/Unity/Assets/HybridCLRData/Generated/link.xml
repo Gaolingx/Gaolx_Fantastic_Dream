@@ -20,6 +20,10 @@
   <assembly fullname="DOTween.Modules">
     <type fullname="DG.Tweening.DOTweenModuleUI" preserve="all" />
   </assembly>
+  <assembly fullname="GetComponentAttribute.Runtime">
+    <type fullname="GetComponentAttribute" preserve="all" />
+    <type fullname="GetComponentFrom" preserve="all" />
+  </assembly>
   <assembly fullname="Luban.Runtime">
     <type fullname="Luban.BeanBase" preserve="all" />
     <type fullname="Luban.ByteBuf" preserve="all" />
@@ -130,8 +134,6 @@
     <type fullname="UnityEngine.Rendering.GraphicsDeviceType" preserve="all" />
     <type fullname="UnityEngine.RequireComponent" preserve="all" />
     <type fullname="UnityEngine.Resources" preserve="all" />
-    <type fullname="UnityEngine.RuntimeInitializeLoadType" preserve="all" />
-    <type fullname="UnityEngine.RuntimeInitializeOnLoadMethodAttribute" preserve="all" />
     <type fullname="UnityEngine.SceneManagement.LoadSceneMode" preserve="all" />
     <type fullname="UnityEngine.SceneManagement.Scene" preserve="all" />
     <type fullname="UnityEngine.Screen" preserve="all" />
@@ -182,7 +184,6 @@
     <type fullname="UnityEngine.EventSystems.PointerEventData" preserve="all" />
     <type fullname="UnityEngine.UI.Button" preserve="all" />
     <type fullname="UnityEngine.UI.Button/ButtonClickedEvent" preserve="all" />
-    <type fullname="UnityEngine.UI.Graphic" preserve="all" />
     <type fullname="UnityEngine.UI.GridLayoutGroup" preserve="all" />
     <type fullname="UnityEngine.UI.Image" preserve="all" />
     <type fullname="UnityEngine.UI.RawImage" preserve="all" />
@@ -228,10 +229,6 @@
     <type fullname="System.ArgumentNullException" preserve="all" />
     <type fullname="System.ArgumentOutOfRangeException" preserve="all" />
     <type fullname="System.Array" preserve="all" />
-    <type fullname="System.AsyncCallback" preserve="all" />
-    <type fullname="System.Attribute" preserve="all" />
-    <type fullname="System.AttributeTargets" preserve="all" />
-    <type fullname="System.AttributeUsageAttribute" preserve="all" />
     <type fullname="System.Boolean" preserve="all" />
     <type fullname="System.Byte" preserve="all" />
     <type fullname="System.CodeDom.Compiler.GeneratedCodeAttribute" preserve="all" />
@@ -264,23 +261,17 @@
     <type fullname="System.Func`1" preserve="all" />
     <type fullname="System.Func`2" preserve="all" />
     <type fullname="System.Func`4" preserve="all" />
-    <type fullname="System.IAsyncResult" preserve="all" />
     <type fullname="System.IDisposable" preserve="all" />
     <type fullname="System.IProgress`1" preserve="all" />
     <type fullname="System.Int32" preserve="all" />
     <type fullname="System.Int64" preserve="all" />
     <type fullname="System.Linq.Enumerable" preserve="all" />
-    <type fullname="System.MulticastDelegate" preserve="all" />
     <type fullname="System.NotSupportedException" preserve="all" />
     <type fullname="System.Object" preserve="all" />
     <type fullname="System.OperationCanceledException" preserve="all" />
     <type fullname="System.ParamArrayAttribute" preserve="all" />
     <type fullname="System.Random" preserve="all" />
-    <type fullname="System.Reflection.BindingFlags" preserve="all" />
-    <type fullname="System.Reflection.CustomAttributeExtensions" preserve="all" />
     <type fullname="System.Reflection.DefaultMemberAttribute" preserve="all" />
-    <type fullname="System.Reflection.FieldInfo" preserve="all" />
-    <type fullname="System.Reflection.MemberInfo" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.AsyncStateMachineAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.AsyncVoidMethodBuilder" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.CompilationRelaxationsAttribute" preserve="all" />

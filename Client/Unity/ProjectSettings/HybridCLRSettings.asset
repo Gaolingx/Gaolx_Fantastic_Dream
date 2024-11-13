@@ -17,6 +17,7 @@ MonoBehaviour:
   hybridclrRepoURL: https://gitee.com/focus-creative-games/hybridclr
   il2cppPlusRepoURL: https://gitee.com/focus-creative-games/il2cpp_plus
   hotUpdateAssemblyDefinitions:
+  - {fileID: 5897886265953266890, guid: b70ddd462d6cd3342a93a66cd96993bc, type: 3}
   - {fileID: 5897886265953266890, guid: 3937b9ddba0797c43a695559e5d42be6, type: 3}
   hotUpdateAssemblies:
   - PEProtocol

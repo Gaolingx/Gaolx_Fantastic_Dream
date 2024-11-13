@@ -246,6 +246,25 @@ CBUFFER_START(UnityPerMaterial)
 	//==
 
 
+	//== N_F_TP_ON
+		uniform float _TriPlaTile;
+		uniform float _TriPlaBlend;
+	//==
+
+	//== N_F_PA_ON
+		uniform half _PresAdju;
+		uniform half _ClipAdju;
+		uniform float _PASize;
+		uniform float _PASmooTrans;
+		uniform float _PADist;
+	//==
+
+
+	//== N_F_SE_ON
+		uniform float _NoiseSize;
+		uniform float _TrailSize;
+	//==
+
 	//== Others
 		uniform half4 _SSAOColor;
 
@@ -254,6 +273,8 @@ CBUFFER_START(UnityPerMaterial)
 
 		float _SkinMatrixIndex;
 		float _ComputeMeshIndex;
+		float4 _PrevPosition;
+		float4 _ObjPosi;
 	//==
 
 CBUFFER_END
@@ -392,7 +413,21 @@ UNITY_DOTS_INSTANCING_START(MaterialPropertyMetadata)
 	UNITY_DOTS_INSTANCED_PROP(float, _MinFadDistance)
 	UNITY_DOTS_INSTANCED_PROP(float, _MaxFadDistance)
 
-	UNITY_DOTS_INSTANCED_PROP(float, _ReduceShadowSpotDirectionalLight)
+	UNITY_DOTS_INSTANCED_PROP(float, _TriPlaTile)
+	UNITY_DOTS_INSTANCED_PROP(float, _TriPlaBlend)
+
+	UNITY_DOTS_INSTANCED_PROP(float, _PresAdju)
+	UNITY_DOTS_INSTANCED_PROP(float, _ClipAdju)
+	UNITY_DOTS_INSTANCED_PROP(float, _PASize)
+	UNITY_DOTS_INSTANCED_PROP(float, _PASmooTrans)
+	UNITY_DOTS_INSTANCED_PROP(float, _PADist)
+
+	UNITY_DOTS_INSTANCED_PROP(float4, _PrevPosition)
+	UNITY_DOTS_INSTANCED_PROP(float4, _ObjPosi)
+	UNITY_DOTS_INSTANCED_PROP(float, _NoiseSize)
+	UNITY_DOTS_INSTANCED_PROP(float, _TrailSize)
+
+	//UNITY_DOTS_INSTANCED_PROP(float, _ReduceShadowSpotDirectionalLight)
 
 	UNITY_DOTS_INSTANCED_PROP(float4, _SSAOColor)
 
@@ -527,17 +562,31 @@ UNITY_DOTS_INSTANCING_END(MaterialPropertyMetadata)
 #define _RimLightColorPower								UNITY_ACCESS_DOTS_INSTANCED_PROP_WITH_DEFAULT(float, _RimLightColorPower)
 #define _RimLightInLight								UNITY_ACCESS_DOTS_INSTANCED_PROP_WITH_DEFAULT(float, _RimLightInLight)
 
-#define _MinDissDistance								UNITY_ACCESS_DOTS_INSTANCED_PROP_WITH_DEFAULT(float, _MinFadDistance)
-#define _MaxDissDistance								UNITY_ACCESS_DOTS_INSTANCED_PROP_WITH_DEFAULT(float, _MaxFadDistance)
+#define _MinFadDistance									UNITY_ACCESS_DOTS_INSTANCED_PROP_WITH_DEFAULT(float, _MinFadDistance)
+#define _MaxFadDistance									UNITY_ACCESS_DOTS_INSTANCED_PROP_WITH_DEFAULT(float, _MaxFadDistance)
 
-#define _ReduceShadowSpotDirectionalLight				UNITY_ACCESS_DOTS_INSTANCED_PROP_WITH_DEFAULT(float, _ReduceShadowSpotDirectionalLight)
+#define _TriPlaTile										UNITY_ACCESS_DOTS_INSTANCED_PROP_WITH_DEFAULT(float, _TriPlaTile)
+#define _TriPlaBlend									UNITY_ACCESS_DOTS_INSTANCED_PROP_WITH_DEFAULT(float, _TriPlaBlend)
+
+#define _PresAdju										UNITY_ACCESS_DOTS_INSTANCED_PROP_WITH_DEFAULT(float, _PresAdju);
+#define _ClipAdju										UNITY_ACCESS_DOTS_INSTANCED_PROP_WITH_DEFAULT(float, _ClipAdju);
+#define _PASize                                         UNITY_ACCESS_DOTS_INSTANCED_PROP_WITH_DEFAULT(float, _PASize);
+#define _PASmooTrans                                    UNITY_ACCESS_DOTS_INSTANCED_PROP_WITH_DEFAULT(float, _PASmooTrans);
+#define _PADist                                         UNITY_ACCESS_DOTS_INSTANCED_PROP_WITH_DEFAULT(float, _PADist);
+
+#define _PrevPosition									UNITY_ACCESS_DOTS_INSTANCED_PROP_WITH_DEFAULT(float4, _PrevPosition);
+#define _ObjPosi										UNITY_ACCESS_DOTS_INSTANCED_PROP_WITH_DEFAULT(float4, _ObjPosi);
+#define _NoiseSize										UNITY_ACCESS_DOTS_INSTANCED_PROP_WITH_DEFAULT(float, _NoiseSize);
+#define _TrailSize										UNITY_ACCESS_DOTS_INSTANCED_PROP_WITH_DEFAULT(float, _TrailSize);
+
+//#define _ReduceShadowSpotDirectionalLight				UNITY_ACCESS_DOTS_INSTANCED_PROP_WITH_DEFAULT(float, _ReduceShadowSpotDirectionalLight)
 
 #define _SSAOColor                                      UNITY_ACCESS_DOTS_INSTANCED_PROP_WITH_DEFAULT(float4, _SSAOColor)
 
 //=========
-#define UNITY_ACCESS_HYBRID_INSTANCED_PROP(var, type) UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(type, Metadata##var) //
+#define UNITY_ACCESS_HYBRID_INSTANCED_PROP(var, type) UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(type, Metadata##var)
 #else
-#define UNITY_ACCESS_HYBRID_INSTANCED_PROP(var, type) var //
+#define UNITY_ACCESS_HYBRID_INSTANCED_PROP(var, type) var
 //=========
 
 #endif

@@ -259,8 +259,8 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 3
   indirectDiffuseLightingMultiplier:
-    m_OverrideState: 0
-    m_Value: 1
+    m_OverrideState: 1
+    m_Value: 1.6
 --- !u!114 &3809694797385330711
 MonoBehaviour:
   m_ObjectHideFlags: 3

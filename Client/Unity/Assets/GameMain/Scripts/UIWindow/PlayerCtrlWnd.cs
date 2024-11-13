@@ -85,7 +85,7 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
-            settingsWnd = GameRoot.MainInstance.transform.Find($"{Constants.Path_Canvas_Obj}/SettingsPanel").gameObject.GetComponent<SettingsWnd>();
+            settingsWnd = GameRoot.MainInstance.transform.Find($"{Constants.Path_Canvas_Obj}/SettingsPanel").GetComponent<SettingsWnd>();
 
             InitSkCDTime();
 
