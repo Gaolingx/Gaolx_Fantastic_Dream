@@ -3626,7 +3626,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_DayTime: 12
   m_ColorSaturation: 1
-  m_AutoBrightnessOffset: -0.2
+  m_AutoBrightnessOffset: -0.25
   m_DitherAlpha: 1
   m_ExCheekIntensity: 0
   m_ExShyIntensity: 0
