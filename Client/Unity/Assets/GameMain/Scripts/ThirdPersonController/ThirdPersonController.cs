@@ -32,6 +32,9 @@ namespace StarterAssets
         [Tooltip("Sprint speed of the character in m/s")]
         public float SprintSpeed = 5.335f;
 
+        [Tooltip("Air Move speed of the character in m/s")]
+        public float AirMoveSpeed = 2.5f;
+
         [Tooltip("Skill Move speed of the character in m/s")]
         public float SkillMoveSpeed = 0f;
 
@@ -112,7 +115,6 @@ namespace StarterAssets
         private float _rotationVelocity;
         private float _verticalVelocity;
         private float _terminalVelocity = 53.0f;
-        private bool _isSkillMove = false;
 
         // timeout deltatime
         private float _jumpTimeoutDelta;
@@ -140,6 +142,7 @@ namespace StarterAssets
         private BindableProperty<bool> idleAction = new BindableProperty<bool>();
         private BindableProperty<bool> crouchAction = new BindableProperty<bool>();
         private BindableProperty<int> skillAction = new BindableProperty<int>();
+        private System.Action<bool, float> skillMoveAction;
         private static DarkGod.Main.AudioSvc _audioSvc;
         private static DarkGod.Main.TimerSvc _timerSvc;
 
@@ -191,8 +194,7 @@ namespace StarterAssets
 
         public void SetSkillMove(bool isSkillMove, float skillMoveSpeed = 0f)
         {
-            SkillMoveSpeed = skillMoveSpeed;
-            _isSkillMove = isSkillMove;
+            skillMoveAction?.Invoke(isSkillMove, skillMoveSpeed);
         }
 
         public void SetAtkRotationLocal(Vector2 atkDir)
@@ -202,10 +204,6 @@ namespace StarterAssets
             transform.localEulerAngles = eulerAngles;
         }
 
-        private PlayerInput SetPlayerInput()
-        {
-            return PlayerInput;
-        }
 
         #region MonoBehaviour
         private void ClassAwake()
@@ -213,6 +211,7 @@ namespace StarterAssets
             idleAction.OnValueChanged += delegate (bool val) { OnIdle(val); };
             crouchAction.OnValueChanged += delegate (bool val) { OnCrouch(val); };
             skillAction.OnValueChanged += delegate (int val) { OnAtkSkill(val); };
+            skillMoveAction += delegate (bool val1, float val2) { OnSkillMove(val1, val2); };
 
             // get a reference to our main camera
             if (_mainCamera == null)
@@ -226,17 +225,16 @@ namespace StarterAssets
         }
         private void ClassStart()
         {
-            _input = StarterAssetsInputs;
-
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
 
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
+            _input = StarterAssetsInputs;
             _personFollow = playerFollowVirtualCamera.GetComponent<CinemachineVirtualCamera>()
                 .GetCinemachineComponent<Cinemachine3rdPersonFollow>();
 
 #if ENABLE_INPUT_SYSTEM 
-            _playerInput = SetPlayerInput();
+            _playerInput = PlayerInput;
 #else
             Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
@@ -427,21 +425,26 @@ namespace StarterAssets
             }
         }
 
+        private void OnSkillMove(bool isMove, float speed)
+        {
+            if (isMove)
+            {
+                Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
+
+                // move the player
+                _controller.Move(targetDirection.normalized * (speed * Time.deltaTime) +
+                                 new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            }
+        }
+
         private void Move()
         {
             Vector2 _moveVal = GetMoveInputState();
 
             // set target speed based on move speed, sprint speed and if sprint is pressed
-            float targetSpeed = 0f;
+            float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 
-            if (!_isSkillMove)
-            {
-                targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
-            }
-            else
-            {
-                targetSpeed = SkillMoveSpeed;
-            }
+            // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is no input, set the target speed to 0
@@ -469,7 +472,7 @@ namespace StarterAssets
             }
 
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
-            Vector3 targetDirMovement = targetDirection.normalized * (targetSpeed * Time.deltaTime);
+            Vector3 targetDirMovement = targetDirection.normalized * (AirMoveSpeed * Time.deltaTime);
             if (Grounded)
             {
                 targetDirMovement = Vector3.zero;
@@ -645,6 +648,7 @@ namespace StarterAssets
             idleAction.OnValueChanged -= delegate (bool val) { OnIdle(val); };
             crouchAction.OnValueChanged -= delegate (bool val) { OnCrouch(val); };
             skillAction.OnValueChanged -= delegate (int val) { OnAtkSkill(val); };
+            skillMoveAction -= delegate (bool val1, float val2) { OnSkillMove(val1, val2); };
         }
     }
 }

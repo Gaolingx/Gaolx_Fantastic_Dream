@@ -28,12 +28,13 @@
       "hash": "7dcd33fd67c7ffe73e88c741bf9ef89ee04aa521"
     },
     "com.gaolingx.honkaistarrailtoonshader": {
-      "version": "file:HonkaiStarRailToonShader",
+      "version": "https://github.com/Gaolingx/HonkaiStarRailToonShader.git",
       "depth": 0,
-      "source": "embedded",
+      "source": "git",
       "dependencies": {
         "com.stalomeow.star-rail-npr-shader": "2.9.0"
-      }
+      },
+      "hash": "573693ae560addf33ce37bd3ab14a3fe14b662cb"
     },
     "com.jiaozi158.unityssgiurp": {
       "version": "file:UnitySSGIURP",

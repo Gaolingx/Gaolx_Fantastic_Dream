@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using HuHu;
@@ -15,7 +16,7 @@ namespace DarkGod.Main
             public string soundName;
             public string soundPath;
             public int soundCount;
-            public bool isRepeat;
+            public bool AllowRepeat;
         }
 
         [SerializeField] private List<SoundItem> soundPools = new List<SoundItem>();
@@ -50,7 +51,7 @@ namespace DarkGod.Main
                     else
                     {
                         //只用加Value
-                        if (soundPools[i].isRepeat)
+                        if (soundPools[i].AllowRepeat)
                         {
                             soundCenter[soundPools[i].soundStyle].Enqueue(go);
                         }
@@ -63,7 +64,7 @@ namespace DarkGod.Main
             }
         }
 
-        public void TryPlaySoundFromPool(SoundStyle soundStye, Vector3 position, Quaternion quaternion, float vol = 1f)
+        public void TryPlaySoundFromPool(SoundStyle soundStye, Vector3 position, Quaternion quaternion, bool isPlayOnAwake = false, bool isLoop = false, float volume = 1f)
         {
             if (soundCenter.TryGetValue(soundStye, out var sound))
             {
@@ -73,18 +74,62 @@ namespace DarkGod.Main
                 go.transform.rotation = quaternion;
                 go.SetActive(true);
 
-                AudioSource audioSource = go.GetComponent<AudioSource>();
-                if (audioSource != null && audioSource.clip != null)
-                {
-                    audioSource.volume = Mathf.Clamp01(vol);
-                    audioSource.Play();
-                }
+                StartCoroutine(PlaySound(go.GetComponent<AudioSource>(), isPlayOnAwake, isLoop, volume));
 
                 soundCenter[soundStye].Enqueue(go);
             }
             else
             {
                 // Debug.Log(soundStye + "不存在");
+            }
+        }
+
+        IEnumerator PlaySound(AudioSource audioSource, bool isPlayOnAwake, bool isLoop, float volume)
+        {
+            if (!isPlayOnAwake)
+            {
+                if (audioSource != null && audioSource.clip != null)
+                {
+                    audioSource.loop = isLoop;
+                    audioSource.volume = volume;
+                    audioSource.Play();
+                }
+            }
+
+            yield return new WaitForSeconds(audioSource.clip.length);
+            audioSource.gameObject.SetActive(false);
+        }
+
+        public void TryStopSoundFromPool(SoundStyle soundStye)
+        {
+            if (soundCenter.TryGetValue(soundStye, out var sound))
+            {
+                GameObject go = sound.Dequeue();
+                go.GetComponent<AudioSource>().Stop();
+
+                soundCenter[soundStye].Enqueue(go);
+            }
+        }
+
+        public void TryPauseSoundFromPool(SoundStyle soundStye)
+        {
+            if (soundCenter.TryGetValue(soundStye, out var sound))
+            {
+                GameObject go = sound.Dequeue();
+                go.GetComponent<AudioSource>().Pause();
+
+                soundCenter[soundStye].Enqueue(go);
+            }
+        }
+
+        public void TryUnPauseSoundFromPool(SoundStyle soundStye)
+        {
+            if (soundCenter.TryGetValue(soundStye, out var sound))
+            {
+                GameObject go = sound.Dequeue();
+                go.GetComponent<AudioSource>().UnPause();
+
+                soundCenter[soundStye].Enqueue(go);
             }
         }
 

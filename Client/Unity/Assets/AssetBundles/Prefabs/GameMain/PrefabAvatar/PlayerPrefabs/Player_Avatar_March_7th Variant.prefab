@@ -3626,11 +3626,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_DayTime: 12
   m_ColorSaturation: 1
-  m_AutoBrightnessOffset: -0.25
+  m_AutoBrightnessOffset: -0.2
   m_DitherAlpha: 1
   m_ExCheekIntensity: 0
   m_ExShyIntensity: 0
   m_ExShadowIntensity: 0
+  m_ExEyeShadowIntensity: 0
   m_IsCastingShadow: 1
   m_MMDHeadBone: {fileID: 0}
   m_MMDHeadBoneForward: 0
@@ -3699,8 +3700,10 @@ MonoBehaviour:
   StarterAssetsInputs: {fileID: 0}
   playerFollowVirtualCamera: {fileID: 0}
   MoveControlState: 1
+  ApplyHumanScale: 0
   MoveSpeed: 2
   SprintSpeed: 5.335
+  AirMoveSpeed: 2.5
   SkillMoveSpeed: 0
   RotationSmoothTime: 0.12
   SpeedChangeRate: 10

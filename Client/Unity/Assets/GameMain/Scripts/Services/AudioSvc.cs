@@ -173,7 +173,7 @@ namespace DarkGod.Main
             while (isLoop)
             {
                 if (audioClips == null || audioClips.Count == 0)
-                    yield break; // 如果没有音频片段，则退出协程  
+                    yield break; // 如果没有音频片段，则退出协程
 
                 for (int i = 0; i < audioClips.Count; i++)
                 {
@@ -183,7 +183,7 @@ namespace DarkGod.Main
                         BGAudioAudioSource.loop = false;
                         BGAudioAudioSource.Play();
                         float targetValue = Mathf.Clamp(duration, 0f, 10f);
-                        yield return new WaitForSeconds(audioClips[i].length + targetValue); // 等待当前音频播放完成  
+                        yield return new WaitForSeconds(audioClips[i].length + targetValue); // 等待当前音频播放完成
                     }
                 }
             }
