@@ -148,6 +148,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// PENet.PESocket.<>c__DisplayClass6_0<object,object>
 	// PENet.PESocket<object,object>
 	// System.Action<UnityEngine.Vector2>
+	// System.Action<byte,float>
 	// System.Action<byte,int>
 	// System.Action<byte>
 	// System.Action<float>
