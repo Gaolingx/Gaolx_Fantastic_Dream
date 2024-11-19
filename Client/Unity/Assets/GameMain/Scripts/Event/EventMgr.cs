@@ -1,25 +1,13 @@
-﻿using HuHu;
+﻿// 功能：事件管理器
+
+using HuHu;
 using System;
+using UniFramework.Event;
+using UnityEngine;
 
 namespace DarkGod.Main
 {
-    public enum GameStateEventCode
-    {
-        GameStart,
-        GamePause,
-        GameContinue,
-        GameStop
-    }
-    public class GameStateEventArgs : EventArgs
-    {
-        public GameStateEventArgs(GameStateEventCode gameStateEventCode)
-        {
-            GameStateEventCode = gameStateEventCode;
-        }
-        public GameStateEventCode GameStateEventCode { get; }
-    }
-
-    public class GameWindowShowMessage : EventArgs
+    public class GameWindowShowMessage
     {
         public GameWindowShowMessage(string msg)
         {
@@ -30,64 +18,122 @@ namespace DarkGod.Main
 
     public class EventMgr : Singleton<EventMgr>
     {
+        private readonly EventGroup _eventGroup = new EventGroup();
+
         protected override void Awake()
         {
             base.Awake();
 
-            _onGameStateEventHandler += C_OnGameStateOperationEvent;
-            _onGameWindowShowMessageEventHandler += C_OnGameWindowShowMessageEvent;
+            UniEvent.Initalize();
+            AddListener();
         }
 
-        // 定义游戏全局事件
-        private event EventHandler<GameStateEventArgs> _onGameStateEventHandler;
-        public Action OnGameEnter { get; set; }
-        public BindableProperty<bool> OnGamePause { get; set; } = new BindableProperty<bool>();
-        public Action OnGameExit { get; set; }
-
-        private void C_OnGameStateOperationEvent(object sender, GameStateEventArgs eventArgs)
+        private void AddListener()
         {
-            if (eventArgs.GameStateEventCode == GameStateEventCode.GameStart)
+            _eventGroup.AddListener<OnGameEnterEvent>(OnHandleEventMessage);
+            _eventGroup.AddListener<OnGameExitEvent>(OnHandleEventMessage);
+            _eventGroup.AddListener<OnGamePauseEvent>(OnHandleEventMessage);
+            _eventGroup.AddListener<OnShowMessageBoxEvent>(OnHandleEventMessage);
+            _eventGroup.AddListener<OnQualityLevelEvent>(OnHandleEventMessage);
+        }
+
+        public class OnGameEnterEvent : IEventMessage
+        {
+            public static void SendEventMessage()
+            {
+                var msg = new OnGameEnterEvent();
+                UniEvent.SendMessage(msg);
+            }
+        }
+
+        public class OnGamePauseEvent : IEventMessage
+        {
+            public bool state = false;
+            public static void SendEventMessage(bool state)
+            {
+                var msg = new OnGamePauseEvent();
+                msg.state = state;
+                UniEvent.SendMessage(msg);
+            }
+        }
+
+        public class OnGameExitEvent : IEventMessage
+        {
+            public static void SendEventMessage()
+            {
+                var msg = new OnGameExitEvent();
+                UniEvent.SendMessage(msg);
+            }
+        }
+
+        /// <summary>
+        /// 接收事件
+        /// </summary>
+        private void OnHandleEventMessage(IEventMessage message)
+        {
+            if (message is OnGameEnterEvent)
             {
                 OnGameEnter?.Invoke();
             }
-            else if (eventArgs.GameStateEventCode == GameStateEventCode.GamePause)
-            {
-                OnGamePause.Value = true;
-            }
-            else if (eventArgs.GameStateEventCode == GameStateEventCode.GameContinue)
-            {
-                OnGamePause.Value = false;
-            }
-            else if (eventArgs.GameStateEventCode == GameStateEventCode.GameStop)
+            else if (message is OnGameExitEvent)
             {
                 OnGameExit?.Invoke();
             }
+            else if (message is OnGamePauseEvent)
+            {
+                OnGamePauseEvent events = message as OnGamePauseEvent;
+                OnGamePause?.Invoke(events.state);
+            }
+            else if (message is OnShowMessageBoxEvent)
+            {
+                OnShowMessageBoxEvent events = message as OnShowMessageBoxEvent;
+                MessageBox.MainInstance.ShowMessage(events.message);
+            }
+            else if (message is OnQualityLevelEvent)
+            {
+                OnQualityLevelEvent events = message as OnQualityLevelEvent;
+                QualitySvc.MainInstance.SavePrefsData(events.Value);
+            }
         }
 
-        public void SendMessage_GameState(object sender, GameStateEventArgs eventArgs)
+        public class OnShowMessageBoxEvent : IEventMessage
         {
-            _onGameStateEventHandler?.Invoke(sender, eventArgs);
-        }
-
-        private EventHandler<GameWindowShowMessage> _onGameWindowShowMessageEventHandler;
-
-        private void C_OnGameWindowShowMessageEvent(object sender, GameWindowShowMessage eventArgs)
-        {
-            GameRoot.MainInstance.dynamicWnd.AddTips(eventArgs.Message);
+            public string message;
+            public static void SendEventMessage(string message)
+            {
+                var msg = new OnShowMessageBoxEvent();
+                msg.message = message;
+                UniEvent.SendMessage(msg);
+            }
         }
 
         public void ShowMessageBox(object sender, GameWindowShowMessage eventArgs)
         {
-            _onGameWindowShowMessageEventHandler?.Invoke(sender, eventArgs);
+            Debug.Log($"Sender:{sender.GetType().FullName},ShowMessage:{eventArgs.Message}");
+            OnShowMessageBoxEvent.SendEventMessage(eventArgs.Message);
         }
 
-        public BindableProperty<int> QualityLevel { get; set; } = new BindableProperty<int>();
+        public class OnQualityLevelEvent : IEventMessage
+        {
+            public QualitySvc.PlayerPrefsData Value;
+
+            public static void SendEventMessage(QualitySvc.PlayerPrefsData message)
+            {
+                var msg = new OnQualityLevelEvent();
+                msg.Value = message;
+                UniEvent.SendMessage(msg);
+            }
+        }
+
+        // 定义游戏全局事件
+        public Action OnGameEnter { get; set; }
+        public Action OnGameExit { get; set; }
+        public Action<bool> OnGamePause { get; set; }
         public BindableProperty<EntityPlayer> CurrentEPlayer { get; set; } = new BindableProperty<EntityPlayer>();
 
         private void OnDisable()
         {
-            _onGameStateEventHandler -= C_OnGameStateOperationEvent;
-            _onGameWindowShowMessageEventHandler -= C_OnGameWindowShowMessageEvent;
+            UniEvent.Destroy();
         }
     }
 }

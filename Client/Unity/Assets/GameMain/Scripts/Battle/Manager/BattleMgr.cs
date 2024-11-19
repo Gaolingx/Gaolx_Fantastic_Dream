@@ -297,7 +297,7 @@ namespace DarkGod.Main
                     //Boss血条特殊处理
                     if (md.mCfg.mType == cfg.MonsterType.Normal)
                     {
-                        GameRoot.MainInstance.dynamicWnd.AddHpItemInfo(m.name, mc.hpRoot, em.currentHP.Value);
+                        MessageBox.MainInstance.AddHpItemInfo(m.name, mc.hpRoot, em.currentHP.Value);
                     }
                     else if (md.mCfg.mType == cfg.MonsterType.Boss)
                     {
@@ -344,7 +344,7 @@ namespace DarkGod.Main
                 //移除数据
                 monsterDic.Remove(key);
                 //移除血条
-                GameRoot.MainInstance.dynamicWnd.RmvHpItemInfo(key);
+                MessageBox.MainInstance.RmvHpItemInfo(key);
             }
         }
 

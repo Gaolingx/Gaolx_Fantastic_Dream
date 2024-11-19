@@ -132,7 +132,9 @@ namespace DarkGod.Main
         {
             if (desiredQualityLevelIndex < QualitySettings.names.Length)
             {
-                EventMgr.MainInstance.QualityLevel.Value = desiredQualityLevelIndex;
+                QualitySvc.PlayerPrefsData data = new QualitySvc.PlayerPrefsData();
+                data.QualityLevel = desiredQualityLevelIndex;
+                EventMgr.OnQualityLevelEvent.SendEventMessage(data);
             }
         }
 

@@ -42,7 +42,7 @@ namespace DarkGod.Main
         {
             base.InitSys();
 
-            EventMgr.MainInstance.OnGamePause.OnValueChanged += delegate (bool val) { OnUpdatePauseState2(val); };
+            EventMgr.MainInstance.OnGamePause += delegate (bool val) { OnUpdatePauseState2(val); };
             PECommon.Log("Init MainCitySys...");
         }
 
@@ -537,7 +537,7 @@ namespace DarkGod.Main
         private void OnDisable()
         {
             EventMgr.MainInstance.OnGameEnter -= delegate { InitSys(); };
-            EventMgr.MainInstance.OnGamePause.OnValueChanged -= delegate (bool val) { OnUpdatePauseState2(val); };
+            EventMgr.MainInstance.OnGamePause -= delegate (bool val) { OnUpdatePauseState2(val); };
         }
     }
 }

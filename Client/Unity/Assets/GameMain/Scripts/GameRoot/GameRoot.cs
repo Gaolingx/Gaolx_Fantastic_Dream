@@ -6,7 +6,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using HuHu;
-using Newtonsoft.Json;
 
 namespace DarkGod.Main
 {
@@ -16,7 +15,6 @@ namespace DarkGod.Main
 
         public GameState GameRootGameState { get; set; } = GameState.None;
         public LoadingWnd loadingWnd { get; private set; }
-        public DynamicWnd dynamicWnd { get; private set; }
         public SettingsWnd settingsWnd { get; private set; }
         public BattleEndWnd battleEndWnd { get; private set; }
         public StarterAssetsInputs starterAssetsInputs { get; private set; }
@@ -28,37 +26,9 @@ namespace DarkGod.Main
         private bool _isGamePause = false;
         private bool _isInputEnable = true;
 
-        private const string prefsKey_SettingsGameRoot = "prefsKey_SettingsGameRoot";
-
-        [System.Serializable]
-        private class PlayerPrefsData
-        {
-            public int QualityLevel;
-        }
-
-        private void LoadPrefsData()
-        {
-            if (PlayerPrefsSvc.MainInstance.CheckPlayerPrefsHasKey(prefsKey_SettingsGameRoot))
-            {
-                var json = PlayerPrefsSvc.MainInstance.LoadFromPlayerPrefs(prefsKey_SettingsGameRoot);
-                var saveData = JsonConvert.DeserializeObject<PlayerPrefsData>(json);
-
-                EventMgr.MainInstance.QualityLevel.Value = saveData.QualityLevel;
-            }
-        }
-
-        private void SavePrefsData(int val)
-        {
-            var saveData = new PlayerPrefsData();
-
-            saveData.QualityLevel = val;
-            PlayerPrefsSvc.MainInstance.SaveByPlayerPrefs(prefsKey_SettingsGameRoot, saveData);
-        }
-
         private void InitTransform()
         {
             loadingWnd = transform.Find(Constants.Path_LoadingWnd_Obj).GetComponent<LoadingWnd>();
-            dynamicWnd = transform.Find(Constants.Path_DynamicWnd_Obj).GetComponent<DynamicWnd>();
             settingsWnd = transform.Find(Constants.Path_SettingsWnd_Obj).GetComponent<SettingsWnd>();
             battleEndWnd = transform.Find(Constants.Path_BattleEndWnd_Obj).GetComponent<BattleEndWnd>();
             starterAssetsInputs = transform.Find(Constants.Path_PlayerInputs_Obj).GetComponent<StarterAssetsInputs>();
@@ -72,8 +42,7 @@ namespace DarkGod.Main
             InitTransform();
 
             EventMgr.MainInstance.OnGameExit += delegate { GetUIController().OnClickExit(); };
-            EventMgr.MainInstance.OnGamePause.OnValueChanged += delegate (bool val) { OnUpdatePauseState(val); };
-            EventMgr.MainInstance.QualityLevel.OnValueChanged += delegate (int val) { OnUpdateQualityLevel(val); };
+            EventMgr.MainInstance.OnGamePause += delegate (bool val) { OnUpdatePauseState(val); };
             SettingsWndAction += delegate (bool val) { OpenSettingsWnd(val); };
             PauseGameUIAction += delegate (bool val) { OnPauseGameHandle(val); };
             BattleEndWndAction += delegate (bool val1, FBEndType val2) { OnBattleEndWndHandle(val1, val2); };
@@ -87,10 +56,9 @@ namespace DarkGod.Main
                 DontDestroyOnLoad(this);
             }
 
-            EventMgr.MainInstance.SendMessage_GameState(this, new GameStateEventArgs(GameStateEventCode.GameStart));
+            EventMgr.OnGameEnterEvent.SendEventMessage();
 
             CleanUIRoot();
-            LoadPrefsData();
             InitGameRoot();
 
             PECommon.Log("Game Start...");
@@ -117,11 +85,11 @@ namespace DarkGod.Main
         {
             if (isPause)
             {
-                EventMgr.MainInstance.SendMessage_GameState(this, new(GameStateEventCode.GamePause));
+                EventMgr.OnGamePauseEvent.SendEventMessage(true);
             }
             else
             {
-                EventMgr.MainInstance.SendMessage_GameState(this, new(GameStateEventCode.GameContinue));
+                EventMgr.OnGamePauseEvent.SendEventMessage(false);
             }
         }
 
@@ -150,12 +118,6 @@ namespace DarkGod.Main
                     BattleEndWndAction?.Invoke(true, FBEndType.Pause);
                 }
             }
-        }
-
-        private void OnUpdateQualityLevel(int value)
-        {
-            QualitySettings.SetQualityLevel(value);
-            SavePrefsData(value);
         }
 
         private void SetCursorLockMode(bool locked)
@@ -215,10 +177,7 @@ namespace DarkGod.Main
         //初始化各个系统和服务模块
         private void InitGameRoot()
         {
-            if (dynamicWnd != null)
-            {
-                dynamicWnd.SetWndState();
-            }
+            MessageBox.MainInstance.ActiveDynamicWnd();
 
             //进入登录场景并加载相应UI
             LoginSys.MainInstance.EnterLogin();
@@ -236,7 +195,7 @@ namespace DarkGod.Main
 
         public void ExitGame()
         {
-            EventMgr.MainInstance.SendMessage_GameState(this, new GameStateEventArgs(GameStateEventCode.GameStop));
+            EventMgr.OnGameExitEvent.SendEventMessage();
         }
 
         public UIController GetUIController()
@@ -322,8 +281,7 @@ namespace DarkGod.Main
         private void OnDisable()
         {
             EventMgr.MainInstance.OnGameExit -= delegate { GetUIController().OnClickExit(); };
-            EventMgr.MainInstance.OnGamePause.OnValueChanged -= delegate (bool val) { OnUpdatePauseState(val); };
-            EventMgr.MainInstance.QualityLevel.OnValueChanged -= delegate (int val) { OnUpdateQualityLevel(val); };
+            EventMgr.MainInstance.OnGamePause -= delegate (bool val) { OnUpdatePauseState(val); };
             SettingsWndAction -= delegate (bool val) { OpenSettingsWnd(val); };
             PauseGameUIAction -= delegate (bool val) { OnPauseGameHandle(val); };
             BattleEndWndAction -= delegate (bool val1, FBEndType val2) { OnBattleEndWndHandle(val1, val2); };

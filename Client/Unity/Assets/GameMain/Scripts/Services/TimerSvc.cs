@@ -33,7 +33,10 @@ namespace DarkGod.Main
         //定时任务检测
         public void Update()
         {
-            pt.Update();
+            if (pt != null)
+            {
+                pt.Update();
+            }
         }
 
         //增加定时任务

@@ -53,7 +53,7 @@ namespace DarkGod.Main
         public void EndBattle(bool isWin, int restHP)
         {
             SetPlayerCtrlWndState(false);
-            GameRoot.MainInstance.dynamicWnd.RmvAllHpItemInfo();
+            MessageBox.MainInstance.RmvAllHpItemInfo();
 
             if (isWin)
             {
@@ -88,7 +88,7 @@ namespace DarkGod.Main
         {
             SetPlayerCtrlWndState(false);
             SetBattleEndWndState(FBEndType.None, false);
-            GameRoot.MainInstance.dynamicWnd.RmvAllHpItemInfo();
+            MessageBox.MainInstance.RmvAllHpItemInfo();
             Destroy(battleMgr.gameObject);
         }
 

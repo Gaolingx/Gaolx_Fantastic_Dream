@@ -234,28 +234,28 @@ namespace DarkGod.Main
         {
             if (controller != null || playerController != null)
             {
-                GameRoot.MainInstance.dynamicWnd.SetDodge(EntityName);
+                MessageBox.MainInstance.SetDodge(EntityName);
             }
         }
         public virtual void SetCritical(int critical)
         {
             if (controller != null || playerController != null)
             {
-                GameRoot.MainInstance.dynamicWnd.SetCritical(EntityName, critical);
+                MessageBox.MainInstance.SetCritical(EntityName, critical);
             }
         }
         public virtual void SetHurt(int hurt)
         {
             if (controller != null || playerController != null)
             {
-                GameRoot.MainInstance.dynamicWnd.SetHurt(EntityName, hurt);
+                MessageBox.MainInstance.SetHurt(EntityName, hurt);
             }
         }
         public virtual void SetHPVal(int oldval, int newval)
         {
             if (controller != null || playerController != null)
             {
-                GameRoot.MainInstance.dynamicWnd.SetHPVal(EntityName, oldval, newval);
+                MessageBox.MainInstance.SetHPVal(EntityName, oldval, newval);
             }
         }
         #endregion
