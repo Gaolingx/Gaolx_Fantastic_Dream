@@ -21,6 +21,7 @@ namespace DarkGod.Main
         protected Controller controller { get; set; }
 
         public string EntityName { get; set; }
+        public int EntityID { get => this.GetHashCode(); }
 
         public BindableProperty<bool> CanControl { get; set; } = new BindableProperty<bool>();
         public BindableProperty<bool> CanRlsSkill { get; set; } = new BindableProperty<bool>();
@@ -161,7 +162,7 @@ namespace DarkGod.Main
 
         private void OnUpdateHP(int value)
         {
-            PECommon.Log("HP change:" + oldHp + " to " + value + ".EntityType:" + entityType + ".EntityName:" + EntityName);
+            PECommon.Log($"HP change:{oldHp} to {value}.EntityType:{entityType}.EntityName:{EntityName}.EntityID:{EntityID}");
             SetHPVal(oldHp, value);
             oldHp = value;
         }

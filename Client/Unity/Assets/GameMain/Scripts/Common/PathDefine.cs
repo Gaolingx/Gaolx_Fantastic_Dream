@@ -47,7 +47,7 @@ namespace DarkGod.Main
         #endregion
 
         #region AudioSvc
-        public const string bgAudioPath = "Assets/AssetBundles/Audios/ResAudio/";
+        public const string bgAudioPath = "Assets/AssetBundles/Audios/ResAudio";
         #endregion
 
         #region AutoGuide
