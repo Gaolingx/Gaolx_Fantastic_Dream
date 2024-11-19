@@ -32,7 +32,7 @@ namespace DarkGod.Main
 
             if (entity.entityType == EntityType.Player)
             {
-                entity.CanRlsSkill = false;
+                entity.CanRlsSkill.Value = false;
             }
 
             entity.SkillAttack((int)args[0]);

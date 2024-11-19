@@ -25,6 +25,7 @@ namespace DarkGod.Main
         public Button btnSkill3;
 
         public Transform expPrgTrans;
+        public bool CanRlsSkill;
         private SettingsWnd settingsWnd;
 
         private StarterAssetsInputs playerInput;
@@ -300,7 +301,7 @@ namespace DarkGod.Main
         {
             if (val == true)
             {
-                if (isSk1CD == false && GetCanRlsSkill())
+                if (isSk1CD == false && CanRlsSkill)
                 {
                     BattleSys.MainInstance.ReqPlayerReleaseSkill(1);
                     isSk1CD = true;
@@ -316,7 +317,7 @@ namespace DarkGod.Main
         {
             if (val == true)
             {
-                if (isSk2CD == false && GetCanRlsSkill())
+                if (isSk2CD == false && CanRlsSkill)
                 {
                     BattleSys.MainInstance.ReqPlayerReleaseSkill(2);
                     isSk2CD = true;
@@ -332,7 +333,7 @@ namespace DarkGod.Main
         {
             if (val == true)
             {
-                if (isSk3CD == false && GetCanRlsSkill())
+                if (isSk3CD == false && CanRlsSkill)
                 {
                     BattleSys.MainInstance.ReqPlayerReleaseSkill(3);
                     isSk3CD = true;
@@ -371,10 +372,6 @@ namespace DarkGod.Main
         }
         #endregion
 
-        public bool GetCanRlsSkill()
-        {
-            return BattleSys.MainInstance.CanRlsSkill();
-        }
 
         #region BossHPItem
         public Transform transBossHPBar;

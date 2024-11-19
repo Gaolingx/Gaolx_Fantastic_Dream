@@ -41,7 +41,7 @@ namespace DarkGod.Main
 
             InitTransform();
 
-            EventMgr.MainInstance.OnGameExit += delegate { GetUIController().OnClickExit(); };
+            EventMgr.MainInstance.OnGameExit += delegate { OnGameExit(); };
             EventMgr.MainInstance.OnGamePause += delegate (bool val) { OnUpdatePauseState(val); };
             SettingsWndAction += delegate (bool val) { OpenSettingsWnd(val); };
             PauseGameUIAction += delegate (bool val) { OnPauseGameHandle(val); };
@@ -193,9 +193,9 @@ namespace DarkGod.Main
             _isInputEnable = state;
         }
 
-        public void ExitGame()
+        public void OnGameExit()
         {
-            EventMgr.OnGameExitEvent.SendEventMessage();
+            GetUIController().OnClickExit();
         }
 
         public UIController GetUIController()
@@ -280,12 +280,11 @@ namespace DarkGod.Main
 
         private void OnDisable()
         {
-            EventMgr.MainInstance.OnGameExit -= delegate { GetUIController().OnClickExit(); };
+            EventMgr.MainInstance.OnGameExit -= delegate { OnGameExit(); };
             EventMgr.MainInstance.OnGamePause -= delegate (bool val) { OnUpdatePauseState(val); };
             SettingsWndAction -= delegate (bool val) { OpenSettingsWnd(val); };
             PauseGameUIAction -= delegate (bool val) { OnPauseGameHandle(val); };
             BattleEndWndAction -= delegate (bool val1, FBEndType val2) { OnBattleEndWndHandle(val1, val2); };
         }
-
     }
 }

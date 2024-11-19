@@ -107,7 +107,7 @@ namespace DarkGod.Main
                     VFXMgr = VFXMgr,
                 };
                 entitySelfPlayer.EntityName = pd.name;
-                entitySelfPlayer.AddHealthData();
+                entitySelfPlayer.AddEntityEventListener();
                 entitySelfPlayer.SetBattleProps(props);
 
                 entitySelfPlayer.SetCtrl(controller);
@@ -240,7 +240,7 @@ namespace DarkGod.Main
                     {
                         //关卡结束，战斗胜利
                         var entitySelfPlayer = eventMgr.CurrentEPlayer.Value;
-                        EndBattle(true, entitySelfPlayer.currentHP.Value);
+                        EndBattle(true, entitySelfPlayer.CurrentHP.Value);
                     }
                 }
             }
@@ -281,7 +281,7 @@ namespace DarkGod.Main
                     //设置初始属性
                     em.md = md;
                     em.EntityName = m.name;
-                    em.AddHealthData();
+                    em.AddEntityEventListener();
                     em.SetBattleProps(md.mCfg.bps);
 
                     MonsterController mc = m.GetComponent<MonsterController>();
@@ -297,7 +297,7 @@ namespace DarkGod.Main
                     //Boss血条特殊处理
                     if (md.mCfg.mType == cfg.MonsterType.Normal)
                     {
-                        MessageBox.MainInstance.AddHpItemInfo(m.name, mc.hpRoot, em.currentHP.Value);
+                        MessageBox.MainInstance.AddHpItemInfo(m.name, mc.hpRoot, em.CurrentHP.Value);
                     }
                     else if (md.mCfg.mType == cfg.MonsterType.Boss)
                     {
@@ -363,7 +363,7 @@ namespace DarkGod.Main
             var entitySelfPlayer = eventMgr.CurrentEPlayer.Value;
             //设置玩家移动
             //PECommon.Log(dir.ToString());
-            if (entitySelfPlayer.CanControl == false)
+            if (entitySelfPlayer.CanControl.Value == false)
             {
                 GameRoot.MainInstance.EnableInputAction(false);
             }
@@ -472,11 +472,6 @@ namespace DarkGod.Main
         public Vector2 GetDirInput()
         {
             return battleSys.GetDirInput();
-        }
-        public bool CanRlsSkill()
-        {
-            var entitySelfPlayer = eventMgr.CurrentEPlayer.Value;
-            return entitySelfPlayer.CanRlsSkill;
         }
 
         #endregion

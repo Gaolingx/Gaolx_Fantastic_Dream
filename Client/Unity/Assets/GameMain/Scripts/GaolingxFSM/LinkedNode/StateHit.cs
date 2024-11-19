@@ -27,7 +27,7 @@ namespace DarkGod.Main
 
             if (entity.entityType == EntityType.Player)
             {
-                entity.CanRlsSkill = false;
+                entity.CanRlsSkill.Value = false;
             }
 
             //中断移动

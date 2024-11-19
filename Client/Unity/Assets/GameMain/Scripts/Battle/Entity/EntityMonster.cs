@@ -38,7 +38,7 @@ namespace DarkGod.Main
             };
 
             Props = p;
-            currentHP.Value = p.hp;
+            CurrentHP.Value = p.hp;
         }
 
         bool runAI = true;

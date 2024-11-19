@@ -22,15 +22,15 @@ namespace DarkGod.Main
 
         public string EntityName { get; set; }
 
-        public bool CanControl { get; set; } = true;
-        public bool CanRlsSkill { get; set; } = true;
+        public BindableProperty<bool> CanControl { get; set; } = new BindableProperty<bool>();
+        public BindableProperty<bool> CanRlsSkill { get; set; } = new BindableProperty<bool>();
 
         public EntityType entityType { get; set; } = EntityType.None;
         public EntityState entityState { get; set; } = EntityState.None;
 
         public BattleProps Props { get; protected set; } //只能在继承他的子类中修改
 
-        public BindableProperty<int> currentHP { get; set; } = new BindableProperty<int>();
+        public BindableProperty<int> CurrentHP { get; set; } = new BindableProperty<int>();
         //战斗中的hp
         protected int oldHp;
 
@@ -136,23 +136,27 @@ namespace DarkGod.Main
 
         public void PlayerCanControl(bool state = true)
         {
-            CanControl = state;
+            CanControl.Value = state;
         }
 
         public virtual void SetBattleProps(BattleProps props)
         {
-            currentHP.Value = props.hp;
+            CurrentHP.Value = props.hp;
             Props = props;
         }
 
-        public virtual void AddHealthData()
+        public virtual void AddEntityEventListener()
         {
-            currentHP.OnValueChanged += delegate (int val) { OnUpdateHP(val); };
+            CurrentHP.OnValueChanged += delegate (int val) { OnUpdateHP(val); };
+            CanControl.OnValueChanged += delegate (bool val) { OnUpdateCanControl(val); };
+            CanRlsSkill.OnValueChanged += delegate (bool val) { OnUpdateCanRlsSkill(val); };
         }
 
-        public virtual void RmvHealthData()
+        public virtual void RmvEntityEventListener()
         {
-            currentHP.OnValueChanged -= delegate (int val) { OnUpdateHP(val); };
+            CurrentHP.OnValueChanged -= delegate (int val) { OnUpdateHP(val); };
+            CanControl.OnValueChanged -= delegate (bool val) { OnUpdateCanControl(val); };
+            CanRlsSkill.OnValueChanged -= delegate (bool val) { OnUpdateCanRlsSkill(val); };
         }
 
         private void OnUpdateHP(int value)
@@ -160,6 +164,16 @@ namespace DarkGod.Main
             PECommon.Log("HP change:" + oldHp + " to " + value + ".EntityType:" + entityType + ".EntityName:" + EntityName);
             SetHPVal(oldHp, value);
             oldHp = value;
+        }
+
+        private void OnUpdateCanControl(bool value)
+        {
+            GameRoot.MainInstance.EnableInputAction(value);
+        }
+
+        private void OnUpdateCanRlsSkill(bool value)
+        {
+            BattleSys.MainInstance.playerCtrlWnd.CanRlsSkill = value;
         }
 
         public virtual void SetAniBlend(int blend)

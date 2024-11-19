@@ -264,7 +264,7 @@ namespace DarkGod.Main
 
         protected void ClickExitGame()
         {
-            GameRoot.MainInstance.ExitGame();
+            EventMgr.OnGameExitEvent.SendEventMessage();
         }
 
         #region Expprg

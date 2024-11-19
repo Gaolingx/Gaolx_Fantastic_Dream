@@ -36,7 +36,7 @@ namespace DarkGod.Main
             {
                 if (entity.entityType == EntityType.Player)
                 {
-                    entity.CanRlsSkill = true;
+                    entity.CanRlsSkill.Value = true;
                 }
 
                 if (entity.GetDirInput() != Vector2.zero)

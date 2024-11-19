@@ -129,11 +129,6 @@ namespace DarkGod.Main
             return GameRoot.MainInstance.starterAssetsInputs.move;
         }
 
-        public bool CanRlsSkill()
-        {
-            return battleMgr.CanRlsSkill();
-        }
-
         private void OnDisable()
         {
             EventMgr.MainInstance.OnGameEnter -= delegate { InitSys(); };
