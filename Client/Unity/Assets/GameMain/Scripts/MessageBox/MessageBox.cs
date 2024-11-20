@@ -82,7 +82,7 @@ namespace DarkGod.Main
                 dynamicWnd.RmvAllHpItemInfo();
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             EventMgr.MainInstance.OnGameEnter -= delegate { InitSvc(); };
         }

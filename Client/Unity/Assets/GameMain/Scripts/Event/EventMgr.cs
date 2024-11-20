@@ -24,8 +24,15 @@ namespace DarkGod.Main
         {
             base.Awake();
 
+            InitMgr();
+        }
+
+        public void InitMgr()
+        {
             UniEvent.Initalize();
             AddListener();
+
+            PECommon.Log("Init EventMgr...");
         }
 
         private void AddListener()
@@ -35,6 +42,7 @@ namespace DarkGod.Main
             _eventGroup.AddListener<OnGamePauseEvent>(OnHandleEventMessage);
             _eventGroup.AddListener<OnShowMessageBoxEvent>(OnHandleEventMessage);
             _eventGroup.AddListener<OnQualityLevelEvent>(OnHandleEventMessage);
+            _eventGroup.AddListener<OnEntityPlayerChangedEvent>(OnHandleEventMessage);
         }
 
         public class OnGameEnterEvent : IEventMessage
@@ -66,6 +74,53 @@ namespace DarkGod.Main
             }
         }
 
+        public class OnShowMessageBoxEvent : IEventMessage
+        {
+            public string message;
+            public static void SendEventMessage(string message)
+            {
+                var msg = new OnShowMessageBoxEvent();
+                msg.message = message;
+                UniEvent.SendMessage(msg);
+            }
+        }
+
+        public void ShowMessageBox(object sender, GameWindowShowMessage eventArgs)
+        {
+            Debug.Log($"Sender:{sender.GetType().FullName},ShowMessage:{eventArgs.Message}");
+            OnShowMessageBoxEvent.SendEventMessage(eventArgs.Message);
+        }
+
+        public class OnQualityLevelEvent : IEventMessage
+        {
+            public QualitySvc.PlayerPrefsData Value;
+            public static void SendEventMessage(QualitySvc.PlayerPrefsData message)
+            {
+                var msg = new OnQualityLevelEvent();
+                msg.Value = message;
+                UniEvent.SendMessage(msg);
+            }
+        }
+
+        public class OnEntityPlayerChangedEvent : IEventMessage
+        {
+            public EntityPlayer Value;
+            public static void SendEventMessage(EntityPlayer entity)
+            {
+                var msg = new OnEntityPlayerChangedEvent();
+                msg.Value = entity;
+                UniEvent.SendMessage(msg);
+            }
+        }
+
+        /// <summary>
+        /// 定义游戏全局事件
+        /// </summary>
+        public Action OnGameEnter { get; set; }
+        public Action OnGameExit { get; set; }
+        public Action<bool> OnGamePause { get; set; }
+        public BindableProperty<EntityPlayer> CurrentEPlayer { get; set; } = new BindableProperty<EntityPlayer>();
+
         /// <summary>
         /// 接收事件
         /// </summary>
@@ -94,44 +149,14 @@ namespace DarkGod.Main
                 OnQualityLevelEvent events = message as OnQualityLevelEvent;
                 QualitySvc.MainInstance.SavePrefsData(events.Value);
             }
-        }
-
-        public class OnShowMessageBoxEvent : IEventMessage
-        {
-            public string message;
-            public static void SendEventMessage(string message)
+            else if (message is OnEntityPlayerChangedEvent)
             {
-                var msg = new OnShowMessageBoxEvent();
-                msg.message = message;
-                UniEvent.SendMessage(msg);
+                OnEntityPlayerChangedEvent events = message as OnEntityPlayerChangedEvent;
+                CurrentEPlayer.Value = events.Value;
             }
         }
 
-        public void ShowMessageBox(object sender, GameWindowShowMessage eventArgs)
-        {
-            Debug.Log($"Sender:{sender.GetType().FullName},ShowMessage:{eventArgs.Message}");
-            OnShowMessageBoxEvent.SendEventMessage(eventArgs.Message);
-        }
-
-        public class OnQualityLevelEvent : IEventMessage
-        {
-            public QualitySvc.PlayerPrefsData Value;
-
-            public static void SendEventMessage(QualitySvc.PlayerPrefsData message)
-            {
-                var msg = new OnQualityLevelEvent();
-                msg.Value = message;
-                UniEvent.SendMessage(msg);
-            }
-        }
-
-        // 定义游戏全局事件
-        public Action OnGameEnter { get; set; }
-        public Action OnGameExit { get; set; }
-        public Action<bool> OnGamePause { get; set; }
-        public BindableProperty<EntityPlayer> CurrentEPlayer { get; set; } = new BindableProperty<EntityPlayer>();
-
-        private void OnDisable()
+        private void OnDestroy()
         {
             UniEvent.Destroy();
         }

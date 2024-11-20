@@ -53,7 +53,7 @@ namespace DarkGod.Main
             {
                 if (playerDic.TryGetValue(key, out EntityPlayer item))
                 {
-                    eventMgr.CurrentEPlayer.Value = item;
+                    EventMgr.OnEntityPlayerChangedEvent.SendEventMessage(item);
                     item.SetActive(true);
                     item.StateBorn();
                     timerSvc.AddTimeTask((int tid1) =>
