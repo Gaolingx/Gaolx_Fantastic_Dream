@@ -53,7 +53,7 @@
         "com.tuyoogame.yooasset": "2.1.2",
         "com.code-philosophy.hybridclr": "6.1.0"
       },
-      "hash": "6d7add2f386a5d010d6db8ceba024e04a0f472a6"
+      "hash": "4e40ffff8ddae7a1cfe7ff8fe3e1095207dbce43"
     },
     "com.stalomeow.star-rail-npr-shader": {
       "version": "file:StarRailNPRShader-2.10.1",
@@ -330,16 +330,6 @@
         "com.unity.render-pipelines.core": "14.0.11",
         "com.unity.searcher": "4.9.2"
       }
-    },
-    "com.unity.terrain-tools": {
-      "version": "5.0.5",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.modules.terrain": "1.0.0",
-        "com.unity.modules.terrainphysics": "1.0.0"
-      },
-      "url": "https://packages.unity.cn"
     },
     "com.unity.test-framework": {
       "version": "1.1.33",
