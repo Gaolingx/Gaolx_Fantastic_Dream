@@ -796,13 +796,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0948dad2a2dcfd843a7fd87b4e6af960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsRunningOnSteamDeck: 0
   m_cursorLocked: 0
   m_FrameRate: 60
   m_GameSpeed: 1
   m_RunInBackground: 1
   m_NeverSleep: 1
   m_FullScreenMode: 1
-  m_ScreenResolution: {x: 1280, y: 720}
 --- !u!114 &963007401
 MonoBehaviour:
   m_ObjectHideFlags: 0

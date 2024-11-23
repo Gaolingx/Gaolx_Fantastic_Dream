@@ -44,6 +44,11 @@ namespace HuHu
                 GameObject.Destroy(this.gameObject);
             }
         }
+
+        protected virtual void OnDestroyInstance()
+        {
+            _instance = null;
+        }
     }
 
 }

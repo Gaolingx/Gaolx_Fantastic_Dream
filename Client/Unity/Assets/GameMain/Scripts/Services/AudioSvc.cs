@@ -8,63 +8,20 @@ using static DarkGod.Main.SFX_PoolManager;
 using UnityEngine.Audio;
 using Cysharp.Threading.Tasks;
 using System.Threading;
-using Newtonsoft.Json;
 
 namespace DarkGod.Main
 {
     public class AudioSvc : Singleton<AudioSvc>
     {
-        public BindableProperty<float> BGAudioVolumeValue { get; set; } = new BindableProperty<float>();
-        public BindableProperty<float> UIAudioVolumeValue { get; set; } = new BindableProperty<float>();
-        public BindableProperty<float> CharacterAudioVolumeValue { get; set; } = new BindableProperty<float>();
-        public BindableProperty<float> CharacterFxAudioVolumeValue { get; set; } = new BindableProperty<float>();
-
         public AudioSource BGAudioAudioSource, UIAudioAudioSource;
         public AudioMixer _audioMixer;
 
         [SerializeField] private float fadingDuration = 3f;
 
         private readonly string bgAudioPath = PathDefine.bgAudioPath;
+        private CtsInfo stopPlayBGMCtsInfo;
 
         private SFX_PoolManager sfxPoolManager;
-        private CancellationTokenSourceMgr ctsMgr;
-        private System.Action<PlayerPrefsData> saveAction;
-        private const string prefsKey_SettingsAudioSvc = "prefsKey_SettingsAudioSvc";
-
-        [System.Serializable]
-        private class PlayerPrefsData
-        {
-            public float BGAudioVolume;
-            public float UIAudioVolume;
-            public float CharacterAudioVolume;
-            public float CharacterFxAudioVolume;
-        }
-
-        private void LoadPrefsData()
-        {
-            BGAudioVolumeValue.Value = 0.25f;
-            UIAudioVolumeValue.Value = 0.5f;
-            CharacterAudioVolumeValue.Value = 0.5f;
-            CharacterFxAudioVolumeValue.Value = 0.5f;
-
-            if (PlayerPrefsSvc.MainInstance.CheckPlayerPrefsHasKey(prefsKey_SettingsAudioSvc))
-            {
-                var json = PlayerPrefsSvc.MainInstance.LoadFromPlayerPrefs(prefsKey_SettingsAudioSvc);
-                var saveData = JsonConvert.DeserializeObject<PlayerPrefsData>(json);
-
-                BGAudioVolumeValue.Value = saveData.BGAudioVolume;
-                UIAudioVolumeValue.Value = saveData.UIAudioVolume;
-                CharacterAudioVolumeValue.Value = saveData.CharacterAudioVolume;
-                CharacterFxAudioVolumeValue.Value = saveData.CharacterFxAudioVolume;
-            }
-
-            saveAction += delegate (PlayerPrefsData data) { OnUpdatePrefsData(data); };
-        }
-
-        private void OnUpdatePrefsData(PlayerPrefsData saveData)
-        {
-            PlayerPrefsSvc.MainInstance.SaveByPlayerPrefs(prefsKey_SettingsAudioSvc, saveData);
-        }
 
         protected override void Awake()
         {
@@ -78,31 +35,30 @@ namespace DarkGod.Main
             sfxPoolManager = SFX_PoolManager.MainInstance;
             sfxPoolManager.InitSoundPool();
 
-            ctsMgr = new CancellationTokenSourceMgr();
-
             AssignBindableData();
-            LoadPrefsData();
 
             PECommon.Log("Init AudioSvc...");
         }
 
         private void AssignBindableData()
         {
-            BGAudioVolumeValue.OnValueChanged += delegate (float value) { BGAudioVolumeValueChanged(_audioMixer, value); };
-            UIAudioVolumeValue.OnValueChanged += delegate (float value) { UIAudioVolumeValueChanged(_audioMixer, value); };
-            CharacterAudioVolumeValue.OnValueChanged += delegate (float value) { CharacterAudioVolumeValueChanged(_audioMixer, value); };
-            CharacterFxAudioVolumeValue.OnValueChanged += delegate (float value) { CharacterFxAudioVolumeValueChanged(_audioMixer, value); };
+            QualitySvc.MainInstance.volume.BGAudioVolumeValue.OnValueChanged += delegate (float value) { BGAudioVolumeValueChanged(_audioMixer, value); };
+            QualitySvc.MainInstance.volume.UIAudioVolumeValue.OnValueChanged += delegate (float value) { UIAudioVolumeValueChanged(_audioMixer, value); };
+            QualitySvc.MainInstance.volume.CharacterAudioVolumeValue.OnValueChanged += delegate (float value) { CharacterAudioVolumeValueChanged(_audioMixer, value); };
+            QualitySvc.MainInstance.volume.CharacterFxAudioVolumeValue.OnValueChanged += delegate (float value) { CharacterFxAudioVolumeValueChanged(_audioMixer, value); };
+
+            QualitySvc.MainInstance.volume.BGAudioVolumeValue.Invoke();
+            QualitySvc.MainInstance.volume.UIAudioVolumeValue.Invoke();
+            QualitySvc.MainInstance.volume.CharacterAudioVolumeValue.Invoke();
+            QualitySvc.MainInstance.volume.CharacterFxAudioVolumeValue.Invoke();
         }
 
-        private void SavePlayerData()
+        private void UnAssignBindableData()
         {
-            PlayerPrefsData data = new PlayerPrefsData();
-            data.BGAudioVolume = BGAudioVolumeValue.Value;
-            data.UIAudioVolume = UIAudioVolumeValue.Value;
-            data.CharacterAudioVolume = CharacterAudioVolumeValue.Value;
-            data.CharacterFxAudioVolume = CharacterFxAudioVolumeValue.Value;
-
-            saveAction?.Invoke(data);
+            QualitySvc.MainInstance.volume.BGAudioVolumeValue.OnValueChanged -= delegate (float value) { BGAudioVolumeValueChanged(_audioMixer, value); };
+            QualitySvc.MainInstance.volume.UIAudioVolumeValue.OnValueChanged -= delegate (float value) { UIAudioVolumeValueChanged(_audioMixer, value); };
+            QualitySvc.MainInstance.volume.CharacterAudioVolumeValue.OnValueChanged -= delegate (float value) { CharacterAudioVolumeValueChanged(_audioMixer, value); };
+            QualitySvc.MainInstance.volume.CharacterFxAudioVolumeValue.OnValueChanged -= delegate (float value) { CharacterFxAudioVolumeValueChanged(_audioMixer, value); };
         }
 
         public void SetMainAudioMuted(bool state)
@@ -112,22 +68,22 @@ namespace DarkGod.Main
         private void BGAudioVolumeValueChanged(AudioMixer audioMixer, float value)
         {
             StartCoroutine(StartAudioFade(audioMixer, "BGAudioVolumeParam", fadingDuration, value));
-            SavePlayerData();
+            EventMgr.OnSoundVolumeChangedEvent.SendEventMessage();
         }
         private void UIAudioVolumeValueChanged(AudioMixer audioMixer, float value)
         {
             StartCoroutine(StartAudioFade(audioMixer, "UIAudioVolumeParam", fadingDuration, value));
-            SavePlayerData();
+            EventMgr.OnSoundVolumeChangedEvent.SendEventMessage();
         }
         private void CharacterAudioVolumeValueChanged(AudioMixer audioMixer, float value)
         {
             StartCoroutine(StartAudioFade(audioMixer, "CharAudioVolumeParam", fadingDuration, value));
-            SavePlayerData();
+            EventMgr.OnSoundVolumeChangedEvent.SendEventMessage();
         }
         private void CharacterFxAudioVolumeValueChanged(AudioMixer audioMixer, float value)
         {
             StartCoroutine(StartAudioFade(audioMixer, "CharVFXAudioVolumeParam", fadingDuration, value));
-            SavePlayerData();
+            EventMgr.OnSoundVolumeChangedEvent.SendEventMessage();
         }
 
         public static IEnumerator StartAudioFade(AudioMixer audioMixer, string exposedParam, float duration, float targetVolume)
@@ -150,34 +106,25 @@ namespace DarkGod.Main
 
         #region PlayAudio
 
-        public async void PlayBGMusics(List<string> names, float duration, bool isLoop = true, bool isCache = true, CtsType ctsType = CtsType.PlayBGM)
+        public async void PlayBGMusics(List<string> names, float duration, bool isLoop = true, bool isCache = true, PlayerLoopTiming playerLoopTiming = PlayerLoopTiming.Update)
         {
             List<AudioClip> audioClips = new List<AudioClip>();
-            ctsMgr.SetCtsValue(ctsType, new CancellationTokenSource());
 
             for (int i = 0; i < names.Count; i++)
             {
                 audioClips.Add(await ResSvc.MainInstance.LoadAudioClipAsync(Constants.ResourcePackgeName, $"{bgAudioPath}/{names[i]}", isCache));
             }
 
-            //处理取消异步抛出的异常
-            try
-            {
-                await PlayAudioClips(audioClips, duration, isLoop).ToUniTask(PlayerLoopTiming.Update, ctsMgr.GetCtsValue(ctsType).Token);
-            }
-            catch (System.OperationCanceledException ex)
-            {
-                PECommon.Log($"Operation cancelled:{ex?.ToString()}", PELogType.Warn);
-            }
-
+            stopPlayBGMCtsInfo = DelaySignalManager.MainInstance.CreatCts();
+            await PlayAudioClips(audioClips, duration, isLoop, playerLoopTiming, stopPlayBGMCtsInfo.Token).SuppressCancellationThrow();
         }
 
-        private IEnumerator PlayAudioClips(List<AudioClip> audioClips, float duration, bool isLoop)
+        private async UniTask PlayAudioClips(List<AudioClip> audioClips, float duration, bool isLoop, PlayerLoopTiming playerLoopTiming, CancellationToken cts)
         {
             while (isLoop)
             {
                 if (audioClips == null || audioClips.Count == 0)
-                    yield break; // 如果没有音频片段，则退出协程
+                    break;
 
                 for (int i = 0; i < audioClips.Count; i++)
                 {
@@ -187,27 +134,22 @@ namespace DarkGod.Main
                         BGAudioAudioSource.loop = false;
                         BGAudioAudioSource.Play();
                         float targetValue = Mathf.Clamp(duration, 0f, 10f);
-                        yield return new WaitForSeconds(audioClips[i].length + targetValue); // 等待当前音频播放完成
+                        await UniTask.Delay((int)(audioClips[i].length * 1000) + (int)(targetValue * 1000), false, playerLoopTiming, cts);
                     }
                 }
             }
         }
 
-        public void StopBGMusic(CtsType ctsType = CtsType.PlayBGM)
+        public void StopBGMusic()
         {
-            if (BGAudioAudioSource != null)
-            {
-                BGAudioAudioSource.Stop();
-            }
-
-            ctsMgr.GetCtsValue(ctsType)?.Cancel();
+            DelaySignalManager.MainInstance.CancelTask(stopPlayBGMCtsInfo);
         }
 
         public async void PlayUIAudio(string name, bool isCache = true)
         {
             string path = $"{bgAudioPath}/{name}";
             AudioClip audioClip = await ResSvc.MainInstance.LoadAudioClipAsync(Constants.ResourcePackgeName, path, isCache);
-            UIAudioAudioSource.PlayOneShot(audioClip, UIAudioVolumeValue.Value);
+            UIAudioAudioSource.PlayOneShot(audioClip, QualitySvc.MainInstance.volume.UIAudioVolumeValue.Value);
         }
 
         public void PlayFootStep(Transform transform)
@@ -234,11 +176,8 @@ namespace DarkGod.Main
         private void OnDisable()
         {
             EventMgr.MainInstance.OnGameEnter -= delegate { InitSvc(); };
-            BGAudioVolumeValue.OnValueChanged -= delegate (float value) { BGAudioVolumeValueChanged(_audioMixer, value); };
-            UIAudioVolumeValue.OnValueChanged -= delegate (float value) { UIAudioVolumeValueChanged(_audioMixer, value); };
-            CharacterAudioVolumeValue.OnValueChanged -= delegate (float value) { CharacterAudioVolumeValueChanged(_audioMixer, value); };
-            CharacterFxAudioVolumeValue.OnValueChanged -= delegate (float value) { CharacterFxAudioVolumeValueChanged(_audioMixer, value); };
-            saveAction -= delegate (PlayerPrefsData data) { OnUpdatePrefsData(data); };
+            UnAssignBindableData();
+            StopBGMusic();
         }
     }
 }

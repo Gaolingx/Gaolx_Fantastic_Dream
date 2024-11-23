@@ -120,11 +120,6 @@ namespace DarkGod.Main
             }
         }
 
-        private void SetCursorLockMode(bool locked)
-        {
-            GetUIController().CursorLock = locked;
-        }
-
         private void RefreshInputsState()
         {
             if (starterAssetsInputs != null)
@@ -132,12 +127,12 @@ namespace DarkGod.Main
                 if (!_isGamePause && !starterAssetsInputs.cursorLocked)
                 {
                     starterAssetsInputs.canLook = true;
-                    SetCursorLockMode(true);
+                    GetUIController().CursorLock = true;
                 }
                 else
                 {
                     starterAssetsInputs.canLook = false;
-                    SetCursorLockMode(false);
+                    GetUIController().CursorLock = false;
                 }
 
                 if (_isInputEnable && !_isGamePause)
@@ -193,7 +188,7 @@ namespace DarkGod.Main
             _isInputEnable = state;
         }
 
-        public void OnGameExit()
+        private void OnGameExit()
         {
             GetUIController().OnClickExit();
         }
