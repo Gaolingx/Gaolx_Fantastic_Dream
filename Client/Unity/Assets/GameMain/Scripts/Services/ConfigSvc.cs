@@ -1,7 +1,6 @@
 ﻿//功能：配置加载服务
 
 using HuHu;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

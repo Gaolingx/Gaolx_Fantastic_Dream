@@ -1,6 +1,5 @@
 ﻿//功能：配置数据类
 
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

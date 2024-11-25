@@ -1,7 +1,6 @@
 ﻿//功能：UI界面基类
 
 using PEProtocol;
-using System.Collections;
 using System.Collections.Generic;
 using TEngine;
 using TMPro;

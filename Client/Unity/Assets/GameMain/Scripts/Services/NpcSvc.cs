@@ -1,6 +1,4 @@
 ﻿using HuHu;
-using System.Xml.Linq;
-using UnityEngine;
 
 namespace DarkGod.Main
 {

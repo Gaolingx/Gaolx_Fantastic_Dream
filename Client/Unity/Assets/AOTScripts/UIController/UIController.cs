@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using YooAsset;
 
 public class UIController : MonoBehaviour
 {
@@ -35,7 +36,6 @@ public class UIController : MonoBehaviour
 
     private void Init()
     {
-        SetCursorState(m_cursorLocked);
         Application.targetFrameRate = m_FrameRate;
         Time.timeScale = m_GameSpeed;
         Application.runInBackground = m_RunInBackground;
@@ -48,6 +48,7 @@ public class UIController : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        DontDestroyOnLoad(this.gameObject);
 
         Init();
     }
@@ -62,38 +63,26 @@ public class UIController : MonoBehaviour
         Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
     }
 
-    private class SettingsResolutionConfigure
-    {
-        public SettingsResolutionConfigure() { Id = 1; Width = 0; Height = 0; }
-
-        public int Id { get; set; }
-        public int Width { get; set; }
-        public int Height { get; set; }
-    }
     private (int, int) GetResolution()
     {
         if (IsRunningOnSteamDeck)
         {
             return (1280, 800);
         }
-        SettingsResolutionConfigure resolutionConfigData = new();
-        if (resolutionConfigData.Width == 0 && resolutionConfigData.Height == 0 && resolutionConfigData.Id == 1)
+
+        int num = Display.main.systemWidth;
+        int num2 = Display.main.systemHeight;
+        float num3 = 1.7777778f;
+        float num4 = (float)num * 1f / (float)num2;
+        if (num4 > num3)
         {
-            int num = Display.main.systemWidth;
-            int num2 = Display.main.systemHeight;
-            float num3 = 1.7777778f;
-            float num4 = (float)num * 1f / (float)num2;
-            if (num4 > num3)
-            {
-                num = num2 * 16 / 9;
-            }
-            else if (num4 < num3)
-            {
-                num2 = num * 9 / 16;
-            }
-            return (num, num2);
+            num = num2 * 16 / 9;
         }
-        return (resolutionConfigData.Width, resolutionConfigData.Height);
+        else if (num4 < num3)
+        {
+            num2 = num * 9 / 16;
+        }
+        return (num, num2);
     }
 
     /// <summary>
@@ -238,6 +227,6 @@ public class UIController : MonoBehaviour
     private void OnApplicationQuit()
     {
         StopAllCoroutines();
+        YooAssets.Destroy();
     }
-
 }

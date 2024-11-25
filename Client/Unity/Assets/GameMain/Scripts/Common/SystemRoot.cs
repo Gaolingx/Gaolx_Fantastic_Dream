@@ -1,8 +1,6 @@
 ﻿//功能：业务系统基类
+
 using HuHu;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace DarkGod.Main
 {
@@ -14,7 +12,7 @@ namespace DarkGod.Main
         protected NetSvc netSvc;
         protected TimerSvc timerSvc;
 
-        public virtual void InitSys()
+        protected virtual void InitSys()
         {
             resSvc = ResSvc.MainInstance;
             configSvc = ConfigSvc.MainInstance;

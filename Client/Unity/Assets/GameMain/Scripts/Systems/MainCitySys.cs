@@ -1,13 +1,12 @@
 ﻿//功能：主城业务系统
 
-using System.Collections;
+using Cinemachine;
+using PEProtocol;
+using StarterAssets;
 using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
-using StarterAssets;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
-using PEProtocol;
 
 namespace DarkGod.Main
 {
@@ -38,7 +37,7 @@ namespace DarkGod.Main
             EventMgr.MainInstance.OnGameEnter += delegate { InitSys(); };
         }
 
-        public override void InitSys()
+        protected override void InitSys()
         {
             base.InitSys();
 

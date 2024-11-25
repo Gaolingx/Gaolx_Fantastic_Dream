@@ -3,7 +3,6 @@
 using HuHu;
 using Newtonsoft.Json;
 using UnityEngine;
-using UnityEngine.Audio;
 
 namespace DarkGod.Main
 {
@@ -25,8 +24,8 @@ namespace DarkGod.Main
 
     public class QualitySvc : Singleton<QualitySvc>
     {
-        public SoundVolume volume;
-        public ScreenPrefsData screen;
+        public SoundVolume volume { get; private set; }
+        public ScreenPrefsData screen { get; private set; }
 
         private const string prefsKey_SettingsGameRoot = "prefsKey_SettingsGameRoot";
         private const string prefsKey_SettingsAudioSvc = "prefsKey_SettingsAudioSvc";
@@ -36,12 +35,12 @@ namespace DarkGod.Main
             screen.graphicsType = GetGraphicsType();
             QualitySettings.SetQualityLevel((int)screen.graphicsType);
 
+            screen.targetFrameRate = GetFrames();
+            Application.targetFrameRate = screen.targetFrameRate;
+
             screen.resolution = GetResolution();
             screen.fullScreenMode = GetWindowType();
             Screen.SetResolution(screen.resolution.Item1, screen.resolution.Item2, screen.fullScreenMode);
-
-            screen.targetFrameRate = GetFrames();
-            Application.targetFrameRate = screen.targetFrameRate;
 
             GameRoot.MainInstance.GetUIController().CursorLock = false;
         }
@@ -66,16 +65,17 @@ namespace DarkGod.Main
                 volume.CharacterFxAudioVolumeValue.Value = 0.5f;
             }
         }
-        public void VolumeSetting()
-        {
-            InitVolumeData();
-            saveAction2 += delegate (PlayerPrefsData2 data) { OnUpdatePrefsData2(data); };
-        }
 
         public void QualitySetting()
         {
             InitScreenSetting();
             saveAction += delegate (PlayerPrefsData data) { OnUpdatePrefsData(data); };
+        }
+
+        public void VolumeSetting()
+        {
+            InitVolumeData();
+            saveAction2 += delegate (PlayerPrefsData2 data) { OnUpdatePrefsData2(data); };
         }
 
         private static GraphicsType GetGraphicsType()

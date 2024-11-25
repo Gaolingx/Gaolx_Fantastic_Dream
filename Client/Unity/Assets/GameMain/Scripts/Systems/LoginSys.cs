@@ -1,9 +1,7 @@
 ﻿//功能：登陆注册业务系统
 
 using PEProtocol;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace DarkGod.Main
 {
@@ -19,7 +17,7 @@ namespace DarkGod.Main
             EventMgr.MainInstance.OnGameEnter += delegate { InitSys(); };
         }
 
-        public override void InitSys()
+        protected override void InitSys()
         {
             base.InitSys();
 
