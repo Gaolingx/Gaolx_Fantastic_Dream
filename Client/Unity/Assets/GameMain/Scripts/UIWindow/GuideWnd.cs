@@ -2,7 +2,6 @@
 
 using PEProtocol;
 using TMPro;
-using UnityEngine;
 using UnityEngine.UI;
 
 namespace DarkGod.Main

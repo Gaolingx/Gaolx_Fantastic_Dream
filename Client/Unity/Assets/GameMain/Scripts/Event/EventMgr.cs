@@ -1,5 +1,6 @@
 ﻿// 功能：事件管理器
 
+using DarkGod.Tools;
 using HuHu;
 using System;
 using UniFramework.Event;

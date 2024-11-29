@@ -1,4 +1,5 @@
 ﻿using Cinemachine;
+using DarkGod.Tools;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;

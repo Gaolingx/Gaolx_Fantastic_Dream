@@ -1,11 +1,10 @@
 ﻿//功能：强化升级界面
 
-using System.Collections;
+using PEProtocol;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using PEProtocol;
 
 namespace DarkGod.Main
 {

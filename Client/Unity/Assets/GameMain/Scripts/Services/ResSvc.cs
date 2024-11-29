@@ -1,6 +1,7 @@
 ﻿//功能：资源加载服务
 
 using Cysharp.Threading.Tasks;
+using DarkGod.Tools;
 using HuHu;
 using System.Collections.Generic;
 using System.Threading;
@@ -25,8 +26,8 @@ namespace DarkGod.Main
         }
 
         #region Resource Load
-        private List<AssetHandle> _cacheAssetHandles = new();
 
+        private List<AssetHandle> _cacheAssetHandles = new();
         private Dictionary<string, AssetHandle> _assetHandleDict = new();
 
         private void GCAssetHandleTODO(AssetHandle assetHandle)

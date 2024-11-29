@@ -8,7 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace XiHUtil
+namespace DarkGod.Tools
 {
     public class PlayerPrefsUtil
     {

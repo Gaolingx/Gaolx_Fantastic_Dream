@@ -1,6 +1,7 @@
 ﻿//功能：音频播放服务
 
 using Cysharp.Threading.Tasks;
+using DarkGod.Tools;
 using HuHu;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,15 +12,21 @@ using static DarkGod.Main.SFX_PoolManager;
 
 namespace DarkGod.Main
 {
+    public partial class CtsInfoList
+    {
+        public static CtsInfo stopPlayBGMCts;
+    }
+
     public class AudioSvc : Singleton<AudioSvc>
     {
-        public AudioSource BGAudioAudioSource, UIAudioAudioSource;
+        public AudioSource BGAudioAudioSource;
+        public AudioSource UIAudioAudioSource;
         public AudioMixer _audioMixer;
 
         [SerializeField] private float fadingDuration = 3f;
 
         private readonly string bgAudioPath = PathDefine.bgAudioPath;
-        private CtsInfo stopPlayBGMCtsInfo;
+        private Dictionary<string, CtsInfo> _ctsInfoDic = new Dictionary<string, CtsInfo>();
 
         private SFX_PoolManager sfxPoolManager;
 
@@ -115,8 +122,10 @@ namespace DarkGod.Main
                 audioClips.Add(await ResSvc.MainInstance.LoadAudioClipAsync(Constants.ResourcePackgeName, $"{bgAudioPath}/{names[i]}", isCache));
             }
 
-            stopPlayBGMCtsInfo = DelaySignalManager.MainInstance.CreatCts();
-            await PlayAudioClips(audioClips, duration, isLoop, playerLoopTiming, stopPlayBGMCtsInfo.Token).SuppressCancellationThrow();
+            CtsInfoList.stopPlayBGMCts = DelaySignalManager.MainInstance.CreatCts();
+            CtsInfoList.stopPlayBGMCts.Token.Register(delegate { BGAudioAudioSource.Stop(); });
+
+            await PlayAudioClips(audioClips, duration, isLoop, playerLoopTiming, CtsInfoList.stopPlayBGMCts.Token).SuppressCancellationThrow();
         }
 
         private async UniTask PlayAudioClips(List<AudioClip> audioClips, float duration, bool isLoop, PlayerLoopTiming playerLoopTiming, CancellationToken cts)
@@ -142,7 +151,7 @@ namespace DarkGod.Main
 
         public void StopBGMusic()
         {
-            DelaySignalManager.MainInstance.CancelTask(stopPlayBGMCtsInfo);
+            DelaySignalManager.MainInstance.CancelTask(CtsInfoList.stopPlayBGMCts);
         }
 
         public async void PlayUIAudio(string name, bool isCache = true)

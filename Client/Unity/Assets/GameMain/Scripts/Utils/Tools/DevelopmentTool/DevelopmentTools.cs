@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace GGG.Tool
+namespace DarkGod.Tools
 {
-    public class DevelopmentToos
+    public class DevelopmentTools
     {
 
         /// <summary>

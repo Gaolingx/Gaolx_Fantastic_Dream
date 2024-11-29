@@ -1,11 +1,9 @@
 ﻿//功能：聊天界面
 
 using PEProtocol;
-using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UnityEngine.UI;
 
 namespace DarkGod.Main
 {

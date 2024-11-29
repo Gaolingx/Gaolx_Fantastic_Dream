@@ -1,4 +1,6 @@
-﻿using HuHu;
+﻿using Cysharp.Threading.Tasks;
+using HuHu;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,10 +8,7 @@ namespace DarkGod.Main
 {
     public class VFXManager : Singleton<VFXManager>
     {
-        [Header("Player FX GameObject")]
-        public List<GameObject> PlayerFxList = new List<GameObject>();
-
-        private Dictionary<string, GameObject> particleSystems = new Dictionary<string, GameObject>();
+        private readonly Dictionary<string, EffectPool> _EffectPoolCache = new Dictionary<string, EffectPool>();
 
         private TimerSvc timerSvc;
 
@@ -20,63 +19,126 @@ namespace DarkGod.Main
             EventMgr.MainInstance.OnGameEnter += delegate { InitMgr(); };
         }
 
-        private void AddVFXOnInit()
-        {
-            foreach (var item in PlayerFxList)
-            {
-                particleSystems.Add(item.name, item);
-            }
-        }
-
         public void InitMgr()
         {
             timerSvc = TimerSvc.MainInstance;
-
-            AddVFXOnInit();
         }
 
-        public void SetFX(Transform parent, string name, float destroy)
+        public async UniTask PreLoadEffect(string effectName)
         {
-            if (particleSystems.TryGetValue(name, out GameObject asset))
+            if (!(effectName == "") && !_EffectPoolCache.ContainsKey(effectName))
             {
-                GameObject go = Instantiate(asset, parent);
-                go.SetActive(true);
-                ParticleSystem[] particles = go.GetComponentsInChildren<ParticleSystem>();
+                GameObject go = await ResSvc.MainInstance.LoadGameObjectAsync(Constants.ResourcePackgeName, effectName, Vector3.zero, Vector3.zero, Vector3.one, true);
+                if (!_EffectPoolCache.TryGetValue(effectName, out var value))
+                {
+                    value = new EffectPool(go);
+                    _EffectPoolCache.Add(effectName, value);
+                }
+            }
+        }
+
+        private async UniTask<GameObject> GetEffectFromPool(string effectName)
+        {
+            if (effectName == "")
+            {
+                return null;
+            }
+            GameObject result;
+            if (_EffectPoolCache.TryGetValue(effectName, out var value))
+            {
+                result = value.Get();
+            }
+            else
+            {
+                GameObject go = await ResSvc.MainInstance.LoadGameObjectAsync(Constants.ResourcePackgeName, effectName, Vector3.zero, Vector3.zero, Vector3.one, true);
+                if (!_EffectPoolCache.TryGetValue(effectName, out var value2))
+                {
+                    value2 = new EffectPool(go);
+                    _EffectPoolCache.Add(effectName, value2);
+                }
+                result = value2.Get();
+            }
+            return result;
+        }
+
+        public async UniTask<GameObject> Play(string effectName, Vector3 position, Quaternion rotation, float destroy, Transform parent = null, Action onComplete = null, float scale = 1f)
+        {
+            if (effectName == "")
+            {
+                return null;
+            }
+            GameObject gameEffect = await GetEffectFromPool(effectName);
+            if (parent != null)
+            {
+                gameEffect.transform.SetParent(parent);
+            }
+            gameEffect.transform.position = position;
+            gameEffect.transform.rotation = rotation;
+            gameEffect.transform.localScale = Vector3.one * scale;
+            PlayFromPool(gameEffect, destroy, onComplete);
+            return gameEffect;
+        }
+
+        public void PlayFromPool(GameObject go, float destroy, Action action)
+        {
+            if (go != null)
+            {
+                AudioSource audio = null;
                 if (go.TryGetComponent<AudioSource>(out var audioSource))
                 {
-                    audioSource.Play();
+                    audio = audioSource;
+                }
+                ParticleSystem[] particles = go.GetComponentsInChildren<ParticleSystem>();
+
+                go.SetActive(true);
+                if (audio != null)
+                {
+                    audio.Play();
                 }
                 foreach (ParticleSystem particle in particles)
                 {
-                    particle.Play();
+                    if (!particle.main.playOnAwake)
+                        particle.Play();
                 }
 
                 timerSvc.AddTimeTask((int tid) =>
                 {
-                    if (audioSource != null)
+                    if (audio != null)
                     {
-                        audioSource.Stop();
+                        audio.Stop();
                     }
                     foreach (ParticleSystem particle in particles)
                     {
-                        particle.Stop();
+                        if (!particle.main.playOnAwake)
+                            particle.Stop();
                     }
                     go.SetActive(false);
                 }, destroy);
             }
+
+            action?.Invoke();
         }
 
-        public void AddVFX(List<GameObject> particleLst)
+        public void Stop(string effectName, GameObject _effect)
         {
-            foreach (var item in particleLst)
+            if (_effect != null && _EffectPoolCache.TryGetValue(effectName, out var value))
             {
-                particleSystems.Add(item.name, item);
+                value.Release(_effect);
             }
         }
 
         private void OnDisable()
         {
             EventMgr.MainInstance.OnGameEnter -= delegate { InitMgr(); };
+        }
+
+        private void OnDestroy()
+        {
+            foreach (KeyValuePair<string, EffectPool> item in _EffectPoolCache)
+            {
+                item.Value.OnDestroy();
+            }
+            _EffectPoolCache.Clear();
         }
     }
 }

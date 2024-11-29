@@ -1,7 +1,6 @@
 ﻿//功能：血条物体
 
-using System.Collections;
-using System.Collections.Generic;
+using DarkGod.Tools;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

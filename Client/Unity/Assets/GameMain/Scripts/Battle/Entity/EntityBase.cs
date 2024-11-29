@@ -1,5 +1,6 @@
 ﻿//功能：逻辑实体基类
 
+using DarkGod.Tools;
 using StarterAssets;
 using System.Collections.Generic;
 using UnityEngine;
@@ -211,11 +212,11 @@ namespace DarkGod.Main
             }
         }
 
-        public virtual void SetCFX(string fxName, float destroyTime)
+        public virtual async void SetCFX(string fxName, float destroyTime)
         {
             if (entityType == EntityType.Player && VFXMgr != null)
             {
-                VFXMgr.SetFX(playerController.transform, fxName, destroyTime);
+                await VFXMgr.Play(fxName, playerController.transform.localPosition, playerController.transform.localRotation, destroyTime, playerController.transform);
             }
         }
         public virtual void SetSkillMoveState(bool move, float speed = 0f)

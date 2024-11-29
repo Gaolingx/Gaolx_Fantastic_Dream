@@ -1,5 +1,6 @@
 ﻿// 功能：质量管理器
 
+using DarkGod.Tools;
 using HuHu;
 using Newtonsoft.Json;
 using UnityEngine;

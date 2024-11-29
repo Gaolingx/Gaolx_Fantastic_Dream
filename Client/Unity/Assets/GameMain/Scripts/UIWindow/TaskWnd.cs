@@ -1,9 +1,9 @@
 ﻿//功能：任务奖励界面
 
 using PEProtocol;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
 
 namespace DarkGod.Main
 {

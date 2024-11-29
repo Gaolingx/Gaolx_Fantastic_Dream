@@ -237,15 +237,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22d12393d762fd24ba17d3020fb573cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerFxList:
-  - {fileID: 100008, guid: 2957144cf88b43649b9cb785869e2f04, type: 3}
-  - {fileID: 100008, guid: 2a4ed5230e792ae459ec35e3856c3c20, type: 3}
-  - {fileID: 100010, guid: 17d9c650f3e70ef478863e007e712d2a, type: 3}
-  - {fileID: 100010, guid: 4147b3582ad70744a943de948d90c5a6, type: 3}
-  - {fileID: 100000, guid: 1789127934eecf44d9dbe003b69bb2fd, type: 3}
-  - {fileID: 100000, guid: ec84034aafc83964ca6cc08be4115571, type: 3}
-  - {fileID: 100002, guid: b78d24eee221da4498e0759c76206b16, type: 3}
-  - {fileID: 100000, guid: cc03723a2b965aa47ac5bad46287c1ba, type: 3}
 --- !u!114 &2177402169526388094
 MonoBehaviour:
   m_ObjectHideFlags: 0

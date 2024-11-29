@@ -1,10 +1,10 @@
 ﻿//功能：动态UI元素界面
 
+using DarkGod.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace DarkGod.Main
 {

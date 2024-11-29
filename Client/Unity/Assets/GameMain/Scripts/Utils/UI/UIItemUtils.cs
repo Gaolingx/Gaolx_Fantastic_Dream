@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace DarkGod.Main
+namespace DarkGod.Tools
 {
     public static class UIItemUtils
     {
@@ -97,19 +97,19 @@ namespace DarkGod.Main
             return currentPrg;
         }
 
-        public static void UpdateMixBlendAnim(float currentBlend, float targetBlend, GameObject obj, string propName)
+        public static void UpdateMixBlendAnim(float currentBlend, float targetBlend, float accelerSpeed, GameObject obj, string propName)
         {
-            if (Mathf.Abs(currentBlend - targetBlend) < Constants.AccelerSpeed * Time.deltaTime)
+            if (Mathf.Abs(currentBlend - targetBlend) < accelerSpeed * Time.deltaTime)
             {
                 currentBlend = targetBlend;
             }
             else if (currentBlend > targetBlend)
             {
-                currentBlend -= Constants.AccelerSpeed * Time.deltaTime;
+                currentBlend -= accelerSpeed * Time.deltaTime;
             }
             else
             {
-                currentBlend += Constants.AccelerSpeed * Time.deltaTime;
+                currentBlend += accelerSpeed * Time.deltaTime;
             }
             obj.GetComponent<Animator>().SetFloat(propName, currentBlend);
         }
@@ -145,9 +145,9 @@ namespace DarkGod.Main
         /// ScreenScale 获取
         /// </summary>
         /// <returns>Vector2(宽度, 高度)</returns>
-        public static Vector2 GetScreenScale()
+        public static Vector2 GetScreenScale(float screenStandardWidth, float screenStandardHeight)
         {
-            return new Vector2(1.0f * Constants.ScreenStandardWidth / Screen.width, 1.0f * Constants.ScreenStandardHeight / Screen.height);
+            return new Vector2(1.0f * screenStandardWidth / Screen.width, 1.0f * screenStandardHeight / Screen.height);
         }
     }
 }

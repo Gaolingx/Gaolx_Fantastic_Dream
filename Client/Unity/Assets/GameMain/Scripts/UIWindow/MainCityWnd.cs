@@ -1,8 +1,7 @@
 ﻿//功能：主城UI界面
 
+using DarkGod.Tools;
 using PEProtocol;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -52,7 +51,7 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
-            pointDis = 1 / UIItemUtils.GetScreenScale().y * Constants.ScreenOPDis;
+            pointDis = 1 / UIItemUtils.GetScreenScale(Constants.ScreenStandardWidth, Constants.ScreenStandardHeight).y * Constants.ScreenOPDis;
             defaultPos = imgDirBg.transform.position;
             SetActive(imgDirPoint, false);
 

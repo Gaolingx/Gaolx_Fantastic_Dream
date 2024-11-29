@@ -1,26 +1,29 @@
 ﻿//功能：Property Helper
 
-public class BindableProperty<T>
+namespace DarkGod.Tools
 {
-    private T mValue = default(T);
-
-    public System.Action<T> OnValueChanged;
-
-    public T Value
+    public class BindableProperty<T>
     {
-        get { return mValue; }
-        set
+        private T mValue = default(T);
+
+        public System.Action<T> OnValueChanged;
+
+        public T Value
         {
-            if (!value.Equals(mValue))
+            get { return mValue; }
+            set
             {
-                mValue = value;
-                OnValueChanged?.Invoke(mValue);
+                if (!value.Equals(mValue))
+                {
+                    mValue = value;
+                    OnValueChanged?.Invoke(mValue);
+                }
             }
         }
-    }
 
-    public void Invoke()
-    {
-        OnValueChanged?.Invoke(mValue);
+        public void Invoke()
+        {
+            OnValueChanged?.Invoke(mValue);
+        }
     }
 }

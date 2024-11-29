@@ -1,7 +1,7 @@
-﻿using HuHu;
+﻿using DarkGod.Tools;
+using HuHu;
 using Newtonsoft.Json;
 using UnityEngine;
-using XiHUtil;
 
 namespace DarkGod.Main
 {

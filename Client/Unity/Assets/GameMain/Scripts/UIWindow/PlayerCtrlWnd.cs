@@ -1,9 +1,8 @@
 ﻿//功能：玩家控制界面
 
+using DarkGod.Tools;
 using PEProtocol;
 using StarterAssets;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

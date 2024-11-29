@@ -1,8 +1,8 @@
 ﻿//功能：UI界面基类
 
+using DarkGod.Tools;
 using PEProtocol;
 using System.Collections.Generic;
-using TEngine;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -215,7 +215,7 @@ namespace DarkGod.Main
         protected float GetScreenWidth()
         {
             //通过 标准屏幕高度/实际设备屏幕高度，计算出当前UI相对于当前屏幕需要缩放的比例（注意Canvas Scaler 也要基于高度作为缩放标准）
-            float globalRate = UIItemUtils.GetScreenScale().x;
+            float globalRate = UIItemUtils.GetScreenScale(Constants.ScreenStandardWidth, Constants.ScreenStandardHeight).x;
             //算出屏幕真实宽度
             float screenWidth = Screen.width * globalRate;
 
