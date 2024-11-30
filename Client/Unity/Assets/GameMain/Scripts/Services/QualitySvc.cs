@@ -42,8 +42,6 @@ namespace DarkGod.Main
             screen.resolution = GetResolution();
             screen.fullScreenMode = GetWindowType();
             Screen.SetResolution(screen.resolution.Item1, screen.resolution.Item2, screen.fullScreenMode);
-
-            GameRoot.MainInstance.GetUIController().CursorLock = false;
         }
 
         private void InitVolumeData()
@@ -149,7 +147,7 @@ namespace DarkGod.Main
         {
             base.Awake();
 
-            EventMgr.MainInstance.OnGameEnter += delegate { InitSvc(); };
+            GameStateEvent.MainInstance.OnGameEnter += delegate { InitSvc(); };
         }
 
         [System.Serializable]
@@ -220,7 +218,7 @@ namespace DarkGod.Main
 
         private void OnDisable()
         {
-            EventMgr.MainInstance.OnGameEnter -= delegate { InitSvc(); };
+            GameStateEvent.MainInstance.OnGameEnter -= delegate { InitSvc(); };
             saveAction -= delegate (PlayerPrefsData data) { OnUpdatePrefsData(data); };
             saveAction2 -= delegate (PlayerPrefsData2 data) { OnUpdatePrefsData2(data); };
         }

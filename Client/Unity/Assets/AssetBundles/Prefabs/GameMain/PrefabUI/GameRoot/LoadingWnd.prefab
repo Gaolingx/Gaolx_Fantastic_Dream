@@ -491,6 +491,7 @@ MonoBehaviour:
   imgFG: {fileID: 114460049968736810}
   imgPoint: {fileID: 114531940550623136}
   txtPrg: {fileID: 2284886542233922324}
+  tipsAnimation: {fileID: 6462067196358001668}
 --- !u!1 &1862026363032366
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,7 +551,7 @@ Animation:
   m_Animations:
   - {fileID: 7400000, guid: 038abfd490bf029448accf4903a044e2, type: 2}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
 --- !u!114 &6828933637303720280

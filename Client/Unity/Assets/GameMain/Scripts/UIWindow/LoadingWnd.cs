@@ -1,5 +1,6 @@
 ﻿//功能：加载进度界面
 
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,12 +13,13 @@ namespace DarkGod.Main
         public Image imgFG;
         public Image imgPoint;
         public TMP_Text txtPrg;  //进度的百分比
+        public Animation tipsAnimation;
 
         private float fgWidth;
 
         //初始化窗口（进度条归零）
         //随机弹出一条Tips
-        protected override void InitWnd()
+        protected override async void InitWnd()
         {
             base.InitWnd();
 
@@ -29,6 +31,12 @@ namespace DarkGod.Main
             //计算进度条点的位置
             imgPoint.transform.localPosition = new Vector3(-570f, 0, 0);
 
+            //弹出tips
+            await DelaySignalManager.MainInstance.Delay(TimeSpan.FromSeconds(0.5));
+            if (tipsAnimation != null)
+            {
+                tipsAnimation.Play();
+            }
         }
 
         //定义函数设置进度

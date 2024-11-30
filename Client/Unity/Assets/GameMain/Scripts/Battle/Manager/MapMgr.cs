@@ -29,7 +29,7 @@ namespace DarkGod.Main
             battleMgr = battle;
             InitTriggerData();
 
-            UIItemUtils.SetGameObjectTrans(this.gameObject, Vector3.zero, Vector3.zero, Vector3.one);
+            UIItemUtils.SetGameObjectTrans(this.gameObject, Vector3.zero, Quaternion.Euler(Vector3.zero), Vector3.one, false, false);
 
             //实例化第一批怪物
             battleMgr.LoadMonsterByWaveID(waveIndex);

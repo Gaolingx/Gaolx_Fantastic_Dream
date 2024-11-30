@@ -27,7 +27,7 @@ namespace DarkGod.Main
         public void OnEnable()
         {
             btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
-            GameRoot.MainInstance.PauseGameUIAction?.Invoke(true);
+            InputMgr.MainInstance.PauseGameUIAction?.Invoke(true);
         }
 
         public void RefreshUI()
@@ -93,7 +93,7 @@ namespace DarkGod.Main
                 fbBtnArr[i].onClick.RemoveAllListeners();
             }
 
-            GameRoot.MainInstance.PauseGameUIAction?.Invoke(false);
+            InputMgr.MainInstance.PauseGameUIAction?.Invoke(false);
         }
     }
 }

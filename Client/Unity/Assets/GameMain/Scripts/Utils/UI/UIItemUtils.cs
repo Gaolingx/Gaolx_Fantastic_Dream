@@ -9,19 +9,19 @@ namespace DarkGod.Tools
         /// <summary>
         /// 1.设置游戏对象位置
         /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="GameObjectPos"></param>
-        /// <param name="GameObjectRota"></param>
-        /// <param name="GameObjectScal"></param>
+        /// <param name="gameObject"></param>
+        /// <param name="position"></param>
+        /// <param name="rotation"></param>
+        /// <param name="localScale"></param>
         /// <param name="isLocalPos"></param>
-        /// <param name="isLocalEulerAngles"></param>
+        /// <param name="isLocalRotation"></param>
         /// <param name="isSetParent"></param>
-        /// <param name="rootObjTrans"></param>
-        /// <param name="isReplaceName"></param>
+        /// <param name="rootTrans"></param>
+        /// <param name="gameObjectName"></param>
         /// <returns></returns>
-        public static Transform SetGameObjectTrans(GameObject gameObject, Vector3 gameObjectPos, Vector3 gameObjectRota, Vector3 gameObjectScal, bool isLocalPos = true, bool isLocalEulerAngles = true, bool isSetParent = false, Transform rootTrans = null, string gameObjectName = null)
+        public static Transform SetGameObjectTrans(GameObject gameObject, Vector3 position, Quaternion rotation, Vector3 localScale, bool isLocalPos, bool isLocalRotation, bool isSetParent = false, Transform rootTrans = null, string gameObjectName = default)
         {
-            if (gameObjectName != null)
+            if (gameObjectName != default)
             {
                 gameObject.name = gameObjectName;
             }
@@ -33,23 +33,23 @@ namespace DarkGod.Tools
 
             if (isLocalPos)
             {
-                gameObject.transform.localPosition = gameObjectPos;
+                gameObject.transform.localPosition = position;
             }
             else
             {
-                gameObject.transform.position = gameObjectPos;
+                gameObject.transform.position = position;
             }
 
-            if (isLocalEulerAngles)
+            if (isLocalRotation)
             {
-                gameObject.transform.localEulerAngles = gameObjectRota;
+                gameObject.transform.localRotation = rotation;
             }
             else
             {
-                gameObject.transform.eulerAngles = gameObjectRota;
+                gameObject.transform.localRotation = rotation;
             }
 
-            gameObject.transform.localScale = gameObjectScal;
+            gameObject.transform.localScale = localScale;
 
             return gameObject.transform;
         }

@@ -346,7 +346,10 @@ namespace StarterAssets
                 Time.deltaTime * distanceChangeRate);
             //_cameraDistance -= zoom * Time.deltaTime * distanceChangeRate / 18.0f;
             //_cameraDistance = Mathf.Clamp(_cameraDistance, minDistance, maxDistance);
-            _personFollow.CameraDistance = _cameraDistance;
+            if (_personFollow != null)
+            {
+                _personFollow.CameraDistance = _cameraDistance;
+            }
 
             // Cinemachine will follow this target
             CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
@@ -406,7 +409,7 @@ namespace StarterAssets
         {
             if (MoveControlState != ControlState.None)
             {
-                if (GetMoveInputState() != Vector2.zero || !Grounded)
+                if (_input.hasInput || GetMoveInputState() != Vector2.zero || !Grounded)
                 {
                     return true;
                 }

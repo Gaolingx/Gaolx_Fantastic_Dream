@@ -60,7 +60,7 @@ namespace DarkGod.Main
         {
             btnStrong.onClick.AddListener(delegate { ClickStrongBtn(); });
             btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
-            GameRoot.MainInstance.PauseGameUIAction?.Invoke(true);
+            InputMgr.MainInstance.PauseGameUIAction?.Invoke(true);
         }
 
         private void RegClickEvts()
@@ -264,7 +264,7 @@ namespace DarkGod.Main
         {
             btnStrong.onClick.RemoveAllListeners();
             btnClose.onClick.RemoveAllListeners();
-            GameRoot.MainInstance.PauseGameUIAction?.Invoke(false);
+            InputMgr.MainInstance.PauseGameUIAction?.Invoke(false);
         }
     }
 }

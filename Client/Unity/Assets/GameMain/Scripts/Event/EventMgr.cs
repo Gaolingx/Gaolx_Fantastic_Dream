@@ -1,8 +1,6 @@
 ﻿// 功能：事件管理器
 
-using DarkGod.Tools;
 using HuHu;
-using System;
 using UniFramework.Event;
 using UnityEngine;
 
@@ -28,10 +26,14 @@ namespace DarkGod.Main
             InitMgr();
         }
 
+        private void OnEnable()
+        {
+            AddListener();
+        }
+
         public void InitMgr()
         {
             UniEvent.Initalize();
-            AddListener();
 
             PECommon.Log("Init EventMgr...");
         }
@@ -45,6 +47,11 @@ namespace DarkGod.Main
             _eventGroup.AddListener<OnQualityLevelEvent>(OnHandleEventMessage);
             _eventGroup.AddListener<OnSoundVolumeChangedEvent>(OnHandleEventMessage);
             _eventGroup.AddListener<OnEntityPlayerChangedEvent>(OnHandleEventMessage);
+        }
+
+        private void RemoveListener()
+        {
+            _eventGroup.RemoveAllListener();
         }
 
         public class OnGameEnterEvent : IEventMessage
@@ -123,30 +130,22 @@ namespace DarkGod.Main
         }
 
         /// <summary>
-        /// 定义游戏全局事件
-        /// </summary>
-        public Action OnGameEnter { get; set; }
-        public Action OnGameExit { get; set; }
-        public Action<bool> OnGamePause { get; set; }
-        public BindableProperty<EntityPlayer> CurrentEPlayer { get; set; } = new BindableProperty<EntityPlayer>();
-
-        /// <summary>
         /// 接收事件
         /// </summary>
         private void OnHandleEventMessage(IEventMessage message)
         {
             if (message is OnGameEnterEvent)
             {
-                OnGameEnter?.Invoke();
+                GameStateEvent.MainInstance.OnGameEnter?.Invoke();
             }
             else if (message is OnGameExitEvent)
             {
-                OnGameExit?.Invoke();
+                GameStateEvent.MainInstance.OnGameExit?.Invoke();
             }
             else if (message is OnGamePauseEvent)
             {
                 OnGamePauseEvent events = message as OnGamePauseEvent;
-                OnGamePause?.Invoke(events.state);
+                GameStateEvent.MainInstance.OnGamePause?.Invoke(events.state);
             }
             else if (message is OnShowMessageBoxEvent)
             {
@@ -164,8 +163,13 @@ namespace DarkGod.Main
             else if (message is OnEntityPlayerChangedEvent)
             {
                 OnEntityPlayerChangedEvent events = message as OnEntityPlayerChangedEvent;
-                CurrentEPlayer.Value = events.Value;
+                GameStateEvent.MainInstance.CurrentEPlayer.Value = events.Value;
             }
+        }
+
+        private void OnDisable()
+        {
+            RemoveListener();
         }
 
         private void OnDestroy()

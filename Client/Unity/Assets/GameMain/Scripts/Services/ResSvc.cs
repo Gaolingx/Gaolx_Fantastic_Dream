@@ -17,7 +17,7 @@ namespace DarkGod.Main
         {
             base.Awake();
 
-            EventMgr.MainInstance.OnGameEnter += delegate { InitSvc(); };
+            GameStateEvent.MainInstance.OnGameEnter += delegate { InitSvc(); };
         }
 
         public void InitSvc()
@@ -47,11 +47,11 @@ namespace DarkGod.Main
         //异步的加载场景，需要显示进度条
         public async void AsyncLoadScene(string packageName, string sceneName, System.Action loaded)
         {
-            GameRoot.MainInstance.loadingWnd.SetWndState();
+            InputMgr.MainInstance.loadingWnd.SetWndState();
             await LoadSceneAsyncHandle(packageName, sceneName);
 
             loaded?.Invoke();
-            GameRoot.MainInstance.loadingWnd.SetWndState(false);
+            InputMgr.MainInstance.loadingWnd.SetWndState(false);
         }
 
         private async UniTask LoadSceneAsyncHandle(string packageName, string path, System.IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
@@ -64,7 +64,7 @@ namespace DarkGod.Main
             while (handle is { IsValid: true, IsDone: false })
             {
                 await UniTask.Yield();
-                GameRoot.MainInstance.loadingWnd.SetProgress(handle.Progress);
+                InputMgr.MainInstance.loadingWnd.SetProgress(handle.Progress);
             }
             await handle.ToUniTask(progress, timing);
         }
@@ -90,14 +90,14 @@ namespace DarkGod.Main
             return instantiatedPrefab;
         }
 
-        public async UniTask<GameObject> LoadGameObjectAsync(string packageName, string prefabPath, Vector3 gameObjectPos, Vector3 gameObjectRota, Vector3 gameObjectScal, bool isCache = false, bool isLocalPos = true, bool isLocalEulerAngles = true, Transform rootTrans = null, string gameObjectName = null, bool isDestroy = true, CancellationToken cancellationToken = default, System.IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
+        public async UniTask<GameObject> LoadGameObjectAsync(string packageName, string prefabPath, Vector3 position, Quaternion rotation, Vector3 localScale, bool isCache = false, bool isLocalPos = false, bool isLocalRotation = false, Transform rootTrans = null, string gameObjectName = default, bool isDestroy = true, CancellationToken cancellationToken = default, System.IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
         {
             GameObject prefab = await LoadAssetAsync<GameObject>(packageName, prefabPath, isCache, cancellationToken, progress, timing);
 
             GameObject instantiatedPrefab = Instantiate(prefab);
             if (!isDestroy) { DontDestroyOnLoad(instantiatedPrefab); }
 
-            UIItemUtils.SetGameObjectTrans(instantiatedPrefab, gameObjectPos, gameObjectRota, gameObjectScal, isLocalPos, isLocalEulerAngles, true, rootTrans, gameObjectName);
+            UIItemUtils.SetGameObjectTrans(instantiatedPrefab, position, rotation, localScale, isLocalPos, isLocalRotation, true, rootTrans, gameObjectName);
 
             PECommon.Log("Prefab load Async. name:" + instantiatedPrefab.name + ". path:" + prefabPath + ",isCache:" + isCache);
             return instantiatedPrefab;
@@ -221,7 +221,7 @@ namespace DarkGod.Main
 
         private void OnDisable()
         {
-            EventMgr.MainInstance.OnGameEnter -= delegate { InitSvc(); };
+            GameStateEvent.MainInstance.OnGameEnter -= delegate { InitSvc(); };
         }
     }
 }

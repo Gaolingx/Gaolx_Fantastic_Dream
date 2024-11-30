@@ -17,7 +17,7 @@ namespace DarkGod.Main
         {
             base.Awake();
 
-            EventMgr.MainInstance.OnGameEnter += delegate { InitSys(); };
+            GameStateEvent.MainInstance.OnGameEnter += delegate { InitSys(); };
         }
 
         protected override void InitSys()
@@ -97,7 +97,7 @@ namespace DarkGod.Main
 
         public void SetBattleEndWndState(FBEndType endType, bool isActive = true)
         {
-            GameRoot.MainInstance.BattleEndWndAction?.Invoke(isActive, endType);
+            InputMgr.MainInstance.BattleEndWndAction?.Invoke(isActive, endType);
         }
 
         public void RspFightEnd(GameMsg msg)
@@ -105,13 +105,13 @@ namespace DarkGod.Main
             RspFBFightEnd data = msg.rspFBFightEnd;
             GameRoot.MainInstance.SetPlayerDataByFBEnd(data);
 
-            GameRoot.MainInstance.battleEndWnd.SetBattleEndData(data.fbid, data.costtime, data.resthp);
+            InputMgr.MainInstance.battleEndWnd.SetBattleEndData(data.fbid, data.costtime, data.resthp);
             SetBattleEndWndState(FBEndType.Win);
         }
 
         public void SetPlayerMoveDir(Vector2 dir)
         {
-            if (EventMgr.MainInstance.CurrentEPlayer.Value != null)
+            if (GameStateEvent.MainInstance.CurrentEPlayer.Value != null)
             {
                 battleMgr.SetSelfPlayerMoveDir(dir);
             }
@@ -124,12 +124,12 @@ namespace DarkGod.Main
 
         public Vector2 GetDirInput()
         {
-            return GameRoot.MainInstance.starterAssetsInputs.move;
+            return InputMgr.MainInstance.starterAssetsInputs.move;
         }
 
         private void OnDisable()
         {
-            EventMgr.MainInstance.OnGameEnter -= delegate { InitSys(); };
+            GameStateEvent.MainInstance.OnGameEnter -= delegate { InitSys(); };
         }
     }
 }

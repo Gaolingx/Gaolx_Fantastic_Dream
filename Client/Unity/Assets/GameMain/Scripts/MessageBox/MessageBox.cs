@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using HuHu;
+using UnityEngine;
 
 namespace DarkGod.Main
 {
@@ -13,7 +11,7 @@ namespace DarkGod.Main
         {
             base.Awake();
 
-            EventMgr.MainInstance.OnGameEnter += delegate { InitSvc(); };
+            GameStateEvent.MainInstance.OnGameEnter += delegate { InitSvc(); };
         }
 
         private void InitSvc()
@@ -84,7 +82,7 @@ namespace DarkGod.Main
 
         private void OnDisable()
         {
-            EventMgr.MainInstance.OnGameEnter -= delegate { InitSvc(); };
+            GameStateEvent.MainInstance.OnGameEnter -= delegate { InitSvc(); };
         }
     }
 }

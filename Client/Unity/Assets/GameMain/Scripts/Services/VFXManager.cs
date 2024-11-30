@@ -16,7 +16,7 @@ namespace DarkGod.Main
         {
             base.Awake();
 
-            EventMgr.MainInstance.OnGameEnter += delegate { InitMgr(); };
+            GameStateEvent.MainInstance.OnGameEnter += delegate { InitMgr(); };
         }
 
         public void InitMgr()
@@ -28,7 +28,7 @@ namespace DarkGod.Main
         {
             if (!(effectName == "") && !_EffectPoolCache.ContainsKey(effectName))
             {
-                GameObject go = await ResSvc.MainInstance.LoadGameObjectAsync(Constants.ResourcePackgeName, effectName, Vector3.zero, Vector3.zero, Vector3.one, true);
+                GameObject go = await ResSvc.MainInstance.LoadGameObjectAsync(Constants.ResourcePackgeName, effectName, Vector3.zero, Quaternion.Euler(Vector3.zero), Vector3.one, true);
                 if (!_EffectPoolCache.TryGetValue(effectName, out var value))
                 {
                     value = new EffectPool(go);
@@ -50,7 +50,7 @@ namespace DarkGod.Main
             }
             else
             {
-                GameObject go = await ResSvc.MainInstance.LoadGameObjectAsync(Constants.ResourcePackgeName, effectName, Vector3.zero, Vector3.zero, Vector3.one, true);
+                GameObject go = await ResSvc.MainInstance.LoadGameObjectAsync(Constants.ResourcePackgeName, effectName, Vector3.zero, Quaternion.Euler(Vector3.zero), Vector3.one, true);
                 if (!_EffectPoolCache.TryGetValue(effectName, out var value2))
                 {
                     value2 = new EffectPool(go);
@@ -79,7 +79,7 @@ namespace DarkGod.Main
             return gameEffect;
         }
 
-        public void PlayFromPool(GameObject go, float destroy, Action action)
+        private void PlayFromPool(GameObject go, float destroy, Action action)
         {
             if (go != null)
             {
@@ -129,7 +129,7 @@ namespace DarkGod.Main
 
         private void OnDisable()
         {
-            EventMgr.MainInstance.OnGameEnter -= delegate { InitMgr(); };
+            GameStateEvent.MainInstance.OnGameEnter -= delegate { InitMgr(); };
         }
 
         private void OnDestroy()

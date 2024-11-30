@@ -8,94 +8,164 @@ namespace StarterAssets
     [RequireComponent(typeof(PlayerInput))]
     public class StarterAssetsInputs : MonoBehaviour
     {
-        [Header("Character Input Values")]
-        public Vector2 move;
-        public Vector2 look;
-        public float zoom;
-        public bool jump;
-        public bool sprint;
-        public bool crouch;
-        public bool flipJump;
-        public bool skill01;
-        public bool skill02;
-        public bool skill03;
-        public bool normalAtk;
-        public bool isPause;
-        public bool canMove = true;
-        public bool canLook = true;
+        //[Header("Character Input Values")]
+        public Vector2 move { get; private set; }
+        public Vector2 look { get; private set; }
+        public float zoom { get; private set; }
+        public bool jump { get; private set; }
+        public bool sprint { get; private set; }
+        public bool crouch { get; private set; }
+        public bool flipJump { get; private set; }
+        public bool skill01 { get; private set; }
+        public bool skill02 { get; private set; }
+        public bool skill03 { get; private set; }
+        public bool normalAtk { get; private set; }
+        public bool isPause { get; private set; }
+        public bool cursorLocked { get; private set; }
+        public bool hasInput { get; private set; }
 
         [Header("Movement Settings")]
         public bool analogMovement;
+        public bool canMove = true;
+        public bool canLook = true;
 
         [Header("Mouse Cursor Settings")]
-        public bool cursorLocked = true;
         public bool cursorInputForLook = true;
 
 #if ENABLE_INPUT_SYSTEM
         public void OnMove(InputValue value)
         {
-            if (!canMove) { MoveInput(Vector2.zero); }
-            else { MoveInput(value.Get<Vector2>()); }
+            if (!canMove)
+            {
+                MoveInput(Vector2.zero);
+            }
+            else
+            {
+                MoveInput(value.Get<Vector2>());
+            }
         }
 
         public void OnLook(InputValue value)
         {
-            if (!canLook) { LookInput(Vector2.zero); }
-            else { LookInput(value.Get<Vector2>()); }
+            if (cursorInputForLook)
+            {
+                if (!canLook)
+                {
+                    LookInput(Vector2.zero);
+                }
+                else
+                {
+                    LookInput(value.Get<Vector2>());
+                }
+            }
         }
 
         public void OnJump(InputValue value)
         {
-            if (!canMove) { JumpInput(false); }
-            else { JumpInput(value.isPressed); }
+            if (!canMove)
+            {
+                JumpInput(false);
+            }
+            else
+            {
+                JumpInput(value.isPressed);
+            }
         }
 
         public void OnFlipJump(InputValue value)
         {
-            if (!canMove) { FlipJumpInput(false); }
-            else { FlipJumpInput(value.isPressed); }
+            if (!canMove)
+            {
+                FlipJumpInput(false);
+            }
+            else
+            {
+                FlipJumpInput(value.isPressed);
+            }
         }
 
         public void OnSprint(InputValue value)
         {
-            if (!canMove) { SprintInput(false); }
-            else { SprintInput(value.isPressed); }
+            if (!canMove)
+            {
+                SprintInput(false);
+            }
+            else
+            {
+                SprintInput(value.isPressed);
+            }
         }
 
         public void OnCrouch(InputValue value)
         {
-            if (!canMove) { CrouchInput(false); }
-            else { CrouchInput(value.isPressed); }
+            if (!canMove)
+            {
+                CrouchInput(false);
+            }
+            else
+            {
+                CrouchInput(value.isPressed);
+            }
         }
 
         public void OnZoom(InputValue value)
         {
-            if (!canLook) { ZoomInput(0f); }
-            else { ZoomInput(value.Get<float>()); }
+            if (!canLook)
+            {
+                ZoomInput(0f);
+            }
+            else
+            {
+                ZoomInput(value.Get<float>());
+            }
         }
 
         public void OnAtkSkill01(InputValue value)
         {
-            if (!canMove) { Skill01Input(false); }
-            else { Skill01Input(value.isPressed); }
+            if (!canMove)
+            {
+                Skill01Input(false);
+            }
+            else
+            {
+                Skill01Input(value.isPressed);
+            }
         }
 
         public void OnAtkSkill02(InputValue value)
         {
-            if (!canMove) { Skill02Input(false); }
-            else { Skill02Input(value.isPressed); }
+            if (!canMove)
+            {
+                Skill02Input(false);
+            }
+            else
+            {
+                Skill02Input(value.isPressed);
+            }
         }
 
         public void OnAtkSkill03(InputValue value)
         {
-            if (!canMove) { Skill03Input(false); }
-            else { Skill03Input(value.isPressed); }
+            if (!canMove)
+            {
+                Skill03Input(false);
+            }
+            else
+            {
+                Skill03Input(value.isPressed);
+            }
         }
 
         public void OnNormalAtk(InputValue value)
         {
-            if (!canMove) { NormalAtkInput(false); }
-            else { NormalAtkInput(value.isPressed); }
+            if (!canMove)
+            {
+                NormalAtkInput(false);
+            }
+            else
+            {
+                NormalAtkInput(value.isPressed);
+            }
         }
 
         public void OnCursorLock(InputValue value)
@@ -107,7 +177,13 @@ namespace StarterAssets
         {
             GamePauseInput(value.isPressed);
         }
+
+        public void OnHasInput(InputValue value)
+        {
+            HasInputInput(value.isPressed);
+        }
 #endif
+
 
         public void MoveInput(Vector2 newMoveDirection)
         {
@@ -173,6 +249,10 @@ namespace StarterAssets
         {
             isPause = newGamePauseState;
         }
-    }
 
+        public void HasInputInput(bool newHasInputState)
+        {
+            hasInput = newHasInputState;
+        }
+    }
 }

@@ -14,7 +14,7 @@ namespace DarkGod.Main
         {
             base.Awake();
 
-            EventMgr.MainInstance.OnGameEnter += delegate { InitSys(); };
+            GameStateEvent.MainInstance.OnGameEnter += delegate { InitSys(); };
         }
 
         protected override void InitSys()
@@ -75,7 +75,7 @@ namespace DarkGod.Main
 
         private void OnDisable()
         {
-            EventMgr.MainInstance.OnGameEnter -= delegate { InitSys(); };
+            GameStateEvent.MainInstance.OnGameEnter -= delegate { InitSys(); };
         }
     }
 }

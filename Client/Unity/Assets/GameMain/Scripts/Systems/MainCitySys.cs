@@ -1,6 +1,7 @@
 ﻿//功能：主城业务系统
 
 using Cinemachine;
+using Cysharp.Threading.Tasks;
 using PEProtocol;
 using StarterAssets;
 using System.Collections.Generic;
@@ -34,14 +35,14 @@ namespace DarkGod.Main
         {
             base.Awake();
 
-            EventMgr.MainInstance.OnGameEnter += delegate { InitSys(); };
+            GameStateEvent.MainInstance.OnGameEnter += delegate { InitSys(); };
         }
 
         protected override void InitSys()
         {
             base.InitSys();
 
-            EventMgr.MainInstance.OnGamePause += delegate (bool val) { OnUpdatePauseState2(val); };
+            GameStateEvent.MainInstance.OnGamePause += delegate (bool val) { OnUpdatePauseState2(val); };
             PECommon.Log("Init MainCitySys...");
         }
 
@@ -55,8 +56,8 @@ namespace DarkGod.Main
 
         private void InitPlayerInput()
         {
-            starterAssetsInputs = GameRoot.MainInstance.starterAssetsInputs;
-            uICanvasController = GameRoot.MainInstance.uICanvasController;
+            starterAssetsInputs = InputMgr.MainInstance.starterAssetsInputs;
+            uICanvasController = InputMgr.MainInstance.uICanvasController;
 
             if (starterAssetsInputs != null && uICanvasController != null)
             {
@@ -114,19 +115,18 @@ namespace DarkGod.Main
             audioSvc.PlayBGMusics(auLst, 3f);
         }
 
-        private CinemachineVirtualCamera cinemachineVirtualCamera;
-        private async void LoadVirtualCameraInstance(MapCfg mapData)
+        private async UniTask<CinemachineVirtualCamera> LoadVirtualCameraInstance(MapCfg mapData)
         {
             //相机初始化
             //首先要加载虚拟相机的预制件
             //设置实例化对象时候的位置、旋转
             Vector3 CM_player_Pos = mapData.mainCamPos;
             Vector3 CM_player_Rote = mapData.mainCamRote;
-            GameObject CM_player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, mapData.playerCamPath, CM_player_Pos, CM_player_Rote, Vector3.one, false, true, true);
+            GameObject CM_player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, mapData.playerCamPath, CM_player_Pos, Quaternion.Euler(CM_player_Rote), Vector3.one, true, false, false);
 
+            CinemachineVirtualCamera cinemachineVirtualCamera = null;
             if (CM_player != null)
             {
-
                 // 获取虚拟相机预制件上的CinemachineVirtualCamera组件  
                 cinemachineVirtualCamera = CM_player.GetComponent<CinemachineVirtualCamera>();
 
@@ -134,14 +134,15 @@ namespace DarkGod.Main
                 cinemachineVirtualCamera.m_Lens.FarClipPlane = Constants.CinemachineVirtualCameraFarClipPlane;
                 cinemachineVirtualCamera.m_Lens.NearClipPlane = Constants.CinemachineVirtualCameraNearClipPlane;
             }
+
+            return cinemachineVirtualCamera;
         }
 
-
-        private async void LoadPlayerInstance(string playerPath, Vector3 playerBornPos, Vector3 playerBornRote, Vector3 playerBornScale)
+        private async void LoadPlayerInstance(string playerPath, Vector3 playerBornPos, Vector3 playerBornRote, Vector3 playerBornScale, CinemachineVirtualCamera cinemachineVirtualCamera)
         {
             //玩家初始化
             //获取Prefab实例化的对象
-            GameObject player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, playerPath, playerBornPos, playerBornRote, playerBornScale, false, true, true);
+            GameObject player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, playerPath, playerBornPos, Quaternion.Euler(playerBornRote), playerBornScale, true, false, false);
 
             if (player != null)
             {
@@ -164,10 +165,10 @@ namespace DarkGod.Main
             }
         }
 
-        private void LoadPlayer(MapCfg mapData)
+        private async void LoadPlayer(MapCfg mapData)
         {
-            LoadVirtualCameraInstance(mapData);
-            LoadPlayerInstance(mapData.playerPath, mapData.playerBornPos, mapData.playerBornRote, new Vector3(0.8f, 0.8f, 0.8f));
+            CinemachineVirtualCamera virtualCamera = await LoadVirtualCameraInstance(mapData);
+            LoadPlayerInstance(mapData.playerPath, mapData.playerBornPos, mapData.playerBornRote, new Vector3(0.8f, 0.8f, 0.8f), virtualCamera);
         }
 
         private void LoadNpcPrefab()
@@ -488,7 +489,7 @@ namespace DarkGod.Main
         #region Input
         private void SetInputState(bool state = true)
         {
-            GameRoot.MainInstance.EnableInputAction(state);
+            InputMgr.MainInstance.EnableInputAction(state);
         }
         #endregion
 
@@ -535,8 +536,8 @@ namespace DarkGod.Main
 
         private void OnDisable()
         {
-            EventMgr.MainInstance.OnGameEnter -= delegate { InitSys(); };
-            EventMgr.MainInstance.OnGamePause -= delegate (bool val) { OnUpdatePauseState2(val); };
+            GameStateEvent.MainInstance.OnGameEnter -= delegate { InitSys(); };
+            GameStateEvent.MainInstance.OnGamePause -= delegate (bool val) { OnUpdatePauseState2(val); };
         }
     }
 }

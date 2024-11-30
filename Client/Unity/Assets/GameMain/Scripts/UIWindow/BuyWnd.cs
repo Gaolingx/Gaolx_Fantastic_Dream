@@ -34,7 +34,7 @@ namespace DarkGod.Main
         {
             btnSure.onClick.AddListener(delegate { ClickSureBtn(); });
             btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
-            GameRoot.MainInstance.PauseGameUIAction?.Invoke(true);
+            InputMgr.MainInstance.PauseGameUIAction?.Invoke(true);
         }
 
         public void GetBuyCfg(int buyType)
@@ -92,7 +92,7 @@ namespace DarkGod.Main
         {
             btnSure.onClick.RemoveAllListeners();
             btnClose.onClick.RemoveAllListeners();
-            GameRoot.MainInstance.PauseGameUIAction?.Invoke(false);
+            InputMgr.MainInstance.PauseGameUIAction?.Invoke(false);
         }
     }
 }

@@ -40,7 +40,7 @@ namespace DarkGod.Main
             btnSend.onClick.AddListener(delegate { ClickSendBtn(); });
             btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
 
-            GameRoot.MainInstance.PauseGameUIAction(true);
+            InputMgr.MainInstance.PauseGameUIAction(true);
         }
 
         //显示聊天信息
@@ -173,7 +173,7 @@ namespace DarkGod.Main
             btnSend.onClick.RemoveAllListeners();
             btnClose.onClick.RemoveAllListeners();
 
-            GameRoot.MainInstance.PauseGameUIAction(false);
+            InputMgr.MainInstance.PauseGameUIAction(false);
         }
     }
 }

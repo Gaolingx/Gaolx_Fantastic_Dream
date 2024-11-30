@@ -55,7 +55,7 @@ namespace DarkGod.Main
             btnExit.onClick.AddListener(delegate { ClickExitBtn(); });
             btnSure.onClick.AddListener(delegate { ClickSureBtn(); });
 
-            GameRoot.MainInstance.PauseGameUIAction?.Invoke(true);
+            InputMgr.MainInstance.PauseGameUIAction?.Invoke(true);
         }
 
         public void SetWndType(FBEndType endType)
@@ -73,7 +73,7 @@ namespace DarkGod.Main
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
             //进入主城，销毁当前战斗
-            ExitCurrentBattle(delegate { GameRoot.MainInstance.PauseGameUIAction?.Invoke(false); });
+            ExitCurrentBattle(delegate { InputMgr.MainInstance.PauseGameUIAction?.Invoke(false); });
         }
 
         public void ClickSureBtn()
@@ -82,7 +82,7 @@ namespace DarkGod.Main
             //进入主城，销毁当前战斗，打开副本界面
             ExitCurrentBattle(delegate
             {
-                GameRoot.MainInstance.PauseGameUIAction?.Invoke(false);
+                InputMgr.MainInstance.PauseGameUIAction?.Invoke(false);
                 FubenSys.MainInstance.EnterFuben();
             });
         }
@@ -174,7 +174,7 @@ namespace DarkGod.Main
             btnExit.onClick.RemoveAllListeners();
             btnSure.onClick.RemoveAllListeners();
 
-            GameRoot.MainInstance.PauseGameUIAction?.Invoke(false);
+            InputMgr.MainInstance.PauseGameUIAction?.Invoke(false);
         }
 
     }

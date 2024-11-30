@@ -3,7 +3,6 @@
 using Newtonsoft.Json;
 using PEProtocol;
 using TMPro;
-using UnityEngine;
 using UnityEngine.UI;
 
 namespace DarkGod.Main
@@ -19,7 +18,6 @@ namespace DarkGod.Main
 
         private const string prefsKey_LoginWnd = "prefsKey_LoginWnd";
 
-        [HideInInspector]
         [System.Serializable]
         private class PlayerPrefsData
         {

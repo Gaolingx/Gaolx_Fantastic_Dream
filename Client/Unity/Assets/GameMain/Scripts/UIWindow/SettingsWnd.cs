@@ -27,7 +27,7 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
-            if (GameRoot.MainInstance.transform.Find($"{Constants.Path_Canvas_Obj}/DebugItems").TryGetComponent<DebugWnd>(out debugWnd))
+            if (InputMgr.MainInstance.transform.Find($"{Constants.Path_Canvas_Obj}/DebugItems").TryGetComponent<DebugWnd>(out debugWnd))
             {
                 debugWnd.SetWndState(true);
             }
@@ -38,7 +38,7 @@ namespace DarkGod.Main
         public void OnEnable()
         {
             UIAddListener();
-            GameRoot.MainInstance.PauseGameUIAction?.Invoke(true);
+            InputMgr.MainInstance.PauseGameUIAction?.Invoke(true);
         }
 
         private void InitWindowValue()
@@ -229,7 +229,7 @@ namespace DarkGod.Main
             qualitySelectDropdown.onValueChanged.RemoveAllListeners();
             screenResolutionDropdown.onValueChanged.RemoveAllListeners();
 
-            GameRoot.MainInstance.PauseGameUIAction?.Invoke(false);
+            InputMgr.MainInstance.PauseGameUIAction?.Invoke(false);
         }
     }
 }

@@ -49,22 +49,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e087ecce43ebbff45a1b360637807d93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  move: {x: 0, y: 0}
-  look: {x: 0, y: 0}
-  zoom: 0
-  jump: 0
-  sprint: 0
-  crouch: 0
-  flipJump: 0
-  skill01: 0
-  skill02: 0
-  skill03: 0
-  normalAtk: 0
-  isPause: 0
+  analogMovement: 0
   canMove: 1
   canLook: 1
-  analogMovement: 0
-  cursorLocked: 1
   cursorInputForLook: 1
 --- !u!114 &8667711423699946171
 MonoBehaviour:

@@ -827,6 +827,7 @@ MonoBehaviour:
   - Assets/AssetBundles/Scripts/Dlls/PESocket.dll
   - Assets/AssetBundles/Scripts/Dlls/System.Core.dll
   - Assets/AssetBundles/Scripts/Dlls/System.dll
+  - Assets/AssetBundles/Scripts/Dlls/UniFramework.Event.dll
   - Assets/AssetBundles/Scripts/Dlls/UniTask.dll
   - Assets/AssetBundles/Scripts/Dlls/Unity.InputSystem.dll
   - Assets/AssetBundles/Scripts/Dlls/UnityEngine.CoreModule.dll

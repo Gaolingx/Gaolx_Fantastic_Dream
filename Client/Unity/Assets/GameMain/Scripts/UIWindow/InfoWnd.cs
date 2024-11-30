@@ -58,7 +58,7 @@ namespace DarkGod.Main
             btnDetail.onClick.AddListener(delegate { ClickDetailBtn(); });
             btnClose.onClick.AddListener(delegate { ClickCloseBtn(); });
             btnCloseDetail.onClick.AddListener(delegate { ClickCloseDetailBtn(); });
-            GameRoot.MainInstance.PauseGameUIAction?.Invoke(true);
+            InputMgr.MainInstance.PauseGameUIAction?.Invoke(true);
         }
 
         //InfoWnd角色左右拖拽旋转效果：当按下鼠标拖动或者触摸滑动屏幕时，获取滑动的水平距离，然后将该距离映射到人物旋转属性上
@@ -127,7 +127,7 @@ namespace DarkGod.Main
             btnDetail.onClick.RemoveAllListeners();
             btnClose.onClick.RemoveAllListeners();
             btnCloseDetail.onClick.RemoveAllListeners();
-            GameRoot.MainInstance.PauseGameUIAction?.Invoke(false);
+            InputMgr.MainInstance.PauseGameUIAction?.Invoke(false);
         }
     }
 }

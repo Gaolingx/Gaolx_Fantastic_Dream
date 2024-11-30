@@ -15,7 +15,6 @@ namespace DarkGod.Main
         public BattleMgr battleMgr { get; set; }
         public StateMgr stateMgr { get; set; }
         public SkillMgr skillMgr { get; set; }
-        public EventMgr eventMgr { get; set; }
         public VFXManager VFXMgr { get; set; }
 
         protected ThirdPersonController playerController { get; set; }
@@ -170,7 +169,7 @@ namespace DarkGod.Main
 
         private void OnUpdateCanControl(bool value)
         {
-            GameRoot.MainInstance.EnableInputAction(value);
+            InputMgr.MainInstance.EnableInputAction(value);
         }
 
         private void OnUpdateCanRlsSkill(bool value)

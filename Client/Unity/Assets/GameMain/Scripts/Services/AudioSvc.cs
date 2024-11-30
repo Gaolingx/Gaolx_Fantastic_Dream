@@ -34,7 +34,7 @@ namespace DarkGod.Main
         {
             base.Awake();
 
-            EventMgr.MainInstance.OnGameEnter += delegate { InitSvc(); };
+            GameStateEvent.MainInstance.OnGameEnter += delegate { InitSvc(); };
         }
 
         public void InitSvc()
@@ -184,7 +184,7 @@ namespace DarkGod.Main
 
         private void OnDisable()
         {
-            EventMgr.MainInstance.OnGameEnter -= delegate { InitSvc(); };
+            GameStateEvent.MainInstance.OnGameEnter -= delegate { InitSvc(); };
             UnAssignBindableData();
             StopBGMusic();
         }

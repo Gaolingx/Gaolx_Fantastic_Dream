@@ -1,6 +1,7 @@
 ﻿//功能：战场管理器
 
 using Cinemachine;
+using Cysharp.Threading.Tasks;
 using PEProtocol;
 using StarterAssets;
 using System.Collections.Generic;
@@ -19,7 +20,6 @@ namespace DarkGod.Main
 
         private StateMgr stateMgr;
         private SkillMgr skillMgr;
-        private EventMgr eventMgr;
         private VFXManager VFXMgr;
         private MapMgr mapMgr;
 
@@ -30,13 +30,13 @@ namespace DarkGod.Main
         public Dictionary<string, EntityMonster> monsterDic = new Dictionary<string, EntityMonster>();
         public Dictionary<string, EntityPlayer> playerDic = new Dictionary<string, EntityPlayer>();
 
-        private CinemachineVirtualCamera cinemachineVirtualCamera;
-        private async void LoadVirtualCameraInstance(MapCfg mapData)
+        private async UniTask<CinemachineVirtualCamera> LoadVirtualCameraInstance(MapCfg mapData)
         {
             Vector3 CM_player_Pos = mapData.mainCamPos;
             Vector3 CM_player_Rote = mapData.mainCamRote;
-            GameObject CM_player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, mapData.playerCamPath, CM_player_Pos, CM_player_Rote, Vector3.one, false, true, true);
+            GameObject CM_player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, mapData.playerCamPath, CM_player_Pos, Quaternion.Euler(CM_player_Rote), Vector3.one, true, false, false);
 
+            CinemachineVirtualCamera cinemachineVirtualCamera = null;
             if (CM_player != null)
             {
                 cinemachineVirtualCamera = CM_player.GetComponent<CinemachineVirtualCamera>();
@@ -44,6 +44,8 @@ namespace DarkGod.Main
                 cinemachineVirtualCamera.m_Lens.FarClipPlane = Constants.CinemachineVirtualCameraFarClipPlane;
                 cinemachineVirtualCamera.m_Lens.NearClipPlane = Constants.CinemachineVirtualCameraNearClipPlane;
             }
+
+            return cinemachineVirtualCamera;
         }
 
         public void ActiveCurrentPlayer(string key)
@@ -63,14 +65,14 @@ namespace DarkGod.Main
             }, Constants.ActivePlayerDelayTime);
         }
 
-        private async void LoadPlayerInstance(string playerPath, Vector3 playerBornPos, Vector3 playerBornRote, Vector3 playerBornScale)
+        private async void LoadPlayerInstance(string playerPath, Vector3 playerBornPos, Vector3 playerBornRote, Vector3 playerBornScale, CinemachineVirtualCamera cinemachineVirtualCamera)
         {
-            GameObject player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, playerPath, playerBornPos, playerBornRote, playerBornScale, false, true, true);
+            GameObject player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, playerPath, playerBornPos, Quaternion.Euler(playerBornRote), playerBornScale, true, false, false);
 
             if (player != null)
             {
                 ThirdPersonController controller = player.GetComponent<ThirdPersonController>();
-                StarterAssetsInputs starterAssetsInputs = GameRoot.MainInstance.starterAssetsInputs;
+                StarterAssetsInputs starterAssetsInputs = InputMgr.MainInstance.starterAssetsInputs;
 
                 controller.PlayerInput = starterAssetsInputs.GetComponent<PlayerInput>();
                 controller.StarterAssetsInputs = starterAssetsInputs;
@@ -102,7 +104,6 @@ namespace DarkGod.Main
                     battleMgr = this,
                     stateMgr = stateMgr, //将stateMgr注入逻辑实体类中
                     skillMgr = skillMgr,
-                    eventMgr = eventMgr,
                     VFXMgr = VFXMgr,
                 };
                 entitySelfPlayer.EntityName = pd.name;
@@ -129,7 +130,6 @@ namespace DarkGod.Main
             battleSys = BattleSys.MainInstance;
 
             //初始化各管理器
-            eventMgr = EventMgr.MainInstance;
             VFXMgr = VFXManager.MainInstance;
             stateMgr = gameObject.AddComponent<StateMgr>();
             skillMgr = gameObject.AddComponent<SkillMgr>();
@@ -137,7 +137,7 @@ namespace DarkGod.Main
 
             //加载战场地图
             mapCfg = configSvc.GetMapCfg(mapid);
-            resSvc.AsyncLoadScene(Constants.ResourcePackgeName, mapCfg.sceneName, () =>
+            resSvc.AsyncLoadScene(Constants.ResourcePackgeName, mapCfg.sceneName, async () =>
             {
                 //初始化地图数据
                 mapMgr = GameObject.FindGameObjectWithTag(Constants.MapRootWithTag_Battle).GetComponent<MapMgr>();
@@ -146,10 +146,10 @@ namespace DarkGod.Main
                 AddEntityPlayerData();
 
                 //加载虚拟相机
-                LoadVirtualCameraInstance(mapCfg);
+                CinemachineVirtualCamera virtualCamera = await LoadVirtualCameraInstance(mapCfg);
 
                 //加载玩家实体
-                LoadPlayerInstance(mapCfg.playerPath, mapCfg.playerBornPos, mapCfg.playerBornRote, new Vector3(0.8f, 0.8f, 0.8f));
+                LoadPlayerInstance(mapCfg.playerPath, mapCfg.playerBornPos, mapCfg.playerBornRote, new Vector3(0.8f, 0.8f, 0.8f), virtualCamera);
 
                 //延迟激活第一批次怪物
                 ActiveCurrentBatchMonsters();
@@ -175,7 +175,7 @@ namespace DarkGod.Main
         //相关回调处理
         public virtual void AddEntityPlayerData()
         {
-            eventMgr.CurrentEPlayer.OnValueChanged += delegate (EntityPlayer entity) { OnUpdateEntityPlayer(entity); };
+            GameStateEvent.MainInstance.CurrentEPlayer.OnValueChanged += delegate (EntityPlayer entity) { OnUpdateEntityPlayer(entity); };
         }
 
         private void OnUpdateEntityPlayer(EntityPlayer value)
@@ -238,7 +238,7 @@ namespace DarkGod.Main
                     if (!isExist)
                     {
                         //关卡结束，战斗胜利
-                        var entitySelfPlayer = eventMgr.CurrentEPlayer.Value;
+                        var entitySelfPlayer = GameStateEvent.MainInstance.CurrentEPlayer.Value;
                         EndBattle(true, entitySelfPlayer.CurrentHP.Value);
                     }
                 }
@@ -250,7 +250,7 @@ namespace DarkGod.Main
         {
             SetPauseGame(true);
 
-            var entitySelfPlayer = eventMgr.CurrentEPlayer.Value;
+            var entitySelfPlayer = GameStateEvent.MainInstance.CurrentEPlayer.Value;
             entitySelfPlayer.StateIdle();
             //停止背景音乐
             audioSvc.StopBGMusic();
@@ -266,7 +266,7 @@ namespace DarkGod.Main
                 //判断是否为对应批次的怪物，是则实例化
                 if (md.mWave == wave)
                 {
-                    GameObject m = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, md.mCfg.resPath, md.mBornPos, md.mBornRote, new Vector3(0.8f, 0.8f, 0.8f), false, true, true);
+                    GameObject m = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, md.mCfg.resPath, md.mBornPos, Quaternion.Euler(md.mBornRote), new Vector3(0.8f, 0.8f, 0.8f), true, false, false);
 
                     m.name = "m" + md.mWave + "_" + md.mIndex;
 
@@ -275,7 +275,7 @@ namespace DarkGod.Main
                         battleMgr = this,
                         stateMgr = stateMgr, //将stateMgr注入逻辑实体类中
                         skillMgr = skillMgr,
-                        eventMgr = eventMgr
+                        VFXMgr = VFXMgr,
                     };
                     //设置初始属性
                     em.md = md;
@@ -359,17 +359,9 @@ namespace DarkGod.Main
         #region 技能施放与角色控制
         public void SetSelfPlayerMoveDir(Vector2 dir)
         {
-            var entitySelfPlayer = eventMgr.CurrentEPlayer.Value;
+            var entitySelfPlayer = GameStateEvent.MainInstance.CurrentEPlayer.Value;
             //设置玩家移动
             //PECommon.Log(dir.ToString());
-            if (entitySelfPlayer.CanControl.Value == false)
-            {
-                GameRoot.MainInstance.EnableInputAction(false);
-            }
-            else
-            {
-                GameRoot.MainInstance.EnableInputAction(true);
-            }
 
             //判断动画状态
             if (entitySelfPlayer.currentAniState == AniState.Idle || entitySelfPlayer.currentAniState == AniState.Move)
@@ -414,7 +406,7 @@ namespace DarkGod.Main
         public int comboIndex = 0; //记录当前要存储的连招的id为第n个
         private void CalcNormalAtkCombo()
         {
-            var entitySelfPlayer = eventMgr.CurrentEPlayer.Value;
+            var entitySelfPlayer = GameStateEvent.MainInstance.CurrentEPlayer.Value;
             if (entitySelfPlayer.currentAniState == AniState.Attack)
             {
                 //在500ms以内进行第二次点击，保存点击数据
@@ -453,19 +445,19 @@ namespace DarkGod.Main
         private void PlayerReleaseSkill01()
         {
             //PECommon.Log("Click Skill01");
-            var entitySelfPlayer = eventMgr.CurrentEPlayer.Value;
+            var entitySelfPlayer = GameStateEvent.MainInstance.CurrentEPlayer.Value;
             entitySelfPlayer.StateAttack(Constants.SkillID_Mar7th00_skill01);
         }
         private void PlayerReleaseSkill02()
         {
             //PECommon.Log("Click Skill02");
-            var entitySelfPlayer = eventMgr.CurrentEPlayer.Value;
+            var entitySelfPlayer = GameStateEvent.MainInstance.CurrentEPlayer.Value;
             entitySelfPlayer.StateAttack(Constants.SkillID_Mar7th00_skill02);
         }
         private void PlayerReleaseSkill03()
         {
             //PECommon.Log("Click Skill03");
-            var entitySelfPlayer = eventMgr.CurrentEPlayer.Value;
+            var entitySelfPlayer = GameStateEvent.MainInstance.CurrentEPlayer.Value;
             entitySelfPlayer.StateAttack(Constants.SkillID_Mar7th00_skill03);
         }
         public Vector2 GetDirInput()
@@ -477,7 +469,7 @@ namespace DarkGod.Main
 
         private void OnDisable()
         {
-            eventMgr.CurrentEPlayer.OnValueChanged -= delegate (EntityPlayer entity) { OnUpdateEntityPlayer(entity); };
+            GameStateEvent.MainInstance.CurrentEPlayer.OnValueChanged -= delegate (EntityPlayer entity) { OnUpdateEntityPlayer(entity); };
         }
 
     }
