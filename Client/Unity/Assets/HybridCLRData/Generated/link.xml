@@ -59,7 +59,6 @@
   <assembly fullname="UniTask">
     <type fullname="Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder" preserve="all" />
     <type fullname="Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder`1" preserve="all" />
-    <type fullname="Cysharp.Threading.Tasks.OperationHandleBaseExtensions" preserve="all" />
     <type fullname="Cysharp.Threading.Tasks.PlayerLoopTiming" preserve="all" />
     <type fullname="Cysharp.Threading.Tasks.UniTask" preserve="all" />
     <type fullname="Cysharp.Threading.Tasks.UniTask/Awaiter" preserve="all" />
@@ -68,6 +67,9 @@
     <type fullname="Cysharp.Threading.Tasks.UniTask`1/Awaiter" preserve="all" />
     <type fullname="Cysharp.Threading.Tasks.YieldAwaitable" preserve="all" />
     <type fullname="Cysharp.Threading.Tasks.YieldAwaitable/Awaiter" preserve="all" />
+  </assembly>
+  <assembly fullname="UniTask.YooAsset">
+    <type fullname="Cysharp.Threading.Tasks.OperationHandleBaseExtensions" preserve="all" />
   </assembly>
   <assembly fullname="Unity.AI.Navigation">
     <type fullname="Unity.AI.Navigation.NavMeshSurface" preserve="all" />

@@ -27,6 +27,12 @@
       "dependencies": {},
       "hash": "7dcd33fd67c7ffe73e88c741bf9ef89ee04aa521"
     },
+    "com.cysharp.unitask": {
+      "version": "file:UniTask",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.gaolingx.honkaistarrailtoonshader": {
       "version": "https://github.com/Gaolingx/HonkaiStarRailToonShader.git",
       "depth": 0,

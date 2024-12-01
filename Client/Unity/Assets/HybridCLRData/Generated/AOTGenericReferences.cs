@@ -25,11 +25,13 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 
 	// {{ AOT generic types
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask.<>c<DarkGod.Main.AudioSvc.<PlayAudioClips>d__18>
+	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask.<>c<DarkGod.Main.BattleMgr.<LoadVirtualCameraInstance>d__12,object>
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask.<>c<DarkGod.Main.DelaySignalManager.<Delay>d__8,byte>
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask.<>c<DarkGod.Main.DelaySignalManager.<Delay>d__9,byte>
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask.<>c<DarkGod.Main.DelaySignalManager.<WaitUntil>d__11,byte>
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask.<>c<DarkGod.Main.DelaySignalManager.<WaitWhile>d__10,byte>
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask.<>c<DarkGod.Main.DelaySignalManager.<WhenAll>d__12,byte>
+	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask.<>c<DarkGod.Main.MainCitySys.<LoadVirtualCameraInstance>d__20,object>
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask.<>c<DarkGod.Main.ResSvc.<LoadAssetAsync>d__16<object>,object>
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask.<>c<DarkGod.Main.ResSvc.<LoadAudioClipAsync>d__8,object>
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask.<>c<DarkGod.Main.ResSvc.<LoadCfgDataAsync>d__12,object>
@@ -41,11 +43,13 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask.<>c<DarkGod.Main.VFXManager.<Play>d__6,object>
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask.<>c<DarkGod.Main.VFXManager.<PreLoadEffect>d__4>
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask<DarkGod.Main.AudioSvc.<PlayAudioClips>d__18>
+	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask<DarkGod.Main.BattleMgr.<LoadVirtualCameraInstance>d__12,object>
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask<DarkGod.Main.DelaySignalManager.<Delay>d__8,byte>
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask<DarkGod.Main.DelaySignalManager.<Delay>d__9,byte>
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask<DarkGod.Main.DelaySignalManager.<WaitUntil>d__11,byte>
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask<DarkGod.Main.DelaySignalManager.<WaitWhile>d__10,byte>
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask<DarkGod.Main.DelaySignalManager.<WhenAll>d__12,byte>
+	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask<DarkGod.Main.MainCitySys.<LoadVirtualCameraInstance>d__20,object>
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask<DarkGod.Main.ResSvc.<LoadAssetAsync>d__16<object>,object>
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask<DarkGod.Main.ResSvc.<LoadAudioClipAsync>d__8,object>
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask<DarkGod.Main.ResSvc.<LoadCfgDataAsync>d__12,object>
@@ -616,6 +620,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<byte>.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<byte>,DarkGod.Main.DelaySignalManager.<WhenAll>d__12>(Cysharp.Threading.Tasks.UniTask.Awaiter<byte>&,DarkGod.Main.DelaySignalManager.<WhenAll>d__12&)
 		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter,DarkGod.Main.ResSvc.<LoadAssetAsync>d__16<object>>(Cysharp.Threading.Tasks.UniTask.Awaiter&,DarkGod.Main.ResSvc.<LoadAssetAsync>d__16<object>&)
 		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<byte>,DarkGod.Main.ResSvc.<LoadAssetAsync>d__16<object>>(Cysharp.Threading.Tasks.UniTask.Awaiter<byte>&,DarkGod.Main.ResSvc.<LoadAssetAsync>d__16<object>&)
+		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.BattleMgr.<LoadVirtualCameraInstance>d__12>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.BattleMgr.<LoadVirtualCameraInstance>d__12&)
+		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.MainCitySys.<LoadVirtualCameraInstance>d__20>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.MainCitySys.<LoadVirtualCameraInstance>d__20&)
 		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.ResSvc.<LoadAudioClipAsync>d__8>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.ResSvc.<LoadAudioClipAsync>d__8&)
 		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.ResSvc.<LoadCfgDataAsync>d__12>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.ResSvc.<LoadCfgDataAsync>d__12&)
 		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.ResSvc.<LoadGameObjectAsync>d__11>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.ResSvc.<LoadGameObjectAsync>d__11&)
@@ -631,6 +637,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<byte>.Start<DarkGod.Main.DelaySignalManager.<WaitUntil>d__11>(DarkGod.Main.DelaySignalManager.<WaitUntil>d__11&)
 		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<byte>.Start<DarkGod.Main.DelaySignalManager.<WaitWhile>d__10>(DarkGod.Main.DelaySignalManager.<WaitWhile>d__10&)
 		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<byte>.Start<DarkGod.Main.DelaySignalManager.<WhenAll>d__12>(DarkGod.Main.DelaySignalManager.<WhenAll>d__12&)
+		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<object>.Start<DarkGod.Main.BattleMgr.<LoadVirtualCameraInstance>d__12>(DarkGod.Main.BattleMgr.<LoadVirtualCameraInstance>d__12&)
+		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<object>.Start<DarkGod.Main.MainCitySys.<LoadVirtualCameraInstance>d__20>(DarkGod.Main.MainCitySys.<LoadVirtualCameraInstance>d__20&)
 		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<object>.Start<DarkGod.Main.ResSvc.<LoadAssetAsync>d__16<object>>(DarkGod.Main.ResSvc.<LoadAssetAsync>d__16<object>&)
 		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<object>.Start<DarkGod.Main.ResSvc.<LoadAudioClipAsync>d__8>(DarkGod.Main.ResSvc.<LoadAudioClipAsync>d__8&)
 		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<object>.Start<DarkGod.Main.ResSvc.<LoadCfgDataAsync>d__12>(DarkGod.Main.ResSvc.<LoadCfgDataAsync>d__12&)
@@ -652,28 +660,30 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Collections.Generic.List<object> System.Linq.Enumerable.ToList<object>(System.Collections.Generic.IEnumerable<object>)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter,DarkGod.Main.ResSvc.<AsyncLoadScene>d__6>(Cysharp.Threading.Tasks.UniTask.Awaiter&,DarkGod.Main.ResSvc.<AsyncLoadScene>d__6&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<byte>,DarkGod.Main.AudioSvc.<PlayBGMusics>d__17>(Cysharp.Threading.Tasks.UniTask.Awaiter<byte>&,DarkGod.Main.AudioSvc.<PlayBGMusics>d__17&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<byte>,DarkGod.Main.LoadingWnd.<InitWnd>d__6>(Cysharp.Threading.Tasks.UniTask.Awaiter<byte>&,DarkGod.Main.LoadingWnd.<InitWnd>d__6&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.AudioSvc.<PlayBGMusics>d__17>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.AudioSvc.<PlayBGMusics>d__17&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.AudioSvc.<PlayUIAudio>d__20>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.AudioSvc.<PlayUIAudio>d__20&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.BattleMgr.<LoadMonsterByWaveID>d__32>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.BattleMgr.<LoadMonsterByWaveID>d__32&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.BattleMgr.<LoadPlayerInstance>d__16>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.BattleMgr.<LoadPlayerInstance>d__16&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.BattleMgr.<LoadVirtualCameraInstance>d__14>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.BattleMgr.<LoadVirtualCameraInstance>d__14&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.BattleMgr.<>c__DisplayClass15_0.<<Init>b__0>d>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.BattleMgr.<>c__DisplayClass15_0.<<Init>b__0>d&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.BattleMgr.<LoadMonsterByWaveID>d__30>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.BattleMgr.<LoadMonsterByWaveID>d__30&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.BattleMgr.<LoadPlayerInstance>d__14>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.BattleMgr.<LoadPlayerInstance>d__14&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.DynamicWnd.<AddHpItemInfo>d__16>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.DynamicWnd.<AddHpItemInfo>d__16&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.EntityBase.<SetCFX>d__107>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.EntityBase.<SetCFX>d__107&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.MainCitySys.<LoadPlayerInstance>d__22>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.MainCitySys.<LoadPlayerInstance>d__22&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.MainCitySys.<LoadVirtualCameraInstance>d__21>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.MainCitySys.<LoadVirtualCameraInstance>d__21&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.EntityBase.<SetCFX>d__103>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.EntityBase.<SetCFX>d__103&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.MainCitySys.<LoadPlayer>d__22>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.MainCitySys.<LoadPlayer>d__22&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.MainCitySys.<LoadPlayerInstance>d__21>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.MainCitySys.<LoadPlayerInstance>d__21&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.NpcSvc.<LoadMapNpc>d__3>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.NpcSvc.<LoadMapNpc>d__3&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.SFX_PoolManager.<InitSoundPool>d__4>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.SFX_PoolManager.<InitSoundPool>d__4&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.TaskWnd.<RefreshUI>d__6>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.TaskWnd.<RefreshUI>d__6&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,DarkGod.Main.WindowRoot.<SetSprite>d__17>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,DarkGod.Main.WindowRoot.<SetSprite>d__17&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.AudioSvc.<PlayBGMusics>d__17>(DarkGod.Main.AudioSvc.<PlayBGMusics>d__17&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.AudioSvc.<PlayUIAudio>d__20>(DarkGod.Main.AudioSvc.<PlayUIAudio>d__20&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.BattleMgr.<LoadMonsterByWaveID>d__32>(DarkGod.Main.BattleMgr.<LoadMonsterByWaveID>d__32&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.BattleMgr.<LoadPlayerInstance>d__16>(DarkGod.Main.BattleMgr.<LoadPlayerInstance>d__16&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.BattleMgr.<LoadVirtualCameraInstance>d__14>(DarkGod.Main.BattleMgr.<LoadVirtualCameraInstance>d__14&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.BattleMgr.<>c__DisplayClass15_0.<<Init>b__0>d>(DarkGod.Main.BattleMgr.<>c__DisplayClass15_0.<<Init>b__0>d&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.BattleMgr.<LoadMonsterByWaveID>d__30>(DarkGod.Main.BattleMgr.<LoadMonsterByWaveID>d__30&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.BattleMgr.<LoadPlayerInstance>d__14>(DarkGod.Main.BattleMgr.<LoadPlayerInstance>d__14&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.DynamicWnd.<AddHpItemInfo>d__16>(DarkGod.Main.DynamicWnd.<AddHpItemInfo>d__16&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.EntityBase.<SetCFX>d__107>(DarkGod.Main.EntityBase.<SetCFX>d__107&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.MainCitySys.<LoadPlayerInstance>d__22>(DarkGod.Main.MainCitySys.<LoadPlayerInstance>d__22&)
-		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.MainCitySys.<LoadVirtualCameraInstance>d__21>(DarkGod.Main.MainCitySys.<LoadVirtualCameraInstance>d__21&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.EntityBase.<SetCFX>d__103>(DarkGod.Main.EntityBase.<SetCFX>d__103&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.LoadingWnd.<InitWnd>d__6>(DarkGod.Main.LoadingWnd.<InitWnd>d__6&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.MainCitySys.<LoadPlayer>d__22>(DarkGod.Main.MainCitySys.<LoadPlayer>d__22&)
+		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.MainCitySys.<LoadPlayerInstance>d__21>(DarkGod.Main.MainCitySys.<LoadPlayerInstance>d__21&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.NpcSvc.<LoadMapNpc>d__3>(DarkGod.Main.NpcSvc.<LoadMapNpc>d__3&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.ResSvc.<AsyncLoadScene>d__6>(DarkGod.Main.ResSvc.<AsyncLoadScene>d__6&)
 		// System.Void System.Runtime.CompilerServices.AsyncVoidMethodBuilder.Start<DarkGod.Main.SFX_PoolManager.<InitSoundPool>d__4>(DarkGod.Main.SFX_PoolManager.<InitSoundPool>d__4&)
