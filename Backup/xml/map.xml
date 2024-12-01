@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<item ID="10000">
+		<mapName>圣光主城</mapName>
+		<sceneName>Assets/AssetBundles/Scenes/SceneMainCity</sceneName>
+		<playerPath>Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PlayerPrefabs/Player_Avatar_March_7th Variant</playerPath>
+		<playerCamPath>Assets/AssetBundles/Prefabs/GameMain/PrefabCamera/SceneMainCity/PlayerFollowCamera</playerCamPath>
+		<power>0</power>
+		<mainCamPos>0,1.375,0</mainCamPos>
+		<mainCamRote>0,0,0</mainCamRote>
+		<playerBornPos>137.5,10,124</playerBornPos>
+		<playerBornRote>0,-5.5,0</playerBornRote>
+		<monsterLst></monsterLst>
+		<exp>0</exp>
+		<coin>0</coin>
+		<crystal>0</crystal>
+	</item>
+	<item ID="10001">
+		<mapName>荒野遗迹</mapName>
+		<sceneName>Assets/AssetBundles/Scenes/SceneOrge</sceneName>
+		<playerPath>Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PlayerPrefabs/Player_Avatar_March_7th Variant</playerPath>
+		<playerCamPath>Assets/AssetBundles/Prefabs/GameMain/PrefabCamera/SceneMainCity/PlayerFollowCamera</playerCamPath>
+		<power>5</power>
+		<mainCamPos>216.39,6.84,448.95</mainCamPos>
+		<mainCamRote>0,101.531,0</mainCamRote>
+		<playerBornPos>220.1,4.878,448.65</playerBornPos>
+		<playerBornRote>0,90,0</playerBornRote>
+		<monsterLst>
+			#|1001,238.97,3.71,448.75,-121.5,1,2
+			|1001,234.82,3.71,440.8,-45,1,2
+			#|1001,293.41,1.06,417.64,-72.8,2,2
+			|1001,294.61,1.06,429.47,-117.4,2,2
+			|1001,302.51,1.06,418.59,-96.3,2,2
+			#|1001,320.24,0.94,471.81,100.46,3,2
+			|1001,310.63,0.94,461.05,76.8,3,2
+			|1001,335.1,0.232,479.08,-188.5,3,2
+			|1001,313.65,1.29,470.91,88.04,3,2
+			|2001,330.13,0.79,480.48,145.21,1,2
+		</monsterLst>
+		<exp>1250</exp>
+		<coin>980</coin>
+		<crystal>48</crystal>
+	</item>
+	<item ID="10002">
+		<mapName>荒野遗迹</mapName>
+		<sceneName>Assets/AssetBundles/Scenes/SceneOrge</sceneName>
+		<playerPath>Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PlayerPrefabs/Player_Avatar_March_7th Variant</playerPath>
+		<playerCamPath>Assets/AssetBundles/Prefabs/GameMain/PrefabCamera/SceneMainCity/PlayerFollowCamera</playerCamPath>
+		<power>5</power>
+		<mainCamPos>216.39,6.84,448.95</mainCamPos>
+		<mainCamRote>0,101.531,0</mainCamRote>
+		<playerBornPos>220.1,4.878,448.65</playerBornPos>
+		<playerBornRote>0,90,0</playerBornRote>
+		<monsterLst>
+			#|1001,238.97,3.71,448.75,-121.5,1,2
+			|1001,234.82,3.71,440.8,-45,1,2
+			#|1001,293.41,1.06,417.64,-72.8,2,2
+			|1001,294.61,1.06,429.47,-117.4,2,2
+			|1001,302.51,1.06,418.59,-96.3,2,2
+			#|1001,320.24,0.94,471.81,100.46,3,2
+			|1001,310.63,0.94,461.05,76.8,3,2
+			|1001,335.1,0.232,479.08,-188.5,3,2
+			|1001,313.65,1.29,470.91,88.04,3,2
+			|2001,330.13,0.79,480.48,145.21,1,2
+		</monsterLst>
+		<exp>1350</exp>
+		<coin>1080</coin>
+		<crystal>58</crystal>
+	</item>
+	<item ID="10003">
+		<mapName>荒野遗迹</mapName>
+		<sceneName>Assets/AssetBundles/Scenes/SceneOrge</sceneName>
+		<playerPath>Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PlayerPrefabs/Player_Avatar_March_7th Variant</playerPath>
+		<playerCamPath>Assets/AssetBundles/Prefabs/GameMain/PrefabCamera/SceneMainCity/PlayerFollowCamera</playerCamPath>
+		<power>5</power>
+		<mainCamPos>216.39,6.84,448.95</mainCamPos>
+		<mainCamRote>0,101.531,0</mainCamRote>
+		<playerBornPos>220.1,4.878,448.65</playerBornPos>
+		<playerBornRote>0,90,0</playerBornRote>
+		<monsterLst>
+			#|1001,238.97,3.71,448.75,-121.5,1,2
+			|1001,234.82,3.71,440.8,-45,1,2
+			#|1001,293.41,1.06,417.64,-72.8,2,2
+			|1001,294.61,1.06,429.47,-117.4,2,2
+			|1001,302.51,1.06,418.59,-96.3,2,2
+			#|1001,320.24,0.94,471.81,100.46,3,2
+			|1001,310.63,0.94,461.05,76.8,3,2
+			|1001,335.1,0.232,479.08,-188.5,3,2
+			|1001,313.65,1.29,470.91,88.04,3,2
+			|2001,330.13,0.79,480.48,145.21,1,2
+		</monsterLst>
+		<exp>1450</exp>
+		<coin>1180</coin>
+		<crystal>68</crystal>
+	</item>
+	<item ID="10004">
+		<mapName>荒野遗迹</mapName>
+		<sceneName>Assets/AssetBundles/Scenes/SceneOrge</sceneName>
+		<playerPath>Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PlayerPrefabs/Player_Avatar_March_7th Variant</playerPath>
+		<playerCamPath>Assets/AssetBundles/Prefabs/GameMain/PrefabCamera/SceneMainCity/PlayerFollowCamera</playerCamPath>
+		<power>5</power>
+		<mainCamPos>216.39,6.84,448.95</mainCamPos>
+		<mainCamRote>0,101.531,0</mainCamRote>
+		<playerBornPos>220.1,4.878,448.65</playerBornPos>
+		<playerBornRote>0,90,0</playerBornRote>
+		<monsterLst>
+			#|1001,238.97,3.71,448.75,-121.5,1,2
+			|1001,234.82,3.71,440.8,-45,1,2
+			#|1001,293.41,1.06,417.64,-72.8,2,2
+			|1001,294.61,1.06,429.47,-117.4,2,2
+			|1001,302.51,1.06,418.59,-96.3,2,2
+			#|1001,320.24,0.94,471.81,100.46,3,2
+			|1001,310.63,0.94,461.05,76.8,3,2
+			|1001,335.1,0.232,479.08,-188.5,3,2
+			|1001,313.65,1.29,470.91,88.04,3,2
+			|2001,330.13,0.79,480.48,145.21,1,2
+		</monsterLst>
+		<exp>1550</exp>
+		<coin>1280</coin>
+		<crystal>78</crystal>
+	</item>
+	<item ID="10005">
+		<mapName>荒野遗迹</mapName>
+		<sceneName>Assets/AssetBundles/Scenes/SceneOrge</sceneName>
+		<playerPath>Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PlayerPrefabs/Player_Avatar_March_7th Variant</playerPath>
+		<playerCamPath>Assets/AssetBundles/Prefabs/GameMain/PrefabCamera/SceneMainCity/PlayerFollowCamera</playerCamPath>
+		<power>5</power>
+		<mainCamPos>216.39,6.84,448.95</mainCamPos>
+		<mainCamRote>0,101.531,0</mainCamRote>
+		<playerBornPos>220.1,4.878,448.65</playerBornPos>
+		<playerBornRote>0,90,0</playerBornRote>
+		<monsterLst>
+			#|1001,238.97,3.71,448.75,-121.5,1,2
+			|1001,234.82,3.71,440.8,-45,1,2
+			#|1001,293.41,1.06,417.64,-72.8,2,2
+			|1001,294.61,1.06,429.47,-117.4,2,2
+			|1001,302.51,1.06,418.59,-96.3,2,2
+			#|1001,320.24,0.94,471.81,100.46,3,2
+			|1001,310.63,0.94,461.05,76.8,3,2
+			|1001,335.1,0.232,479.08,-188.5,3,2
+			|1001,313.65,1.29,470.91,88.04,3,2
+			|2001,330.13,0.79,480.48,145.21,1,2
+		</monsterLst>
+		<exp>1650</exp>
+		<coin>1380</coin>
+		<crystal>88</crystal>
+	</item>
+	<item ID="10006">
+		<mapName>荒野遗迹</mapName>
+		<sceneName>Assets/AssetBundles/Scenes/SceneOrge</sceneName>
+		<playerPath>Assets/AssetBundles/Prefabs/GameMain/PrefabAvatar/PlayerPrefabs/Player_Avatar_March_7th Variant</playerPath>
+		<playerCamPath>Assets/AssetBundles/Prefabs/GameMain/PrefabCamera/SceneMainCity/PlayerFollowCamera</playerCamPath>
+		<power>5</power>
+		<mainCamPos>216.39,6.84,448.95</mainCamPos>
+		<mainCamRote>0,101.531,0</mainCamRote>
+		<playerBornPos>220.1,4.878,448.65</playerBornPos>
+		<playerBornRote>0,90,0</playerBornRote>
+		<monsterLst>
+			#|1001,238.97,3.71,448.75,-121.5,1,2
+			|1001,234.82,3.71,440.8,-45,1,2
+			#|1001,293.41,1.06,417.64,-72.8,2,2
+			|1001,294.61,1.06,429.47,-117.4,2,2
+			|1001,302.51,1.06,418.59,-96.3,2,2
+			#|1001,320.24,0.94,471.81,100.46,3,2
+			|1001,310.63,0.94,461.05,76.8,3,2
+			|1001,335.1,0.232,479.08,-188.5,3,2
+			|1001,313.65,1.29,470.91,88.04,3,2
+			|2001,330.13,0.79,480.48,145.21,1,2
+		</monsterLst>
+		<exp>1750</exp>
+		<coin>1480</coin>
+		<crystal>98</crystal>
+	</item>
+</root>

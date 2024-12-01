@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<item ID="">
+		<pos></pos>
+		<starlv></starlv>
+		<addhp></addhp>
+		<addhurt></addhurt>
+		<adddef></adddef>
+		<minlv></minlv>
+		<coin></coin>
+		<crystal></crystal>
+	</item>
+		<item ID="">
+		<pos></pos>
+		<starlv></starlv>
+		<addhp></addhp>
+		<addhurt></addhurt>
+		<adddef></adddef>
+		<minlv></minlv>
+		<coin></coin>
+		<crystal></crystal>
+	</item>
+</root>

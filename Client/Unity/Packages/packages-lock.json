@@ -43,7 +43,7 @@
       "hash": "05651b73d2dda76bfc4ce26e75ef4baea63e5e53"
     },
     "com.jiaozi158.unityssgiurp": {
-      "version": "file:UnitySSGIURP",
+      "version": "file:UnitySSGIURP-main",
       "depth": 0,
       "source": "embedded",
       "dependencies": {
