@@ -36,6 +36,7 @@ namespace DarkGod.Main
         public void OnEnable()
         {
             UIAddListener();
+            InputMgr.MainInstance.PauseGameUIAction?.Invoke(true);
         }
 
         private void InitWindowValue()
@@ -121,8 +122,6 @@ namespace DarkGod.Main
         public void ClickCloseBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
-
-            InputMgr.MainInstance.PauseGameUIAction?.Invoke(false);
             SetWndState(false);
         }
 
@@ -227,6 +226,8 @@ namespace DarkGod.Main
             TargetFrameDropdown.onValueChanged.RemoveAllListeners();
             qualitySelectDropdown.onValueChanged.RemoveAllListeners();
             screenResolutionDropdown.onValueChanged.RemoveAllListeners();
+
+            InputMgr.MainInstance.PauseGameUIAction?.Invoke(false);
         }
     }
 }
