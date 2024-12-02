@@ -42,7 +42,7 @@ namespace DarkGod.Main
         }
 
         bool runAI = true;
-        public override void TickAILogic()
+        public override void TickEntityLogic()
         {
             if (!runAI)
             {

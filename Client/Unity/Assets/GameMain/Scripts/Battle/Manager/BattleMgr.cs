@@ -4,6 +4,7 @@ using Cinemachine;
 using Cysharp.Threading.Tasks;
 using PEProtocol;
 using StarterAssets;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -204,7 +205,11 @@ namespace DarkGod.Main
 
         private void RunPlayerTickLogic()
         {
-
+            foreach (var item in playerDic)
+            {
+                EntityPlayer ep = item.Value;
+                ep.TickEntityLogic();
+            }
         }
 
         private void RunMonsterTickLogic()
@@ -212,7 +217,7 @@ namespace DarkGod.Main
             foreach (var item in monsterDic)
             {
                 EntityMonster em = item.Value;
-                em.TickAILogic();
+                em.TickEntityLogic();
             }
         }
 
@@ -246,14 +251,17 @@ namespace DarkGod.Main
         }
 
         //战斗结算处理
-        public void EndBattle(bool isWin, int restHP)
+        public async void EndBattle(bool isWin, int restHP)
         {
             SetPauseGame(true);
 
             var entitySelfPlayer = GameStateEvent.MainInstance.CurrentEPlayer.Value;
             entitySelfPlayer.StateIdle();
+
             //停止背景音乐
             audioSvc.StopBGMusic();
+
+            await DelaySignalManager.MainInstance.Delay(TimeSpan.FromSeconds(0.5));
             battleSys.EndBattle(isWin, restHP);
         }
 
@@ -349,8 +357,7 @@ namespace DarkGod.Main
 
         public void RmvPlayer(string key)
         {
-            EntityPlayer entityPlayer;
-            if (playerDic.TryGetValue(key, out entityPlayer))
+            if (playerDic.TryGetValue(key, out EntityPlayer entityPlayer))
             {
                 playerDic.Remove(key);
             }

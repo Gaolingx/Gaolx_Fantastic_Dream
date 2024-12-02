@@ -88,6 +88,11 @@ namespace DarkGod.Main
         {
             AudioSvc.MainInstance.PlayHit(transform);
         }
+
+        public override void TickEntityLogic()
+        {
+
+        }
     }
 }
 

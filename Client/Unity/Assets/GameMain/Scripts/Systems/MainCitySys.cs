@@ -98,7 +98,7 @@ namespace DarkGod.Main
                 //设置人物展示相机
                 InitCharCam();
 
-                SetInputState(true);
+                SetInputState(true, true);
 
                 //设置游戏状态
                 GameRoot.MainInstance.GameRootGameState = GameState.MainCity;
@@ -387,7 +387,7 @@ namespace DarkGod.Main
                     nav.isStopped = true;
                     SetPlayerStopInNavTask(mainCityPlayer);
                     nav.enabled = false;
-                    SetInputState(true);
+                    SetInputState(true, false);
 
                     OpenGuideWnd();
                 }
@@ -429,7 +429,7 @@ namespace DarkGod.Main
                 nav.isStopped = true;
                 SetPlayerStopInNavTask(mainCityPlayer);
                 nav.enabled = false;
-                SetInputState(true);
+                SetInputState(true, false);
 
                 OpenGuideWnd();
             }
@@ -487,9 +487,10 @@ namespace DarkGod.Main
         #endregion
 
         #region Input
-        private void SetInputState(bool state = true)
+        private void SetInputState(bool moveState, bool cursorLock = true)
         {
-            InputMgr.MainInstance.EnableInputAction(state);
+            InputMgr.MainInstance.InputPlayerMove = moveState;
+            InputMgr.MainInstance.InputCursorLock = cursorLock;
         }
         #endregion
 

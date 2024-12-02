@@ -39,7 +39,9 @@ namespace DarkGod.Main
                 audioSvc.StopBGMusic();
                 audioSvc.PlayBGMusics(auLst, 3f);
             });
+
             GameRoot.MainInstance.GameRootGameState = GameState.Login;
+            InputMgr.MainInstance.InputCursorLock = false;
         }
 
         public void RspLogin(GameMsg msg)

@@ -160,8 +160,7 @@ namespace DarkGod.Main
         public const float AccelerSpeed = 5f;
         public const float AccelerHPSpeed = 0.3f;
 
-        //PlayerFollowCamera标签
-        public const string PlayerFollowCameraWithTag = "PlayerFollowCam";
+
         //CinemachineVirtualCamera跟随目标的标签
         public const string CinemachineVirtualCameraFollowGameObjectWithTag = "PlayerCameraRoot";
         //CinemachineVirtualCamera裁剪平面
@@ -243,7 +242,10 @@ namespace DarkGod.Main
 
         //连招配置
         //普攻连招有效间隔（单位：ms）
-        public const int ComboSpace01 = 1500;
+        public const int ComboSpace01 = 2000;
+
+        // 玩家死亡切换cd
+        public const double PlayerDieChangeTime = 1.0;
 
         //Monster配置
         public const int ActiveMonsterDelayTime = 500; //单位：ms

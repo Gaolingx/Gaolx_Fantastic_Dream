@@ -18,7 +18,8 @@ namespace DarkGod.Main
         public System.Action<bool, FBEndType> BattleEndWndAction { get; private set; }
 
         private bool _isGamePause = false;
-        private bool _isInputEnable = true;
+        public bool InputPlayerMove { get; set; } = true;
+        public bool InputCursorLock { get; set; } = true;
 
         protected override void Awake()
         {
@@ -90,23 +91,14 @@ namespace DarkGod.Main
             {
                 dynamicWnd.SetWndState(!isPause);
                 BattleSys.MainInstance.battleMgr.SetPauseGame(isPause);
-                if (isPause && !settingsWnd.GetWndState())
-                {
-                    BattleEndWndAction?.Invoke(true, FBEndType.Pause);
-                }
             }
-        }
-
-        public void EnableInputAction(bool state)
-        {
-            _isInputEnable = state;
         }
 
         private void RefreshInputsState()
         {
             if (starterAssetsInputs != null)
             {
-                if (!_isGamePause && !starterAssetsInputs.cursorLocked)
+                if (!_isGamePause && !starterAssetsInputs.cursorLocked && InputCursorLock)
                 {
                     starterAssetsInputs.canLook = true;
                     GameRoot.MainInstance.GetUIController().CursorLock = true;
@@ -117,7 +109,7 @@ namespace DarkGod.Main
                     GameRoot.MainInstance.GetUIController().CursorLock = false;
                 }
 
-                if (_isInputEnable && !_isGamePause)
+                if (InputPlayerMove && !_isGamePause)
                 {
                     starterAssetsInputs.canMove = true;
                 }
@@ -131,6 +123,11 @@ namespace DarkGod.Main
                     if (GameRoot.MainInstance.GameRootGameState == GameState.MainCity || GameRoot.MainInstance.GameRootGameState == GameState.Login)
                     {
                         SettingsWndAction?.Invoke(true);
+                    }
+
+                    if (!settingsWnd.GetWndState() && !settingsWnd.GetWndState())
+                    {
+                        BattleEndWndAction?.Invoke(true, FBEndType.Pause);
                     }
 
                     PauseGameUIAction?.Invoke(true);

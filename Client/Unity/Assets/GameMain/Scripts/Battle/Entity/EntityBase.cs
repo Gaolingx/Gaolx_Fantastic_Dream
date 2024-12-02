@@ -105,7 +105,7 @@ namespace DarkGod.Main
 
         #region AI Logic
         //怪物ai逻辑
-        public virtual void TickAILogic()
+        public virtual void TickEntityLogic()
         {
 
         }
@@ -169,7 +169,7 @@ namespace DarkGod.Main
 
         private void OnUpdateCanControl(bool value)
         {
-            InputMgr.MainInstance.EnableInputAction(value);
+            InputMgr.MainInstance.InputPlayerMove = value;
         }
 
         private void OnUpdateCanRlsSkill(bool value)

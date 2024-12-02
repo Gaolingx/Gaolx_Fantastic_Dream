@@ -34,7 +34,6 @@ namespace DarkGod.Main
         public void OnEnable()
         {
             btnNext.onClick.AddListener(delegate { ClickNextBtn(); });
-            InputMgr.MainInstance.PauseGameUIAction?.Invoke(true);
         }
 
         //显示对话内容
@@ -113,7 +112,7 @@ namespace DarkGod.Main
         public void OnDisable()
         {
             btnNext.onClick.RemoveAllListeners();
-            InputMgr.MainInstance.PauseGameUIAction?.Invoke(false);
+            InputMgr.MainInstance.InputCursorLock = true;
         }
 
         public void ClickCloseBtn()

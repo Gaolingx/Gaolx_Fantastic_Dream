@@ -1,7 +1,5 @@
 ﻿//功能：地图触发数据类
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace DarkGod.Main

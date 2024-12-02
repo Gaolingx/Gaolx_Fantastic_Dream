@@ -22,6 +22,7 @@ namespace DarkGod.Main
         protected override async void InitWnd()
         {
             base.InitWnd();
+            tipsAnimation.gameObject.SetActive(false);
 
             fgWidth = imgFG.GetComponent<RectTransform>().sizeDelta.x;
 
@@ -35,6 +36,7 @@ namespace DarkGod.Main
             await DelaySignalManager.MainInstance.Delay(TimeSpan.FromSeconds(0.5));
             if (tipsAnimation != null)
             {
+                tipsAnimation.gameObject.SetActive(true);
                 tipsAnimation.Play();
             }
         }

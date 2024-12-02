@@ -21,13 +21,11 @@ namespace DarkGod.Main
         public Button btnMainMenu;
         public Button btnCloseSettings;
 
-        private DebugWnd debugWnd;
-
         protected override void InitWnd()
         {
             base.InitWnd();
 
-            if (InputMgr.MainInstance.transform.Find($"{Constants.Path_Canvas_Obj}/DebugItems").TryGetComponent<DebugWnd>(out debugWnd))
+            if (InputMgr.MainInstance.transform.Find($"{Constants.Path_Canvas_Obj}/DebugItems").TryGetComponent(out DebugWnd debugWnd))
             {
                 debugWnd.SetWndState(true);
             }
@@ -38,13 +36,12 @@ namespace DarkGod.Main
         public void OnEnable()
         {
             UIAddListener();
-            InputMgr.MainInstance.PauseGameUIAction?.Invoke(true);
         }
 
         private void InitWindowValue()
         {
             InitDropdownOptionData(TargetFrameDropdown, new List<string>(new string[] { "60", "120", "No Limits" }));
-            InitDropdownOptionData(qualitySelectDropdown, new List<string>(new string[] { GraphicsType.Low.ToString(), GraphicsType.Middle.ToString(), GraphicsType.High.ToString(), GraphicsType.Highest.ToString(), GraphicsType.Ultra.ToString() }));
+            InitDropdownOptionData(qualitySelectDropdown, new List<string>(new string[] { nameof(GraphicsType.Low), nameof(GraphicsType.Middle), nameof(GraphicsType.High), nameof(GraphicsType.Highest), nameof(GraphicsType.Ultra) }));
             InitDropdownOptionData(screenResolutionDropdown, new List<string>(new string[] { "1024x768", "1280x720", "1360x768", "1600x900", "1920x1080" }));
             qualitySelectDropdown.value = QualitySettings.GetQualityLevel();
             FullScreenToggle.isOn = Screen.fullScreen;
@@ -124,6 +121,8 @@ namespace DarkGod.Main
         public void ClickCloseBtn()
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
+
+            InputMgr.MainInstance.PauseGameUIAction?.Invoke(false);
             SetWndState(false);
         }
 
@@ -228,8 +227,6 @@ namespace DarkGod.Main
             TargetFrameDropdown.onValueChanged.RemoveAllListeners();
             qualitySelectDropdown.onValueChanged.RemoveAllListeners();
             screenResolutionDropdown.onValueChanged.RemoveAllListeners();
-
-            InputMgr.MainInstance.PauseGameUIAction?.Invoke(false);
         }
     }
 }

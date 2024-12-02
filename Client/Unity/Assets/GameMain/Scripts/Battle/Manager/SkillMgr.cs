@@ -1,5 +1,6 @@
 ﻿//功能：技能管理器
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -184,7 +185,7 @@ namespace DarkGod.Main
             }
         }
 
-        private void TargetDie(EntityBase target)
+        private async void TargetDie(EntityBase target)
         {
             target.CurrentHP.Value = 0;
             //目标死亡
@@ -196,13 +197,16 @@ namespace DarkGod.Main
             else if (target.entityType == EntityType.Player)
             {
                 target.battleMgr.RmvPlayer(target.EntityName);
+
                 //战斗失败
-                if (target.battleMgr.playerDic.Count <= 0)
+                if (target.battleMgr.playerDic.Count == 0)
                 {
                     target.battleMgr.EndBattle(false, 0);
                 }
                 else
                 {
+                    // 冷却
+                    await DelaySignalManager.MainInstance.Delay(TimeSpan.FromSeconds(Constants.PlayerDieChangeTime));
                     //TODO:切换角色
                 }
             }
