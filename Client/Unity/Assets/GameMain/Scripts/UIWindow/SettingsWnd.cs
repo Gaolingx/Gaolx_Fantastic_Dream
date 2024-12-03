@@ -24,11 +24,13 @@ namespace DarkGod.Main
 
         private DebugWnd debugWnd;
 
-        public PlayerPrefsData screen { get; private set; } = new PlayerPrefsData();
+        private PlayerPrefsData screen = new PlayerPrefsData();
 
         protected override void InitWnd()
         {
             base.InitWnd();
+
+            screen = QualitySvc.MainInstance.screen;
 
             if (GameRoot.MainInstance.transform.Find($"{Constants.Path_Canvas_Obj}/DebugItems").TryGetComponent(out debugWnd))
             {

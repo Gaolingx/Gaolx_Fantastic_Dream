@@ -12,9 +12,10 @@ namespace DarkGod.Main
         private const string prefsKey_SettingsGameRoot = "prefsKey_SettingsGameRoot";
         private const string prefsKey_LoginWnd = "prefsKey_LoginWnd";
 
+        public PlayerPrefsData screen { get; private set; } = new PlayerPrefsData();
+
         private void InitScreenSetting()
         {
-            PlayerPrefsData screen = new PlayerPrefsData();
             screen.graphicsType = GetGraphicsType();
             QualitySettings.SetQualityLevel((int)screen.graphicsType);
 
