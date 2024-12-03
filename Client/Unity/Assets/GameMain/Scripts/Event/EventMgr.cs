@@ -47,6 +47,7 @@ namespace DarkGod.Main
             _eventGroup.AddListener<OnShowMessageBoxEvent>(OnHandleEventMessage);
             _eventGroup.AddListener<OnQualityLevelEvent>(OnHandleEventMessage);
             _eventGroup.AddListener<OnSoundVolumeChangedEvent>(OnHandleEventMessage);
+            _eventGroup.AddListener<OnLoginInfoChangedEvent>(OnHandleEventMessage);
             _eventGroup.AddListener<OnEntityPlayerChangedEvent>(OnHandleEventMessage);
         }
 
@@ -123,6 +124,17 @@ namespace DarkGod.Main
             }
         }
 
+        public class OnLoginInfoChangedEvent : IEventMessage
+        {
+            public PlayerPrefsData3 data;
+            public static void SendEventMessage(PlayerPrefsData3 data)
+            {
+                var msg = new OnLoginInfoChangedEvent();
+                msg.data = data;
+                UniEvent.SendMessage(msg);
+            }
+        }
+
         public class OnEntityPlayerChangedEvent : IEventMessage
         {
             public EntityPlayer Value;
@@ -166,6 +178,11 @@ namespace DarkGod.Main
             {
                 OnSoundVolumeChangedEvent events = message as OnSoundVolumeChangedEvent;
                 QualitySvc.MainInstance.SavePlayerData2(events.data);
+            }
+            else if (message is OnLoginInfoChangedEvent)
+            {
+                OnLoginInfoChangedEvent events = message as OnLoginInfoChangedEvent;
+                QualitySvc.MainInstance.SavePlayerData3(events.data);
             }
             else if (message is OnEntityPlayerChangedEvent)
             {

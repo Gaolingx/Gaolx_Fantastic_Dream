@@ -4,7 +4,7 @@ namespace DarkGod.Tools
 {
     public class BindableProperty<T>
     {
-        private T mValue = default(T);
+        private T mValue;
 
         public System.Action<T> OnValueChanged;
 
@@ -19,6 +19,16 @@ namespace DarkGod.Tools
                     OnValueChanged?.Invoke(mValue);
                 }
             }
+        }
+
+        public BindableProperty()
+        {
+            this.mValue = default(T);
+        }
+
+        public BindableProperty(T value)
+        {
+            this.mValue = value;
         }
 
         public void Invoke()

@@ -21,6 +21,7 @@ namespace DarkGod.Main
         public AudioMixer _audioMixer;
 
         public float fadingDuration = 3f;
+
         public SoundVolume volume { get; private set; } = new SoundVolume();
 
         private readonly string bgAudioPath = PathDefine.bgAudioPath;
@@ -36,10 +37,10 @@ namespace DarkGod.Main
 
         public class SoundVolume
         {
-            public BindableProperty<float> BGAudioVolumeValue { get; set; } = new BindableProperty<float>();
-            public BindableProperty<float> UIAudioVolumeValue { get; set; } = new BindableProperty<float>();
-            public BindableProperty<float> CharacterAudioVolumeValue { get; set; } = new BindableProperty<float>();
-            public BindableProperty<float> CharacterFxAudioVolumeValue { get; set; } = new BindableProperty<float>();
+            public BindableProperty<float> BGAudioVolumeValue { get; set; } = new BindableProperty<float>(value: -0.01f);
+            public BindableProperty<float> UIAudioVolumeValue { get; set; } = new BindableProperty<float>(value: -0.01f);
+            public BindableProperty<float> CharacterAudioVolumeValue { get; set; } = new BindableProperty<float>(value: -0.01f);
+            public BindableProperty<float> CharacterFxAudioVolumeValue { get; set; } = new BindableProperty<float>(value: -0.01f);
         }
 
         protected override void Awake()
@@ -62,11 +63,6 @@ namespace DarkGod.Main
 
         private void InitVolumeData()
         {
-            volume.BGAudioVolumeValue.Value = -0.01f;
-            volume.UIAudioVolumeValue.Value = -0.01f;
-            volume.CharacterAudioVolumeValue.Value = -0.01f;
-            volume.CharacterFxAudioVolumeValue.Value = -0.01f;
-
             if (PlayerPrefsSvc.MainInstance.CheckPlayerPrefsHasKey(prefsKey_SettingsAudioSvc))
             {
                 var json = PlayerPrefsSvc.MainInstance.LoadFromPlayerPrefs(prefsKey_SettingsAudioSvc);

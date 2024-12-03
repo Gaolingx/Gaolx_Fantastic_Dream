@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using PEProtocol;
 using TMPro;
 using UnityEngine.UI;
+using static DarkGod.Main.QualitySvc;
 
 namespace DarkGod.Main
 {
@@ -18,50 +19,25 @@ namespace DarkGod.Main
 
         private const string prefsKey_LoginWnd = "prefsKey_LoginWnd";
 
-        [System.Serializable]
-        private class PlayerPrefsData
-        {
-            public bool isRemember;
-            public string Login_Account;
-            public string Login_Password;
-        }
-
         private void LoadPrefsData()
         {
             if (playerPrefsSvc.CheckPlayerPrefsHasKey(prefsKey_LoginWnd))
             {
                 var json = playerPrefsSvc.LoadFromPlayerPrefs(prefsKey_LoginWnd);
-                var saveData = JsonConvert.DeserializeObject<PlayerPrefsData>(json);
+                var saveData = JsonConvert.DeserializeObject<PlayerPrefsData3>(json);
 
                 btnRemember.isOn = saveData.isRemember;
                 iptAcct.text = saveData.Login_Account;
                 iptPass.text = saveData.Login_Password;
             }
-            else
-            {
-                btnRemember.isOn = true;
-                iptAcct.text = "";
-                iptPass.text = "";
-            }
-        }
-
-        private void SavePrefsData()
-        {
-            var saveData = new PlayerPrefsData();
-
-            saveData.isRemember = btnRemember.isOn;
-            saveData.Login_Account = iptAcct.text;
-            saveData.Login_Password = iptPass.text;
-
-            playerPrefsSvc.SaveByPlayerPrefs(prefsKey_LoginWnd, saveData);
         }
 
         protected override void InitWnd()
         {
             base.InitWnd();
 
-            SetHotfixVersionWnd();
             LoadPrefsData();
+            SetHotfixVersionWnd();
         }
 
         public void OnEnable()
@@ -86,11 +62,21 @@ namespace DarkGod.Main
             string _pass = iptPass.text;
             if (_acct != "" && _pass != "")
             {
+                PlayerPrefsData3 playerPrefs = new PlayerPrefsData3();
                 //更新本地存储的账号密码
                 if (btnRemember.isOn)
                 {
-                    SavePrefsData();
+                    playerPrefs.Login_Password = _pass;
+                    playerPrefs.Login_Account = _acct;
                 }
+                else
+                {
+                    playerPrefs.Login_Password = "";
+                    playerPrefs.Login_Account = "";
+                }
+
+                playerPrefs.isRemember = btnRemember.isOn;
+                EventMgr.OnLoginInfoChangedEvent.SendEventMessage(playerPrefs);
 
                 //发送网络消息，请求登录
                 GameMsg msg = new GameMsg

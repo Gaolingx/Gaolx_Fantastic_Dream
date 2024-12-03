@@ -10,6 +10,7 @@ namespace DarkGod.Main
     {
         private const string prefsKey_SettingsAudioSvc = "prefsKey_SettingsAudioSvc";
         private const string prefsKey_SettingsGameRoot = "prefsKey_SettingsGameRoot";
+        private const string prefsKey_LoginWnd = "prefsKey_LoginWnd";
 
         private void InitScreenSetting()
         {
@@ -26,15 +27,13 @@ namespace DarkGod.Main
         }
 
 
-        public void QualitySetting()
+        public void InitQualitySetting()
         {
             InitScreenSetting();
-            saveAction += delegate (PlayerPrefsData data) { OnUpdatePrefsData(data); };
-        }
 
-        public void VolumeSetting()
-        {
+            saveAction += delegate (PlayerPrefsData data) { OnUpdatePrefsData(data); };
             saveAction2 += delegate (PlayerPrefsData2 data) { OnUpdatePrefsData2(data); };
+            saveAction3 += delegate (PlayerPrefsData3 data) { OnUpdatePrefsData3(data); };
         }
 
         private static GraphicsType GetGraphicsType()
@@ -128,13 +127,21 @@ namespace DarkGod.Main
             public float CharacterFxAudioVolume;
         }
 
+        [System.Serializable]
+        public class PlayerPrefsData3
+        {
+            public bool isRemember;
+            public string Login_Account;
+            public string Login_Password;
+        }
+
         private System.Action<PlayerPrefsData> saveAction;
         private System.Action<PlayerPrefsData2> saveAction2;
+        private System.Action<PlayerPrefsData3> saveAction3;
 
         private void InitSvc()
         {
-            QualitySetting();
-            VolumeSetting();
+            InitQualitySetting();
         }
 
         private void OnUpdatePrefsData(PlayerPrefsData saveData)
@@ -152,6 +159,11 @@ namespace DarkGod.Main
             PlayerPrefsSvc.MainInstance.SaveByPlayerPrefs(prefsKey_SettingsAudioSvc, saveData);
         }
 
+        private void OnUpdatePrefsData3(PlayerPrefsData3 saveData)
+        {
+            PlayerPrefsSvc.MainInstance.SaveByPlayerPrefs(prefsKey_LoginWnd, saveData);
+        }
+
         public void SavePlayerData(PlayerPrefsData data)
         {
             saveAction?.Invoke(data);
@@ -162,11 +174,17 @@ namespace DarkGod.Main
             saveAction2?.Invoke(data);
         }
 
+        public void SavePlayerData3(PlayerPrefsData3 data)
+        {
+            saveAction3?.Invoke(data);
+        }
+
         private void OnDisable()
         {
             GameStateEvent.MainInstance.OnGameEnter -= delegate { InitSvc(); };
             saveAction -= delegate (PlayerPrefsData data) { OnUpdatePrefsData(data); };
             saveAction2 -= delegate (PlayerPrefsData2 data) { OnUpdatePrefsData2(data); };
+            saveAction3 -= delegate (PlayerPrefsData3 data) { OnUpdatePrefsData3(data); };
         }
     }
 }
