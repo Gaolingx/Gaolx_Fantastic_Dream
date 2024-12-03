@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static DarkGod.Main.QualitySvc;
 
 namespace DarkGod.Main
 {
@@ -21,11 +22,15 @@ namespace DarkGod.Main
         public Button btnMainMenu;
         public Button btnCloseSettings;
 
+        private DebugWnd debugWnd;
+
+        public PlayerPrefsData screen { get; private set; } = new PlayerPrefsData();
+
         protected override void InitWnd()
         {
             base.InitWnd();
 
-            if (InputMgr.MainInstance.transform.Find($"{Constants.Path_Canvas_Obj}/DebugItems").TryGetComponent(out DebugWnd debugWnd))
+            if (GameRoot.MainInstance.transform.Find($"{Constants.Path_Canvas_Obj}/DebugItems").TryGetComponent(out debugWnd))
             {
                 debugWnd.SetWndState(true);
             }
@@ -46,10 +51,21 @@ namespace DarkGod.Main
             InitDropdownOptionData(screenResolutionDropdown, new List<string>(new string[] { "1024x768", "1280x720", "1360x768", "1600x900", "1920x1080" }));
             qualitySelectDropdown.value = QualitySettings.GetQualityLevel();
             FullScreenToggle.isOn = Screen.fullScreen;
-            BGAudioSlider.value = QualitySvc.MainInstance.volume.BGAudioVolumeValue.Value;
-            UIAudioSlider.value = QualitySvc.MainInstance.volume.UIAudioVolumeValue.Value;
-            CharacterAudioSlider.value = QualitySvc.MainInstance.volume.CharacterAudioVolumeValue.Value;
-            CharacterFxAudioSlider.value = QualitySvc.MainInstance.volume.CharacterFxAudioVolumeValue.Value;
+            BGAudioSlider.value = audioSvc.volume.BGAudioVolumeValue.Value;
+            UIAudioSlider.value = audioSvc.volume.UIAudioVolumeValue.Value;
+            CharacterAudioSlider.value = audioSvc.volume.CharacterAudioVolumeValue.Value;
+            CharacterFxAudioSlider.value = audioSvc.volume.CharacterFxAudioVolumeValue.Value;
+        }
+
+        private void SendMessageToEventMgr()
+        {
+            PlayerPrefsData data = new PlayerPrefsData();
+            data.graphicsType = screen.graphicsType;
+            data.targetFrameRate = screen.targetFrameRate;
+            data.resolution = screen.resolution;
+            data.fullScreenMode = screen.fullScreenMode;
+
+            EventMgr.OnQualityLevelEvent.SendEventMessage(data);
         }
 
         #region Slider相关
@@ -75,22 +91,22 @@ namespace DarkGod.Main
 
         public void TouchBGAudioSlider(float volume)
         {
-            QualitySvc.MainInstance.volume.BGAudioVolumeValue.Value = volume;
+            audioSvc.volume.BGAudioVolumeValue.Value = volume;
         }
 
         public void TouchUIAudioSlider(float volume)
         {
-            QualitySvc.MainInstance.volume.UIAudioVolumeValue.Value = volume;
+            audioSvc.volume.UIAudioVolumeValue.Value = volume;
         }
 
         public void TouchCharacterAudioSlider(float volume)
         {
-            QualitySvc.MainInstance.volume.CharacterAudioVolumeValue.Value = volume;
+            audioSvc.volume.CharacterAudioVolumeValue.Value = volume;
         }
 
         public void TouchCharacterFxAudioSlider(float volume)
         {
-            QualitySvc.MainInstance.volume.CharacterFxAudioVolumeValue.Value = volume;
+            audioSvc.volume.CharacterFxAudioVolumeValue.Value = volume;
         }
 
         #endregion
@@ -101,13 +117,13 @@ namespace DarkGod.Main
         {
             if (state == true)
             {
-                QualitySvc.MainInstance.screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                screen.fullScreenMode = FullScreenMode.FullScreenWindow;
             }
             else
             {
-                QualitySvc.MainInstance.screen.fullScreenMode = FullScreenMode.Windowed;
+                screen.fullScreenMode = FullScreenMode.Windowed;
             }
-            EventMgr.OnQualityLevelEvent.SendEventMessage();
+            SendMessageToEventMgr();
         }
 
         public void ClickMutedToggle(bool val)
@@ -136,24 +152,24 @@ namespace DarkGod.Main
                 switch (desiredQualityLevelIndex)
                 {
                     case 0:
-                        QualitySvc.MainInstance.screen.graphicsType = GraphicsType.Low;
+                        screen.graphicsType = GraphicsType.Low;
                         break;
                     case 1:
-                        QualitySvc.MainInstance.screen.graphicsType = GraphicsType.Middle;
+                        screen.graphicsType = GraphicsType.Middle;
                         break;
                     case 2:
-                        QualitySvc.MainInstance.screen.graphicsType = GraphicsType.High;
+                        screen.graphicsType = GraphicsType.High;
                         break;
                     case 3:
-                        QualitySvc.MainInstance.screen.graphicsType = GraphicsType.Highest;
+                        screen.graphicsType = GraphicsType.Highest;
                         break;
                     case 4:
-                        QualitySvc.MainInstance.screen.graphicsType = GraphicsType.Ultra;
+                        screen.graphicsType = GraphicsType.Ultra;
                         break;
                     default:
                         break;
                 }
-                EventMgr.OnQualityLevelEvent.SendEventMessage();
+                SendMessageToEventMgr();
             }
         }
 
@@ -167,24 +183,24 @@ namespace DarkGod.Main
             switch (index)
             {
                 case 0:
-                    QualitySvc.MainInstance.screen.resolution = (1024, 768);
+                    screen.resolution = (1024, 768);
                     break;
                 case 1:
-                    QualitySvc.MainInstance.screen.resolution = (1280, 720);
+                    screen.resolution = (1280, 720);
                     break;
                 case 2:
-                    QualitySvc.MainInstance.screen.resolution = (1360, 768);
+                    screen.resolution = (1360, 768);
                     break;
                 case 3:
-                    QualitySvc.MainInstance.screen.resolution = (1600, 900);
+                    screen.resolution = (1600, 900);
                     break;
                 case 4:
-                    QualitySvc.MainInstance.screen.resolution = (1920, 1080);
+                    screen.resolution = (1920, 1080);
                     break;
                 default:
                     break;
             }
-            EventMgr.OnQualityLevelEvent.SendEventMessage();
+            SendMessageToEventMgr();
         }
 
         private void OnTargetFrameDropdownValueChanged(int index)
@@ -192,18 +208,18 @@ namespace DarkGod.Main
             switch (index)
             {
                 case 0:
-                    QualitySvc.MainInstance.screen.targetFrameRate = 60;
+                    screen.targetFrameRate = 60;
                     break;
                 case 1:
-                    QualitySvc.MainInstance.screen.targetFrameRate = 120;
+                    screen.targetFrameRate = 120;
                     break;
                 case 2:
-                    QualitySvc.MainInstance.screen.targetFrameRate = -1;
+                    screen.targetFrameRate = -1;
                     break;
                 default:
                     break;
             }
-            EventMgr.OnQualityLevelEvent.SendEventMessage();
+            SendMessageToEventMgr();
         }
 
         #endregion

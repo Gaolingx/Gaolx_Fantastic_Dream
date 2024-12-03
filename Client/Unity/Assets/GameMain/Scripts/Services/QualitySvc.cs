@@ -1,38 +1,19 @@
 ﻿// 功能：质量管理器
 
-using DarkGod.Tools;
 using HuHu;
 using Newtonsoft.Json;
 using UnityEngine;
 
 namespace DarkGod.Main
 {
-    public class SoundVolume
-    {
-        public BindableProperty<float> BGAudioVolumeValue { get; set; } = new BindableProperty<float>();
-        public BindableProperty<float> UIAudioVolumeValue { get; set; } = new BindableProperty<float>();
-        public BindableProperty<float> CharacterAudioVolumeValue { get; set; } = new BindableProperty<float>();
-        public BindableProperty<float> CharacterFxAudioVolumeValue { get; set; } = new BindableProperty<float>();
-    }
-
-    public class ScreenPrefsData
-    {
-        public GraphicsType graphicsType;
-        public int targetFrameRate;
-        public (int, int) resolution;
-        public FullScreenMode fullScreenMode;
-    }
-
     public class QualitySvc : Singleton<QualitySvc>
     {
-        public SoundVolume volume { get; private set; }
-        public ScreenPrefsData screen { get; private set; }
-
-        private const string prefsKey_SettingsGameRoot = "prefsKey_SettingsGameRoot";
         private const string prefsKey_SettingsAudioSvc = "prefsKey_SettingsAudioSvc";
+        private const string prefsKey_SettingsGameRoot = "prefsKey_SettingsGameRoot";
 
         private void InitScreenSetting()
         {
+            PlayerPrefsData screen = new PlayerPrefsData();
             screen.graphicsType = GetGraphicsType();
             QualitySettings.SetQualityLevel((int)screen.graphicsType);
 
@@ -44,26 +25,6 @@ namespace DarkGod.Main
             Screen.SetResolution(screen.resolution.Item1, screen.resolution.Item2, screen.fullScreenMode);
         }
 
-        private void InitVolumeData()
-        {
-            if (PlayerPrefsSvc.MainInstance.CheckPlayerPrefsHasKey(prefsKey_SettingsAudioSvc))
-            {
-                var json = PlayerPrefsSvc.MainInstance.LoadFromPlayerPrefs(prefsKey_SettingsAudioSvc);
-                var saveData = JsonConvert.DeserializeObject<PlayerPrefsData2>(json);
-
-                volume.BGAudioVolumeValue.Value = saveData.BGAudioVolume;
-                volume.UIAudioVolumeValue.Value = saveData.UIAudioVolume;
-                volume.CharacterAudioVolumeValue.Value = saveData.CharacterAudioVolume;
-                volume.CharacterFxAudioVolumeValue.Value = saveData.CharacterFxAudioVolume;
-            }
-            else
-            {
-                volume.BGAudioVolumeValue.Value = 0.25f;
-                volume.UIAudioVolumeValue.Value = 0.5f;
-                volume.CharacterAudioVolumeValue.Value = 0.5f;
-                volume.CharacterFxAudioVolumeValue.Value = 0.5f;
-            }
-        }
 
         public void QualitySetting()
         {
@@ -73,7 +34,6 @@ namespace DarkGod.Main
 
         public void VolumeSetting()
         {
-            InitVolumeData();
             saveAction2 += delegate (PlayerPrefsData2 data) { OnUpdatePrefsData2(data); };
         }
 
@@ -173,8 +133,6 @@ namespace DarkGod.Main
 
         private void InitSvc()
         {
-            volume = new();
-            screen = new();
             QualitySetting();
             VolumeSetting();
         }
@@ -194,25 +152,13 @@ namespace DarkGod.Main
             PlayerPrefsSvc.MainInstance.SaveByPlayerPrefs(prefsKey_SettingsAudioSvc, saveData);
         }
 
-        public void SavePlayerData()
+        public void SavePlayerData(PlayerPrefsData data)
         {
-            PlayerPrefsData data = new PlayerPrefsData();
-            data.graphicsType = screen.graphicsType;
-            data.targetFrameRate = screen.targetFrameRate;
-            data.resolution = screen.resolution;
-            data.fullScreenMode = screen.fullScreenMode;
-
             saveAction?.Invoke(data);
         }
 
-        public void SavePlayerData2()
+        public void SavePlayerData2(PlayerPrefsData2 data)
         {
-            PlayerPrefsData2 data = new PlayerPrefsData2();
-            data.BGAudioVolume = volume.BGAudioVolumeValue.Value;
-            data.UIAudioVolume = volume.UIAudioVolumeValue.Value;
-            data.CharacterAudioVolume = volume.CharacterAudioVolumeValue.Value;
-            data.CharacterFxAudioVolume = volume.CharacterFxAudioVolumeValue.Value;
-
             saveAction2?.Invoke(data);
         }
 

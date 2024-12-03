@@ -3,6 +3,7 @@
 using HuHu;
 using UniFramework.Event;
 using UnityEngine;
+using static DarkGod.Main.QualitySvc;
 
 namespace DarkGod.Main
 {
@@ -102,18 +103,22 @@ namespace DarkGod.Main
 
         public class OnQualityLevelEvent : IEventMessage
         {
-            public static void SendEventMessage()
+            public PlayerPrefsData data;
+            public static void SendEventMessage(PlayerPrefsData data)
             {
                 var msg = new OnQualityLevelEvent();
+                msg.data = data;
                 UniEvent.SendMessage(msg);
             }
         }
 
         public class OnSoundVolumeChangedEvent : IEventMessage
         {
-            public static void SendEventMessage()
+            public PlayerPrefsData2 data;
+            public static void SendEventMessage(PlayerPrefsData2 data)
             {
                 var msg = new OnSoundVolumeChangedEvent();
+                msg.data = data;
                 UniEvent.SendMessage(msg);
             }
         }
@@ -154,11 +159,13 @@ namespace DarkGod.Main
             }
             else if (message is OnQualityLevelEvent)
             {
-                QualitySvc.MainInstance.SavePlayerData();
+                OnQualityLevelEvent events = message as OnQualityLevelEvent;
+                QualitySvc.MainInstance.SavePlayerData(events.data);
             }
             else if (message is OnSoundVolumeChangedEvent)
             {
-                QualitySvc.MainInstance.SavePlayerData2();
+                OnSoundVolumeChangedEvent events = message as OnSoundVolumeChangedEvent;
+                QualitySvc.MainInstance.SavePlayerData2(events.data);
             }
             else if (message is OnEntityPlayerChangedEvent)
             {

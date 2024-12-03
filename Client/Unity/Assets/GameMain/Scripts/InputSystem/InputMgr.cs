@@ -83,9 +83,21 @@ namespace DarkGod.Main
         {
             _isGamePause = isPause;
 
+            if (starterAssetsInputs != null)
+            {
+                if (InputPlayerMove && !isPause)
+                {
+                    starterAssetsInputs.canMove = true;
+                }
+                else
+                {
+                    starterAssetsInputs.canMove = false;
+                }
+            }
+
             if (GameRoot.MainInstance.GameRootGameState == GameState.MainCity)
             {
-
+                MainCitySys.MainInstance.OnUpdatePauseState2(isPause);
             }
             else if (GameRoot.MainInstance.GameRootGameState == GameState.FBFight)
             {
@@ -107,15 +119,6 @@ namespace DarkGod.Main
                 {
                     starterAssetsInputs.canLook = false;
                     GameRoot.MainInstance.GetUIController().CursorLock = false;
-                }
-
-                if (InputPlayerMove && !_isGamePause)
-                {
-                    starterAssetsInputs.canMove = true;
-                }
-                else
-                {
-                    starterAssetsInputs.canMove = false;
                 }
 
                 if (starterAssetsInputs.isPause)

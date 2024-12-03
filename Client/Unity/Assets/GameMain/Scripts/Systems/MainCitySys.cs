@@ -42,11 +42,10 @@ namespace DarkGod.Main
         {
             base.InitSys();
 
-            GameStateEvent.MainInstance.OnGamePause += delegate (bool val) { OnUpdatePauseState2(val); };
             PECommon.Log("Init MainCitySys...");
         }
 
-        private void OnUpdatePauseState2(bool isPause)
+        public void OnUpdatePauseState2(bool isPause)
         {
             if (isPause)
             {
@@ -538,7 +537,6 @@ namespace DarkGod.Main
         private void OnDisable()
         {
             GameStateEvent.MainInstance.OnGameEnter -= delegate { InitSys(); };
-            GameStateEvent.MainInstance.OnGamePause -= delegate (bool val) { OnUpdatePauseState2(val); };
         }
     }
 }

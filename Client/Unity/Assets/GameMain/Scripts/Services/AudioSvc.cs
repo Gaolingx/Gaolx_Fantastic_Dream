@@ -3,32 +3,44 @@
 using Cysharp.Threading.Tasks;
 using DarkGod.Tools;
 using HuHu;
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.Audio;
+using static DarkGod.Main.QualitySvc;
 using static DarkGod.Main.SFX_PoolManager;
 
 namespace DarkGod.Main
 {
-    public partial class CtsInfoList
-    {
-        public static CtsInfo stopPlayBGMCts;
-    }
-
     public class AudioSvc : Singleton<AudioSvc>
     {
         public AudioSource BGAudioAudioSource;
         public AudioSource UIAudioAudioSource;
         public AudioMixer _audioMixer;
 
-        [SerializeField] private float fadingDuration = 3f;
+        public float fadingDuration = 3f;
+        public SoundVolume volume { get; private set; } = new SoundVolume();
 
         private readonly string bgAudioPath = PathDefine.bgAudioPath;
         private Dictionary<string, CtsInfo> _ctsInfoDic = new Dictionary<string, CtsInfo>();
 
         private SFX_PoolManager sfxPoolManager;
+        private const string prefsKey_SettingsAudioSvc = "prefsKey_SettingsAudioSvc";
+
+        public class CtsInfoList
+        {
+            public static CtsInfo stopPlayBGMCts;
+        }
+
+        public class SoundVolume
+        {
+            public BindableProperty<float> BGAudioVolumeValue { get; set; } = new BindableProperty<float>();
+            public BindableProperty<float> UIAudioVolumeValue { get; set; } = new BindableProperty<float>();
+            public BindableProperty<float> CharacterAudioVolumeValue { get; set; } = new BindableProperty<float>();
+            public BindableProperty<float> CharacterFxAudioVolumeValue { get; set; } = new BindableProperty<float>();
+        }
 
         protected override void Awake()
         {
@@ -43,29 +55,62 @@ namespace DarkGod.Main
             sfxPoolManager.InitSoundPool();
 
             AssignBindableData();
+            InitVolumeData();
 
             PECommon.Log("Init AudioSvc...");
         }
 
+        private void InitVolumeData()
+        {
+            volume.BGAudioVolumeValue.Value = -0.01f;
+            volume.UIAudioVolumeValue.Value = -0.01f;
+            volume.CharacterAudioVolumeValue.Value = -0.01f;
+            volume.CharacterFxAudioVolumeValue.Value = -0.01f;
+
+            if (PlayerPrefsSvc.MainInstance.CheckPlayerPrefsHasKey(prefsKey_SettingsAudioSvc))
+            {
+                var json = PlayerPrefsSvc.MainInstance.LoadFromPlayerPrefs(prefsKey_SettingsAudioSvc);
+                var saveData = JsonConvert.DeserializeObject<PlayerPrefsData2>(json);
+
+                volume.BGAudioVolumeValue.Value = saveData.BGAudioVolume;
+                volume.UIAudioVolumeValue.Value = saveData.UIAudioVolume;
+                volume.CharacterAudioVolumeValue.Value = saveData.CharacterAudioVolume;
+                volume.CharacterFxAudioVolumeValue.Value = saveData.CharacterFxAudioVolume;
+            }
+            else
+            {
+                volume.BGAudioVolumeValue.Value = 0.25f;
+                volume.UIAudioVolumeValue.Value = 0.5f;
+                volume.CharacterAudioVolumeValue.Value = 0.5f;
+                volume.CharacterFxAudioVolumeValue.Value = 0.5f;
+            }
+        }
+
         private void AssignBindableData()
         {
-            QualitySvc.MainInstance.volume.BGAudioVolumeValue.OnValueChanged += delegate (float value) { BGAudioVolumeValueChanged(_audioMixer, value); };
-            QualitySvc.MainInstance.volume.UIAudioVolumeValue.OnValueChanged += delegate (float value) { UIAudioVolumeValueChanged(_audioMixer, value); };
-            QualitySvc.MainInstance.volume.CharacterAudioVolumeValue.OnValueChanged += delegate (float value) { CharacterAudioVolumeValueChanged(_audioMixer, value); };
-            QualitySvc.MainInstance.volume.CharacterFxAudioVolumeValue.OnValueChanged += delegate (float value) { CharacterFxAudioVolumeValueChanged(_audioMixer, value); };
-
-            QualitySvc.MainInstance.volume.BGAudioVolumeValue.Invoke();
-            QualitySvc.MainInstance.volume.UIAudioVolumeValue.Invoke();
-            QualitySvc.MainInstance.volume.CharacterAudioVolumeValue.Invoke();
-            QualitySvc.MainInstance.volume.CharacterFxAudioVolumeValue.Invoke();
+            volume.BGAudioVolumeValue.OnValueChanged += delegate (float value) { BGAudioVolumeValueChanged(_audioMixer, value); };
+            volume.UIAudioVolumeValue.OnValueChanged += delegate (float value) { UIAudioVolumeValueChanged(_audioMixer, value); };
+            volume.CharacterAudioVolumeValue.OnValueChanged += delegate (float value) { CharacterAudioVolumeValueChanged(_audioMixer, value); };
+            volume.CharacterFxAudioVolumeValue.OnValueChanged += delegate (float value) { CharacterFxAudioVolumeValueChanged(_audioMixer, value); };
         }
 
         private void UnAssignBindableData()
         {
-            QualitySvc.MainInstance.volume.BGAudioVolumeValue.OnValueChanged -= delegate (float value) { BGAudioVolumeValueChanged(_audioMixer, value); };
-            QualitySvc.MainInstance.volume.UIAudioVolumeValue.OnValueChanged -= delegate (float value) { UIAudioVolumeValueChanged(_audioMixer, value); };
-            QualitySvc.MainInstance.volume.CharacterAudioVolumeValue.OnValueChanged -= delegate (float value) { CharacterAudioVolumeValueChanged(_audioMixer, value); };
-            QualitySvc.MainInstance.volume.CharacterFxAudioVolumeValue.OnValueChanged -= delegate (float value) { CharacterFxAudioVolumeValueChanged(_audioMixer, value); };
+            volume.BGAudioVolumeValue.OnValueChanged -= delegate (float value) { BGAudioVolumeValueChanged(_audioMixer, value); };
+            volume.UIAudioVolumeValue.OnValueChanged -= delegate (float value) { UIAudioVolumeValueChanged(_audioMixer, value); };
+            volume.CharacterAudioVolumeValue.OnValueChanged -= delegate (float value) { CharacterAudioVolumeValueChanged(_audioMixer, value); };
+            volume.CharacterFxAudioVolumeValue.OnValueChanged -= delegate (float value) { CharacterFxAudioVolumeValueChanged(_audioMixer, value); };
+        }
+
+        private void SendMessageToEventMgr()
+        {
+            PlayerPrefsData2 data = new PlayerPrefsData2();
+            data.BGAudioVolume = volume.BGAudioVolumeValue.Value;
+            data.UIAudioVolume = volume.UIAudioVolumeValue.Value;
+            data.CharacterAudioVolume = volume.CharacterAudioVolumeValue.Value;
+            data.CharacterFxAudioVolume = volume.CharacterFxAudioVolumeValue.Value;
+
+            EventMgr.OnSoundVolumeChangedEvent.SendEventMessage(data);
         }
 
         public void SetMainAudioMuted(bool state)
@@ -75,22 +120,22 @@ namespace DarkGod.Main
         private void BGAudioVolumeValueChanged(AudioMixer audioMixer, float value)
         {
             StartCoroutine(StartAudioFade(audioMixer, "BGAudioVolumeParam", fadingDuration, value));
-            EventMgr.OnSoundVolumeChangedEvent.SendEventMessage();
+            SendMessageToEventMgr();
         }
         private void UIAudioVolumeValueChanged(AudioMixer audioMixer, float value)
         {
             StartCoroutine(StartAudioFade(audioMixer, "UIAudioVolumeParam", fadingDuration, value));
-            EventMgr.OnSoundVolumeChangedEvent.SendEventMessage();
+            SendMessageToEventMgr();
         }
         private void CharacterAudioVolumeValueChanged(AudioMixer audioMixer, float value)
         {
             StartCoroutine(StartAudioFade(audioMixer, "CharAudioVolumeParam", fadingDuration, value));
-            EventMgr.OnSoundVolumeChangedEvent.SendEventMessage();
+            SendMessageToEventMgr();
         }
         private void CharacterFxAudioVolumeValueChanged(AudioMixer audioMixer, float value)
         {
             StartCoroutine(StartAudioFade(audioMixer, "CharVFXAudioVolumeParam", fadingDuration, value));
-            EventMgr.OnSoundVolumeChangedEvent.SendEventMessage();
+            SendMessageToEventMgr();
         }
 
         public static IEnumerator StartAudioFade(AudioMixer audioMixer, string exposedParam, float duration, float targetVolume)
@@ -158,7 +203,7 @@ namespace DarkGod.Main
         {
             string path = $"{bgAudioPath}/{name}";
             AudioClip audioClip = await ResSvc.MainInstance.LoadAudioClipAsync(Constants.ResourcePackgeName, path, isCache);
-            UIAudioAudioSource.PlayOneShot(audioClip, QualitySvc.MainInstance.volume.UIAudioVolumeValue.Value);
+            UIAudioAudioSource.PlayOneShot(audioClip, volume.UIAudioVolumeValue.Value);
         }
 
         public void PlayFootStep(Transform transform)
