@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
@@ -31,6 +32,19 @@ namespace StarterAssets
 
         [Header("Mouse Cursor Settings")]
         public bool cursorInputForLook = true;
+
+        private IEnumerator UpdateHasInput()
+        {
+            hasInput = true;
+            yield return new WaitForSeconds(1f);
+            hasInput = false;
+            yield break;
+        }
+
+        private void StartHasInputCoroutine()
+        {
+            StartCoroutine(UpdateHasInput());
+        }
 
 #if ENABLE_INPUT_SYSTEM
         public void OnMove(InputValue value)
@@ -178,15 +192,12 @@ namespace StarterAssets
             GamePauseInput(value.isPressed);
         }
 
-        public void OnHasInput(InputValue value)
-        {
-            HasInputInput(value.isPressed);
-        }
 #endif
 
 
         public void MoveInput(Vector2 newMoveDirection)
         {
+            StartHasInputCoroutine();
             move = newMoveDirection;
         }
 
@@ -197,11 +208,13 @@ namespace StarterAssets
 
         public void JumpInput(bool newJumpState)
         {
+            StartHasInputCoroutine();
             jump = newJumpState;
         }
 
         public void FlipJumpInput(bool newFlipJumpState)
         {
+            StartHasInputCoroutine();
             flipJump = newFlipJumpState;
         }
 
@@ -217,26 +230,31 @@ namespace StarterAssets
 
         public void CrouchInput(bool newCrouchState)
         {
+            StartHasInputCoroutine();
             crouch = newCrouchState;
         }
 
         public void Skill01Input(bool newSkill01State)
         {
+            StartHasInputCoroutine();
             skill01 = newSkill01State;
         }
 
         public void Skill02Input(bool newSkill02State)
         {
+            StartHasInputCoroutine();
             skill02 = newSkill02State;
         }
 
         public void Skill03Input(bool newSkill03State)
         {
+            StartHasInputCoroutine();
             skill03 = newSkill03State;
         }
 
         public void NormalAtkInput(bool newNormalAtkState)
         {
+            StartHasInputCoroutine();
             normalAtk = newNormalAtkState;
         }
 
@@ -248,11 +266,6 @@ namespace StarterAssets
         public void GamePauseInput(bool newGamePauseState)
         {
             isPause = newGamePauseState;
-        }
-
-        public void HasInputInput(bool newHasInputState)
-        {
-            hasInput = newHasInputState;
         }
     }
 }

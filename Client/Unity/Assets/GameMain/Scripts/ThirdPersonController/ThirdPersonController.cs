@@ -36,9 +36,6 @@ namespace StarterAssets
         [Tooltip("Air Move speed of the character in m/s")]
         public float AirMoveSpeed = 2.5f;
 
-        [Tooltip("Skill Move speed of the character in m/s")]
-        public float SkillMoveSpeed = 0f;
-
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
         public float RotationSmoothTime = 0.12f;
@@ -141,7 +138,6 @@ namespace StarterAssets
         private GameObject _mainCamera;
         private Cinemachine3rdPersonFollow _personFollow;
         private BindableProperty<bool> idleAction = new BindableProperty<bool>();
-        private BindableProperty<bool> crouchAction = new BindableProperty<bool>();
         private BindableProperty<int> skillAction = new BindableProperty<int>();
         private System.Action<bool, float> skillMoveAction;
         private static DarkGod.Main.AudioSvc _audioSvc;
@@ -210,7 +206,6 @@ namespace StarterAssets
         private void ClassAwake()
         {
             idleAction.OnValueChanged += delegate (bool val) { OnIdle(val); };
-            crouchAction.OnValueChanged += delegate (bool val) { OnCrouch(val); };
             skillAction.OnValueChanged += delegate (int val) { OnAtkSkill(val); };
             skillMoveAction += delegate (bool val1, float val2) { OnSkillMove(val1, val2); };
 
@@ -260,8 +255,7 @@ namespace StarterAssets
             GroundedCheck();
             JumpAndGravity();
 
-            // crouch state
-            crouchAction.Value = _input.crouch;
+            Crouch();
 
             // idle state
             idleAction.Value = !CheckHasInput();
@@ -372,15 +366,6 @@ namespace StarterAssets
             }
         }
 
-        private void OnCrouch(bool val)
-        {
-            if (_hasAnimator)
-            {
-                _animator.SetBool(_animIDCrouch, val);
-            }
-
-        }
-
         int tid1 = 0; //取消任务的id
         private void OnIdle(bool val)
         {
@@ -409,7 +394,7 @@ namespace StarterAssets
         {
             if (MoveControlState != ControlState.None)
             {
-                if (_input.hasInput || GetMoveInputState() != Vector2.zero || !Grounded)
+                if (_input.hasInput || !Grounded)
                 {
                     return true;
                 }
@@ -429,15 +414,12 @@ namespace StarterAssets
             }
         }
 
-        private void OnSkillMove(bool isMove, float speed)
+        private void OnSkillMove(bool isMove, float skillMoveSpeed)
         {
             if (isMove)
             {
-                Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
-
                 // move the player
-                _controller.Move(targetDirection.normalized * (speed * Time.deltaTime) +
-                                 new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+                _controller.Move(skillMoveSpeed * Time.deltaTime * transform.forward);
             }
         }
 
@@ -493,7 +475,6 @@ namespace StarterAssets
             {
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
-                _animator.SetBool(_animIDCrouch, crouchAction.Value);
             }
         }
 
@@ -583,6 +564,16 @@ namespace StarterAssets
             }
         }
 
+        private void Crouch()
+        {
+            bool val = _input.crouch;
+
+            if (_hasAnimator)
+            {
+                _animator.SetBool(_animIDCrouch, val);
+            }
+        }
+
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
         {
             if (lfAngle < -360f) lfAngle += 360f;
@@ -650,7 +641,6 @@ namespace StarterAssets
         {
             _timerSvc.DelTask(tid1);
             idleAction.OnValueChanged -= delegate (bool val) { OnIdle(val); };
-            crouchAction.OnValueChanged -= delegate (bool val) { OnCrouch(val); };
             skillAction.OnValueChanged -= delegate (int val) { OnAtkSkill(val); };
             skillMoveAction -= delegate (bool val1, float val2) { OnSkillMove(val1, val2); };
         }
