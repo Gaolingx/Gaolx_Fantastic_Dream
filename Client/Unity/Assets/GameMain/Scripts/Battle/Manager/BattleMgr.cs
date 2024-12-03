@@ -35,7 +35,7 @@ namespace DarkGod.Main
         {
             Vector3 CM_player_Pos = mapData.mainCamPos;
             Vector3 CM_player_Rote = mapData.mainCamRote;
-            GameObject CM_player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, mapData.playerCamPath, CM_player_Pos, Quaternion.Euler(CM_player_Rote), Vector3.one, true, false, false);
+            GameObject CM_player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, mapData.playerCamPath, CM_player_Pos, Quaternion.Euler(CM_player_Rote), Vector3.one, null, true);
 
             CinemachineVirtualCamera cinemachineVirtualCamera = null;
             if (CM_player != null)
@@ -68,7 +68,7 @@ namespace DarkGod.Main
 
         private async void LoadPlayerInstance(string playerPath, Vector3 playerBornPos, Vector3 playerBornRote, Vector3 playerBornScale, CinemachineVirtualCamera cinemachineVirtualCamera)
         {
-            GameObject player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, playerPath, playerBornPos, Quaternion.Euler(playerBornRote), playerBornScale, true, false, false);
+            GameObject player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, playerPath, playerBornPos, Quaternion.Euler(playerBornRote), playerBornScale, null, true);
 
             if (player != null)
             {
@@ -274,7 +274,7 @@ namespace DarkGod.Main
                 //判断是否为对应批次的怪物，是则实例化
                 if (md.mWave == wave)
                 {
-                    GameObject m = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, md.mCfg.resPath, md.mBornPos, Quaternion.Euler(md.mBornRote), new Vector3(0.8f, 0.8f, 0.8f), true, false, false);
+                    GameObject m = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, md.mCfg.resPath, md.mBornPos, Quaternion.Euler(md.mBornRote), new Vector3(0.8f, 0.8f, 0.8f), null, true);
 
                     m.name = "m" + md.mWave + "_" + md.mIndex;
 

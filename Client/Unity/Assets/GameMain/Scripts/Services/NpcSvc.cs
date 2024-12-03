@@ -23,7 +23,7 @@ namespace DarkGod.Main
         public async void LoadMapNpc(int npcType)
         {
             NpcData data = ConfigSvc.MainInstance.GetNpcCfg(npcType);
-            await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, data.npcResPath, data.NPC_Transform_Position, Quaternion.Euler(data.NPC_Transform_Rotation), data.NPC_Transform_Scale, true, false, false);
+            await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, data.npcResPath, data.NPC_Transform_Position, Quaternion.Euler(data.NPC_Transform_Rotation), data.NPC_Transform_Scale, null, true);
         }
 
         private void OnDisable()

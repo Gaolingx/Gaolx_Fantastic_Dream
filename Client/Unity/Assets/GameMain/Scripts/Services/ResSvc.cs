@@ -1,7 +1,6 @@
 ﻿//功能：资源加载服务
 
 using Cysharp.Threading.Tasks;
-using DarkGod.Tools;
 using HuHu;
 using System.Collections.Generic;
 using System.Threading;
@@ -90,14 +89,14 @@ namespace DarkGod.Main
             return instantiatedPrefab;
         }
 
-        public async UniTask<GameObject> LoadGameObjectAsync(string packageName, string prefabPath, Vector3 position, Quaternion rotation, Vector3 localScale, bool isCache = false, bool isLocalPos = false, bool isLocalRotation = false, Transform rootTrans = null, string gameObjectName = default, bool isDestroy = true, CancellationToken cancellationToken = default, System.IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
+        public async UniTask<GameObject> LoadGameObjectAsync(string packageName, string prefabPath, Vector3 position, Quaternion rotation, Vector3 localScale, Transform rootTrans = null, bool isCache = false, string gameObjectName = default, bool isDestroy = true, CancellationToken cancellationToken = default, System.IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
         {
             GameObject prefab = await LoadAssetAsync<GameObject>(packageName, prefabPath, isCache, cancellationToken, progress, timing);
 
-            GameObject instantiatedPrefab = Instantiate(prefab);
+            GameObject instantiatedPrefab = Instantiate(prefab, position, rotation, rootTrans);
+            instantiatedPrefab.transform.localScale = localScale;
+            if (gameObjectName != default) { instantiatedPrefab.name = gameObjectName; }
             if (!isDestroy) { DontDestroyOnLoad(instantiatedPrefab); }
-
-            UIItemUtils.SetGameObjectTrans(instantiatedPrefab, position, rotation, localScale, isLocalPos, isLocalRotation, true, rootTrans, gameObjectName);
 
             PECommon.Log("Prefab load Async. name:" + instantiatedPrefab.name + ". path:" + prefabPath + ",isCache:" + isCache);
             return instantiatedPrefab;

@@ -121,7 +121,7 @@ namespace DarkGod.Main
             //设置实例化对象时候的位置、旋转
             Vector3 CM_player_Pos = mapData.mainCamPos;
             Vector3 CM_player_Rote = mapData.mainCamRote;
-            GameObject CM_player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, mapData.playerCamPath, CM_player_Pos, Quaternion.Euler(CM_player_Rote), Vector3.one, true, false, false);
+            GameObject CM_player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, mapData.playerCamPath, CM_player_Pos, Quaternion.Euler(CM_player_Rote), Vector3.one, null, true);
 
             CinemachineVirtualCamera cinemachineVirtualCamera = null;
             if (CM_player != null)
@@ -141,7 +141,7 @@ namespace DarkGod.Main
         {
             //玩家初始化
             //获取Prefab实例化的对象
-            GameObject player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, playerPath, playerBornPos, Quaternion.Euler(playerBornRote), playerBornScale, true, false, false);
+            GameObject player = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, playerPath, playerBornPos, Quaternion.Euler(playerBornRote), playerBornScale, null, true);
 
             if (player != null)
             {

@@ -72,7 +72,7 @@ namespace DarkGod.Main
             //将排序完的trdLst分别实例化Prefab
             for (int i = 0; i < trdLst.Count; i++)
             {
-                GameObject go = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, PathDefine.TaskItemPrefab, Vector3.zero, Quaternion.Euler(Vector3.zero), Vector3.one, true, true, true, scrollTrans, "taskItem_" + i);
+                GameObject go = await resSvc.LoadGameObjectAsync(Constants.ResourcePackgeName, PathDefine.TaskItemPrefab, Vector3.zero, Quaternion.Euler(Vector3.zero), Vector3.one, scrollTrans, true, "taskItem_" + i);
 
                 TaskRewardData trd = trdLst[i];
                 TaskRewardCfg trf = configSvc.GetTaskRewardCfg(trd.ID);

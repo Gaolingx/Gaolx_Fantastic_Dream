@@ -1,4 +1,5 @@
 ﻿using Cinemachine;
+using DarkGod.Main;
 using DarkGod.Tools;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
@@ -129,6 +130,11 @@ namespace StarterAssets
         private int _animIDSkillAction;
         private int _animIDIdleAnim;
 
+        // skill Move
+        private bool _isSkillMove;
+        private float _skillMoveSpeed;
+        private Vector2 _dir;
+
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
 #endif
@@ -140,8 +146,9 @@ namespace StarterAssets
         private BindableProperty<bool> idleAction = new BindableProperty<bool>();
         private BindableProperty<int> skillAction = new BindableProperty<int>();
         private System.Action<bool, float> skillMoveAction;
-        private static DarkGod.Main.AudioSvc _audioSvc;
-        private static DarkGod.Main.TimerSvc _timerSvc;
+        private System.Action<Vector2> atkRotationAction;
+        private static AudioSvc _audioSvc;
+        private static TimerSvc _timerSvc;
 
         private const float _threshold = 0.01f;
 
@@ -173,7 +180,6 @@ namespace StarterAssets
             MoveControlState = state;
         }
 
-        private Vector2 _dir;
         public void SetDir(Vector2 move)
         {
             _dir = move;
@@ -196,9 +202,7 @@ namespace StarterAssets
 
         public void SetAtkRotationLocal(Vector2 atkDir)
         {
-            float angle = Vector2.SignedAngle(atkDir, new Vector2(0, 1));
-            Vector3 eulerAngles = new Vector3(0, angle, 0);
-            transform.localEulerAngles = eulerAngles;
+            atkRotationAction?.Invoke(atkDir);
         }
 
 
@@ -208,6 +212,7 @@ namespace StarterAssets
             idleAction.OnValueChanged += delegate (bool val) { OnIdle(val); };
             skillAction.OnValueChanged += delegate (int val) { OnAtkSkill(val); };
             skillMoveAction += delegate (bool val1, float val2) { OnSkillMove(val1, val2); };
+            atkRotationAction += delegate (Vector2 val) { OnAtkRotation(val); };
 
             // get a reference to our main camera
             if (_mainCamera == null)
@@ -216,8 +221,8 @@ namespace StarterAssets
             }
 
             // get instance reference
-            _audioSvc = DarkGod.Main.AudioSvc.MainInstance;
-            _timerSvc = DarkGod.Main.TimerSvc.MainInstance;
+            _audioSvc = AudioSvc.MainInstance;
+            _timerSvc = TimerSvc.MainInstance;
         }
         private void ClassStart()
         {
@@ -252,9 +257,9 @@ namespace StarterAssets
         {
             _hasAnimator = TryGetComponent(out _animator);
 
+            SkillMove();
             GroundedCheck();
             JumpAndGravity();
-
             Crouch();
 
             // idle state
@@ -366,30 +371,6 @@ namespace StarterAssets
             }
         }
 
-        int tid1 = 0; //取消任务的id
-        private void OnIdle(bool val)
-        {
-            // 等待x秒后如果仍处于Idle状态，则播放待机动画（定时任务）
-            if (val == true)
-            {
-                tid1 = _timerSvc.AddTimeTask((int tid) =>
-                {
-                    if (_hasAnimator)
-                    {
-                        _animator.SetBool(_animIDIdleAnim, true);
-                    }
-                }, DarkGod.Main.Constants.IdleAniWaitDelay);
-            }
-            else if (val == false && tid1 != 0)
-            {
-                if (_hasAnimator)
-                {
-                    _animator.SetBool(_animIDIdleAnim, false);
-                }
-                _timerSvc.DelTask(tid1);
-            }
-        }
-
         private bool CheckHasInput()
         {
             if (MoveControlState != ControlState.None)
@@ -406,6 +387,33 @@ namespace StarterAssets
             return true;
         }
 
+        int tid1 = 0; //取消任务的id
+        private void OnIdle(bool val)
+        {
+            // 等待x秒后如果仍处于Idle状态，则播放待机动画（定时任务）
+            if (val == true)
+            {
+                if (tid1 != 0)
+                {
+                    _timerSvc.DelTask(tid1);
+                }
+                tid1 = _timerSvc.AddTimeTask((int tid) =>
+                {
+                    if (_hasAnimator)
+                    {
+                        _animator.SetBool(_animIDIdleAnim, true);
+                    }
+                }, Constants.IdleAniWaitDelay);
+            }
+            else
+            {
+                if (_hasAnimator)
+                {
+                    _animator.SetBool(_animIDIdleAnim, false);
+                }
+            }
+        }
+
         private void OnAtkSkill(int val)
         {
             if (_hasAnimator)
@@ -416,11 +424,15 @@ namespace StarterAssets
 
         private void OnSkillMove(bool isMove, float skillMoveSpeed)
         {
-            if (isMove)
-            {
-                // move the player
-                _controller.Move(skillMoveSpeed * Time.deltaTime * transform.forward);
-            }
+            _isSkillMove = isMove;
+            _skillMoveSpeed = skillMoveSpeed;
+        }
+
+        private void OnAtkRotation(Vector2 atkDir)
+        {
+            float angle = Vector2.SignedAngle(atkDir, new Vector2(0, 1));
+            Vector3 eulerAngles = new Vector3(0, angle, 0);
+            transform.localEulerAngles = eulerAngles;
         }
 
         private void Move()
@@ -457,11 +469,10 @@ namespace StarterAssets
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
 
-            Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
-            Vector3 targetDirMovement = targetDirection.normalized * (AirMoveSpeed * Time.deltaTime);
-            if (Grounded)
+            Vector3 targetDirMovement = Vector3.zero;
+            if (!Grounded)
             {
-                targetDirMovement = Vector3.zero;
+                targetDirMovement = AirMoveSpeed * Time.deltaTime * inputDirection;
             }
 
             Vector3 playerDeltaMovement = _animator.deltaPosition + targetDirMovement;
@@ -475,6 +486,15 @@ namespace StarterAssets
             {
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+            }
+        }
+
+        private void SkillMove()
+        {
+            if (_isSkillMove)
+            {
+                // move the player
+                _controller.Move(_skillMoveSpeed * Time.deltaTime * transform.forward);
             }
         }
 
@@ -639,10 +659,15 @@ namespace StarterAssets
 
         private void OnDisable()
         {
-            _timerSvc.DelTask(tid1);
             idleAction.OnValueChanged -= delegate (bool val) { OnIdle(val); };
             skillAction.OnValueChanged -= delegate (int val) { OnAtkSkill(val); };
             skillMoveAction -= delegate (bool val1, float val2) { OnSkillMove(val1, val2); };
+            atkRotationAction -= delegate (Vector2 val) { OnAtkRotation(val); };
+        }
+
+        private void OnDestroy()
+        {
+            _timerSvc.DelTask(tid1);
         }
     }
 }

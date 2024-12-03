@@ -28,7 +28,7 @@ namespace DarkGod.Main
         {
             if (!(effectName == "") && !_EffectPoolCache.ContainsKey(effectName))
             {
-                GameObject go = await ResSvc.MainInstance.LoadGameObjectAsync(Constants.ResourcePackgeName, effectName, Vector3.zero, Quaternion.Euler(Vector3.zero), Vector3.one, true);
+                GameObject go = await ResSvc.MainInstance.LoadGameObjectAsync(Constants.ResourcePackgeName, effectName, Vector3.zero, Quaternion.Euler(Vector3.zero), Vector3.one, null, true);
                 if (!_EffectPoolCache.TryGetValue(effectName, out var value))
                 {
                     value = new EffectPool(go);
@@ -50,7 +50,7 @@ namespace DarkGod.Main
             }
             else
             {
-                GameObject go = await ResSvc.MainInstance.LoadGameObjectAsync(Constants.ResourcePackgeName, effectName, Vector3.zero, Quaternion.Euler(Vector3.zero), Vector3.one, true);
+                GameObject go = await ResSvc.MainInstance.LoadGameObjectAsync(Constants.ResourcePackgeName, effectName, Vector3.zero, Quaternion.Euler(Vector3.zero), Vector3.one, null, true);
                 if (!_EffectPoolCache.TryGetValue(effectName, out var value2))
                 {
                     value2 = new EffectPool(go);
