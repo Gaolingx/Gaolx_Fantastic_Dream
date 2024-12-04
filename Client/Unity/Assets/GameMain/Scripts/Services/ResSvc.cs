@@ -2,6 +2,7 @@
 
 using Cysharp.Threading.Tasks;
 using HuHu;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
@@ -12,6 +13,8 @@ namespace DarkGod.Main
 {
     public class ResSvc : Singleton<ResSvc>
     {
+        public bool AutoUnloadUnusedAssets = false;
+
         protected override void Awake()
         {
             base.Awake();
@@ -19,8 +22,22 @@ namespace DarkGod.Main
             GameStateEvent.MainInstance.OnGameEnter += delegate { InitSvc(); };
         }
 
+        private IEnumerator UpdateCurrentScene()
+        {
+            while (true)
+            {
+                if (AutoUnloadUnusedAssets)
+                {
+                    UnloadUnusedAssets(Constants.ResourcePackgeName);
+                }
+                yield return new WaitForSeconds(15f);
+            }
+        }
+
         public void InitSvc()
         {
+            StartCoroutine(UpdateCurrentScene());
+
             PECommon.Log("Init ResSvc...");
         }
 

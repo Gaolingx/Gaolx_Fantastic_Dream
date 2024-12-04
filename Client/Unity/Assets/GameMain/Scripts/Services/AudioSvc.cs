@@ -199,7 +199,7 @@ namespace DarkGod.Main
         {
             string path = $"{bgAudioPath}/{name}";
             AudioClip audioClip = await ResSvc.MainInstance.LoadAudioClipAsync(Constants.ResourcePackgeName, path, isCache);
-            UIAudioAudioSource.PlayOneShot(audioClip, volume.UIAudioVolumeValue.Value);
+            UIAudioAudioSource.PlayOneShot(audioClip, 1f);
         }
 
         public void PlayFootStep(Transform transform)

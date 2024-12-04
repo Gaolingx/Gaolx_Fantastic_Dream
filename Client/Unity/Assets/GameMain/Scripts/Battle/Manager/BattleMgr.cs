@@ -119,7 +119,7 @@ namespace DarkGod.Main
             }
         }
 
-        public void Init(int mapid, System.Action cb = null)
+        public void Init(int mapid, Action cb = null)
         {
             //初始化服务模块
             resSvc = ResSvc.MainInstance;
@@ -161,8 +161,6 @@ namespace DarkGod.Main
                 SetPauseGame(false);
 
                 cb?.Invoke();
-
-                resSvc.UnloadUnusedAssets(Constants.ResourcePackgeName);
             });
         }
 

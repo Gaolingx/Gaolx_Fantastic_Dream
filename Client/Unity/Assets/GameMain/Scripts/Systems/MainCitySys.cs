@@ -101,8 +101,6 @@ namespace DarkGod.Main
 
                 //设置游戏状态
                 GameRoot.MainInstance.GameRootGameState = GameState.MainCity;
-
-                resSvc.UnloadUnusedAssets(Constants.ResourcePackgeName);
             });
 
         }

@@ -16,7 +16,6 @@ namespace DarkGod.Main
         {
             base.Awake();
 
-            GameStateEvent.MainInstance.OnGameExit += delegate { OnGameExit(); };
         }
 
         private void Start()
@@ -31,6 +30,7 @@ namespace DarkGod.Main
 
             CleanUIRoot();
             InitGameRoot();
+            GameStateEvent.MainInstance.OnGameExit += delegate { OnGameExit(); };
 
             PECommon.Log("Game Start...");
         }
@@ -64,7 +64,7 @@ namespace DarkGod.Main
 
         private void OnGameExit()
         {
-            GetUIController().OnClickExit();
+            UIController.Instance.OnClickExit();
         }
 
         public UIController GetUIController()
@@ -149,7 +149,7 @@ namespace DarkGod.Main
 
         private void OnDisable()
         {
-            GameStateEvent.MainInstance.OnGameExit -= delegate { OnGameExit(); };
+
         }
     }
 }
