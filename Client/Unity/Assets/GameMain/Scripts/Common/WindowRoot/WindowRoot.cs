@@ -243,7 +243,7 @@ namespace DarkGod.Main
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
             configSvc.ResetSkillCfgs();
-            EventMgr.MainInstance.ShowMessageBox(this, new("技能数据重置成功！"));
+            EventMgr.OnShowMessageBoxEvent.SendEventMessage(new("技能数据重置成功！"));
         }
 
         protected void ExitCurrentBattle(System.Action callback = null)
@@ -256,7 +256,7 @@ namespace DarkGod.Main
             }
             else if (GameRoot.MainInstance.GameRootGameState == GameState.MainCity)
             {
-                EventMgr.MainInstance.ShowMessageBox(this, new("当前未处于副本战斗关卡"));
+                EventMgr.OnShowMessageBoxEvent.SendEventMessage(new("当前未处于副本战斗关卡"));
                 callback?.Invoke();
             }
         }

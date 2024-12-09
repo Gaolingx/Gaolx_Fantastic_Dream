@@ -164,7 +164,7 @@ namespace DarkGod.Main
             }
             else
             {
-                EventMgr.MainInstance.ShowMessageBox(this, new("更多引导任务，正在开发中..."));
+                EventMgr.OnShowMessageBoxEvent.SendEventMessage(new("更多引导任务，正在开发中..."));
             }
         }
         public void ClickMenuBtn()

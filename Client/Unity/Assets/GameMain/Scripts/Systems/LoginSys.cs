@@ -46,7 +46,7 @@ namespace DarkGod.Main
 
         public void RspLogin(GameMsg msg)
         {
-            EventMgr.MainInstance.ShowMessageBox(this, new("登录成功"));
+            EventMgr.OnShowMessageBoxEvent.SendEventMessage(new("登录成功"));
             GameRoot.MainInstance.SetPlayerData(msg.rspLogin);
 
             if (msg.rspLogin.playerData.name == "")

@@ -223,18 +223,18 @@ namespace DarkGod.Main
                 //判断级别是否足够强化
                 if (pd.lv < nextSd.minlv)
                 {
-                    EventMgr.MainInstance.ShowMessageBox(this, new("角色等级不够"));
+                    EventMgr.OnShowMessageBoxEvent.SendEventMessage(new("角色等级不够"));
                     return;
                 }
                 //各种资源...
                 if (pd.coin < nextSd.coin)
                 {
-                    EventMgr.MainInstance.ShowMessageBox(this, new("金币数量不够"));
+                    EventMgr.OnShowMessageBoxEvent.SendEventMessage(new("金币数量不够"));
                     return;
                 }
                 if (pd.crystal < nextSd.crystal)
                 {
-                    EventMgr.MainInstance.ShowMessageBox(this, new("水晶不够"));
+                    EventMgr.OnShowMessageBoxEvent.SendEventMessage(new("水晶不够"));
                     return;
                 }
 
@@ -250,7 +250,7 @@ namespace DarkGod.Main
             }
             else
             {
-                EventMgr.MainInstance.ShowMessageBox(this, new("星级已经升满"));
+                EventMgr.OnShowMessageBoxEvent.SendEventMessage(new("星级已经升满"));
             }
         }
 

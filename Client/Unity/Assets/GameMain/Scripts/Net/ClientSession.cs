@@ -9,7 +9,7 @@ namespace DarkGod.Main
     {
         protected override void OnConnected()
         {
-            EventMgr.MainInstance.ShowMessageBox(this, new("连接服务器成功"));
+            EventMgr.OnShowMessageBoxEvent.SendEventMessage(new("连接服务器成功"));
             PECommon.Log("Connect To Server Succ");
         }
 
@@ -21,7 +21,7 @@ namespace DarkGod.Main
 
         protected override void OnDisConnected()
         {
-            EventMgr.MainInstance.ShowMessageBox(this, new("服务器断开连接"));
+            EventMgr.OnShowMessageBoxEvent.SendEventMessage(new("服务器断开连接"));
             PECommon.Log("DisConnect To Server");
         }
     }

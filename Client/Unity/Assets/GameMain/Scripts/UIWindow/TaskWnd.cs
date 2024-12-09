@@ -138,7 +138,7 @@ namespace DarkGod.Main
             TaskRewardCfg trc = configSvc.GetTaskRewardCfg(trdLst[index].ID);
             int coin = trc.coin;
             int exp = trc.exp;
-            EventMgr.MainInstance.ShowMessageBox(this, new(GetTextWithHexColor("获得奖励：", TextColorCode.Blue) + GetTextWithHexColor(" 金币 +" + coin + " 经验 +" + exp, TextColorCode.Green)));
+            EventMgr.OnShowMessageBoxEvent.SendEventMessage(new(GetTextWithHexColor("获得奖励：", TextColorCode.Blue) + GetTextWithHexColor(" 金币 +" + coin + " 经验 +" + exp, TextColorCode.Green)));
         }
 
         public void ClickCloseBtn()

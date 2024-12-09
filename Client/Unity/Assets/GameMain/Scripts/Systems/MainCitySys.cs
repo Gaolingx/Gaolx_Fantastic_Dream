@@ -242,7 +242,7 @@ namespace DarkGod.Main
             RspBuy rspBuydata = msg.rspBuy;
             //更新玩家数据到GameRoot中
             GameRoot.MainInstance.SetPlayerDataByBuy(rspBuydata);
-            EventMgr.MainInstance.ShowMessageBox(this, new("购买成功"));
+            EventMgr.OnShowMessageBoxEvent.SendEventMessage(new("购买成功"));
 
             //更新主城界面
             maincityWnd.RefreshUI();
@@ -301,7 +301,7 @@ namespace DarkGod.Main
             //升级后战力
             int zhanliNow = PECommon.GetFightByProps(GameRoot.MainInstance.PlayerData);
             //升级后的反馈
-            EventMgr.MainInstance.ShowMessageBox(this, new(WindowRoot.GetTextWithHexColor("战力提升 " + (zhanliNow - zhanliPre), TextColorCode.Blue)));
+            EventMgr.OnShowMessageBoxEvent.SendEventMessage(new(WindowRoot.GetTextWithHexColor("战力提升 " + (zhanliNow - zhanliPre), TextColorCode.Blue)));
 
             //刷新强化和主城界面
             strongWnd.UpdateUI();
@@ -497,7 +497,7 @@ namespace DarkGod.Main
         {
             RspGuide data = msg.rspGuide;
 
-            EventMgr.MainInstance.ShowMessageBox(this, new(WindowRoot.GetTextWithHexColor("任务奖励 金币+" + curtTaskData.coin + "  经验+" + curtTaskData.exp, TextColorCode.Blue)));
+            EventMgr.OnShowMessageBoxEvent.SendEventMessage(new(WindowRoot.GetTextWithHexColor("任务奖励 金币+" + curtTaskData.coin + "  经验+" + curtTaskData.exp, TextColorCode.Blue)));
 
             //读取任务actionID，进行相应操作
             switch (curtTaskData.actID)

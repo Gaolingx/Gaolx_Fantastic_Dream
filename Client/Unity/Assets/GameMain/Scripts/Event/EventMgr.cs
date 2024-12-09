@@ -2,20 +2,10 @@
 
 using HuHu;
 using UniFramework.Event;
-using UnityEngine;
 using static DarkGod.Main.QualitySvc;
 
 namespace DarkGod.Main
 {
-    public class GameWindowShowMessage
-    {
-        public GameWindowShowMessage(string msg)
-        {
-            Message = msg;
-        }
-        public string Message { get; }
-    }
-
     public class EventMgr : Singleton<EventMgr>
     {
         private readonly EventGroup _eventGroup = new EventGroup();
@@ -94,12 +84,6 @@ namespace DarkGod.Main
                 msg.message = message;
                 UniEvent.SendMessage(msg);
             }
-        }
-
-        public void ShowMessageBox(object sender, GameWindowShowMessage eventArgs)
-        {
-            Debug.Log($"Sender:{sender.GetType().FullName},ShowMessage:{eventArgs.Message}");
-            OnShowMessageBoxEvent.SendEventMessage(eventArgs.Message);
         }
 
         public class OnQualityLevelEvent : IEventMessage

@@ -103,14 +103,14 @@ namespace DarkGod.Main
         {
             if (!canSend)
             {
-                EventMgr.MainInstance.ShowMessageBox(this, new("聊天消息每5秒钟才能发送一条"));
+                EventMgr.OnShowMessageBoxEvent.SendEventMessage(new("聊天消息每5秒钟才能发送一条"));
                 return;
             }
             if (iptChat.text != null && iptChat.text != "" && iptChat.text != " ")
             {
                 if (iptChat.text.Length > Constants.TextMaxLength)
                 {
-                    EventMgr.MainInstance.ShowMessageBox(this, new("输入信息不能超过" + Constants.TextMaxLength + "个字"));
+                    EventMgr.OnShowMessageBoxEvent.SendEventMessage(new("输入信息不能超过" + Constants.TextMaxLength + "个字"));
                 }
                 else
                 {
@@ -135,7 +135,7 @@ namespace DarkGod.Main
             }
             else
             {
-                EventMgr.MainInstance.ShowMessageBox(this, new("尚未输入聊天信息"));
+                EventMgr.OnShowMessageBoxEvent.SendEventMessage(new("尚未输入聊天信息"));
             }
         }
 

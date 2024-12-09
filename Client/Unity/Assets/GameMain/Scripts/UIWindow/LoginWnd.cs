@@ -93,7 +93,7 @@ namespace DarkGod.Main
             }
             else
             {
-                EventMgr.MainInstance.ShowMessageBox(this, new("账号或密码为空"));
+                EventMgr.OnShowMessageBoxEvent.SendEventMessage(new("账号或密码为空"));
             }
         }
 
@@ -101,7 +101,7 @@ namespace DarkGod.Main
         {
             audioSvc.PlayUIAudio(Constants.UIClickBtn);
 
-            EventMgr.MainInstance.ShowMessageBox(this, new("功能正在开发中..."));
+            EventMgr.OnShowMessageBoxEvent.SendEventMessage(new("功能正在开发中..."));
         }
 
         public void OnDisable()

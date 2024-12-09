@@ -55,7 +55,7 @@ namespace DarkGod.Main
             }
             else
             {
-                EventMgr.MainInstance.ShowMessageBox(this, new("当前名字不符合规范"));
+                EventMgr.OnShowMessageBoxEvent.SendEventMessage(new("当前名字不符合规范"));
             }
         }
 

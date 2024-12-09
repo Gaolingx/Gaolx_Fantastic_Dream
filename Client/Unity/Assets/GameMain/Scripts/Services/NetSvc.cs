@@ -58,7 +58,7 @@ namespace DarkGod.Main
             }
             else
             {
-                EventMgr.MainInstance.ShowMessageBox(this, new("服务器未连接"));
+                EventMgr.OnShowMessageBoxEvent.SendEventMessage(new("服务器未连接"));
                 InitSvc();
             }
         }
@@ -93,35 +93,35 @@ namespace DarkGod.Main
                 {
                     case ErrorCode.ServerDataError:
                         PECommon.Log("服务器数据异常", PELogType.Error);
-                        EventMgr.MainInstance.ShowMessageBox(this, new("客户端数据异常"));
+                        EventMgr.OnShowMessageBoxEvent.SendEventMessage(new("客户端数据异常"));
                         break;
                     case ErrorCode.UpdateDBError:
                         PECommon.Log("数据库更新异常", PELogType.Error);
-                        EventMgr.MainInstance.ShowMessageBox(this, new("网络不稳定"));
+                        EventMgr.OnShowMessageBoxEvent.SendEventMessage(new("网络不稳定"));
                         break;
                     case ErrorCode.ClientDataError:
                         PECommon.Log("客户端数据异常", PELogType.Error);
                         break;
                     case ErrorCode.AcctIsOnline:
-                        EventMgr.MainInstance.ShowMessageBox(this, new("当前账号已经上线"));
+                        EventMgr.OnShowMessageBoxEvent.SendEventMessage(new("当前账号已经上线"));
                         break;
                     case ErrorCode.WrongPass:
-                        EventMgr.MainInstance.ShowMessageBox(this, new("密码错误"));
+                        EventMgr.OnShowMessageBoxEvent.SendEventMessage(new("密码错误"));
                         break;
                     case ErrorCode.LackLevel:
-                        EventMgr.MainInstance.ShowMessageBox(this, new("角色等级不够"));
+                        EventMgr.OnShowMessageBoxEvent.SendEventMessage(new("角色等级不够"));
                         break;
                     case ErrorCode.LackCoin:
-                        EventMgr.MainInstance.ShowMessageBox(this, new("金币数量不够"));
+                        EventMgr.OnShowMessageBoxEvent.SendEventMessage(new("金币数量不够"));
                         break;
                     case ErrorCode.LackCrystal:
-                        EventMgr.MainInstance.ShowMessageBox(this, new("水晶数量不够"));
+                        EventMgr.OnShowMessageBoxEvent.SendEventMessage(new("水晶数量不够"));
                         break;
                     case ErrorCode.LackDiamond:
-                        EventMgr.MainInstance.ShowMessageBox(this, new("钻石数量不够"));
+                        EventMgr.OnShowMessageBoxEvent.SendEventMessage(new("钻石数量不够"));
                         break;
                     case ErrorCode.LackPower:
-                        EventMgr.MainInstance.ShowMessageBox(this, new("体力值不足"));
+                        EventMgr.OnShowMessageBoxEvent.SendEventMessage(new("体力值不足"));
                         break;
                 }
                 return;
