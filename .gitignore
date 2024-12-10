@@ -2,7 +2,6 @@
 .idea/
 .vs/
 .vscode/
-.vsconfig
 Client/Unity/Bundles/
 Client/Unity/HybridCLRData/
 Client/Unity/ShaderVariantBuildOutput.txt

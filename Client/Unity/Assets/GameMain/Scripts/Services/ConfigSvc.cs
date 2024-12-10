@@ -1,6 +1,7 @@
 ﻿//功能：配置加载服务
 
 using HuHu;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -110,6 +111,8 @@ namespace DarkGod.Main
                 mapCfg.coin = table.Coin;
                 mapCfg.exp = table.Exp;
                 mapCfg.crystal = table.Crystal;
+
+                try
                 {
                     string[] mLstArr = table.MonsterLst.Split('#');
                     for (int waveIndex = 0; waveIndex < mLstArr.Length; waveIndex++)
@@ -141,6 +144,10 @@ namespace DarkGod.Main
                         }
                     }
                 }
+                catch (Exception ex)
+                {
+                    PECommon.Log($"Error Load Config:{ex.Message}", PELogType.Error);
+                }
 
                 mapCfgDataDic.Add(table.ID, mapCfg);
             }
@@ -148,7 +155,7 @@ namespace DarkGod.Main
 
         public MapCfg GetMapCfg(int id)
         {
-            MapCfg data;
+            MapCfg data = null;
             if (mapCfgDataDic.TryGetValue(id, out data))
             {
                 return data;
@@ -217,21 +224,28 @@ namespace DarkGod.Main
                 sd.coin = table.Coin;
                 sd.crystal = table.Crystal;
 
-                Dictionary<int, StrongCfg> dic = null;
-                //判断当前在该部位的字典是否存在
-                if (strongDic.TryGetValue(sd.pos, out dic))
+                try
                 {
-                    //如果有则直接往字典增加数据项
-                    dic.Add(sd.startlv, sd);
-                }
-                else
-                {
-                    //如果没有，则需要先将该位置的字典new出来
-                    dic = new Dictionary<int, StrongCfg>();
-                    dic.Add(sd.startlv, sd);
+                    Dictionary<int, StrongCfg> dic = null;
+                    //判断当前在该部位的字典是否存在
+                    if (strongDic.TryGetValue(sd.pos, out dic))
+                    {
+                        //如果有则直接往字典增加数据项
+                        dic.Add(sd.startlv, sd);
+                    }
+                    else
+                    {
+                        //如果没有，则需要先将该位置的字典new出来
+                        dic = new Dictionary<int, StrongCfg>();
+                        dic.Add(sd.startlv, sd);
 
-                    //添加到strongDic中
-                    strongDic.Add(sd.pos, dic);
+                        //添加到strongDic中
+                        strongDic.Add(sd.pos, dic);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    PECommon.Log($"Error Load Config:{ex.Message}", PELogType.Error);
                 }
             }
         }
@@ -417,6 +431,8 @@ namespace DarkGod.Main
                 sc.isCollide = table.IsCollide;
                 sc.isBreak = table.IsBreak;
                 sc.dmgType = table.DmgType;
+
+                try
                 {
                     string[] skMoveArr = table.SkillMoveLst.Split('|');
                     for (int j = 0; j < skMoveArr.Length; j++)
@@ -427,6 +443,12 @@ namespace DarkGod.Main
                         }
                     }
                 }
+                catch (Exception ex)
+                {
+                    PECommon.Log($"Error Load Config:{ex.Message}", PELogType.Error);
+                }
+
+                try
                 {
                     string[] skActionArr = table.SkillActionLst.Split('|');
                     for (int j = 0; j < skActionArr.Length; j++)
@@ -437,6 +459,12 @@ namespace DarkGod.Main
                         }
                     }
                 }
+                catch (Exception ex)
+                {
+                    PECommon.Log($"Error Load Config:{ex.Message}", PELogType.Error);
+                }
+
+                try
                 {
                     string[] skDamageArr = table.SkillDamageLst.Split('|');
                     for (int j = 0; j < skDamageArr.Length; j++)
@@ -447,6 +475,11 @@ namespace DarkGod.Main
                         }
                     }
                 }
+                catch (Exception ex)
+                {
+                    PECommon.Log($"Error Load Config:{ex.Message}", PELogType.Error);
+                }
+
                 skillDic.Add(table.ID, sc);
             }
         }
@@ -580,7 +613,7 @@ namespace DarkGod.Main
 
         public MonsterCfg GetMonsterCfg(int id)
         {
-            MonsterCfg data;
+            MonsterCfg data = null;
             if (monsterCfgDataDic.TryGetValue(id, out data))
             {
                 return data;
