@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   analogMovement: 0
+  hasInput: 0
   canMove: 1
   canLook: 1
   cursorInputForLook: 1

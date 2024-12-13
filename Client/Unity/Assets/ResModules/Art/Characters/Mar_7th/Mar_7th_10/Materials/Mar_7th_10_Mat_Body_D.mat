@@ -26,7 +26,7 @@ Material:
   - _CUSTOMSPECULARCOLORVARENUM_OVERLAY
   - _CUSTOMSPECULARVARENUM_OVERLAY
   - _CUSTOM_RAMP_MAPPING_ON
-  - _OUTLINENORMALCHANNEL_NORMAL
+  - _OUTLINENORMALCHANNEL_TANGENT
   - _RIM_LIGHTING_ON
   - _RIM_SHADOW_ON
   - _SPECULAR_ON
@@ -196,7 +196,7 @@ Material:
     - _NoseLinePower: 1
     - _OutlineColor: 0
     - _OutlineNormal: 0
-    - _OutlineNormalChannel: 0
+    - _OutlineNormalChannel: 1
     - _OutlineScale: 0.001
     - _OutlineUseLutMapToggle: 0
     - _OutlineWidth: 0.06

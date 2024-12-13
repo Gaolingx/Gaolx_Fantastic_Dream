@@ -26,7 +26,7 @@ Material:
   - _CUSTOMSPECULARVARENUM_DISABLE
   - _CUSTOM_RAMP_MAPPING_ON
   - _EMISSION_ON
-  - _OUTLINENORMALCHANNEL_NORMAL
+  - _OUTLINENORMALCHANNEL_TANGENT
   - _SPECULAR_ON
   m_InvalidKeywords:
   - _DAYTIME_MANUAL_ON_ON
@@ -154,6 +154,7 @@ Material:
     - _EnableOutline: 1
     - _EnableSpecular: 1
     - _ExCheekIntensity: 0
+    - _ExEyeShadowIntensity: 0
     - _ExShadowIntensity: 0
     - _ExShyIntensity: 0
     - _EyeAlwaysLit: 0.2
@@ -175,7 +176,7 @@ Material:
     - _ModelScale: 1
     - _NoseLinePower: 3
     - _OutlineNormal: 0
-    - _OutlineNormalChannel: 0
+    - _OutlineNormalChannel: 1
     - _OutlineScale: 0.001
     - _OutlineUseLutMapToggle: 0
     - _OutlineWidth: 0.04

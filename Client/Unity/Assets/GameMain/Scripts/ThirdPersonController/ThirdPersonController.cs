@@ -98,7 +98,7 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
-        //Move State
+        // move state
         [HideInInspector] public enum ControlState { None, Walk, Idle, Manual };
 
         // cinemachine
@@ -135,6 +135,9 @@ namespace StarterAssets
         private float _skillMoveSpeed;
         private Vector2 _dir;
 
+        // idle task
+        private int _idletid = 0;
+
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
 #endif
@@ -143,8 +146,9 @@ namespace StarterAssets
         private StarterAssetsInputs _input;
         private GameObject _mainCamera;
         private Cinemachine3rdPersonFollow _personFollow;
+
         private BindableProperty<bool> idleAction = new BindableProperty<bool>();
-        private BindableProperty<int> skillAction = new BindableProperty<int>();
+        private System.Action<int> skillAction;
         private System.Action<bool, float> skillMoveAction;
         private System.Action<Vector2> atkRotationAction;
         private static AudioSvc _audioSvc;
@@ -190,9 +194,9 @@ namespace StarterAssets
 
         }
 
-        public void SetAction(int action)
+        public void SetAction(int actionID)
         {
-            skillAction.Value = action;
+            skillAction?.Invoke(actionID);
         }
 
         public void SetSkillMove(bool isSkillMove, float skillMoveSpeed = 0f)
@@ -210,7 +214,7 @@ namespace StarterAssets
         private void ClassAwake()
         {
             idleAction.OnValueChanged += delegate (bool val) { OnIdle(val); };
-            skillAction.OnValueChanged += delegate (int val) { OnAtkSkill(val); };
+            skillAction += delegate (int val) { OnAtkSkill(val); };
             skillMoveAction += delegate (bool val1, float val2) { OnSkillMove(val1, val2); };
             atkRotationAction += delegate (Vector2 val) { OnAtkRotation(val); };
 
@@ -230,12 +234,12 @@ namespace StarterAssets
 
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
-            _input = StarterAssetsInputs;
+            _input = StarterAssetsInputs.GetComponent<StarterAssetsInputs>();
             _personFollow = playerFollowVirtualCamera.GetComponent<CinemachineVirtualCamera>()
                 .GetCinemachineComponent<Cinemachine3rdPersonFollow>();
 
 #if ENABLE_INPUT_SYSTEM 
-            _playerInput = PlayerInput;
+            _playerInput = PlayerInput.GetComponent<PlayerInput>();
 #else
             Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
@@ -387,17 +391,12 @@ namespace StarterAssets
             return true;
         }
 
-        int tid1 = 0; //取消任务的id
         private void OnIdle(bool val)
         {
             // 等待x秒后如果仍处于Idle状态，则播放待机动画（定时任务）
             if (val == true)
             {
-                if (tid1 != 0)
-                {
-                    _timerSvc.DelTask(tid1);
-                }
-                tid1 = _timerSvc.AddTimeTask((int tid) =>
+                _idletid = _timerSvc.AddTimeTask((int tid) =>
                 {
                     if (_hasAnimator)
                     {
@@ -407,6 +406,8 @@ namespace StarterAssets
             }
             else
             {
+                _timerSvc.DelTask(_idletid);
+
                 if (_hasAnimator)
                 {
                     _animator.SetBool(_animIDIdleAnim, false);
@@ -472,11 +473,14 @@ namespace StarterAssets
             Vector3 targetDirMovement = Vector3.zero;
             if (!Grounded)
             {
-                targetDirMovement = AirMoveSpeed * Time.deltaTime * inputDirection;
+                targetDirMovement = _moveVal.magnitude * AirMoveSpeed * Time.deltaTime * transform.forward;
+            }
+            else
+            {
+                targetDirMovement = _animator.deltaPosition;
             }
 
-            Vector3 playerDeltaMovement = _animator.deltaPosition + targetDirMovement;
-            playerDeltaMovement.y = _verticalVelocity * Time.deltaTime;
+            Vector3 playerDeltaMovement = targetDirMovement + (new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
             // move the player(by animator)
             _controller.Move(playerDeltaMovement);
@@ -650,24 +654,20 @@ namespace StarterAssets
 
         private void OnAnimatorMove()
         {
-            // skill root motion
-            if (MoveControlState != ControlState.None)
-            {
-                Move();
-            }
+            Move();
         }
 
         private void OnDisable()
         {
             idleAction.OnValueChanged -= delegate (bool val) { OnIdle(val); };
-            skillAction.OnValueChanged -= delegate (int val) { OnAtkSkill(val); };
+            skillAction -= delegate (int val) { OnAtkSkill(val); };
             skillMoveAction -= delegate (bool val1, float val2) { OnSkillMove(val1, val2); };
             atkRotationAction -= delegate (Vector2 val) { OnAtkRotation(val); };
         }
 
         private void OnDestroy()
         {
-            _timerSvc.DelTask(tid1);
+            _timerSvc.DelTask(_idletid);
         }
     }
 }

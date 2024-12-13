@@ -3703,8 +3703,7 @@ MonoBehaviour:
   ApplyHumanScale: 0
   MoveSpeed: 2
   SprintSpeed: 5.335
-  AirMoveSpeed: 2.5
-  SkillMoveSpeed: 0
+  AirMoveSpeed: 2.1
   RotationSmoothTime: 0.12
   SpeedChangeRate: 10
   JumpHeight: 0.8

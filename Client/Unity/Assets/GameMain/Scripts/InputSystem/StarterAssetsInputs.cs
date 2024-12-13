@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
@@ -23,28 +22,28 @@ namespace StarterAssets
         public bool normalAtk { get; private set; }
         public bool isPause { get; private set; }
         public bool cursorLocked { get; private set; }
-        public bool hasInput { get; private set; }
 
         [Header("Movement Settings")]
         public bool analogMovement;
+        public bool hasInput;
         public bool canMove = true;
         public bool canLook = true;
 
         [Header("Mouse Cursor Settings")]
         public bool cursorInputForLook = true;
 
-        private IEnumerator UpdateHasInput()
+        private void Update()
         {
-            hasInput = true;
-            yield return new WaitForSeconds(1f);
-            hasInput = false;
-            yield break;
+            if (move != Vector2.zero || jump || crouch || normalAtk || skill01 || skill02 || skill03)
+            {
+                hasInput = true;
+            }
+            else
+            {
+                hasInput = false;
+            }
         }
 
-        private void StartHasInputCoroutine()
-        {
-            StartCoroutine(UpdateHasInput());
-        }
 
 #if ENABLE_INPUT_SYSTEM
         public void OnMove(InputValue value)
@@ -197,7 +196,6 @@ namespace StarterAssets
 
         public void MoveInput(Vector2 newMoveDirection)
         {
-            StartHasInputCoroutine();
             move = newMoveDirection;
         }
 
@@ -208,13 +206,11 @@ namespace StarterAssets
 
         public void JumpInput(bool newJumpState)
         {
-            StartHasInputCoroutine();
             jump = newJumpState;
         }
 
         public void FlipJumpInput(bool newFlipJumpState)
         {
-            StartHasInputCoroutine();
             flipJump = newFlipJumpState;
         }
 
@@ -230,31 +226,26 @@ namespace StarterAssets
 
         public void CrouchInput(bool newCrouchState)
         {
-            StartHasInputCoroutine();
             crouch = newCrouchState;
         }
 
         public void Skill01Input(bool newSkill01State)
         {
-            StartHasInputCoroutine();
             skill01 = newSkill01State;
         }
 
         public void Skill02Input(bool newSkill02State)
         {
-            StartHasInputCoroutine();
             skill02 = newSkill02State;
         }
 
         public void Skill03Input(bool newSkill03State)
         {
-            StartHasInputCoroutine();
             skill03 = newSkill03State;
         }
 
         public void NormalAtkInput(bool newNormalAtkState)
         {
-            StartHasInputCoroutine();
             normalAtk = newNormalAtkState;
         }
 
