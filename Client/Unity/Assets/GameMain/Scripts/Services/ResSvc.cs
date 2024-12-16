@@ -61,13 +61,15 @@ namespace DarkGod.Main
         }
 
         //异步的加载场景，需要显示进度条
-        public async void AsyncLoadScene(string packageName, string sceneName, System.Action loaded)
+        public async void AsyncLoadScene(string packageName, string sceneName, System.Action loaded = null)
         {
-            InputMgr.MainInstance.loadingWnd.SetWndState();
+            var loadingWnd = InputMgr.MainInstance.loadingWnd;
+
+            loadingWnd.SetWndState(true);
             await LoadSceneAsyncHandle(packageName, sceneName);
 
             loaded?.Invoke();
-            InputMgr.MainInstance.loadingWnd.SetWndState(false);
+            loadingWnd.SetWndState(false);
         }
 
         private async UniTask LoadSceneAsyncHandle(string packageName, string path, System.IProgress<float> progress = null, PlayerLoopTiming timing = PlayerLoopTiming.Update)
@@ -76,12 +78,14 @@ namespace DarkGod.Main
             bool suspendLoad = false;
             var package = YooAssets.GetPackage(packageName);
             var handle = package.LoadSceneAsync(path, sceneMode, suspendLoad);
+            var loadingWnd = InputMgr.MainInstance.loadingWnd;
 
             while (handle is { IsValid: true, IsDone: false })
             {
                 await UniTask.Yield();
-                InputMgr.MainInstance.loadingWnd.SetProgress(handle.Progress);
+                loadingWnd.SetProgress(handle.Progress);
             }
+
             await handle.ToUniTask(progress, timing);
         }
 
