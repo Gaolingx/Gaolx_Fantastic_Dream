@@ -16,31 +16,6 @@ namespace AmplifyShaderEditor
 		{
 			AmplifyShaderEditorWindow.CreateConfirmationTemplateShader( "32120270d1b3a8746af2aca8bc749736" );
 		}
-		[MenuItem( "Assets/Create/Amplify Shader/HDRP/Decal", false, 85 )]
-		public static void ApplyTemplateHDRPDecal()
-		{
-			AmplifyShaderEditorWindow.CreateConfirmationTemplateShader( "d345501910c196f4a81c9eff8a0a5ad7" );
-		}
-		[MenuItem( "Assets/Create/Amplify Shader/HDRP/Fabric", false, 85 )]
-		public static void ApplyTemplateHDRPFabric()
-		{
-			AmplifyShaderEditorWindow.CreateConfirmationTemplateShader( "41e04be03f2c20941bc749271be1c937" );
-		}
-		[MenuItem( "Assets/Create/Amplify Shader/HDRP/Hair", false, 85 )]
-		public static void ApplyTemplateHDRPHair()
-		{
-			AmplifyShaderEditorWindow.CreateConfirmationTemplateShader( "e4fe21624ace6de4b9fbaabdda0c51de" );
-		}
-		[MenuItem( "Assets/Create/Amplify Shader/HDRP/Lit", false, 85 )]
-		public static void ApplyTemplateHDRPLit()
-		{
-			AmplifyShaderEditorWindow.CreateConfirmationTemplateShader( "53b46d85872c5b24c8f4f0a1c3fe4c87" );
-		}
-		[MenuItem( "Assets/Create/Amplify Shader/HDRP/Unlit", false, 85 )]
-		public static void ApplyTemplateHDRPUnlit()
-		{
-			AmplifyShaderEditorWindow.CreateConfirmationTemplateShader( "7f5cb9c3ea6481f469fdd856555439ef" );
-		}
 		[MenuItem( "Assets/Create/Amplify Shader/Legacy/Default Sprites", false, 85 )]
 		public static void ApplyTemplateLegacyDefaultSprites()
 		{
