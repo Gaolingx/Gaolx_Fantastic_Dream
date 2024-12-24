@@ -30,7 +30,7 @@ namespace DarkGod.Main
         {
             base.InitWnd();
 
-            screen = QualitySvc.MainInstance.screen;
+            screen = QualitySvc.MainInstance.GetScreenSetting();
 
             if (GameRoot.MainInstance.transform.Find($"{Constants.Path_Canvas_Obj}/DebugItems").TryGetComponent(out debugWnd))
             {

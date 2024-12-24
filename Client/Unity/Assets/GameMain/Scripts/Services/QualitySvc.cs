@@ -12,29 +12,77 @@ namespace DarkGod.Main
         private const string prefsKey_SettingsGameRoot = "prefsKey_SettingsGameRoot";
         private const string prefsKey_LoginWnd = "prefsKey_LoginWnd";
 
-        public PlayerPrefsData screen { get; private set; } = new PlayerPrefsData();
 
-        private void InitScreenSetting()
+        [System.Serializable]
+        public class PlayerPrefsData
         {
-            screen.graphicsType = GetGraphicsType();
-            QualitySettings.SetQualityLevel((int)screen.graphicsType);
-
-            screen.targetFrameRate = GetFrames();
-            Application.targetFrameRate = screen.targetFrameRate;
-
-            screen.resolution = GetResolution();
-            screen.fullScreenMode = GetWindowType();
-            Screen.SetResolution(screen.resolution.Item1, screen.resolution.Item2, screen.fullScreenMode);
+            public GraphicsType graphicsType;
+            public int targetFrameRate;
+            public (int, int) resolution;
+            public FullScreenMode fullScreenMode;
         }
 
+        [System.Serializable]
+        public class PlayerPrefsData2
+        {
+            public float BGAudioVolume;
+            public float UIAudioVolume;
+            public float CharacterAudioVolume;
+            public float CharacterFxAudioVolume;
+        }
+
+        [System.Serializable]
+        public class PlayerPrefsData3
+        {
+            public bool isRemember;
+            public string Login_Account;
+            public string Login_Password;
+        }
+
+        private System.Action<PlayerPrefsData> saveAction;
+        private System.Action<PlayerPrefsData2> saveAction2;
+        private System.Action<PlayerPrefsData3> saveAction3;
+
+
+        public PlayerPrefsData GetScreenSetting()
+        {
+            PlayerPrefsData screen = new PlayerPrefsData();
+
+            screen.graphicsType = GetGraphicsType();
+            screen.targetFrameRate = GetFrames();
+            screen.resolution = GetResolution();
+            screen.fullScreenMode = GetWindowType();
+
+            return screen;
+        }
+
+        private static void InitScreenSetting(PlayerPrefsData data)
+        {
+            QualitySettings.SetQualityLevel((int)data.graphicsType);
+            Application.targetFrameRate = data.targetFrameRate;
+            Screen.SetResolution(data.resolution.Item1, data.resolution.Item2, data.fullScreenMode);
+        }
 
         public void InitQualitySetting()
         {
-            InitScreenSetting();
+            InitScreenSetting(GetScreenSetting());
 
             saveAction += delegate (PlayerPrefsData data) { OnUpdatePrefsData(data); };
             saveAction2 += delegate (PlayerPrefsData2 data) { OnUpdatePrefsData2(data); };
             saveAction3 += delegate (PlayerPrefsData3 data) { OnUpdatePrefsData3(data); };
+        }
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            GameStateEvent.MainInstance.OnGameEnter += delegate { InitSvc(); };
+        }
+
+        private void InitSvc()
+        {
+            InitQualitySetting();
+            PECommon.Log("Init QualitySvc...");
         }
 
         private static GraphicsType GetGraphicsType()
@@ -103,47 +151,6 @@ namespace DarkGod.Main
             return GameRoot.MainInstance.GetUIController().FrameRate;
         }
 
-        protected override void Awake()
-        {
-            base.Awake();
-
-            GameStateEvent.MainInstance.OnGameEnter += delegate { InitSvc(); };
-        }
-
-        [System.Serializable]
-        public class PlayerPrefsData
-        {
-            public GraphicsType graphicsType;
-            public int targetFrameRate;
-            public (int, int) resolution;
-            public FullScreenMode fullScreenMode;
-        }
-
-        [System.Serializable]
-        public class PlayerPrefsData2
-        {
-            public float BGAudioVolume;
-            public float UIAudioVolume;
-            public float CharacterAudioVolume;
-            public float CharacterFxAudioVolume;
-        }
-
-        [System.Serializable]
-        public class PlayerPrefsData3
-        {
-            public bool isRemember;
-            public string Login_Account;
-            public string Login_Password;
-        }
-
-        private System.Action<PlayerPrefsData> saveAction;
-        private System.Action<PlayerPrefsData2> saveAction2;
-        private System.Action<PlayerPrefsData3> saveAction3;
-
-        private void InitSvc()
-        {
-            InitQualitySetting();
-        }
 
         private void OnUpdatePrefsData(PlayerPrefsData saveData)
         {
@@ -155,7 +162,7 @@ namespace DarkGod.Main
             Screen.SetResolution(resolution.Item1, resolution.Item2, saveData.fullScreenMode);
         }
 
-        private static void OnUpdatePrefsData2(PlayerPrefsData2 saveData)
+        private void OnUpdatePrefsData2(PlayerPrefsData2 saveData)
         {
             PlayerPrefsSvc.MainInstance.SaveByPlayerPrefs(prefsKey_SettingsAudioSvc, saveData);
         }
@@ -164,6 +171,7 @@ namespace DarkGod.Main
         {
             PlayerPrefsSvc.MainInstance.SaveByPlayerPrefs(prefsKey_LoginWnd, saveData);
         }
+
 
         public void SavePlayerData(PlayerPrefsData data)
         {

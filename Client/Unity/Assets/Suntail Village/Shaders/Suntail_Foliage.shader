@@ -1,4 +1,4 @@
-// Made with Amplify Shader Editor v1.9.2.2
+// Made with Amplify Shader Editor v1.9.8
 // Available at the Unity Asset Store - http://u3d.as/y3X 
 Shader "Raygeas/Suntail Foliage"
 {
@@ -186,31 +186,47 @@ Shader "Raygeas/Suntail Foliage"
 
 			HLSLPROGRAM
 
+			
+
+			#pragma multi_compile_fragment _ALPHATEST_ON
+			#pragma shader_feature_local _RECEIVE_SHADOWS_OFF
 			#pragma multi_compile_instancing
 			#pragma instancing_options renderinglayer
 			#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
 			#pragma multi_compile_fog
 			#define ASE_FOG 1
-			#pragma multi_compile _ DOTS_INSTANCING_ON
-			#define _ALPHATEST_ON 1
+			#define ASE_VERSION 19800
 			#define ASE_SRP_VERSION 140011
 
 
-			#pragma shader_feature_local _RECEIVE_SHADOWS_OFF
+			
 
 			#pragma multi_compile_fragment _ _SCREEN_SPACE_OCCLUSION
 			#pragma multi_compile_fragment _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
+
+			
 
 			#pragma multi_compile _ DIRLIGHTMAP_COMBINED
             #pragma multi_compile _ LIGHTMAP_ON
             #pragma multi_compile _ DYNAMICLIGHTMAP_ON
 			#pragma multi_compile_fragment _ DEBUG_DISPLAY
-			#pragma multi_compile_fragment _ _WRITE_RENDERING_LAYERS
 
 			#pragma vertex vert
 			#pragma fragment frag
 
 			#define SHADERPASS SHADERPASS_UNLIT
+
+			
+            #if ASE_SRP_VERSION >=140007
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+			#endif
+		
+
+			
+			#if ASE_SRP_VERSION >=140007
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/RenderingLayers.hlsl"
+			#endif
+		
 
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Texture.hlsl"
@@ -218,6 +234,15 @@ Shader "Raygeas/Suntail Foliage"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Input.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
+
+			
+			#if ASE_SRP_VERSION >=140010
+			#include_with_pragmas "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRenderingKeywords.hlsl"
+			#endif
+		
+
+			
+
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DBuffer.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
@@ -232,6 +257,8 @@ Shader "Raygeas/Suntail Foliage"
 			#define ASE_NEEDS_VERT_NORMAL
 			#define ASE_NEEDS_FRAG_WORLD_POSITION
 			#define ASE_NEEDS_FRAG_SHADOWCOORDS
+			#define ASE_NEEDS_FRAG_WORLD_VIEW_DIR
+			#define ASE_NEEDS_FRAG_SCREEN_POSITION
 			#pragma shader_feature_local _ENABLEWIND_ON
 			#pragma shader_feature_local _ANCHORTHEFOLIAGEBASE_ON
 			#pragma multi_compile _ _MIXED_LIGHTING_SUBTRACTIVE
@@ -241,16 +268,25 @@ Shader "Raygeas/Suntail Foliage"
 			#pragma shader_feature_local _COLOR2ENABLE_ON
 			#pragma shader_feature_local _SECONDCOLOROVERLAYTYPE_WORLD_POSITION _SECONDCOLOROVERLAYTYPE_UV_BASED
 			#pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
-			#pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
-			#pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
-			#pragma multi_compile_fragment _ _SHADOWS_SOFT
-			#pragma multi_compile _ _FORWARD_PLUS
+			#pragma multi_compile_fragment _ _SHADOWS_SOFT _SHADOWS_SOFT_LOW _SHADOWS_SOFT_MEDIUM _SHADOWS_SOFT_HIGH
 			#pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
 			#pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
 			#pragma multi_compile _ _FORWARD_PLUS
+			#pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
+			#pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
+			#pragma multi_compile _ _FORWARD_PLUS
+			#pragma multi_compile _ _LIGHT_LAYERS
 
 
-			struct VertexInput
+			#if defined(ASE_EARLY_Z_DEPTH_OPTIMIZE) && (SHADER_TARGET >= 45)
+				#define ASE_SV_DEPTH SV_DepthLessEqual
+				#define ASE_SV_POSITION_QUALIFIERS linear noperspective centroid
+			#else
+				#define ASE_SV_DEPTH SV_Depth
+				#define ASE_SV_POSITION_QUALIFIERS
+			#endif
+
+			struct Attributes
 			{
 				float4 positionOS : POSITION;
 				float3 normalOS : NORMAL;
@@ -260,20 +296,18 @@ Shader "Raygeas/Suntail Foliage"
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
-			struct VertexOutput
+			struct PackedVaryings
 			{
-				float4 positionCS : SV_POSITION;
-				#if defined(ASE_NEEDS_FRAG_WORLD_POSITION)
-					float3 positionWS : TEXCOORD0;
+				ASE_SV_POSITION_QUALIFIERS float4 positionCS : SV_POSITION;
+				float4 clipPosV : TEXCOORD0;
+				float3 positionWS : TEXCOORD1;
+				#if defined(ASE_FOG) || defined(_ADDITIONAL_LIGHTS_VERTEX)
+					half4 fogFactorAndVertexLight : TEXCOORD2;
 				#endif
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR) && defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
-					float4 shadowCoord : TEXCOORD1;
+					float4 shadowCoord : TEXCOORD3;
 				#endif
-				#ifdef ASE_FOG
-					float fogFactor : TEXCOORD2;
-				#endif
-				float4 lightmapUVOrVertexSH : TEXCOORD3;
-				float4 ase_texcoord4 : TEXCOORD4;
+				float4 lightmapUVOrVertexSH : TEXCOORD4;
 				float4 ase_texcoord5 : TEXCOORD5;
 				float4 ase_texcoord6 : TEXCOORD6;
 				float4 ase_texcoord7 : TEXCOORD7;
@@ -368,15 +402,16 @@ Shader "Raygeas/Suntail Foliage"
 			#endif
 			}
 			
-			half4 CalculateShadowMask1_g16( half2 LightmapUV )
+			half4 CalculateShadowMask216_g15(  )
 			{
 				#if defined(SHADOWS_SHADOWMASK) && defined(LIGHTMAP_ON)
-				return SAMPLE_SHADOWMASK( LightmapUV.xy );
+				half4 shadowMask = inputData.shadowMask;
 				#elif !defined (LIGHTMAP_ON)
-				return unity_ProbesOcclusion;
+				half4 shadowMask = unity_ProbesOcclusion;
 				#else
-				return half4( 1, 1, 1, 1 );
+				half4 shadowMask = half4(1, 1, 1, 1);
 				#endif
+				return shadowMask;
 			}
 			
 			float3 AdditionalLightsFlatMask14x( float3 WorldPosition, float2 ScreenUV, float4 ShadowMask )
@@ -417,18 +452,18 @@ Shader "Raygeas/Suntail Foliage"
 			}
 			
 
-			VertexOutput VertexFunction( VertexInput v  )
+			PackedVaryings VertexFunction( Attributes input  )
 			{
-				VertexOutput o = (VertexOutput)0;
-				UNITY_SETUP_INSTANCE_ID(v);
-				UNITY_TRANSFER_INSTANCE_ID(v, o);
-				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
+				PackedVaryings output = (PackedVaryings)0;
+				UNITY_SETUP_INSTANCE_ID(input);
+				UNITY_TRANSFER_INSTANCE_ID(input, output);
+				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
 
-				float3 ase_worldPos = TransformObjectToWorld( (v.positionOS).xyz );
+				float3 ase_positionWS = TransformObjectToWorld( (input.positionOS).xyz );
 				float mulTime34 = _TimeParameters.x * ( _WindSpeed * 5 );
-				float simplePerlin3D35 = snoise( ( ase_worldPos + mulTime34 )*_WindWavesScale );
+				float simplePerlin3D35 = snoise( ( ase_positionWS + mulTime34 )*_WindWavesScale );
 				float temp_output_231_0 = ( simplePerlin3D35 * 0.01 );
-				float2 texCoord357 = v.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 texCoord357 = input.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
 				#ifdef _ANCHORTHEFOLIAGEBASE_ON
 				float staticSwitch376 = ( temp_output_231_0 * pow( texCoord357.y , 2.0 ) );
 				#else
@@ -442,29 +477,26 @@ Shader "Raygeas/Suntail Foliage"
 				float Wind191 = staticSwitch341;
 				float3 temp_cast_0 = (Wind191).xxx;
 				
-				float3 ase_worldNormal = TransformObjectToWorldNormal(v.normalOS);
-				OUTPUT_LIGHTMAP_UV( v.texcoord1, unity_LightmapST, o.lightmapUVOrVertexSH.xy );
-				OUTPUT_SH( ase_worldNormal, o.lightmapUVOrVertexSH.xyz );
-				o.ase_texcoord4.xyz = ase_worldNormal;
-				float3 ase_worldTangent = TransformObjectToWorldDir(v.ase_tangent.xyz);
-				o.ase_texcoord6.xyz = ase_worldTangent;
-				float ase_vertexTangentSign = v.ase_tangent.w * ( unity_WorldTransformParams.w >= 0.0 ? 1.0 : -1.0 );
-				float3 ase_worldBitangent = cross( ase_worldNormal, ase_worldTangent ) * ase_vertexTangentSign;
-				o.ase_texcoord7.xyz = ase_worldBitangent;
-				float4 ase_clipPos = TransformObjectToHClip((v.positionOS).xyz);
-				float4 screenPos = ComputeScreenPos(ase_clipPos);
-				o.ase_texcoord8 = screenPos;
+				float3 ase_normalWS = TransformObjectToWorldNormal(input.normalOS);
+				OUTPUT_LIGHTMAP_UV( input.texcoord1, unity_LightmapST, output.lightmapUVOrVertexSH.xy );
+				OUTPUT_SH( ase_normalWS, output.lightmapUVOrVertexSH.xyz );
+				output.ase_texcoord5.xyz = ase_normalWS;
+				float3 ase_tangentWS = TransformObjectToWorldDir(input.ase_tangent.xyz);
+				output.ase_texcoord7.xyz = ase_tangentWS;
+				float ase_tangentSign = input.ase_tangent.w * ( unity_WorldTransformParams.w >= 0.0 ? 1.0 : -1.0 );
+				float3 ase_bitangentWS = cross( ase_normalWS, ase_tangentWS ) * ase_tangentSign;
+				output.ase_texcoord8.xyz = ase_bitangentWS;
 				
-				o.ase_texcoord5.xy = v.ase_texcoord.xy;
-				o.ase_texcoord5.zw = v.texcoord1.xy;
+				output.ase_texcoord6.xy = input.ase_texcoord.xy;
 				
 				//setting value to unused interpolator channels and avoid initialization warnings
-				o.ase_texcoord4.w = 0;
-				o.ase_texcoord6.w = 0;
-				o.ase_texcoord7.w = 0;
+				output.ase_texcoord5.w = 0;
+				output.ase_texcoord6.zw = 0;
+				output.ase_texcoord7.w = 0;
+				output.ase_texcoord8.w = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					float3 defaultVertexValue = v.positionOS.xyz;
+					float3 defaultVertexValue = input.positionOS.xyz;
 				#else
 					float3 defaultVertexValue = float3(0, 0, 0);
 				#endif
@@ -472,40 +504,40 @@ Shader "Raygeas/Suntail Foliage"
 				float3 vertexValue = temp_cast_0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					v.positionOS.xyz = vertexValue;
+					input.positionOS.xyz = vertexValue;
 				#else
-					v.positionOS.xyz += vertexValue;
+					input.positionOS.xyz += vertexValue;
 				#endif
 
-				v.normalOS = v.normalOS;
+				input.normalOS = input.normalOS;
 
-				float3 positionWS = TransformObjectToWorld( v.positionOS.xyz );
-				float4 positionCS = TransformWorldToHClip( positionWS );
-
-				#if defined(ASE_NEEDS_FRAG_WORLD_POSITION)
-					o.positionWS = positionWS;
+				VertexPositionInputs vertexInput = GetVertexPositionInputs( input.positionOS.xyz );
+				
+				#if defined(ASE_FOG) || defined(_ADDITIONAL_LIGHTS_VERTEX)
+					output.fogFactorAndVertexLight = 0;
+					#if defined(ASE_FOG) && !defined(_FOG_FRAGMENT)
+						output.fogFactorAndVertexLight.x = ComputeFogFactor(vertexInput.positionCS.z);
+					#endif
+					#ifdef _ADDITIONAL_LIGHTS_VERTEX
+						half3 vertexLight = VertexLighting( vertexInput.positionWS, normalInput.normalWS );
+						output.fogFactorAndVertexLight.yzw = vertexLight;
+					#endif
 				#endif
 
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR) && defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
-					VertexPositionInputs vertexInput = (VertexPositionInputs)0;
-					vertexInput.positionWS = positionWS;
-					vertexInput.positionCS = positionCS;
-					o.shadowCoord = GetShadowCoord( vertexInput );
+					output.shadowCoord = GetShadowCoord( vertexInput );
 				#endif
 
-				#ifdef ASE_FOG
-					o.fogFactor = ComputeFogFactor( positionCS.z );
-				#endif
-
-				o.positionCS = positionCS;
-
-				return o;
+				output.positionCS = vertexInput.positionCS;
+				output.clipPosV = vertexInput.positionCS;
+				output.positionWS = vertexInput.positionWS;
+				return output;
 			}
 
 			#if defined(ASE_TESSELLATION)
 			struct VertexControl
 			{
-				float4 vertex : INTERNALTESSPOS;
+				float4 positionOS : INTERNALTESSPOS;
 				float3 normalOS : NORMAL;
 				float4 ase_texcoord : TEXCOORD0;
 				float4 texcoord1 : TEXCOORD1;
@@ -520,36 +552,36 @@ Shader "Raygeas/Suntail Foliage"
 				float inside : SV_InsideTessFactor;
 			};
 
-			VertexControl vert ( VertexInput v )
+			VertexControl vert ( Attributes input )
 			{
-				VertexControl o;
-				UNITY_SETUP_INSTANCE_ID(v);
-				UNITY_TRANSFER_INSTANCE_ID(v, o);
-				o.vertex = v.positionOS;
-				o.normalOS = v.normalOS;
-				o.ase_texcoord = v.ase_texcoord;
-				o.texcoord1 = v.texcoord1;
-				o.ase_tangent = v.ase_tangent;
-				return o;
+				VertexControl output;
+				UNITY_SETUP_INSTANCE_ID(input);
+				UNITY_TRANSFER_INSTANCE_ID(input, output);
+				output.positionOS = input.positionOS;
+				output.normalOS = input.normalOS;
+				output.ase_texcoord = input.ase_texcoord;
+				output.texcoord1 = input.texcoord1;
+				output.ase_tangent = input.ase_tangent;
+				return output;
 			}
 
-			TessellationFactors TessellationFunction (InputPatch<VertexControl,3> v)
+			TessellationFactors TessellationFunction (InputPatch<VertexControl,3> input)
 			{
-				TessellationFactors o;
+				TessellationFactors output;
 				float4 tf = 1;
 				float tessValue = _TessValue; float tessMin = _TessMin; float tessMax = _TessMax;
 				float edgeLength = _TessEdgeLength; float tessMaxDisp = _TessMaxDisp;
 				#if defined(ASE_FIXED_TESSELLATION)
 				tf = FixedTess( tessValue );
 				#elif defined(ASE_DISTANCE_TESSELLATION)
-				tf = DistanceBasedTess(v[0].vertex, v[1].vertex, v[2].vertex, tessValue, tessMin, tessMax, GetObjectToWorldMatrix(), _WorldSpaceCameraPos );
+				tf = DistanceBasedTess(input[0].positionOS, input[1].positionOS, input[2].positionOS, tessValue, tessMin, tessMax, GetObjectToWorldMatrix(), _WorldSpaceCameraPos );
 				#elif defined(ASE_LENGTH_TESSELLATION)
-				tf = EdgeLengthBasedTess(v[0].vertex, v[1].vertex, v[2].vertex, edgeLength, GetObjectToWorldMatrix(), _WorldSpaceCameraPos, _ScreenParams );
+				tf = EdgeLengthBasedTess(input[0].positionOS, input[1].positionOS, input[2].positionOS, edgeLength, GetObjectToWorldMatrix(), _WorldSpaceCameraPos, _ScreenParams );
 				#elif defined(ASE_LENGTH_CULL_TESSELLATION)
-				tf = EdgeLengthBasedTessCull(v[0].vertex, v[1].vertex, v[2].vertex, edgeLength, tessMaxDisp, GetObjectToWorldMatrix(), _WorldSpaceCameraPos, _ScreenParams, unity_CameraWorldClipPlanes );
+				tf = EdgeLengthBasedTessCull(input[0].positionOS, input[1].positionOS, input[2].positionOS, edgeLength, tessMaxDisp, GetObjectToWorldMatrix(), _WorldSpaceCameraPos, _ScreenParams, unity_CameraWorldClipPlanes );
 				#endif
-				o.edge[0] = tf.x; o.edge[1] = tf.y; o.edge[2] = tf.z; o.inside = tf.w;
-				return o;
+				output.edge[0] = tf.x; output.edge[1] = tf.y; output.edge[2] = tf.z; output.inside = tf.w;
+				return output;
 			}
 
 			[domain("tri")]
@@ -563,69 +595,80 @@ Shader "Raygeas/Suntail Foliage"
 			}
 
 			[domain("tri")]
-			VertexOutput DomainFunction(TessellationFactors factors, OutputPatch<VertexControl, 3> patch, float3 bary : SV_DomainLocation)
+			PackedVaryings DomainFunction(TessellationFactors factors, OutputPatch<VertexControl, 3> patch, float3 bary : SV_DomainLocation)
 			{
-				VertexInput o = (VertexInput) 0;
-				o.positionOS = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
-				o.normalOS = patch[0].normalOS * bary.x + patch[1].normalOS * bary.y + patch[2].normalOS * bary.z;
-				o.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
-				o.texcoord1 = patch[0].texcoord1 * bary.x + patch[1].texcoord1 * bary.y + patch[2].texcoord1 * bary.z;
-				o.ase_tangent = patch[0].ase_tangent * bary.x + patch[1].ase_tangent * bary.y + patch[2].ase_tangent * bary.z;
+				Attributes output = (Attributes) 0;
+				output.positionOS = patch[0].positionOS * bary.x + patch[1].positionOS * bary.y + patch[2].positionOS * bary.z;
+				output.normalOS = patch[0].normalOS * bary.x + patch[1].normalOS * bary.y + patch[2].normalOS * bary.z;
+				output.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
+				output.texcoord1 = patch[0].texcoord1 * bary.x + patch[1].texcoord1 * bary.y + patch[2].texcoord1 * bary.z;
+				output.ase_tangent = patch[0].ase_tangent * bary.x + patch[1].ase_tangent * bary.y + patch[2].ase_tangent * bary.z;
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
-					pp[i] = o.positionOS.xyz - patch[i].normalOS * (dot(o.positionOS.xyz, patch[i].normalOS) - dot(patch[i].vertex.xyz, patch[i].normalOS));
+					pp[i] = output.positionOS.xyz - patch[i].normalOS * (dot(output.positionOS.xyz, patch[i].normalOS) - dot(patch[i].positionOS.xyz, patch[i].normalOS));
 				float phongStrength = _TessPhongStrength;
-				o.positionOS.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * o.positionOS.xyz;
+				output.positionOS.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * output.positionOS.xyz;
 				#endif
-				UNITY_TRANSFER_INSTANCE_ID(patch[0], o);
-				return VertexFunction(o);
+				UNITY_TRANSFER_INSTANCE_ID(patch[0], output);
+				return VertexFunction(output);
 			}
 			#else
-			VertexOutput vert ( VertexInput v )
+			PackedVaryings vert ( Attributes input )
 			{
-				return VertexFunction( v );
+				return VertexFunction( input );
 			}
 			#endif
 
-			half4 frag ( VertexOutput IN
-				#ifdef _WRITE_RENDERING_LAYERS
-				, out float4 outRenderingLayers : SV_Target1
-				#endif
-				 ) : SV_Target
+			half4 frag ( PackedVaryings input
+						#ifdef ASE_DEPTH_WRITE_ON
+						,out float outputDepth : ASE_SV_DEPTH
+						#endif
+						#ifdef _WRITE_RENDERING_LAYERS
+						, out float4 outRenderingLayers : SV_Target1
+						#endif
+						 ) : SV_Target
 			{
-				UNITY_SETUP_INSTANCE_ID( IN );
-				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX( IN );
+				UNITY_SETUP_INSTANCE_ID(input);
+				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
 
-				#if defined(ASE_NEEDS_FRAG_WORLD_POSITION)
-					float3 WorldPosition = IN.positionWS;
+				#if defined(LOD_FADE_CROSSFADE)
+					LODFadeCrossFade( input.positionCS );
 				#endif
 
+				float3 WorldPosition = input.positionWS;
+				float3 WorldViewDirection = _WorldSpaceCameraPos.xyz  - WorldPosition;
 				float4 ShadowCoords = float4( 0, 0, 0, 0 );
+				float4 ClipPos = input.clipPosV;
+				float4 ScreenPos = ComputeScreenPos( input.clipPosV );
+
+				float2 NormalizedScreenSpaceUV = GetNormalizedScreenSpaceUV(input.positionCS);
 
 				#if defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
 					#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
-						ShadowCoords = IN.shadowCoord;
+						ShadowCoords = input.shadowCoord;
 					#elif defined(MAIN_LIGHT_CALCULATE_SHADOWS)
 						ShadowCoords = TransformWorldToShadowCoord( WorldPosition );
 					#endif
 				#endif
 
-				float3 ase_worldNormal = IN.ase_texcoord4.xyz;
-				float3 bakedGI436 = ASEIndirectDiffuse( IN.lightmapUVOrVertexSH.xy, ase_worldNormal);
+				WorldViewDirection = SafeNormalize( WorldViewDirection );
+
+				float3 ase_normalWS = input.ase_texcoord5.xyz;
+				float3 bakedGI436 = ASEIndirectDiffuse( input.lightmapUVOrVertexSH.xy, ase_normalWS);
 				Light ase_mainLight = GetMainLight( ShadowCoords );
-				MixRealtimeAndBakedGI(ase_mainLight, ase_worldNormal, bakedGI436, half4(0,0,0,0));
+				MixRealtimeAndBakedGI(ase_mainLight, ase_normalWS, bakedGI436, half4(0,0,0,0));
 				float2 temp_cast_1 = (_Tiling).xx;
-				float2 texCoord747 = IN.ase_texcoord5.xy * temp_cast_1 + float2( 0,0 );
+				float2 texCoord747 = input.ase_texcoord6.xy * temp_cast_1 + float2( 0,0 );
 				float2 Tiling748 = texCoord747;
 				float4 tex2DNode1 = tex2D( _Albedo, Tiling748 );
 				float4 temp_output_10_0 = ( _MainColor * tex2DNode1 );
 				float simplePerlin3D742 = snoise( WorldPosition*_WorldScale );
 				simplePerlin3D742 = simplePerlin3D742*0.5 + 0.5;
-				float2 texCoord361 = IN.ase_texcoord5.xy * float2( 1,1 ) + float2( 0,0 );
-				#if defined(_SECONDCOLOROVERLAYTYPE_WORLD_POSITION)
+				float2 texCoord361 = input.ase_texcoord6.xy * float2( 1,1 ) + float2( 0,0 );
+				#if defined( _SECONDCOLOROVERLAYTYPE_WORLD_POSITION )
 				float staticSwitch360 = simplePerlin3D742;
-				#elif defined(_SECONDCOLOROVERLAYTYPE_UV_BASED)
+				#elif defined( _SECONDCOLOROVERLAYTYPE_UV_BASED )
 				float staticSwitch360 = texCoord361.y;
 				#else
 				float staticSwitch360 = simplePerlin3D742;
@@ -639,30 +682,29 @@ Shader "Raygeas/Suntail Foliage"
 				#endif
 				float4 Albedo259 = staticSwitch340;
 				float4 IndirectLight612 = ( float4( bakedGI436 , 0.0 ) * Albedo259 * _IndirectLightInt );
-				float3 normalizedWorldNormal = normalize( ase_worldNormal );
+				float3 normalizedWorldNormal = normalize( ase_normalWS );
 				float dotResult430 = dot( SafeNormalize(_MainLightPosition.xyz) , normalizedWorldNormal );
 				float ase_lightAtten = 0;
 				ase_lightAtten = ase_mainLight.distanceAttenuation * ase_mainLight.shadowAttenuation;
-				float ase_lightIntensity = max( max( _MainLightColor.r, _MainLightColor.g ), _MainLightColor.b );
+				float ase_lightIntensity = max( max( _MainLightColor.r, _MainLightColor.g ), _MainLightColor.b ) + 1e-7;
 				float4 ase_lightColor = float4( _MainLightColor.rgb / ase_lightIntensity, ase_lightIntensity );
 				float4 DirectLight614 = ( ( saturate( (dotResult430*1.0 + _DirectLightOffset) ) * ase_lightAtten ) * ase_lightColor * Albedo259 * _DirectLightInt );
-				float3 ase_worldViewDir = ( _WorldSpaceCameraPos.xyz - WorldPosition );
-				ase_worldViewDir = SafeNormalize( ase_worldViewDir );
-				float dotResult461 = dot( SafeNormalize(_MainLightPosition.xyz) , ase_worldViewDir );
+				float3 ase_viewDirSafeWS = SafeNormalize( WorldViewDirection );
+				float dotResult461 = dot( SafeNormalize(_MainLightPosition.xyz) , ase_viewDirSafeWS );
 				float TranslucencyMask660 = (-dotResult461*1.0 + -0.2);
 				float dotResult672 = dot( SafeNormalize(_MainLightPosition.xyz) , normalizedWorldNormal );
 				float4 Translucency631 = saturate( ( ( TranslucencyMask660 * ( ( ( (dotResult672*1.0 + 1.0) * ase_lightAtten ) * ase_lightColor * Albedo259 ) * 0.25 ) ) * _TranslucencyInt ) );
-				ase_worldViewDir = normalize(ase_worldViewDir);
-				float fresnelNdotV791 = dot( ase_worldNormal, ase_worldViewDir );
+				float3 ase_viewDirWS = normalize( WorldViewDirection );
+				float fresnelNdotV791 = dot( ase_normalWS, ase_viewDirWS );
 				float fresnelNode791 = ( 0.04 + 1.0 * pow( 1.0 - fresnelNdotV791, 5.0 ) );
-				half3 reflectVector831 = reflect( -ase_worldViewDir, ase_worldNormal );
+				half3 reflectVector831 = reflect( -ase_viewDirWS, ase_normalWS );
 				float3 indirectSpecular831 = GlossyEnvironmentReflection( reflectVector831, 1.0 - _Smoothness, 1.0 );
 				float3 LightWrapVector47_g14 = (( 1.0 * 0.5 )).xxx;
-				float3 ase_worldTangent = IN.ase_texcoord6.xyz;
-				float3 ase_worldBitangent = IN.ase_texcoord7.xyz;
-				float3 tanToWorld0 = float3( ase_worldTangent.x, ase_worldBitangent.x, ase_worldNormal.x );
-				float3 tanToWorld1 = float3( ase_worldTangent.y, ase_worldBitangent.y, ase_worldNormal.y );
-				float3 tanToWorld2 = float3( ase_worldTangent.z, ase_worldBitangent.z, ase_worldNormal.z );
+				float3 ase_tangentWS = input.ase_texcoord7.xyz;
+				float3 ase_bitangentWS = input.ase_texcoord8.xyz;
+				float3 tanToWorld0 = float3( ase_tangentWS.x, ase_bitangentWS.x, ase_normalWS.x );
+				float3 tanToWorld1 = float3( ase_tangentWS.y, ase_bitangentWS.y, ase_normalWS.y );
+				float3 tanToWorld2 = float3( ase_tangentWS.z, ase_bitangentWS.z, ase_normalWS.z );
 				float3 tanNormal19_g14 = float3(0,0,1);
 				float3 worldNormal19_g14 = normalize( float3(dot(tanToWorld0,tanNormal19_g14), dot(tanToWorld1,tanNormal19_g14), dot(tanToWorld2,tanNormal19_g14)) );
 				float3 CurrentNormal23_g14 = worldNormal19_g14;
@@ -671,54 +713,68 @@ Shader "Raygeas/Suntail Foliage"
 				float3 AttenuationColor8_g14 = ( ase_lightColor.rgb * ase_lightAtten );
 				float3 DiffuseColor70_g14 = ( ( ( max( ( LightWrapVector47_g14 + ( ( 1.0 - LightWrapVector47_g14 ) * NDotL21_g14 ) ) , float3(0,0,0) ) * AttenuationColor8_g14 ) + (UNITY_LIGHTMODEL_AMBIENT).rgb ) * float3( 0,0,0 ) );
 				float3 normalizeResult77_g14 = normalize( _MainLightPosition.xyz );
-				float3 normalizeResult28_g14 = normalize( ( normalizeResult77_g14 + ase_worldViewDir ) );
+				float3 normalizeResult28_g14 = normalize( ( normalizeResult77_g14 + ase_viewDirWS ) );
 				float3 HalfDirection29_g14 = normalizeResult28_g14;
 				float dotResult32_g14 = dot( HalfDirection29_g14 , CurrentNormal23_g14 );
 				float SpecularPower14_g14 = exp2( ( ( ( _Smoothness * 0.8 ) * 10.0 ) + 1.0 ) );
 				float3 specularFinalColor42_g14 = ( AttenuationColor8_g14 * pow( max( dotResult32_g14 , 0.0 ) , SpecularPower14_g14 ) * _Smoothness );
-				float dotResult811 = dot( ase_worldNormal , ase_worldViewDir );
+				float dotResult811 = dot( ase_normalWS , ase_viewDirWS );
 				float4 Smoothness734 = saturate( ( float4( ( ( ( ( fresnelNode791 * indirectSpecular831 ) + ( ( DiffuseColor70_g14 + specularFinalColor42_g14 ) * 0.6 ) ) * _Smoothness ) * (dotResult811*1.0 + 0.5) ) , 0.0 ) * tex2D( _SmoothnessTexture, Tiling748 ) ) );
-				float3 worldPosValue44_g15 = WorldPosition;
-				float3 WorldPosition92_g15 = worldPosValue44_g15;
-				float4 screenPos = IN.ase_texcoord8;
-				float4 ase_screenPosNorm = screenPos / screenPos.w;
-				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
-				float2 ScreenUV75_g15 = (ase_screenPosNorm).xy;
-				float2 ScreenUV92_g15 = ScreenUV75_g15;
-				half2 LightmapUV1_g16 = (IN.ase_texcoord5.zw*(unity_LightmapST).xy + (unity_LightmapST).zw);
-				half4 localCalculateShadowMask1_g16 = CalculateShadowMask1_g16( LightmapUV1_g16 );
-				float4 shadowMaskValue33_g15 = localCalculateShadowMask1_g16;
-				float4 ShadowMask92_g15 = shadowMaskValue33_g15;
-				float3 localAdditionalLightsFlatMask14x92_g15 = AdditionalLightsFlatMask14x( WorldPosition92_g15 , ScreenUV92_g15 , ShadowMask92_g15 );
-				float3 FlatResult29_g15 = localAdditionalLightsFlatMask14x92_g15;
+				float3 worldPosValue184_g15 = WorldPosition;
+				float3 WorldPosition122_g15 = worldPosValue184_g15;
+				float4 ase_positionSSNorm = ScreenPos / ScreenPos.w;
+				ase_positionSSNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_positionSSNorm.z : ase_positionSSNorm.z * 0.5 + 0.5;
+				float2 ScreenUV183_g15 = (ase_positionSSNorm).xy;
+				float2 ScreenUV122_g15 = ScreenUV183_g15;
+				half4 localCalculateShadowMask216_g15 = CalculateShadowMask216_g15();
+				float4 shadowMaskValue182_g15 = localCalculateShadowMask216_g15;
+				float4 ShadowMask122_g15 = shadowMaskValue182_g15;
+				float3 localAdditionalLightsFlatMask14x122_g15 = AdditionalLightsFlatMask14x( WorldPosition122_g15 , ScreenUV122_g15 , ShadowMask122_g15 );
 				
 				float OpacityMask263 = tex2DNode1.a;
 				
 				float3 BakedAlbedo = 0;
 				float3 BakedEmission = 0;
-				float3 Color = ( IndirectLight612 + DirectLight614 + Translucency631 + Smoothness734 + ( Albedo259 * float4( FlatResult29_g15 , 0.0 ) ) ).rgb;
+				float3 Color = ( IndirectLight612 + DirectLight614 + Translucency631 + Smoothness734 + ( Albedo259 * float4( localAdditionalLightsFlatMask14x122_g15 , 0.0 ) ) ).rgb;
 				float Alpha = OpacityMask263;
 				float AlphaClipThreshold = _AlphaCutoff;
 				float AlphaClipThresholdShadow = 0.5;
 
-				#ifdef _ALPHATEST_ON
-					clip( Alpha - AlphaClipThreshold );
+				#ifdef ASE_DEPTH_WRITE_ON
+					float DepthValue = input.positionCS.z;
 				#endif
+
+				#ifdef _ALPHATEST_ON
+					clip(Alpha - AlphaClipThreshold);
+				#endif
+
+				InputData inputData = (InputData)0;
+				inputData.positionWS = WorldPosition;
+				inputData.viewDirectionWS = WorldViewDirection;
+
+				#ifdef ASE_FOG
+					inputData.fogCoord = InitializeInputDataFog(float4(inputData.positionWS, 1.0), input.fogFactorAndVertexLight.x);
+				#endif
+				#ifdef _ADDITIONAL_LIGHTS_VERTEX
+					inputData.vertexLighting = input.fogFactorAndVertexLight.yzw;
+				#endif
+
+				inputData.normalizedScreenSpaceUV = NormalizedScreenSpaceUV;
 
 				#if defined(_DBUFFER)
-					ApplyDecalToBaseColor(IN.positionCS, Color);
-				#endif
-
-				#if defined(_ALPHAPREMULTIPLY_ON)
-				Color *= Alpha;
-				#endif
-
-				#ifdef LOD_FADE_CROSSFADE
-					LODFadeCrossFade( IN.positionCS );
+					ApplyDecalToBaseColor(input.positionCS, Color);
 				#endif
 
 				#ifdef ASE_FOG
-					Color = MixFog( Color, IN.fogFactor );
+					#ifdef TERRAIN_SPLAT_ADDPASS
+						Color.rgb = MixFogColor(Color.rgb, half3(0,0,0), inputData.fogCoord);
+					#else
+						Color.rgb = MixFog(Color.rgb, inputData.fogCoord);
+					#endif
+				#endif
+
+				#ifdef ASE_DEPTH_WRITE_ON
+					outputDepth = DepthValue;
 				#endif
 
 				#ifdef _WRITE_RENDERING_LAYERS
@@ -745,20 +801,30 @@ Shader "Raygeas/Suntail Foliage"
 
 			HLSLPROGRAM
 
+			
+
+			#pragma multi_compile _ALPHATEST_ON
 			#pragma multi_compile_instancing
 			#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
 			#define ASE_FOG 1
-			#pragma multi_compile _ DOTS_INSTANCING_ON
-			#define _ALPHATEST_ON 1
+			#define ASE_VERSION 19800
 			#define ASE_SRP_VERSION 140011
 
+
+			
+
+			#pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW
 
 			#pragma vertex vert
 			#pragma fragment frag
 
-			#pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW
-
 			#define SHADERPASS SHADERPASS_SHADOWCASTER
+
+			
+            #if ASE_SRP_VERSION >=140007
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+			#endif
+		
 
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
@@ -773,7 +839,15 @@ Shader "Raygeas/Suntail Foliage"
 			#pragma shader_feature_local _ANCHORTHEFOLIAGEBASE_ON
 
 
-			struct VertexInput
+			#if defined(ASE_EARLY_Z_DEPTH_OPTIMIZE) && (SHADER_TARGET >= 45)
+				#define ASE_SV_DEPTH SV_DepthLessEqual
+				#define ASE_SV_POSITION_QUALIFIERS linear noperspective centroid
+			#else
+				#define ASE_SV_DEPTH SV_Depth
+				#define ASE_SV_POSITION_QUALIFIERS
+			#endif
+
+			struct Attributes
 			{
 				float4 positionOS : POSITION;
 				float3 normalOS : NORMAL;
@@ -781,16 +855,17 @@ Shader "Raygeas/Suntail Foliage"
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
-			struct VertexOutput
+			struct PackedVaryings
 			{
-				float4 positionCS : SV_POSITION;
+				ASE_SV_POSITION_QUALIFIERS float4 positionCS : SV_POSITION;
+				float4 clipPosV : TEXCOORD0;
 				#if defined(ASE_NEEDS_FRAG_WORLD_POSITION)
-					float3 positionWS : TEXCOORD0;
+					float3 positionWS : TEXCOORD1;
 				#endif
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR) && defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
-					float4 shadowCoord : TEXCOORD1;
+					float4 shadowCoord : TEXCOORD2;
 				#endif
-				float4 ase_texcoord2 : TEXCOORD2;
+				float4 ase_texcoord3 : TEXCOORD3;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -875,18 +950,18 @@ Shader "Raygeas/Suntail Foliage"
 			float3 _LightDirection;
 			float3 _LightPosition;
 
-			VertexOutput VertexFunction( VertexInput v )
+			PackedVaryings VertexFunction( Attributes input )
 			{
-				VertexOutput o;
-				UNITY_SETUP_INSTANCE_ID(v);
-				UNITY_TRANSFER_INSTANCE_ID(v, o);
-				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO( o );
+				PackedVaryings output;
+				UNITY_SETUP_INSTANCE_ID(input);
+				UNITY_TRANSFER_INSTANCE_ID(input, output);
+				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO( output );
 
-				float3 ase_worldPos = TransformObjectToWorld( (v.positionOS).xyz );
+				float3 ase_positionWS = TransformObjectToWorld( (input.positionOS).xyz );
 				float mulTime34 = _TimeParameters.x * ( _WindSpeed * 5 );
-				float simplePerlin3D35 = snoise( ( ase_worldPos + mulTime34 )*_WindWavesScale );
+				float simplePerlin3D35 = snoise( ( ase_positionWS + mulTime34 )*_WindWavesScale );
 				float temp_output_231_0 = ( simplePerlin3D35 * 0.01 );
-				float2 texCoord357 = v.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 texCoord357 = input.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
 				#ifdef _ANCHORTHEFOLIAGEBASE_ON
 				float staticSwitch376 = ( temp_output_231_0 * pow( texCoord357.y , 2.0 ) );
 				#else
@@ -900,34 +975,33 @@ Shader "Raygeas/Suntail Foliage"
 				float Wind191 = staticSwitch341;
 				float3 temp_cast_0 = (Wind191).xxx;
 				
-				o.ase_texcoord2.xy = v.ase_texcoord.xy;
+				output.ase_texcoord3.xy = input.ase_texcoord.xy;
 				
 				//setting value to unused interpolator channels and avoid initialization warnings
-				o.ase_texcoord2.zw = 0;
+				output.ase_texcoord3.zw = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					float3 defaultVertexValue = v.positionOS.xyz;
+					float3 defaultVertexValue = input.positionOS.xyz;
 				#else
 					float3 defaultVertexValue = float3(0, 0, 0);
 				#endif
 
 				float3 vertexValue = temp_cast_0;
-
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					v.positionOS.xyz = vertexValue;
+					input.positionOS.xyz = vertexValue;
 				#else
-					v.positionOS.xyz += vertexValue;
+					input.positionOS.xyz += vertexValue;
 				#endif
 
-				v.normalOS = v.normalOS;
+				input.normalOS = input.normalOS;
 
-				float3 positionWS = TransformObjectToWorld( v.positionOS.xyz );
+				float3 positionWS = TransformObjectToWorld( input.positionOS.xyz );
 
 				#if defined(ASE_NEEDS_FRAG_WORLD_POSITION)
-					o.positionWS = positionWS;
+					output.positionWS = positionWS;
 				#endif
 
-				float3 normalWS = TransformObjectToWorldDir( v.normalOS );
+				float3 normalWS = TransformObjectToWorldDir(input.normalOS);
 
 				#if _CASTING_PUNCTUAL_LIGHT_SHADOW
 					float3 lightDirectionWS = normalize(_LightPosition - positionWS);
@@ -947,18 +1021,18 @@ Shader "Raygeas/Suntail Foliage"
 					VertexPositionInputs vertexInput = (VertexPositionInputs)0;
 					vertexInput.positionWS = positionWS;
 					vertexInput.positionCS = positionCS;
-					o.shadowCoord = GetShadowCoord( vertexInput );
+					output.shadowCoord = GetShadowCoord( vertexInput );
 				#endif
 
-				o.positionCS = positionCS;
-
-				return o;
+				output.positionCS = positionCS;
+				output.clipPosV = positionCS;
+				return output;
 			}
 
 			#if defined(ASE_TESSELLATION)
 			struct VertexControl
 			{
-				float4 vertex : INTERNALTESSPOS;
+				float4 positionOS : INTERNALTESSPOS;
 				float3 normalOS : NORMAL;
 				float4 ase_texcoord : TEXCOORD0;
 
@@ -971,34 +1045,34 @@ Shader "Raygeas/Suntail Foliage"
 				float inside : SV_InsideTessFactor;
 			};
 
-			VertexControl vert ( VertexInput v )
+			VertexControl vert ( Attributes input )
 			{
-				VertexControl o;
-				UNITY_SETUP_INSTANCE_ID(v);
-				UNITY_TRANSFER_INSTANCE_ID(v, o);
-				o.vertex = v.positionOS;
-				o.normalOS = v.normalOS;
-				o.ase_texcoord = v.ase_texcoord;
-				return o;
+				VertexControl output;
+				UNITY_SETUP_INSTANCE_ID(input);
+				UNITY_TRANSFER_INSTANCE_ID(input, output);
+				output.positionOS = input.positionOS;
+				output.normalOS = input.normalOS;
+				output.ase_texcoord = input.ase_texcoord;
+				return output;
 			}
 
-			TessellationFactors TessellationFunction (InputPatch<VertexControl,3> v)
+			TessellationFactors TessellationFunction (InputPatch<VertexControl,3> input)
 			{
-				TessellationFactors o;
+				TessellationFactors output;
 				float4 tf = 1;
 				float tessValue = _TessValue; float tessMin = _TessMin; float tessMax = _TessMax;
 				float edgeLength = _TessEdgeLength; float tessMaxDisp = _TessMaxDisp;
 				#if defined(ASE_FIXED_TESSELLATION)
 				tf = FixedTess( tessValue );
 				#elif defined(ASE_DISTANCE_TESSELLATION)
-				tf = DistanceBasedTess(v[0].vertex, v[1].vertex, v[2].vertex, tessValue, tessMin, tessMax, GetObjectToWorldMatrix(), _WorldSpaceCameraPos );
+				tf = DistanceBasedTess(input[0].positionOS, input[1].positionOS, input[2].positionOS, tessValue, tessMin, tessMax, GetObjectToWorldMatrix(), _WorldSpaceCameraPos );
 				#elif defined(ASE_LENGTH_TESSELLATION)
-				tf = EdgeLengthBasedTess(v[0].vertex, v[1].vertex, v[2].vertex, edgeLength, GetObjectToWorldMatrix(), _WorldSpaceCameraPos, _ScreenParams );
+				tf = EdgeLengthBasedTess(input[0].positionOS, input[1].positionOS, input[2].positionOS, edgeLength, GetObjectToWorldMatrix(), _WorldSpaceCameraPos, _ScreenParams );
 				#elif defined(ASE_LENGTH_CULL_TESSELLATION)
-				tf = EdgeLengthBasedTessCull(v[0].vertex, v[1].vertex, v[2].vertex, edgeLength, tessMaxDisp, GetObjectToWorldMatrix(), _WorldSpaceCameraPos, _ScreenParams, unity_CameraWorldClipPlanes );
+				tf = EdgeLengthBasedTessCull(input[0].positionOS, input[1].positionOS, input[2].positionOS, edgeLength, tessMaxDisp, GetObjectToWorldMatrix(), _WorldSpaceCameraPos, _ScreenParams, unity_CameraWorldClipPlanes );
 				#endif
-				o.edge[0] = tf.x; o.edge[1] = tf.y; o.edge[2] = tf.z; o.inside = tf.w;
-				return o;
+				output.edge[0] = tf.x; output.edge[1] = tf.y; output.edge[2] = tf.z; output.inside = tf.w;
+				return output;
 			}
 
 			[domain("tri")]
@@ -1012,50 +1086,56 @@ Shader "Raygeas/Suntail Foliage"
 			}
 
 			[domain("tri")]
-			VertexOutput DomainFunction(TessellationFactors factors, OutputPatch<VertexControl, 3> patch, float3 bary : SV_DomainLocation)
+			PackedVaryings DomainFunction(TessellationFactors factors, OutputPatch<VertexControl, 3> patch, float3 bary : SV_DomainLocation)
 			{
-				VertexInput o = (VertexInput) 0;
-				o.positionOS = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
-				o.normalOS = patch[0].normalOS * bary.x + patch[1].normalOS * bary.y + patch[2].normalOS * bary.z;
-				o.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
+				Attributes output = (Attributes) 0;
+				output.positionOS = patch[0].positionOS * bary.x + patch[1].positionOS * bary.y + patch[2].positionOS * bary.z;
+				output.normalOS = patch[0].normalOS * bary.x + patch[1].normalOS * bary.y + patch[2].normalOS * bary.z;
+				output.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
-					pp[i] = o.positionOS.xyz - patch[i].normalOS * (dot(o.positionOS.xyz, patch[i].normalOS) - dot(patch[i].vertex.xyz, patch[i].normalOS));
+					pp[i] = output.positionOS.xyz - patch[i].normalOS * (dot(output.positionOS.xyz, patch[i].normalOS) - dot(patch[i].positionOS.xyz, patch[i].normalOS));
 				float phongStrength = _TessPhongStrength;
-				o.positionOS.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * o.positionOS.xyz;
+				output.positionOS.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * output.positionOS.xyz;
 				#endif
-				UNITY_TRANSFER_INSTANCE_ID(patch[0], o);
-				return VertexFunction(o);
+				UNITY_TRANSFER_INSTANCE_ID(patch[0], output);
+				return VertexFunction(output);
 			}
 			#else
-			VertexOutput vert ( VertexInput v )
+			PackedVaryings vert ( Attributes input )
 			{
-				return VertexFunction( v );
+				return VertexFunction( input );
 			}
 			#endif
 
-			half4 frag(VertexOutput IN  ) : SV_TARGET
+			half4 frag(PackedVaryings input
+						#ifdef ASE_DEPTH_WRITE_ON
+						,out float outputDepth : ASE_SV_DEPTH
+						#endif
+						 ) : SV_Target
 			{
-				UNITY_SETUP_INSTANCE_ID( IN );
-				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX( IN );
+				UNITY_SETUP_INSTANCE_ID( input );
+				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX( input );
 
 				#if defined(ASE_NEEDS_FRAG_WORLD_POSITION)
-					float3 WorldPosition = IN.positionWS;
+					float3 WorldPosition = input.positionWS;
 				#endif
 
 				float4 ShadowCoords = float4( 0, 0, 0, 0 );
+				float4 ClipPos = input.clipPosV;
+				float4 ScreenPos = ComputeScreenPos( input.clipPosV );
 
 				#if defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
 					#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
-						ShadowCoords = IN.shadowCoord;
+						ShadowCoords = input.shadowCoord;
 					#elif defined(MAIN_LIGHT_CALCULATE_SHADOWS)
 						ShadowCoords = TransformWorldToShadowCoord( WorldPosition );
 					#endif
 				#endif
 
 				float2 temp_cast_0 = (_Tiling).xx;
-				float2 texCoord747 = IN.ase_texcoord2.xy * temp_cast_0 + float2( 0,0 );
+				float2 texCoord747 = input.ase_texcoord3.xy * temp_cast_0 + float2( 0,0 );
 				float2 Tiling748 = texCoord747;
 				float4 tex2DNode1 = tex2D( _Albedo, Tiling748 );
 				float OpacityMask263 = tex2DNode1.a;
@@ -1065,6 +1145,10 @@ Shader "Raygeas/Suntail Foliage"
 				float AlphaClipThreshold = _AlphaCutoff;
 				float AlphaClipThresholdShadow = 0.5;
 
+				#ifdef ASE_DEPTH_WRITE_ON
+					float DepthValue = input.positionCS.z;
+				#endif
+
 				#ifdef _ALPHATEST_ON
 					#ifdef _ALPHATEST_SHADOW_ON
 						clip(Alpha - AlphaClipThresholdShadow);
@@ -1073,8 +1157,12 @@ Shader "Raygeas/Suntail Foliage"
 					#endif
 				#endif
 
-				#ifdef LOD_FADE_CROSSFADE
-					LODFadeCrossFade( IN.positionCS );
+				#if defined(LOD_FADE_CROSSFADE)
+					LODFadeCrossFade( input.positionCS );
+				#endif
+
+				#ifdef ASE_DEPTH_WRITE_ON
+					outputDepth = DepthValue;
 				#endif
 
 				return 0;
@@ -1095,16 +1183,26 @@ Shader "Raygeas/Suntail Foliage"
 
 			HLSLPROGRAM
 
+			
+
+			#pragma multi_compile _ALPHATEST_ON
 			#pragma multi_compile_instancing
 			#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
 			#define ASE_FOG 1
-			#pragma multi_compile _ DOTS_INSTANCING_ON
-			#define _ALPHATEST_ON 1
+			#define ASE_VERSION 19800
 			#define ASE_SRP_VERSION 140011
 
 
+			
+
 			#pragma vertex vert
 			#pragma fragment frag
+
+			
+            #if ASE_SRP_VERSION >=140007
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+			#endif
+		
 
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
@@ -1119,7 +1217,15 @@ Shader "Raygeas/Suntail Foliage"
 			#pragma shader_feature_local _ANCHORTHEFOLIAGEBASE_ON
 
 
-			struct VertexInput
+			#if defined(ASE_EARLY_Z_DEPTH_OPTIMIZE) && (SHADER_TARGET >= 45)
+				#define ASE_SV_DEPTH SV_DepthLessEqual
+				#define ASE_SV_POSITION_QUALIFIERS linear noperspective centroid
+			#else
+				#define ASE_SV_DEPTH SV_Depth
+				#define ASE_SV_POSITION_QUALIFIERS
+			#endif
+
+			struct Attributes
 			{
 				float4 positionOS : POSITION;
 				float3 normalOS : NORMAL;
@@ -1127,16 +1233,17 @@ Shader "Raygeas/Suntail Foliage"
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
-			struct VertexOutput
+			struct PackedVaryings
 			{
-				float4 positionCS : SV_POSITION;
+				ASE_SV_POSITION_QUALIFIERS float4 positionCS : SV_POSITION;
+				float4 clipPosV : TEXCOORD0;
 				#if defined(ASE_NEEDS_FRAG_WORLD_POSITION)
-				float3 positionWS : TEXCOORD0;
+					float3 positionWS : TEXCOORD1;
 				#endif
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR) && defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
-				float4 shadowCoord : TEXCOORD1;
+					float4 shadowCoord : TEXCOORD2;
 				#endif
-				float4 ase_texcoord2 : TEXCOORD2;
+				float4 ase_texcoord3 : TEXCOORD3;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -1218,18 +1325,18 @@ Shader "Raygeas/Suntail Foliage"
 			}
 			
 
-			VertexOutput VertexFunction( VertexInput v  )
+			PackedVaryings VertexFunction( Attributes input  )
 			{
-				VertexOutput o = (VertexOutput)0;
-				UNITY_SETUP_INSTANCE_ID(v);
-				UNITY_TRANSFER_INSTANCE_ID(v, o);
-				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
+				PackedVaryings output = (PackedVaryings)0;
+				UNITY_SETUP_INSTANCE_ID(input);
+				UNITY_TRANSFER_INSTANCE_ID(input, output);
+				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
 
-				float3 ase_worldPos = TransformObjectToWorld( (v.positionOS).xyz );
+				float3 ase_positionWS = TransformObjectToWorld( (input.positionOS).xyz );
 				float mulTime34 = _TimeParameters.x * ( _WindSpeed * 5 );
-				float simplePerlin3D35 = snoise( ( ase_worldPos + mulTime34 )*_WindWavesScale );
+				float simplePerlin3D35 = snoise( ( ase_positionWS + mulTime34 )*_WindWavesScale );
 				float temp_output_231_0 = ( simplePerlin3D35 * 0.01 );
-				float2 texCoord357 = v.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 texCoord357 = input.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
 				#ifdef _ANCHORTHEFOLIAGEBASE_ON
 				float staticSwitch376 = ( temp_output_231_0 * pow( texCoord357.y , 2.0 ) );
 				#else
@@ -1243,13 +1350,13 @@ Shader "Raygeas/Suntail Foliage"
 				float Wind191 = staticSwitch341;
 				float3 temp_cast_0 = (Wind191).xxx;
 				
-				o.ase_texcoord2.xy = v.ase_texcoord.xy;
+				output.ase_texcoord3.xy = input.ase_texcoord.xy;
 				
 				//setting value to unused interpolator channels and avoid initialization warnings
-				o.ase_texcoord2.zw = 0;
+				output.ase_texcoord3.zw = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					float3 defaultVertexValue = v.positionOS.xyz;
+					float3 defaultVertexValue = input.positionOS.xyz;
 				#else
 					float3 defaultVertexValue = float3(0, 0, 0);
 				#endif
@@ -1257,34 +1364,32 @@ Shader "Raygeas/Suntail Foliage"
 				float3 vertexValue = temp_cast_0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					v.positionOS.xyz = vertexValue;
+					input.positionOS.xyz = vertexValue;
 				#else
-					v.positionOS.xyz += vertexValue;
+					input.positionOS.xyz += vertexValue;
 				#endif
 
-				v.normalOS = v.normalOS;
+				input.normalOS = input.normalOS;
 
-				float3 positionWS = TransformObjectToWorld( v.positionOS.xyz );
+				VertexPositionInputs vertexInput = GetVertexPositionInputs( input.positionOS.xyz );
 
 				#if defined(ASE_NEEDS_FRAG_WORLD_POSITION)
-					o.positionWS = positionWS;
+					output.positionWS = vertexInput.positionWS;
 				#endif
 
-				o.positionCS = TransformWorldToHClip( positionWS );
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR) && defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
-					VertexPositionInputs vertexInput = (VertexPositionInputs)0;
-					vertexInput.positionWS = positionWS;
-					vertexInput.positionCS = o.positionCS;
-					o.shadowCoord = GetShadowCoord( vertexInput );
+					output.shadowCoord = GetShadowCoord( vertexInput );
 				#endif
 
-				return o;
+				output.positionCS = vertexInput.positionCS;
+				output.clipPosV = vertexInput.positionCS;
+				return output;
 			}
 
 			#if defined(ASE_TESSELLATION)
 			struct VertexControl
 			{
-				float4 vertex : INTERNALTESSPOS;
+				float4 positionOS : INTERNALTESSPOS;
 				float3 normalOS : NORMAL;
 				float4 ase_texcoord : TEXCOORD0;
 
@@ -1297,34 +1402,34 @@ Shader "Raygeas/Suntail Foliage"
 				float inside : SV_InsideTessFactor;
 			};
 
-			VertexControl vert ( VertexInput v )
+			VertexControl vert ( Attributes input )
 			{
-				VertexControl o;
-				UNITY_SETUP_INSTANCE_ID(v);
-				UNITY_TRANSFER_INSTANCE_ID(v, o);
-				o.vertex = v.positionOS;
-				o.normalOS = v.normalOS;
-				o.ase_texcoord = v.ase_texcoord;
-				return o;
+				VertexControl output;
+				UNITY_SETUP_INSTANCE_ID(input);
+				UNITY_TRANSFER_INSTANCE_ID(input, output);
+				output.positionOS = input.positionOS;
+				output.normalOS = input.normalOS;
+				output.ase_texcoord = input.ase_texcoord;
+				return output;
 			}
 
-			TessellationFactors TessellationFunction (InputPatch<VertexControl,3> v)
+			TessellationFactors TessellationFunction (InputPatch<VertexControl,3> input)
 			{
-				TessellationFactors o;
+				TessellationFactors output;
 				float4 tf = 1;
 				float tessValue = _TessValue; float tessMin = _TessMin; float tessMax = _TessMax;
 				float edgeLength = _TessEdgeLength; float tessMaxDisp = _TessMaxDisp;
 				#if defined(ASE_FIXED_TESSELLATION)
 				tf = FixedTess( tessValue );
 				#elif defined(ASE_DISTANCE_TESSELLATION)
-				tf = DistanceBasedTess(v[0].vertex, v[1].vertex, v[2].vertex, tessValue, tessMin, tessMax, GetObjectToWorldMatrix(), _WorldSpaceCameraPos );
+				tf = DistanceBasedTess(input[0].positionOS, input[1].positionOS, input[2].positionOS, tessValue, tessMin, tessMax, GetObjectToWorldMatrix(), _WorldSpaceCameraPos );
 				#elif defined(ASE_LENGTH_TESSELLATION)
-				tf = EdgeLengthBasedTess(v[0].vertex, v[1].vertex, v[2].vertex, edgeLength, GetObjectToWorldMatrix(), _WorldSpaceCameraPos, _ScreenParams );
+				tf = EdgeLengthBasedTess(input[0].positionOS, input[1].positionOS, input[2].positionOS, edgeLength, GetObjectToWorldMatrix(), _WorldSpaceCameraPos, _ScreenParams );
 				#elif defined(ASE_LENGTH_CULL_TESSELLATION)
-				tf = EdgeLengthBasedTessCull(v[0].vertex, v[1].vertex, v[2].vertex, edgeLength, tessMaxDisp, GetObjectToWorldMatrix(), _WorldSpaceCameraPos, _ScreenParams, unity_CameraWorldClipPlanes );
+				tf = EdgeLengthBasedTessCull(input[0].positionOS, input[1].positionOS, input[2].positionOS, edgeLength, tessMaxDisp, GetObjectToWorldMatrix(), _WorldSpaceCameraPos, _ScreenParams, unity_CameraWorldClipPlanes );
 				#endif
-				o.edge[0] = tf.x; o.edge[1] = tf.y; o.edge[2] = tf.z; o.inside = tf.w;
-				return o;
+				output.edge[0] = tf.x; output.edge[1] = tf.y; output.edge[2] = tf.z; output.inside = tf.w;
+				return output;
 			}
 
 			[domain("tri")]
@@ -1338,50 +1443,56 @@ Shader "Raygeas/Suntail Foliage"
 			}
 
 			[domain("tri")]
-			VertexOutput DomainFunction(TessellationFactors factors, OutputPatch<VertexControl, 3> patch, float3 bary : SV_DomainLocation)
+			PackedVaryings DomainFunction(TessellationFactors factors, OutputPatch<VertexControl, 3> patch, float3 bary : SV_DomainLocation)
 			{
-				VertexInput o = (VertexInput) 0;
-				o.positionOS = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
-				o.normalOS = patch[0].normalOS * bary.x + patch[1].normalOS * bary.y + patch[2].normalOS * bary.z;
-				o.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
+				Attributes output = (Attributes) 0;
+				output.positionOS = patch[0].positionOS * bary.x + patch[1].positionOS * bary.y + patch[2].positionOS * bary.z;
+				output.normalOS = patch[0].normalOS * bary.x + patch[1].normalOS * bary.y + patch[2].normalOS * bary.z;
+				output.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
-					pp[i] = o.positionOS.xyz - patch[i].normalOS * (dot(o.positionOS.xyz, patch[i].normalOS) - dot(patch[i].vertex.xyz, patch[i].normalOS));
+					pp[i] = output.positionOS.xyz - patch[i].normalOS * (dot(output.positionOS.xyz, patch[i].normalOS) - dot(patch[i].positionOS.xyz, patch[i].normalOS));
 				float phongStrength = _TessPhongStrength;
-				o.positionOS.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * o.positionOS.xyz;
+				output.positionOS.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * output.positionOS.xyz;
 				#endif
-				UNITY_TRANSFER_INSTANCE_ID(patch[0], o);
-				return VertexFunction(o);
+				UNITY_TRANSFER_INSTANCE_ID(patch[0], output);
+				return VertexFunction(output);
 			}
 			#else
-			VertexOutput vert ( VertexInput v )
+			PackedVaryings vert ( Attributes input )
 			{
-				return VertexFunction( v );
+				return VertexFunction( input );
 			}
 			#endif
 
-			half4 frag(VertexOutput IN  ) : SV_TARGET
+			half4 frag(PackedVaryings input
+						#ifdef ASE_DEPTH_WRITE_ON
+						,out float outputDepth : ASE_SV_DEPTH
+						#endif
+						 ) : SV_Target
 			{
-				UNITY_SETUP_INSTANCE_ID(IN);
-				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX( IN );
+				UNITY_SETUP_INSTANCE_ID(input);
+				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX( input );
 
 				#if defined(ASE_NEEDS_FRAG_WORLD_POSITION)
-				float3 WorldPosition = IN.positionWS;
+				float3 WorldPosition = input.positionWS;
 				#endif
 
 				float4 ShadowCoords = float4( 0, 0, 0, 0 );
+				float4 ClipPos = input.clipPosV;
+				float4 ScreenPos = ComputeScreenPos( input.clipPosV );
 
 				#if defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
 					#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
-						ShadowCoords = IN.shadowCoord;
+						ShadowCoords = input.shadowCoord;
 					#elif defined(MAIN_LIGHT_CALCULATE_SHADOWS)
 						ShadowCoords = TransformWorldToShadowCoord( WorldPosition );
 					#endif
 				#endif
 
 				float2 temp_cast_0 = (_Tiling).xx;
-				float2 texCoord747 = IN.ase_texcoord2.xy * temp_cast_0 + float2( 0,0 );
+				float2 texCoord747 = input.ase_texcoord3.xy * temp_cast_0 + float2( 0,0 );
 				float2 Tiling748 = texCoord747;
 				float4 tex2DNode1 = tex2D( _Albedo, Tiling748 );
 				float OpacityMask263 = tex2DNode1.a;
@@ -1390,13 +1501,22 @@ Shader "Raygeas/Suntail Foliage"
 				float Alpha = OpacityMask263;
 				float AlphaClipThreshold = _AlphaCutoff;
 
+				#ifdef ASE_DEPTH_WRITE_ON
+					float DepthValue = input.positionCS.z;
+				#endif
+
 				#ifdef _ALPHATEST_ON
 					clip(Alpha - AlphaClipThreshold);
 				#endif
 
-				#ifdef LOD_FADE_CROSSFADE
-					LODFadeCrossFade( IN.positionCS );
+				#if defined(LOD_FADE_CROSSFADE)
+					LODFadeCrossFade( input.positionCS );
 				#endif
+
+				#ifdef ASE_DEPTH_WRITE_ON
+					outputDepth = DepthValue;
+				#endif
+
 				return 0;
 			}
 			ENDHLSL
@@ -1414,10 +1534,14 @@ Shader "Raygeas/Suntail Foliage"
 
 			HLSLPROGRAM
 
+			
+
 			#define ASE_FOG 1
-			#define _ALPHATEST_ON 1
+			#define ASE_VERSION 19800
 			#define ASE_SRP_VERSION 140011
 
+
+			
 
 			#pragma vertex vert
 			#pragma fragment frag
@@ -1426,11 +1550,32 @@ Shader "Raygeas/Suntail Foliage"
 			#define ATTRIBUTES_NEED_TANGENT
 			#define SHADERPASS SHADERPASS_DEPTHONLY
 
+			
+            #if ASE_SRP_VERSION >=140007
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+			#endif
+		
+
+			
+			#if ASE_SRP_VERSION >=140007
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/RenderingLayers.hlsl"
+			#endif
+		
+
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Texture.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
+
+			
+			#if ASE_SRP_VERSION >=140010
+			#include_with_pragmas "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRenderingKeywords.hlsl"
+			#endif
+		
+
+			
+
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
@@ -1438,7 +1583,7 @@ Shader "Raygeas/Suntail Foliage"
 			#pragma shader_feature_local _ANCHORTHEFOLIAGEBASE_ON
 
 
-			struct VertexInput
+			struct Attributes
 			{
 				float4 positionOS : POSITION;
 				float3 normalOS : NORMAL;
@@ -1446,7 +1591,7 @@ Shader "Raygeas/Suntail Foliage"
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
-			struct VertexOutput
+			struct PackedVaryings
 			{
 				float4 positionCS : SV_POSITION;
 				float4 ase_texcoord : TEXCOORD0;
@@ -1540,20 +1685,20 @@ Shader "Raygeas/Suntail Foliage"
 				float AlphaClipThreshold;
 			};
 
-			VertexOutput VertexFunction(VertexInput v  )
+			PackedVaryings VertexFunction(Attributes input  )
 			{
-				VertexOutput o;
-				ZERO_INITIALIZE(VertexOutput, o);
+				PackedVaryings output;
+				ZERO_INITIALIZE(PackedVaryings, output);
 
-				UNITY_SETUP_INSTANCE_ID(v);
-				UNITY_TRANSFER_INSTANCE_ID(v, o);
-				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
+				UNITY_SETUP_INSTANCE_ID(input);
+				UNITY_TRANSFER_INSTANCE_ID(input, output);
+				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
 
-				float3 ase_worldPos = TransformObjectToWorld( (v.positionOS).xyz );
+				float3 ase_positionWS = TransformObjectToWorld( (input.positionOS).xyz );
 				float mulTime34 = _TimeParameters.x * ( _WindSpeed * 5 );
-				float simplePerlin3D35 = snoise( ( ase_worldPos + mulTime34 )*_WindWavesScale );
+				float simplePerlin3D35 = snoise( ( ase_positionWS + mulTime34 )*_WindWavesScale );
 				float temp_output_231_0 = ( simplePerlin3D35 * 0.01 );
-				float2 texCoord357 = v.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 texCoord357 = input.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
 				#ifdef _ANCHORTHEFOLIAGEBASE_ON
 				float staticSwitch376 = ( temp_output_231_0 * pow( texCoord357.y , 2.0 ) );
 				#else
@@ -1567,13 +1712,13 @@ Shader "Raygeas/Suntail Foliage"
 				float Wind191 = staticSwitch341;
 				float3 temp_cast_0 = (Wind191).xxx;
 				
-				o.ase_texcoord.xy = v.ase_texcoord.xy;
+				output.ase_texcoord.xy = input.ase_texcoord.xy;
 				
 				//setting value to unused interpolator channels and avoid initialization warnings
-				o.ase_texcoord.zw = 0;
+				output.ase_texcoord.zw = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					float3 defaultVertexValue = v.positionOS.xyz;
+					float3 defaultVertexValue = input.positionOS.xyz;
 				#else
 					float3 defaultVertexValue = float3(0, 0, 0);
 				#endif
@@ -1581,24 +1726,24 @@ Shader "Raygeas/Suntail Foliage"
 				float3 vertexValue = temp_cast_0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					v.positionOS.xyz = vertexValue;
+					input.positionOS.xyz = vertexValue;
 				#else
-					v.positionOS.xyz += vertexValue;
+					input.positionOS.xyz += vertexValue;
 				#endif
 
-				v.normalOS = v.normalOS;
+				input.normalOS = input.normalOS;
 
-				float3 positionWS = TransformObjectToWorld( v.positionOS.xyz );
+				float3 positionWS = TransformObjectToWorld( input.positionOS.xyz );
 
-				o.positionCS = TransformWorldToHClip(positionWS);
+				output.positionCS = TransformWorldToHClip(positionWS);
 
-				return o;
+				return output;
 			}
 
 			#if defined(ASE_TESSELLATION)
 			struct VertexControl
 			{
-				float4 vertex : INTERNALTESSPOS;
+				float4 positionOS : INTERNALTESSPOS;
 				float3 normalOS : NORMAL;
 				float4 ase_texcoord : TEXCOORD0;
 
@@ -1611,34 +1756,34 @@ Shader "Raygeas/Suntail Foliage"
 				float inside : SV_InsideTessFactor;
 			};
 
-			VertexControl vert ( VertexInput v )
+			VertexControl vert ( Attributes input )
 			{
-				VertexControl o;
-				UNITY_SETUP_INSTANCE_ID(v);
-				UNITY_TRANSFER_INSTANCE_ID(v, o);
-				o.vertex = v.positionOS;
-				o.normalOS = v.normalOS;
-				o.ase_texcoord = v.ase_texcoord;
-				return o;
+				VertexControl output;
+				UNITY_SETUP_INSTANCE_ID(input);
+				UNITY_TRANSFER_INSTANCE_ID(input, output);
+				output.positionOS = input.positionOS;
+				output.normalOS = input.normalOS;
+				output.ase_texcoord = input.ase_texcoord;
+				return output;
 			}
 
-			TessellationFactors TessellationFunction (InputPatch<VertexControl,3> v)
+			TessellationFactors TessellationFunction (InputPatch<VertexControl,3> input)
 			{
-				TessellationFactors o;
+				TessellationFactors output;
 				float4 tf = 1;
 				float tessValue = _TessValue; float tessMin = _TessMin; float tessMax = _TessMax;
 				float edgeLength = _TessEdgeLength; float tessMaxDisp = _TessMaxDisp;
 				#if defined(ASE_FIXED_TESSELLATION)
 				tf = FixedTess( tessValue );
 				#elif defined(ASE_DISTANCE_TESSELLATION)
-				tf = DistanceBasedTess(v[0].vertex, v[1].vertex, v[2].vertex, tessValue, tessMin, tessMax, GetObjectToWorldMatrix(), _WorldSpaceCameraPos );
+				tf = DistanceBasedTess(input[0].positionOS, input[1].positionOS, input[2].positionOS, tessValue, tessMin, tessMax, GetObjectToWorldMatrix(), _WorldSpaceCameraPos );
 				#elif defined(ASE_LENGTH_TESSELLATION)
-				tf = EdgeLengthBasedTess(v[0].vertex, v[1].vertex, v[2].vertex, edgeLength, GetObjectToWorldMatrix(), _WorldSpaceCameraPos, _ScreenParams );
+				tf = EdgeLengthBasedTess(input[0].positionOS, input[1].positionOS, input[2].positionOS, edgeLength, GetObjectToWorldMatrix(), _WorldSpaceCameraPos, _ScreenParams );
 				#elif defined(ASE_LENGTH_CULL_TESSELLATION)
-				tf = EdgeLengthBasedTessCull(v[0].vertex, v[1].vertex, v[2].vertex, edgeLength, tessMaxDisp, GetObjectToWorldMatrix(), _WorldSpaceCameraPos, _ScreenParams, unity_CameraWorldClipPlanes );
+				tf = EdgeLengthBasedTessCull(input[0].positionOS, input[1].positionOS, input[2].positionOS, edgeLength, tessMaxDisp, GetObjectToWorldMatrix(), _WorldSpaceCameraPos, _ScreenParams, unity_CameraWorldClipPlanes );
 				#endif
-				o.edge[0] = tf.x; o.edge[1] = tf.y; o.edge[2] = tf.z; o.inside = tf.w;
-				return o;
+				output.edge[0] = tf.x; output.edge[1] = tf.y; output.edge[2] = tf.z; output.inside = tf.w;
+				return output;
 			}
 
 			[domain("tri")]
@@ -1652,35 +1797,35 @@ Shader "Raygeas/Suntail Foliage"
 			}
 
 			[domain("tri")]
-			VertexOutput DomainFunction(TessellationFactors factors, OutputPatch<VertexControl, 3> patch, float3 bary : SV_DomainLocation)
+			PackedVaryings DomainFunction(TessellationFactors factors, OutputPatch<VertexControl, 3> patch, float3 bary : SV_DomainLocation)
 			{
-				VertexInput o = (VertexInput) 0;
-				o.positionOS = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
-				o.normalOS = patch[0].normalOS * bary.x + patch[1].normalOS * bary.y + patch[2].normalOS * bary.z;
-				o.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
+				Attributes output = (Attributes) 0;
+				output.positionOS = patch[0].positionOS * bary.x + patch[1].positionOS * bary.y + patch[2].positionOS * bary.z;
+				output.normalOS = patch[0].normalOS * bary.x + patch[1].normalOS * bary.y + patch[2].normalOS * bary.z;
+				output.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
-					pp[i] = o.positionOS.xyz - patch[i].normalOS * (dot(o.positionOS.xyz, patch[i].normalOS) - dot(patch[i].vertex.xyz, patch[i].normalOS));
+					pp[i] = output.positionOS.xyz - patch[i].normalOS * (dot(output.positionOS.xyz, patch[i].normalOS) - dot(patch[i].positionOS.xyz, patch[i].normalOS));
 				float phongStrength = _TessPhongStrength;
-				o.positionOS.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * o.positionOS.xyz;
+				output.positionOS.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * output.positionOS.xyz;
 				#endif
-				UNITY_TRANSFER_INSTANCE_ID(patch[0], o);
-				return VertexFunction(o);
+				UNITY_TRANSFER_INSTANCE_ID(patch[0], output);
+				return VertexFunction(output);
 			}
 			#else
-			VertexOutput vert ( VertexInput v )
+			PackedVaryings vert ( Attributes input )
 			{
-				return VertexFunction( v );
+				return VertexFunction( input );
 			}
 			#endif
 
-			half4 frag(VertexOutput IN ) : SV_TARGET
+			half4 frag(PackedVaryings input ) : SV_Target
 			{
 				SurfaceDescription surfaceDescription = (SurfaceDescription)0;
 
 				float2 temp_cast_0 = (_Tiling).xx;
-				float2 texCoord747 = IN.ase_texcoord.xy * temp_cast_0 + float2( 0,0 );
+				float2 texCoord747 = input.ase_texcoord.xy * temp_cast_0 + float2( 0,0 );
 				float2 Tiling748 = texCoord747;
 				float4 tex2DNode1 = tex2D( _Albedo, Tiling748 );
 				float OpacityMask263 = tex2DNode1.a;
@@ -1714,10 +1859,14 @@ Shader "Raygeas/Suntail Foliage"
 
 			HLSLPROGRAM
 
+			
+
 			#define ASE_FOG 1
-			#define _ALPHATEST_ON 1
+			#define ASE_VERSION 19800
 			#define ASE_SRP_VERSION 140011
 
+
+			
 
 			#pragma vertex vert
 			#pragma fragment frag
@@ -1727,11 +1876,32 @@ Shader "Raygeas/Suntail Foliage"
 
 			#define SHADERPASS SHADERPASS_DEPTHONLY
 
+			
+            #if ASE_SRP_VERSION >=140007
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+			#endif
+		
+
+			
+			#if ASE_SRP_VERSION >=140007
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/RenderingLayers.hlsl"
+			#endif
+		
+
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Texture.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
+
+			
+			#if ASE_SRP_VERSION >=140010
+			#include_with_pragmas "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRenderingKeywords.hlsl"
+			#endif
+		
+
+			
+
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
@@ -1743,7 +1913,7 @@ Shader "Raygeas/Suntail Foliage"
 			#pragma shader_feature_local _ANCHORTHEFOLIAGEBASE_ON
 
 
-			struct VertexInput
+			struct Attributes
 			{
 				float4 positionOS : POSITION;
 				float3 normalOS : NORMAL;
@@ -1751,7 +1921,7 @@ Shader "Raygeas/Suntail Foliage"
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
-			struct VertexOutput
+			struct PackedVaryings
 			{
 				float4 positionCS : SV_POSITION;
 				float4 ase_texcoord : TEXCOORD0;
@@ -1844,20 +2014,20 @@ Shader "Raygeas/Suntail Foliage"
 				float AlphaClipThreshold;
 			};
 
-			VertexOutput VertexFunction(VertexInput v  )
+			PackedVaryings VertexFunction(Attributes input  )
 			{
-				VertexOutput o;
-				ZERO_INITIALIZE(VertexOutput, o);
+				PackedVaryings output;
+				ZERO_INITIALIZE(PackedVaryings, output);
 
-				UNITY_SETUP_INSTANCE_ID(v);
-				UNITY_TRANSFER_INSTANCE_ID(v, o);
-				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
+				UNITY_SETUP_INSTANCE_ID(input);
+				UNITY_TRANSFER_INSTANCE_ID(input, output);
+				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
 
-				float3 ase_worldPos = TransformObjectToWorld( (v.positionOS).xyz );
+				float3 ase_positionWS = TransformObjectToWorld( (input.positionOS).xyz );
 				float mulTime34 = _TimeParameters.x * ( _WindSpeed * 5 );
-				float simplePerlin3D35 = snoise( ( ase_worldPos + mulTime34 )*_WindWavesScale );
+				float simplePerlin3D35 = snoise( ( ase_positionWS + mulTime34 )*_WindWavesScale );
 				float temp_output_231_0 = ( simplePerlin3D35 * 0.01 );
-				float2 texCoord357 = v.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 texCoord357 = input.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
 				#ifdef _ANCHORTHEFOLIAGEBASE_ON
 				float staticSwitch376 = ( temp_output_231_0 * pow( texCoord357.y , 2.0 ) );
 				#else
@@ -1871,13 +2041,13 @@ Shader "Raygeas/Suntail Foliage"
 				float Wind191 = staticSwitch341;
 				float3 temp_cast_0 = (Wind191).xxx;
 				
-				o.ase_texcoord.xy = v.ase_texcoord.xy;
+				output.ase_texcoord.xy = input.ase_texcoord.xy;
 				
 				//setting value to unused interpolator channels and avoid initialization warnings
-				o.ase_texcoord.zw = 0;
+				output.ase_texcoord.zw = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					float3 defaultVertexValue = v.positionOS.xyz;
+					float3 defaultVertexValue = input.positionOS.xyz;
 				#else
 					float3 defaultVertexValue = float3(0, 0, 0);
 				#endif
@@ -1885,22 +2055,22 @@ Shader "Raygeas/Suntail Foliage"
 				float3 vertexValue = temp_cast_0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					v.positionOS.xyz = vertexValue;
+					input.positionOS.xyz = vertexValue;
 				#else
-					v.positionOS.xyz += vertexValue;
+					input.positionOS.xyz += vertexValue;
 				#endif
 
-				v.normalOS = v.normalOS;
+				input.normalOS = input.normalOS;
 
-				float3 positionWS = TransformObjectToWorld( v.positionOS.xyz );
-				o.positionCS = TransformWorldToHClip(positionWS);
-				return o;
+				float3 positionWS = TransformObjectToWorld( input.positionOS.xyz );
+				output.positionCS = TransformWorldToHClip(positionWS);
+				return output;
 			}
 
 			#if defined(ASE_TESSELLATION)
 			struct VertexControl
 			{
-				float4 vertex : INTERNALTESSPOS;
+				float4 positionOS : INTERNALTESSPOS;
 				float3 normalOS : NORMAL;
 				float4 ase_texcoord : TEXCOORD0;
 
@@ -1913,34 +2083,34 @@ Shader "Raygeas/Suntail Foliage"
 				float inside : SV_InsideTessFactor;
 			};
 
-			VertexControl vert ( VertexInput v )
+			VertexControl vert ( Attributes input )
 			{
-				VertexControl o;
-				UNITY_SETUP_INSTANCE_ID(v);
-				UNITY_TRANSFER_INSTANCE_ID(v, o);
-				o.vertex = v.positionOS;
-				o.normalOS = v.normalOS;
-				o.ase_texcoord = v.ase_texcoord;
-				return o;
+				VertexControl output;
+				UNITY_SETUP_INSTANCE_ID(input);
+				UNITY_TRANSFER_INSTANCE_ID(input, output);
+				output.positionOS = input.positionOS;
+				output.normalOS = input.normalOS;
+				output.ase_texcoord = input.ase_texcoord;
+				return output;
 			}
 
-			TessellationFactors TessellationFunction (InputPatch<VertexControl,3> v)
+			TessellationFactors TessellationFunction (InputPatch<VertexControl,3> input)
 			{
-				TessellationFactors o;
+				TessellationFactors output;
 				float4 tf = 1;
 				float tessValue = _TessValue; float tessMin = _TessMin; float tessMax = _TessMax;
 				float edgeLength = _TessEdgeLength; float tessMaxDisp = _TessMaxDisp;
 				#if defined(ASE_FIXED_TESSELLATION)
 				tf = FixedTess( tessValue );
 				#elif defined(ASE_DISTANCE_TESSELLATION)
-				tf = DistanceBasedTess(v[0].vertex, v[1].vertex, v[2].vertex, tessValue, tessMin, tessMax, GetObjectToWorldMatrix(), _WorldSpaceCameraPos );
+				tf = DistanceBasedTess(input[0].positionOS, input[1].positionOS, input[2].positionOS, tessValue, tessMin, tessMax, GetObjectToWorldMatrix(), _WorldSpaceCameraPos );
 				#elif defined(ASE_LENGTH_TESSELLATION)
-				tf = EdgeLengthBasedTess(v[0].vertex, v[1].vertex, v[2].vertex, edgeLength, GetObjectToWorldMatrix(), _WorldSpaceCameraPos, _ScreenParams );
+				tf = EdgeLengthBasedTess(input[0].positionOS, input[1].positionOS, input[2].positionOS, edgeLength, GetObjectToWorldMatrix(), _WorldSpaceCameraPos, _ScreenParams );
 				#elif defined(ASE_LENGTH_CULL_TESSELLATION)
-				tf = EdgeLengthBasedTessCull(v[0].vertex, v[1].vertex, v[2].vertex, edgeLength, tessMaxDisp, GetObjectToWorldMatrix(), _WorldSpaceCameraPos, _ScreenParams, unity_CameraWorldClipPlanes );
+				tf = EdgeLengthBasedTessCull(input[0].positionOS, input[1].positionOS, input[2].positionOS, edgeLength, tessMaxDisp, GetObjectToWorldMatrix(), _WorldSpaceCameraPos, _ScreenParams, unity_CameraWorldClipPlanes );
 				#endif
-				o.edge[0] = tf.x; o.edge[1] = tf.y; o.edge[2] = tf.z; o.inside = tf.w;
-				return o;
+				output.edge[0] = tf.x; output.edge[1] = tf.y; output.edge[2] = tf.z; output.inside = tf.w;
+				return output;
 			}
 
 			[domain("tri")]
@@ -1954,35 +2124,35 @@ Shader "Raygeas/Suntail Foliage"
 			}
 
 			[domain("tri")]
-			VertexOutput DomainFunction(TessellationFactors factors, OutputPatch<VertexControl, 3> patch, float3 bary : SV_DomainLocation)
+			PackedVaryings DomainFunction(TessellationFactors factors, OutputPatch<VertexControl, 3> patch, float3 bary : SV_DomainLocation)
 			{
-				VertexInput o = (VertexInput) 0;
-				o.positionOS = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
-				o.normalOS = patch[0].normalOS * bary.x + patch[1].normalOS * bary.y + patch[2].normalOS * bary.z;
-				o.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
+				Attributes output = (Attributes) 0;
+				output.positionOS = patch[0].positionOS * bary.x + patch[1].positionOS * bary.y + patch[2].positionOS * bary.z;
+				output.normalOS = patch[0].normalOS * bary.x + patch[1].normalOS * bary.y + patch[2].normalOS * bary.z;
+				output.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
-					pp[i] = o.positionOS.xyz - patch[i].normalOS * (dot(o.positionOS.xyz, patch[i].normalOS) - dot(patch[i].vertex.xyz, patch[i].normalOS));
+					pp[i] = output.positionOS.xyz - patch[i].normalOS * (dot(output.positionOS.xyz, patch[i].normalOS) - dot(patch[i].positionOS.xyz, patch[i].normalOS));
 				float phongStrength = _TessPhongStrength;
-				o.positionOS.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * o.positionOS.xyz;
+				output.positionOS.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * output.positionOS.xyz;
 				#endif
-				UNITY_TRANSFER_INSTANCE_ID(patch[0], o);
-				return VertexFunction(o);
+				UNITY_TRANSFER_INSTANCE_ID(patch[0], output);
+				return VertexFunction(output);
 			}
 			#else
-			VertexOutput vert ( VertexInput v )
+			PackedVaryings vert ( Attributes input )
 			{
-				return VertexFunction( v );
+				return VertexFunction( input );
 			}
 			#endif
 
-			half4 frag(VertexOutput IN ) : SV_TARGET
+			half4 frag(PackedVaryings input ) : SV_Target
 			{
 				SurfaceDescription surfaceDescription = (SurfaceDescription)0;
 
 				float2 temp_cast_0 = (_Tiling).xx;
-				float2 texCoord747 = IN.ase_texcoord.xy * temp_cast_0 + float2( 0,0 );
+				float2 texCoord747 = input.ase_texcoord.xy * temp_cast_0 + float2( 0,0 );
 				float2 Tiling748 = texCoord747;
 				float4 tex2DNode1 = tex2D( _Albedo, Tiling748 );
 				float OpacityMask263 = tex2DNode1.a;
@@ -2020,19 +2190,24 @@ Shader "Raygeas/Suntail Foliage"
 
 			HLSLPROGRAM
 
-			#pragma multi_compile_instancing
-			#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
-			#define ASE_FOG 1
-			#pragma multi_compile _ DOTS_INSTANCING_ON
-			#define _ALPHATEST_ON 1
-			#define ASE_SRP_VERSION 140011
+			
 
+        	#pragma multi_compile _ALPHATEST_ON
+        	#pragma multi_compile_instancing
+        	#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
+        	#define ASE_FOG 1
+        	#define ASE_VERSION 19800
+        	#define ASE_SRP_VERSION 140011
+
+
+			
+
+        	#pragma multi_compile_fragment _ _GBUFFER_NORMALS_OCT
+
+			
 
 			#pragma vertex vert
 			#pragma fragment frag
-
-			#pragma multi_compile_fragment _ _WRITE_RENDERING_LAYERS
-        	#pragma multi_compile_fragment _ _GBUFFER_NORMALS_OCT
 
 			#define ATTRIBUTES_NEED_NORMAL
 			#define ATTRIBUTES_NEED_TANGENT
@@ -2040,11 +2215,32 @@ Shader "Raygeas/Suntail Foliage"
 
 			#define SHADERPASS SHADERPASS_DEPTHNORMALSONLY
 
+			
+            #if ASE_SRP_VERSION >=140007
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+			#endif
+		
+
+			
+			#if ASE_SRP_VERSION >=140007
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/RenderingLayers.hlsl"
+			#endif
+		
+
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Texture.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
+
+			
+			#if ASE_SRP_VERSION >=140010
+			#include_with_pragmas "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRenderingKeywords.hlsl"
+			#endif
+		
+
+			
+
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
@@ -2056,7 +2252,15 @@ Shader "Raygeas/Suntail Foliage"
 			#pragma shader_feature_local _ANCHORTHEFOLIAGEBASE_ON
 
 
-			struct VertexInput
+			#if defined(ASE_EARLY_Z_DEPTH_OPTIMIZE) && (SHADER_TARGET >= 45)
+				#define ASE_SV_DEPTH SV_DepthLessEqual
+				#define ASE_SV_POSITION_QUALIFIERS linear noperspective centroid
+			#else
+				#define ASE_SV_DEPTH SV_Depth
+				#define ASE_SV_POSITION_QUALIFIERS
+			#endif
+
+			struct Attributes
 			{
 				float4 positionOS : POSITION;
 				float3 normalOS : NORMAL;
@@ -2064,11 +2268,13 @@ Shader "Raygeas/Suntail Foliage"
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
-			struct VertexOutput
+			struct PackedVaryings
 			{
-				float4 positionCS : SV_POSITION;
-				float3 normalWS : TEXCOORD0;
-				float4 ase_texcoord1 : TEXCOORD1;
+				ASE_SV_POSITION_QUALIFIERS float4 positionCS : SV_POSITION;
+				float4 clipPosV : TEXCOORD0;
+				float3 positionWS : TEXCOORD1;
+				float3 normalWS : TEXCOORD2;
+				float4 ase_texcoord3 : TEXCOORD3;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -2156,20 +2362,20 @@ Shader "Raygeas/Suntail Foliage"
 				float AlphaClipThreshold;
 			};
 
-			VertexOutput VertexFunction(VertexInput v  )
+			PackedVaryings VertexFunction( Attributes input  )
 			{
-				VertexOutput o;
-				ZERO_INITIALIZE(VertexOutput, o);
+				PackedVaryings output;
+				ZERO_INITIALIZE(PackedVaryings, output);
 
-				UNITY_SETUP_INSTANCE_ID(v);
-				UNITY_TRANSFER_INSTANCE_ID(v, o);
-				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
+				UNITY_SETUP_INSTANCE_ID(input);
+				UNITY_TRANSFER_INSTANCE_ID(input, output);
+				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
 
-				float3 ase_worldPos = TransformObjectToWorld( (v.positionOS).xyz );
+				float3 ase_positionWS = TransformObjectToWorld( (input.positionOS).xyz );
 				float mulTime34 = _TimeParameters.x * ( _WindSpeed * 5 );
-				float simplePerlin3D35 = snoise( ( ase_worldPos + mulTime34 )*_WindWavesScale );
+				float simplePerlin3D35 = snoise( ( ase_positionWS + mulTime34 )*_WindWavesScale );
 				float temp_output_231_0 = ( simplePerlin3D35 * 0.01 );
-				float2 texCoord357 = v.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 texCoord357 = input.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
 				#ifdef _ANCHORTHEFOLIAGEBASE_ON
 				float staticSwitch376 = ( temp_output_231_0 * pow( texCoord357.y , 2.0 ) );
 				#else
@@ -2183,13 +2389,12 @@ Shader "Raygeas/Suntail Foliage"
 				float Wind191 = staticSwitch341;
 				float3 temp_cast_0 = (Wind191).xxx;
 				
-				o.ase_texcoord1.xy = v.ase_texcoord.xy;
+				output.ase_texcoord3.xy = input.ase_texcoord.xy;
 				
 				//setting value to unused interpolator channels and avoid initialization warnings
-				o.ase_texcoord1.zw = 0;
-
+				output.ase_texcoord3.zw = 0;
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					float3 defaultVertexValue = v.positionOS.xyz;
+					float3 defaultVertexValue = input.positionOS.xyz;
 				#else
 					float3 defaultVertexValue = float3(0, 0, 0);
 				#endif
@@ -2197,26 +2402,26 @@ Shader "Raygeas/Suntail Foliage"
 				float3 vertexValue = temp_cast_0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
-					v.positionOS.xyz = vertexValue;
+					input.positionOS.xyz = vertexValue;
 				#else
-					v.positionOS.xyz += vertexValue;
+					input.positionOS.xyz += vertexValue;
 				#endif
 
-				v.normalOS = v.normalOS;
+				input.normalOS = input.normalOS;
 
-				float3 positionWS = TransformObjectToWorld( v.positionOS.xyz );
-				float3 normalWS = TransformObjectToWorldNormal(v.normalOS);
+				VertexPositionInputs vertexInput = GetVertexPositionInputs( input.positionOS.xyz );
 
-				o.positionCS = TransformWorldToHClip(positionWS);
-				o.normalWS.xyz =  normalWS;
-
-				return o;
+				output.positionCS = vertexInput.positionCS;
+				output.clipPosV = vertexInput.positionCS;
+				output.positionWS = vertexInput.positionWS;
+				output.normalWS = TransformObjectToWorldNormal( input.normalOS );
+				return output;
 			}
 
 			#if defined(ASE_TESSELLATION)
 			struct VertexControl
 			{
-				float4 vertex : INTERNALTESSPOS;
+				float4 positionOS : INTERNALTESSPOS;
 				float3 normalOS : NORMAL;
 				float4 ase_texcoord : TEXCOORD0;
 
@@ -2229,34 +2434,34 @@ Shader "Raygeas/Suntail Foliage"
 				float inside : SV_InsideTessFactor;
 			};
 
-			VertexControl vert ( VertexInput v )
+			VertexControl vert ( Attributes input )
 			{
-				VertexControl o;
-				UNITY_SETUP_INSTANCE_ID(v);
-				UNITY_TRANSFER_INSTANCE_ID(v, o);
-				o.vertex = v.positionOS;
-				o.normalOS = v.normalOS;
-				o.ase_texcoord = v.ase_texcoord;
-				return o;
+				VertexControl output;
+				UNITY_SETUP_INSTANCE_ID(input);
+				UNITY_TRANSFER_INSTANCE_ID(input, output);
+				output.positionOS = input.positionOS;
+				output.normalOS = input.normalOS;
+				output.ase_texcoord = input.ase_texcoord;
+				return output;
 			}
 
-			TessellationFactors TessellationFunction (InputPatch<VertexControl,3> v)
+			TessellationFactors TessellationFunction (InputPatch<VertexControl,3> input)
 			{
-				TessellationFactors o;
+				TessellationFactors output;
 				float4 tf = 1;
 				float tessValue = _TessValue; float tessMin = _TessMin; float tessMax = _TessMax;
 				float edgeLength = _TessEdgeLength; float tessMaxDisp = _TessMaxDisp;
 				#if defined(ASE_FIXED_TESSELLATION)
 				tf = FixedTess( tessValue );
 				#elif defined(ASE_DISTANCE_TESSELLATION)
-				tf = DistanceBasedTess(v[0].vertex, v[1].vertex, v[2].vertex, tessValue, tessMin, tessMax, GetObjectToWorldMatrix(), _WorldSpaceCameraPos );
+				tf = DistanceBasedTess(input[0].positionOS, input[1].positionOS, input[2].positionOS, tessValue, tessMin, tessMax, GetObjectToWorldMatrix(), _WorldSpaceCameraPos );
 				#elif defined(ASE_LENGTH_TESSELLATION)
-				tf = EdgeLengthBasedTess(v[0].vertex, v[1].vertex, v[2].vertex, edgeLength, GetObjectToWorldMatrix(), _WorldSpaceCameraPos, _ScreenParams );
+				tf = EdgeLengthBasedTess(input[0].positionOS, input[1].positionOS, input[2].positionOS, edgeLength, GetObjectToWorldMatrix(), _WorldSpaceCameraPos, _ScreenParams );
 				#elif defined(ASE_LENGTH_CULL_TESSELLATION)
-				tf = EdgeLengthBasedTessCull(v[0].vertex, v[1].vertex, v[2].vertex, edgeLength, tessMaxDisp, GetObjectToWorldMatrix(), _WorldSpaceCameraPos, _ScreenParams, unity_CameraWorldClipPlanes );
+				tf = EdgeLengthBasedTessCull(input[0].positionOS, input[1].positionOS, input[2].positionOS, edgeLength, tessMaxDisp, GetObjectToWorldMatrix(), _WorldSpaceCameraPos, _ScreenParams, unity_CameraWorldClipPlanes );
 				#endif
-				o.edge[0] = tf.x; o.edge[1] = tf.y; o.edge[2] = tf.z; o.inside = tf.w;
-				return o;
+				output.edge[0] = tf.x; output.edge[1] = tf.y; output.edge[2] = tf.z; output.inside = tf.w;
+				return output;
 			}
 
 			[domain("tri")]
@@ -2270,64 +2475,80 @@ Shader "Raygeas/Suntail Foliage"
 			}
 
 			[domain("tri")]
-			VertexOutput DomainFunction(TessellationFactors factors, OutputPatch<VertexControl, 3> patch, float3 bary : SV_DomainLocation)
+			PackedVaryings DomainFunction(TessellationFactors factors, OutputPatch<VertexControl, 3> patch, float3 bary : SV_DomainLocation)
 			{
-				VertexInput o = (VertexInput) 0;
-				o.positionOS = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
-				o.normalOS = patch[0].normalOS * bary.x + patch[1].normalOS * bary.y + patch[2].normalOS * bary.z;
-				o.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
+				Attributes output = (Attributes) 0;
+				output.positionOS = patch[0].positionOS * bary.x + patch[1].positionOS * bary.y + patch[2].positionOS * bary.z;
+				output.normalOS = patch[0].normalOS * bary.x + patch[1].normalOS * bary.y + patch[2].normalOS * bary.z;
+				output.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
-					pp[i] = o.positionOS.xyz - patch[i].normalOS * (dot(o.positionOS.xyz, patch[i].normalOS) - dot(patch[i].vertex.xyz, patch[i].normalOS));
+					pp[i] = output.positionOS.xyz - patch[i].normalOS * (dot(output.positionOS.xyz, patch[i].normalOS) - dot(patch[i].positionOS.xyz, patch[i].normalOS));
 				float phongStrength = _TessPhongStrength;
-				o.positionOS.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * o.positionOS.xyz;
+				output.positionOS.xyz = phongStrength * (pp[0]*bary.x + pp[1]*bary.y + pp[2]*bary.z) + (1.0f-phongStrength) * output.positionOS.xyz;
 				#endif
-				UNITY_TRANSFER_INSTANCE_ID(patch[0], o);
-				return VertexFunction(o);
+				UNITY_TRANSFER_INSTANCE_ID(patch[0], output);
+				return VertexFunction(output);
 			}
 			#else
-			VertexOutput vert ( VertexInput v )
+			PackedVaryings vert ( Attributes input )
 			{
-				return VertexFunction( v );
+				return VertexFunction( input );
 			}
 			#endif
 
-			void frag( VertexOutput IN
-				, out half4 outNormalWS : SV_Target0
-			#ifdef _WRITE_RENDERING_LAYERS
-				, out float4 outRenderingLayers : SV_Target1
-			#endif
-				 )
+			void frag(PackedVaryings input
+						, out half4 outNormalWS : SV_Target0
+						#ifdef ASE_DEPTH_WRITE_ON
+						,out float outputDepth : ASE_SV_DEPTH
+						#endif
+						#ifdef _WRITE_RENDERING_LAYERS
+						, out float4 outRenderingLayers : SV_Target1
+						#endif
+						 )
 			{
-				SurfaceDescription surfaceDescription = (SurfaceDescription)0;
+				UNITY_SETUP_INSTANCE_ID(input);
+				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX( input );
+				float3 WorldPosition = input.positionWS;
+				float3 WorldNormal = input.normalWS;
+				float4 ClipPos = input.clipPosV;
+				float4 ScreenPos = ComputeScreenPos( input.clipPosV );
 
 				float2 temp_cast_0 = (_Tiling).xx;
-				float2 texCoord747 = IN.ase_texcoord1.xy * temp_cast_0 + float2( 0,0 );
+				float2 texCoord747 = input.ase_texcoord3.xy * temp_cast_0 + float2( 0,0 );
 				float2 Tiling748 = texCoord747;
 				float4 tex2DNode1 = tex2D( _Albedo, Tiling748 );
 				float OpacityMask263 = tex2DNode1.a;
 				
 
-				surfaceDescription.Alpha = OpacityMask263;
-				surfaceDescription.AlphaClipThreshold = _AlphaCutoff;
+				float Alpha = OpacityMask263;
+				float AlphaClipThreshold = _AlphaCutoff;
 
-				#if _ALPHATEST_ON
-					clip(surfaceDescription.Alpha - surfaceDescription.AlphaClipThreshold);
+				#ifdef ASE_DEPTH_WRITE_ON
+					float DepthValue = input.positionCS.z;
 				#endif
 
-				#ifdef LOD_FADE_CROSSFADE
-					LODFadeCrossFade( IN.positionCS );
+				#ifdef _ALPHATEST_ON
+					clip(Alpha - AlphaClipThreshold);
+				#endif
+
+				#if defined(LOD_FADE_CROSSFADE)
+					LODFadeCrossFade( input.positionCS );
+				#endif
+
+				#ifdef ASE_DEPTH_WRITE_ON
+					outputDepth = DepthValue;
 				#endif
 
 				#if defined(_GBUFFER_NORMALS_OCT)
-					float3 normalWS = normalize(IN.normalWS);
-					float2 octNormalWS = PackNormalOctQuadEncode(normalWS);           // values between [-1, +1], must use fp32 on some platforms
-					float2 remappedOctNormalWS = saturate(octNormalWS * 0.5 + 0.5);   // values between [ 0,  1]
-					half3 packedNormalWS = PackFloat2To888(remappedOctNormalWS);      // values between [ 0,  1]
+					float3 normalWS = normalize(input.normalWS);
+					float2 octNormalWS = PackNormalOctQuadEncode(normalWS);
+					float2 remappedOctNormalWS = saturate(octNormalWS * 0.5 + 0.5);
+					half3 packedNormalWS = PackFloat2To888(remappedOctNormalWS);
 					outNormalWS = half4(packedNormalWS, 0.0);
 				#else
-					float3 normalWS = IN.normalWS;
+					float3 normalWS = input.normalWS;
 					outNormalWS = half4(NormalizeNormalPerPixel(normalWS), 0.0);
 				#endif
 
@@ -2336,10 +2557,9 @@ Shader "Raygeas/Suntail Foliage"
 					outRenderingLayers = float4(EncodeMeshRenderingLayer(renderingLayers), 0, 0, 0);
 				#endif
 			}
-
 			ENDHLSL
 		}
-
+		
 	
 	}
 	
@@ -2349,7 +2569,7 @@ Shader "Raygeas/Suntail Foliage"
 	Fallback "Hidden/InternalErrorShader"
 }
 /*ASEBEGIN
-Version=19202
+Version=19800
 Node;AmplifyShaderEditor.CommentaryNode;66;-5464.272,-503.3702;Inherit;False;2680.3;740.17;;18;191;341;188;376;345;56;359;356;231;35;358;357;190;182;228;34;344;36;Wind;0.49,0.6290355,0.7,1;0;0
 Node;AmplifyShaderEditor.RangedFloatNode;36;-5429.632,-246.7836;Inherit;False;Property;_WindSpeed;Speed;15;0;Create;False;0;0;0;False;0;False;0.5;0.3;0;1;0;1;FLOAT;0
 Node;AmplifyShaderEditor.ScaleNode;344;-5132.634,-241.392;Inherit;False;5;1;0;FLOAT;0;False;1;FLOAT;0
@@ -2376,7 +2596,7 @@ Node;AmplifyShaderEditor.StaticSwitch;376;-3793.085,-237.1686;Inherit;False;Prop
 Node;AmplifyShaderEditor.WireNode;753;-4978.459,-1048.044;Inherit;False;1;0;FLOAT2;0,0;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;188;-3461.298,-114.811;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;-1;False;1;FLOAT;0
 Node;AmplifyShaderEditor.TexturePropertyNode;368;-5210.191,-1022.857;Inherit;True;Property;_Albedo;Albedo;0;1;[SingleLineTexture];Create;True;0;0;0;False;3;Header(Maps);Space(10);MainTexture;False;None;8e5f7711364e63d459128762c0ca365e;False;white;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1
-Node;AmplifyShaderEditor.SamplerNode;1;-4899.858,-1229.814;Inherit;True;Property;_LeavesTexture;Leaves Texture;0;0;Create;True;0;0;0;False;0;False;-1;None;None;True;0;False;white;Auto;False;Instance;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.SamplerNode;1;-4899.858,-1229.814;Inherit;True;Property;_LeavesTexture;Leaves Texture;0;0;Create;True;0;0;0;False;0;False;-1;None;None;True;0;False;white;Auto;False;Instance;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;6;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
 Node;AmplifyShaderEditor.StaticSwitch;341;-3278.123,-144.9097;Inherit;False;Property;_EnableWind;Enable;12;0;Create;False;0;0;0;False;2;Header(Wind Settings);Space(5);False;0;1;1;True;;Toggle;2;;;Create;True;True;All;9;1;FLOAT;0;False;0;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;4;FLOAT;0;False;5;FLOAT;0;False;6;FLOAT;0;False;7;FLOAT;0;False;8;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.CommentaryNode;456;-5464.92,344.5705;Inherit;False;2719.936;2823.637;;5;733;668;626;627;630;Lighting;0.7,0.686289,0.49,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;668;-5367.252,466.0584;Inherit;False;1214.467;434.7671;;7;660;464;465;463;461;460;459;Translucency Mask;0.8,0.7843137,0.5607843,1;0;0
@@ -2389,7 +2609,7 @@ Node;AmplifyShaderEditor.CommentaryNode;627;-5368.805,969.2724;Inherit;False;166
 Node;AmplifyShaderEditor.RegisterLocalVarNode;191;-3012.979,-143.4771;Inherit;False;Wind;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;457;-4495.33,1456.906;Inherit;False;Property;_DirectLightInt;Direct Light Int;18;0;Create;True;0;0;0;False;0;False;1;1.1;1;10;0;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;836;-3446.997,2724.139;Inherit;False;2;2;0;FLOAT3;0,0,0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
-Node;AmplifyShaderEditor.SamplerNode;708;-3810.69,2854.63;Inherit;True;Property;_SmoothnessTexture;Smoothness;1;1;[SingleLineTexture];Create;False;0;0;0;False;0;False;-1;None;12ff8af2ed1536b49b4cf6f0dea277b3;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.SamplerNode;708;-3810.69,2854.63;Inherit;True;Property;_SmoothnessTexture;Smoothness;1;1;[SingleLineTexture];Create;False;0;0;0;False;0;False;-1;None;12ff8af2ed1536b49b4cf6f0dea277b3;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;6;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
 Node;AmplifyShaderEditor.WireNode;827;-4395.277,2964.667;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.ScaleAndOffsetNode;816;-4000.904,2471.573;Inherit;False;3;0;FLOAT;0;False;1;FLOAT;1;False;2;FLOAT;0.5;False;1;FLOAT;0
 Node;AmplifyShaderEditor.NegateNode;463;-4789.863,597.5899;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
@@ -2402,7 +2622,7 @@ Node;AmplifyShaderEditor.RangedFloatNode;310;-2470.071,-1007.13;Inherit;False;Pr
 Node;AmplifyShaderEditor.WorldNormalVector;427;-5283.747,1199;Inherit;False;True;1;0;FLOAT3;0,0,1;False;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
 Node;AmplifyShaderEditor.FunctionNode;823;-4624.595,2808.24;Inherit;False;BlinnPhongLightWrap;-1;;14;139fed909c1bc1a42a96c42d8cf09006;0;5;1;FLOAT3;0,0,0;False;4;FLOAT3;0,0,0;False;2;FLOAT;1;False;3;FLOAT;0.05;False;44;FLOAT;1;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.WireNode;754;-4994.459,-784.0435;Inherit;False;1;0;FLOAT2;0,0;False;1;FLOAT2;0
-Node;AmplifyShaderEditor.SamplerNode;366;-4899.025,-839.039;Inherit;True;Property;_TextureSample0;Texture Sample 0;18;0;Create;True;0;0;0;False;0;False;-1;None;None;True;0;False;white;Auto;False;Instance;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.SamplerNode;366;-4899.025,-839.039;Inherit;True;Property;_TextureSample0;Texture Sample 0;18;0;Create;True;0;0;0;False;0;False;-1;None;None;True;0;False;white;Auto;False;Instance;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;6;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
 Node;AmplifyShaderEditor.RangedFloatNode;850;-4944.548,2964.696;Inherit;False;Property;_Gloss;Gloss;21;0;Create;True;0;0;0;False;0;False;0.3;0.3;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.WorldNormalVector;810;-4427.28,2335.129;Inherit;False;False;1;0;FLOAT3;0,0,1;False;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
 Node;AmplifyShaderEditor.RangedFloatNode;248;-2435.594,-863.7374;Inherit;False;Property;_SecondColorFade;Fade;10;0;Create;False;0;0;0;False;0;False;0.5;-0.28;-1;1;0;1;FLOAT;0
@@ -2415,7 +2635,7 @@ Node;AmplifyShaderEditor.GetLocalVarNode;613;-2271.413,-352.1757;Inherit;False;6
 Node;AmplifyShaderEditor.RangedFloatNode;156;-2115.646,164.1996;Inherit;False;Property;_AlphaCutoff;Alpha Cutoff;5;0;Create;False;0;0;0;False;0;False;0.35;0.4;0;1;0;1;FLOAT;0
 Node;AmplifyShaderEditor.LightAttenuation;431;-4599.546,1218.783;Inherit;False;0;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;773;-2254.453,-90.11856;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;FLOAT3;0,0,0;False;1;COLOR;0
-Node;AmplifyShaderEditor.FunctionNode;769;-2523.494,-28.05235;Inherit;False;SRP Additional Light;-1;;15;6c86746ad131a0a408ca599df5f40861;7,6,0,9,1,23,0,25,1,24,1,26,1,27,1;6;2;FLOAT3;0,0,0;False;11;FLOAT3;0,0,0;False;15;FLOAT3;0,0,0;False;14;FLOAT3;1,1,1;False;18;FLOAT;0.5;False;32;FLOAT4;0,0,0,0;False;1;FLOAT3;0
+Node;AmplifyShaderEditor.FunctionNode;769;-2523.494,-28.05235;Inherit;False;SRP Additional Light;-1;;15;6c86746ad131a0a408ca599df5f40861;3,6,0,9,1,23,0;6;2;FLOAT3;0,0,0;False;11;FLOAT3;0,0,0;False;15;FLOAT3;0,0,0;False;14;FLOAT3;1,1,1;False;18;FLOAT;0.5;False;32;FLOAT4;0,0,0,0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode;614;-3962.5,1266.604;Inherit;False;DirectLight;-1;True;1;0;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.GetLocalVarNode;615;-2263.32,-264.3017;Inherit;False;614;DirectLight;1;0;OBJECT;;False;1;COLOR;0
 Node;AmplifyShaderEditor.GetLocalVarNode;267;-2028.699,81.02841;Inherit;False;263;OpacityMask;1;0;OBJECT;0;False;1;FLOAT;0
@@ -2448,7 +2668,7 @@ Node;AmplifyShaderEditor.WireNode;826;-4637.277,2970.667;Inherit;False;1;0;FLOAT
 Node;AmplifyShaderEditor.RangedFloatNode;465;-4888.985,820.882;Inherit;False;Constant;_TranslucencyOffset;Translucency Offset;19;0;Create;True;0;0;0;False;0;False;-0.2;-0.5;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.WorldSpaceLightDirHlpNode;459;-5317.251,516.0585;Inherit;False;True;1;0;FLOAT;0;False;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
 Node;AmplifyShaderEditor.WireNode;834;-4798.614,2948.424;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.ColorNode;247;-4815.405,-1025.55;Inherit;False;Property;_SecondColor;Second Color;7;0;Create;True;0;0;0;False;0;False;0,0,0,0;0.678432,0.7547169,0,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.ColorNode;247;-4815.405,-1025.55;Inherit;False;Property;_SecondColor;Second Color;7;0;Create;True;0;0;0;False;0;False;0,0,0,0;0.678432,0.7547169,0,0;True;True;0;6;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
 Node;AmplifyShaderEditor.StaticSwitch;340;-3897.969,-1336.19;Inherit;False;Property;_Color2Enable;Enable;6;0;Create;False;0;0;0;False;2;Header(Second Color Settings);Space(5);False;0;0;0;True;;Toggle;2;Key0;Key1;Create;True;True;All;9;1;COLOR;0,0,0,0;False;0;COLOR;0,0,0,0;False;2;COLOR;0,0,0,0;False;3;COLOR;0,0,0,0;False;4;COLOR;0,0,0,0;False;5;COLOR;0,0,0,0;False;6;COLOR;0,0,0,0;False;7;COLOR;0,0,0,0;False;8;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;469;-4293.262,1932.031;Inherit;False;3;3;0;FLOAT;0;False;1;COLOR;0,0,0,0;False;2;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.TextureCoordinatesNode;361;-2902.202,-1060.226;Inherit;False;0;-1;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
@@ -2474,7 +2694,7 @@ Node;AmplifyShaderEditor.FresnelNode;791;-4929.117,2523.794;Inherit;False;Standa
 Node;AmplifyShaderEditor.RangedFloatNode;429;-5097.826,1262.879;Inherit;False;Property;_DirectLightOffset;Direct Light Offset;17;0;Create;True;0;0;0;False;2;Header(Lighting Settings);Space(5);False;0;0.7;0;1;0;1;FLOAT;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode;335;-1594.897,-982.6814;Inherit;False;SecondColorMask;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;743;-3160.938,-1211.943;Inherit;False;Property;_WorldScale;World Scale;11;0;Create;True;0;0;0;False;0;False;1;0.04;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.ColorNode;3;-4818.124,-1419.369;Inherit;False;Property;_MainColor;Main Color;3;0;Create;True;0;0;0;False;2;Header(Settings);Space(5);False;1,1,1,0;0.03529412,0.3490188,0.2274502,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.ColorNode;3;-4818.124,-1419.369;Inherit;False;Property;_MainColor;Main Color;3;0;Create;True;0;0;0;False;2;Header(Settings);Space(5);False;1,1,1,0;0.03529412,0.3490188,0.2274502,0;True;True;0;6;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;666;-3726.789,1927.838;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;FLOAT;0;False;1;COLOR;0
 Node;AmplifyShaderEditor.ScaleNode;829;-4786.278,2881.668;Inherit;False;0.8;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode;734;-3099.743,2721.845;Inherit;False;Smoothness;-1;True;1;0;COLOR;0,0,0,0;False;1;COLOR;0
@@ -2493,10 +2713,10 @@ Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;905;-1807.116,-159.4231;Flo
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;904;-1807.116,-159.4231;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;1;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;SceneSelectionPass;0;6;SceneSelectionPass;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;255;False;;255;False;;255;False;;7;False;;1;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Unlit;True;5;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;2;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=SceneSelectionPass;False;False;0;Hidden/InternalErrorShader;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;907;-1807.116,-159.4231;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;1;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;DepthNormalsOnly;0;9;DepthNormalsOnly;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;255;False;;255;False;;255;False;;7;False;;1;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Unlit;True;5;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;False;;True;3;False;;False;True;1;LightMode=DepthNormalsOnly;False;True;9;d3d11;metal;vulkan;xboxone;xboxseries;playstation;ps4;ps5;switch;0;Hidden/InternalErrorShader;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;903;-1807.116,-159.4231;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;1;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;Universal2D;0;5;Universal2D;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;255;False;;255;False;;255;False;;7;False;;1;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Unlit;True;5;True;12;all;0;False;True;1;1;False;;0;False;;0;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;False;True;False;255;False;;255;False;;255;False;;7;False;;1;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;1;LightMode=Universal2D;False;False;0;Hidden/InternalErrorShader;0;0;Standard;0;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;898;-1771.968,-45.83144;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;1;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;ExtraPrePass;0;0;ExtraPrePass;5;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;255;False;;255;False;;255;False;;7;False;;1;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Unlit;True;5;True;12;all;0;False;True;1;1;False;;0;False;;0;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;False;True;False;255;False;;255;False;;255;False;;7;False;;1;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;0;False;False;0;Hidden/InternalErrorShader;0;0;Standard;0;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;898;-1771.968,-82.83147;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;1;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;ExtraPrePass;0;0;ExtraPrePass;5;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;255;False;;255;False;;255;False;;7;False;;1;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Unlit;True;5;True;12;all;0;False;True;1;1;False;;0;False;;0;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;False;True;False;255;False;;255;False;;255;False;;7;False;;1;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;0;False;False;0;Hidden/InternalErrorShader;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;900;-1807.116,-159.4231;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;1;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;ShadowCaster;0;2;ShadowCaster;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;255;False;;255;False;;255;False;;7;False;;1;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Unlit;True;5;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;False;False;True;False;False;False;False;0;False;;False;False;False;False;False;False;False;False;False;True;1;False;;True;3;False;;False;True;1;LightMode=ShadowCaster;False;False;0;Hidden/InternalErrorShader;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;906;-1807.116,-159.4231;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;1;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;DepthNormals;0;8;DepthNormals;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;255;False;;255;False;;255;False;;7;False;;1;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Unlit;True;5;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;False;;True;3;False;;False;True;1;LightMode=DepthNormalsOnly;False;False;0;Hidden/InternalErrorShader;0;0;Standard;0;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;899;-1750.068,-82.83147;Float;False;True;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;13;Raygeas/Suntail Foliage;2992e84f91cbeb14eab234972e07ea9d;True;Forward;0;1;Forward;8;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;2;False;;False;False;False;False;False;False;False;False;False;True;False;255;False;;255;False;;255;False;;7;False;;1;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Unlit;True;5;True;12;all;0;False;True;1;1;False;;0;False;;1;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;False;True;False;255;False;;255;False;;255;False;;7;False;;1;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;1;LightMode=UniversalForwardOnly;False;False;0;Hidden/InternalErrorShader;0;0;Standard;22;Surface;0;0;  Blend;0;0;Two Sided;0;637780247728851487;Forward Only;0;0;Cast Shadows;1;0;  Use Shadow Threshold;0;0;GPU Instancing;1;0;LOD CrossFade;1;637780217167253817;Built-in Fog;1;637780217181536803;DOTS Instancing;1;637780217194698766;Meta Pass;0;0;Extra Pre Pass;0;0;Tessellation;0;0;  Phong;0;0;  Strength;0.5,False,;0;  Type;0;0;  Tess;16,False,;0;  Min;10,False,;0;  Max;25,False,;0;  Edge Length;16,False,;0;  Max Displacement;25,False,;0;Vertex Position,InvertActionOnDeselection;1;0;0;10;False;True;True;True;False;False;True;True;True;False;False;;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;899;-1750.068,-82.83147;Float;False;True;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;13;Raygeas/Suntail Foliage;2992e84f91cbeb14eab234972e07ea9d;True;Forward;0;1;Forward;9;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;2;False;;False;False;False;False;False;False;False;False;False;True;False;255;False;;255;False;;255;False;;7;False;;1;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Unlit;True;5;True;12;all;0;False;True;1;1;False;;0;False;;1;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;False;True;False;255;False;;255;False;;255;False;;7;False;;1;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;1;LightMode=UniversalForwardOnly;False;False;0;Hidden/InternalErrorShader;0;0;Standard;25;Surface;0;0;  Blend;0;0;Two Sided;0;637780247728851487;Alpha Clipping;1;0;  Use Shadow Threshold;0;0;Forward Only;0;0;Cast Shadows;1;0;Receive Shadows;1;0;GPU Instancing;1;0;LOD CrossFade;1;637780217167253817;Built-in Fog;1;637780217181536803;Meta Pass;0;0;Extra Pre Pass;0;0;Tessellation;0;0;  Phong;0;0;  Strength;0.5,False,;0;  Type;0;0;  Tess;16,False,;0;  Min;10,False,;0;  Max;25,False,;0;  Edge Length;16,False,;0;  Max Displacement;25,False,;0;Write Depth;0;0;  Early Z;0;0;Vertex Position,InvertActionOnDeselection;1;0;0;10;False;True;True;True;False;False;True;True;True;False;False;;False;0
 WireConnection;344;0;36;0
 WireConnection;34;0;344;0
 WireConnection;182;0;228;0
@@ -2622,4 +2842,4 @@ WireConnection;899;3;267;0
 WireConnection;899;4;156;0
 WireConnection;899;5;236;0
 ASEEND*/
-//CHKSM=7359286714286C212108F06AA70911B708E333F4
+//CHKSM=0CE80C4A36FAF08D96B7B0EE2AB75E3541A4356B

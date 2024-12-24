@@ -2,22 +2,31 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Leafs
   m_Shader: {fileID: 4800000, guid: 1d10d370c3f169448b4d855d9b93645f, type: 3}
-  m_ShaderKeywords: _ALPHATEST_ON _COLOR2ENABLE_ON _COLOR2OVERLAYTYPE_VERTEX_POSITION_BASED
-    _ENABLEWIND_ON _SECONDCOLOROVERLAYTYPE_WORLD_POSITION _SNOWOVERLAYTYPE_WORLD_NORMAL_BASED
-    _UVWIND_ON _WIND_ON
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _COLOR2ENABLE_ON
+  - _ENABLEWIND_ON
+  - _SECONDCOLOROVERLAYTYPE_WORLD_POSITION
+  m_InvalidKeywords:
+  - _COLOR2OVERLAYTYPE_VERTEX_POSITION_BASED
+  - _SNOWOVERLAYTYPE_WORLD_NORMAL_BASED
+  - _UVWIND_ON
+  - _WIND_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -137,6 +146,7 @@ Material:
     - _Power1: -1.21
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _ReceiveShadows: 1
     - _Scale1: -0.54
     - _SecondColorFade: -0.28
     - _SecondColorOffset: -0.38

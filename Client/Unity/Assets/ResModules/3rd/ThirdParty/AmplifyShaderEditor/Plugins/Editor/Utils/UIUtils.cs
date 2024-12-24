@@ -4,9 +4,8 @@
 using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
-using System.IO;
-
-using System.Globalization;
+using System;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace AmplifyShaderEditor
@@ -215,7 +214,8 @@ namespace AmplifyShaderEditor
 		World,
 		View,
 		Tangent,
-		Clip
+		Clip,
+		Screen
 	}
 
 	public class UIUtils
@@ -575,7 +575,8 @@ namespace AmplifyShaderEditor
 			{ "Master",                             new Color( 0.6f, 0.52f, 0.43f, 1.0f )},
 			{ "Default",                            new Color( 0.26f, 0.35f, 0.44f, 1.0f )},
 			{ "Vertex Data",                        new Color( 0.8f, 0.07f, 0.18f, 1.0f)},
-			{ "Primitive",							new Color( 0.8f, 0.07f, 0.18f, 1.0f)},
+			{ "Primitive",                          new Color( 0.8f, 0.07f, 0.18f, 1.0f)},
+			{ "Object",                             new Color( 0.8f, 0.07f, 0.18f, 1.0f)},
 			{ "Math Operators",                     new Color( 0.26f, 0.35f, 0.44f, 1.0f )},
 			{ "Logical Operators",                  new Color( 0.0f, 0.55f, 0.45f, 1.0f)},
 			{ "Trigonometry Operators",             new Color( 0.1f, 0.20f, 0.35f, 1.0f)},
@@ -1193,6 +1194,29 @@ namespace AmplifyShaderEditor
 				Texture2DShader = AssetDatabase.LoadAssetAtPath<Shader>( AssetDatabase.GUIDToAssetPath( "13bd295c44d04e1419f20f792d331e33" ) ); //texture2d shader
 		}
 
+		public static void SetPreviewShaderConstants()
+		{
+			var worldCameraPos = new Vector3( 0, 0, -5 );
+			var objectToWorldMatrix = Matrix4x4.identity;
+			var worldToObjectMatrix = Matrix4x4.identity;
+			var viewMatrix = new Matrix4x4(
+				new Vector4( 1, 0, 0, 0 ),
+				new Vector4( 0, 1, 0, 0 ),
+				new Vector4( 0, 0,-1,-1 ),
+				new Vector4( 0, 0, 0, 1 ) );
+			var viewMatrixInv = new Matrix4x4(
+				new Vector4( 1, 0, 0, 0 ),
+				new Vector4( 0, 1, 0, 0 ),
+				new Vector4( 0, 0,-1, 0 ),
+				new Vector4( 0, 0,-1, 1 ) );
+
+			Shader.SetGlobalVector( "preview_WorldSpaceCameraPos", worldCameraPos ); ;
+			Shader.SetGlobalMatrix( "preview_WorldToObject", worldToObjectMatrix );
+			Shader.SetGlobalMatrix( "preview_ObjectToWorld", objectToWorldMatrix );
+			Shader.SetGlobalMatrix( "preview_MatrixV", viewMatrix );
+			Shader.SetGlobalMatrix( "preview_MatrixInvV", viewMatrixInv );
+		}
+
 		private static void FetchMenuItemStyles()
 		{
 			ObjectFieldThumb = new GUIStyle( (GUIStyle)"ObjectFieldThumb" );
@@ -1495,7 +1519,7 @@ namespace AmplifyShaderEditor
 		public static string GetInputValueFromType( SurfaceInputs inputType ) { return m_inputTypeName[ inputType ]; }
 		private static string CreateLocalValueName( PrecisionType precision , WirePortDataType dataType , string localOutputValue , string value ) { return string.Format( Constants.LocalValueDecWithoutIdent , PrecisionWirePortToCgType( precision , dataType ) , localOutputValue , value ); }
 
-		public static string CastPortType( ref MasterNodeDataCollector dataCollector , PrecisionType nodePrecision , NodeCastInfo castInfo , object value , WirePortDataType oldType , WirePortDataType newType , string parameterName = null )
+		public static string CastPortType( ref MasterNodeDataCollector dataCollector , PrecisionType nodePrecision , object value , WirePortDataType oldType , WirePortDataType newType , string parameterName = null )
 		{
 			if( oldType == newType || newType == WirePortDataType.OBJECT )
 			{
@@ -1507,7 +1531,7 @@ namespace AmplifyShaderEditor
 			string newTypeStr = m_wirePortToCgType[ newType ];
 			newTypeStr = m_textInfo.ToTitleCase( newTypeStr );
 			int castId = ( dataCollector.PortCategory == MasterNodePortCategory.Vertex || dataCollector.PortCategory == MasterNodePortCategory.Tessellation ) ? dataCollector.AvailableVertexTempId : dataCollector.AvailableFragTempId;
-			string localVarName = "temp_cast_" + castId;//m_wirePortToCgType[ oldType ] + "To" + newTypeStr + "_" + castInfo.ToString();
+			string localVarName = "temp_cast_" + castId;
 			string result = string.Empty;
 			bool useRealValue = ( parameterName == null );
 
@@ -3150,6 +3174,34 @@ namespace AmplifyShaderEditor
 					RenderTexture.active = temp;
 				}
 				return m_dummyPreviewRT;
+			}
+		}
+
+		static EditorGUIUtility obj = new EditorGUIUtility();
+		static MethodInfo drawColorSwatchMI = null;
+
+		public static void DrawColorSwatch( Rect position, Color color, bool showAlpha, bool hdr )
+		{
+			if ( drawColorSwatchMI == null )
+			{
+				MethodInfo[] methods = typeof( EditorGUIUtility ).GetMethods( BindingFlags.NonPublic | BindingFlags.Static );
+				foreach ( MethodInfo mi in methods )
+				{
+					if ( mi.Name == "DrawColorSwatch" && mi.GetParameters().Length == 4 )
+					{
+						drawColorSwatchMI = mi;
+						break;
+					}
+				}
+			}
+			
+			if ( drawColorSwatchMI != null )
+			{
+				drawColorSwatchMI.Invoke( obj, new object[] { position, color, showAlpha, hdr } );
+			}
+			else
+			{
+				Debug.LogError( "[AmplifyShaderEditor] Method EditorGUIUtility.DrawColorSwatch(Rect, Color, bool, bool) not found. Please contact support." );
 			}
 		}
 

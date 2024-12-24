@@ -32,6 +32,7 @@ Shader /*ase_name*/ "Hidden/Universal/2D Unlit" /*end*/
 		}
 
 		Cull Off
+
 		HLSLINCLUDE
 		#pragma target 2.0
 		#pragma prefer_hlslcc gles
@@ -39,13 +40,14 @@ Shader /*ase_name*/ "Hidden/Universal/2D Unlit" /*end*/
 
 		#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl"
 		#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Filtering.hlsl"
+
 		ENDHLSL
 
 		/*ase_pass*/
 		Pass
 		{
 			Name "Sprite Unlit"
-			Tags
+            Tags
             {
                 "LightMode" = "Universal2D"
             }
@@ -62,14 +64,35 @@ Shader /*ase_name*/ "Hidden/Universal/2D Unlit" /*end*/
 			#pragma vertex vert
 			#pragma fragment frag
 
-			#define _SURFACE_TYPE_TRANSPARENT 1
+            #define _SURFACE_TYPE_TRANSPARENT 1
+            #define ATTRIBUTES_NEED_NORMAL
+            #define ATTRIBUTES_NEED_TANGENT
+            #define ATTRIBUTES_NEED_TEXCOORD0
+            #define ATTRIBUTES_NEED_COLOR
+            #define VARYINGS_NEED_POSITION_WS
+            #define VARYINGS_NEED_TEXCOORD0
+            #define VARYINGS_NEED_COLOR
+            #define FEATURES_GRAPH_VERTEX
+
 			#define SHADERPASS SHADERPASS_SPRITEUNLIT
 
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Texture.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Input.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
+
+			/*ase_unity_cond_begin:>=20220316*/
+            #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRendering.hlsl"
+            /*ase_unity_cond_end*/
+
+			/*ase_unity_cond_begin:>=20220316*/
+            #if ASE_SRP_VERSION >=140009
+			#include_with_pragmas "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRenderingKeywords.hlsl"
+			#endif
+			/*ase_unity_cond_end*/
+
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
@@ -103,7 +126,7 @@ Shader /*ase_name*/ "Hidden/Universal/2D Unlit" /*end*/
 			};
 
 			#if ETC1_EXTERNAL_ALPHA
-				TEXTURE2D( _AlphaTex ); SAMPLER( sampler_AlphaTex );
+				TEXTURE2D(_AlphaTex); SAMPLER(sampler_AlphaTex);
 				float _EnableAlphaTexture;
 			#endif
 
@@ -114,15 +137,16 @@ Shader /*ase_name*/ "Hidden/Universal/2D Unlit" /*end*/
 			VertexOutput vert( VertexInput v /*ase_vert_input*/ )
 			{
 				VertexOutput o = (VertexOutput)0;
-				UNITY_SETUP_INSTANCE_ID( v );
-				UNITY_TRANSFER_INSTANCE_ID( v, o );
-				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO( o );
+
+				UNITY_SETUP_INSTANCE_ID(v);
+				UNITY_TRANSFER_INSTANCE_ID(v, o);
+				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
 				/*ase_vert_code:v=VertexInput;o=VertexOutput*/
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.positionOS.xyz;
 				#else
-					float3 defaultVertexValue = float3( 0, 0, 0 );
+					float3 defaultVertexValue = float3(0, 0, 0);
 				#endif
 				float3 vertexValue = /*ase_vert_out:Vertex Offset;Float3;3;-1;_Vertex*/defaultVertexValue/*end*/;
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
@@ -133,27 +157,26 @@ Shader /*ase_name*/ "Hidden/Universal/2D Unlit" /*end*/
 				v.normal = /*ase_vert_out:Vertex Normal;Float3;4;-1;_VNormal*/v.normal/*end*/;
 				v.tangent.xyz = /*ase_vert_out:Vertex Tangent;Float3;5;-1;_VTangent*/v.tangent.xyz/*end*/;
 
-				VertexPositionInputs vertexInput = GetVertexPositionInputs( v.positionOS.xyz );
+				VertexPositionInputs vertexInput = GetVertexPositionInputs(v.positionOS.xyz);
 
-				o.texCoord0 = v.uv0;
-				o.color = v.color;
 				o.positionCS = vertexInput.positionCS;
 				o.positionWS = vertexInput.positionWS;
-
+				o.texCoord0 = v.uv0;
+				o.color = v.color;
 				return o;
 			}
 
 			half4 frag( VertexOutput IN /*ase_frag_input*/ ) : SV_Target
 			{
-				UNITY_SETUP_INSTANCE_ID( IN );
-				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX( IN );
+				UNITY_SETUP_INSTANCE_ID(IN);
+				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(IN);
 
 				/*ase_frag_code:IN=VertexOutput*/
 				float4 Color = /*ase_frag_out:Color;Float4;1;-1;_Color*/float4( 1, 1, 1, 1 )/*end*/;
 
 				#if ETC1_EXTERNAL_ALPHA
-					float4 alpha = SAMPLE_TEXTURE2D( _AlphaTex, sampler_AlphaTex, IN.texCoord0.xy );
-					Color.a = lerp( Color.a, alpha.r, _EnableAlphaTexture );
+					float4 alpha = SAMPLE_TEXTURE2D(_AlphaTex, sampler_AlphaTex, IN.texCoord0.xy);
+					Color.a = lerp( Color.a, alpha.r, _EnableAlphaTexture);
 				#endif
 
 				#if defined(DEBUG_DISPLAY)
@@ -177,11 +200,12 @@ Shader /*ase_name*/ "Hidden/Universal/2D Unlit" /*end*/
 
 			ENDHLSL
 		}
+
 		/*ase_pass*/
 		Pass
 		{
 			/*ase_hide_pass:SyncP*/
-			Name "Sprite Unlit Forward"
+            Name "Sprite Unlit Forward"
             Tags
             {
                 "LightMode" = "UniversalForward"
@@ -199,14 +223,35 @@ Shader /*ase_name*/ "Hidden/Universal/2D Unlit" /*end*/
 			#pragma vertex vert
 			#pragma fragment frag
 
-			#define _SURFACE_TYPE_TRANSPARENT 1
+            #define _SURFACE_TYPE_TRANSPARENT 1
+            #define ATTRIBUTES_NEED_NORMAL
+            #define ATTRIBUTES_NEED_TANGENT
+            #define ATTRIBUTES_NEED_TEXCOORD0
+            #define ATTRIBUTES_NEED_COLOR
+            #define VARYINGS_NEED_POSITION_WS
+            #define VARYINGS_NEED_TEXCOORD0
+            #define VARYINGS_NEED_COLOR
+            #define FEATURES_GRAPH_VERTEX
+
 			#define SHADERPASS SHADERPASS_SPRITEFORWARD
 
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Texture.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Input.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
+
+			/*ase_unity_cond_begin:>=20220316*/
+            #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRendering.hlsl"
+            /*ase_unity_cond_end*/
+
+			/*ase_unity_cond_begin:>=20220316*/
+            #if ASE_SRP_VERSION >=140009
+			#include_with_pragmas "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRenderingKeywords.hlsl"
+			#endif
+			/*ase_unity_cond_end*/
+
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
@@ -251,9 +296,9 @@ Shader /*ase_name*/ "Hidden/Universal/2D Unlit" /*end*/
 			VertexOutput vert( VertexInput v /*ase_vert_input*/ )
 			{
 				VertexOutput o = (VertexOutput)0;
-				UNITY_SETUP_INSTANCE_ID( v );
-				UNITY_TRANSFER_INSTANCE_ID( v, o );
-				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO( o );
+				UNITY_SETUP_INSTANCE_ID(v);
+				UNITY_TRANSFER_INSTANCE_ID(v, o);
+				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
 				/*ase_vert_code:v=VertexInput;o=VertexOutput*/
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
@@ -270,20 +315,20 @@ Shader /*ase_name*/ "Hidden/Universal/2D Unlit" /*end*/
 				v.normal = /*ase_vert_out:Vertex Normal;Float3;4;-1;_VNormal*/v.normal/*end*/;
 				v.tangent.xyz = /*ase_vert_out:Vertex Tangent;Float3;5;-1;_VTangent*/v.tangent.xyz/*end*/;
 
-				VertexPositionInputs vertexInput = GetVertexPositionInputs( v.positionOS.xyz );
+				VertexPositionInputs vertexInput = GetVertexPositionInputs(v.positionOS.xyz);
 
-				o.texCoord0 = v.uv0;
-				o.color = v.color;
 				o.positionCS = vertexInput.positionCS;
 				o.positionWS = vertexInput.positionWS;
+				o.texCoord0 = v.uv0;
+				o.color = v.color;
 
 				return o;
 			}
 
 			half4 frag( VertexOutput IN /*ase_frag_input*/ ) : SV_Target
 			{
-				UNITY_SETUP_INSTANCE_ID( IN );
-				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX( IN );
+				UNITY_SETUP_INSTANCE_ID(IN);
+				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(IN);
 
 				/*ase_frag_code:IN=VertexOutput*/
 				float4 Color = /*ase_frag_out:Color;Float4;1;-1;_Color*/float4( 1, 1, 1, 1 )/*end*/;
@@ -295,18 +340,18 @@ Shader /*ase_name*/ "Hidden/Universal/2D Unlit" /*end*/
 
 
 				#if defined(DEBUG_DISPLAY)
-				SurfaceData2D surfaceData;
-				InitializeSurfaceData(Color.rgb, Color.a, surfaceData);
-				InputData2D inputData;
-				InitializeInputData(IN.positionWS.xy, half2(IN.texCoord0.xy), inputData);
-				half4 debugColor = 0;
+					SurfaceData2D surfaceData;
+					InitializeSurfaceData(Color.rgb, Color.a, surfaceData);
+					InputData2D inputData;
+					InitializeInputData(IN.positionWS.xy, half2(IN.texCoord0.xy), inputData);
+					half4 debugColor = 0;
 
-				SETUP_DEBUG_DATA_2D(inputData, IN.positionWS);
+					SETUP_DEBUG_DATA_2D(inputData, IN.positionWS);
 
-				if (CanDebugOverrideOutputColor(surfaceData, inputData, debugColor))
-				{
-					return debugColor;
-				}
+					if (CanDebugOverrideOutputColor(surfaceData, inputData, debugColor))
+					{
+						return debugColor;
+					}
 				#endif
 
 				Color *= IN.color * _RendererColor;
@@ -336,16 +381,29 @@ Shader /*ase_name*/ "Hidden/Universal/2D Unlit" /*end*/
             #define ATTRIBUTES_NEED_NORMAL
             #define ATTRIBUTES_NEED_TANGENT
             #define FEATURES_GRAPH_VERTEX
+
             #define SHADERPASS SHADERPASS_DEPTHONLY
 			#define SCENESELECTIONPASS 1
 
-
-            #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
+			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Texture.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Input.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
+
+			/*ase_unity_cond_begin:>=20220316*/
+            #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRendering.hlsl"
+            /*ase_unity_cond_end*/
+
+			/*ase_unity_cond_begin:>=20220316*/
+            #if ASE_SRP_VERSION >=140009
+			#include_with_pragmas "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRenderingKeywords.hlsl"
+			#endif
+			/*ase_unity_cond_end*/
+
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
 			/*ase_pragma*/
@@ -368,7 +426,6 @@ Shader /*ase_name*/ "Hidden/Universal/2D Unlit" /*end*/
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
-
             int _ObjectId;
             int _PassValue;
 
@@ -377,9 +434,10 @@ Shader /*ase_name*/ "Hidden/Universal/2D Unlit" /*end*/
 			VertexOutput vert(VertexInput v /*ase_vert_input*/)
 			{
 				VertexOutput o = (VertexOutput)0;
+
 				UNITY_SETUP_INSTANCE_ID(v);
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
-				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO( o );
+				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
 				/*ase_vert_code:v=VertexInput;o=VertexOutput*/
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
@@ -401,7 +459,7 @@ Shader /*ase_name*/ "Hidden/Universal/2D Unlit" /*end*/
 				return o;
 			}
 
-			half4 frag(VertexOutput IN/*ase_frag_input*/ ) : SV_TARGET
+			half4 frag(VertexOutput IN/*ase_frag_input*/) : SV_TARGET
 			{
 				/*ase_frag_code:IN=VertexOutput*/
 				float4 Color = /*ase_frag_out:Color;Float4;0;-1;_Color*/float4( 1, 1, 1, 1 )/*end*/;
@@ -423,7 +481,7 @@ Shader /*ase_name*/ "Hidden/Universal/2D Unlit" /*end*/
                 "LightMode" = "Picking"
             }
 
-            Cull Off
+			Cull Off
 
             HLSLPROGRAM
 
@@ -434,16 +492,29 @@ Shader /*ase_name*/ "Hidden/Universal/2D Unlit" /*end*/
             #define ATTRIBUTES_NEED_NORMAL
             #define ATTRIBUTES_NEED_TANGENT
             #define FEATURES_GRAPH_VERTEX
+
             #define SHADERPASS SHADERPASS_DEPTHONLY
 			#define SCENEPICKINGPASS 1
 
-
-            #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
+			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Texture.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Input.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
+
+			/*ase_unity_cond_begin:>=20220316*/
+            #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRendering.hlsl"
+            /*ase_unity_cond_end*/
+
+			/*ase_unity_cond_begin:>=20220316*/
+            #if ASE_SRP_VERSION >=140009
+			#include_with_pragmas "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRenderingKeywords.hlsl"
+			#endif
+			/*ase_unity_cond_end*/
+
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
         	/*ase_pragma*/
@@ -473,9 +544,10 @@ Shader /*ase_name*/ "Hidden/Universal/2D Unlit" /*end*/
 			VertexOutput vert(VertexInput v /*ase_vert_input*/ )
 			{
 				VertexOutput o = (VertexOutput)0;
+
 				UNITY_SETUP_INSTANCE_ID(v);
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
-				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO( o );
+				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
 				/*ase_vert_code:v=VertexInput;o=VertexOutput*/
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
@@ -509,6 +581,6 @@ Shader /*ase_name*/ "Hidden/Universal/2D Unlit" /*end*/
         }
 		/*ase_pass_end*/
 	}
-	CustomEditor "ASEMaterialInspector"
-	FallBack "Hidden/InternalErrorShader"
+	CustomEditor "UnityEditor.ShaderGraph.GenericShaderGraphMaterialGUI"
+	FallBack "Hidden/Shader Graph/FallbackError"
 }

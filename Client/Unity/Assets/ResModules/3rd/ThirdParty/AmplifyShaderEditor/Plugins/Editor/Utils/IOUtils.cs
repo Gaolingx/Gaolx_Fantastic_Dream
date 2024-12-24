@@ -444,7 +444,8 @@ namespace AmplifyShaderEditor
 			if( !Initialized )
 			{
 				Initialized = true;
-				if( EditorPrefs.GetBool( Preferences.PrefDefineSymbol , true ) )
+				Preferences.Initialize();
+				if ( Preferences.Project.DefineSymbol )
 					SetAmplifyDefineSymbolOnBuildTargetGroup( EditorUserBuildSettings.selectedBuildTargetGroup );
 				//Array BuildTargetGroupValues = Enum.GetValues( typeof(  BuildTargetGroup ));
 				//for ( int i = 0; i < BuildTargetGroupValues.Length; i++ )
@@ -709,17 +710,17 @@ namespace AmplifyShaderEditor
 
 		public static void AddFunctionHeader( ref string function , string header )
 		{
-			function += "\t\t" + header + "\n\t\t{\n";
+			function += string.Format( "\t\t{0}\n\t\t{{\n", header );
 		}
 
 		public static void AddSingleLineFunction( ref string function , string header )
 		{
-			function += "\t\t" + header;
+			function += string.Format( "\t\t{0}", header );
 		}
 
 		public static void AddFunctionLine( ref string function , string line )
 		{
-			function += "\t\t\t" + line + "\n";
+			function += string.Format( "\t\t\t{0}\n", line );
 		}
 
 		public static void CloseFunctionBody( ref string function )

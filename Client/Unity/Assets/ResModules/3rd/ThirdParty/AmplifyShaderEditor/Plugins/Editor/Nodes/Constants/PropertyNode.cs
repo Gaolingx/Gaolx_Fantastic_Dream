@@ -1021,6 +1021,7 @@ namespace AmplifyShaderEditor
 		}
 
 		public virtual string GetPropertyValStr() { return string.Empty; }
+		public virtual string GetSubTitleVarNameFormatStr() { return Constants.SubTitleVarNameFormatStr; }
 
 		public override bool OnClick( Vector2 currentMousePos2D )
 		{
@@ -1141,7 +1142,7 @@ namespace AmplifyShaderEditor
 					//if( globalHandler )
 					//{
 					string currValue = ( m_currentParameterType == PropertyType.Global && m_globalDefaultBehavior ) ? "<GLOBAL>" : GetPropertyValStr();
-					SetClippedAdditionalTitle( string.Format( m_useVarSubtitle ? Constants.SubTitleVarNameFormatStr : Constants.SubTitleValueFormatStr, currValue ), m_longNameSize, LongNameEnder );
+					SetClippedAdditionalTitle( string.Format( m_useVarSubtitle ? GetSubTitleVarNameFormatStr() : Constants.SubTitleValueFormatStr, currValue ), m_longNameSize, LongNameEnder );
 					//}
 					//else
 					//{
@@ -1151,7 +1152,7 @@ namespace AmplifyShaderEditor
 					//	}
 					//	else
 					//	{
-					//		SetAdditonalTitleText( string.Format( m_useVarSubtitle ? Constants.SubTitleVarNameFormatStr : Constants.SubTitleValueFormatStr, GetPropertyValStr() ) );
+					//		SetAdditonalTitleText( string.Format( m_useVarSubtitle ? GetSubTitleVarNameFormatStr() : Constants.SubTitleValueFormatStr, GetPropertyValStr() ) );
 					//	}
 					//}
 				}

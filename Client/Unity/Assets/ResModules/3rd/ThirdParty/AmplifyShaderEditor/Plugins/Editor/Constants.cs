@@ -464,7 +464,7 @@ namespace AmplifyShaderEditor
 		public readonly static float INPUT_PORT_DELTA_Y = 7;
 		public readonly static float PORT_TO_LABEL_SPACE_X = 4;
 
-		public readonly static float NODE_HEADER_HEIGHT = 0;
+		public readonly static float NODE_HEADER_HEIGHT = 32;
 		public readonly static float NODE_HEADER_EXTRA_HEIGHT = 0;
 		public readonly static float NODE_HEADER_LEFTRIGHT_MARGIN = 10;
 
@@ -485,6 +485,7 @@ namespace AmplifyShaderEditor
 		public readonly static string SubTitleNameFormatStr = "Name( {0} )";
 		public readonly static string SubTitleSpaceFormatStr = "Space( {0} )";
 		public readonly static string SubTitleTypeFormatStr = "Type( {0} )";
+		public readonly static string SubTitleModeFormatStr = "Mode( {0} )";
 		public readonly static string SubTitleValueFormatStr = "Value( {0} )";
 		public readonly static string SubTitleConstFormatStr = "Const( {0} )";
 		public readonly static string SubTitleVarNameFormatStr = "Var( {0} )";
