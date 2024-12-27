@@ -18,7 +18,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "64a6d26fa33466c864de9cb0ed90481873cd6250"
+      "hash": "4d0fef095b5af314b06e204ea0f6c17681f3ec3c"
     },
     "com.code-philosophy.luban": {
       "version": "https://gitee.com/focus-creative-games/luban_unity.git",
@@ -40,15 +40,16 @@
       "dependencies": {
         "com.stalomeow.star-rail-npr-shader": "2.9.0"
       },
-      "hash": "3fdc2bb1788360fac72d90ef0844e148018781ea"
+      "hash": "b81c7f4368de4d4b85fa9d91f7fe6556c77a78bf"
     },
     "com.jiaozi158.unityssgiurp": {
-      "version": "file:UnitySSGIURP-main",
+      "version": "https://github.com/jiaozi158/UnitySSGIURP.git",
       "depth": 0,
-      "source": "embedded",
+      "source": "git",
       "dependencies": {
         "com.unity.render-pipelines.universal": "14.0.11"
-      }
+      },
+      "hash": "47cfd18982c83243fdca5b8fc8ddc30589e69ba2"
     },
     "com.sangoutils.patchyooassetsystem": {
       "version": "https://github.com/Gaolingx/SangoUtils.Hotfix_YooAsset.git",
@@ -62,16 +63,17 @@
       "hash": "4e40ffff8ddae7a1cfe7ff8fe3e1095207dbce43"
     },
     "com.stalomeow.star-rail-npr-shader": {
-      "version": "file:StarRailNPRShader-2.10.1",
+      "version": "https://github.com/stalomeow/StarRailNPRShader.git",
       "depth": 0,
-      "source": "embedded",
+      "source": "git",
       "dependencies": {
         "com.unity.render-pipelines.core": "14.0.10",
         "com.unity.render-pipelines.universal": "14.0.10",
         "com.unity.burst": "1.8.12",
         "com.unity.mathematics": "1.2.6",
         "com.unity.nuget.newtonsoft-json": "3.2.1"
-      }
+      },
+      "hash": "ade35585c6ffb3a92aba83d6176e25604ec5e3c5"
     },
     "com.tuyoogame.yooasset": {
       "version": "2.1.2",
@@ -111,8 +113,8 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.burst": {
-      "version": "1.8.17",
-      "depth": 1,
+      "version": "1.8.18",
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.mathematics": "1.2.1",
@@ -121,7 +123,7 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.cinemachine": {
-      "version": "2.10.1",
+      "version": "2.10.3",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -137,13 +139,14 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.collections": {
-      "version": "1.4.0",
-      "depth": 1,
+      "version": "2.5.1",
+      "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.burst": "1.6.6",
+        "com.unity.burst": "1.8.17",
         "com.unity.nuget.mono-cecil": "1.11.4",
-        "com.unity.test-framework": "1.1.31"
+        "com.unity.test-framework": "1.4.5",
+        "com.unity.test-framework.performance": "3.0.3"
       },
       "url": "https://packages.unity.cn"
     },
@@ -155,8 +158,8 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.ext.nunit": {
-      "version": "1.0.6",
-      "depth": 1,
+      "version": "2.0.3",
+      "depth": 2,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.cn"
@@ -197,7 +200,7 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.ide.rider": {
-      "version": "3.0.31",
+      "version": "3.0.34",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -230,18 +233,9 @@
       },
       "url": "https://packages.unity.cn"
     },
-    "com.unity.jobs": {
-      "version": "0.70.0-preview.7",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.collections": "1.4.0"
-      },
-      "url": "https://packages.unity.cn"
-    },
     "com.unity.mathematics": {
-      "version": "1.2.6",
-      "depth": 1,
+      "version": "1.3.2",
+      "depth": 0,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.cn"
@@ -257,7 +251,7 @@
     },
     "com.unity.nuget.mono-cecil": {
       "version": "1.11.4",
-      "depth": 2,
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.cn"
@@ -338,12 +332,22 @@
       }
     },
     "com.unity.test-framework": {
-      "version": "1.1.33",
+      "version": "1.4.5",
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.ext.nunit": "1.0.6",
+        "com.unity.ext.nunit": "2.0.3",
         "com.unity.modules.imgui": "1.0.0",
+        "com.unity.modules.jsonserialize": "1.0.0"
+      },
+      "url": "https://packages.unity.cn"
+    },
+    "com.unity.test-framework.performance": {
+      "version": "3.0.3",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.test-framework": "1.1.31",
         "com.unity.modules.jsonserialize": "1.0.0"
       },
       "url": "https://packages.unity.cn"
