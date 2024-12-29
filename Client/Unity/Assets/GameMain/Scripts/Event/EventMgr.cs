@@ -1,6 +1,7 @@
 ﻿// 功能：事件管理器
 
 using HuHu;
+using PEProtocol;
 using UniFramework.Event;
 using static DarkGod.Main.QualitySvc;
 
@@ -39,6 +40,7 @@ namespace DarkGod.Main
             _eventGroup.AddListener<OnSoundVolumeChangedEvent>(OnHandleEventMessage);
             _eventGroup.AddListener<OnLoginInfoChangedEvent>(OnHandleEventMessage);
             _eventGroup.AddListener<OnEntityPlayerChangedEvent>(OnHandleEventMessage);
+            _eventGroup.AddListener<OnReceiveNetworkMessageEvent>(OnHandleEventMessage);
         }
 
         private void RemoveListener()
@@ -46,6 +48,7 @@ namespace DarkGod.Main
             _eventGroup.RemoveAllListener();
         }
 
+        #region Event Message
         public class OnGameEnterEvent : IEventMessage
         {
             public static void SendEventMessage()
@@ -57,11 +60,11 @@ namespace DarkGod.Main
 
         public class OnGamePauseEvent : IEventMessage
         {
-            public bool state = false;
+            public bool data = false;
             public static void SendEventMessage(bool state)
             {
                 var msg = new OnGamePauseEvent();
-                msg.state = state;
+                msg.data = state;
                 UniEvent.SendMessage(msg);
             }
         }
@@ -77,11 +80,11 @@ namespace DarkGod.Main
 
         public class OnShowMessageBoxEvent : IEventMessage
         {
-            public string message;
+            public string data;
             public static void SendEventMessage(string message)
             {
                 var msg = new OnShowMessageBoxEvent();
-                msg.message = message;
+                msg.data = message;
                 UniEvent.SendMessage(msg);
             }
         }
@@ -121,14 +124,27 @@ namespace DarkGod.Main
 
         public class OnEntityPlayerChangedEvent : IEventMessage
         {
-            public EntityPlayer Value;
+            public EntityPlayer data;
             public static void SendEventMessage(EntityPlayer entity)
             {
                 var msg = new OnEntityPlayerChangedEvent();
-                msg.Value = entity;
+                msg.data = entity;
                 UniEvent.SendMessage(msg);
             }
         }
+
+        public class OnReceiveNetworkMessageEvent : IEventMessage
+        {
+            public GameMsg data;
+            public static void SendEventMessage(GameMsg msg)
+            {
+                var eventMsg = new OnReceiveNetworkMessageEvent();
+                eventMsg.data = msg;
+                UniEvent.SendMessage(eventMsg);
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// 接收事件
@@ -146,12 +162,12 @@ namespace DarkGod.Main
             else if (message is OnGamePauseEvent)
             {
                 OnGamePauseEvent events = message as OnGamePauseEvent;
-                GameStateEvent.MainInstance.OnGamePause?.Invoke(events.state);
+                GameStateEvent.MainInstance.OnGamePause?.Invoke(events.data);
             }
             else if (message is OnShowMessageBoxEvent)
             {
                 OnShowMessageBoxEvent events = message as OnShowMessageBoxEvent;
-                MessageBox.MainInstance.ShowMessage(events.message);
+                MessageBox.MainInstance.ShowMessage(events.data);
             }
             else if (message is OnQualityLevelEvent)
             {
@@ -171,7 +187,56 @@ namespace DarkGod.Main
             else if (message is OnEntityPlayerChangedEvent)
             {
                 OnEntityPlayerChangedEvent events = message as OnEntityPlayerChangedEvent;
-                GameStateEvent.MainInstance.CurrentEPlayer.Value = events.Value;
+                GameStateEvent.MainInstance.CurrentEPlayer.Value = events.data;
+            }
+            else if (message is OnReceiveNetworkMessageEvent)
+            {
+                OnReceiveNetworkMessageEvent events = message as OnReceiveNetworkMessageEvent;
+                NetMsgHandler(events.data);
+            }
+            else
+            {
+                PECommon.Log($"Error:EventMessage Not Found. MessageType:{message.GetType().Name}", PELogType.Error);
+            }
+        }
+
+        private void NetMsgHandler(GameMsg msg)
+        {
+            switch ((CMD)msg.cmd)
+            {
+                case CMD.RspLogin:
+                    LoginSys.MainInstance.RspLogin(msg);
+                    break;
+                case CMD.RspRename:
+                    LoginSys.MainInstance.RspRename(msg);
+                    break;
+                case CMD.RspGuide:
+                    MainCitySys.MainInstance.RspGuide(msg);
+                    break;
+                case CMD.RspStrong:
+                    MainCitySys.MainInstance.RspStrong(msg);
+                    break;
+                case CMD.PshChat:
+                    MainCitySys.MainInstance.PshChat(msg);
+                    break;
+                case CMD.RspBuy:
+                    MainCitySys.MainInstance.RspBuy(msg);
+                    break;
+                case CMD.PshPower:
+                    MainCitySys.MainInstance.PshPower(msg);
+                    break;
+                case CMD.RspTakeTaskReward:
+                    MainCitySys.MainInstance.RspTakeTaskReward(msg);
+                    break;
+                case CMD.PshTaskPrgs:
+                    MainCitySys.MainInstance.PshTaskPrgs(msg);
+                    break;
+                case CMD.RspFBFight:
+                    FubenSys.MainInstance.RspFBFight(msg);
+                    break;
+                case CMD.RspFBFightEnd:
+                    BattleSys.MainInstance.RspFightEnd(msg);
+                    break;
             }
         }
 

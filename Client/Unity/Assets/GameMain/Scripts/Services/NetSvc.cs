@@ -127,42 +127,8 @@ namespace DarkGod.Main
                 return;
             }
 
-            switch ((CMD)msg.cmd)
-            {
-                case CMD.RspLogin:
-                    LoginSys.MainInstance.RspLogin(msg);
-                    break;
-                case CMD.RspRename:
-                    LoginSys.MainInstance.RspRename(msg);
-                    break;
-                case CMD.RspGuide:
-                    MainCitySys.MainInstance.RspGuide(msg);
-                    break;
-                case CMD.RspStrong:
-                    MainCitySys.MainInstance.RspStrong(msg);
-                    break;
-                case CMD.PshChat:
-                    MainCitySys.MainInstance.PshChat(msg);
-                    break;
-                case CMD.RspBuy:
-                    MainCitySys.MainInstance.RspBuy(msg);
-                    break;
-                case CMD.PshPower:
-                    MainCitySys.MainInstance.PshPower(msg);
-                    break;
-                case CMD.RspTakeTaskReward:
-                    MainCitySys.MainInstance.RspTakeTaskReward(msg);
-                    break;
-                case CMD.PshTaskPrgs:
-                    MainCitySys.MainInstance.PshTaskPrgs(msg);
-                    break;
-                case CMD.RspFBFight:
-                    FubenSys.MainInstance.RspFBFight(msg);
-                    break;
-                case CMD.RspFBFightEnd:
-                    BattleSys.MainInstance.RspFightEnd(msg);
-                    break;
-            }
+            // Network Message
+            EventMgr.OnReceiveNetworkMessageEvent.SendEventMessage(msg);
         }
 
         private void OnDisable()
